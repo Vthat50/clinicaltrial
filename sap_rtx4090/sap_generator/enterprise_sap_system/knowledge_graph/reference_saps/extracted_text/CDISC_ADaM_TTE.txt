@@ -1,0 +1,2586 @@
+
+--- Page 1 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 1 
+FINAL 
+May 8, 2012 
+ 
+ 
+ 
+ 
+ 
+The ADaM Basic Data Structure for 
+Time-to-Event Analyses 
+ 
+Prepared by the 
+ 
+CDISC Analysis Data Model (ADaM) Team 
+ 
+ 
+ 
+ 
+Notes to Readers 
+ 
+This Analysis model uses the principles, structures and standards described in the CDISC Analysis Data Model:  
+Version 2.1 and Implementation Guide v1.0 documents 
+ 
+ 
+ 
+ 
+Revision History 
+Date 
+Version 
+Description 
+May 8, 2012 
+1.0 
+Final 
+ 
+ 
+Note:  Please see APPENDIX A for Representations and Warranties; Limitations of Liability, and Disclaimers.
+
+
+--- Page 2 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 2 
+FINAL 
+May 8, 2012 
+ 
+Contents 
+1. 
+Introduction .......................................................................................................................................................... 3 
+2. 
+Common Statistical Analysis Methods Supported by ADaM TTE ...................................................................... 4 
+3. 
+Points to Consider in this Document .................................................................................................................... 5 
+4. 
+ADaM Metadata ................................................................................................................................................... 6 
+5. 
+Example 1: Single Endpoint with Binary Values for Censoring ........................................................................ 10 
+5.1 
+Examples of Time-to-Event Analysis Result Displays .................................................................................. 11 
+5.2 
+Analysis Results Metadata ............................................................................................................................ 13 
+6. 
+Example 2:  Single Endpoint with Multiple Values for Censoring .................................................................... 17 
+7. 
+Example 3: Composite Endpoints ...................................................................................................................... 18 
+7.1 
+Progression Free Survival (PFS) Example .................................................................................................... 18 
+7.2 
+Time to Hepatitis B e Antigen Seroconversion Example .............................................................................. 21 
+8. 
+References .......................................................................................................................................................... 30 
+APPENDIX A. 
+Representations and Warranties; Limitations of Liability, and Disclaimers .............................. 31 
+
+
+--- Page 3 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 3 
+FINAL 
+May 8, 2012 
+ 
+1. Introduction 
+ 
+Survival analysis is a class of statistical methods for studying the occurrence and timing of events.  Describing the 
+timeline over which key disease-related events appear is an important feature of disease characterization.  In many 
+clinical studies, an outcome of interest is the time to an event.  In these studies, the basis of analysis is the time from 
+a defined starting point (e.g., the date of randomization or of an intervention) to the time of occurrence of the event 
+of interest.  Such events may be adverse, such as death or recurrence of a tumor; or positive, such as therapeutic 
+response or discharge from hospital.  Regardless of the nature of the event, survival analysis is the name that is most 
+widely used and recognized. 
+The distinguishing feature of survival data is that at the end of the observation period, the event of interest may not 
+have occurred for all subjects.  For these subjects, the only information available is that the event did not occur 
+within the duration of study.  Therefore, the time to event for these subjects is said to be censored (i.e., right-
+censored).  Subjects can be censored for other reasons.  For example, if a subject prematurely discontinues from the 
+study or experiences another type of event that prevents future assessment of the event of interest, the time to event 
+for that subject would be censored at the time of discontinuation or occurrence of the specific event.  Therefore, one 
+can specify any set of values to indicate that a subject’s time to event has been censored and for what reason.  This 
+ability is convenient when one has data in which a variable indicating a subject’s status can have several values that 
+represent different reasons for censoring. 
+The purpose of this document is to present the ADaM Basic Data Structure (BDS) for time-to-event (TTE) analyses.  
+The TTE analyses can be applied to a broad range of clinical outcomes.  The event might be single, composite, 
+recurrent, or one of multiple potential events.  The vast majority of TTE analyses are readily supported by analysis 
+datasets that follow the ADaM BDS.  However, because recurrent event analyses require more than one analysis 
+variable as a dependent variable, an analysis dataset for recurrent events is not compliant with the ADaM BDS.  
+Therefore, only the following TTE dataset examples that are compliant with the ADaM BDS are presented in this 
+document: 
+1. Single event with binary values for censoring variable 
+2. Single event with multiple values for censoring variable 
+3. Composite event 
+The ADaM Implementation Guide (ADaM IG) [2] defines a few time-to-event specific variables.  Additional ADaM 
+variables are defined within this document to support a specific TTE analysis (refer to Section 4).  The ADaM TTE 
+analysis dataset implementation is therefore the ADaM BDS plus additional TTE variables. In this document, the 
+ADaM TTE analysis dataset is simply referred to as an ADTTE dataset.  It should be noted that this does not imply a 
+required naming convention.  The time-to-event analysis dataset should be named following the ADaM standard 
+naming convention, as described in the Analysis Data Model, Version 2.1 (referred to in this document as the ADaM 
+v2.1) [1]. 
+Examples of increasing complexity using the event types described above are provided in this implementation 
+document and demonstrate that the ADaM BDS is quite flexible.  It can handle a number of outcomes and support a 
+broad array of potential analyses.  It is generally recommended that time-to-event data be stored separately from 
+non-time-to-event data even if they both fit within the ADaM BDS.  It is Sponsor’s decision to determine how many 
+ADTTE datasets would be adequate for a given study.  There is no need to cram all time-to-event variables in one 
+ADTTE dataset at the expense of clarity. 
+
+
+--- Page 4 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 4 
+FINAL 
+May 8, 2012 
+ 
+2. Common Statistical Analysis Methods Supported by 
+ADaM TTE 
+ 
+Survival analysis is based on longitudinal data describing the occurrence of events. An event can be qualitative (i.e., 
+transition from one discrete state to another) or can be a quantitative change (e.g., the change is large and sudden 
+compared to the usual variation over time).  The ADaM TTE analysis dataset structure is designed to support 
+commonly employed time-to-event analysis methods, such as the Kaplan-Meier product moment curve, actuarial or 
+cohort life table analyses, log-rank tests (stratified or trend), Wilcoxon tests, and Cox proportional hazards models. 
+The ADaM TTE analysis dataset structure can be used for a broad array of descriptive and inferential tabular and 
+graphical data presentations, as well as diagnostic checks on appropriateness of the methods utilized.  Illustrations of 
+some graphical representations are included in this document as examples.  The ADaM TTE analysis dataset 
+structure also supports hypothesis tests and formal modeling with attendant assumption checks and diagnostics.  
+However, illustrations of these operations are not presented in this document. 
+
+
+--- Page 5 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 5 
+FINAL 
+May 8, 2012 
+ 
+3. Points to Consider in this Document 
+In reviewing the metadata and examples in this document, the following points should be considered: 
+ 
+Ordering of variables:  Within this document, no specific ordering of variables within the illustrated 
+datasets is applied.  The ADaM v2.1 [1] states that ideally the ordering of the variables in the analysis 
+dataset follows a logical ordering (not simply alphabetic).  The ADaM v2.1 [1] does not provide a specific 
+recommendation for the ordering of the variables.  Within this document, the author of each example 
+applied his or her own logical ordering. 
+ 
+Identification of source dataset:  When identifying the source dataset for a variable, the immediate 
+predecessor is used, as described in the ADaM v2.1 [1].  For example, in ADSL the source is identified as 
+DM.SUBJID in the analysis variable metadata.  When AVAL used in an ADTTE dataset come from the lab 
+collection date, the source is identified as LB.LBDTC. 
+ 
+Analysis-ready:  ADTTE should be “analysis-ready,” meaning it should contain all of the variables needed 
+for the specific analysis, so that the analysis can be replicated by performing the actual statistical test 
+without first having to manipulate data.  Analysis-ready does not mean that a formatted display can be 
+generated in a single statistical procedure.  In addition to required variables such as subject identifiers and 
+treatment variables, the critical variables included in the analysis dataset will depend on the specific nature 
+of the disease or indication, the analyses planned in the protocol, and the Statistical Analysis Plan.  
+ 
+Examples are for illustration only:  Note that the examples in this document are only intended as 
+illustrations and should not be viewed as a statement of the standards themselves.  In addition, the examples 
+are intended to illustrate content and not appearance; it is understood that there are many different ways 
+that data and results can be displayed.  This document does not cover display formats. 
+ 
+Numbering scheme of the example in-text figure and tables in section 5.1: Note that the in-text figure 
+and table output numbers in Section 5.1 (Examples of Time-to-Event Analysis Display) were based on the 
+International Conference of Harmonization E3 [5] guidance, rather than based on the section number as in 
+the remaining sections.  These figure and table numbers are later referenced in the subsequent Section 5.2 
+(Analysis Results Metadata) to show traceability from a result used in a statistical display to the data in the 
+analysis datasets. 
+ 
+Display of metadata for illustration of content only:  Though the metadata elements have been defined 
+in the ADaM v2.1 [1], how the metadata are displayed is a function of the mechanism used to display the 
+content.  The presentation formats used in this document are for the purposes of contents illustration only, 
+and are not intended to imply any type of display standard or requirement. 
+ 
+Examples not meant to be all inclusive regarding variables:  The examples describe some of the key 
+variables and records that would be included in the dataset.  They are not intended to illustrate every 
+possible variable that might be included in the analysis dataset; for example core variables required for 
+subgroup analyses are not included in all the illustrations. 
+ 
+No endorsement of vendors or products:  In an effort to provide illustrations of the ADaM concepts, 
+examples are provided that refer to specific programming languages.  As with other ADaM documents, 
+references to specific vendor products are examples only and therefore should not be interpreted as an 
+endorsement of these vendors or products. 
+ 
+
+
+--- Page 6 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 6 
+FINAL 
+May 8, 2012 
+ 
+4. ADaM Metadata  
+Table 4.1 shows how a typical Analysis Dataset Metadata is specified.  Note that the ADaM TTE data structure 
+adheres to the ADaM BDS, as is denoted in the “Class of Dataset” field. 
+ 
+Table 4.1  Example of ADTTE Dataset Metadata1  
+Dataset 
+Name 
+Dataset 
+Description 
+Dataset 
+Location 
+Dataset 
+Structure 
+Key Variables 
+of Dataset 
+Class of 
+Dataset 
+Documentation 
+ADTTE 
+ Data for the 
+Time to Event 
+Analyses   
+adtte.xpt 
+one record per 
+subject per 
+parameter 
+USUBJID, 
+PARAMCD 
+BDS 
+ADTTE.SAS, SAP 
+Section 10.1 
+ 
+Table 4.2 describes variables that one would commonly find in an ADaM TTE analysis dataset.  The two rightmost 
+columns (“Core” and “CDISC Notes”) provide information about the variables to assist users in preparing their 
+datasets.  These columns are not meant to be metadata included in the define.xml.  The “Core” column describes 
+whether a variable is required (Req), conditionally required (Cond), or permissible (Perm).  The “CDISC Notes” 
+column provides more information about the variable relevant to the ADaM TTE analysis dataset.  In addition, the 
+“Type” column is being used to define whether the variable is character (Char) or numeric value (Num).  More 
+specific information will be provided in metadata (e.g., text, integer, or float). 
+ 
+Table 4.2 Time-to-Event Variables 
+Variable 
+Name 
+Variable 
+Label 
+Type 
+Codelist / 
+Controlled 
+Terms 
+Core 
+CDISC Notes 
+STUDYID 
+Study 
+Identifier 
+Char 
+ 
+Req 
+Must be identical to the ADSL variable. 
+USUBJID 
+Unique 
+Subject 
+Identifier 
+Char 
+ 
+Req 
+Must be identical to the ADSL variable. 
+ASEQ 
+Analysis 
+Sequence 
+Number 
+Num 
+ 
+Perm 
+Sequence number given to ensure uniqueness of 
+subject record within the analysis dataset.  As long 
+as values are unique within a dataset, any valid 
+number can be used for ASEQ.  The use of this 
+variable will be addressed in detail in the next 
+version of ADaM IG. 
+TRTP 
+Planned 
+Treatment 
+Char 
+ 
+Req 
+TRTP is a record-level identifier that represents 
+the planned treatment attributed to a record for 
+analysis purposes.  
+                                                          
+1 The display presentation of the metadata should be determined between the sponsor and the recipient.  The 
+example presented here is only intended to illustrate content and not appearance.  
+
+
+--- Page 7 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 7 
+FINAL 
+May 8, 2012 
+ 
+Variable 
+Name 
+Variable 
+Label 
+Type 
+Codelist / 
+Controlled 
+Terms 
+Core 
+CDISC Notes 
+TRTPN 
+Planned 
+Treatment 
+(N) 
+Num 
+ 
+Perm 
+The numeric code for TRTP. One-to-one map to 
+TRTP. 
+TRTA 
+Actual 
+Treatment 
+Char 
+ 
+Cond 
+TRTA is a record-level identifier that represents 
+the actual treatment attributed to a record for 
+analysis purposes.  
+TRTAN 
+Actual 
+Treatment 
+(N) 
+Num 
+ 
+Perm 
+The numeric code for TRTA. One-to-one map to 
+TRTA. 
+TRTxxP 
+Planned 
+Treatment for 
+Period xx 
+Char 
+ 
+Cond 
+Subject-level identifier that represents the planned 
+treatment for period xx.  Must be identical to the 
+ADSL variable.  The letter “xx” in the variable 
+name refer to a specific period where “xx” is 
+replaced with a zero-padded two-digit integer  
+(i.e., 01 – 99). 
+TRTxxPN 
+Planned 
+Treatment for 
+Period xx (N) 
+Num 
+ 
+Perm 
+The numeric code variable for TRTxxP.  One-to-
+one map to TRTxxP.  If included in ADSL, must 
+be identical to the ADSL variable. 
+TRTxxA 
+Actual 
+Treatment for 
+Period xx 
+Char 
+ 
+Cond 
+Subject-level identifier that represents the actual 
+treatment for period xx.  If included in ADSL, 
+must be identical to the ADSL variable. 
+TRTxxAN 
+Actual 
+Treatment for 
+Period xx (N) 
+Num 
+ 
+Perm 
+The numeric code variable for TRTxxA.  One-to-
+one map to TRTxxA.  If included in ADSL, must 
+be identical to the ADSL variable. 
+PARAM 
+Parameter  
+Char 
+* 
+Req 
+The description of the analysis parameter. 
+Examples include: “Time to Death (days)”, “Time 
+to First Hospitalization Through Day 168 (days)”, 
+“Time to Progression Free Survival (days)”, and 
+“Time to Hepatitis B Seroconversion (days)”.  
+PARAM should be sufficient to describe clear 
+contents of AVAL, including the unit of the 
+measurement, if applicable.  PARAM may be 
+longer than 40 characters in length (200-character 
+limit). 
+PARAMCD 
+Parameter 
+Code 
+Char 
+* 
+Req 
+The short name of the analysis parameter in 
+PARAM.  Values of PARAMCD should follow 
+SAS 5 variable naming conventions (8 characters 
+or less; starts with letter; contains only letters and 
+digits).  There must be a one-to-one mapping with 
+PARAM.  Examples include DEATH, PFS, and 
+T2SERO. 
+AVAL 
+Analysis 
+Value 
+Num 
+ 
+Req 
+AVAL is the elapsed time to the event of interest 
+from the origin.  For example, if AVAL is 
+measured in days, AVAL would be ADT – 
+STARTDT or ADT – STARTDT + 1. 
+
+
+--- Page 8 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 8 
+FINAL 
+May 8, 2012 
+ 
+Variable 
+Name 
+Variable 
+Label 
+Type 
+Codelist / 
+Controlled 
+Terms 
+Core 
+CDISC Notes 
+STARTDT 
+Time to 
+Event Origin 
+Date for 
+Subject 
+Num 
+ 
+Perm 
+The original date of risk for the time-to-event 
+analysis.  This is generally the time at which a 
+subject is first at risk for the event of interest 
+evaluation (as defined in the Protocol or Statistical 
+Analysis Plan).  For example, this may be the 
+randomization date or the date of first study 
+therapy exposure. 
+STARTDTM 
+Time to 
+Event Origin 
+Date/Time  
+Num 
+ 
+Perm 
+The date/time associated with STARTDT in 
+numeric format. 
+STARTDTF 
+Origin Date 
+Imputation 
+Flag 
+Char 
+(DATEFL) 
+Cond 
+The level of imputation of the origin date.  See 
+General Timing Variable Convention #6 in the 
+ADaM IG [2]. 
+STARTTMF 
+Origin Time 
+Imputation 
+Flag 
+Char 
+(TIMEFL) 
+Cond 
+The level of imputation of the origin time.  See 
+General Timing Variable Convention #7 in the 
+ADaM IG [2]. 
+ADT 
+Analysis Date 
+Num 
+ 
+Perm 
+Analysis date of event or censoring associated 
+with AVAL in numeric format. 
+ADTM 
+Analysis 
+Date/Time 
+Num 
+ 
+Perm  Analysis date/time of event or censoring 
+associated with AVAL in numeric format. 
+ADTF 
+Analysis Date 
+Imputation 
+Flag 
+Char 
+(DATEFL) 
+Cond 
+The level of imputation of ADT based on the 
+source SDTM DTC variable. See General Timing 
+Variable Convention #6 in the ADaM IG [2]. 
+ATMF 
+Analysis 
+Time 
+Imputation 
+Flag 
+Char 
+(TIMEFL) 
+Cond 
+The level of imputation of ATM based on the 
+source SDTM DTC variable. See General Timing 
+Variable Convention #7 in the ADaM IG [2]. 
+AVISIT 
+Analysis 
+Visit 
+Char 
+* 
+Cond 
+Analysis visit where event or censoring occurred. 
+AVISIT may contain the visit names as observed 
+(i.e., from SDTM VISIT), derived visit names, or 
+conceptual description (e.g., endpoint). 
+CNSR 
+Censor 
+Num 
+* 
+Cond 
+CNSR is a required variable for a time-to-event 
+analysis dataset, though it is a conditionally 
+required variable with respect to the ADaM BDS. 
+For example, CNSR = 0 for event and CNSR > 0 
+for censored records. 
+SRCDOM 
+Source  Data 
+Char 
+ 
+Perm 
+The name of the SDTM domain (or dataset) or 
+analysis dataset that relates to the analysis variable 
+(e.g., AVAL). Allowing SRCDOM to be not only 
+SDTM, but also ADaM dataset will be addressed 
+in the next version of ADaM IG. 
+
+
+--- Page 9 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 9 
+FINAL 
+May 8, 2012 
+ 
+Variable 
+Name 
+Variable 
+Label 
+Type 
+Codelist / 
+Controlled 
+Terms 
+Core 
+CDISC Notes 
+SRCVAR 
+Source 
+Variable 
+Char 
+ 
+Perm 
+The name of the column (in the domain or dataset 
+identified by SRCDOM) that relates to the 
+analysis variable. In the event that SRCDOM is a 
+SUPPQUAL domain, then SRCVAR will be 
+populated with the value of QNAM. 
+SRCSEQ 
+Source 
+Sequence 
+Number 
+Num 
+ 
+Perm  The sequence number --SEQ or ASEQ of the row 
+(in the domain or dataset identified by SRCDOM) 
+that relates to the analysis variable. 
+EVNTDESC 
+Event or 
+Censoring 
+Description 
+Char 
+ 
+Perm 
+ 
+Describe the event of interest or an event that 
+warrants censoring.  Values for EVNTDESC will 
+be defined in the metadata as sponsor-defined 
+controlled terminology (See Section 7.1). 
+CNSDTDSC 
+Censor Date 
+Description 
+Char 
+ 
+Perm 
+Describe the circumstance represented by the 
+censoring date if different from the event date that 
+warrants censoring. 
+* indicates a user defined code list exists.  
+Note: Values in parenthesis are the names of CDISC Controlled Terminology codelists. 
+
+
+--- Page 10 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 10 
+FINAL 
+May 8, 2012 
+ 
+5. Example 1: Single Endpoint with Binary Values for 
+Censoring  
+The first TTE example is for time to death.  It incorporates a binary censoring variable that has a value of 0 for 
+subjects who died and a value of 1 for subjects who were censored, either because they were lost to follow-up or 
+completed the study assessment without experiencing the event (death). 
+In this example, STARTDT is used to indicate the time origin of the time-to-event calculation.  This can be the 
+numeric date version of RFSTDTC if the time origin is the same as the subject reference start date provided in the 
+DM domain.  The variable EVNTDESC describes either the event of interest or the reason for censoring.  This 
+variable should contain text clarifying what the event of interest is or the reasons for censoring for those subjects 
+who did not have the event.  These values should be included in the metadata as sponsor-defined controlled 
+terminology.  The rationale and use of EVNTDESC will be further explained in Section 7, which presents an 
+example of a time-to-event analysis with a single endpoint and multiple values for censoring. 
+ 
+Table 5.1 Time-to-Event Data Structure for a Single Endpoint with a Binary Value for Censoring Variable 
+Row 
+USUBJID 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+CNSR 
+EVNTDESC 
+1 
+1001-0001 
+Time to Death 
+(days) 
+DEATH 
+15 
+2007-01-01 
+2007-01-15 
+0 
+DEATH 
+2 
+1001-0002 
+Time to Death 
+(days) 
+DEATH 
+168 
+2007-01-03 
+2007-06-19 
+1 
+COMPLETED THE 
+STUDY 
+3 
+1001-0003 
+Time to Death 
+(days) 
+DEATH 
+120 
+2007-01-03 
+2007-05-02 
+1 
+LOST TO 
+FOLLOW-UP 
+4 
+1001-0004 
+Time to Death 
+(days) 
+DEATH 
+168 
+2007-01-10 
+2007-06-26 
+1 
+COMPLETED THE 
+STUDY 
+5 
+1001-1005 
+Time to Death 
+(days) 
+DEATH 
+30 
+2007-01-11 
+2007-02-09 
+0 
+DEATH 
+6 
+1001-1006 
+Time to Death 
+(days) 
+DEATH 
+4 
+2007-01-17 
+2007-01-20 
+1 
+ADVERSE EVENT 
+
+
+--- Page 11 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 11 
+FINAL 
+May 8, 2012 
+ 
+5.1 Examples of Time-to-Event Analysis Result Displays 
+This section presents analysis results for illustration purposes.  Output presented in this section is not meant to imply 
+any standard analysis presentation format or analysis method for all time-to-event data. 
+Figure 5.1.1 and Tables 5.1.2 and 5.1.3 contain example displays of analysis results for time-to-event for a single 
+endpoint.  The survival analysis results are presented in: 
+ 
+a Kaplan-Meier plot 
+ 
+a summary table of Kaplan-Meier estimates and inferential statistics 
+ 
+a summary table of the hazard ratio along with inferential statistics 
+ 
+Figure 5.1.1 Example of Kaplan-Meier Plot Display2 
+Figure 12.3.1.1  (numbered based on ICH E3 [5]) 
+Kaplan-Meier Plot  
+Time to Death (Days)  
+Days Since Randomization
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+Death Rate (%)
+0
+10
+20
+30
+40
+50
+Treatment A
+Treatment B
+No. of Subjects at Risk
+Treat A 500     500         430          420         410        380         380        330        240       230
+Treat B 500     440         420          410         320        310         300        290        230       230
+KM Estimate                   75%                        50% (Median)               25% 
+Treat A                             .                                   .                             130 
+Treat B                             .                                   .                               69
+Log-rank
+p < 0.001
+ 
+ 
+ 
+                                                          
+2 The style of the display of the results of an analysis will be determined by the sponsor.  The examples presented 
+here are intended to illustrate content and not appearance. 
+
+
+--- Page 12 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 12 
+FINAL 
+May 8, 2012 
+ 
+Table 5.1.2 Example of Time-to-Event Analysis Results Display3 
+ 
+Table 14.2.1.1 (numbered based on ICH E3 [5]) 
+Time to Death Through Day 168 by Treatment Group 
+Analysis Population: Intent-to-Treat 
+ 
+Time to Death (days) 
+Treatment A 
+(n=xxx) 
+Treatment B 
+(n=xxx) 
+ 
+P value 
+ 
+Method 
+Median Time (95% CI)a 
+xxx.x (xxx.x, xxx.x) 
+xxx.x (xxx.x, xxx.x) 
+0.xxx 
+Log-rank Test 
+Event Rate (%) at Day 
+168 (95% CI) a 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+0.xxx 
+Cox Regression Modelb 
+N (%) Censored 
+xx (xx.x%) 
+xx (xx.x%) 
+ 
+ 
+Note: Time to death is calculated as: date of death – date of randomization. For subjects who did not die on or 
+prior to Week 24 (Day 168), they are censored at Day 168. 
+a Based on the Kaplan-Meier estimates 
+b The Cox regression model includes treatment group, age, and sex as covariates.  
+ 
+ 
+Table 5.1.3 Example of Time-to-Event Cox Regression Analysis Results Display4 
+  
+Table 14.2.1.2  (numbered based on ICH E3 [5]) 
+Time to Death Through Day 168 – Cox Regression Model 
+Analysis Population: Intent-to-Treat 
+Covariate 
+Hazard Ratio (95% CI) 
+P value 
+Treatment Group (Treatment B to 
+Treatment A) 
+x.xx (x.xx, x.xx) 
+0.xxx 
+Age (< 65 to ≥ 65 years old) 
+x.xx (x.xx, x.xx) 
+0.xxx 
+Sex (Female to Male) 
+x.xx (x.xx, x.xx) 
+0.xxx 
+                                                          
+3 The style of the display of the results of an analysis will be determined by the sponsor.  The examples presented 
+here are intended to illustrate content and not appearance. 
+4 The style of the display of the results of an analysis will be determined by the sponsor.  The examples presented 
+here are intended to illustrate content and not appearance. 
+
+
+--- Page 13 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 13 
+FINAL 
+May 8, 2012 
+ 
+5.2 Analysis Results Metadata 
+Analysis results metadata provide traceability from a result used in a statistical display to the data in the analysis 
+datasets.  Analysis results metadata are not required.  However, it is a best practice to provide them as they help 
+reviewers understand the content and sources of the analysis results by 
+ 
+identifying the critical analyses and analysis variables,  
+ 
+providing links between results, documentation, and datasets, 
+ 
+documenting the analyses performed in a standard format and in a predictable location 
+The analysis results metadata for the example figure and tables in Section 5.1 are provided in Tables 5.2.1 to 5.2.4.   
+ 
+Table 5.2.1 Analysis Results Metadata5 for the Example Kaplan-Meier Plot Display 
+Analysis Results Metadata Field 
+Description 
+DISPLAY IDENTIFIER 
+Figure 12.3.1.1 
+DISPLAY NAME 
+Kaplan-Meier Plot: Time to Death (days) 
+RESULT IDENTIFIER 
+Time to Death (days) 
+PARAM 
+Time to Death (days) 
+PARAMCD 
+DEATH 
+ANALYSIS VARIABLE 
+AVAL, CNSR 
+REASON 
+Primary efficacy endpoint as pre-specified in protocol 
+DATASET 
+ADTTE 
+SELECTION CRITERIA 
+ITTFL=’Y’ 
+DOCUMENTATION 
+SAP Section 10.1.1. The time to death (in days) was plotted 
+using Kaplan-Meier plot. P value was generated using a log-
+rank test. 
+PROGRAMMING STATEMENTSa 
+PROC LIFETEST DATA=ADTTE; 
+  TIME AVAL*CNSR (1 2 3); 
+  STRATA TRTPN; 
+RUN; 
+a The same dataset as illustrated in Table 5.1, but uses multiple censor values can be found in Table 6.1 in this 
+document. The TTE model statement was provided to show how multiple censor values can be included in the 
+model.  
+                                                          
+5 The style of the display of the results of an analysis will be determined by the sponsor.  The examples presented 
+here are intended to illustrate content and not appearance. 
+
+
+--- Page 14 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 14 
+FINAL 
+May 8, 2012 
+ 
+Because example Table 14.2.1.1 presents inferential statistics that are obtained using two different analysis methods, 
+two analysis result metadata tables (i.e., Table 5.2.2 and Table 5.2.3) are created in order to describe each analysis 
+method separately. 
+ 
+Table 5.2.2 Analysis Results Metadata6 for Time-to-Event Results Using Log-Rank Test  
+Analysis Results Metadata Field 
+Description 
+DISPLAY IDENTIFIER 
+Table 14.2.1.1 
+DISPLAY NAME 
+Time to Death Through Day 168 by Treatment Group; Analysis 
+Population: Intent-to-Treat 
+RESULT IDENTIFIER 
+Treatment effect comparison between two treatment groups on 
+time to death based on log-rank test  
+PARAM 
+Time to Death (days) 
+PARAMCD 
+DEATH 
+ANALYSIS VARIABLE 
+AVAL, CNSR 
+REASON 
+Primary efficacy endpoint as pre-specified in protocol; the 
+treatment effect was evaluated using log-rank test. 
+DATASET 
+ADTTE 
+SELECTION CRITERIA 
+ITTFL=’Y’ 
+DOCUMENTATION 
+SAP Section 10.1.2.  The time to death (in days) was analyzed 
+using two analysis methods: 1) log-rank test and 2) Cox 
+regression model with age (< 65 vs. ≥ 65 years) and sex as 
+covariates. 
+PROGRAMMING STATEMENTS 
+PROC LIFETEST DATA=ADTTE; 
+  TIME AVAL*CNSR (1 2 3); 
+  STRATA TRTPN; 
+RUN; 
+ 
+                                                          
+6 The display presentation of the metadata should be determined between the sponsor and the recipient.  The 
+example presented here is only intended to illustrate content and not appearance. 
+
+
+--- Page 15 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 15 
+FINAL 
+May 8, 2012 
+ 
+Table 5.2.3 Analysis Results Metadata7 for Time-to-Event Results Using Cox Regression Model 
+Analysis Results Metadata Field 
+Description 
+DISPLAY IDENTIFIER 
+Table 14.2.1.1 
+DISPLAY NAME 
+Time to Death Through Day 168 by Treatment Group; Analysis 
+Population: Intent-to-Treat 
+RESULT IDENTIFIER 
+Treatment effect comparison between two treatment groups on 
+time to death based on Cox proportional hazard model 
+PARAM 
+Time to Death (days) 
+PARAMCD 
+DEATH 
+ANALYSIS VARIABLE 
+AVAL, CNSR 
+REASON 
+Primary efficacy endpoint as pre-specified in protocol; the 
+treatment effect was evaluated using Cox proportional hazard 
+model. 
+DATASET 
+ADTTE 
+SELECTION CRITERIA 
+ITTFL=’Y’ 
+DOCUMENTATION 
+SAP Section 10.1.2.  The time to death (in days) was analyzed 
+using two analysis methods: 1) log-rank test and 2) Cox 
+regression model with age (< 65 vs. ≥ 65 years) and sex as 
+covariates. 
+PROGRAMMING STATEMENTS 
+PROC PHREG DATA=ADTTE; 
+   MODEL AVAL*CNSR (1 2 3) = TRTPN AGEGR1N SEXN  
+                                                    / ALPHA=0.05; 
+RUN; 
+ 
+                                                          
+. 
+7 The display presentation of the metadata should be determined between the sponsor and the recipient.  The 
+example presented here is only intended to illustrate content and not appearance. 
+
+
+--- Page 16 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 16 
+FINAL 
+May 8, 2012 
+ 
+Table 5.2.4 Analysis Results Metadata8 for the Time-to-Event Hazard Ratio Display 
+Analysis Results Metadata Field 
+Description 
+DISPLAY IDENTIFIER 
+Table 14.2.1.2 
+DISPLAY NAME 
+Time to Death Through Day 168 – Cox Regression Model, 
+Analysis Population: Intent-to-Treat 
+RESULT IDENTIFIER 
+Hazard ratio 
+PARAM 
+Time to Death (days) 
+PARAMCD 
+DEATH 
+ANALYSIS VARIABLE 
+AVAL, CNSR 
+REASON 
+Primary efficacy endpoint as pre-specified in protocol 
+DATASET 
+ADTTE 
+SELECTION CRITERIA 
+ITTFL=’Y’ 
+DOCUMENTATION 
+SAP Section 10.1.2.  The time to death (in days) was analyzed 
+using a Cox regression model that includes age (< 65 vs. ≥ 65 
+years) and sex as covariates. 
+PROGRAMMING STATEMENTS 
+PROC PHREG DATA=ADTTE; 
+   MODEL AVAL*CNSR (1 2 3) = TRTPN AGEGR1N SEXN  
+                                                    / ALPHA=0.05 RL; 
+RUN; 
+                                                          
+8 The display presentation of the metadata should be determined between the sponsor and the recipient.  The 
+example presented here is only intended to illustrate content and not appearance. 
+
+
+--- Page 17 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 17 
+FINAL 
+May 8, 2012 
+ 
+6. Example 2:  Single Endpoint with Multiple Values for 
+Censoring  
+ 
+In analyzing a time-to-event endpoint, reviewers are often interested in knowing reasons for subjects’ censoring for 
+better understanding of the data and also possible sensitivity analyses if applicable.  The following example uses the 
+exact same dataset as presented in Section 5, except for the values of the censor variable assignment.  In this 
+example, the censoring variable has more than two levels which uniquely identify the various reasons for censoring. 
+ 
+Table 6.1 Time-to-Event Data Structure for a Single Endpoint with Multiple Values for Censoring Variable 
+Row 
+USUBJID 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+CNSR 
+EVNTDESC 
+1 
+1001-0001 
+Time to Death 
+(days) 
+DEATH 
+15 
+2007-01-01 
+2007-01-15 
+0 
+DEATH 
+2 
+1001-0002 
+Time to Death 
+(days) 
+DEATH 
+168 
+2007-01-03 
+2007-06-19 
+1 
+COMPLETED 
+THE STUDY 
+3 
+1001-0003 
+Time to Death 
+(days) 
+DEATH 
+120 
+2007-01-03 
+2007-05-02 
+3 
+LOST TO 
+FOLLOW-UP 
+4 
+1001-0004 
+Time to Death 
+(days) 
+DEATH 
+168 
+2007-01-10 
+2007-06-26 
+1 
+COMPLETED 
+THE STUDY 
+5 
+1001-1005 
+Time to Death 
+(days) 
+DEATH 
+30 
+2007-01-11 
+2007-02-09 
+0 
+DEATH 
+6 
+1001-1006 
+Time to Death 
+(days) 
+DEATH 
+4 
+2007-01-17 
+2007-01-20 
+2 
+ADVERSE 
+EVENT 
+ 
+As displayed in this example, there would be as many levels for the CNSR variable as reasons for censoring.  
+Having multiple levels of the censoring and event reason enables reviewers to better understand the data.  It also 
+provides the ability to conduct ad hoc analyses, including sensitivity of the results, from the ADaM TTE analysis 
+dataset directly.  The time-to-event analysis of a composite endpoint is another situation where multiple levels of the 
+censor variable can be utilized.  Section 7 provides an example of how multi-level censoring works with a composite 
+endpoint when there are different types of event descriptions in addition to the multiple censoring descriptions. 
+
+
+--- Page 18 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 18 
+FINAL 
+May 8, 2012 
+ 
+7. Example 3: Composite Endpoints 
+7.1 Progression Free Survival (PFS) Example 
+A common efficacy endpoint in oncology trials is progression free survival (PFS).  PFS is a composite endpoint 
+defined in the FDA guidance document Clinical Trial Endpoints for the Approval of Cancer Drugs and Biologics 
+[4] as “the time from randomization until objective tumor progression or death”.  The FDA guidance document also 
+describes many scenarios that may warrant censoring of PFS data.  The example below illustrates how PFS data 
+with multiple event and censoring outcomes can be incorporated in the ADaM TTE analysis dataset structure. 
+ 
+Table 7.1.1 Time-to-Event Data Structure for a Composite Endpoint: PFS Example with Expansion of  
+EVNTDESC to Explain Censoring Reason 
+Row 
+USUBJID 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+CNSR 
+EVNTDESC 
+1 
+1001-0001 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+15 
+2007-01-01 
+2007-01-15 
+0 
+DOCUMENTED 
+PROGRESSION 
+2 
+1001-0002 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+168 
+2007-01-01 
+2007-06-17 
+1 
+COMPLETED STUDY.  
+CENSORED AT TIME 
+OF LAST 
+ASSESSMENT. 
+3 
+1001-0003 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+120 
+2007-01-01 
+2007-04-30 
+3 
+NEW ANTI-CANCER 
+THERAPY.  
+CENSORED AT TIME 
+OF LAST 
+ASSESSMENT.  
+4 
+1001-0004 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+28 
+2007-01-01 
+2007-01-28 
+2 
+EARLY 
+DISCONTINUATION.  
+CENSORED AT TIME 
+OF LAST 
+ASSESSMENT.  
+5 
+1001-1005 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+30 
+2007-01-01 
+2007-01-30 
+0 
+DEATH 
+6 
+1001-1006 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+1 
+2007-01-01 
+2007-01-01 
+4 
+NO BASELINE 
+ASSESSMENT.  
+CENSORED AT TIME 
+OF RANDOMIZATION.  
+ 
+In this example, two different types of events occur, a documented progression event for subject 1001-0001 and a 
+death for subject 1001-1005.  Both have a CNSR value of 0. EVNTDESC is populated using sponsor-defined 
+controlled terminology to describe the event.  All other subjects are censored, but for different reasons, as indicated 
+by the different CNSR values.  The EVNTDESC column describes both the reason for censoring (if CNSR > 0) and 
+the time at which censoring occurs (i.e., a description of what ADT represents).  Since an assessment of tumor 
+progression may not occur at the same time as an event that warrants censoring, it is important to differentiate and 
+describe these two dates.  For example, an assessment of tumor progression may not occur when a subject 
+discontinues from a study, so censoring occurs at the time when the subject was last known to have no documented 
+
+
+--- Page 19 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 19 
+FINAL 
+May 8, 2012 
+ 
+progression (refer to subject 1001-1004 in the above example).  Note that this expanded use of EVNTDESC is only 
+necessary when the event that warrants censoring and the event that represents the censoring time are not the same. 
+An alternative way to handle the difference in dates for censoring and onset of event that warranted censoring is 
+illustrated in Table 7.1.2.  Here, the CNSDTDSC column has been added to describe what the censoring date in 
+ADT represents and EVNTDESC describes the event that warrants censoring.  Note that adding CNSDTDSC 
+provides additional information when there is a difference between the event date that warrants censoring and the 
+actual date of censoring.  If the event that warrants censoring is the same as the onset date of the event that 
+represents the censoring date, then the CNSDTDSC column is not needed in the analysis dataset. 
+
+
+--- Page 20 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 20 
+FINAL 
+May 8, 2012 
+ 
+Table 7.1.2 Time-to-Event Data Structure for a Composite Endpoint: PFS Example Using CNSDTDSC to Describe the Censoring Date in addition to 
+EVNTDESC to Describe the Reason for Censoring 
+Row 
+USUBJID 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+CNSR 
+EVNTDESC 
+CNSDTDSC 
+1 
+1001-0001 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+15 
+2007-01-01 
+2007-01-15 
+0 
+DOCUMENTED 
+PROGRESSION 
+ 
+2 
+1001-0002 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+168 
+2007-01-01 
+2007-06-17 
+1 
+COMPLETED STUDY   
+LAST RADIOLOGIC 
+ASSESSMENT 
+SHOWING NO 
+PROGRESSION 
+3 
+1001-0003 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+120 
+2007-01-01 
+2007-04-30 
+3 
+NEW ANTI-CANCER 
+THERAPY   
+LAST RADIOLOGIC 
+ASSESSMENT 
+SHOWING NO 
+PROGRESSION 
+4 
+1001-0004 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+28 
+2007-01-01 
+2007-06-28 
+2 
+EARLY 
+DISCONTINUATION  
+LAST RADIOLOGIC 
+ASSESSMENT 
+SHOWING NO 
+PROGRESSION 
+5 
+1001-1005 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+30 
+2007-01-01 
+2007-01-30 
+0 
+DEATH 
+ 
+6 
+1001-1006 
+Progression 
+Free 
+Survival 
+(days) 
+PFS 
+1 
+2007-01-01 
+2007-01-01 
+4 
+NO BASELINE 
+ASSESSMENT   
+RANDOMIZATION 
+
+
+--- Page 21 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 21 
+FINAL 
+May 8, 2012 
+ 
+7.2 Time to Hepatitis B e Antigen Seroconversion Example 
+Another composite TTE example is a time to Hepatitis B e Antigen (HBeAg) Seroconversion. 
+In this example, a subject must meet the following criteria in order to be considered as a responder for Hepatitis B e 
+Antigen Seroconversion:  
+ 
+antibody positive at baseline, 
+ 
+antigen negative for two consecutive visits (which will be noted as Time to Confirmed HBeAg) and 
+ 
+antibody positive for the same two consecutive visits (which will be noted as Time to Confirmed HBeAb). 
+Time to Confirmed Hepatitis B e Antigen (HBeAg) Seroconversion is defined as the first time to have: 
+ 
+Hepatitis B e antigen negative results (HBeAg=Negative) either for two consecutive measurements or for 
+the last observed measurement and concurrently 
+ 
+Hepatitis B e antibody positive (HBeAb=Positive) in subjects with antigen positive at baseline. 
+Subjects who do not meet the definition above are censored at the last non-missing measurement during the analysis 
+period.  Subjects who are Hepatitis B e antigen negative (i.e., HBeAg=Negative) at baseline are excluded from the 
+analysis. 
+One difference between this scenario and the examples in previous sections is that the event is determined by lab 
+assays from samples drawn at discrete times generally determined by study visit schedules.  It is known that the 
+event occurred at some time between the visit when the subject first met the criterion and the visit when the subject 
+no longer met the criterion, but the exact time the event occurred is not known.  This is called interval censoring and 
+requires the addition of the AVISIT variable to indicate which visit is associated with the event of interest.  The 
+STARTDT variable represents the initial study drug administration date in this example. 
+Multiple dataset creation steps will take place to create a final ADaM TTE analysis dataset for this example.  First, 
+an analysis dataset containing the lab information (ADLB) is created.  In Table 7.2.1, the analysis dataset ADLB 
+consists of several analysis parameters (PARAM) and values (AVALC) derived from the SDTM LB domain.  For 
+simplicity and ease of explanation, the example Table 7.2.1 contains only Hepatitis B seroconversion-related 
+records.  In order to provide traceability between the SDTM LB domain and the ADLB dataset, the Data Point 
+Traceability variables, described in the ADaM IG, section 3.2.8. [2], are included in the ADLB domain.  The 
+variable SRCDOM provides the name of the input SDTM domain and has a value of LB. SRCVAR indicates the 
+source variable in the SDTM LB domain, which is LBSTRESC.  Finally, SRCSEQ is carried over from the original 
+SDTM LB domain to link each value in ADLB to its corresponding record in the source SDTM LB domain.  
+Together, SRCDOM, SRCSEQ, and SRCVAR provide data-point traceability via record-identifier variables that 
+link the specific data value used as input for an analysis value.  An alternative approach is to add only LBSEQ in the 
+ADLB dataset to show record-level traceability because only the LB domain has been used to create the ADLB 
+dataset in this example.  However, if many domains and/or datasets (either SDTM or ADaM) are used to drive a 
+composite endpoint, it will be necessary to add SRCDOM, SRCVAR, and SRCSEQ as this structure can handle sub-
+event input rows from many domains and datasets in only three standard supportive columns.  Because this 
+approach can be standardized, scaleable, and support analysis of sub-events, we chose to use this approach in this 
+and subsequent analysis dataset examples. 
+In the ADLB analysis dataset, we introduce a new ADaM sequence variable ASEQ.  Because ADLB is going to be 
+used as an input dataset to generate an intermediate time-to-event analysis dataset (called ADTTE1 in this example), 
+ASEQ is created to provide record-level traceability between two analysis datasets (ADLB and ADTTE1). ASEQ 
+will contain sequence numbers that are unique for each record to ensure uniqueness of subject record within the 
+ADLB dataset as illustrated in Table 7.2.1. 
+ 
+
+
+--- Page 22 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 22 
+FINAL 
+May 8, 2012 
+ 
+Table 7.2.1 Hepatitis B Seroconversion Source Analysis Dataset (ADLB) 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+STARTDT 
+AVISIT 
+AVALC 
+ADT 
+ADY 
+SRCDOM 
+SRCVAR 
+SRCSEQ 
+1 
+1001-1001 
+1 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-11 
+Baseline 
+Positive 
+2003-08-11 
+-2 
+LB 
+LBSTRESC 
+2800 
+2 
+1001-1001 
+2 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-11 
+Week 2 
+Negative 
+2003-08-27 
+15 
+LB 
+LBSTRESC 
+2801 
+3 
+1001-1001 
+3 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-11 
+Week 3 
+Negative 
+2003-09-03 
+22 
+LB 
+LBSTRESC 
+2802 
+4 
+1001-1001 
+4 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-11 
+Week 4 
+Negative 
+2003-09-09 
+28 
+LB 
+LBSTRESC 
+2803 
+5 
+1001-1001 
+5 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-11 
+Week 5 
+Negative 
+2003-09-16 
+35 
+LB 
+LBSTRESC 
+2804 
+6 
+1001-1001 
+6 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-11 
+Baseline 
+Positive 
+2003-08-11 
+-2 
+LB 
+LBSTRESC 
+2805 
+7 
+1001-1001 
+7 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-11 
+Week 2 
+Positive 
+2003-08-27 
+15 
+LB 
+LBSTRESC 
+2806 
+8 
+1001-1001 
+8 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-11 
+Week 3 
+Positive 
+2003-09-03 
+22 
+LB 
+LBSTRESC 
+2807 
+9 
+1001-1001 
+9 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-11 
+Week 4 
+Positive 
+2003-09-09 
+28 
+LB 
+LBSTRESC 
+2808 
+10 
+1001-1001 
+10 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-11 
+Week 5 
+Positive 
+2003-09-16 
+35 
+LB 
+LBSTRESC 
+2809 
+11 
+1001-1002 
+11 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-19 
+Baseline 
+Positive  
+2003-08-19 
+1 
+LB 
+LBSTRESC 
+3000 
+12 
+1001-1002 
+12 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-19 
+Week 2 
+Negative 
+2003-08-31 
+13 
+LB 
+LBSTRESC 
+3001 
+13 
+1001-1002 
+13 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-19 
+Week 3 
+Negative 
+2003-09-07 
+20 
+LB 
+LBSTRESC 
+3002 
+
+
+--- Page 23 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 23 
+FINAL 
+May 8, 2012 
+ 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+STARTDT 
+AVISIT 
+AVALC 
+ADT 
+ADY 
+SRCDOM 
+SRCVAR 
+SRCSEQ 
+14 
+1001-1002 
+14 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-19 
+Week 4 
+Negative 
+2003-09-15 
+28 
+LB 
+LBSTRESC 
+3003 
+15 
+1001-1002 
+15 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-19 
+Week 5 
+Positive 
+2003-09-22 
+35 
+LB 
+LBSTRESC 
+3004 
+16 
+1001-1002 
+16 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-19 
+Baseline 
+Negative 
+2003-08-19 
+1 
+LB 
+LBSTRESC 
+3005 
+17 
+1001-1002 
+17 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-19 
+Week 2 
+Negative 
+2003-08-31 
+13 
+LB 
+LBSTRESC 
+3006 
+18 
+1001-1002 
+18 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-19 
+Week 3 
+Negative 
+2003-09-07 
+20 
+LB 
+LBSTRESC 
+3007 
+19 
+1001-1002 
+19 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-19 
+Week 4 
+Negative 
+2003-09-15 
+28 
+LB 
+LBSTRESC 
+3008 
+20 
+1001-1002 
+20 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-19 
+Week 5 
+Negative 
+2003-09-22 
+35 
+LB 
+LBSTRESC 
+3009 
+21 
+1001-1003 
+21 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-01 
+Baseline 
+Negative 
+2003-08-01 
+1 
+LB 
+LBSTRESC 
+3200 
+22 
+1001-1003 
+22 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-01 
+Week 2 
+Negative  
+2003-08-14 
+14 
+LB 
+LBSTRESC 
+3201 
+23 
+1001-1003 
+23 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-01 
+Week 3 
+Negative  
+2003-08-21 
+21 
+LB 
+LBSTRESC 
+3202 
+24 
+1001-1003 
+24 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-08-01 
+Week 4 
+Negative 
+2003-08-28 
+28 
+LB 
+LBSTRESC 
+3203 
+25 
+1001-1003 
+25 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-01 
+Baseline 
+Positive 
+2003-08-01 
+1 
+LB 
+LBSTRESC 
+3204 
+26 
+1001-1003 
+26 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-01 
+Week 2 
+Positive 
+2003-08-14 
+14 
+LB 
+LBSTRESC 
+3205 
+
+
+--- Page 24 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 24 
+FINAL 
+May 8, 2012 
+ 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+STARTDT 
+AVISIT 
+AVALC 
+ADT 
+ADY 
+SRCDOM 
+SRCVAR 
+SRCSEQ 
+27 
+1001-1003 
+27 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-01 
+Week 3 
+Positive 
+2003-08-21 
+21 
+LB 
+LBSTRESC 
+3206 
+28 
+1001-1003 
+28 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-08-01 
+Week 4 
+Positive 
+2003-08-28 
+28 
+LB 
+LBSTRESC 
+3207 
+29 
+1001-1004 
+29 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-09-20 
+Baseline 
+Positive  
+2003-09-20 
+1 
+LB 
+LBSTRESC 
+3900 
+30 
+1001-1004 
+30 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-09-20 
+Week 2 
+Negative 
+2003-10-02 
+13 
+LB 
+LBSTRESC 
+3901 
+31 
+1001-1004 
+31 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-09-20 
+Week 3 
+Negative 
+2003-10-09 
+20 
+LB 
+LBSTRESC 
+3902 
+32 
+1001-1004 
+32 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-09-20 
+Week 4 
+Negative 
+2003-10-17 
+28 
+LB 
+LBSTRESC 
+3903 
+33 
+1001-1004 
+33 
+Hepatitis B e 
+antigen 
+HBeAg 
+2003-09-20 
+Week 5 
+Negative 
+2003-10-24 
+35 
+LB 
+LBSTRESC 
+3904 
+34 
+1001-1004 
+34 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-09-20 
+Baseline 
+Negative 
+2003-09-20 
+1 
+LB 
+LBSTRESC 
+3905 
+35 
+1001-1004 
+35 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-09-20 
+Week 2 
+Negative 
+2003-10-02 
+13 
+LB 
+LBSTRESC 
+3906 
+36 
+1001-1004 
+36 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-09-20 
+Week 3 
+Negative 
+2003-10-09 
+20 
+LB 
+LBSTRESC 
+3907 
+37 
+1001-1004 
+37 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-09-20 
+Week 4 
+Negative 
+2003-10-17 
+28 
+LB 
+LBSTRESC 
+3908 
+38 
+1001-1004 
+38 
+Antibody to 
+Hepatitis B e 
+antigen 
+HBeAb 
+2003-09-20 
+Week 5 
+Positive 
+2003-10-24 
+35 
+LB 
+LBSTRESC 
+3909 
+ 
+
+
+--- Page 25 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 25 
+FINAL 
+May 8, 2012 
+ 
+Because the derivation algorithms to define the final composite endpoint are complex, an intermediate analysis 
+dataset (called ADTTE1 in this example) is created and illustrated in Table 7.2.2.  This intermediate ADaM TTE 
+analysis dataset (ADTTE1) will show how the final composite endpoint data are generated as well as what records 
+are included in the final analysis dataset (called ADTTE2 in this example).  The values for SRCSEQ of the 
+composite endpoint row in the ADDTTE1 dataset were left blank for the time to confirmed  hepatitis B e Antigen 
+Seroconversion (i.e., PARAMCD=’T2HBeAg’) as there are more than one record that are to be taken into account 
+to determine confirmation.  Because SRCSEQ does not allow more than one value, this is the traceability method we 
+chose to use in this example.  This does not mean that this is the only method one can use to provide the traceability 
+between two datasets.  The final dataset that will be used in the analysis of time to Hepatitis B e Antigen 
+Seroconversion (ADTTE2) is illustrated in Table 7.2.3.  For simplicity and ease of use, only records that are eligible 
+for the time to Hepatitis B e Antigen Seroconversion analysis are retained in the ADTTE2 dataset. 
+ 
+The composite endpoint in this analysis consists of two parameters: HBeAg and HBeAb from the source analysis 
+dataset (ADLB) illustrated in Table 7.2.1 (PARAMCD= ‘HBeAg’ and PARAMCD= ‘HBeAb’).   
+The two PARAMCD values from ADTTE1 that are used as components of the composite endpoint are: 
+ 
+PARAMCD= ‘T2HBeAg’ indicates the time to negative Hepatis B e antigen confirmed which will be 
+determined based on whether a subject met the analysis definition for confirmed HBeAg (two consecutive 
+or the last observed HBeAg measurement= ‘Negative’). 
+ 
+PARAMCD= ‘T2HBeAb’ indicates the time to positive Hepatis B e antibody confirmed which will be 
+determined based on whether a subject met the analysis definition for confirmed HBeAb (two consecutive 
+or the last observed HBeAb measurement= ‘Positive’). 
+Note that even though the individual components (T2HBeAg and T2HBeAb) have met the definition of the events 
+for the post-treatment records, combining them together does not necessarily mean that they will be considered 
+having the event for the composite endpoint analysis unless subject’s antigen is positive at baseline.  As shown in 
+the example, subject 1001-1003 is considered as having an event in both ‘Time to Confirmed HBeAg’ and ‘Time to 
+Confirmed HBeAb’; however, this subject is excluded from the analysis because the subject’s baseline Hepatitis B 
+antigen was ‘Negative’. 
+AVAL in the ADaM TTE analysis datasets (i.e., ADTTE1 and ADTTE2) contains the number of days from the time 
+of origin (STARTDT) to the date where the earliest event of the two consecutive events met the confirmed Hepatitis 
+B e Antigen Seroconversion criteria (or the date of the last measurement if the last measurement met the criteria).  
+EVNTDESC describes why a subject was either qualified for an event or censored.  The final ADaM TTE analysis 
+dataset (ADTTE2) includes only those records with PARAMCD= ‘T2SERO’ and a non-missing censor value (i.e., 
+CNSR not missing).  When the analysis datasets utilize traceability variables to provide record-level traceability 
+from the source dataset(s) to the final analysis dataset, it is desirable to provide intermediate analysis dataset(s) for 
+easier review.  
+
+
+--- Page 26 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 26 
+FINAL 
+May 8, 2012 
+ 
+The following is an example of intermediate ADaM TTE analysis dataset (ADTTE1):  
+ 
+Table 7.2.2  Time-to-Event Data Structure for a Composite Endpoint: An Intermediate Dataset for Time to Hepatitis B e Antigen Seroconversion 
+(ADTTE1) 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+AVISIT 
+CNSR  
+SRCDOM 
+SRC
+SEQ 
+EVNTDESC 
+1 
+1001-1001 
+1 
+Time to 
+Confirmed 
+HBeAg (days) 
+T2HBeAg 
+15 
+2003-08-13 
+2003-08-27 
+Week 2 
+0 
+ADLB 
+2 
+Two consecutive 
+HBeAg= 
+Negative 
+2 
+1001-1001 
+2 
+Time to 
+Confirmed 
+HBeAb (days) 
+T2HBeAb 
+15 
+2003-08-13 
+2003-08-27 
+Week 2 
+0 
+ADLB 
+7 
+Two consecutive 
+HBeAb = Positive 
+3 
+1001-1001 
+3 
+Time to 
+HBeAg 
+Seroconversio
+n (days) 
+T2SERO 
+15 
+2003-08-13 
+2003-08-27 
+Week 2 
+0 
+ADLB 
+ 
+HBeAg=Positive at 
+baseline and two 
+consecutive HBeAg = 
+Negative and two 
+consecutive HBeAb = 
+Positive 
+4 
+1001-1002 
+4 
+Time to 
+Confirmed 
+HBeAg (days) 
+T2HBeAg 
+13 
+2003-08-19 
+2003-08-31 
+Week 2 
+0 
+ADLB 
+12 
+Two consecutive 
+HBeAg = Negative 
+5 
+1001-1002 
+5 
+Time to 
+Confirmed 
+HBeAb (days) 
+T2HBeAb 
+35 
+2003-08-19 
+2003-09-22 
+Week 5 
+1 
+ADLB 
+20 
+No two consecutive or 
+last HBeAb = Positive 
+6 
+1001-1002 
+6 
+Time to 
+HBeAg 
+Seroconversio
+n (days) 
+T2SERO 
+35 
+2003-08-19 
+2003-09-22 
+Week 5 
+1 
+ADLB 
+ 
+Two consecutive 
+HBeAg = Negative 
+but no two 
+consecutive or last 
+HBeAb = Positive 
+7 
+1001-1003 
+7 
+Time to 
+Confirmed 
+HBeAg (days) 
+T2HBeAg 
+14 
+2003-08-01 
+2003-08-14 
+Week 2 
+0 
+ADLB 
+22 
+Two consecutive 
+HBeAg = Negative 
+ 
+8 
+1001-1003 
+8 
+Time to 
+Confirmed 
+HBeAb (days) 
+T2HBeAb 
+14 
+2003-08-01 
+2003-08-14 
+Week 2 
+0 
+ADLB 
+26 
+Two consecutive 
+HBeAb= Positive 
+
+
+--- Page 27 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 27 
+FINAL 
+May 8, 2012 
+ 
+ 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+AVISIT 
+CNSR  
+SRCDOM 
+SRC
+SEQ 
+EVNTDESC 
+9 
+1001-1003 
+9 
+Time to 
+HBeAg 
+Seroconversio
+n (days) 
+T2SERO 
+. 
+2003-08-01 
+. 
+ 
+. 
+ADLB 
+ 
+Excluded from 
+analysis due to  
+Baseline HBeAg = 
+Negative 
+ 
+10 
+1001-1004 
+10 
+Time to 
+Confirmed 
+HBeAg (days) 
+T2HBeAg 
+13 
+2003-09-20 
+2003-10-02 
+Week 2 
+0 
+ADLB 
+30 
+Two consecutive 
+HBeAg = Negative 
+11 
+1001-1004 
+11 
+Time to 
+Confirmed 
+HBeAb (days) 
+T2HBeAb 
+35 
+2003-09-20 
+2003-10-24 
+Week 5 
+0 
+ADLB 
+38 
+Last HBeAb = 
+Positive 
+12 
+1001-1004 
+12 
+Time to 
+HBeAg Sero-
+conversion 
+(days) 
+T2SERO 
+35 
+2003-09-20 
+2003-10-24 
+Week 5 
+0 
+ADLB 
+ 
+HBeAg=Positive at 
+baseline and two 
+consecutive HBeAg = 
+Negative and last 
+HBeAb = Positive 
+ 
+
+
+--- Page 28 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 28 
+FINAL 
+May 8, 2012 
+ 
+The final ADaM TTE analysis dataset (ADTTE2) for the time to confirmed Hepatitis B e Antigen Seroconversion example is shown in Table 7.2.3.  Note that 
+subject 1001-1003 was excluded from the ADTTE2 dataset because this subject had a negative Hepatitis B e antigen at baseline. 
+ 
+Table 7.2.3 Time-to-Event Data Structure for a Composite Endpoint: The Final Analysis Dataset for Time to Hepatitis B e Antigen Seroconversion 
+(ADTTE2) 
+Row 
+USUBJID 
+ASEQ 
+PARAM 
+PARAMCD 
+AVAL 
+STARTDT 
+ADT 
+AVISIT 
+CNSR  SRCDOM 
+SRCSEQ 
+EVNTDESC 
+CNSDTDSC 
+1 
+1001-
+1001 
+1 
+Time to 
+HBeAg 
+Sero-
+conversion 
+(days) 
+T2SERO 
+15 
+2003-08-
+13 
+2003-
+08-27 
+Week 2 
+0 
+ADTTE1 
+3 
+HBeAg= Positive 
+at baseline and  
+two consecutive  
+HBeAg = Negative 
+and two 
+consecutive  
+HBeAb = Positive 
+ 
+2 
+1001-
+1002 
+2 
+Time to 
+HBeAg 
+Sero-
+conversion 
+(days) 
+T2SERO 
+35 
+2003-08-
+19 
+2003-
+09-22 
+Week 5 
+1 
+ADTTE1 
+6 
+Two consecutive 
+HBeAg = Negative 
+but no two 
+consecutive or last 
+HBeAb = Positive 
+Date of last 
+non-missing 
+lab data. 
+ 
+ 
+3 
+1001-
+1004 
+3 
+Time to 
+HBeAg 
+Sero-
+conversion 
+(days) 
+T2SERO 
+35 
+2003-09-
+20 
+2003-
+10-24 
+Week 5 
+0 
+ADTTE1 
+12 
+HBeAg= Positive 
+at baseline and  
+two consecutive 
+HBeAg = Negative 
+and last HBeAb = 
+Positive 
+ 
+ 
+
+
+--- Page 29 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 29 
+FINAL 
+May 8, 2012 
+ 
+ 
+As shown above, very complex derivations may require the creation of intermediate analysis datasets.  In these 
+situations, traceability may be accomplished by retaining and including intermediate analysis datasets along with 
+their associated metadata.  Traceability would then involve several steps.  The analysis results would be linked by 
+appropriate metadata, including results metadata, to the data which directly supports the analytical procedures; those 
+data would be linked to the intermediate analysis data; the intermediate data would in turn be linked to the source 
+SDTM data.  Because ADTTE is not a required dataset name for all time-to-event analysis datasets, one can assign a 
+logical name to identify the intermediate and final time-to-event analysis datasets for clarity. 
+
+
+--- Page 30 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 30 
+FINAL 
+May 8, 2012 
+ 
+8. References 
+1. Analysis Data Model (ADaM) version 2.1  
+http://www.cdisc.org/adam  
+2. Analysis Data Model (ADaM) Implementation Guide version 1.0 
+http://www.cdisc.org/adam  
+3. Alan B. Cantor. SAS Survival Analysis Techniques for Medical Research. Second Edition, SAS Institute Inc. 
+September 2005 
+4. FDA Guidance for Industry, Clinical Trial Endpoints for the Approval of Cancer Drugs and Biologics, May, 
+2007 
+http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/ucm071590.pdf 
+5. International Conference of Harmonization E3 “Structure and Content of Clinical Study Reports” 
+http://www.ich.org/fileadmin/Public_Web_Site/ICH_Products/Guidelines/Efficacy/E3/Step4/E3_Guideline.pdf  
+6. Paul D. Allison. Survival Analysis Using the SAS System. A Practical Guide, Second Edition. SAS Institute 
+Inc. 2010 
+
+
+--- Page 31 ---
+CDISC ADaM Basic Data Structure for Time-to-Event Analysis Version 1.0 
+©2012 Clinical Data Interchange Standards Consortium, Inc.  All rights reserved 
+Page 31 
+FINAL 
+May 8, 2012 
+ 
+ 
+APPENDIX A. 
+Representations and Warranties; Limitations of Liability, and Disclaimers 
+CDISC Patent Disclaimers 
+It is possible that implementation of and compliance with this standard may require use of subject matter covered by 
+patent rights.  By publication of this standard, no position is taken with respect to the existence or validity of any 
+claim or of any patent rights in connection therewith.  CDISC, including the CDISC Board of Directors, shall not be 
+responsible for identifying patent claims for which a license may be required in order to implement this standard or 
+for conducting inquiries into the legal validity or scope of those patents or patent claims that are brought to its 
+attention. 
+Representations and Warranties 
+Each Participant in the development of this standard shall be deemed to represent, warrant, and covenant, at the time 
+of a Contribution by such Participant (or by its Representative), that to the best of its knowledge and ability: (a) it 
+holds or has the right to grant all relevant licenses to any of its Contributions in all jurisdictions or territories in 
+which it holds relevant intellectual property rights; (b) there are no limits to the Participant’s ability to make the 
+grants, acknowledgments, and agreements herein; and (c) the Contribution does not subject any Contribution, Draft 
+Standard, Final Standard, or implementations thereof, in whole or in part, to licensing obligations with additional 
+restrictions or requirements inconsistent with those set forth in this Policy, or that would require any such 
+Contribution, Final Standard, or implementation, in whole or in part, to be either: (i) disclosed or distributed in 
+source code form; (ii) licensed for the purpose of making derivative works (other than as set forth in Section 4.2 of 
+the CDISC Intellectual Property Policy (“the Policy”)); or (iii) distributed at no charge, except as set forth in 
+Sections 3, 5.1, and 4.2 of the Policy.  If a Participant has knowledge that a Contribution made by any Participant or 
+any other party may subject any Contribution, Draft Standard, Final Standard, or implementation, in whole or in 
+part, to one or more of the licensing obligations listed in Section 9.3, such Participant shall give prompt notice of the 
+same to the CDISC President who shall promptly notify all Participants. 
+No Other Warranties/Disclaimers.  ALL PARTICIPANTS ACKNOWLEDGE THAT, EXCEPT AS PROVIDED 
+UNDER SECTION 9.3 OF THE CDISC INTELLECTUAL PROPERTY POLICY, ALL DRAFT STANDARDS 
+AND FINAL STANDARDS, AND ALL CONTRIBUTIONS TO FINAL STANDARDS AND DRAFT 
+STANDARDS, ARE PROVIDED “AS IS” WITH NO WARRANTIES WHATSOEVER, WHETHER EXPRESS, 
+IMPLIED, STATUTORY, OR OTHERWISE, AND THE PARTICIPANTS, REPRESENTATIVES, THE CDISC 
+PRESIDENT, THE CDISC BOARD OF DIRECTORS, AND CDISC EXPRESSLY DISCLAIM ANY 
+WARRANTY OF MERCHANTABILITY, NONINFRINGEMENT, FITNESS FOR ANY PARTICULAR OR 
+INTENDED PURPOSE, OR ANY OTHER WARRANTY OTHERWISE ARISING OUT OF ANY PROPOSAL, 
+FINAL STANDARDS OR DRAFT STANDARDS, OR CONTRIBUTION. 
+Limitation of Liability 
+IN NO EVENT WILL CDISC OR ANY OF ITS CONSTITUENT PARTS (INCLUDING, BUT NOT LIMITED 
+TO, THE CDISC BOARD OF DIRECTORS, THE CDISC PRESIDENT, CDISC STAFF, AND CDISC 
+MEMBERS) BE LIABLE TO ANY OTHER PERSON OR ENTITY FOR ANY LOSS OF PROFITS, LOSS OF 
+USE, DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER 
+UNDER CONTRACT, TORT, WARRANTY, OR OTHERWISE, ARISING IN ANY WAY OUT OF THIS 
+POLICY OR ANY RELATED AGREEMENT, WHETHER OR NOT SUCH PARTY HAD ADVANCE NOTICE 
+OF THE POSSIBILITY OF SUCH DAMAGES. 
+ 
+Note: The CDISC Intellectual Property Policy can be found at 
+http://www.cdisc.org/about/bylaws_pdfs/CDISCIPPolicy-FINAL.pdf . 
+ 

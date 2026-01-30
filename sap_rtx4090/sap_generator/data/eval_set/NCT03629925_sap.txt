@@ -1,0 +1,1228 @@
+ 
+ 1 / 42 
+ Sponsor  : Innovent Biologics (SuZhou) Co., Ltd.  
+Document type  : Statistical Analysis Plan  (SAP) 
+ 
+Title  : Statistical Analysis Plan -  A Randomized, Double -Blind, Phase 
+III Study to Compare the Efficacy and Safety of IBI308 in 
+Combination with Gemcitabine and Platinum- Based 
+Chemotherapy vs. Placebo in Combination with Gemcitabine 
+and Platinum -Based Chemotherapy in the First -Line Treatment 
+for Patients with Advanced or Metastatic Squam ous Non- Small 
+Cell Lung Cancer (ORIENT -12) 
+Product name  : Sintilimab  (IBI308 ) 
+Protocol number  : CIBI308C30 3 
+Effective date  / Version  : 17Nov2020 , Version  2.0 
+ 
+Author : 
+Xiuping  Zhang  2020- 11-17 
+dMed Biopharmaceutical Co., Ltd.  
+ 
+Approver:  
+Name and Title  Signature  Date  (yyyy -mm-dd) 
+Jie Li    
+dMed Biopharmaceutical Co., Ltd.  
+ 
+Name and Title  Signature  Date  (yyyy -mm-dd) 
+Xing Sun , Senior Director Biostatistics    
+Innovent Biologics (SuZhou) Co., Ltd.  
+ 
+Name and Title  Signature  Date  (yyyy -mm-dd) 
+Hui Zhou , VP Medical Science Oncology    
+Innovent Biologics (SuZhou) Co., Ltd.  
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 2 / 42  Version History :  
+Version  Date  Summary of Changes  
+0.1 2019- 02-11 Draft  
+1.0 2019- 11-21 Version 1.0 
+2.0 2020- 4-24 1. Correct the name of dMed Biopharmaceutical Co., 
+Ltd. on cover page  
+2. Modify the calculation formula of dose intensity in 
+6.5, as Days of Exposure can better reflect Dose 
+delays. The original formula is as follow: Dose 
+intensity = Cumulative dose / Number of cycles  
+3. Add two -stage method in 8.1.1 to adjust the effect of 
+crossover on OS.  
+4. Correct the definition of TEAE in 8.2.1.1. The cut -off 
+day is defined as 90 days after the last dose of study 
+treatment or starting of crossover treatment.  
+  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 3 / 42  TABLE OF CONTENT 
+PAGE  
+1. INTRODUCTION  ................................................................................................................... 6 
+2. SUMMARY OF STUDY PLAN  ............................................................................................. 6 
+2.1. Modifications to the Statistical Section of the Protocol  .............................................. 6 
+2.2. Study Objectives and Endpoints  ................................................................................. 6 
+2.3. Study Design  ............................................................................................................... 8 
+2.4. Statistical Hypothesis  ................................................................................................ 20 
+2.5. Sample Size  ............................................................................................................... 20 
+2.6. Randomization  .......................................................................................................... 20 
+3. PLANNED ANALYSES  ....................................................................................................... 21 
+3.1. Interim Analyses ....................................................................................................... 21 
+3.2. Final Analyses  ........................................................................................................... 22 
+4. ANALYSIS POPULATIONS  ................................................................................................ 22 
+5. GENERAL RULES AND DATA HANDLING CONVENTI ONS  ...................................... 23 
+5.1. General Rules  ............................................................................................................ 23 
+5.2. Missing Data Handling  ............................................................................................. 24 
+5.3. Other Data Handling Rules  ....................................................................................... 24 
+5.4. General Definition  ..................................................................................................... 25 
+6. SUBJECT  DISPOSITION  ..................................................................................................... 25 
+6.1. Subject Disposition  ................................................................................................... 25 
+6.2. Protocol Deviation and Code Broken  ....................................................................... 26 
+6.3. Demographics and Disease Characteristics  .............................................................. 26 
+6.4. Concomitant Medication  ........................................................................................... 27 
+6.5. Drug Exposure  .......................................................................................................... 28 
+7. STATISTICAL ANAYSIS METHOD .................................................................................. 29 
+7.1. Primary Efficacy Analysis  ........................................................................................ 29 
+7.1.1.  Definition of PFS  ..................................................................................... 29 
+7.1.2.  Primary Analysis Methods  ....................................................................... 30 
+7.1.3.  Covariate Adjustment/Subgroup Analyses  .............................................. 30 
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 4 / 42  8. SECONDARY ENDPOINT ANALYSES  ............................................................................ 31 
+8.1. Analyses for Secondary Endpoints  ........................................................................... 31 
+8.1.1.  Overall Survival (OS)  .............................................................................. 31 
+8.1.2.  Objective Response Rate (ORR)  .............................................................. 32 
+8.1.3.  Disease Control Rate (DCR)  .................................................................... 32 
+8.1.4.  Time to Response (TTR)  .......................................................................... 32 
+8.1.5.  Duration of Response (DOR)  ................................................................... 32 
+8.2. Safety Analyses  ......................................................................................................... 33 
+8.2.1.  Adverse Events  ........................................................................................ 33 
+8.2.2.  PK and Immunogenicity Analyses  ........................................................... 35 
+8.2.3.  Clinical Laboratory Test  .......................................................................... 35 
+8.2.4.  ECG  .......................................................................................................... 36 
+8.2.5.  Vital Sign, Physical Exam and other Safety Exams  ................................. 36 
+9. EXPLOATORY ANALYSES  ............................................................................................... 37 
+9.1. Biomarkers in tumor tissue and peripheral blood  ..................................................... 37 
+9.2. Quality of Life Analysis  ............................................................................................ 37 
+9.2.1.  Lung Cancer Symptom Scale (LCSS)  ...................................................... 37 
+9.2.2.  EORTC QLQ- C30 ................................................................................... 37 
+9.3. Efficacy Analyses after PD  ....................................................................................... 39 
+10. REFERENCES  ....................................................................................................................... 39 
+11. APPENDICES  ....................................................................................................................... 40 
+11.1.  Acronym .................................................................................................................... 40 
+ 
+ 
+ 
+  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 5 / 42  LIST OF TABLES  
+Table 1. Changes from Protocol  ...................................................................................................... 6 
+Table 2. Study Obejectives and Definition of Study Endpoint  ........................................................ 6 
+Table 3. Schedule of study visits  ................................................................................................... 11 
+Table 4. Schedule of visits during crossover treatment with IBI308  ............................................. 17 
+Table 5. Definition of Analysis Population  ................................................................................... 22 
+Table 6. Censoring Rules for Primary and Sensitivity Analyses of PFS  ....................................... 29 
+Table 7. Category of Chemistry Laboratory Parameters  ............................................................... 35 
+Table 8. PCSA Criteria  .................................................................................................................. 36 
+Table 9. QLQ -30 Scoring Methods ................................................................................................ 38 
+ 
+LIST OF FIGURES  
+Figure 1. Study Design .................................................................................................................... 9 
+ 
+  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 6 / 42  1. INTRODUCTION 
+This statistical analysis plan (SAP) provides a comprehensive and detailed description of strategy 
+and statistical methodology to be used to implement the analysis of data based on protocol “ A 
+Randomized, Double -Blind, Phase III Study to Compare the Efficacy and Safety of IBI308 in 
+Combination with Gemcitabine and Platinum- Based Chemotherapy vs. Placebo in Combination 
+with Gemcitabine and Platinum- Based Chemotherapy in the F irst-Line Treatment for Patients with 
+Advanced or Metastatic Squamous  Non-Small Cell Lung Cancer (ORIENT -12)” (CIBI308C303, 
+version 2.1 dated 24Jan2019). The purpose of the SAP is to ensure the credibility of the study 
+findings by pre -specifying the statis tical approaches to the analysis of study data prior to database 
+lock and will be approved before database lock. This SAP does not include analysis plan for 
+population PK which will be described in a separate document.  
+2. SUMMARY OF STUDY PLAN  
+2.1. Modifications to the S tatistical S ection of the P rotocol  
+The changes made in this SAP from protocol version 3.0 are summarized in  Table 1 .  
+Table 1 . Changes from Protocol  
+Protocol  Changes made in SAP  Reasons  
+Definition of TTR: from the 
+date of randomization to the 
+date of the first confirmed 
+response (CR or PR).  Subjects 
+who do not meet CR or PR, 
+will be censored at the last 
+date of imaging assessment.  Time to response (TTR): Defined as 
+from the date of randomization to the 
+date of the first confirmed response 
+(CR or PR).  To keep the consistency of the 
+analysis of the same study drug 
+ 
+2.2. Study O bjectives and E ndpoints  
+Table 2 . Study Obejectives and Definition of Study Endpoint  
+Study objective  Study endpoint  
+Primary objective  Primary endpoint  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 7 / 42  Study objective  Study endpoint  
+• To compare the progression- free survival (PFS) 
+per RECIST v1.1 in the first -line treatment of 
+advanced or metastatic squamous non- small cell 
+lung cancer (NSCLC) treated with sintilimab in 
+combination with gemcitabine  and platinum -
+based chemotherapy versus placebo in 
+combination with gemcitabine  and platinum -
+based chemotherapy  • Progression free survival  (PFS) per RECIST 
+v1.1 assessed by independent radiographic 
+review committee (IRRC)  
+Secondary objective  Secondary endpoint  
+• To compare the overall survival (OS) between 
+the two treatment arms  • Overall survival  (OS) 
+• To compare the objective response rate (ORR) 
+per RECIST v1.1 between two treatment arms  • Objective response rate ( ORR ) per RECIST 
+v1.1 
+• To compare the disease control rate (DCR) per 
+RECIST v1.1 between the two treatment arms  • Disease control rate ( DCR ) per RECIST v1.1 
+• To compare the time to objective response 
+(TTR) per RECIST v1.1 between the two 
+treatment arms  • Time to response  (TTR ) per RECIST v1.1  
+• To compare the duration of response (DOR) per 
+RECIST v1.1 between the two treatment arms  • Duration of response  (DOR ) per RECIST v1.1  
+• To evaluate the safety and tolerability of 
+sintilimab in combination with gemcitabine  and 
+platinum- based chemotherapy  • Adverse Events  
+• Clinical laboratory test  
+• Vital Sign  
+• Electrocardiogram  
+• Immunogenicity  
+•  
+Exploratory objective  Exploratory endpoint  
+• To explore the biomarkers in tumor tissue that 
+can potentially predict the efficacy of sintilimab • PD-L1 expression 
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 8 / 42  Study objective  Study endpoint  
+arm including but not limited to PD -L1 
+expression  
+• To explore the biomarker in peripheral blood 
+that can potentially predict the efficacy of 
+sintilimab arm including but not limited to T 
+cell receptor (TCR) and circulating tumor DNA 
+(ctDNA)  • TCR 
+• ctDNA  
+• To compare the quality of life of subjects treated 
+with sintilimab in combination with 
+chemotherapy and placebo in combination  with 
+chemotherapy using Lung Cancer Symptom 
+Scale (LCSS) and European Organization for 
+Research and Treatment of Cancer Quality o f 
+Life Questionnaire (EORTC QLQ -C30, V3.0 
+Chinese version)  • Lung cancer symptom scale (LCSS ) 
+• EORTC QLQ -C30 
+• To compare PFS in sintilimab arm receiving 
+subsequent anti -cancer  therapy after disease 
+progression versus placebo arm crossing over to 
+receive sinti limab  • PFS 2 after initiation of new anti- cancer therapy  
+• ORR  with new anti- cancer therapy after PD  
+• TTR with new anti- cancer therapy after PD  
+• DoR with new anti- cancer therapy after PD  
+• To explore the population pharmacokinetic (PK) 
+characteristics of sintilimab  • (See separate population PK analysis plan)  
+2.3. Study  Design  
+This study is a multicenter, randomized, double -blind, phase III study to compare the efficacy and 
+safety of IBI308 in combination with gemcitabine and platinum -based (cisplatin/carboplati n) 
+chemotherapy vs. placebo in combination with gemcitabine and platinum -based 
+(cisplatin/carboplatin) chemotherapy in first- line treatment of previously untreated Chinese 
+subjects with advanced or metastatic squamous NSCLC.  
+In this study, a total of 348 previously untreated subjects with advanced or metastatic squamous 
+cell NSCLC will be randomized in a 1:1 ratio to the test group and the control group, 174 cases in 
+the test group and 174 cases in the control group (in the actual study, if the actual numbe r of 
+enrolled subjects is different from the number of planned enrollment due to unforeseen reasons, 
+such as the enrollment speed is faster than the requirements of the protocol, the end date of 
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 9 / 42  screening should be determined in advance to ensure that the number of actually enrolled subjects 
+does not exceed the number of planned enrollment by 10%, i.e., a maximum of 382 subjects shall 
+be enrolled, 191 in each group). Randomization stratification factors include staging (stage 
+IIIB/IIIC vs. stage IV), platin um-based medications (cisplatin vs. carboplatin), and PD -L1 
+expression level (< 1% vs. ≥ 1%). In this study, the parallel control is placebo in combination with 
+gemcitabine and platinum -based (cisplatin/carboplatin) chemotherapy and the test group will 
+receive IBI308 in combination with gemcitabine and platinum -based (cisplatin/carboplatin) 
+treatment. Both groups will receive the corresponding treatment for 4 or 6 cycles, followed by 
+IBI308 or placebo maintenance therapy, respectively ( see Figure 1 ). 
+ 
+Figure 1. Study Design  
+Note : In the actual study, if the actual number of enrolled subjects is different from the number of planned enrollment due to 
+unforeseen reasons, such as the enrollment speed is faster than the requirements of the protocol, the end date of screening s hould 
+be determined in advance to ensure that the number of actually enrolled subjects does not  exceed the number of planned enrollment 
+by 10%, i.e., a maximum of 382 subjects shall be enrolled, 191 in each group.  
+Tumor imaging evaluation will be performed at week 6 (± 7 days) and week 12 (± 7 days) since 
+randomization, every 9 weeks (± 7 days) thereafter until week 48, and every 12 weeks (± 7 days) 
+after week 48.  
+After the first assessment of imaging PD by the investigator based on RECIST V1.1, if the subject 
+has SD clinically, the current treatment can be continued and the imaging evaluation sh ould be 
+performed again 4–6 weeks later for confirmation (based on RECIST V1.1). If PD is confirmed, 
+unblinding should be performed and subjects of IBI308 in combination with chemotherapy group 
+(test group) should end the study treatment, while subjects of  placebo in combination with 
+chemotherapy group (control group) can be conditionally crossed to monotherapy of IBI308 based 
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.                  CIBI308C303  
+ 10 / 42  on the judgment of the investigator and the willingness of the subjects, until PD, toxicity 
+intolerability, receiving new anti- tumor  therapy, withdrawal of ICF, loss of follow -up or death, or 
+other reasons requiring termination of study treatment, whichever occurs first; if PD is not 
+confirmed, the study treatment will be continued until imaging -confirmed PD followed by 
+unblinding and other subsequent processing same as above.  
+If the subject has clinically unstable disease after the first assessment of imaging PD, the 
+confirmation 4–6 weeks later is not required and unblinding can be directly performed followed 
+by processing same as ab ove. During the study, the treatment should be discontinued if one of the 
+following occurs: clinically unstable disease, intolerable toxicity, receipt of new anti- tumor 
+therapy, withdrawal of ICF, loss to follow -up, death, or other conditions requiring tre atment 
+discontinuation as judged by the investigator, whichever occurs first. The maximum duration of 
+treatment with IBI308 is 24 months in both groups. For patients who discontinue the treatment for 
+reasons other than PD, an imaging evaluation should be performed at the end of treatment, and 
+during follow -up the imaging evaluation should be performed according to imaging examination 
+scheduled time points specified in the protocol until one of the following events occurs: start of 
+new anti -tumor therapy, objective PD, loss of follow -up or death, withdrawal of ICF by the 
+subjects, whichever occurs first. 
+Table 3  and Table 4  below show the schedule of study visits. 
+  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 11 / 42  Table 3. Schedule of study visits  
+ 
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 12 / 42   
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 13 / 42   
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 14 / 42   
+Note:  
+1. The ICF should be signed by subjects prior to any procedures outlined in the protocol.  
+2. Previous therapies for lung cancer: all treatments for lung cancer, including chemotherapy, radiotherapy, and surgery.  
+3. Vital signs include: body temperature, pulse, respiratory rate, and blood pressure.  
+4. Height is measured during screening period only. Body weight is measured prior to each dose. If the body weight of a subje ct fluctuates by less than 10% from the baseline (the 
+day when the first dose of study drugs is given), the baseline body weight will be used to calculate the chemotherapeutic dos e. Otherwise, the actual dose will be calculated based on 
+the weight of schedule d dosing days.  
+5. Time of 12-lead ECG examinations: within 7 days before the first dose of study drugs during screening, within 3 days before each adminis tration of study  drugs from cycle 2 
+onwards, and during safety follow -up. 
+6. Routine blood test: red blood cell (RBC), hemoglobin (HGB), hematocrit (HCT), white blood cell (WBC), platelet (PLT), and WBC differential [lymphocyte , neutrophil, monocyte, 
+eosinophil, and basophil]. Blood chemistry: hepatic function [TBIL, DBIL, ALT, AST, γ -GT, ALP, ALB, TP, LDH , and CK], renal function (UREA or BUN, and Cr), blood 
+electrolytes (Na, K, Cl, Mg, Ca, and P), amylase, and fasting blood glucose (FBG). Urinalysis: pH, UWBC, UPRO, URBC, UGLU, an d specific gravity. Subjects with ≥ 2+ urine 
+protein in urinalysis during sc reening should undergo a 24-h urine protein quantitation test. The tests will be conducted within 7 days before the first dose of study drugs during 
+screening, within 3 days before each administration of study drugs from cycle 2 onwards, and during safety follow -up. Tests will be conducted at each study site.  
+7. Coagulation function test: PT and INR. The test will be conducted within 7 days before the first dose of study drugs during screening and during the safety follow -up. Tests will 
+be conducted at each  study site.  
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 15 / 42  8. Women of childbearing age will undergo urine or serum pregnancy test within 3 days before the first dose during screening and during the safety follow -up. If the urine pregnancy 
+test is not conclusive, then blood pregnancy test should be pe rformed. The conclusion should be based on the blood pregnancy test. Tests will be conducted at each study site.  
+9. The thyroid function test will be conducted within 28 days before the first dose, within 3 days before each administration of study drugs fr om cycle 2 onwards, and during the 
+safety follow -up. T3/FT3, FT4, and TSH are examined during screening, and only TSH is examined from cycle 2 onwards. In case of any abnorma lities, the examination of other 
+thyroid function parameters should be considered.  During study treatment, the study drugs can be administered before the test results are accessible. Tests will be conducted at each 
+study site.  
+10. This item involves the testing of HIV and HCV antibodies as well as hepatitis B panel (HBsAg, HBsAb, HBcAb,  HBeAg, and HBeAb), and should be completed within 28 days 
+before the first dose. The test will be conducted at the study site during screening.  
+11. Anti -HCV antibodies will be tested at the screening visit. For subjects tested positive for HCV antibodies,  HCV -RNA load should be determined during screening, within 3 days 
+before each administration of study drugs from cycle 2 onwards, or at an earlier time if clinically indicated. During study t reatment, the study drugs can be administered before the 
+test re sults are accessible.  
+12. Hepatitis B panel will be tested at the screening visit. For subjects tested positive for HBsAg and/or HBcAb, HBV -DNA load should be determined during screening, within 3 
+days before each administration of study drugs from cycle 2 onwards, or at an earlier time if clinically indicated. During study treatment, for patients previously tested negative for 
+HBsAg, the study drugs can be administered before the HBV -DNA load test results are accessible.  
+13. The blood myocardial enzyme and  troponin tests should at least include: creatine phosphokinase (CK), creatine phosphokinase isoenzyme (CK -MB), and troponin (troponin T 
+or troponin I). The tests will be conducted within 7 days before the first dose of study drugs during screening and wit hin 3 days before each administration of study drugs from cycles 
+2 and 3 onwards. The conduct or not of subsequent tests will be decided by the investigator.  
+14. AEs and laboratory safety assessments will be performed based on CTCAE V4.03. Refer to Section 8 for definitions, recording, causality determination, severity level, reporting 
+deadlines, and treatment of AEs and SAEs.  
+15. Quality -of-life questionnaires include LCSS and EORTC QLQ -C30 (V3.0 Chinese version), which will be completed on the day of the first dose (predose), at each imaging 
+evaluation (during the visit), and at the safety follow -up (during the visit). If an unscheduled imaging evaluation is performed, the quality -of-life questionnaires should also be 
+completed.  
+16. Tumor assessment includes the assessment based on RECIST V1.1. Tumor imaging examinations usually include contrast -enhanced CT or MRI of chest, abdomen, and pelvic 
+cavity. Contrast -enhanced MRI of head should also be performed at baseline for subjects with signs or symptoms of s uspected CNS metastasis. The same subject should receive the 
+same type of imaging examination during the study. The baseline evaluation will be performed within 28 days before randomizat ion. Tumor imaging evaluation will be performed 
+at week 6 (± 7 days) and week 12 (± 7 days) since randomization, every 9 weeks (± 7 days) thereafter until week 48, and every 12 weeks (± 7 days) a fter week 48. After the first 
+assessment of imaging PD (PD) by the investigator based on RECIST V1.1, if the subject has SD clinically, the current treatment can be continued and the imaging evaluation should 
+be performed again 4 –6 weeks later for confirmation (based on RECIST V1.1). If PD is not confirmed, the study treatment should be continued and im aging evaluations should be 
+performed at the protocol -specified time points until imaging -confirmed PD. If a subject discontinues study treatment for a reason other than objective PD, the imaging evaluation 
+should be performed at the end of treatment and then at the protocol -specified ti me points thereafter until one of the following events occurs: initiation of new anti -tumor therapy, 
+objective PD, loss to follow -up, death, or withdrawal of ICF, whichever occurs first. Unscheduled imaging evaluations can be performed at any time during t he study if the patient 
+develops clinically unstable disease. If the subject has clinically unstable disease after the first assessment of imaging PD , the confirmation 4 –6 weeks later is not required and the 
+study treatment should be discontinued.  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 16 / 42  17. Immunogenicity assays will be performed within 1 h prior to IBI308/placebo infusion in cycles 1/2/4/8/12/16, then every 8 cycles (cycle 24, 32, and so on) thereafter, and during 
+the safety visit. If an infusion -related reaction occurs during IBI308 or placebo administration, blood samples should be taken near the  start and end of this event and around 30 days 
+after the reaction, for comparative analysis of immunogenicity. Tests will be conducted in the central laboratory.  
+18. PK samples will be collected at the  following time points: within 1 h before and immediately (+ 5 min) after IBI308 or placebo infusion in cycle 1, and within 1 h before IBI308 
+or placebo infusion in cycles 2/4/12. Tests will be conducted in the central laboratory.  
+19. Subjects will receive  treatment with either IBI308 in combination with gemcitabine and platinum (cisplatin or carboplatin) or placebo in combinatio n with gemcitabine and 
+platinum (cisplatin or carboplatin) for 4 or 6 cycles, followed by maintenance therapy with IBI308 or place bo, respectively. After the first assessment of imaging PD by the investigator 
+based on RECIST V1.1, if the subject has SD clinically, the current treatment can be continued and the imaging evaluation should be performed again 4– 6 weeks later for confirmat ion 
+(based on RECIST V1.1). If PD is confirmed, unblinding should be performed and subjects of IBI308 in combination with chemotherapy group (test group) should end the study 
+treatment, while subjects of placebo in combination with chemotherapy group (cont rol group) can be conditionally crossed over to receive monotherapy of IBI308 based on the 
+judgment of the investigator and the willingness of the subjects; if PD is not confirmed, the study treatment will be continu ed until imaging-confirmed PD followed b y unblinding 
+and other subsequent processing same as above. If the subject has clinically unstable disease after the first assessment of i maging PD, the confirmation 4 –6 weeks later is not required 
+and unblinding can be directly performed followed by proce ssing same as above. During the study, the treatment should be discontinued if one of the following occurs: clinically 
+unstable disease, intolerable toxicity, receipt of new anti-tumor therapy, withdrawal of ICF, loss to follow -up, death, or other conditio ns requiring treatment discontinuation as judged 
+by the investigator, whichever occurs first. The maximum duration of treatment with IBI308 is 24 months in both groups.  
+20. Each subject is required to provide at least 10 sections of archived or fresh tumor  tissue samples meeting test requirements during screening.  
+21. Each subject is also required to provide 10 mL of whole blood samples for tumor biomarker testing at the following time points: prior to the first dose, every time when imaging 
+evaluation is p erformed but before the next treatment is started in the treatment period, the time when PD is confirmed, and during safety v isit. Tests will be conducted in the central 
+laboratory.  
+22. A safety follow -up visit will be carried out on day 30 (± 3 days) afte r the last dose or before initiation of new anti -tumor therapy, whichever occurs first. All AEs that occur prior 
+to the safety follow -up visit should be documented until the events recover to grade 0– 1 or the baseline level, or until the investigator belie ves that no further follow -up is required 
+for reasonable reasons (e.g., the event cannot be resolved or has already been improved), whichever occurs first. All SAEs that occur within 90 days after the last dose or before 
+initiation of new anti-tumor therapy (whichever occurs first) should be followed up and documented.  
+23. Survival follow -ups: once every 90 days (± 7 days) after the safety follow -up. Telephone follow -ups are allowed.  
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 17 / 42  Table 4. Schedule of visits during crossover treatment with IBI308  
+ 
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 18 / 42   
+Note:  
+1. Only after all patients in the control group have been assessed for overall status by the investigator and confirmed to ha ve PD by the IRRC and meet the  requirements for 
+administration of IBI308, can they be crossed over to receive treatment with IBI308. The imaging results obtained at the end of the last  dose can be used for the evaluation before 
+crossover treatment. Regardless of the confirmation date of PD, subjects must start the administration of IBI308  at least 21 days after the last chemotherapy.  
+2. Vital signs include: body temperature, pulse, respiratory rate, and blood pressure.  
+3. Body height is measured only before the first dose.  
+4. Time of 12-lead ECG examinations: within 7 days before the first dose of IBI308, within 3 days before eac h administration from cycle 2 onwards, and during safety follow -up. 
+5. Routine blood test: red blood cell (RBC), hemoglobin (HGB), hematocrit (HCT), white blood cell (WBC), platelet (PLT), and WBC differential  [lymphocyte, neutrophil, monocyte, 
+eosinophil,  and basophil]. Blood chemistry: hepatic function [TBIL, DBIL, ALT, AST, γ -GT, ALP, ALB, TP, LDH, and  CK], renal function (UREA or BUN, and Cr), blood 
+electrolytes (Na, K, Cl, Mg, Ca, and P), amylase, and fasting blood glucose (FBG). Urinalysis: pH,  UWBC, UPRO, URBC, UGLU, and specific gravity. Subjects with ≥ 2+ urine 
+protein in urinalysis during screening should undergo a 24-h urine protein quantitation test. The tests will be conducted within 7 days before the first dose of IBI308, within 3 days 
+before each administration of study drugs from  cycle 2 onwards, and during safety follow -up. Tests will be conducted at each study site.  
+6. Coagulation function test: PT and INR. The test is conducted within 7 days before the first dose of IBI308 and during safe ty follow -up. Tests will be  conducted at each study site.  
+7. Women of childbearing age will undergo urine or serum pregnancy test within 3 days before the first dose of IBI308 and dur ing the safety follow -up. If the  urine pregnancy test 
+is not conclusive, then blood pregnancy test should be performed. The conclusion should be based on the blood pregnancy test. Tests  will be conducted at each study site.  
+
+
+ 
+IBI308   Innovent Biologics (SuZhou) Co., Ltd.    CIBI308C303  
+ 19 / 42  8. The thyroid function test will be conducted within 21 days before the first dose, within 3 days before e ach administration from cycle 2 onwards, and during  the safety follow -up. 
+During study treatment, the study drugs can be administered before the test results are accessible. Tests will be conducted at each study  site. 
+9. This item involves the testing of H CV antibodies and hepatitis B panel (HBsAg, HBsAb, HBcAb, HBeAg, and HBeAb), and should be completed within 21  days before the first 
+dose. Tests will be conducted at each study site.  
+10. For subjects tested positive for HCV antibodies, HCV -RNA load should be determined within 3 days before administration of study drugs in each cycle, or  at an earlier time if 
+clinically indicated. During study treatment, the study drugs can be administered before the test results are accessible.  
+11. For subjects tested posit ive for HBsAg and/or HBcAb, HBV -DNA load should be determined within 3 days before administration of study drugs in each cycle, or at an earlier 
+time if clinically indicated. During study treatment, for patients previously tested negative for HBsAg, the st udy drugs can be  administered before the HBV -DNA load test results 
+are accessible.  
+12. The blood myocardial enzyme and troponin tests should at least include: creatine phosphokinase (CK), creatine phosphokina se isoenzyme (CK -MB), and  troponin (troponin T 
+or troponin I). The tests are performed within 7 days before the first dose of IBI308 during crossover treatment and within 3 days before each administration of study drugs from 
+cycles 2 and 3 onwards. The conduct or not of subsequent tests will be decided by the investigator.  
+13. AEs and laboratory safety assessments will be performed based on CTCAE V4.03. Refer to Section 8 for definitions, recordi ng, causality determination,  severity level, reporting 
+deadlines, and treatment of AEs and SAEs.  
+14. Quality -of-life questionnaires include LCSS and EORTC QLQ -C30 (V3.0 Chinese version), which will be completed on the day of the first dose (predose),  at each imaging 
+evaluation (during the visit), and at the safety follow -up (during the visit).  
+15. Tumor assessment  includes the assessment based on RECIST V1.1. Tumor imaging examinations usually include contrast -enhanced CT or MRI of chest,  abdomen, and pelvic 
+cavity. Contrast -enhanced MRI of head should also be performed at baseline for subjects with signs or symptoms of suspected CNS  metastasis. The same subject should receive the 
+same type of imaging examination during the study. Subjects in the stage of crossover treatment with  IBI308 will be assessed every 9 weeks (± 7 days) since the first dose until the 
+occurrence of imaging PD (based on RECIST V1.1). For patients who discontinue the treatment for reasons other than objective PD, an imaging evaluation should be performed at 
+the end of treatment and then at the  protocol -specified time points thereafter until one of the following events occurs: initiation of new anti -tumor therapy, PD, loss to follow -up, 
+death, or  withdrawal of ICF, whichever occurs first. Unscheduled imaging evaluations can be performed at any time during the study if t he patient develops clinical ly unstable 
+disease.  
+16. If an infusion-related reaction occurs during IBI308 infusion, blood samples should be taken near the start and end of this event and around  30 days after the reaction and used 
+for comparative analysis of immunogenicity. Tests will  be conducted in the central laboratory.  
+17. A safety follow -up visit will be carried out on day 30 (± 3 days) after the last dose or before initiation of new anti -tumor therapy, whichever occurs first.  
+18. Survival follow -ups: once every 90 days (± 7 days ) after the safety follow -up. Telephone follow -ups are allowed.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 20 / 42  2.4. Statistical  Hypothesis  
+This study mainly aims to confirm that IBI308 in combination with chemotherapy can prolong the 
+progression free survival (PFS) of treatment -naive patients with advanced or metastatic squamous 
+NSCLC compared with chemotherapy alone. The following statistical hypothesis tests will be 
+performed in this study for the primary endpoint PFS : 
+Null hypothesis H 0: PFS (test group) ≠ PFS (control group)  
+Alternative hypothesis H 1: PFS (test group) > PFS (control group)  
+2.5. Sample Size  
+This study mainly aims to confirm that IBI308 in combination with chemotherapy can prolong the 
+progression free survival  (PFS) of treatment -naive patients with advanced or metastatic squamous 
+NSCLC compared with chemotherapy alone.  
+IBI308 is expected to prolong PFS of subjects from 5.5 months to 7.9 months (HR = 0.7). 
+Calculated with the enrollment time of 15 months and the  total study time of 23 months, power = 
+82% and one -sided α = 0.025. Besides, an interim analysis (Lan -deMets spending function 
+combined with O'Brien- Fleming) will be performed when 70% of PFS events are observed. 
+Considering a monthly dropout rate of 0.5% , a total of 348 subjects (174 in the test group and 174 
+in the control group) are needed to be randomized to achieve the 264 PFS events required in the 
+trial. In the actual study, if the actual number of enrolled subjects is different from the number of 
+planned enrollment due to unforeseen reasons, such as the enrollment speed faster than the 
+requirements of the protocol, the end date of screening should be determined in advance to ensure 
+that the number of actually enrolled subjects does not exceed the number of planned enrollment 
+by 10%, i.e., a maximum of 382 subjects should be enrolled, 191 in each group. 
+2.6. Randomization  
+The randomization method of this study is as follows: Subjects are randomized in a 1:1 ratio to the 
+test group and the control group, receiving IBI308 in combination with chemotherapy and placebo 
+in combination with chemotherapy, respectively. The stratification factors of randomization are as 
+follow:  
+• staging (stage IIIB/IIIC vs. stage IV)  
+• platinum -based medications (cisplatin vs. carboplatin)  
+• PD-L1 expression level (< 1% vs. ≥ 1%) . Subjects with unevaluable PD -L1 expression level 
+will be classified as < 1%.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 21 / 42  The central randomization method is adopted with competitive enrollment for each center. The 
+central randomization procedure will us e an interactive web response system (IWRS), which can 
+generate and dispense a random number to subjects who have completed all of the screening 
+assessment items of the study and meet the inclusion criteria. The random number will connect the 
+subjects into  a designed treatment group (IBI308 in combination with chemotherapy group or 
+placebo in combination with chemotherapy group) and can assign investigational drugs to subjects 
+as per required quantity. For subjects withdrew from the study, whatever the reas on of withdrawal, 
+their random numbers will be retained. IWRS staff will only write randomized table and will not 
+be involved in any specific trial operation. The assigned study drug must be administered within 
+48 hours of randomization. 
+IBI308 and placebo will be in the same packages to ensure blindness. The subjects, investigators, 
+and sponsor staff or designee participating in the treatment or clinical evaluation of the subjects 
+should be unknown about the grouping.  
+3. PLANNED ANALYSES  
+3.1. Interim  Analyse s 
+The primary endpoint PFS will be  analyzed at approximately 23 months after the start of the trial 
+(i.e., at the end of the study, expected to be at approximately 8 months after randomization of the 
+last subject). Besides, an interim analysis will be carried ou t during the study.  
+Time of interim analysis: The analysis will be performed when 70% of PFS events (185 cases) 
+occur (at approximately 16 months after the start of the trial).  
+The α boundary for the efficacy stopping at the interim analysis is based on O’ Brien -Fleming 
+spending function, where 1- sided nominal α=0.0074 (corresponding HR≈0.698). The overall 1 -
+sided type I error is therefore controlled at level of 0.025. If at the interim analysis the actual 
+number of PFS events differs from planned 185, the α  boundary will be adjusted based on the 
+actual number of PFS events observed according to O’Brien -Fleming spending function.  
+Objective of interim analysis: to demonstrate that IBI308 in combination with chemotherapy is 
+superior to placebo in combination wi th chemotherapy regarding the primary study endpoint PFS . 
+In the interim analysis, with one -sided α = 0.0074, if HR ≤ 0.698 is observed for the test group of 
+IBI308 in combination with gemcitabine and cisplatin or carboplatin chemotherapy vs. the control 
+group of placebo in combination with gemcitabine and cisplatin or carboplatin chemotherapy, it is 
+demonstrated that the superiority has been concluded in the interim analysis. 
+The analysis results and reports will be submitted to the IDMC, which will judge whether the trial 
+is valid according to the estimated valid cut- off value and give advice to the sponsor on whether 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 22 / 42  the study data can be submitted in advance. The IDMC charter will be finalized and approved by 
+IDMC and sponsor prior to the interim analysis. If the study proceeds, the IDMC will continue 
+performing regular evaluation and monitoring on safety data until the final  analysis.  
+3.2. Final Analyse s 
+The final analysis for PF S of this study is expected to occur after approximately 23 months after 
+first subject randomized (which is expected to be approximately 8 months after last subject 
+randomized). However, please note the time might be different than planned as the final ana lysis 
+time of this study is event driven.  
+After approximately 263 PFS events occur, the follow ing steps will be completed before 
+performing the final analysis: 
+1. All subject will complete study or  the study is discontinue d at the  interim analysis.  
+2. All data are cleaned and database are locked for final analysis.  
+3. All pre -requisite steps before u nblinding are completed, and f ormal randomization code 
+release for final analysis is performed.  
+4. ANALYSIS POPULATIONS  
+Table 5 . Definition of Analysis Population  
+Analysis  
+population  Definition  Scope  
+Full Analysis Set 
+(FAS)  • Randomized subjects who received at least 1 
+administration of study medication. 
+• Analysed based on randomization assignment  
+•  • Analysis of medical 
+history, prior and 
+concomitant medication, 
+demographics and baseline 
+characteristics  
+• Efficacy analysis  
+Safety Set (SS)  • Randomized subjects who received at least 1 
+administration of study medication 
+• According to actual study drug received. If a 
+subject receives incorrect treatment during the 
+study, this subject’s data will be summarized 
+according to the first study drug actually 
+received.  • Safety analysis  
+• Drug exposure analysis  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 23 / 42  Analysis  
+population  Definition  Scope  
+Per-protocol Set 
+(PPS)  • Subset of FAS  
+• Randomized subjects who do not have major 
+protocol deviations affecting efficacy 
+evaluation and have completed at least 1 cycle 
+of administration with available imaging 
+evaluation results (or have failed to completed 
+at least 1 cycle of administration due to PD 
+and have clear evidence of imaging PD).  
+•  • Sensitivity analyses for 
+primary and key secondary 
+efficacy endpoints  
+Intent To Treat 
+(ITT)  • All randomized subjects  
+• Analysed based on randomization assignment  • Sensitivity analyses for 
+primary and key secondary 
+efficacy endpoints  
+ITT, FAS and SS set will be determined by programming. PP set will be determined by blind 
+clinical review committee before database locking.  
+5. GENERAL RULES AND DATA HANDLING CONVENTI ONS  
+5.1. General Rules  
+All summaries and statistical analyses will be generated using SAS version 9.2 or higher.  
+Except for the superiority hypothesis test of the primary efficacy endpoint PFS (one -sided α = 
+0.0074) in interim analysis and PFS (one -sided α = 0.0228) in final analysis, 95% CIs and nominal 
+P values will be provided for other between- group comparisons (unless otherwise specified) . If the 
+one-sided P value ≤ 0.025, the difference between groups can be considered statistically significant.  
+Unless otherwise specified, all data collected will be summarized and listed. Categorical variables 
+will be summarized with number and percentage  of subjects for each category. Unless otherwise 
+specified, number of subjects per each treatment group in the corresponding analysis population 
+will be the default denominator in percentage calculation. For percentage, 1 decimal point will be 
+displayed.  
+Descriptive summary with n, mean, s tandard deviation  (SD), median, min and max will be 
+provided for continuous variables. Mean and median will be displayed with 1 additional decimal 
+points than the raw values. SD will be displayed with 2 additional decimal points than the raw 
+values. Min and Max will be displaye d with the same decimal points as the raw values. Hazard 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 24 / 42  ratio will be displayed with 3 decimal points and p -value will be displayed with 5 decimal points 
+(or > 0.99999, or  <0.00001). 
+5.2. Missing D ata H andling   
+The following approaches are default methods for m issing data handling. Imputation is only 
+conducted for summary, and the imputed data will not be presented in listings.  
+• Missing date for AE and CM will be imputed following rules below : 
+o If start date is partial missing, without conflicts with other data (s uch as end date), 
+Jan will be used to impute missing month and 01 will used to impute missing day. 
+However , if the year or year -month for the partial missing start date is the same as 
+the year or year -month of the first dose date, the event will be conside red as starting 
+during treatment period and first dose date will be used to impute the  partial missing 
+start date. If the end date is determined to be earlier than the first dose date, 
+aforementioned imputation with Jan/01 is applicable to the partial missing end dates.  
+o If start date is completely missing, without conflicts with other data (such as end 
+date), first dose date will be used to impute the missing start date. If the end date is 
+determined to be earlier than the first dose date, then start date will be imputed with 
+end date -1.  
+o Partial missing end date will be imputed with Dec (for missing month) and or last 
+date of the month (for missing day). If the result from such imputation gives dates 
+after death date, data cut -off date, end of study date, the earliest date in the above 
+mentioned dates will be used to impute the missing end date.  
+o Actual missing value will be displayed in AE or CM listing  
+• AE with missing CTCAE  grade will be counted as grade 3 or above.  
+• If AE assessment of the relationship with the investigational drug is missing, it will be 
+counted as “related”.  
+• Other missing values will not be imputed and only non- missing data will be included in 
+the analysis.  
+5.3. Other Data Handling Rules   
+If raw value from laboratory tests cannot be included in the calculation directly  (e.g. coded with 
+characters), coded values will be converted first as appropriate. Generally, upper and lower limit, 
+such as “ <10” or “≤5” will be converted to “10” or “5”, “<100”  will be converted to “100” in the 
+summa ry tables. Original values will be kept in subject listings. BQL data in  PK and PD  analysis  
+will be imputed with BQL /2 for post baseline samples and 0 for baseline samples. 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 25 / 42  5.4. General Definition  
+Age 
+Age is calculated based on years between informed consent date and birthday : 
+[integer part of ( informed consent date  - birthday  + 1) / 365.25] . 
+Baseline  
+Unless otherwise specified, baseline values will be the last non -missing value before first 
+study drug administered. 
+In analyses for the crossover phase, new baseline will be defined as last non -missing value  
+before crossover if applicable. If appropriate, starting of new anti -cancer therapy will be 
+considered as new baseline for crossover phase.  
+Change from baseline  
+Change from baseline at any specific time point is defined as values at this time  point  - 
+corresponding baseline values.  
+Relative days in study  
+Days lapsed since first study drug taken : 
+If a date is missing, relative days is missing.  
+If the date is earlier than the date of first study drug taken, relative days = date - date of first 
+study drug taken.  
+If the date is no t earlier than the date of first study drug taken, relative days = date -date of 
+first study drug taken+1.  
+6. SUBJECT DISPO SITION  
+6.1. Subject Disposition  
+Following information will b e provided for subject disposition:  
+• Number and percentage of screened subjects , including screen failure subjects and reason 
+for screen failure  
+• Number and percentage  of subjects randomized by study centres  
+• Number and percentage  of subjects randomized, receiving treatment during double blind 
+phase of the study, completing double blind phase of the study, prematurely discontinuing 
+study treatment during double blind phase of the study and discontinuing  study early  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 26 / 42  • Number of percentage  of subjects unblinded during the study, number and percentage of 
+subjects receiving crossover treatment after unblinding, and number and percentage of 
+subjects discontinuing study during crossover phase of the study  
+• Listin g of subjects prematurely discontinuing study and reason for discontinuing during 
+double blind phase and crossover phase according to the e -CRF record  
+• Number and percentage  for each analysis population ( FAS population, ITT population, 
+SS population and PPS  population)  
+• Listing of reasons for subjects excluded in each of the analysis population 
+• Listing of randomization assignment and actual treatment received for each subject  
+6.2. Protocol Deviation and Code Broken  
+All critical/major deviations potentially impacting efficacy analyses and other important 
+deviations will be summarized in tables giving numbers and percentages of deviations by treatment 
+group. Listing will also be provided.   
+Protocol deviation will be monitored, classified and recorded during the study  before database lock. 
+Protocol deviation data will be reviewed. Analysis population will be finalized if applicable based 
+on protocol deviation classifications before database lock.  
+Number and percentage of subjects and the reasons that these subjects ha ve code broken during 
+the study conduct will be summarized.  A listing will also be provided.  
+6.3. Demographics and Disease Characteristics  
+In general, baseline is defined as the last non -missing evaluable assessment prior to initiation of 
+any of the study treatment unless specified otherwise. Demographic variables as listed below  will 
+be summarized  by treatment arm : 
+• Gender  
+• Age and Age group ( ≤60 years vs > 60 years ) 
+• Race  
+• Ethnicity  
+• Height  
+• Weight  
+• BMI  
+• BSA  
+• Stratification factors  
+• Smoking history  
+• ECOG PS  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 27 / 42  • Duration of disease  
+Baseline disease characteristics as listed below will be summarized by treatment arm: 
+• Lung c ancer diagnosis  (Histological diagn osis, diagnosis method, TNM staging, clinical 
+staging , EGFR  status , ALK  status , Metastasis status, CNS involvement ) 
+• Baseline target lesion and non -target lesion  
+• Prior anti -cancer surgery for lung cancer  
+• Prior anti -cancer m edication  for lung cancer  
+• Prior anti -cancer r adiation therapy  for lung cancer  
+• Prior surgery other than  anti-cancer therapies  
+• Medical history related to other type of cancer  
+• Non-oncology related medical history  
+Medical history data will be coded based on latest Medical Dictionary of  Regulatory Activities  
+(MedDRA ) version available at the time of analysis. Summary by SOC and PT by treatment group 
+will be provided. Each subject will only be counted once for the same SOC or PT. 
+Listing s will also be provided for demographics and baseline characteristic data.  
+Other baseline characteristics such as vital sign and etc. are presented along with the post baseline 
+values in corresponding summary tables.  
+6.4. Concomitant Medication  
+Prior medications  are those the subject used prior to first study treatment intake  and discontinued 
+before first dosing . 
+Concomitant medications  are any treatments received by the subject concomitantly to study 
+treatment, from first study treatment intake to the last study treatment + 90 days.  
+Treatment emergent co ncomitant medications  are any treatments received by the subject 
+concomitantly to study treatment, from first study treatment intake to the last study treatment + 90 
+days, which are not received before first study treatment intake.  
+All medications will be coded using the World Health Organization- Drug Dictionary (WHO -DD) 
+using version currently in effect at the time of analysis. Summary of concomitant medication will 
+be provided by ATC 3 and ATC 4. Each subject will be only counted once for each ATC 3/ATC 
+4 classification.  
+In addition, radiation therapy during the treatment period and post treatment discontinuation, 
+new anti -cancer therapy or surgery will also be summarized by treatment group. 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 28 / 42  6.5. Drug Exposure  
+Duration of drug exposure in days  
+• last dose date -  first dose date + 21 days  (except for gemcitabine) .  
+• For gemcitabine, if the last dose date is at D1, duration of drug exposure  in days  = last 
+dose date – first dose date + 10.5; else duration of drug exposure  in days  = last dose date 
+– first dose date + 1 4. 
+Duration of drug exposure in weeks  
+• Duration of drug exposure  in weeks = duration of drug exposure in days / 7, with 1 
+decimal point.  
+Number of cycles administered  
+• Actual number of cycles during which non -zero dose drug are administered. Cycles with 
+discontinuing or missing of treatment will not be counted. 
+Number of administered  
+• Actual number of drug administered. If a planned dose is discontinued or missing, it will 
+not be counted.  
+Cumulative dose  
+• the sum of all actual doses. The dosage  unit for sintilimab/placebo is mg; the dosage unit 
+for carboplatin is AUC  (min•mg/m L); the dosage units for cisplatin and gemcitabine  are 
+mg/m2. 
+Dose intensity  
+• Dose intensity = (Cumulative dose / Drug exposure in days) * 21  
+• Relative dose intensity  = 100 * (Actual dose intensity / Planned dose intensity)   
+Planned dose is calculated according to  Table 4  in the study protocol. Extent of exposure will be 
+assessed within the safety population for sintilimab  / placebo and chemotherapy. Number of 
+administered, duration of drug exposure (in days and in weeks), and percentage of subjects 
+completing different number of cycles will be summarized  for combination treatment period, 
+maintenance period and overall treatment period. The cumulative dose, dose intensity, rel ative 
+dose intensity, and percentage of subjects in different categories of the relative dose intensity 
+(<80%, 80% -  120%, >120%), dose reduction (occur or not, number of dose reduction during 
+treatment period), dose delay (occur or not, number of dose del ay during treatment period) will 
+also be summarized.  
+Study drug exposure in subjects receiving crossover treatment of sintilimab will also be 
+summarized for their treatment received during the crossover period.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 29 / 42  7. STATISTICAL ANAYSIS METHOD  
+Unless otherwise stated, primary analyses will be conducted in FAS and sensitivity analyses in 
+ITT, PPS will also be provided. 
+For efficacy endpoints based on tumor assessment according to RECIST v1.1, primary analysis 
+will be based on the assessment result by independent radiographic review committee (IRRC). 
+Assessment result by investigator will be used in sensitivity analysis, unless otherwise specified.  
+7.1. Primary Efficacy Analysis  
+7.1.1. Definition of PFS  
+Progression- free survival  (PFS) is defined as the time from the date of ra ndomization to the date 
+of the first radiographic disease progression or the date of death due to any cause, whichever comes 
+first. In the absence of disease progression or death before the study cut -off date, PFS will be 
+censored at the date of the last v alid assessment performed before the cut -off date. In the absence 
+of post baseline valid assessment, PFS will be censored at randomization date. Detailed PFS censor 
+rule is described in Table 6 . 
+Table 6 . Censoring Rules for Primary and Sensitivity Analyses  of PFS 
+Scenarios  Primary analysis  Sensitivity anal ysis 1  Sensitivity anal ysis 2  
+No post -baseline 
+evaluation nor 
+death  Censored at 
+randomization  Censored at 
+randomization  Censored at 
+randomization  
+No PD, no death, 
+new anti -cancer 
+therapy not 
+initiated  Censored at last 
+valid tumor 
+assessment  Censored at last valid 
+tumor assessment  Censored at last valid 
+tumor assessment if 
+treatment continues, 
+otherwise PD at the time 
+of treatment 
+discontinuation  
+No PD, no death, 
+anti-cancer 
+therapy is 
+initiated  Censored at last 
+valid tumor 
+assessment before 
+starting of the new 
+anti-cancer therapy  Censored at last valid 
+tumor assessment 
+before starting of the 
+new anti -cancer 
+therapy  PD at starting of the new 
+anti-cancer therapy  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 30 / 42  PD or death after 
+1 missing 
+assessment  Event at the time of 
+PD or death  Event at the time of 
+PD or death  Event at the time of PD 
+or death  
+PD or death after 
+≥2 missing 
+assessments  Event at the time of 
+PD or death  Censored at last non-
+missing assessment 
+before 2 missing 
+assessments  Event at the time of PD 
+or death  
+ 
+7.1.2. Primary Analysis Methods  
+To comparing PFS between treatment arm, A p-value by stratified log -rank test will be provided, 
+stratified by randomization stratification factors.  
+The hazard ratio and its 95% confidence interval  (CI) will be estimated using the stratified Cox 
+proportional hazards regression model  (stratified by randomization stratification factors)  with 
+treatment covariate only.   
+Kaplan -Meier estimates of the median progression -free survival time and the associated 95% CIs 
+will be provided for each treatment group, ignoring the impact of stratification factors. Kaplan -
+Meier curve will be plotted. The Non- parametric maximum likelihood estimation (NPMLE) 
+method based on EMICM algorithm will also be applied to estimate median PFS and 95% CI.  
+7.1.3. Covariate Adjustment / Subgroup Analyses  
+In order to evaluate the effect of other co -variates, study site (fixed or random effect) will also be  
+added to the Cox model to explore whether the effect of study site is significant.  
+The consistency of the treatment effect on PFS between subgroups will be evaluated with respect 
+to stratification factors , ECOG PS  (0 vs 1) , age (>60, ≤60), sex (male vs fe male), smoking status  
+(previous/current use vs never) , and hepatic  metastasis (Yes vs No)  by adding each subgroup factor 
+as interactive covariate into Cox model . Forest plot of HR and 95% CI will also be provided. If 
+the covariate for subgroup analyses is one of the stratification factors, corresponding stratification 
+factor will be excluded from the statistical model.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 31 / 42  8. SECONDARY ENDPOINT ANALYSES  
+8.1. Anal yses for Secondary Endpoints  
+Unless otherwise stated, analyses for secondary endpoints will be conducted in FAS, and 
+sensitivity analyses in ITT, PPS will also be provided. 
+Analyses based on IRRC assessed ORR, DCR, TTR, DOR will be the primary analyses. Such 
+analyses based on investigator’s assessment will also be provided as sensitivity analyses unless 
+otherwis e specified.  
+Summarize the baseline sum of longest diameters of target lesions and the change from baseline 
+(absolute change and relative change) by visit. Waterfall plot will also be provided for best 
+percentage change in sum of longest diameters of target lesions.  
+8.1.1. Overall Survival  (OS) 
+OS: Defined as the time from the date of randomization to the date of death due to any cause. In 
+the absence of the confirmation of death before the analysis cut -off date, OS will be censored at 
+the last date the subject was known to be alive or at the study cut -off date, whichever is earlier. 
+The determination of a subject’s last surviv al date will be based on all data collected in the database 
+which can verify a subject’s last known alive date.  
+If the test for PFS is significant, a confirmatory test for OS will be conducted. 
+Same analysis approaches as those for PFS analyses will be applied to OS analyses , including 
+stratified log -rank test, stratified Cox model, estimates of HR and 95% CI, subgroup analysis, 
+estimate of  median survival time and 95% CI.  
+Considering that subject may receive new anti -cancer treatment, and subject in placebo group may 
+crossover to sintilimab monotherapy after PD, widely used methods such as rank preserving 
+structural failure time (RPSFT, Ro bins & Tsiatis, 1991), and two- stage method (Latimer et al., 
+2014) will be applied to adjust for crossover effect in OS analysis. The adjusted OS and 95% CI 
+will be provided. This method is an extension of rank preserved accelerated failure time model, 
+which is proposed to adjust the bias caused by noncompliance of protocol treatment. Since the 
+above RPSFT model does not include the effect of disease progression, analysis using RPSFT 
+model considering the effect of PD proposed by Li et al. will also be conducted, according to the 
+actual proportion of crossover after PD. Estimate of survival rate at different time points (e.g. 6 
+months, when PD and crossover are most likely to occur) will also be provided to evaluate the 
+effect of crossover. Besides, the foll owing sensitivity analysis will be conducted:  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 32 / 42  • Same approach as specified in primary analysis of OS, except that subjects who crossover to 
+sintilimab monotherapy after PD (for placebo group) or start new anti -cancer therapy will be 
+censored at the first time of starting new anti -cancer therapy or sintilimab monotherapy.  
+8.1.2. Objective Response Rate ( ORR)  
+ORR: Defined as t he proportion of subjects who have achieved confirmed CR or PR per RECIST 
+1.1 in the analysis population. 
+ORR =𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛  𝑜𝑜𝑜𝑜 𝑠𝑠𝑛𝑛𝑛𝑛𝑠𝑠𝑛𝑛𝑠𝑠𝑠𝑠𝑠𝑠 𝑎𝑎𝑠𝑠ℎ𝑖𝑖𝑛𝑛𝑖𝑖𝑖𝑖𝑛𝑛𝑖𝑖 𝐶𝐶𝐶𝐶 𝑜𝑜𝑛𝑛 𝑃𝑃𝐶𝐶
+𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛  𝑜𝑜𝑜𝑜 𝑎𝑎𝑎𝑎𝑎𝑎 𝑠𝑠𝑛𝑛𝑛𝑛𝑠𝑠𝑛𝑛𝑠𝑠𝑠𝑠𝑠𝑠×100%  
+The ORRs and 95% CIs  will be provided for each group as well as for the difference in ORRs and 
+95% CI of the difference between sintilimab and  placebo group. C Is per treatment group will be 
+calculated using Clopper -Pearson method, ignoring the effect of stratification factors. T reatment 
+group difference and associated 95% CI  will be calculated based on Miettinen -Nurminen methods 
+for stratified d ata. 
+Subgroup analysis will also be performed to estimate ORR  and 95% CI within each treatment 
+group and between treatment groups  for each subgroup. Forest plot will also be provided.  
+8.1.3. Disease Control Rate  (DCR)  
+DCR: the proportion of subjects who have achi eved confirmed CR or PR or stable disease (SD) 
+per RECIST 1.1.  
+DCR =𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛  𝑜𝑜𝑜𝑜 𝑠𝑠𝑛𝑛𝑛𝑛𝑠𝑠𝑛𝑛𝑠𝑠𝑠𝑠𝑠𝑠 𝑎𝑎𝑠𝑠ℎ𝑖𝑖𝑛𝑛𝑖𝑖𝑖𝑖𝑛𝑛𝑖𝑖 𝐶𝐶𝐶𝐶 𝑜𝑜𝑛𝑛 𝑃𝑃𝐶𝐶 𝑜𝑜𝑛𝑛 𝑆𝑆𝑆𝑆
+𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛  𝑜𝑜𝑜𝑜 𝑎𝑎𝑎𝑎𝑎𝑎 𝑠𝑠𝑛𝑛𝑛𝑛𝑠𝑠𝑛𝑛𝑠𝑠𝑠𝑠𝑠𝑠×100%  
+Same analysis approach as those used for ORR analyses will be app lied to DCR except for 
+subgroup analyses.  
+8.1.4. Time to Response ( TTR ) 
+Time to response (TTR): Defined as from the date of randomization to the date of the first 
+confirmed response (CR or PR). 
+The descriptive statistics  including number of subjects, mean, variance, median, minimum and 
+maximum will be provided for TTR by treatment groups for the objective responders only.  
+8.1.5. Duration of Response  (DOR)  
+Duration of response (DoR): Defined as the time from the date of the first confirmed response (CR 
+or PR) to the date of subsequent PD or death, whichever is earlier . DoR is calculated only for 
+subjects who have had a response. In the absence of subsequent disease progression or death before 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 33 / 42  the study cut -off date, DoR will be censored at the date of the last valid assessment performed 
+before the cut -off date.  
+The descriptive statistics such as min and max, and Kaplan -Meier curves will be provided for DoR 
+by treatment groups for the objective responders only.  
+8.2. Safety Analys es 
+Safety analysis will be based on the SS po pulation. The primary analysis of safety will be based 
+on the “treatment -emergent” principle defined as from the first dose to last dose of study drug + 
+90 days. Analysis of safety will include:  
+• AEs 
+• Clinical laboratory variables  
+• Vital signs  
+• ECG  
+• Immunogenicity  
+• Other safety variables, including physical examinations and ECOG performance status  
+Unscheduled visit will be included in any post -baseline summaries  but will not be included in the 
+by-visit summaries . All unscheduled visits will be displayed in the listing.  
+Separate analyses will be provided for subjects  in placebo arm  who receives crossover treatment 
+by period before crossover and after crossover. The safety analyses based on safety data before 
+crossover will be the primary safety analyses  (i.e. safety data after crossover will not be included 
+in the primary safety analysis for subjects in placebo arm) . Safety data after crossover will be 
+summarized separately as exploratory analyses.  
+8.2.1. Adverse Events   
+8.2.1.1. Definition  
+Treatment emergent adverse events are AE s first occurring or worsened in severity  from baseline 
+within the time a subject receiving first dose of study treatment to 90 days after the last dose of 
+study treatment or starting of crossover treatment.  
+8.2.1.2. Analysis of TEAE  
+Before the clinical database lock, all AEs will be coded using Medical Dictionary for Regulatory 
+Activities (MedDRA) (last version available). Each AE is also graded according to NCI CTCAE 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 34 / 42  4.03 for its severity. Summary will be provided for double -blind phase, crossover phase, and 
+overall phase.  
+An overall summary of TEAEs will be provided. The number and percentage of subjects who 
+experienced any:  
+• TEAE 
+• Treatment -related TEAE  
+• Immune -related AE  (irAE) 
+• Infusion reaction 
+• Serious TEAE  
+• Treatment -related serious  TEAE (TESAE)  
+• Fatal TEAE leading to death  
+• TEAE leading to permanent treatment discontinuation  
+• TEAE leading to study discontinuation 
+Number and percentage of subjects with AE will also be summarized by SOC, PT and /or CTCAE 
+grade according to the following c ategories by treatment group:  
+• TEAE 
+• Treatment -related TEAE  
+• irAE  
+• Infusion reaction 
+• TESAE 
+• Treatment -related TESAE  
+• TEAE leading to permanent treatment discontinuation  
+• TEAE leading to study discontinuation 
+• TEAE with CTCAE grade 3 or above  
+• Treatment -related TEAE with CTCAE grade 3 or above  
+• Fatal TEAE leading to death  
+• Important TEAE: refers to any adverse event and obvious abnormality in h aematology or 
+other laboratory tests that results in targeted medical measures (such as drug withdrawal, 
+dose reduction and symptomatic treatment) except for serious adverse events. It will be 
+determined in the blind clinical evaluation committee meeting before database locking.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 35 / 42  A subject will only be counted once for each unique PT according to the highest grade occurred 
+and most conservative relationship to the study drug determined by the investigators. An AE with 
+CTCAE grade missing will be counted as grade 3 or above. An AE with missing relationship to 
+study drug will be counted as related.  
+Listings will be provided for all AEs, irAE,  infusion reaction, SAE, AE leading to permanent 
+treatment discontinuation, and AE leading to study discontinuation including information on AE 
+start date, end date, CTCAE grade, relationship to study drug, action taken and AE  outcomes.  
+8.2.2. PK and Immunogenicity Analyses  
+Immunogenicity and pharmacokinetic (PK) data will be collected. The number and percentage of 
+subjects with positive anti- drug antibody (ADA) and neutralizing antibody (NAB) will be 
+summarized by treatment group.  
+The trough concentration of sint ilimab in cycle 1 / 3 / 11  will be summarized descriptively . 
+8.2.3. Clinical Laboratory Test  
+Summary of clinical laboratory data will include Haematology, chemistry, urine examination and 
+other laboratory examination including coag ulation. Chemistry laboratory test will be further 
+categorized  as following table (renal function, liver function, electrolyte and other) . In addition, 
+subjects in placebo group receiving crossover treatment will be analysed separately according to 
+differe nt study phases  (before or after the crossover) the laboratory tests are taken.  
+Table 7 . Category of Chemistry Laboratory Parameters  
+Renal function  creatinine, CrCl, BUN/UREA  
+Liver function ALT, AST, ALP, direct bilirubin, total bilirubin, albumin, TP, γ-GGT  
+Electrolyte  Ca, Cl, Mg, P, K, Na  
+Other  glucose, amylases  
+Descriptive statistics will be provided for each continuous parameter result and for change from 
+baseline by treatment group, and cycle.  
+For CTCAE 4.03 gradable laboratory parameters, a shift summary by treatment group of baseline 
+grade versus maximum severity post -baseline grade will be presented.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 36 / 42  8.2.4. ECG  
+Summary statistics with changes from baseline will be provide for ECG. Shift tables on 
+abnormality of ECG test at baseline and post -baseline wil l also be provided. ECG data will also 
+be listed.  
+8.2.5. Vital Sign, Physical Exam and other Safety Exams  
+Vital signs, including systolic and diastolic blood pressure, pulse rate, respiratory rate, body 
+temperature,  and weight  as well as change from baseline for these measurements, will be 
+summarized by treatment group and cycle for the safety population. Shift table by treatment group 
+of baseline status versus worst post -baseline status will be provided according to the potent ially 
+clinically significant abnormality (PCSA) criteria ( Table 8 ). It should be noted that the analysis of 
+increase in diastolic blood pressure from baseline > 20 mmHg is only for subjects with both 
+baseline and post -baseline measurements.  
+Table 8 . PCSA Criteria  
+Parameters  Criteria  Reference  
+SBP (mmHg)  Increase from bas eline  > 20 mmHg * CTCAE Version 4.03 Grade 2 
+DBP (mmHg)  ≥ 140 mmHg CTCAE Version 4.03 Grade 2 
+HR slow  < 60 beats/min  The definition of “S inus bradycardia ” in 
+CTCAE Version 4.03  
+HR fast  > 120 beats /min The definition of “Sinus tachycardia”, 
+“Supraventricular tachycardia”, and “Ventricular 
+tachycardia” in CTCAE Version 4.03  
+ 
+Number and percentage of abnormal physical exam will also be provided. Listing of abnormal 
+physical exam will also be provided.  
+Shift table will be p rovided to summarize changes in ECOG PS . 
+Listing will be provided for all  other  safety exams.  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 37 / 42  9. EXPLOATORY ANALYSES  
+9.1. Biomarkers in tumor tissue and peripheral blood 
+Summarize the number and percentage of subjects, as well as the corresponding ORR, DOR, 
+PFS in different subgroup based on the baseline level of PD -L1 expression (<1%, 
+1~49%, >49%), and dynamic change in TCR, and ctDNA.   
+9.2. Quality of Life Analysis  
+9.2.1. Lung Canc er Symptom Scale ( LCSS ) 
+The Lung Cancer Symptom Scale (LCSS) consists of nine graphical subscales .  Additional  scores 
+are derived based on methods described below.  
+• All symptom score : Average of question 1 to 6  
+• Respiratory symptom score : Average of question 3 to 5 
+• Global health score : Average of question 1 to 2 
+In the above score derivation, no imputation will be used for missing questions. 
+Descriptive statistics will be provided for each item, derived scores and their corresponding 
+changes from baseline at each visit by treatment groups. Baseline values are defined as last non -
+missing LCSS measurements before first administer of study drug.  The descriptive statistics 
+include mean, standard deviation, min, max, quartiles (q1, q3), median and range.  
+Stratified  Wilcoxon test will be performed to compare between group differences at each post -
+baseline LCSS assessment visit.  
+In addition, constrained longitudinal data analysis  by Liang -Zeger  (2000 ) will be performed to 
+compare between group differences at each LCSS  assessment visit  and overall study period. Least 
+square estimate ( LSE) with 95% CI for each treatment group and between group differences will 
+be provided and plotted.  
+9.2.2. EORTC QLQ -C30 
+The EORTC QLQ -C30 is a core questionnaire for all cancer subjects, with a  total of 30 items 
+which are divided into 15 dimensions: five functional dimensions (physical, role, cognitive, 
+emotional, and social), three symptom items (fatigue, pain, and nausea/vomiting), global health 
+and quality of life , and six single items. The s coring method is summarized in  Table 9 . 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 38 / 42  Table 9 . QLQ- 30 Scoring Methods  
+Dimensions  Code  Category  # of 
+Items  Score range ( R) Scoring method 
+Physical  PF Functional  5 3 (Q1+Q 2+Q 3+Q 4+Q 5)/5 
+Role RF Functional  2 3 (Q6+Q 7)/2 
+Emotion  EF Functional  4 3 (Q21+Q 22+Q 23+Q 24)/4 
+Cognition  CF Functional  2 3 (Q20+Q 25)/2 
+Sociability  SF Functional  2 3 (Q26+Q 27)/2 
+Global health status  QL  2 6 (Q29+Q 30)/2 
+Fatigue  FA Symptom  3 3 (Q10+Q 12+Q 18)/3 
+Nausea and vomiting  NV Symptom  2 3 (Q14+Q 15)/2 
+Pain PA Symptom  2 3 (Q9+Q 19)/2 
+Dyspnoea  DY Symptom  1 3 Q8 
+Sleepless  SL Symptom  1 3 Q11 
+Appetite loss  AP Symptom  1 3 Q13 
+Constipation  CO Symptom  1 3 Q16 
+Diarrhoea  DI Symptom  1 3 Q17 
+Financial difficulty  FI Symptom  1 3 Q28 
+Data collected from questio nnaires are considered as raw scores. Analysis variables are derived 
+from raw scores using the formulas below. Missing value will not be included in the calculation.  
+For functional items , analysis variable is defined as  �1−raw  score−1
+𝑅𝑅�×100; 
+For symptom variables and global health score, analysis variables are defined as  raw  score−1
+𝑅𝑅×
+100. 
+All analyses variables take value between 0 -100 after normalization. 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 39 / 42  Descriptively summarize the analysis variables and provide the p value (Wilcoxon rank test) for 
+group comparison by each assessment visit. 
+Same approaches as those used for LCSS will be applied for missing data handling, weighted 
+averaging, summary and statistical inference on QLQ -30 data.  
+9.3. Efficacy Analyses after PD  
+Placebo subjects after PD confirmation and unblinding may crossover to receive sintilimab 
+monotherapy as agreed by sponsor per protocol allowance. Only investigator assessment per 
+RECIST 1.1 will be available during crossover phase. PFS 2 is defined as time from start of new 
+anti-cancer therapy until subsequent PD based on RECIST 1.1 or death due to any cause, 
+whichever is earlier. In the absence of disease progression or death at the last tumor assessment, 
+PFS will b e censored at this time point.  
+If subject in IBI308 group receive new anti -cancer treatment after disease progression, subsequent 
+information of new treatment and treatment effect should be collected.  
+PFS 2 analyses are only applied to subjects receiving c rossover treatment  in FAS set . The analysis 
+methods are the same as those for PFS analysis.  
+Post disease progression ORR , TTR, and DOR will also be analyzed for subjects receiving 
+sintilimab crossover treatment in FAS set . Analysis methods are similar to t hose descripted in 8.1.2, 
+8.1.4 and 8.1.5, but without between- group comparison. 
+10. REFERENCES  
+[1] Protocol: A Randomized, Double -Blind, Phase III Study to Compare the Efficacy and Safety 
+of IBI308 in Combination with Gemcitabine and Platinum -Based Chemotherapy v s. Placebo 
+in Combination with Gemcitabine and Platinum- Based Chemotherapy in the First -Line 
+Treatment for Patients with Advanced or Metastatic Squamous Non- Small Cell Lung Cancer 
+(ORIENT -12). Protocol number CIBI308C303, version 2.1 dated 2019- 01-24. 
+[2] CFDA, Biostatistics guidance for clinical trials  2016. 
+[3] ICH E9 : Statistical Principles for Clinical Trials , 1998. 
+[4] Robi ns, Tsiatis , Correcting for non -compliance in randomized trials using rank preserving 
+structural failure time models. Communications in Sta tistics - Theory & Methods 20 (8): 2609-
+2631, 1991. 
+[5] Latimer. et. al. (2014) Adjusting for treatment switching in randomised controlled trials – A 
+simulation study and a simplified two -stage method. Statistical Methods in Medical Research, 
+26(2), 724- 751 
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 40 / 42  [6] Latimer. et. al. (2019) Two- stage estimation to adjust for treatment switching in randomised 
+trials: a simulation study investigating the use of inverse probability weighting instead of re -
+censoring. BMC Medical Research Methodology, 19(1), 69  
+[7] Li. et. al. (2 017) On an enhanced rank‐preserving structural failure time model to handle 
+treatment switch, crossover, and dropout. Statistics in Medicine. 36(10), 1532- 1547 
+[8] Liang & Zeger (2000) Longitudinal data analysis of continuous and discrete response for pre -
+post designs. Sankhya, 62(1), 134- 148 
+[9] Turnbull B.W., The empirical distribution function with arbitrarily grouped, censored, and 
+truncated Data. Journal of the Royal Statistical Society  Series B ( 38): 290- 295, 1976. 
+[10] Wellner  J. A. , Zhan  Y., A hybrid algorithm f or computation of the nonparametric maximum 
+likelihood estimator from censored Data . Journal of the American Statistical Association  92: 
+945-959, 1997. 
+11. APPENDICES  
+11.1. Acronym  
+Abbreviation  Description  
+ADA Anti- drug antibody  
+ADR  Adverse Drug Reaction  
+AE Adverse Event  
+ANC  Absolute Neutrophil Count  
+ALT  Alanine transaminase 
+ALK  Anaplastic lymphoma kinase  
+ALK  Anaplastic lymphoma kinase  
+AST Aspartate amino transferase  
+BOR  Best overall response  
+CFDA  China Food and Drug Administration  
+CR  Complete Response           
+Cr Creatinine  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 41 / 42  Abbreviation  Description  
+CRF Case Report Form  
+CTLA -4 Cytotoxic T Lymphocyte Antigen 4 
+DCR Disease control rate 
+DOR  Duration of response  
+DLT  Dose -limiting toxicity  
+EC Ethics  Committee  
+ECG  Electrocardiogram  
+ECOG  Eastern Cooperative Oncology Group  
+EGFR  Epidermal growth factor receptor  
+EORTC QLQ  European organization for research and treatment of cancer quality of life 
+questionnaire  
+GCP  Good Clinical Practice  
+HBV  Hepatitis B virus  
+HCV  Hepatitis C virus  
+HIV Human Immunodeficiency Virus  
+ICF Informed Consent Form  
+irAE  Immune -related Adverse Event  
+IRRC  Independent radiographic review commit tee 
+LCSS  The Lung Cancer Symptom Scale  
+MTD  Maximal  tolerated dose  
+Nab Neutralizing antibody  
+NSCLC  Non- Small Cell Lung Cancer  
+ORR Overall response rate  
+
+ 
+IBI308         Innovent Biologics (SuZhou) Co., Ltd.               CIBI308C303  
+ 42 / 42  Abbreviation  Description  
+OS Overall Surviva l 
+PBMC  Peripheral blood mononuclear cell  
+PD Pharmacodynamics  
+PD-1 Programmed cell death 1  
+PFS Progression Free Survival  
+PK Pharmacokinetic 
+PR   Partial Response  
+RECIST  Response Evaluation Criteria In Solid Tumors  
+RP2D  Recommended Phase II dose  
+SAE Severe Adverse Event  
+SD Stable Disease  
+TBIL  Total bilirubin  
+TCR T-Cell Receptor  
+ctDNA  circulating tumor DNA  
+TMB  Tumor Mutation Burden  
+TTR Time to response  
+UADR  Unexpected adverse drug reaction  
+ULN  Upper limits of normal  

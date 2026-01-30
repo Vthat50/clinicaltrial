@@ -1,0 +1,1468 @@
+STATISTICAL ANALYSIS PLAN ( SAP )
+Sponsor: Kite Pharma, Inc.
+2400 Broadway
+Santa Monica, CA 90404
+United States of America
+Product Name: Axicabtagene Ciloleucel
+Protocol A Phase 3, Randomized, Open -Label Study  Evaluating the 
+Efficacy  of Axicabtagene Ciloleucel versus Standard of Care 
+Therap y in Subjects with Relapsed/Refractory Diffuse Large B 
+Cell Ly mphoma (ZUMA -7)
+Version Number: Version 1.0
+Release Date: 22 June 2020
+Replaces Previous 
+Version(s):Version 0.3: 17 November 2017
+CONFIDENTIALITY NOTI CE
+This document contains confidential information of Kite Pharma Inc., a wholly owned 
+subsidiary  of Gilead Sciences Inc. This Document must not be disclosed to anyone other 
+than the site research staff and members of the institutional review board/independent ethics 
+committee, a scientific review board or an equivalent. The information in this document 
+cannot be used for an y purpose other than the conduct of the clinical investigation without 
+the prior written consent of Kite Pharma Inc. Questions regarding how this document should 
+be used or the conduct of the clinical trial should be directed to the key sponsor contacts.
+
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 2 15 June 2020TABLE OF CONTENTS
+STATISTICAL ANALYSIS PLAN (SAP) ................................................................................................................... 1
+TABLE OF CONTENTS ................................ .............................................................................................................. 2
+LIST OF TABLES ................................ ......................................................................................................................... 4
+LIST OF FIGURES ....................................................................................................................................................... 4
+LIST OF ABBREVIATIONS AND DEFINTIONS OF TERMS ................................ ................................................. 5
+1. INTRODUCTION ................................................................................................................................................ 7
+2. OBJECTIVES ....................................................................................................................................................... 8
+3. STUDY OVERVIEW ........................................................................................................................................... 9
+3.1. Study Design ............................................................................................................................................ 9
+3.2. Hypothesis .............................................................................................................................................. 10
+3.3. Sample Size C onsiderations ................................ ................................................................................... 10
+3.4. Interim Analysis and Early Stopping Guidelines ................................................................................... 13
+3.4.1. Safety Interim Analysis ................................ ........................................................................ 13
+3.4.2. Efficacy Interim Analysis ................................ ..................................................................... 13
+3.5. Statistical Assumptions .......................................................................................................................... 14
+4. STUDY ENDPOINTS AND COVARIATES .................................................................................................... 15
+4.1. Endpoints ............................................................................................................................................... 15
+4.2. Covariates ............................................................................................................................................... 16
+5. DEFINITIONS .................................................................................................................................................... 18
+5.1. General ................................................................................................................................................... 18
+5.2. Safety ..................................................................................................................................................... 19
+5.3. Efficacy .................................................................................................................................................. 23
+6. ANALYSIS SUBSETS ................................ ....................................................................................................... 26
+6.1. Full Analysis Set (FAS) ................................ ......................................................................................... 26
+6.2. Safety Analysis Set ................................................................................................................................ 26
+6.3. Safety Analysis Set -ASCT ................................ ................................................................................... 26
+6.4. QoL Analysis Set ................................................................................................................................... 26
+6.5. Retreatment Analysis Sets ................................ ...................................................................................... 26
+6.6. Subgroup Analysis Sets .......................................................................................................................... 26
+7. INTERIM ANALYSIS AND EARLY STOPPING GUIDELINES ................................ ................................ ...27
+7.1. Safety Interim Analyses ................................ ......................................................................................... 27
+7.2. Efficacy Interim Analyses ................................ ...................................................................................... 27
+7.3. Access to Aggregate and Subject -level Data and Individual Subject Treatment Assignments .............. 27
+8. DATA SCREENING AND ACCEPTANCE ...................................................................................................... 28
+8.1. General Principles ................................................................................................................................ ..28
+8.2. Elect ronic Transfer and Archival of Data .............................................................................................. 28
+8.3. Handling of Missing and Incomplete Data ................................ ............................................................. 28
+8.3.1. Efficacy ................................................................................................................................ 28
+8.3.2. Safety ................................ .................................................................................................... 28
+8.4. Detection of Bi as................................ .................................................................................................... 29
+8.5. Outliers ................................................................................................................................................... 29
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 3 15 June 20208.6. Distributional Characteristics ................................................................................................................. 29
+8.7. Validation and Configuration Management ........................................................................................... 29
+9. STATISTICAL METHODS OF ANALYSIS .................................................................................................... 30
+9.1. General Principles .................................................................................................................................. 30
+9.2. Subject Accountability ........................................................................................................................... 30
+9.3. Important Protocol Deviations ............................................................................................................... 30
+9.4. Dem ographic and Baseline Characteristics ............................................................................................ 31
+9.5. Efficacy Analyses ................................................................................................................................... 31
+9.5.1. EFS....................................................................................................................................... 32
+9.5.2. Analyses of Objective Response .......................................................................................... 33
+9.5.3. Analyses of Overall Survival ............................................................................................... 34
+9.5.4. Analyses of Progression -free Survival, Duration of Response, and Time 
+to Next Therapy .................................................................................................................... 34
+9.6. Safety Analyses ...................................................................................................................................... 35
+9.6.1. Adverse Events ..................................................................................................................... 35
+9.6.2. Laboratory Test Results ........................................................................................................ 36
+9.6.3. Anti-Axicabtagene Ciloleucel Antibodies ............................................................................ 36
+9.6.4. Replication Competent Retrovirus (RCR) ............................................................................ 36
+9.6.5. Exposure to Study Treatment and Product Characteristics .................................................. 36
+9.6.6. Exposure to Concomitant Medications and Procedures ....................................................... 37
+9.7. Health -related Quality of Life ................................................................................................................ 37
+9.8. Subsequent Lymphoma Therapy ............................................................................................................ 37
+9.9. Schedule of Study Treatment ................................................................................................................. 38
+9.10. CAR T Cells Measured in Peripheral Blood .......................................................................................... 38
+9.11. Other 
+10. CHANGES FROM PROTOCO L-SPECIFIED ANALYSES ............................................................................. 39
+11. REFERENCES ................................................................................................................................................... 40
+12. APPENDICES .................................................................................................................................................... 42
+Appendix 1. Conventions for Clinical Data That Require Imputation for Partial or Missing Dates ........... 43
+Appendix 2. Planned Event and Censoring Rules for the EFS anal ysis...................................................... 45
+Appendix 3. Derivation of Last Date Known to Be Alive .......................................................................... 48
+CCI
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 4 15 June 2020LIST OF TABLES
+Table 1. Imputation Rules for Partial or Missing Start Dates ............................................................... 43
+Table 2. Primary Analysis of EFS ................................ ........................................................................ 45
+Table 3. (Sensitivity Analysis 1):  progression events that occur in betw e en scheduled 
+assessments will be moved forward to the next scheduled assessment after the 
+observed progression ................................ .............................................................................. 46
+Table 4. (Sensitivity analysis 2):  progression events that occur in between scheduled 
+assessments will be moved backward to the last scheduled assessment prior to 
+progression ............................................................................................................................. 46
+Table 5. (Sensitivity analysis 3):  EFS events that occur after more than one missed disease 
+assessment visit will be censored at the last evaluable disease assessment prior to 
+the observed progression ................................ ........................................................................ 46
+Table 6. (Sensitivity Analysis 4):  subjects in the axicabtagene ciloleucel arm  who undergo 
+ASCT while in axicabtagene induced response are imputed to have an EFS event at 
+the time of ASCT ................................ ................................................................................... 47
+LIST OF FIGURES
+Figure 1. Study Testing Scheme ............................................................................................................ 12
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 5 15 June 2020LIST OF ABBREVIATION S AND DEFINTIONS OF TERMS
+ADaM Analysis data model
+AE Adverse event
+ALC Absolute lymphocyte count
+ASCT Autologous stem cell transplant
+BSA Bovine serum albumin
+CAR Chimeric antigen receptor 
+CMH Cochran -Mantel -Haenszel
+CR Com plete response
+CRF Case report form
+CRP C-reactive protein 
+CRS Cytokine release syndrome
+CSR Clinical study report
+CT Com puted tomography
+CTCAE Common Terminology Criteria for Adverse Events
+DLBCL Diffuse large B -cell lymphoma
+DOR Duration of response
+DSMB Data Safety Monitoring Board
+ECOG Eastern Cooperative Oncology Group
+EFS Event -free survival
+EORTC QLQ -C30 European Organisation for Research and Treatment of Cancer Quality of Life 
+Questionnaire Cancer -30
+EQ-5D-5L Euro pean quality of life five dimensions five levels
+FAS Full analysis set
+FISH Fluorescence in situ hybridization
+HDT High-dose therapy 
+HLGT High -level group term
+IPI International Prognostic Index  
+IXRS Interactive Voice/Web (X) Response System
+KM Kaplan -Meier
+LLOQ Lower limit of quantitation
+MedDRA Medical Dictionary for Regulatory Activities
+NALT Next anti-lymphoma therapy
+NCI National Cancer Institute
+NE Neurologic event
+ORR Objective response rate
+OS Overall survival
+PET Positron emission tomography
+PFS Progression -free survival
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 6 15 June 2020PR Partial response
+PRO Patient reported outcome
+QoL Quality of life
+RCR Replication -competent retrovirus
+r/r Relapsed/refractory
+SAE Serious adverse event
+scFv Single -chain variable fragment
+SCT Stem cell transplant
+SDTM Study data tabulation model 
+SOC Standard of care
+SMQ Standardized MedDRA query
+SUSAR Suspected unexpected serious adverse reaction
+TBI Total body irradiation
+TEAE Treatment- emergent adverse event
+TFL Transformed follicular lymphoma
+VAS Visual analog scale
+WPAI Work productivity and activity impairment
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 7 15 June 20201. INTRODUCTION
+This statistical analy sis plan provides the pre -specification and details for the statistical anal yses 
+outlined within Protocol KTE- C19-107 entitled “A Phase 3, Randomized, Open- label Study  
+Evaluating the Efficacy  of Axicabtagene Ciloleucel versus Standard of Care Therap y in Subjects 
+with Relapsed/Refractory  Diffuse Large B-Cell Ly mphoma (ZUMA -7).” The scope of this plan 
+includes the interim and primary  anal yses that are planned.
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 8 15 June 20202. OBJECTIVES
+The primary  objective of this study  is to determin e whether axicabtagene ciloleucel is superior to 
+standard of care ( SOC)as measured b y event -free survival (EFS).  
+The secondary  objectives of this study  are:
+To evaluate the effect of axicabtagene ciloleucel compared to SOC on objective response rate 
+(ORR), defined as the incidence of partial response (PR) and complete response (CR)
+To evaluate the effect of axicabtagene ciloleucel compared to SOC on overall survival (OS)
+To evaluate the effect of axicabtagene ciloleuc el compared toSOC on progression- free 
+survival (PFS)
+To evaluate the effect of axicabtagene ciloleucel compared to SOC on duration of response
+(DOR) among responding subjects (CR and PR) and subjects attaining a CR
+To evaluate the safet y of axicabtagene ciloleucel compared to SOC
+To evaluate the effect of axicabtagene ciloleucel on patient reported outcomes (PROs) and 
+quality  of life (QoL) compared to SOC
+CCI
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 9 15 June 20203. STUDY  OVER VIEW
+3.1. Study Design
+ZUMA -7 is a Phase 3 randomized, open -label, multicenter study  evaluating the efficacy  of 
+axicabtagene ciloleucel versus SOC in adult subjects with relapsed/refractory  (r/r) diffuse large 
+B-cell ly mphoma ( DLBLC ).  Adult subjects with r/r DLBCL after first -line rituximab and 
+anthracy cline -based chemotherap y will be randomized in a 1:1 ratio to receive axicabtagene 
+ciloleucel or SOC.  Randomization will be stratified by  response to first -line therap y (primary  
+refra ctory  versus relapse ≤ 6months of first -line therap y versusrelapse > 6 and ≤ 12 months of 
+first-line therap y) and second- line age -adjusted International Prognostic Index ( IPI)(0to1 
+versus 2 to 3) as assessed at the time of screening.  
+For subjects ra ndomized to the control arm of the study , SOC will consist of a protocol- defined, 
+platinum -based salvage combination chemotherapy regimen.  Subjects who respond to 
+second -line chemotherapy  should proceed to high-dose therap y (HDT) and autologous stem cell 
+transplant (ASCT).  
+An independent Data Safety  Monitoring Board (DSMB) will meet every  6 months after the first 
+subject is randomized to review safet y data and will review safety and efficacy  data at the time 
+of the planned interim futility  anal ysisof EF S.  The DSMB will be chartered to make trial 
+conduct recommendations based on an anal ysis of risk ver susbenefit.  The DSMB may  meet 
+more often as needed.  
+Subjects will be evaluated by the investigator for disease response and progression and blinded 
+central review per the Lugano Classification {Cheson 2014}.  Subjects in both treatment arms 
+are to be assessed for response and progress ion at the same ti mes relative to randomization: 
+Day 50, Day 100, Day 150, Month 9, and then every  3months thereafter until Month 24.  
+Subjects will be assessed every  6months from Month 30 to Month 60.  New non-protocol -
+specified therapy  for disease willbe recorded for all subjects randomized until a subject 
+completes the long -term follow -up period, is considered lost to follow -up, withdraws consent, or 
+has died.  Survival status will be ascertained at each clinic visit up through Month 9 after which 
+subjects will be contacted every 3 months up through Month 24 and then every  6 months 
+thereafter until Month 60.
+The primary  anal ysis of EFS will be conducted when all subjects have had the opportunity  to be 
+followed for the Month 9 disease assessment and app roximately  250 EFS events have been 
+observed.   The acceptable lower limit for the observed total EFS events is 225, which is to 
+maintain the power for the primary  anal ysis of EFS to within 5% of the targeted 90%. One 
+interim analy sis of EFS is planned after 135 EFS events have been observed.  This interim 
+analysis is for safety  and futility .  The DSMB will review the futility  anal ysis and make a 
+recommendation on trial conduct based on anevaluation of risk v ersusbenefit.  The interim and 
+primary  anal yses of EFS will be based on blinded central review of progression and censoring 
+times.  The primary  analy sis of ORR will occur at the time of the primary  analy sis of EFS.  The 
+primary  anal ysis of OS will occur after 210 OS events have been observed or no later than 
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 10 15 June 20205years after the first subject is randomized .  Details on the testing methods and interim anal yses 
+are provided in Sections 3.3 and 3.4.
+3.2. Hypothesis
+The hy pothesis for this study  is that axicabtagene ciloleucel will prolong EFS compared to SOC 
+therap y in adult subjects with relapsed/refractory  DLBCL.  The h ypothesized treatment effect 
+corresponds to a 50% improvement in EFS.
+3.3. Sample Size Considerations   
+The anticipated enrollment in this study  is approximately  350 subjects.
+An EFS hazard ratio (test/control arm) of 0.67 is hypothesized in the full analy sis set ( FAS).  
+Assuming an exponential distribution for EFS and a median EFS of 4 months in the SOC arm, 
+this implies a 50% relative improvement in EFS and corres ponds to median EFS of 4 v ersus
+6 months (control v ersus test arm).  The primary  analy sis is planned when approximately  
+250EFS events have been observed; the stud y has been sized to achieve approximately 90% 
+power at the 1 -sided 2.5% significance level to detect a 50% improvement in EFS.  The 
+minimum effect size that can be determined to be statistically  significant is an EFS hazard ratio 
+of 0.79 or a 27% relative improvement in EFS.  Further, assuming a concave accrual distribution 
+with 50% of accrual in the last 33% of the accrual period of 24 months and a 10% rate (5% by  
+Month 1 and cumulative 10% by Month 8) of loss to follow -up in the axicabtagene ciloleucel 
+arm and 15% rate (10% by  Month 1 and cumulative 15% by  Month 8) of loss to follow -up in the 
+SOC arm, it is anticipated that the event goal will be achieved if 350 subjects are randomized 
+(175/arm) and will occur approximately  31months after the first subject is randomized.  One 
+interim futility  anal ysis of EFS will be conducted after 135 EFS events have been observed.  
+The study  will have an overall alpha of 2.5% with 1 -sided testing.  To preserve the overall 
+significance level, statistical testing of the primary and key  secondary  efficacy  endpoints will 
+follow a hierarchical scheme.  EFS will be tested first at the primary  EFS analy sis.  Conditional
+on a statistically  significant improvement in EFS, ORR will be tested at the 2.5% level at the 
+time of the primary  EFS anal ysis.  Conditional on demonstrating a statistically  significant 
+improvement in EFS and ORR at the time of the primary  EFS analy sis, OS will be tested up to 
+3times at an overall alpha level of 2.5%.  If a statistically significant improvement in EFS is not 
+demonstrated at the time of the primary  EFS anal ysis, hierarchica l testing of ORR and OS will 
+not occur.  If a statistically significant improvement in EFS is demonstrated ,but a statistically  
+significant improvement in ORR is not demonstrated at the time of the primary  EFS anal ysis, 
+hierarchical testing of OS will not occur.
+For the anal ysis of ORR, response rates of 36% and 78% in the control and test arms are 
+assumed.  ORR will be tested with a stratified (randomization factors) Cochran -Mantel -Haenszel 
+(CMH) test at the 2.5% level among subjects in the FAS.
+
+Axicabtagene ciloleuce l:KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 11 15 June 2020An OS haz ard ratio of 0.73 is hy pothesized in the FAS.  Assuming an exponential distribution 
+for OS and a median OS of 15.8 months in the control arm, this implies a 37% relative 
+improvement in OS and corresponds to median OS of 15.8 v ersus 21.6 months.  The primar y OS 
+analysis is planned when approximately  210 deaths have been observed or no later than 5 years 
+after the first subject is randomized , with a firstinterim anal ysis of OS occurring at the time of 
+primary  EFS analy sisand a second interim anal ysiswhen a pproximately  160 deaths have 
+occurred or no later than 4 y ears after the first subject is randomized.  
+Stratified (randomization factors) log- rank tests will be used to test the null hy pothesis of no 
+difference in EFS and OS using an overall 1- sided alpha level of 2.5%.  A stratified 
+(randomization factors) CMH test will be used to test ORR at an overall 1 -sided alpha level of 
+2.5%.
+The EFS analy sis is event -driven and will occur when the required numbe r of events have been 
+observed.
+The study  testing scheme is provided in Figure 1.  
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 13 15 June 2020The timing of the EFS, ORR, and OS analyses are described in Figure 1.  The clinical s tudy 
+report ( CSR) will be written at the time of the primary  EFS analy sisand will include results of 
+the first interim anal ysis of OS.  The study  will continue to be conducted per the protocol, and 
+the results of the second interim and primary  anal yses of OS will be w ritten shortly  after each 
+analysis is completed.
+3.4. Interim Analysis and Early Stopping Guidelines
+3.4.1. Safety Interim Analysis
+The DSMB will review safet y data every  6 months from the time the first subject is randomized 
+until the primary  EFS analy sis.  Additionally , the DSMB will review safety  and efficacy  data at 
+the time of the planned interim EFS anal ysis.  The DSMB will also review serious adverse event 
+(SAE )information and s
+uspected unexpected serious adverse reactions ( SUSARs) on a regular 
+basis throughout the study .  The sponsor may  request additional reviews by  the DSMB if safet y 
+concerns are identified.  The DSMB may  meet more often as needed.   Timing of DSMB 
+meetings will be further specified in the DSMB charter; meetings may  be combined as p ractical 
+depending on accrual and anal ysis milestone times.
+3.4.2.
+Efficacy Interim Analysis
+One interim anal ysis of EFS and 2 interim anal ysesof OS are planned.
+The interim EFS anal ysis is for futility  and will occur when 135 EFS events have been observed.  
+An O’Brien -Fleming spending function of the Lan -DeMets family  will be used to allocate the 
+type II error between the interim and primary  analy ses.  Under the null hy pothesis, the 
+probability  of stopping for futility  at this interim anal ysis is approximately 60%.  One hundred 
+thirty -five (135) EFS events are anticipated to occur approximately  19 months after the first 
+subject is randomized.
+Conditional upon statistically  significant tests of EFS and ORR at the primary  EFS analy sis, 
+testing of OS will be perform ed.  Afirstinterim analy sis of OS will occur at the time of the 
+prima ry EFS analy sis and a second interim anal ysis when approximately  160 deaths have 
+occurred or no later than 4 y ears after the first subject is randomized. A spending function of the 
+Rho family with parameter ( rho  6) will be used to allocate the a lpha between the 2interim 
+analyses of OS and the primary  analysis of OS.  Approximately  110 OS events and 160 OS 
+events 
+are anticipated at the time of the first and second interim OS analyses,respectivel y.The 
+1-sided alpha of 0.1% and 0. 4%will be allocated at the first and second interim anal ysis of OS ,
+respectivel y.
+This procedure preserve sthe designated 1 -sided alpha level of 0.025 and has approximately  90% 
+power.  EAST 6.4 was used to evaluate the operating characteristics of this design.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 14 15 June 20203.5. Statistical Assumptions
+This trial will enroll patients with r/r DLBCL after first-line chemotherap y.  Outcomes for this 
+patient population treated with SOC have been described in {Crump 2014, Gisselbrecht 2010 , 
+Gisselbrecht 2012 , Van Den Neste 2016 , van Imhoff 2017}.  EFS and OS in the control arm 
+were simulated based on results from these studies and assuming exponential time to event 
+distribution s.  Based on these simulation s, the median EFS in the control arm is assumed to 
+follow an exponential distribution with median 4.0 months ,and the median OS in the control 
+arm is assumed to follow an exponential distribution with median 15. 8months.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 16 15 June 20204.2. Covariates
+The following baseline covariates may  be used to examine efficacy  in subgroups or covariate 
+analyses:  
+Geographic region (North America, Europe)
+Eastern Cooperative Oncology  Group ( ECO G)performance status at screening (0, 1)
+Age at randomization ( ≥ 65, < 65)
+Sex
+Race/ethnicit y
+Response to first-line therapy  (primary  refractory , relapse ≤ 6 months of initiation of first-
+line therap y versusrelapse > 6 and ≤ 12 months of initiating first -line therapy )
+Second- line a ge-adjusted I PI (0to 1 versus 2to 3) at time of screening
+Disease t ype (DLBCL, transformed follicular ly mphoma [TFL ])
+Molecular subgroup (germinal center B- cell like [G CB] vs. activated B -cell like [ABC] , or 
+GCB vs. non- GCB )
+Double hit (C -MYC genomic alterations and either BCL -2 or BCL -6 genomic alterations) 
+status by  fluorescence in situ hy bridization ( FISH)
+Triple hit (BCL -2, BCL -6, and C -MYC alterations ) status by  FISH
+For the primary  anal ysis of efficacy , the Interactive V oice/Web (X) Response Sy stem ( IXRS )
+values of response to first-line therap y and second -line age -adjusted IPI will be used.  Sensitivity  
+analyses may  be conducted with values collected in the clinical trial database ( EDC ).  Covariate 
+levels that are sparse (ie,less than 30 events for time to event anal yses or subjects for ORR 
+analyses) may  be collapsed for purposes of statistical modeling.  If this occurs, the strata for 
+relapse ≤ 6 months of first-line therap y and relapse from 6 to 12 months of first-linetherap y will 
+be collapsed first.  
+The following baseline covariates may  be used to examine safet y in subgroups or covariate 
+analyses:
+Geographic region (North America, Europe)
+ECOG performance status at screening (0, 1)
+Age at randomization ( ≥ 65, < 65)
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 17 15 June 2020Sex
+Race/ethnicit y
+Response to first-line therapy  (primary  refractory , relapse ≤ 6 months of first-line therap y 
+versus relapse > 6 and ≤ 12 months of first -line therap y, or PD vs. SD vs. PR as best overall 
+response )
+Second- line a ge-adjusted I PI (0to 1 versus 2to 3) at time of screening
+Disease t ype (DLBCL, TFL , etc. )
+Axicabtagene ciloleucel arm only :
+Ferritin measured prior to conditioning chemotherap y (≤ median value, > median value)
+Ferritin at Treatment Day  0 (≤ median value, > median value)
+C-reactive protein ( CRP )measured prior to conditioning chemotherap y (≤ median value, 
+> median value)
+CRP at Treatment Day  0 (≤ median value, > median value)
+Absolute ly mphocy te count (AL C) measured prior to conditioning chemotherapy  (≤ median 
+value, > median v alue)
+ALC at Treatment Day  0 (≤ median value, > median value)
+The following non- baseline covariates may  be explored for efficacy  subgroup or covariate 
+analyses:
+Best response on study  
+Occurrence of stem cell transplant ( SCT)at an y time after randomization
+Commencement of an y non-protocol -specified cancer therapy
+When these covariates are used in time-to-event analy ses, the time to the event will be counted 
+from the measurement time of the covariate, not study  randomization.
+Covariate levels that are sparse may be collapsed for purposes of statistical modeling.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 18 15 June 20205. DEFINITIONS
+5.1. General
+Study enrollment:   Study  enrollment is defined as randomization ( e .g.,the assignment of a 
+randomization number to a subject) into the study .
+Study Day 0:  
+Randomization S tudy Day 0 is defined as the day  of randomization.
+Treatment Day 0:   In the axicabtagene ciloleucel arm, Treatment Day  0is defined as the day  the 
+subject received the first axicabtagene ciloleucel infusion.  The day  prior to Treatment Day  0 will 
+be Treatment Day1.  The day  of randomization and an y days after randomization and before 
+Treatment 
+Day 1 will be se quential and negative integer -valued.
+In the SOC arm, Treatment Day  0 is defined as the day  the subject underwent SOC .  The day  
+prior to Treatment Day  0 will be T reatment Day1.  The day  of randomization and any  days 
+after randomization and before Treatment Day1 will be sequential and negative integer
+-valued.
+Leukapharesis period:   The leukapharesis period is defined for the axicabtagene ciloleucel arm 
+and is defined as the day  (negative integer -valued) the subject undergoes leukapheresis 
+calculated relative to Treatment Day 0.
+Conditioning chemotherapy period:   The conditioning chemotherap y period i s defined for the 
+axicabtagene ciloleucel arm and begins on the day of the first chemotherapy administration until 
+the day  immediately  prior to the axicabtagene ciloleucel infusion.  These day s are numbered as 
+sequential negative integer values relative to Treatment Day 0.
+SOC and HDT therapy period:   The SOC and HDT period are defined for the SOC arm and 
+begin the day  of the first chemotherap y administration until the day  immediately  prior to SCT.  
+These day s are numbered as sequential negative integer val
+ues relative to Treatment Day 0.
+Re-treatment conditioning chemotherapy period:  The re -treatment conditioning 
+chemotherap y period is defined for the axicabtagene ciloleucel arm and begins on the day of the 
+first chemotherap y administration of re -treatment until the day  immediately  prior to the 
+axicabtagene ciloleucel re- treatment infusion.  I n the event that the axicabtagene ciloleucel 
+re-treatment infusion is delay ed, the numbering of the re -treatment conditioning chemotherapy  
+period will remain relative to the axicabtagene ciloleucel re -treatment infusion.
+Baseline:   The baseline value is defined as the last value taken prior to randomization .
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 19 15 June 2020Study therapy:  
+Axicabtagene ciloleucel arm:  Study  therapy  is defined as conditioning chemotherapy  or 
+axicabtagene ciloleucel.
+SOC arm:  S tudy therapy is defined as induction chemotherapy , total body  irradiation (TBI) 
+(given as part of conditioning for ASCT), conditioning chemotherap y for ASCT (HDT) , and 
+ASCT .
+On-study:   Time from randomization to the last date of contact .
+End of study: This will occur after both of the following criteria are met:
+Axicabtagene ciloleucel arm:  all subjects have been followed for 15 y ears post-
+randomization, have withdrawn consent, been lost to follow -up, or have died.
+SOC arm: all subjects have been followed for 5 years pos t-randomization, have withdrawn 
+consent, been lost to follow -up, or have died.
+Actual follow -up time:   Actual follow -up time is calculated as the time from the date of 
+randomization ( Study Day  0) to the date of death, last date known alive, lost to follow -up, or 
+withdrawal of consent, whichever is later.
+Potential follow -up time:   Potential follow -up time is defined as the time from the date of 
+randomization ( Study Day  0) to the data cutoff date for the a nalysis.
+Follow -up time for response:   Follow -up time for response is derived as the time from the date 
+of randomization (S tudy Day  0) to the last disease assessment or censoring date.  Follow -up time 
+for response is derived using the reverse Kaplan -Meier approach in which the censoring times 
+and event times are reversed to derive the median follow -up time.
+5.2. Safety
+Treatment -emergent adverse event (TEAE):  
+Axicabtagene ciloleucel arm:  Any AE with onset on or after the axicabtagene ciloleucel 
+infusion. For subjects receiving retreatment with axicabtagene ciloleucel, TEAEs after
+retreatment may  be summarized separately . 
+SOC arm:  Any  AE with onset on or after the first dose of induction chemotherap y.  
+Deaths:  All deaths that occur from randomization up through the end of study .
+Adverse events of interest:   AEs of interest for axicabtagene ciloleucel treatment include AEs
+in the categories of:
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 20 15 June 2020Important i dentified risks:
+cytokine release s yndrome (CRS)
+neurologic toxicity  
+infections
+cytopenias, including 
+neutropenia
+thrombocytopenia 
+anemia
+hypogammaglobulinemia 
+Important potential risks:
+Secondary  malignancies
+Tumor ly sis sy ndrome
+Bone marrow failure
+Graft -versus -host - d isease (GVHD)
+Replication competent retrovirus (RCR)
+Immunogenicit y (an ti-axicabtagene ciloleucel antibodies)
+Neurological toxicity (Neurotoxicity):   Neurological AEs are identified with a search strategy  
+based on known neurologic toxicities associated with anti
+-CD19 immunotherap y {Topp 2015}. 
+The search strategy  focuses on central nervous s ystem toxicity , without regard to temporal 
+relationship and concomitant conditions (eg
+,CRS).  Additionally , the Medical Dictionary  for 
+Regulatory  Activities ( MedDR A)system organ classes of Psy chiatric Disorders and Nervous 
+System Disorders will be reviewed for additional events; these events will then be evaluated for 
+potential inclusion as neurologic AEs. Neurologic toxicity  will be reported separately  from CRS.
+Cytokine release syndrome (CRS):   CRS as a sy ndrome (ie ,a collection of individual 
+symptoms) is identified via collection of the s yndrome on a case report form specificall y 
+designed to collect CRS. Individual symptoms of CRS are separately  
+collected on the AElog and 
+are linked to the CRS syndrome.  CRS sy ndrome severit y is graded according to a modification 
+of the grading s ystem proposed by  Lee {Lee 2014 }.  In the modified grading scale, neurologic 
+AEs are not reported as part of the CRS sy ndrome ; rather, they are reported on the AE log form 
+separately  based on specific sy mptoms per Common Terminology  Criteria for Adverse Events 
+(CTCAE).  
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 21 15 June 2020Cytopenias: Cytopenias (neutropenia orthrombocy topenia , or anemia including aplastic 
+anemia ) are identified as follows :
+Thrombocy topenia will be identified using the standardized MedDRA query  (SMQ) for 
+haematopoietic thrombocytopenia (narrow search)
+Neutropenia will be identified using Kite Pharma, Inc. (hereafter referred to as Kite) -
+specified Me dDRA search term (MST)
+Anemia (including aplastic anemia) will be identified using the SMQ haematopoietic 
+erythropenia (broad search)
+Subjects with cy topenias (neutropenia or thrombocytopenia or anemia) present on or after 
+Day 30 post study  treatment will be summarized separately by cell lineage .
+Bone marrow failure:   Bone marrow failure will be identified using the narrow SMQ of 
+haematopoietic cy
+topenias affecting more than one type of blood cell .
+Hypogammaglobulinemia: Hypogammaglobulinemia will be identified using a MST search 
+strategy  defined b y Kite.  
+B
+-cell aplasia:   Laboratory data will be used to assess the incidence of B -cell aplasia.  B- cell 
+aplasia will be assessed using a qualified flow cy tometry  assay  on cry opreserved subject 
+peripheral blood mononuclear cells (PBMCs) and is defined as B cells < lower limit of
+quantitation (LLOQ).  The LLOQ is defined as CD19+, CD20+, or double positive CD19+ and 
+CD20+ events < 0.017 B cells as a percentage of viable leukocy tes, with 10000 or more viable 
+leukocy te events required in the assay .
+Infections:   Infections are identi fied as AEs within the sy stem organ class of Infections and 
+Infestations that occur on or after Treatment Day  0 and in MedDRA high-level group terms 
+(HLGT) that capture events of:
+Bacterial infection, encompassing pre ferred terms within the MedDRA HLGT of 
+Bacterial infectious disorders 
+Chlamy dial infectious disorders
+Viral infection, encompassing preferred terms within the MedDRA HLGT of viral infectious 
+disorders
+Opportunistic infections, encompassing pre ferred terms within the MedDRA HLGT of 
+Fungal infectious disorders
+Mycobacterial infectious disorders
+Other infections, encompassing preferred terms within the MedDRA 
+HLGT of Infections 
+pathogen unspecified
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 22 15 June 2020B-cell aplasia will be examined as part of the analy sis of infections.
+Secondary malignancy:   Secondary malignancies are identified with the AEs that are coded into 
+the sy stem organ class of Neoplasms benign, malignant, and unspecified (incl uding cysts and 
+polyps) will be reviewed to identify  other potential events.  
+Tumor lysis syndrome :  Tumor lysis syndrome is identified as events with MedDRA preferred 
+terms in the Tumor Ly sis Sy ndrome SMQ (MedDRA).  The narrow version of this SMQ will be 
+used.
+Graft -versus-h ost disease (GVHD):   GVHD will be identified using a MST search strategy  
+defined b y Kite by using subsets of PT from HLGT of procedural related injuries and 
+complications NEC and HLT of immune and associated conditions NEC.
+Immunogenicity (Anti -axicabtagene ciloleucel antibody) :  Immunogenicity  will be identified 
+for subjects who have treatment emergent anti- axicabtagene ciloleucel antibody  and have 
+developed an y AE belonging to the SMQ of anaphy lactic reaction and the SMQ of 
+hypersensitivity .  The narrow version of these 2 SMQs will be used.  
+Cardiac failure: Cardiac failure will be identified using the SM Q of cardiac failure. The narrow 
+version of this SMQ will be used. 
+Cardiac arrhythmias: Cardiac arrh ythmias will be identified using the SMQ of cardiac 
+arrhythmias. The narrow version of this SMQ with selected broad SMQ preferred terms will be 
+used. 
+Time to Onset of Event/Syndrome: Time to onset of an event/sy ndrome is defined as the time 
+from Treatment Day  0 to the day  of the first occurrence of the event/sy ndrome.  Time to Onset of 
+Grade 3 or Higher Events/Sy ndromes are defined in the same way , but restricted to Grade 3 or 
+higher events/s yndromes .
+Duration of Event/Syndrome:   The duration across all events is the last day of the last 
+event -first day  of the first event +1, regardless of whenever the events are consecutive, 
+overlapping, or neither. 
+Durations of events will not be calculated for events that are ongoing at the time of the data 
+cutoff date or subject death.  For events defined by laboratory  criteria, time to onset and duration 
+will not be calculated.  For events defined b y both laboratory criteria and AEs, only  the AE
+component will be used to define time to onset and duration.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 23 15 June 20205.3. Efficacy
+Event -free survival (EFS):   EFS is defined as the time from randomization to the earliest date of 
+disease progression per Lugano Classification {Cheson 2014}, commencement of new 
+lymphoma therapy , or death from an y cause.  The following criteria will be used to further define 
+events and event times:
+Subjects with established PR or CR and subsequently commence new l ymphoma therap y 
+(including radiotherap y, except for TBI as noted below) in the absence of documented 
+disease progression will have EFS time defined as the time from randomization to the last 
+evaluable disease assessment prior to the new l ymphoma therap y
+Subjects with best response of SD and subsequently commence new l ymphoma therapy  
+(including radiotherap y, except for TBI as not ed below) in the absence of documented 
+disease progression will have EFS time defined as the time from randomization to the first 
+time SD was established prior to the new l ymphoma therapy
+Subjects who commence new ly mphoma therapy  (including radiotherapy , except for TBI as 
+noted below) in the absence of an y evaluable disease assessment will have the EFS event 
+date imputed as the randomization date
+Subjects with best response of SD up to and including Day  150 assessment post 
+randomization will be considered to have an EFS event.  For such subjects, the EFS time will 
+be defined as the time from randomization to the first time SD was established up to and 
+including the Day  150 disease assessment 
+The following criteria will be used to further define censoring t imes:
+Subjects alive , in response, and with no new therapy  will be censored at the last evaluable 
+disease assessment
+Subjects with no evaluable disease assessment by  Day  150 assessment post randomization 
+willnotbe considered to have an EFS event, and the EFS time will be censored at the 
+randomization date
+The EFS time for subjects in the axicabtagene ciloleucel arm who undergo ASCT in the 
+absence of an y documented progression or new therap y will be censored on the day of ASCT
+For subjects in the SOC arm, TBI, HDT, and ASCT that occur while the subject is in 
+response from protocol -specified induction therapy  will not be considered an EFS event.  The 
+EFS time for SOC arm subjects alive, progression- free, and with no new lymphoma therap y 
+will be censored at t he last evaluable disease assessment date
+At the time of the interim anal ysis of EFS, subjects who have not had the opportunity  to be 
+followed to the Day  150 disease assessment and who do not have an EFS event will be 
+censored at the last evaluable disease assessment prior to Day  150
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 24 15 June 2020For the primary  anal ysis of EFS, disease progression events and censoring times will be 
+determined b y blinded central review.  Events of new therap y and death will be based on the 
+clinical trial database.    
+A sensitivity  anal ysis for EFS in which subjects in the axicabtagene ciloleucel arm who undergo 
+ASCT while in an axicabtagene ciloleucel -induced response are imputed to have an EFS event at 
+the time of ASCT will be performed .
+Objective response rate (ORR):  ORR is defined a s the incidence of either a CRor a PR by the 
+Lugano Classification {Cheson 2014}.  All subjects who do not meet the criteria for an objective 
+response b y the anal ysis cutoff date will be considered non -responders.  
+For the SOC arm, t he derivation of the primary  analy sis of ORR will include all disease 
+assessments until an EFS event, including an y assessments obtained after SCT.  
+For the axicabtagene ciloleucel arm, the derivation of the primary  anal ysis of ORR will 
+include disease assessments up to any  new therapy  (including ASCT)
+For the primary  anal ysis of ORR, disease responses will be determined by  blinded central 
+review.
+Overall survival (OS): Overall survival is defined as the time from randomization to death from 
+any cause.  Subjects who have not died by  the analy sis data cutoff date will have survival time 
+censored at their last date known to be alive.  For subjects alive or dead after the data cutoff date, 
+survival time will be censored at the data cutoff date.
+Modified event-free survival (mEFS ): mEFS is defined the same way  as EFS, with the exception
+that having SD as the best response by Day  150 assessment post randomization will not be 
+considered as an event. mEFS will be anal yzed per blinded central review and per inves tigator 
+disease assessments.
+Progression-free survival (PFS):  PFS is defined as the time from randomization to disease 
+progression per Lugano Classification {Cheson 2014} as determined b y investigator review or 
+death from an y cause.  Subjects alive and not me eting the criteria for progression at the anal ysis 
+data cutoff date will have PFS time censored at the last evaluable disease assessment.  Subjects 
+who receive subsequent new ly mphoma therapy  (with the exception of HDT, TBI for HDT, and 
+SCT while in a prot ocol therap y-induced response) in the absence of documented disease 
+progression will be censored at their last evaluable disease assessment date prior to the 
+commencement of the subsequent new l ymphoma therapy .  SCT that occurs while a subject is in 
+respon se from a protocol therap y will not be considered a PFS event, and such subjects will be 
+censored for PFS at the last evaluable disease assessment prior to the SCT for subjects in the 
+axicabtagene ciloleucel arm and will be censored at the last evaluable d isease assessment date 
+(including assessments after SCT) for subjects in the SOC arm for the primary  anal ysis of PFS.
+Disease outcomes will be based on investigator assessment.  A sensitivity  analy sis for PFS in 
+which subjects in the axicabtagene ciloleuc el arm who undergo SCT while in an axicabtagene 
+ciloleucel -induced response are imputed to have a PFS event at the time of ASCT.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 25 15 June 2020Duration of response (DOR):  DOR is derived only  among subjects who experience an objective 
+response per Lugano Classification { Cheson 2014 }as determined b y blinded central review and 
+is def ined as the time from first response to disease progression per the Lugano Classification or 
+death from an y cause.  Subjects not meeting the criteria for progression or death by  the analy sis 
+data cutoff date will have DOR censored at their last evaluable d isease assessment date.  Subjects 
+who receive subsequent new ly mphoma therapy  (with the exception of HDT, TBI for HDT, and 
+SCT while in a protocol therap y induced response) in the absence of documented progression 
+will have DOR censored at the last evaluab le disease assessment prior to the commencement of 
+the new l ymphoma therapy .  For the primary  analysis of DOR, DOR will be censored at the last 
+evaluable disease assessment date prior to the SCT for subjects undergoing SCT while in 
+protocol therap y induced response in the axicabtagene ciloleucel arm, and will be censored at the 
+last evaluable disease assessment date (including assessments after SCT) for subjects in the SOC 
+arm.A sensitivity  analy sis for DOR in which subjects in the axicabtagene ciloleucel arm who 
+undergo ASCT while in an axicabtagene ciloleucel -induced response are imputed to have an
+event at the time of ASCT.
+Time to next therapy : Time to next therapy  is defined as the time from the randomization date to 
+the start of the subsequent new ly mphoma therapy  or death from any  cause.  Subjects who have 
+not received subsequent new therap y and are still alive will be censored at the last contact date. 
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 26 15 June 20206. ANAL YSIS SUBSETS
+The following anal ysis sets are defined.
+6.1. Full Analysis Set (FAS)
+The FAS consist s of all randomized subjects. The primary  anal ysis of EFS,ORR , PFS, and OS 
+will be conducted on the FAS.   The FAS will exclude some disease assessments as described in 
+the definition of the endpoints for ORR.  Subjects will be anal yzed based on randomize d 
+treatment arm.
+6.2. Safety Analysis Set
+The safet y analysis set is defined as the subset of all randomized subjects who receive at least 
+1dose of axicabtagene ciloleucel as protocol therapy  or SOC chemotherap y as protocol therap y.  
+Subjects will be analy zed by  the protocol therap y received.
+6.3. Safety Analysis Set -ASCT
+The safet y analysis set ASCT is defined as the subset 
+of subjects randomized to the SOC arm 
+who undergo transplant as part of protocol therapy.  
+6.4. QoL Analysis Set 
+The QoL analy sis set is defined as the subset of subjects in the FAS who have a baseline and 
+Day 150 post -randomization QoL assessment.
+6.5. Re treatment Analysis Set s
+Forany subjects in the axicabtage ne ciloleucel arm who undergo retreatment, safet y and efficacy 
+will be examined in the set of subjects who receive an y dose of axicabtagene ciloleucel as 
+retreatment.  
+6.6. Subgroup Analysis Sets
+Subgroup anal yses of selected efficacy  and safet y endpoints may  be performed for the baseline 
+covariates defined in Section 4.2.  
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 27 15 June 20207. INTERIM ANAL YSIS AND EARL Y STOPPING GUID ELINES   
+7.1. Safety Interim Analyses   
+The DSMB will review safet y data every  6 months from the time the first subject is randomized 
+until the primary  EFS analy sis.  Additionally , the DSMB will review safety  and efficacy  data at 
+the time of the planned interim EFS anal ysis.  The DSMB will also revi ew SAE information and 
+SUSARs on a regular basis throughout the stud y.  The sponsor may request additional reviews 
+by the DSMB if safet y concerns are identified.  The DSMB may meet more often as needed.
+7.2. Efficacy Interim Analyses
+One interim anal ysis of EFS and 2interim a nalyses of OS are planned.  The DSMB will review 
+the interim anal ysis of EFS.
+The interim EFS anal ysis is for futility  and will occur when 135 EFS events have been observed.  
+An O’Brien -Fleming spending function of the Lan -DeMets family  will be used to allocate the 
+type II error between the interim and primary  analy ses.  Under the null hy pothesis, the 
+probability  of stopping for futility  at this interim anal ysis is approximately 60%.  One hundred 
+thirty -five (135) EFS events are anticipated to occur approximately  19 months after the first 
+subject is randomized.
+Conditional upon statistically  significant tests of EFS and ORR at the primary  EFS analy sis, 
+testing of OS will be performed.  A firstinterim analy sis of OS will occur at the time of the 
+primary  EFS analy sisand a second interim anal ysiswhen approximatel y 160 deaths have 
+occurred or no later than 5 y ears after the first subject is randomized.  A spending function of the 
+Rho family  with parameter (rho  6) will be used to allocate the alpha between the interim 
+analysis of OS and the 
+primary  anal ysis of OS with 0. 1% and 0.4% at the first and second 
+interim OS analy ses respectivel y and 2% at the primary  anal ysis of OS.   Approximately  110 and 
+160 OS events are anticipated at the tim e of t hefirst and second interim OS analy ses
+,
+respectivel y.
+7.3. Access to Aggregate and Subject -level Data and Individual Subject 
+Treatment Assignments
+This study  is open label.  Subjects, the study  sponsor, and investigators will be aware of subject 
+treatment assi gnments .  Data handling procedures designed to maintain the trial credibility  and 
+validity  in this study  will be described in the Trial Integrity  Document.
+An independent statistician will perform the interim safet y and efficacy analy
+ses and provide 
+these reports to the DSMB.  Members of the DSMB and independent statistician will not have 
+any direct contact with study  center personnel or subjects.  The DSMB will communicate 
+recommendations to Kite in accordance with the DSMB charter.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 28 15 June 20208. DATA SCREENING AND ACCE PTANCE
+8.1. General Principles
+The database will be subject to the edit checks outlined in the Data Management Plan and 
+additional manual data reviews defined b y the study team.  Data inconsistencies will be reviewed 
+and resolved before the database snapshot for the primary  analyses andthe final database lock.  
+For interim analy ses, snapshots may  include data that have not passed all data cleaning 
+procedures at the time the data are extracted for snapshot.  
+8.2. Electronic Transfer and Archival of Data
+The database for this study  will be a Medidata RAVE sy stem, managed and mai ntained by  Kite 
+or designee .  Raw data, study  data tabulation model ( SDTM ) data, and analy sis data model 
+(ADaM )datasets will be generated by  Kite or designee and will be archived for all planned 
+analyses.  Any addition al unplanned anal yses that occur after the primary  analy ses and prior to 
+the final anal ysis will also be archived.  Key data external to the clinical study database will be 
+included in the relevant SDTM and ADaM modules when the external data are available.  
+Data fro m the central pathology  laboratory , the product characteristics central laboratory  
+assessment of subject serum samples ( CAR T-cell levels in the peripheral blood, antibody  
+assay s, replication -competent retrovirus [ RCR] testing), and central rad iology  review will be 
+generated from contract laboratories and Kite.  These data will be transferred to Kite and held in 
+a peripheral directory  and not built into the clinical trial database.  At the time these data are 
+required for analy ses, they  may be merged with the SDTM and ADaM datasets.
+8.3. Handling of Missing and Incomplete Data
+8.3.1. Efficacy
+The method for handling missing data is described in the definition for each efficacy  endpoint.  
+Every  effort will be made to obtain complete dates for deaths.  In the event of a partial or missing 
+death date and the corresponding censoring date for survival, the algorithm in Appendix 1will be 
+used.
+8.3.2. Safety
+Partial AEstart dates will be imputed.  If dates are missing or incomplete for AEstart dates, the 
+algorithm defined in Appendix 1will be used.  Completely missing death dates or death dates 
+with only year reported will not be imputed.   
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 29 15 June 20208.4. Detection of Bias
+A listing of subjects with important protocol deviations will be generated.  The deviations 
+included in this list will include violations of eligibility  criteria and use of exclusionary  
+medication during the study.  Lack of protocol compliance will be evaluated by  summarizing the 
+subject incidence of important protocol deviations.  High rates of important protocol deviations 
+may indicate bias.
+Endpoints deriv ed from investigator assessment of radiologic scans and disease assessments may  
+be subject to assessment time bias due to unscheduled or off -schedule disease assessments per 
+the protocol specified assessment times.  The frequency  and timing of scheduled and 
+unscheduled tumor assessments will be tabulated by  treatment arm.  Sensitivity  anal yses will be 
+conducted in which the time of detection of progressive disease is moved forward and backward 
+to the closest scheduled assessment day s.  
+The concordance betw een investigator and central review of radiologic scans and disease 
+assessments will be summarized.
+8.5. Outliers
+Descriptive statistics will be used to identify  potential outliers in any  key variables anal yzed.  
+Suspected outliers will be included in all anal yses unless there is sufficient scientific justification 
+to exclude them.
+8.6. Distributional Characteristics
+A Cox regression model stratified by  the randomization stratification factors will be used as the 
+primary  method to obtain estimates of the EFS and OS t reatment effect. This is a semi -
+parametric model that assumes that the EFS hazards within each stratum for the 2 treatment 
+groups are proportional over time. Section 9.5.1.1 provides details on the means by  which this 
+assumption will be assessed and the alternative analy ses that may  be performed if those 
+assumptions are violated. 
+Astratified CMH test will be used to compare the observed response rate s between the treatment 
+arms.  The CMH test produces valid results onl y if there is no substantial change in the 
+magnitude and/or direction of the relationship between response and treatment arm across strata.  
+To ev aluate this assumption, the stratum- specific odds ratios describing the relationship between 
+response and treatment arm study  will be calculated along with exact 95% confidence intervals.  
+The Breslow -Day test of the null hy pothesis of homogeneity  of the odds ratios across strata will 
+be used.  
+8.7. Validation and Configuration Management
+Programs for the development of the SDTM and ADaM datasets and the generation of the tables, 
+figures, and listings will be developed and maintained. The software and version used to 
+generate anal yses will be indicated in the archived documentation.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 30 15 June 20209. STATISTICAL  METHODS OF  ANAL YSIS
+9.1. General Principles
+The goal of the primary  statistical analy sis of the study  is to test the difference in EFS between 
+subjec ts treated with axicabtagene ciloleucel and subjects treated with SOC with a stratified log 
+rank test.  The primary  analy sis of EFS will be conducted when all subjects have had the 
+opportunity  to be followed for the Month 9 disease assessment ,and approximately  250 EFS 
+events have been observed.  The acceptable lower limit for the observed total EFS events is 225, 
+which is to maintain the power for the primary  analy sis of EFS to within 5% of the targeted 90%.  
+If more than 250 EFS events are ob served at the time of the data cutoff for the primary  analy sis, 
+all observed events will be used in the anal ysis.  At this time, the CSR will be written and will 
+include results of the first interim analy sis of OS. The study  will continue to be conducted per 
+the protocol ,and the results of the second interim and primary  anal yses of OS will be written 
+shortly  after each anal ysis is completed. 
+Significance levels will be 2- sided unless stated otherwise.  A 2-sided 95% confidence interval 
+for the EFS treatm ent hazard ratio (axicabtagene ciloleucel relative to SOC) will be obtained 
+from a Cox proportional hazards model stratified by  the randomization stratification factors.  
+Descriptive statistics including confidence intervals, if appropriate ,will be calculated for the 
+study  endpoints. Kaplan -Meier (KM) estimates will be provided for time- to-event endpoints.
+9.2. Subject Accountability
+The number of subjects screened, enrolled, leukaphe resed, and treated with study  therapy  will be 
+summarized .  The reason sfor d iscontinuing treatment and the disease assessment and survival 
+follow -up periods will be summarized.
+Summaries of actual and potential follow -up time will be provided.
+The number of subjects enrolled by  country  and site will be summarized.  
+The number of subjects in each anal ysis set along with reasons for exclusion will be provided.
+9.3. Important Protocol Deviations
+The clinical stud y team will define important protocol deviation cat egories and review all 
+potential important protocol deviations at minimum, prior to the database snapshot for the 
+primary  efficacy  anal ysis.  Important protocol deviations will be categorized by  deviation ty pe 
+(eg,entry /eligibility, use of excluded medication).  The subject incidence of important protocol 
+deviations will be summ arized overall and b y deviation category .
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 31 15 June 20209.4. Demographic and Baseline Characteristics
+Summary  statistics and frequencies for the following demographic and baseline characteristics 
+will be tabulated:
+Geographic region (North America, Europe , Israel )
+ECOG perfo rmance status at screening (0, 1)
+Age at randomization ( ≥ 65, < 65)
+Sex
+Race/ethnicit y
+Response to first-line therapy  (primary  refractory , relapse ≤ 6 months of initiation of 
+first-line therap y versus relapse > 6 and ≤ 12 months of initiating first-line th erapy, or PD vs. 
+SD vs. PR as best overall response )
+Second- line a ge-adjusted I PI (0to 1 versus 2to 3) at time of screening
+Disease t ype (DLBCL, TFL , etc. )
+Molecular subgroup (germinal center B- cell like [GCB] vs. activated B -cell like [ABC] , or 
+GCB vs. non-GCB )
+Double hit (C -MYC alterations and either BCL -2 or BCL -6 alterations) status by  FISH
+Triple hit (BCL -2, BCL -6, and C -MYC alterations) status by  FISH
+9.5. Efficacy Analyses
+Efficacy  anal yses will be conducted on the FAS analy sis sets as described in Section 6.  For the 
+primary  anal ysisof EFS, ORR , and DOR, the blinded central assessment of disease status per 
+Lugano Classification {Cheson 2014} will be used.  Sensitivity  analy s es will be conducted with 
+disease assessments based on the investigator review per Lugano Classification {Cheson 2014}.  
+For the primary  anal ysis of efficacy , the IXRS values of response to first -line therap y and 
+second -line age -adjusted IPI will be used.  Sensitivity  anal yses may  be conducted with values 
+collected in EDC.  Covariate levels that are sparse (ie, fewer than 30 events for time-to-event 
+analyses or subjects for ORR analy ses) may  be collapsed for purposes of statistical modeling.  If 
+this occurs, the strata for relapse ≤ 6months of first -line therap y and relapse from 6 to 12 months 
+of first-line ther apy will be collapsed first.  
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 32 15 June 2020For subjects retreated with axicabtagene ciloleucel, disease assessments obtained prior to 
+retreatment ,but not disease assessment obtained after retreatment, will be included in the 
+primary  summaries of objective response, best re sponse, DOR , and PFS.  The subject’s overall 
+survival time will be derived from the last date known alive regardless of retreatment or 
+subsequent therap y.
+9.5.1. EFS
+9.5.1.1. Primary  Anal ysis of EFS
+The anal ysis of EFS will be conducted on the FAS.  
+A stratified (randomization stratification factors) log -rank test will be used for the primary  
+comparison of EFS.  
+Additionally , stratified (randomization factor) Cox regression models will be used to provide the 
+estimated EFS hazard ratio and 2 -sided 95% confidence intervals for axicabtagene ciloleucel 
+relative to SOC.  The median EFS time and event -free rates at 3 -month intervals will be 
+provided. The Breslow method and the Efron method will be used to handle the ties for the Cox 
+regression models .
+Non-proportionali ty among the treatment groups will be assessed by  comparing the standardized 
+martingale residuals over time to a normal distribution (SAS PHREG ASSESS option) {Lin 
+1993 }. This comparison will be performed at the 5% level. A plot of the standardized residuals 
+over time will be provided. If the comparison of the standardized martingale residuals over time 
+is significant, a piece -wise Cox model will be used for the analy sis.For the stratified piece -wise 
+Cox model, 2 or more equal length intervals of length 12 weeks will be considered {Collett 
+2003 }. This will include 1scheduled tumor assessment in each interval. These models will 
+allow estimation of the overall as well as within interval treatment hazard ratio. Additional 
+sensitivity  anal yses may  also be considered with alternative interval selection. The hazard ratio 
+for relevant time point differences and intervals over which the proportional hazards assumption 
+holds will be presented. The overall log hazard ratio will be calculated from the weighted 
+average of the interval log hazard ratios. The weight for each interval log hazard ratio estimate 
+will be inversel y proportional to the variance of the interval log hazard ratio estimate. If there 
+are intervals where one or m ore stratum is too sparse, the stratified piece- wise Cox model will be 
+collapsed as specified for the primary  analy sis. 
+KM curves will be presented , and KM estimates and 2- sided 95% confidence intervals will be 
+calculated for event time quartiles, event -free rate at 3 -month intervals, and for the difference in 
+event -free rates between treatment arms at these times. The primary  anal ysis of EFS will utilize 
+the stratification factors as collected via IXRS ; a sensitivity  anal ysis will be performed that 
+utilizes the stratification factors as collected on the CRF. In addition, the un -stratified analy ses 
+will be conducted for EFS as a sensitivity  anal ysis.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 33 15 June 20209.5.1.2. Subgroup Analy ses of EFS
+The consistency  of the treatment effect on the EFS hazard ratio for axicabtagene ciloleucel 
+versusSOC will be examined by  estimating Cox model hazard ratios within meaningful subsets 
+defined b y the baseline covariates in Section 4.2. Non-proportionality  may be assessed as 
+described in Section 9.5.1.1 . A forest plot of the hazard ratios across subsets will be provided.
+9.5.1.3. Assessment Time Bias
+Sensitivity  analy ses of EFS will be performed to assess ascertainment time bias in disease 
+progression as follows:
+Progression events that occur between scheduled assessments will be moved forward to the 
+next schedule dassessment after th e observed progression .
+Progression events that occur between scheduled assessments will be moved backward to the 
+last scheduled assessment prior to the progression .
+EFS events that occur after more than one missed visit will be censored at the last evaluable 
+disease assessment or visit prior to the observed progression .
+9.5.1.4. Additional Sensitivity Analyses of EFS
+A sensitivity  anal ysis for EFS in which subjects in the axicabtagene ciloleucel arm who undergo 
+ASCT while in an axicabtagene ciloleucel -induced response are imputed to have an EFS event at 
+the time of ASCT will be performed.
+9.5.1.5. Investigator Assessment
+EFS based on investigator disease assessments will be anal yzed with the same methods as EFS
+per blinded central review .  The concordance of progressio n events and EFS time per the 
+investigator and per blinded central review will be summarized.
+The tables that define EFS and censoring rules for the primary  efficacy  analy sis and planned 
+sensitivity  anal yse s are provided in Appendix 2.
+9.5.2. Analyses of Objective Response
+9.5.2.1. Primary  Anal ysis of ORR
+The anal ysis of ORR will be conducted on the FAS and will be based on central blinded disease 
+assessments.  The subject incidence of objective response and best response will be summarized.  
+An exact binomial 2 -sided 95% confidence interval will be generated for the ORR and best 
+response rates for each treatment arm.  Wilson’s score method with continuity  correction will be 
+used to calculate 95% confidence intervals for the difference in ORRs {Newcombe 1998 }
+between treatment arms.  
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 34 15 June 2020Conditional upon demonstrating a statisticall y significant improvement in EFS, testing of ORR 
+will be performed with a stratified (randomization factor) CMH test for the common odds ratio 
+of response.  
+9.5.2.2. Subgroup Analy ses of ORR
+Odds ratios for ORR will be assessed in subgroups defined b y covariates in Section 4.2.  A forest 
+plot of response and CR rates b y subgroups will be generated.
+9.5.2.3. Investigator Assessment of ORR
+ORR based on investigator disease assessments will be analy zed with the same methods as ORR.  
+The concordance of response per the investigator and per blinded central review will be 
+summarized.
+9.5.3. Analyses of Overall Survival
+The anal ysis of OS will be conducted on the FAS.  The anal ysis of OS will be as per the anal ysis 
+of EFS, except that sensitivity  anal yses for assessment time bias will not apply .  
+A stratified (randomization stratification factors) log -rank test will be used for the primar y 
+comparison of OS.  Additionally , stratified (randomization factor) Cox regression models will be 
+used to provide the estimated OS hazard ratio and 2- sided 95% confidence intervals for 
+axicabtagene ciloleucel relative to SOC.  The median OS time and event -free rates at 6- month 
+intervals will be provided.
+Sensitivity  analy s es of OS to address the confounding effect from treatment switching will be 
+conducted using the Rank Preserving Structural Failure Time Model by {Robins 1991 }with g -
+estimation andwith the iterative parameter estimation algorism , and Inverse Probability  of 
+Censoring Weights, and 2-stage cox regression model, and other exploratory  treatment switching 
+adjustment methods.
+OS hazard ratios will be assessed in subgroups defined by covariates in Section 4.2.
+9.5.4. Analyses of Progression -free Survival, Duration of Response , and Time to 
+Next Therapy
+The anal ysis of PFS, DOR ,and time to next therapy  will be performed using the same methods 
+as the anal ysis of EFS, with p -values from the log -rank test descriptive.
+The anal ysis of PFS will be performed on the FAS.  The anal ysis of DOR will be conducted on 
+the FAS , with the exceptions noted in the definition of DOR.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 35 15 June 20209.6. Safety Analyses  
+Among subjects in the safety anal ysis set, all AEs will be reported from randomization up 
+through the Day 150 post-randomization visit or change in ly mphoma therapy , whichever occurs 
+first.  After the Day 150visit, only  targeted SAE s will be reported up to 5 or 15 y ears for SOC or 
+axicabtagene ciloleucel arms, respectivel y,or until disease progression, whichever occurs first.  
+Safety  anal yses will be conducted on the safet y analysis set.  The primary analysis of safet y data 
+will summarize all TEAEs and laboratory values.    
+AEswill be coded with the M edDRA at the time of each anal ysis.  The version of the MedDRA 
+may vary  over time because the current version in use is updated.  The severity  of AEs will be 
+graded using the National Cancer Institute (NCI) CTCAE version 4.03 or above .  CRS will be 
+graded using a modified CRS grading scale developed by  Lee et al {Lee 2014}.  The incidence 
+and severit y of CRS will be reported as a s yndrome with severit y per Lee et al.  I ndividual 
+symptoms associated with CRS will be graded per CTCAE version 4.03 orabove .
+AEsand d eaths due to disease progression will be denoted as such on CRF s.
+Subjects enrolled ,but not dosed with study  therapy , will be followed for AEs for 30 day s after 
+the last study  procedure.  AEsreported in these subjects will be archived in the study  database 
+and available in SDTM and ADaM datasets, but will not be tabulated in AEsummaries.
+9.6.1. Adverse Events
+A summary of the subject incidence of key  AEs (any, worst severit y, serious, related, CRS, NE) 
+will be provided.
+The s ubject incidence of the following AEs, serious AEs, and Grade 3 or higher AEs will be 
+tabulated for:
+All TEAEs
+All AEs related to conditioning chemotherap y(for axicabtagene ciloleucel arm only )
+All TEAEs related to axicabtagene ciloleucel (for axicabtagene ciloleucel arm only )
+All SOC chemotherap y-related TEAEs (for SOC arm only )
+All ASCT -related TEAEs (for SOC arm onl y)
+Fatal TEAEs
+TEA Es of interest , including identified and potential risks
+Summary  statistics for the onset time, duration, and r esolution of TEAEs of interest will be 
+provided.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 36 15 June 2020The subject incidence of deaths will be provided.
+A subject listing of deaths and SAEs (including narratives) will be provided.
+Subgroup anal yses of TEAEs may be generated for the covariates listed in Sectio n 4.2.  
+Besides TEAEs, the subject incidence of the following AEs b y PT and severity  will also be 
+tabulated: 
+AEs related to leukapheresis (for ax icabtagene ciloleucel arm onl y)
+9.6.2. Laboratory Test Results
+Laboratory  results will be graded according to NCI  CTCAE version 4.03or above .  Laboratory  
+data collected at baseline and through outthe axicabtagene ciloleucel treatment period or SOC 
+and HDT therap y period will be summarized . Change from baseline to each visit at post -baseline 
+will be presented for select anal ytes. The incidence of worst CTCAE grade post Treatment Day  0 
+by grade for all anal ytes will be provided. Additional lab oratorytables for subjects who had 
+worsening grade change from the last assessment prior to Treatment Day  0 to post Treatment 
+Day 0 may be generated by the worst post -Treatment Day  0 CTCAE grade . 
+9.6.3. Anti -Axicabtagene Ciloleucel Antibodies
+The subject incidence of any  anti- axicabtagene ciloleucel antibodies will be tabulated. For 
+subjects testing positive for antibodies, the persistence of the antibody  over time will be 
+summarized.
+9.6.4. Replication Competent Retrovirus (RCR)
+The subject incidence of RCR detected in bl ood samples will be tabulated overall and b y 
+assessment time. The persistence of RCR over time will be summarized.
+9.6.5. Exposure to Study Treatment and Product Characteristics
+Summary  statistics and subject listings will be provided for the following:
+Total bovine serum albumin ( BSA )-adjusted dose of cy clophosphamide
+Total BSA -adjusted dose of fludarabine
+Total dose of SOC chemotherap y
+Total dose of HDT for ASCT
+Weight -adjusted dose of axicabtagene ciloleucel
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 37 15 June 2020Number and percent ageof subjects who received a dose of axicabtagene ciloleucel 
+within +/-10% of the planned dose
+Total CAR T cells of the axicabtagene ciloleucel infusion
+Total T cells of the axicabtagene ciloleucel infusion
+Transduction ratio
+Percentages of CD4 and CD8 T cells
+Percentages of T- cell memory  phenoty pes
+The anal ysis by  patient demographics (age, sex ,etc.) as well as b y tumor burden may be 
+provided. 
+Separate summaries will be presented for the second administration of axicabtagene ciloleucel 
+for subjects in the safet y retreatment anal ysis set.
+9.6.6. Exposure to Concomitant Medications and Procedures   
+The subject incidence of concomitant medications will be provided and summarized by  
+medication category  (general, steroids, tocilizumab, vasopressors, nonsteroidal 
+immunosuppressive agents, and i mmunoglobins) and WHO Drug coded term . 
+9.7. Health -related Quality of Life
+Changes in EORTC QLQ -C30 domains from screening to the Day 150 post -randomization visit 
+will be summarized with descriptive statistics.
+Changes in the EQ -5D- 5L index and VAS scores from screening to the Day 150 post -
+randomization visit will be summarized with descriptive statistics.
+Further model -based analy ses of these endpoints will be described in a supplemental statistical 
+analysis plan.
+9.8. Subsequent Lymphoma Therapy
+The incidence and t ype (by  WHO Drug coded term and categories) of subsequent lymphoma 
+therap y and non-protocol -specified SCT (autologous, allogeneic) will be summarized.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 39 15 June 202010. CHANGES FROM PROTOCOL-SPECIFIED ANAL YSES
+No changes to protocol -specified anal yses have been made.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 40 15 June 202011. REFERENCES
+Cheson BD, Fisher RI, Barrington SF, Cavalli F, Schwartz L H, Zucca E, et al. 
+Recommendations for initial evaluation, staging, and response assessment of 
+Hodgkin and non -Hodgkin ly mphoma: the Lugano classification. J Clin Oncol 
+2014;32 (27):3059-68.
+Collett D. Modelling Survival Data in Medical Research. 2nd ed. London, UK: Chapman & 
+Hall/CRC; 2003. 
+Crump M, Kuruvilla J, Couban S, MacDonald DA, Kukreti V, Kouroukis CT, et al. Randomized 
+comparison of gemcitabine, dexamethasone, and cisplat in versus dexamethasone, 
+cytarabine, and cisplatin chemotherapy  before autologous stem -cell 
+transplantation for relapsed and refractory  aggressive ly mphomas: NCIC -CTG 
+LY.12. J Clin Oncol 2014;32 (31):3490-6.
+Gisselbrecht C, Glass B, Mounier N, Singh Gill D , Linch DC, Trneny  M, et al. Salvage regimens 
+with autologous transplantation for relapsed large B -cell ly mphoma in the 
+rituximab era. J Clin Oncol 2010;28 (27):4184-90.
+Gisselbrecht C, Schmitz N, Mounier N, Singh Gill D, L inch DC, Trneny  M, et al. Rituxim ab 
+maintenance therap y after autologous stem- cell transplantation in patients with 
+relapsed CD20(+) diffuse large B -cell ly mphoma: final anal ysis of the 
+collaborative trial in relapsed aggressive l ymphoma. J Clin Oncol 2012;30 
+(36):4462-9.
+Lee DW, Gardner R, Porter DL, Louis CU, Ahmed N, Jensen M, et al. Current concepts in the 
+diagnosis and management of cy tokine release s yndrome. Blood 2014;124 
+(2):188-95.
+Lin DY, Wei L J, Ying Z. Checking the Cox Model with Cumulative Sums of Martingale -Based 
+Residuals. B iometrika 1993;80 (3):557 -72.
+Newcombe RG. Interval estimation for the difference between independent proportions: 
+comparison of eleven methods. Stat Med 1998;17 (8):873 -90.
+Robins JM, Tsiatis AA. Correcting for Non -Compliance in Randomized Trials Using Rank 
+Preserving Structural Failure Time Models. Commun Statist Theroy  Meth 
+1991;20 (8):2609 -31.
+Topp MS, Gokbuget N, Stein AS, Zugmaier G, O'Brien S, Bargou RC, et al. Safety  and activit y 
+of blinatumomab for adult patients with relapsed or refractory  B-precu rsor acute 
+lymphoblastic leukaemia: a multicentre, single- arm, phase 2 study . Lancet Oncol 
+2015;16 (1):57 -66.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 41 15 June 2020Van Den Neste E, Schmitz N, Mounier N, Gill D, Linch D, Trnen y M, et al. Outcome of patients 
+with relapsed diffuse large B -cell l ymphoma who fail second -line salvage 
+regimens in the International CORAL  study . Bone Marrow Transplant 2016;51 
+(1):51-7.
+van I mhoff GW, McMillan A, Matasar MJ, Radford J, Ardeshna KM, Kuliczkowski K, et al. 
+Ofatumumab Versus Rituximab Salvage Chemoimmunotherapy  in Relapsed or 
+Refractory  Diffuse Large B -Cell Ly mphoma: The ORCHARRD Study . J Clin 
+Oncol 2017;35 (5):544 -51.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 42 15 June 202012. APPENDICES
+Appendix 1. Conventions for Clinical Data That Require Imputation for Partial or Missing Dates
+Appendix 2. Planned Event and Censoring Rules for the EFS analysis
+Appendix 3. Derivation of Last Date Known to Be Alive
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 43 15 June 2020Appendix 1. Conventions fo r Clinical Data That Require Imputation for Partial or 
+Missing Dates
+The following data will be imputed using the following algorithm (refer to Table 1):
+AEstart dates
+Deaths (see exceptions below)
+Concomitant medication
+sstart dates
+Subsequent new lymphoma therap y start dates
+Table 1. Imputation Rules for Partial or Missing Start Dates
+Start DateStop Date
+Complete  yyyymmdd Partial
+yyyymmPartial
+yyyyMissing
+< 
+Treat ment 
+Day 0 ≥ 
+Treat ment 
+Day 0 < 
+Treat ment 
+Day 0 
+yyyymm≥ 
+Treat ment 
+Day 0 
+yyyymm< 
+Treat ment 
+Day 0 
+yyyy≥ 
+Treat ment 
+Day 0 
+yyyy
+Partial
+yyyymm 
+Treat ment 
+Day 0 
+yyyymm
+21
+21 n/a 1 1
+≠ 
+Treat ment 
+Day 0 
+yyyymm2 2 2 2 2
+Partial
+yyyyTreatment 
+Day 0 
+yyyy
+31
+31 n/a 1 1
+≠ Treatment 
+Day 0 
+yyyy3 3 3 3 3
+Missing 4 1 4 1 4 1 1
+1  impute the date of Treatment Day 0 
+2  impute the first of themonth
+3  impute January 1 of the year
+4  impute January 1 of the stop year
+Note:  If the start date imputation leads to a start date that is after the stop date, then do not impute the start date.
+Imputation rules for partial or missing death dates:
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 44 15 June 2020If death year and month are available ,but day  is missing:
+If mmyyyy for the last contact date  mm yyyy for death date, set death date to the day 
+after the last date known to be alive.
+If mmyyyy for the last date known to be alive < mmy yyy for death date, set death date to 
+the first day  of the death month.
+If mmyyyy for last date known to be alive > mm yyyy for death date, data error ,and do 
+not impute.
+If both month and day  are missing for death date or a death date is completely  missing, do 
+not impute , and censor the subject survival time at the last date known to be alive .
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 45 15 June 2020Appendix 2. Planned Event and Censoring Rules for the EFS analysis
+Table 2. Prim ary Analysis of EFS
+Circumstance Treatment Arm Event / Censored Date of Event / Censoring
+Disease progression at 
+planned disease assessment, 
+prior to initiation of NALT or 
+ASCTBoth Event Progression date
+Disease progression in 
+between planned disease 
+assessments, prior to NALT
+or ASCTBoth Event Progression date
+Subject with PR or CR and 
+subsequently  received NALT 
+in the absence of disease 
+progressionBoth EventLast evaluable disease assessment 
+date prior to NALT
+Subject with best response of 
+SD and subsequently  
+received NALT in the 
+absence of disease 
+progressionBoth EventDate of the first time SD was 
+established prior to NALT
+NALT in the absence of any  
+evaluable disease assessmentBoth Event Randomization date
+Subject with best response of 
+SDby Day  150 assessment 
+post randomization in the 
+absence of documented 
+progression or death or 
+NALTBoth EventDate of the first time SD was 
+established up to and including Day 
+150 assessment 
+ASCT while in an 
+axicabtagene ciloleucel 
+induced response Axicabtagene 
+ciloleucelCensored ASCT Date
+Remain event free after 
+ASCTSOC CensoredLast evaluable disease assessment 
+date
+Remain event free without 
+ASCTBoth CensoredLast evaluable disease assessment 
+date
+Disease progression or death 
+after ASCT SOC Event Death or PD Date
+Death without documented 
+prior eventBoth Event Death Date
+Withdrawal of consent or lost 
+to follow up prior to 
+documented eventBoth CensoredDate of last evaluable disease 
+assessment prior to data cutoff for 
+analy sis
+Note: NALT  next anti lymphoma therapy, it is defined the same as subsequent new lymphoma therapy
+Note: For subjects without any evaluable disease assessment and any EFS event at the time of analysis, their EFS will be 
+censored at the date of the randomization. Day 150 disease assessment includes any disease assessment up through the protocol 
+specified window (+/ 14 days; up through Day 164).
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 46 15 June 2020Table 3. (Sensitivity Analysis 1):  progression events that occur in between 
+scheduled assessments will be moved forward to the next scheduled 
+assessment after the observed progression
+Circumstance Treatm ent Arm Event / Censored Date of Event / Censoring
+Disease progression in 
+betw een planned disease 
+assessments, prior to NALT 
+or ASCTBoth EventFirst scheduled assessment 
+after the observed 
+progression
+For all other circumstances, follow the same derivation rule as the primary analysis of EFS.
+Table 4. (Sensitivity analysis 2):  progression events that occur in between 
+scheduled assessments will be moved backward to the last scheduled 
+assessment prior to progression
+Circumstance Treatm ent Arm Event / Censored Date of Event / Censoring
+Disease progression in 
+betw een planned disease 
+assessments, prior to NALT 
+or ASCTBoth EventLast scheduled assessment 
+prior to the observed 
+progression
+For all other circumstances, follow the same derivation rule as the primary analysis of EFS.
+Table 5. (Sensitivity analysis 3):  EFS events that occur after more than one 
+missed disease assessment visit will be censored at the last evaluable 
+disease assessment prior to the observed progression
+Circumstance Treatm ent Arm Event / Censored Date of Event / Censoring
+Disease progression at 
+planned disease assessment, 
+prior to initiation of NALT 
+or ASCTBoth Event* Progression date**
+Disease progression in 
+betw een planned disease 
+assessments, prior to NALT 
+or ASCTBoth Event* Progression date**
+Subject w ith PR or CR a nd 
+subsequently received 
+NALT in the absence of 
+disease progressionBoth Event*Last evaluable disease 
+assessment date prior to 
+NALT **
+Subject w ith best response 
+of SD and subsequently 
+received NALT in the 
+absence of disease 
+progressionBoth EventDate of the first time SD 
+was established prior to 
+NALT
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 47 15 June 2020Circumstance Treatm ent Arm Event / Censored Date of Event / Censoring
+NALT in the absence of any 
+evaluable disease 
+assessmentBoth Event Randomization date
+Subject w ith best response 
+of SD by Day 150 
+assessment post 
+randomization in the 
+absence of documented 
+progression or death or 
+NALTBoth EventDate of the first time SD 
+was established up to and 
+including Day 150 
+assessment 
+ASCT while in an 
+axicabtagene -ciloleucel 
+induced response Axicabtagene 
+ciloleucelCensored ASCT Date
+Remain event -free after 
+ASCT SOC CensoredLast evaluable disease 
+assessment date
+Remain event -free without 
+ASCTBoth CensoredLast evaluable disease 
+assessment date
+Disease progression or 
+death after ASCT SOC Event* Death or PD Date**
+Death without documented 
+prior eventBoth Event * Death Date ***
+Withdraw al of consent or 
+lost to follow -up prior to 
+documented eventBoth CensoredDate of last evaluable 
+disease assessment prior to 
+data cutoff for analysis
+Note: NALT  next anti lymphoma therapy, it is defined the same as subsequent new lymphoma therapy
+Note: For subjects without evaluable disease assessment or any EFS event at the time of analysis, their EFS will be censored at 
+the date of the randomization . Day 150 disease assessment includes any disease assessment up through the protocol specified 
+window (+/ 14 days; up through Day 164).
+* if the progression, NALT , or death occurs after more than one missed disease assessment, this will be censored.
+** ifthe progression ,NALT , or death occurs after more than one missed disease assessment, the censor time will be at the last 
+evaluable disease assessment pr
+ior to the observed progression, NALT , or death.
+Table 6. (Sensitivity Analysi s 4):  subjects in the axicabtagene ciloleucel arm 
+who undergo ASCT while in axicabtagene induced response are 
+imputed to have an EFS event at the time of ASCT
+Circumstance Treatm ent Arm Event / Censored Date of Event / Censoring
+ASCT while in an 
+axicabtagene -ciloleucel 
+induced response Axicabtagene 
+ciloleucelEvent ASCT Date
+For all other circumstances, follow the same derivation rule as the primary analysis of EFS.
+
+Axicabtagene ciloleucel: KTE -C19 Kite Pharma, Inc .
+Statistical Analysis Plan
+KTE -C19-107 (ZUMA -7) Study
+CONFIDENTIAL Page 48 15 June 2020Appendix 3. Derivation of Last Date Known to Be Alive
+The last date known to be alive will be derived b y obtaining the maximum complete date among 
+the following data modules:
+Start date and stop date of AE (including targeted AE)
+Start date and stop date of concomitant medication
+Start date and stop date of subsequent new l ymphoma therap y
+Subsequent SCT date
+Leukapheresis dates
+Conditioning chemo therapy admin
+istration dates
+SOC therapy  admin istration dates
+HDT administration dates
+Axicabtagene ciloleucel infusion dates (including retreatment)
+SCT dates
+Computed tomograph y (CT)scan dates
+Positron emission tomograph y (PET)scan dates
+Clinical sy mptoms of l ymphoma assessment dates
+Target lesion assessment
+Non-target lesion assessment
+New lesion assessment
+Disease response assessment
+Long -term follow -up subject status date where status  ”alive”
+End of treatment disposition where status is not equal to death, lost to follow - up
+End of post -treatment assessment period where status is not equal to death, lost to follow -up
+End of study  data where end of st udy reason is not equal to death, lost to follow -up

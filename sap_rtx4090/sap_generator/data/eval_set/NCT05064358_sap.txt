@@ -1,0 +1,3108 @@
+Statistical Analysis Plan
+Study ID: 209628
+Study Official Title: A Phase 2, Randomized, Parallel, Open-label Study to 
+Investigate the Safety, Efficacy, and Pharmacokinetics of Various Dosing 
+Regimens of Single-agent Belantamab Mafodotin (GSK2857916) in Participants 
+With Relapsed or Refracto
+ry Multiple Myeloma (DREAMM-14)
+NCT ID: NCT05064358
+Date of Document (SAP Amendm
+ent 2): 18 September 2024
+
+CONFIDENTIAL  
+The GlaxoSmithKline group of companies   209628  
+ Page 1 of 69 
+ Information Type:  Statistical Analysis Plan (SAP)  
+ 
+TITLE PAGE  
+Protocol Title:  A Phase  II, Randomized, Parallel, Open -Label Study to 
+Investigate the Safety, Efficacy, and Pharmacokinetics of 
+Various Dosing Regimens of Single -Agent Belantamab 
+Mafodotin (GSK2857916) in Participants with Relapsed or 
+Refractory Multiple Myeloma (DREAMM -14) 
+Study  Number:  209628  
+Compound 
+Number:  GSK2857916  
+Abbreviated Title:  Study to Investigate Alternative Dosing Regimens of 
+Belantamab Mafodotin in Participants with Relapsed or 
+Refractory Multiple Myeloma (DREAMM -14) 
+Acronym:  DREAMM -14 
+ 
+Sponsor Name:  
+GlaxoSmithKline Research & Development Limited  
+980 Great West Road  
+Brentford  
+Middlesex, TW8 9GS  
+UK 
+Regulatory Agency Identifier Number(s ) 
+ 
+Registry  ID 
+IND 119333  
+EU CT number  2023-508213 -16-00 
+ 
+ 
+ 
+ 
+ 
+©2024 GSK group of companies or its licensor . All rights reserved. Unauthorized  
+copying or use of this information is prohibited
+
+CONFIDENTIAL  
+  209628  
+ Page 2 of 69 
+ TABLE OF CONTENTS  
+PAGE  
+1. INTRODUCTION  ................................ ................................ ................................ .... 14 
+1.1. Objectives, Estimands and Endpoints  ................................ .........................  14 
+1.1.1.  Estimands  ................................ ................................ ....................  17 
+1.2. Study Design  ................................ ................................ ..............................  18 
+2. STATISTICAL HYPOTHESES  ................................ ................................ ...............  21 
+2.1. Multiplicity Adjustment  ................................ ................................ ................  21 
+3. ANALYSIS SETS  ................................ ................................ ................................ ... 21 
+4. STATISTICAL ANALYSES  ................................ ................................ .....................  22 
+4.1. General Considerations  ................................ ................................ ..............  22 
+4.1.1.  General Methodology  ................................ ................................ .. 22 
+4.1.2.  Baseline Definition  ................................ ................................ ....... 22 
+4.2. Primary Endpoints Analyses  ................................ ................................ ....... 23 
+4.2.1.  Definition of Primary Endpoint  ................................ ......................  23 
+4.2.2.  Main analytical approach  ................................ .............................  23 
+4.3. Secondary Endpoint Analyses and definition  ................................ ..............  24 
+4.3.1.  Main analytical approach  ................................ .............................  28 
+4.3.2.  Sensitivity Analyses  ................................ ................................ ..... 35 
+4.4. Exploratory Endpoint Analyses  ................................ ................................ ... 35 
+4.5. (Other) Safety Analyses  ................................ ................................ ..............  39 
+4.5.1.  Extent of Exposure  ................................ ................................ ...... 39 
+4.5.2. Adverse Events ................................ ................................ ............  40 
+4.5.3.  Additional Safety Assessments  ................................ ....................  43 
+4.6. Other Analyses  ................................ ................................ ...........................  46 
+4.6.1.  Subgroup analyses  ................................ ................................ ...... 46 
+4.6.2. Dosing Based on Baseline Disease Characteristics – 
+Virtual Treatment Arm  ................................ ................................ .. 46 
+4.6.3.  Arm E analyses ................................ ................................ ............  47 
+4.6.4.  Pharmacokinetic Analyses  ................................ ...........................  49 
+4.6.5.  Population Pharmacokinetic (POPPK) Analysis  ...........................  50 
+4.6.6.  Pharmacokinetic/Pharmacodynamic Analyses  .............................  50 
+4.6.7.  Biomarker/Translational Research Analyses  ................................  51 
+4.6.8.  Immunogenicity Analyses  ................................ ............................  51 
+4.7. Interim Analyses  ................................ ................................ .........................  51 
+4.8. Independent Data Monitoring Committee  ................................ ....................  52 
+4.9. Changes to Protocol Defined Analyses  ................................ .......................  52 
+4.10.  Post treatment switch analysis  ................................ ................................ .... 52 
+5. SAMPLE SIZE DETERMINATION  ................................ ................................ .........  52 
+5.1. Sample Size Assumptions  ................................ ................................ ..........  52 
+5.2. Safety Stopping Rule for Arm E  ................................ ................................ .. 53 
+6. SUPPORTING DOCUMENTATION  ................................ ................................ ....... 55 
+6.1. Appendix 1 Study Population Analyses  ................................ .......................  55 
+6.1.1.  Participant Disposition  ................................ ................................ . 55 
+6.1.2.  Demographic and Baseline Characteristics  ................................ .. 56 
+
+CONFIDENTIAL  
+  209628  
+ Page 3 of 69 
+ 6.1.3.  Protocol Deviations  ................................ ................................ ...... 57 
+6.1.4.  Prior and Concomitant Medications  ................................ .............  57 
+6.1.5.  Subsequent Anti -Cancer Therapies  ................................ .............  58 
+6.1.6.  Additional Analyses Due to the COVID -19 Pandemic  ..................  58 
+6.2. Appendix 2 Electronic Clinical Outcome Assessment (eCOA) 
+Compliance  ................................ ................................ ................................ . 58 
+6.2.1.  Study Level complia nce ................................ ...............................  58 
+6.2.2.  Endpoint Level Compliance  ................................ .........................  59 
+6.3. Appendix 2 Data Derivations Rule  ................................ ..............................  59 
+6.3.1.  Criteria for Potential Clinical Importance  ................................ ...... 59 
+6.3.2.  Study Period  ................................ ................................ ................  59 
+6.3.3.  Study Day and Reference Dates  ................................ ..................  60 
+6.3.4.  Assessment Window  ................................ ................................ ... 60 
+6.3.5.  Multiple measurements at One Analysis Time Point  ....................  60 
+6.3.6.  Handling of Partial Dates  ................................ .............................  61 
+6.3.7.  Treatment Emergent Adverse Events and On Treatment  .............  63 
+6.3.8.  Abbreviations  ................................ ................................ ...............  64 
+6.4. Appendix 3 Population Pharmacokinetic (PopPK) Analyses  .......................  66 
+6.4.1.  Systems  ................................ ................................ .......................  66 
+6.4.2.  Data Assembly ................................ ................................ .............  66 
+6.4.3.  Model Development  ................................ ................................ ..... 66 
+6.4.4.  Model Qualification  ................................ ................................ ...... 67 
+6.5. Appendix 4: Pharmacokinetic/Pharmacodynamic Analyses  ........................  68 
+7. REFERENCES  ................................ ................................ ................................ ....... 69 
+ 
+
+CONFIDENTIAL  
+  209628  
+ Page 4 of 69 
+ Version history  
+SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+1.0 Refer to 
+Docume
+nt Date  21Jan202
+2 Not Applicable  Original 
+version  
+SAP 
+amendm
+ent 1  Refer to 
+Docume
+nt Date  Protocol 
+amendme
+nt 
+02(PA02
+) 
+19Dec20
+22. Section 1.1  
+• Update of primary and 
+secondary endpoints to 
+specify terminology 
+‘corneal events’ replacing 
+‘ocular AEs’.  
+• Removed the assessment of 
+total plasma monoclonal 
+antibody concentration  
+• Removed MRD negativity 
+endpoint  
+Section 1.1.1  
+• Updated ‘Ocular AE’ to 
+‘Corneal event’ . 
+Section 1.2  
+• Removed enrollment target 
+of having 20% of 
+participants who have 
+received 3 prior lines of 
+therapy  
+• Updated ‘Approved dose of 
+belantamab mafodotin(2.5 
+mg/kg) to ‘DREAMM -2 
+established 2.5 mg/kg Q3W 
+dosing regimen’  
+• Updated the interim analysis 
+definition   
+Section 3  
+• Added Evaluable population 
+(IA only)  Updated as 
+per PA02  
+
+CONFIDENTIAL  
+  209628  
+ Page 5 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+Section 4.2, 4.2.1, 4.2.2 , 4.3, 4.3.1, 
+5.2, T able 8, Table 9  
+Updated ‘Ocular AEs’ to ‘ Corneal 
+event’.  
+ 
+Section 4.1.2  
+• Removed “For ECG 
+analyses, if the latest , non -
+missing pre dose value is 
+from triplicate, the 
+participant level baseline is 
+defined as the mean of 
+triplicate baseline 
+assessments”  
+ ECG is being 
+collected 
+only at 
+screening.  
+ 
+Section 4.3  
+• Added details for the 
+analysis of cumulative 
+incidence of corneal events. 
+Removed “by grade” from 
+the title.  This is 
+competing 
+risk analysis 
+and event of 
+interest is 
+corneal event 
+of Grade 2 or 
+above, so a 
+by grade 
+analysis is 
+not possible . 
+Section 4.3  
+• Updat ed text to “the 
+baseline for deriving change 
+in logMAR would be reset 
+to the BCVA  after the 
+surgery and the visit closest 
+to the next dose 
+administration.” From “the 
+baseline for deriving change 
+in logMAR would be reset Added more 
+details.  
+
+CONFIDENTIAL  
+  209628  
+ Page 6 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+to the first visit  after the 
+surge ry”. 
+ 
+Section 4.3.1  
+• Updated ‘derived response’ 
+to ‘investigator assessed’ 
+response for ORR at 
+interim, primary and final 
+analysis.  
+ Updated as 
+per PA02  
+Table 3  
+• Corrected confirmed 
+response for scenario 11; 
+from NE to SD.  
+ 
+Table 4  
+• Updated PFS censoring rule   
+ 
+ 
+ 
+Updated as 
+per PA02  
+Section 4.3.2  
+• Removed "Sensitivity 
+analysis will be conducted 
+using investigator assessed 
+responses for Duration of 
+response ,PFS, and Time to 
+response" as derived 
+response is no longer being 
+used.   
+• Removed ' sensitivity for 
+DoR' as 'death due to PD' is 
+no longer applicable.   
+•  Added a PFS sensitivity 
+analysis using alternative 
+censoring rule defined in 
+Table 4.   
+
+CONFIDENTIAL  
+  209628  
+ Page 7 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+Section 4.4  
+• Removed MRD rate 
+analysis description  
+ Updated as 
+per PA02  
+Section 4.5  
+• Removed ECG from the 
+worst case analysis.  
+ ECG is  
+being 
+collected 
+only at 
+screening.  
+Section 4.5.1  
+• Added dose modification 
+summary based on Any AE, 
+any AE or mKVA scale 
+event, any non -ocular AE, 
+any non -ocular AE or 
+mKVA scale event .  
+ 
+• Added derived dose delay 
+summary in case multiple 
+action can’t be entered in 
+data for the first Grade 3 
+mKVA scale event.  
+ This is to 
+provide a 
+broader 
+overview of 
+reasons 
+leading to 
+dose 
+modification.  
+Derive dose 
+delay 
+numbers in 
+case of first 
+Grade 3 
+corneal event 
+by mKVA 
+scale , in 
+case data 
+can’t capture 
+multiple 
+action taken.  
+Section 4.5.2.1  
+• Removed text ‘days for 
+Q3W and 1 -42, 43 -84, 85 -
+126 , >126 for Q6W’.  
+ Corneal 
+exams are 
+Q3W 
+irrespective 
+of the dosing 
+frequency.  
+
+CONFIDENTIAL  
+  209628  
+ Page 8 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+Section 4.5.3.2  
+• Removed analysis for vital 
+sign and ECG based on 
+potential clinical concern.  
+ ECG is only 
+being 
+collected at 
+baseline  
+Section 4.5.3.3  
+• Removed 
+Electrocardiogram analysis 
+description  
+ ECG is only 
+being 
+collected at 
+baseline  
+Section 4.5.3.4  (It’s 4.5.3.3 in SAP 
+amend 01)   
+• Added a summary of worst 
+change in logMAR based on 
+line of change for better and 
+worse eye.  
+• Added a summary of 
+microcyst -like deposits by 
+grade.  
+ 
+• Removed ‘Corneal epithelia 
+defect’ from the shift table, 
+as it’s not collected in the 
+CRF,  
+ 
+• Added a  summary for 
+characteristics of defined 
+worsened vision.  
+ 
+• Updated definition of ‘No 
+change’, ‘possible worsened 
+vision’ and ‘definite 
+worsened vision’ . For 
+example, Definite worsened 
+vision is defined as >0.3 
+logMAR change now  (as  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+To ali gn with 
+DREAMM1
+4 mKVA 
+scale  
+
+CONFIDENTIAL  
+  209628  
+ Page 9 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+per mKVA scale, Grade 3 
+BCVA is more than 0.3 
+change in logMAR from 
+baseline) , previously it was 
+>=0.3 . 
+Section 4.6.1  
+• Added an age subgroup 
+<65, >=65.  
+• Added  Ethnic background  
+subgroup ‘Asian Vs other ‘ .  
+These 
+subgroups 
+are of 
+clinical 
+interest.  
+ 
+Section 4.6.5  
+• Added details for model 
+estimation.  
+ 
+Section 4.6.6.1  
+• Added exposure response 
+for efficacy and safety 
+analysis.   
+Section 4.6.8  
+• Removed text “For 
+treatment beyond 12 doses, 
+collect samples for ADA 
+analysis before each 
+infusion every 6th dose of 
+belantamab mafodotin (dose 
+18, 24, 30, and so on, until 
+PD). A final ADA sample 
+will be drawn at the EOT 
+visit.”  Updated as 
+per PA02  
+Section 4.7, 4.8  
+• Updated interim analysis 
+definition.   
+
+CONFIDENTIAL  
+  209628  
+ Page 10 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+• Updated that ORR will be 
+based on investigator 
+assessed response instead of 
+‘derived response.  
+Section 4.9  
+• Removed clarification 
+regarding PK population  
+ PA02 
+includes 
+updated PK 
+population 
+definition, so 
+there’s no 
+change to 
+protocol 
+defined 
+analysis.  
+Section 4.10  
+• Added ‘post treatment 
+switch analysis’  Protocol 
+suggests not 
+to include 
+data post -
+treatment 
+switch under 
+primary 
+analysis; 
+hence a 
+separate 
+analysis is 
+proposed for 
+participant 
+switching to 
+Arm A.  
+ 
+Section 6.1.1  
+• Added Summary of 
+treatment discontinuation by 
+including any AE,  any AE 
+or mKVA scale event, non -
+ocular AE , non -ocular AE This is to 
+provide a 
+broader 
+overview of 
+reasons 
+leading to 
+treatment 
+
+CONFIDENTIAL  
+  209628  
+ Page 11 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+or mKVA  and any ocular 
+AE or mKVA scale event  
+Section 6.1.1.1  
+• Removed ‘If a participant 
+has been in follow up for 2 
+years at the final OS 
+analysis (see Section 4.6) or 
+if the participant dies during 
+the study treatment or 
+follow up period, that 
+participant is considered to 
+have completed the study.’  discontinuati
+on. 
+ 
+ 
+This is not 
+applicable 
+anymore, 
+however it’s 
+there in 
+PA02. This 
+would be 
+corrected in 
+the next 
+protocol 
+amendment.  
+Section 6.1.1.3  
+• Added final analysis and 
+End of study definition.  
+ Updated as 
+per PA02  
+Section 6.1.6  
+• Removed entire section 
+Study Intervention 
+Compliance   
+Section 6.2.4  
+• Added “If the participant is 
+not being dosed, ocular 
+examinations may be 
+performed within ± 3 days 
+of the Q3W visit”  
+ Updated as 
+per PA02  
+
+CONFIDENTIAL  
+  209628  
+ Page 12 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+Section 6.3  
+• Added population 
+pharmacokinetic analyses  
+ 
+Section 6.4  
+• Added 
+pharmacokinetic/pharmacod
+ynamic analyses  
+ This is an 
+important 
+component 
+towards 
+assessment 
+of improved 
+benefit/risk 
+profile with 
+alternative 
+dosing 
+regimens  
+SAP 
+amendm
+ent 2 Refer to 
+docume
+nt date  Protocol 
+amendme
+nt 3 25 
+June 
+2024  Section 4.6.3  
+• Added analyses for 
+exploratory arm E  
+ A separate 
+SAP for arm 
+E is no 
+longer 
+applicable 
+and is 
+included 
+within SAP 
+Amendment
+02 
+Section 4.3 
+• Added definition for 
+derivation of dose delay 
+before End of Treatment  
+ 
+• Added “ If site have selected 
+dose reduced on the 
+exposure form, derive dose 
+delay if applicable for Q3W 
+or Q6W cycles ” 
+ This is to 
+provide 
+clarity to 
+specific 
+scenarios for 
+dose delay 
+derivation.  
+
+CONFIDENTIAL  
+  209628  
+ Page 13 of 69 
+ SAP 
+Version  Approv
+al Date  Protocol 
+Version 
+(Date) 
+on which 
+SAP is 
+Based  Change  Rationale  
+Section 6.2  
+• Added eCOA compliance 
+section.  This is to 
+align with 
+the 
+Sponsor’s 
+updated 
+release to the 
+new SAP 
+template 
+with eCOA 
+compliance.  
+Section 4.6.3 
+• Added sensitivity analysis 
+to the following endpoints – 
+o Arm E specific 
+tables (OSDI, VA by 
+oncologists’  
+assessment ) 
+ This is added 
+to conduct 
+the analysis 
+excluding 
+patients  with 
+significant 
+data quality 
+issues which 
+may impact 
+interpretation 
+of the 
+endpoint s. 
+
+CONFIDENTIAL  
+  209628  
+ Page 14 of 69 
+ 1. INTRODUCTION  
+The purpose of this SAP is to describe the planned analyses and outputs to be included in 
+the Clin ical Study Report (CSR) for Protocol 209628 / 0 2. 
+This statistical analysis plan (SAP)  is intended to describe the efficacy, safety , 
+pharmacokinetic (PK) , biomarker , and patient reported outcome (PRO) analysis  required 
+for the study.  Details of the planned interim analyses , as well as the final analyses, are 
+provided.  Additional detail s with regards to data handling conventions and the 
+specification of data displays will be provided in the Output and Programming 
+Specification (OPS) doc ument.  
+1.1. Objectives , Estimands  and Endpoints  
+The purpose of the study is to explore whether alternative dosing regimens with lower 
+dose intensity of single  agent belantamab mafodotin  can improve the benefit/risk profile 
+(i.e., can reduce the risk of corneal events without a clinically meaningful decrease in 
+efficacy) in participants with Relapsed or Refractory Multiple Myeloma compared to the 
+DREAMM -2 established 2.5 mg/kg Q3W dosing regimen . 
+Table 1 Summary of Objectives and Endpoints  
+Objectives  Endpoints  
+Primary  
+To examine the  corneal events 
+associated with single -agent 
+belantamab mafodotin using 
+alternative dosing regimens in 
+participants with RRMM in Arms  B to 
+D compared to Arm  A  Incidence rate of Grade  ≥2 corneal events 
+according to the KVA scale  
+Secondary  
+To further evaluate the ocular safety 
+and tolerabilit y of single -agent 
+belantamab mafodotin in all arms  • Cumulative event rate of corneal events to 
+Week  16 (KVA scale)  
+• Incidence rate of corneal events by grade 
+(KVA scale)  
+• Exposure  adjusted incidence rate of 
+corneal events by grade (KVA scale)  
+• Median duration of dose delay  
+• Percentage of participants requiring dose 
+reductions, dose delays, and study 
+treatment discontinuation due to corneal 
+events (KVA scale)  
+• Cumulative incidence of corneal events 
+by grade (KVA  scale)  
+• Toxicity Index by assessment/visit  
+• Duration of corneal events (KVA scale)  
+• Percentage of time on study with corneal 
+events (KVA  scale)  
+• Change in BCVA (ΔlogMAR)  
+
+CONFIDENTIAL  
+  209628  
+ Page 15 of 69 
+ Objectives  Endpoints  
+To evaluate the efficacy of 
+single -agent belantamab mafodotin in 
+all arms  • ORR, defined as the percentage of 
+partic ipants with a confirmed PR or better 
+(i.e., PR, VGPR, CR, and sCR)  
+• Percentage of participants with a 
+confirmed VGPR or better (i.e., VGPR, 
+CR, and sCR)  
+• TTR is defined as the time between the 
+date of randomization and the first 
+documented evidence of respon se (PR or 
+better), among participants who achieve a 
+response (i.e., confirmed PR or better)  
+• DoR in responders, defined as the time 
+from first documented evidence of PR or 
+better until PD or death due to any cause.  
+• TTP, defined as the time from 
+randomizatio n until the earliest date of 
+documented PD or death due to PD  
+• PFS, defined as the time from 
+randomization until the earliest date of 
+documented PD or death due to any cause  
+• OS, defined as the time from 
+randomization until the date of death due 
+to any cause  
+Note: All efficacy endpoints are based on the 
+2016  IMWG Response Criteria [Kumar , 
+2016]  
+To evaluate the overall safety and 
+tolerability of single -agent belantamab 
+mafodotin in all arms  • Instance of AEs (including ocular AEs) 
+(CTCAE Version  5.0) and changes in 
+laboratory parameters  
+• Percentage of participants requiring dose 
+reductions, dose delays, and study 
+treatment discontinuation due to any AEs 
+(CTCAE Ve rsion  5.0) 
+To assess the pharmacokinetics of 
+single -agent belantamab mafodotin in 
+all arms  Plasma belantamab mafodotin 
+pharmacokinetic parameters, as data permit  
+To assess anti -drug antibodies against 
+single -agent belantamab mafodotin in 
+all arms  Inciden ce and titers of ADAs against 
+belantamab mafodotin at each ADA time 
+point  
+
+CONFIDENTIAL  
+  209628  
+ Page 16 of 69 
+ Objectives  Endpoints  
+Exploratory  
+To assess the pharmacokinetics of cys -
+mcMMAF in all arms  Plasma cys -mcMMAF pharmacokinetic 
+parameters, as data permit  
+To evaluate the toxicity over time of 
+single -agent belantamab mafodotin in 
+all arms  Longitudinal ToxT AUC, as data permit  
+To explore exposure -response 
+relationships between belantamab 
+mafodotin and cys -mcMMAF 
+exposure and clinical endpoints for 
+efficacy and safety in all arms  Explore relation ships between belantamab 
+mafodotin exposure (e.g., Cmax, Cavg, or 
+Ctau) and clinical endpoints (e.g., response, 
+ocular toxicity), if data permit  
+To explore the relationship between 
+biological characteristics and clinical 
+response in all arms  Tumor - and blood -based analyses of DNA, 
+RNA, and protein changes including, but not 
+limited to, baseline and on -treatment sBCMA, 
+BCMA expression on myeloma cells, and 
+peripheral immune cell numbers and 
+phenotypes  
+To evaluate the safety and tolerability 
+of singl e-agent belantamab mafodotin 
+with dose modifications based on 
+ocular symptoms, visual acuity 
+assessments based on self -reported 
+symptomatic AEs, and corneal 
+findings (Arm  E only)  • Changes from baseline in pre -specified 
+symptomatic AEs and impacts as 
+measure d by the PRO -CTCAE  
+• Changes from baseline and proportion of 
+participants with within -participant 
+meaningful change in self -reported ocular 
+symptoms and related impacts as 
+measured by OSDI  
+• Level of overall bother/tolerability as 
+measured by the single item F ACT -GP5 
+To evaluate and compare changes in 
+symptoms and HRQoL in all arms  • Frequency and severity/intensity of 
+symptomatic AEs as measured by the 
+PRO -CTCAE  
+• Changes from baseline and 
+within -participant meaningful change in 
+self-reported ocular symptoms and related 
+impacts as measured by the OSDI  
+• Level of overall bother/tolerability as 
+measured by the single  item FACTGP5  
+• Change from baseline in HRQoL as 
+measured by the EORTC QLQ -C30 and 
+EORTC -QLQ -MY20  
+• Global cancer symptoms severity and 
+change as  measured by the PGIS/PGIC  
+
+CONFIDENTIAL  
+  209628  
+ Page 17 of 69 
+ Objectives  Endpoints  
+To evaluate the feasibility of dosing 
+modifications based on ocular 
+symptoms, visual acuity assessments, 
+and corneal findings (Arm  E) 
+compared to dosing modifications 
+based on KVA scale (Arm  A). The incidence of keratopathy (all  grades), 
+visual acuity changes, ocular symptoms, 
+related impacts based on OSDI, and corneal 
+findings in the symptom -based dose 
+modification arm will be compared to the 
+selected standard dose modification control 
+arm. 
+To evaluate in silico individualized 
+dosing by ISS stage or other disease 
+characteristics at baseline using virtual 
+treatment arms  Efficacy and safety endpoints will be 
+calculated for virtual treatment arms created 
+by combination of participants selected from 
+the study treatmen t arms based on disease 
+characteristics (e.g., ISS stage)  
+To investigate the relationship 
+between host genetic variation and the 
+study treatment in all arms  Effect of host genetic variation on response to 
+study treatment including, but not limited to, 
+belantamab mafodotin  
+1.1.1.  Estimands  
+The primary clinical question of interest is: what is the impact on the incidence of Grade 
+≥2 corneal events (KVA) when belantamab mafodotin is administered at alternate dose 
+regimens relative to the DREAMM -2 established 2.5 mg/kg Q3W dosing regimen ?  
+The estimand is described by the following attributes:  
+• Population : Participants with RRMM who have received 3 or more lines of prior 
+therapy  
+• Endpoint: Incidence rate of Grade  ≥2 corneal events according to the KVA scale . 
+• Treatment condition: Different dosing regimen compared to control . 
+• Intercurrent event: Not applicable . 
+• Summary measure: Estimates of incidence rate of Grade  ≥2 corneal events (KVA 
+scale) . 
+• Rationale: Alternative dosing regimens of single agent belantamab mafodotin will 
+be explored in Study  209628 to determine if an improved overall benefit/risk 
+profile can be achieved by modifying the belantamab mafodo tin dose, schedule, 
+or both.  
+
+CONFIDENTIAL  
+  209628  
+ Page 18 of 69 
+ 1.2. Study Design  
+Overview of Study Design and Key Features  
+ 
+Design 
+Features  Study 209628 (DREAMM -14) is a Phase  2, randomized, parallel, 
+open -label, study of belantamab mafodotin administered as a 
+single -agent to participants with RRMM. The study has 5  arms: Arm  A, 
+a control arm (2.5  mg/kg Q3W); Arms  B through D, 3  arms with dosing 
+alternatives; and Arm  E, a fifth exploratory arm to evaluate the 
+feasibility of  dose modifications based on ocular symptoms, visual 
+acuity assessments, and corneal findings. All enrolling study sites will 
+participate in Arms  A to D; site participation in Arm  E is optional and 
+based on site interest and ability.  
+Participants in Arm  A will use the DREAMM -2 established 2.5 mg/kg 
+Q3W dosing r egimen . Participants in Arm  C will receive a starting dose 
+at 2.5  mg/kg  belantamab mafodotin , but dosing will occur at Q6W 
+intervals. Participants in Arms  B, D, and E will start at a reduced dose 
+of belantamab mafodotin (1.9  mg/kg) and continue dosing at Q 3W 
+(Arm  B) and Q6W (Arms  D and E) intervals. Each dosing regimen has 
+1 allowed dose reduction: from 2.5  mg/kg to 1.9  mg/kg in Arms  A and 
+C and from 1.9  mg/kg to 1.4  mg/kg in Arms  B, D, and E.  
+Participants in all arms will have Q3W ophthalmic examination an d 
+monitoring. All ophthalmic examinations will be performed by a 
+qualified eye care specialist.  
+All arms except Arm  E will follow dose modification due to corneal 
+events as per the modified keratopathy visual acuity ( mKVA) scale. In 
+contrast, Arm  E will us e a symptom -based dose modification approach 
+before each dose, in the oncologist’s office; specifically, ocular 
+symptoms and visual acuity assessments using the OSDI and Snellen 
+chart or equivalent, respectively (in addition to corneal examination 
+findings  according to the mKVA scale), will be used to inform dose 
+modification decisions. Note:  Although not determining dose 
+
+
+CONFIDENTIAL  
+  209628  
+ Page 19 of 69 
+ Overview of Study Design and Key Features  
+modification decisions, ocular events (corneal findings and BCVA) 
+graded per the mKVA scale will still be recorded for all participants in 
+Arm E throughout the study.   
+The KVA scale used in D REA MM-14 is a modified version of the 
+original KVA scale used in other D REA MM studies. Key differences in 
+the modified KVA scale include the addition of Grade 0, use of 
+logMAR units for vi sual acuity and additional descriptions of corneal 
+findings . 
+Participants in all arms will be treated until PD  (confirmed by 2016 
+IMWG response criteria [ Kumar , 2016]) , unacceptable toxicity, or 
+death. The study consists of a screening/baseline period, a treatment 
+period, and a posttreatment follow -up period.  The primary analysis will 
+be performed at least 9 months after the first response of the last 
+responder (i.e., P R, VGPR, CR, and sCR) or 12 months after the last 
+participant is randomized into Arms A to D , whichever comes first.  
+Study details include  
+• Study Duration: Approximately 28 months  
+• Treatment Duration: Until PD, unacceptable toxicity, or death  
+• Visit Frequency: Q3W  
+Study 
+intervention  Arm  A: 2.5  mg/kg Q3W  (DREAMM -2 established single  agent dosing 
+regimen)  
+o Rationale for Arm  A: control  
+o Dose modification for ocular events: see Section  6.5.1 of the 
+CSP (dose reduction to 1.9  mg/kg allowed)  
+Arm  B: 1.9  mg/kg Q3W  
+o Rationale for Arm  B dosing: see Section  4.3 of the CSP  
+o Dose modification for ocular events: see Section 6.5.1 of the 
+CSP (dose reduction to 1.4  mg/kg allowed)  
+Arm  C: 2.5  mg/kg Q6W  
+o Rationale for Arm  C dosing: see Section  4.3 of the CSP 
+o Dose modification for ocular events: see Section  6.5.1 of the 
+CSP (dose reduction to 1.9  mg/kg allowed)  
+Arm  D: 1.9  mg/kg Q6W  
+o Rationale for Arm  D dosing: see Section  4.3 of the CSP  
+o Dose modification for ocular events: see Section  6.5.1 of the 
+CSP (dose reduction to 1.4  mg/kg allowed)  
+Arm  E: 1.9  mg/kg Q6W with dose modifications based on ocular 
+symptoms , visual acuity , and corneal findings assessments  
+o Rationale for Arm  E dosing: see Section  4.4 of the CSP  
+
+CONFIDENTIAL  
+  209628  
+ Page 20 of 69 
+ Overview of Study Design and Key Features  
+o Dose modification for ocular events: see Section  6.5.2 of the 
+CSP (dose reduction to 1.4  mg/kg allowed)  
+Study 
+intervention  
+Assignment  • This is an open  label study; therefore, no blinding of treatment 
+identity is needed. However, to ensure study integrity, steps will be 
+taken to restrict sponsor access to key information while the study is 
+ongoing and prevent data aggregation, except for where specified in 
+the protocol (i.e., IDMC, see Section 9.5.1 of the CSP ). 
+• Upon completion of all the required screening assessments, eligible 
+participants will be centrally randomized using a central IRT 
+system, RAMOS NG, by the investigator or authorized site staff.  
+• RAMOS NG allows study sites to register and randomize 
+participants and also records stratification information. 
+Randomization list will be done cent rally using a randomization 
+schedule generated by the GSK Clinical Statistics Department in 
+RandALL NG, which will assign participants in either  a 2:2:2:2:1 
+ratio to Arms  A to E in parallel (at sites participating in optional 
+Arm E) or a 1:1:1:1 ratio to A rms A to D in parallel (at sites not 
+participating in optional Arm  E). 
+Note: For Arm  E, in which dose modification decisions are informed by the 
+results of the OSDI questionnaire, the OSDI must be available in the 
+appropriate language in order for a partic ipant to be randomized into this 
+arm. If the OSDI is not available, the participant will be randomized into 
+Arms  A to D (1:1:1:1).  
+There are two stratification factor s- 
+1.ISS for MM (I vs II vs III) (see Section 10.2 of the CSP)  
+2.Number of prior lines of anti-MM therapy (3 vs ≥4)  
+Interim 
+Analysis  An interim analysis is planned when 15 participants each in Arms A to 
+D have been enrolled and have received at least two doses of study 
+treatment with one disease assessment following the second dose, or 
+confirmed PD per IMWG [ Kumar , 2016] or death  .. Refer Section 4.7 
+for details.  
+
+CONFIDENTIAL  
+  209628  
+ Page 21 of 69 
+ 2. STATISTICAL HYPOTHESES  
+No formal hypothesis testing will be performed in this study.  
+2.1. Multiplicity  Adjustment  
+Not applicable.  
+3. ANALYSIS SETS  
+Table 2 Study Analysis Sets  
+Analysis Set  Definition / Criteria  Analyses Evaluated  
+All Screened  The All Screened Population will consist 
+of all participants who sign the ICF to 
+participate in the clinical study. 
+Participants in this population will be used 
+for screen failure summary.  Study population  
+Intent -to-Treat 
+(ITT) The ITT Population will consist of all 
+randomized participants, whether or not 
+randomized treatment was administered. 
+This population will be based on the 
+treatment to which the participant was 
+randomized and will be the primary 
+population for the analysis of efficacy 
+data. Any p articipant who receives a 
+treatment randomization number will be 
+considered to have been randomized.  Efficacy  
+Safety  All randomized participants who receive at 
+least 1  dose of study treatment. 
+Participants will be analyzed according to 
+the treatment they actually received.  Safety  
+Pharmacokinetic 
+(PK) The PK Population will consist of those 
+participants in the Safety Population from 
+whom at least 1 post-treatment PK sample 
+has been obtained and analyzed. This 
+population will be the primary population 
+for P K analyses.  PK 
+Evaluable  
+population (IA 
+only)  The Evaluable Population for the interim 
+analysis will consist of all participants 
+who have received  two doses of study 
+treatment and have completed one disease 
+assessment after the second dose or 
+confirmed PD or death. This population Futility at IA  
+
+CONFIDENTIAL  
+  209628  
+ Page 22 of 69 
+ Analysis Set  Definition / Criteria  Analyses Evaluated  
+will be the primary population for futility 
+assessment at Interim analysis only  
+ 
+4. STATISTICAL ANALYSES  
+4.1. General Considerations  
+4.1.1.  General Methodology  
+Descriptive statistics for safety, efficacy, and pharmacokinetic data will be generated to 
+summarize the information for each dosing regimen. Demographics, baseline 
+characteristics, and efficacy will be s ummarized using the Intent to Treat (ITT) 
+Population. AEs, clinical laboratory parameters, and vital signs will be summarized using 
+the Safety Population. Pharmacokinetic parameter values will be summarized using the 
+Pharmacokinetic (PK) Population. Approp riate subgroup analyses may be performed if 
+data permit.  
+In the case of wrong stratification assigned at the time of randomization, the analyses will 
+be performed based on the data collected in the CRF, not the assigned stratum at 
+randomization.   
+Confidenc e intervals will use 95% confidence levels unless otherwise specified.  
+Data will be listed and summarized according to the GSK reporting standards, where 
+applicable. Subject level data will be available through the Reporting & Analysis Plan 
+Improving Desig n and Delivery of Outputs Data Viewer (RAPIDO DV) tool. Selected 
+listings will be created in static fashion. See OPS for more details .  
+In this multicenter global study, enrolment will be presented by country and site. Data 
+from all participating centers w ill be integrated and no controlling for center -effect will 
+be considered in the statistical analyses. I t is anticipated that accrual will be spread thinly 
+across centers and summaries of data by center would be unlikely to be informative, data 
+from all pa rticipating centers will be pooled prior to analysis.  
+All data up to the time of study completion/withdrawal from study will be included in the 
+analysis, regardless of duration of treatment.  
+4.1.2.  Baseline Definition  
+For all endpoints, unless otherwise specified , the baseline value will be the latest pre -dose 
+assessment with a non -missing value, including those from unscheduled visits. If time is 
+not collected, Day 1 assessments are assumed to be taken prior to first dose and used as 
+baseline. For participants who did not receive study treatment during the study, baseline 
+will be de fined as the latest, non -missing collected value.  
+
+CONFIDENTIAL  
+  209628  
+ Page 23 of 69 
+ For laboratory data, baseline will be the latest non -missing pre -dose value from central 
+laboratory . If no central lab oratory  value is available, the latest non -missing pre -dose 
+value from local lab oratory  will be used. For efficacy lab oratory  tests, only central lab 
+values will be used.  
+Unless otherwise stated, if baseline data is missing , no derivation will be performed and  
+baseline will be set to missing.  
+4.2. Primary Endpoints Analys es 
+The primary end point  for the study is the i ncidence rate of Grade  ≥2 corneal events 
+according to the KVA scale. This analysis will be performed on the safety population.  
+4.2.1.  Definition of Primary Endpoint  
+Incidence rate of Grade ≥2 corneal events according to the KVA scale : The 
+percent age of participants with Grade ≥2 corneal events assessed by KVA scale.  
+The arm that meets the interim threshold based on efficacy (refer Section 4.7) and meets  
+both the  following criteria will be declared to show an improved toxicity profile 
+compared to the control arm  A- 
+1. Posterior probability P (incidence rate of control  arm – incidence rate of test arm 
+> 0.17) > 0.7 . The details on the posterior distribution is provided in Section 4.2.2 . 
+2. The lower 95% CI of the difference in incidence rates between the test arm an d 
+the control Arm A should  be > 2.5% . 
+4.2.2.  Main analytical approach  
+Based on the Grade ≥2 incidence rate observed in the 95 participants in the 2.5 mg/kg 
+Q3W arm of the DREAMM 2 study (based on the 20 September 2019 data cutoff date), 
+the prior of the incidence  rate in Arm A is assumed to follow a Beta (6.32, 3.68) 
+distribution with a mean of 63.2% and an effective sample size of 10, which is down 
+weighted so that the prior is informative yet data to be collected in this study will still 
+dominate the conclusion.  The prior of those of Arms B to D are assumed to follow a Beta 
+(0.41, 0.59) distribution with a mean of 41%, which corresponds to a 35% relative 
+reduction from the incidence rate of 63.2%, and an effective sample size of 1.  
+Let n1, x1 be the sample size a nd number of Grade ≥ 2 corneal events in Arm A 
+respectively, and n2, x2 be the sample size and number of Grade ≥ 2 corneal events in the 
+test arm . 
+Then, the posterior distribution of the incidence rate in Arm A will follow ~ 
+Beta(6.32+x1, 3.68+n1 -x1) and posterior distribution of the incidence rate in the test arm 
+will follow ~ Beta(0.41+x2, 0.59+n2 -x2) 
+For each arm of B -D, the testing procedure will be performed as the following:  
+1. Sample 100000 p1’s from Beta(6.32+x1, 3.68+n1 -x1) 
+2. Sample 100 000 p2’s from Beta(0.41+x2, 0.59+n2 -x2)  
+
+CONFIDENTIAL  
+  209628  
+ Page 24 of 69 
+ 3. Calculate the probability of  p1 –p2 > 0.17 from the above 100000 simulations.  
+4. If the above probability is > 0.7, the arm is considered to have met the Bayesian 
+acceptance criterion and continue to step 5; otherwise  stop here.  
+5. Exact 95 % Confidence interval for difference in incidence rate of Grade ≥2 
+corneal events between control arm and test arm will be calculated.  
+The arm with the highest posterior probability and having lower 95 % CI > 2.5% will be 
+declared to show an improved toxicity profile compared to the  control arm . 
+A table showing posterior probability and exact 95 % CI , as defined above, will be 
+presented.  
+Summary of incidence rate of Grade ≥2 corneal events according to the KVA scale by 
+treatment arm will be presented.  
+Other AE related summar ies are defined under Section 4.5.2 .  
+4.3. Secondary  Endpoint Analyses  and definition  
+• Cumulative event rate of corneal events to Week 16 (KVA scale)  
+It’s defined as p ercentage of corneal events of each grade out of all the events u p 
+to Week 16 . 
+ A summary of cumulative event rate by treatment arm  will be created . 
+• Incidence rate of corneal events by grade (KVA scale)  
+It is defined as t he percentage of participants with corneal events by grade 
+according to the KVA scale in the respective treatment group.  
+A summary of incidence rate s of corneal events  (KVA scale), and the component 
+of the KVA scale (Corneal exam findings grade and Visual acuity grade) for all 
+subjects at the data cut -off and as landmark analysis at 3 months, 6 mo nths, 9 
+months , and 12 months by treatment arm will be provided . 
+• Exposure adjusted incidence rate of corneal events by grade (KVA scale)  
+It is defined as t he number of participants with corneal events divided by the total 
+exposure time among participants  in the respective treatment group at risk of an 
+initial occurrence of the event . Refer Section 4.3.1  for calculation . 
+ Exposure adjusted incidence rate analysis will be used to assess the rate of each 
+adverse event of interest per period of exposure. This analysis will be performed 
+for dry ey e events, blurred vision events, thrombocytopenic events , and IRR.  
+• Median duration of dose delay  
+It is defined as t he median duration in time of all the dose delays in the respective 
+treatment group.  Duration of delays is defined as period from the expec ted start 
+date of dose to actual start date of current dose.  
+
+CONFIDENTIAL  
+  209628  
+ Page 25 of 69 
+ Calculation: (actual start date of current dose - expected start date of dose).  
+For Q3W dosing, Expected start date of dose = actual start date of previous dose 
++ 21.  
+For Q6W dosing, Expected s tart date of dose = actual start date of previous dose 
++ 42.  
+For delays from expected last dose to “End Date”, the analysis will follow the 
+below criteria for considering “End Date” and choose the earlies t date of the 
+following – 
+A. Treatment Discontinuation Date: If this is earliest date or all dates (A)-(E) 
+are the same  then consider 30 days for Q3W cycles (following protocol 
+definition of EOT as 30 days from last dose) OR Q6W + 3 days (45 days) 
+for Q6W cycles . 
+ 
+B. Date of Death.  
+ 
+C. Date  of decision to discontinue treatment.  
+ 
+D. Start date of new Ant i-myeloma therapy.  
+ 
+E. Last contact date  
+ 
+If one of the (B)-(E) is the earliest date, use Q3W + 3 or Q6W + 3 for respective 
+cycles.  
+If site have selected dose reduced on the exposure form, then also the dose delay 
+will be derived if applicable for Q3W or Q6W cycle s similarly . 
+• Percentage of participants requiring dose reductions , dose delays , and study 
+treatment discontinuation due to  corneal events (KVA scale)  
+The percentage of participants that require dose reduction out of all the 
+participants in the respective treatment group.  
+Percentage of participants requiring dose delay - The percentage of participants 
+that require dose delay o ut of all the participants in the respective treatment group.  
+Percentage of participants requiring study treatment discontinuation is defined as 
+the percentage of participants that require study treatment discontinuation out of 
+all the participants in the respective treatment group . 
+Refer Section 4.5.1 . Extent of Exposure for planned  analysis.  
+• Cumulative incidence of corneal events (KVA scale)  
+
+CONFIDENTIAL  
+  209628  
+ Page 26 of 69 
+ It is calculated as the number of new events divided by the total number of 
+individuals in the population at risk for a specific time interval. Assuming that the 
+times experiencing the event of interest are: t 1, tj-1, and t j, the overall event  (both 
+events of interest and competing risk events) free rate up to, but not including 
+time t j, will be obtained from the Kaplan Meier estimates and is denoted by S(t j).  
+The probability that the event of interest happens in the time interval ( 𝑡𝑗−1, 𝑡𝑗) 
+which is denoted by 𝑝(𝑡𝑗), will be estimated by the number of events of interest 
+occurring at time 𝑡𝑗 divided by the number of individuals at risk before 𝑡𝑗. The 
+probability of experiencing the event of interest in the time interval ( 𝑡𝑗−1, 𝑡𝑗 ) will 
+be estimated by 𝑝(𝑡𝑗)* 𝑆(𝑡𝑗−1). The cumulative incidence up to time 𝑡𝑗 will be 
+estimated by  ∑ 𝑝(𝑡𝑖)∗𝑆(𝑡𝑖−1)𝑗
+𝑖=1. Note that event time here may not be the onset 
+time for Grade 2 event but the onset time of any corneal event for partici pants 
+with Grade 2 or above corneal events, since only maximum grade is collected for 
+an AE.  
+Discontinuation of treatment or death without the event of interest will be 
+considered as a  competing risk since its occurrence precludes the occurrence of 
+the eve nt of interest. For the purpose of this analysis, the date for treatment 
+discontinuation will use last infusion date + 70 days. 70 days is approximately 5 
+times half -life of belantamab mafodotin. Participants who are still on treatment 
+but did not have an event of interest will be censored at the last corneal  
+examination date.   
+• Toxicity Index by assessment/visit  
+It is defined as a function of the ordered toxicity grades, where the toxicity grades 
+are represented in descending order by the sequence. The ma ximum toxicity grade 
+is the integer part of the final score - 
+𝑇𝐼=Σ𝑖=1𝑛𝑋𝑖
+∏ (1+𝑋𝑗)𝑖−1
+𝑗=1 
+Refer Section 4.3.1 . Main analytical approach for planned  analysis.  
+• Duration of corneal events (KVA scale)   
+It is defined for each participant as the sum of duration of all the corneal AEs.  The 
+duration is defi ned as time from onset of any corneal events (KVA scale) of 
+Grade 2 or above to the first time resolution to baseline, Grade 1 or below. It 
+requires at least one day gap between the resolution of all events from first 
+occurrence to the onset of second occurrence.  
+• Percentage of time on study with corneal events (KVA scale)  
+It is defined as the percentage of time that a participant has corneal events out of 
+the total time that a participant is on the study.   
+
+CONFIDENTIAL  
+  209628  
+ Page 27 of 69 
+ Time on corneal events is defined as t ime from onset of any corneal events (KVA 
+scale) of Grade 2 or above to the first-time resolution to baseline, Grade 1 or 
+below . It requires at least one day gap between the resolution of all events from 
+first occurrence to the onset of second occurrence.  
+Time on study is defined as : 
+ Date of Study Completion or Discontinuation – Date of randomization +1  
+• Change in BCVA (ΔlogMAR)  
+Defined as change of logMAR  units  compared with baseline or the first visit after 
+the cataract surgery.  Refer Section 4.5.3.3 . Ocular Examinations for planned 
+analysis.  If patient h ad cataract surgery, the baseline for deriving change  in 
+logMAR would be reset to the BCVA  after the surgery  and the visit closest to  the 
+next dose administration . 
+• Overall Response rate  
+Defined as the percentage of participants with a confirmed PR or better (i.e., PR, 
+VGPR, CR, and sCR) , according to the 2016 IMWG response criteria [ Kumar , 
+2016].   
+• Percentage of participants with a confirmed VGPR or better   
+Define d as percentage of participant with confirmed VGPR, CR, and sCR , 
+according to the 2016 IMWG response criteria [ Kumar , 2016].  
+• Time to Response   
+Defined as the time b etween the date of randomization and the first documented 
+evidence of response (PR or better), among participants who achieve a response 
+(i.e., confirmed PR or better) , according to the 2016 IMWG response criteria 
+[Kumar , 2016].  
+• Duration of Response  
+It is defined  as the time from first documented evidence of PR or better until PD 
+among responders according to the 2016 IMWG response criteria [ Kumar , 2016]  
+or death due to any cause.  
+• Time to Progression   
+Defined as the time from randomization until the earliest date of documented PD 
+or death due to PD , acco rding to the 2016 IMWG response criteria [ Kumar , 
+2016].  Responders without PD will be censored at the censoring time point for 
+time to progression (TTP).  
+ 
+ 
+ 
+
+CONFIDENTIAL  
+  209628  
+ Page 28 of 69 
+ • Progression Free Survival   
+Defined as the time from randomization until the earliest date of documented PD , 
+according to the 2016 IMWG response criteria [ Kumar , 2016],  or death due to 
+any cause . 
+• Overall Survival    
+Defined as the time from randomization until the date of death due to any cause . 
+4.3.1.  Main analytical approach  
+Exposure adjusted incidence rate of corneal events by grade (KVA scale)  
+Exposure adjusted incidence rate = (Number of participants with ocular events / Total 
+participant -years)*100  
+Participant  years = Sum of participant duration of dosi ng in days (across all 
+participants)/365.25,  
+Participant duration of dosing in days= Event onset date or (last dose date + 70) – first 
+dose date  + 1. 
+For participants with event, first event onset date will be used and for participants without 
+an event, la st dose date + 70 will be used. If a participant died or discontinued from study 
+prior to last infusion date + 70 days without the event of interest, the death date or study 
+discontinuation date will replace last infusion date+ 70. Seventy  days is approximately 5 
+times half -life of belantamab mafodotin . 
+Toxicity Index  (TI) 
+Let X1, X2…..Xn be the toxicity grades of a subject, r ank the toxicity grade of a subject 
+toxicity profile in descending order X1 >=X2 >=…>=Xn,  
+𝑇𝐼=𝑋1+𝑋2
+1+𝑋1+𝑋3
+(1+𝑋1)(1+𝑋2)+⋯+𝑋𝑛
+(1+𝑋1)…(1+𝑋𝑛−1) 
+(X1 be the maximum toxicity grade  for a subject ) 
+Summary statistics  for Toxicity Index  by treatment arm  will be provided. A data listing 
+indicating TI will also be provided.   
+Overall response rate (ORR)  
+ORR at interim analys is, primary  and final  analysis will be analyzed based on the 
+investigator -assessed  confirmed responses , using  the algorithm specified in  
+ 
+Table  3.The date of the first of the two consecutive assessments will be used as the date 
+of the confirmed response.  
+
+CONFIDENTIAL  
+  209628  
+ Page 29 of 69 
+  
+Table 3 Response confirmation algorithm  
+# Response at the First 
+Time Point  Response at Subsequent Disease 
+Assessment1 Confirmed Response at 
+the First Time Point  
+1 sCR sCR sCR 
+2 sCR CR 
+CR 
+3 CR sCR/CR  
+4 sCR/CR  VGPR  
+VGPR  
+5 VGPR  sCR/CR/VGPR  
+6 sCR/CR/VGPR  PR 
+PR 
+7 PR sCR/CR/VGPR/PR  
+8 sCR/CR/VGPR/PR  MR 
+MR 
+9 MR sCR/CR/VGPR/PR/MR  
+10 sCR/CR/VGPR/PR/MR  SD SD 
+11 sCR/CR/VGPR/PR/MR  PD (any reason)  
+OR 
+No subsequent disease assessment: 
+participant died or discontinued 
+study or started new anti -cancer 
+therapy  before further adequate 
+disease assessment.  SD 
+12 PD (due to reasons other 
+than imaging, i.e., 
+plasmacytoma or bone 
+lesion)  PD (any reason) including PD after 
+initiation of new anti -cancer therapy.  
+OR  
+No subsequent disease assessment: 
+participant died due to PD before 
+further adequate disease assessment 
+(including death due to PD after 
+initiation of new anti -cancer therapy).  PD 
+13 PD (due to reasons other 
+than imaging, i.e., 
+plasmacytoma or bone 
+lesion)  sCR/CR/VGPR/PR/MR/SD  
+OR 
+No subsequent disease assessment: 
+participant died due to reasons 
+other than PD  before further 
+adequate disease assessment.  
+OR 
+No subsequent disease assessment: 
+participant discontinued study  
+before further adequate disease 
+assessment.  NE 
+
+CONFIDENTIAL  
+  209628  
+ Page 30 of 69 
+ # Response at the First 
+Time Point  Response at Subsequent Disease 
+Assessment1 Confirmed Response at 
+the First Time Point  
+14 sCR/CR/VGPR/PR/MR/PD 
+(due to reasons other than 
+imaging, i.e., 
+plasmacytoma or bone 
+lesion)  No subsequent disease assessment: 
+participant has not died, discontinued 
+from study or (except for PD) started 
+new anti -cancer therapy; but as yet 
+has no further adequate disease 
+assessments.  Unconfirmed (UC) 
+sCR/CR/VGPR/PR/MR/PD.  
+Will be categoriz ed as NE 
+for final ORR analysis. For 
+ORR analysis in IA, the UC 
+response (PR or better) will 
+be counted as responder.  
+15 SD Any 
+OR 
+No subsequent disease assessment.  SD 
+16 PD due to imaging 
+(plasmacytoma or bone 
+lesion)  Any 
+OR 
+No subsequent disease assessment.  PD 
+17 NE or missing  Any 
+OR 
+No subsequent disease assessment.  NE 
+1 Subsequent disease assessment is defined as the next adequate (not missing or NE) disease assessment 
+following the first timepoint before (or on the same date of) start of new anti -cancer therapy except for 
+confirmation of PD, for which PD or death due to PD after new anti -cancer therapy are considered for 
+confirmation of PD. No minimal time interval is required for the subsequent disease assessment, but a 
+different sample i s required for confirmation.  
+2 SD does not need to be confirmed.  
+3 PD due to imaging (i.e., plasmacytoma or bone lesion) does not need to be confirmed.  
+4 Where criteria are not mutually exclusive, take the first that applies.  
+The number and percentage of p articipants with the best confirmed response in the 
+following response categories will be summarized by treatment arm: sCR, CR, VGPR, 
+PR, overall response (sCR+CR+VGPR+PR), minimal response (MR), stable disease 
+(SD), PD, and not evaluable. The correspondin g exact 95%  CI for ORR will also be 
+provided. Participants with unknown or missing responses will be treated as 
+non-responders, i.e., these participants will be included in the denominator when 
+calculating percentages of response.  
+Only the assessments from  the start of treatment up to the earlier of confirmed disease 
+progression or the start of new anti -cancer therapy will be considered. Only new systemic 
+anti-cancer drugs taken are considered as anti -cancer therapy (radiotherapy and surgeries 
+are not consi dered as systemic anti -cancer therapy for the purpose of this analysis).  
+A waterfall plot showing the maximum percent reduction from baseline in Serum 
+M-protein, or Urine M -protein, or difference between two types of serum free light chain 
+(FLC) [Kappa lig ht chain (Kappa LC) and Lambda light chain (Lambda LC)] for each 
+participant will be produced by treatment arm . Indication of the best overall response will 
+be provided below the plot. Only the assessments from the start of treatment up to the 
+start of new  anti-cancer therapy will be considered. Only new systemic anti -cancer drugs 
+
+CONFIDENTIAL  
+  209628  
+ Page 31 of 69 
+ taken are considered as anti -cancer therapy (radiotherapy and surgeries are not 
+considered as systemic anti -cancer therapy for the purpose of this analysis).  
+The maximum percent r eduction will be plotted in the following hierarchical order:  
+1. Plot Serum M -protein maximum percent reduction from baseline if data is 
+available.  
+2. If (1) is not feasible, plot Urine M -protein maximum percent reduction from 
+baseline if data is available.  
+3. If both (1) and (2) are not feasible, plot maximum percent reduction from baseline 
+for difference between two types of Serum FLC if data is available.  
+Difference between two types of Serum FLC  
+The percent change from baseline for difference between two types of Serum FLC is 
+defined as:  
+% 𝑐ℎ𝑎𝑛𝑔𝑒  𝑓𝑟𝑜𝑚  𝐵𝑎𝑠𝑒𝑙𝑖𝑛𝑒
+=𝑝𝑜𝑠𝑡 -𝑏𝑎𝑠𝑒𝑙𝑖𝑛𝑒  𝑑𝑖𝑓𝑓𝑒𝑟𝑒𝑛𝑐𝑒 −𝑏𝑎𝑠𝑒𝑙𝑖𝑛𝑒  𝑑𝑖𝑓𝑓𝑒𝑟𝑒𝑛𝑐𝑒
+𝑏𝑎𝑠𝑒𝑙𝑖𝑛𝑒  𝑑𝑖𝑓𝑓𝑒𝑟𝑒𝑛𝑐𝑒×100%  
+To calculate the difference, the “involved” and “non -involved” light chains must be 
+determined at first based on the ratio of non -missing values for Serum Kappa LC protein 
+and Serum Lambda LC protein at baseline.  
+The detailed algorithm is provided as below:  
+If the baseline ratio of (Kappa LC/Lambda LC)>1.65, then Kappa LC is defined as 
+involved FLC, and Lambda LC is defined as non -involved FLC. Then  
+o Difference between involved and uninvolved = 𝐿𝑎𝑚𝑏𝑑𝑎  𝐿𝐶−𝐾𝑎𝑝𝑝𝑎  𝐿𝐶 
+If the baseline ratio of (kappa/lambda) <0.26, then Lambda light chain is defined as 
+involved FLC, and Kappa light chain is defined as non -involved FLC  
+o Difference between involved and uninvolved = 𝐿𝑎𝑚𝑏𝑑𝑎  𝐿𝐶−𝐾𝑎𝑝𝑝𝑎  𝐿𝐶 
+If the baseline ratio of (Kappa LC/Lambda LC) ≤1.65 and ≥0.26, then “involved” and 
+“non -involved” F LC cannot be determined (ratio is normal), and maximum percent 
+reduction from baseline for difference between two types of Serum FLC won’t be 
+available . 
+Percentage of participants with a confirmed VGPR or better (i.e., VGPR, CR, and 
+sCR)  
+The derivation of confirmed response shall be based on the algorithm specified in   
+ 
+Table  3.The number and percentage of participants with confirmed sCR, CR, VGPR will 
+be summarized by treatment arm . The corresponding 95%  CI will also be provided.  
+
+CONFIDENTIAL  
+  209628  
+ Page 32 of 69 
+  
+Duration of response (DoR)  
+DoR will be summarized using Kaplan -Meier method by treatment arm for participants 
+with a confirmed PR or better. If there are sufficient number of responders who 
+subsequently progress or die due to any cause , median DoR, first and third quartiles , 95% 
+CI estimated using the Brookmeyer -Crowley method [ Brookmeyer , 1982]  and probability 
+of maintaining response at 06 -month, 09 -months and 12 -month will be provided . A figure 
+and listing of DoR time will also be provided.   
+Time t o response (TTR)  
+TTR will be summarized descriptively by treatment arm using median, first and third 
+quartiles and 95% CI, will be estimated using the Brookmeyer -Crowley method 
+[Brookmeyer , 1982]  in the subset of participants with a confirmed response of PR or 
+better as the best overall response.  
+Time to progression (TTP)  
+TTP will be summarized using Kaplan -Meier method by treatment arm . If there are 
+sufficient number of progressions or death due to PD, median TTP, first and third 
+quartiles and 95% CI, will be estimated using the Brookmeyer -Crowley method 
+[Brookmeyer , 1982].  
+A summary of the assignments for progression and censoring dates for TTP are specified 
+in Table 4. 
+Progression -free survival (PFS)  
+PFS will be summarized using Kaplan -Meier method by dose level. If there is a sufficient 
+number of progressions or deaths, median PFS, first and third quartiles, 6 -month , 9-
+month, 12 -month, 1 5-month and 18 -month PFS rate, and 95% CIs will be estimated us ing 
+the Brookmeyer -Crowley method [ Brookmeyer , 1982].  
+ 
+Table 4 Progression -Free Survival Event and Censoring Rules  
+Situation  Date of Event (Progression/Death) 
+or Censored  Outcome Event 
+(Progression/Death) 
+or Censored  
+No adequate baseline 
+assessments and the 
+participant has not died (if 
+the participant has died, 
+follow the rules for death 
+indicated at the bottom of 
+the table).  Randomization.  Censored  
+
+CONFIDENTIAL  
+  209628  
+ Page 33 of 69 
+ Situation  Date of Event (Progression/Death) 
+or Censored  Outcome Event 
+(Progression/Death) 
+or Censored  
+No post -baseline 
+assessments and the 
+participant has not died (if 
+the participant has died, 
+follow the rules for death 
+indicated at the bottom of 
+the table).  Randomization.  Censored  
+PD documented between 
+scheduled visits  and 
+progression documented 
+without extende d lost-to-
+follow -up timee. Date of assessment of PD b 
+(1) minimum of (Date of next 
+scheduled visit, date of death).  Event  
+(1) Event  
+With post -baseline 
+assessment but no PD (or 
+death).  Date of last “adequate” assessment 
+of response c. Censored  
+No adequate post -baseline 
+assessment before start of 
+new anti -myeloma therapy.  Randomization  Censored  
+With adequate 
+post-baseline assessment 
+and new anti -myeloma 
+therapy started (prior to 
+documen ted PD).d Date of last “adequate” assessment 
+of response c (on or prior to starting 
+anti-myeloma therapy).  
+(1) Date of starting new 
+anti-myeloma therapy.  Censored  
+(1) Event  
+Death before first 
+scheduled assessment (or 
+death at baseline or without 
+any adequate assessments).  Date of death.  Event  
+Death between adequate 
+assessment visits.  Date of death.  Event  
+Death or PD after missing 
+2 or more scheduled 
+assessments.  Date of last “adequate” assessment 
+of response b (prior to missed 
+assessments):  
+Since di sease assessment is every 
+3 weeks, a window of 49 days 
+(6 weeks + 7-day window) will be 
+used to determine whether there is 
+extended time without adequate 
+assessment. If the time difference 
+between PD/death and last 
+adequate disease assessment is 
+more than 49 days, PFS will be Censored  
+(1) Event  
+
+CONFIDENTIAL  
+  209628  
+ Page 34 of 69 
+ Situation  Date of Event (Progression/Death) 
+or Censored  Outcome Event 
+(Progression/Death) 
+or Censored  
+censored at the last adequate 
+disease assessment prior to PD  or 
+death.  
+(1) Date of death or progression.  
+(1) Treatment 
+discontinuation due to 
+clinical PD before PD or 
+death.  (1) Date of treatment 
+discontinuation.  (1) Event  
+Abbreviations: CR=complete response; FLC=free light chain; MR=minimal response; PEP=protein 
+electrophoresis; PD=progressive disease; PFS=progression -free survival; PR=partial response; 
+sCR=stringent complete response; SD=stable disease; VGPR=very good partial response.  
+Note: (1) Rules to be applied for PFS sensitivity analysis.  
+a. Event or censored are based on confirmed responses.  
+b. The earliest of (i) Date of serum/urine PEP test (if progression is based on increase in serum or urine 
+M protein); or (ii) Date of radiological assessment of extramedullary disease (if progression is based 
+on increase in the size of existing plasmacytoma or appearance of new soft tissue plasmacytoma, or 
+(iii) Date of last radiological assessment of bo ne lesions (if progression is based on increase in the size 
+of existing bone lesions or appearance of new bone lesions), or (iv) Date of laboratory test for FLC (if 
+progression is based on increase of difference between involved and uninvolved FLCs).  
+c. An ad equate assessment is defined as an assessment where the  is sCR, CR, PR, VGPR, MR, SD .  
+d. If PD or death and new anti -myeloma therapy occur on the same day assume the progression or death 
+was documented first (e.g., outcome is progression or death and the da te is the date of the assessment 
+of progression or death). If anti -cancer therapy is started prior to any adequate assessments, censoring 
+date should be the date of randomization.  
+e. Extended loss -to-follow -up time = 6 weeks + 7 day window = 49 day window; Wi thout extended 
+loss-to-follow -up time is defined as: ≤ 49 days; after an extended loss -to-follow -up time is defined as: 
+>49 days  
+Adequate baseline assessment is defined as at baseline, a participant has at least one of 
+the following measurements:  
+• Serum M -protein ≥0.5 g/dL (≥5 g/L) or  
+• Urine M -protein ≥200 mg/24h or  
+• Serum FLC assay: Involved FLC level ≥5 mg/dL (≥50 mg/L) and an abnormal 
+serum free light chain ratio (<0.26 or >1.65) or  
+Refer to Section 6.1.1.2  “Extended Loss to Follow -up or Extended Time without an 
+Adequate Assessment”.  
+Overall survival (OS)  
+Participants who withdraw consent from the study or are lost to follow -up will be 
+censored at the time of withdrawal or lost to follow -up. Participants who do not have a 
+death record at the clinical cut -off date for the analysis will be censored at the last known 
+alive date. The last contact date will be determined by the maximum 
+collec tion/assessment date from among selected data domains within the clinical 
+database.  
+
+CONFIDENTIAL  
+  209628  
+ Page 35 of 69 
+ OS will be summarized using the Kaplan -Meier method by treatment arm . For each arm, 
+the Kaplan -Meier estimates for the median OS time, the first and third quartiles will be  
+presented, along with 95% CIs if there are sufficient number of deaths. A graph of 
+survival curves and a listing of survival times will also be provided. In addition, 
+depending on maturity of data, the survival probability at 6, 12 and 18 months with 95% 
+CI will be estimated using Kaplan -Meier method.  
+4.3.2.  Sensitivity Analys es 
+A PFS sensitivity analysis using alternative censoring rules defined in Table 4 will be 
+performed.  
+4.4. Exploratory Endpoint Analys es 
+Patient Reported Outcomes (PRO) Analyses  
+The below patient reported outcomes domains are included in the study.  The domains 
+and items administered for each PRO are described in   
+ 
+Table  5. 
+ 
+Table 5 Summary of PRO domains and items administered  
+PRO name   Number of items   Domains   
+PRO -CTCAE  23-35 depending upon 
+skip pattern items  Selected AE items for trial  
+OSDI  12 items  Ocular Symptoms  
+Vision -Related Functioning  
+Environmental Triggers  
+EORTC QLQ -C30 30 items  Global health status/QoL    
+Physical functioning  
+Role functioning    
+Emotional functioning    
+Cognitive functioning    
+Social functioning    
+Fatigue    
+Nausea and vomiting    
+Pain    
+Dyspnea    
+Insomnia    
+Appetite loss    
+
+CONFIDENTIAL  
+  209628  
+ Page 36 of 69 
+ PRO name   Number of items   Domains   
+Constipation    
+Diarrhea    
+Financial difficulties    
+EORTC -QLQ -
+MY20  20 items  Disease Symptoms  
+Future Perspective  
+Body Image  
+Side Effects  
+PGI-S  Single item    Global symptom severity and change   
+PGI-C  Single item    
+FACT -GP5    Single item    Overall level bother of Side effects    
+All questionnaires will be scored according to published scoring guidelines or the 
+developer’s guidelines if  published guidelines are not available. All PRO analyses will be 
+based on the Intent -to-Treat (ITT) analysis set, unless stated otherwise.  
+Patient reported outcomes (PROs) while on treatment and post -discontinuation will be 
+examined, unless otherwise specified.  
+Patient -Reported Outcomes version of the Common Terminology Criteria for 
+Adverse Events (PRO -CTCAE)  
+The Patient  Reported Outcomes Version of the Common Terminology Criteria for 
+Adverse Events (PRO -CTCAE) is a patient  reported outcome measure developed to 
+evaluate symptomatic toxicity in patients on cancer clinical trials ( Basch , 2014). The 
+PRO -CTCAE was designed to be used as a companion to the Common Terminology 
+Criteria for Adverse Events (CTCAE), the standard lexicon for AE reporting in cancer 
+trials. The PRO -CTCAE includes an item library of 124 items r epresenting 78 
+symptomatic toxicities drawn from the CTCAE. PRO -CTCAE provides a systematic yet 
+flexible tool for descriptive reporting of symptomatic treatment side effects in cancer 
+clinical trials. In the present study, a subset of items selected from t he PRO -CTCAE 
+Version 1.0 item library will be administered to participants. These items are mouth 
+sores, problems tasting food, decreased appetite, nausea, vomiting, constipation, diarrhea, 
+pain in abdomen, shortness of breath, cough, itchy skin, hives, numbness/tingling in 
+hands or feet, blurry vision, flashing lights, floaters, watery eyes, fatigue/lack of energy, 
+pain/burning with urination, bruising, chills, and nosebleeds.  
+The levels and related code values for PRO -CTCAE are shown  Table 6 
+Table 6 PRO -CTCAE classification summary  
+ Levels and related code values  
+Response Scale  0 1 2 3 4 
+Frequency  Never  Rarely  Occasionally  Frequently  Almost constantly  
+Severity  None  Mild  Moderate  Severe  Very severe  
+Interference  Not at all  A little bit  Somewhat  Quite a bit  Very much  
+
+CONFIDENTIAL  
+  209628  
+ Page 37 of 69 
+ Present/Absent  No Yes    
+ 
+For each selected item from the library: Maximum PRO -CTCAE score at post-baseline 
+for each item attribute will be summarized by counts and proportions. Changes from 
+baseline at each scheduled visit for each item will be provided.  
+A listing of the PRO -CTCAE score will be available through subject -level data via 
+RAPIDO DV  for each attribute (Frequency, Severity, Interference, Presence).  
+Ocular Surface Disease Index  
+The OSDI is a 12  item questionnaire designed to assess both the frequency of dry eye 
+symptoms and their impact on vision  related functioning [ Dougherty , 2011;  
+Schiffman , 2000].  
+The OSDI includes a Total Score and 3 domain scores of Ocular Symptoms (sensitivity 
+to light, gritty eyes, painful or sore eyes), Vision Related Functioning ( blurred vision, 
+poor vision,  reading, driving at night, working on computer/ATM, watching TV) and 
+Environmental Triggers (windy conditio ns, dry areas, air conditioning), with a recall 
+period of “the last week”. The response options are based on frequency: “none of the 
+time”, “some of the time”, “half of the time”, “most of the time”, and “all of the time”.   
+For the OSDI, the total score wi ll be calculated as well as scores for the three subscales 
+(Ocular Symptoms: item  1-3; Vision -related Function: item  4-9; and Environmental 
+Triggers: item  10-12). 
+𝑇𝑜𝑡𝑎𝑙  𝑂𝑆𝐷𝐼  𝑆𝑐𝑜𝑟𝑒 =𝑆𝑢𝑚  𝑜𝑓 𝑠𝑐𝑜𝑟𝑒𝑠  𝑓𝑜𝑟 𝑎𝑙𝑙 𝑞𝑢𝑒𝑠𝑡𝑖𝑜𝑛𝑠  𝑎𝑛𝑠𝑤𝑒𝑟𝑒𝑑 ×100
+𝑇𝑜𝑡𝑎𝑙  𝑛𝑢𝑚𝑏𝑒𝑟  𝑜𝑓 𝑞𝑢𝑒𝑠𝑡𝑖𝑜𝑛𝑠  𝑎𝑛𝑠𝑤𝑒𝑟𝑒𝑑 ×4.   
+Subscale scores are computed similarly with only the questions from each subscale used 
+to generate its own score. A score of 100 corresponds to complete disability (a res ponse 
+of “All of the time” to all questions answered), while a score of 0 corresponds to no 
+disability (a response of “None of the time” to all questions answered). Therefore, 
+decrease in score from baseline means improvement.  
+For each of the three sub -scales, the descriptive summary of the actual value and change 
+from baseline at selected time points will be provided. The number and percentage will 
+be provided for total score and each sub scale.  Additionally, recovery from first event 
+defined as ≥ threshol d decrease (improvement) from the Worst score will be summarized.  
+Table 7 Meaningful Score Change Thresholds for OSDI  
+Score  Total score  Ocular Symptoms  Vision -related Function  
+MCID  14.58  16.67  12.5 
+ 
+
+CONFIDENTIAL  
+  209628  
+ Page 38 of 69 
+ Plots of mean change from baseline (including baseline) and 95% CI over time by visit, 
+and at end of study treatment, last follow -up, and worst case post -baseline  for Vision 
+related function  domain will also be provided.  
+Functional Assessment of Cancer Therapy – General Population (FACT -GP5)  
+The FACT -GP5 item is a single item from the FACT -G [Cella , 1993] , which assesses 
+how bothersome the side effects of treatment are for participants with cancer. The recall 
+period is the past 7  days, and the item has a 5 category response scale ranging from 
+“0=Not at all” to “4=Very much”.  
+The number and percentage will be reported for each category of FACT GP5  from 0 = 
+Not at all, 1 = A little bit, 2 = Somewhat, 3 = Quite a bit, 4 = very much, 3+4, Any scale 
+>0, by visit and treatment arm.  
+European Organization for Research and Treatment of Cancer Quality of Life 
+Questionnaire 30 -Item Core Module (EORTC -QLQ -C30)  
+The EORTC QLQ C30 is a 30 item questionnaire containing both single and multi -item 
+measures [ Aaronson , 1993]. These include 5 functional scales (Physical, Role, Cognitive, 
+Emotional, and Social Functioning), 3 symptom scales (Fatigue, Pain, and 
+Nausea/Vomiting), a Global Health Status/quality of lif e scale, and 6 single items 
+(Constipation, Diarrhea, Insomnia, Dyspnea, Appetite Loss, and Financial Difficulties). 
+Scores for each scale and single item measure are averaged and transformed linearly to a 
+score ranging from 0 to 100. A high score for funct ional scales and for Global Health 
+Status/quality of life represent better functioning ability or HRQoL, whereas a high score 
+for symptom scales and single items represents significant symptomatology 
+[Proskorovsky , 2014].  
+Descriptive summaries (mean, SD, median, min and max) of the actual value and change 
+from baseline at selected time points will be provided for EORTC QLQ -C30 summary 
+score and each domai n score. In addition, the summary of change from baseline of the 
+Fatigue domain score will also be performed by responder status (Responder: best 
+confirmed derive response is ≥PR; non -responder: all other participants who do not 
+achieve a best confirmed re sponse of PR or better). The number and percentage of 
+participants with post -baseline score improved by ≥ 10 points  from baseline score will be 
+summarized at selected time points.  
+Plots of mean change from baseline (including baseline) and 95% confidence i nterval 
+over time by visit, and at end of study treatment  and last follow -up for pain and fatigue  
+domains will also be provided.  
+European Organization  for Research and Treatment of Cancer Quality of Life 
+Questionnaire 20 -item Multiple Myeloma Module (EORTC -QLQ -MY20)  
+The EORTC QLQ MY20 is a supplement to the EORTC QLQ C30 instrument used in 
+people with MM [ Aaronson , 1993;  Cocks , 2007]. The module comprises 20 questions 
+that address four myeloma -specific HRQoL domains: Disease Symptoms, Side Effects of 
+Treatment, Future Perspective, and Body Image. Three of the four QLQ -MY20 domains 
+
+CONFIDENTIAL  
+  209628  
+ Page 39 of 69 
+ are multi -item scales: Disease Symptoms (includes bone aches or pain, back pain, hip 
+pain, arm or shoulder pain, chest pain, and pain increasing with activity); Side Effects of 
+Treatment (includes drowsiness, thirst, feeling ill, dry mouth, hair loss, upset by hair loss, 
+tingling hands or feet, restlessness/agitation, acid indigestion/heartburn, and burning or 
+sore eyes); and Future Perspective (includes worry about death and health in the future, 
+and thinking about illness). The Body Image scale is a single -item scale that addresses 
+physical attractiveness.  
+Patient Global Impression Items  
+The Patient Global Impression of Severity (PGIS) assesses global impression of 
+symptoms severity at baseline and subsequent time points. The second question, the 
+Patient Global Impression of Change (PGIC) serves to rate the global change in 
+symptoms at subsequent time points. In addition to evaluating symptom severity and 
+change, these questions serve as anchors to establish th resholds of clinically meaningful 
+change for the questionnaires in the study [ Guy, 1976].  
+4.5. (Other) Safety Analys es 
+All safety analyses will be performed on the Safety Popul ation , unless otherwise 
+specified . All serially collected safety endpoints (e.g., laboratory tests, vital signs  will be 
+summarized according to the scheduled, nominal visit at which they were collected and 
+across all on -treatment time points using a “worst -case” analysis.  
+Unless otherwise specified, no “Total ” column will be provided for safety o utputs . 
+4.5.1.  Extent of Exposure  
+The number of cycles administered to study treatment will be summarized with mean, 
+median, standard deviation, minimum, and maximum.  
+The number of participants administered study treatment will be summarized according 
+to the duration of therapy.  
+The dose intensity (mg/kg/3 weeks), which is calculated as the cumulative actual dose 
+(mg/kg) divided by expected duration of exposure  in 3 weeks (last infusion date – first 
+infusion date +21)/21), will also be summarized.  
+The dose intensity (mg/kg/6 weeks), which is calculated as the cumulative actual dose 
+(mg/kg) divided by expected duration of exposure in 6 weeks (last infusion date – first 
+infusion date +42)/42), will also be summarized.  
+Dose reductions will be summarized by number of reductions and reasons for reductions. 
+Dose delays will be summarized by number of delays, reasons for the delays, and delay 
+duration (days). For Q3W d osing, t he number and percentage of the delays for intervals 
+of 1-21, 22 -42 and >42 days will be computed . For Q6W dosing,  the number and 
+percentage of the delays for intervals of 1 -42, 4 3-84 and > 84 days will be computed.  
+
+CONFIDENTIAL  
+  209628  
+ Page 40 of 69 
+ Dose modifications (reduction, interruption / delay) will be summarized by the categories 
+of reasons that lead to the dose modification, including any AE, any AE or mKVA scale 
+event, any non -ocular AE, any non -ocular AE or mKVA scale event and any ocular A E 
+or mKVA scale event.  
+Duration of delays is defined as period from the expected start date of dose to actual start 
+date of current dose. Calculation: (actual start date of current dose - expected start date of 
+dose).  
+Expected start date of dose = actual start date of previous dose + 21 ; for Q3W dosing  
+Expected start date of dose = actual start date of previous dose + 42; for Q6W dosing  
+A summary of derived dose delay due to mKVA scale event will be provided in case 
+multiple actions  (dose interrupted/delayed and dose reduction)  for the first occurrence of 
+Grade3 corneal event (mKVA)  can not be captured in the data. For a Q6W arm and a non -
+dosing visit with a Grade 3 corneal event(mKVA), the dose delay will be derived . The 
+onset of dose delay  is defined as previous dose date + 42 days (cycle length) + 3 days 
+(visit window).  
+Primary reasons for dose reductions and dose delays will also be summarized by cycle.  
+The duration of exposure to study treatment (from first day to last day of treatment) will 
+be calculated and summarized using mean, median, standard deviation, minimum, and 
+maximum.   
+A plot showing the number and percentage of subjects treated at different dose levels 
+over time will be provided.  
+A by subject summary listing of data on expos ure to all study treatments will be available 
+through subject -level data via RAPIDO DV . 
+4.5.2.  Adverse Events  
+Adverse events analyses including the analysis of adverse events (AEs), Serious AEs 
+(SAEs) and other significant AEs will be based on GSK Core Data Stand ards.  
+An overview summary of AEs, including counts and percentages of participants with any 
+AE, AEs related to study intervention, Grade 3 and 4 AEs, Grade 3 and 4 AEs related to 
+study intervention, AEs leading to permanent discontinuation of study interve ntion, study 
+intervention related AEs leading to permanent discontinuation of study intervention, AE 
+leading to dose reductions, AEs leading to dose delays, SAEs,  SAEs related to study 
+intervention, fatal SAEs,  non-fatal SAEs,  and fatal SAEs related to stu dy intervention 
+will be produced. Unless otherwise specified, AEs will be summarized by treatment 
+arms.  
+Events will be summarized by frequency and proportion of total participants, SOC, and 
+preferred term (PT). Separate summaries will be given for all AEs,  treatment -related 
+AEs, ocular AEs, SAEs, and AEs leading to discontinuation of study treatment. AEs, if 
+
+CONFIDENTIAL  
+  209628  
+ Page 41 of 69 
+ listed in the NCI -CTCAE Version  5.0, will be summarized by the maximum grade. 
+Otherwise, the AEs will be summarized by maximum intensity.  
+The incidence  of deaths and the primary cause of death will be summarized. Adverse 
+events analyses including the analysis of AEs, SAEs  and other significant AEs will be 
+based on GSK Core Data Standards.  
+AEs will be coded using the standard Medical Dictionary for Regulatory Activates 
+(MedDRA ) and grouped by System Organ Class (SOC) . Severity of corneal events will 
+be graded using the KVA scale. Severity of all other AEs will be graded by the 
+investigator according to the National Cancer Institute - Common Terminolog y Criteria 
+for Adverse Events ( NCI-CTCAE ) Version  5.0. 
+A summary of number and percentage of participants with any adverse events by  
+maximum grade will be produced.  
+A separate summary will be provided for study intervention -related AEs. A study  
+interventi on-related AE is defined as an AE for which the investigator classifies the  
+possible relationship to study intervention as “Yes”. A worst -case scenario approach will  
+be taken to handle missing relatedness data, i.e. , the summary table will include events  
+with the relationship to study intervention as “Yes” or missing. The summary table will 
+be displayed in descending order by SOC and PT.  
+A summary of cumulative incidence of AE by number of doses received at first  
+occurrence will be provided.  
+In addition, Ocular AEs of  Grade  ≥2 will be summarized separately by PT.  
+All SAEs will be tabulated based on the number and percentage of participants who 
+experienced the event. Separate summaries will also be provided for study 
+intervention -related SAEs. The summary tables will be displayed by PT. The summary of 
+all SAEs will also be created by SOC and PT. In addition, a summary of cumulative 
+incidence of SAE by number of doses received at first occurrence will be provided.  
+A summary of non -serious AEs tha t occurred in 5% of the participants  or above will be 
+provided (no rounding for the percentage will be used in terms of 5% threshold, e.g., 
+event with 4.9% incidence rate should not be included in this table). The summary will be 
+displayed by SOC and  PT. 
+4.5.2.1.  Adverse Events of Special Interest  (AESI)  
+AESIs for belantamab mafodotin are corneal events, thrombocytopenia, and IRRs. 
+Severity of corneal events will be graded using the mKVA scale (provided in Table 8 of 
+the CSP ). Severity of thrombocytopenia and IRRs will be graded using NCI -CTCAE 
+Version  5.0.  
+Summaries of the number and percentage of participants  with these events will be 
+provided  for each type of events separately by PT and maximum CTCAE grade.  
+
+CONFIDENTIAL  
+  209628  
+ Page 42 of 69 
+ The time to  onset and duration of first occurrence for each type of events will be 
+summarized using  summary statistics mean, SD, median, minimum, and maximum.  The 
+number and percentage of participants  who have time to onset of first occurrence (1 -21, 
+22-42, 43 -63, >63) will be reported.  
+The num ber and percentage of participants  who have duration of first occurrence (1-21, 
+22-42, 43 -63, >63 days will be reported.  
+For IRRs, the number and percentage of participants who have time to onset of first 
+occurrence (1 -6, >6 -12, >12 -18, >18-24 hours) will  be reported.  The number and 
+percentage of participant who have duration of first occurrence (0 -12,>12 -24, >24 hours) 
+will be reported.   
+For an AESI  which is based on a single AE term, the onset and duration will be 
+calculated  based on the start and end da tes of the single term.  For an AESI which is based 
+on multiple AEs terms, the onset and duration will be calculated by looking across  all 
+terms for the AESIs. The derived start date is identified as the onset of any term  defined 
+as the AESI. The derived en d date is identified as last end date for any terms once  all 
+concurrent terms for the AESI have resolved, i.e., the first time a participant  is free of any  
+AE term defined as the AESI.  
+The summary of event characteristics will be provided for each AESI respectively, 
+including number of participants with any event, number of events, number of 
+participants with any event that is serious, number of participants with any event that is 
+relate d to study intervention, number of occurrences (One, Two, Three or more), 
+maximum grade, maximum grade for events related to study intervention, outcomes and 
+the action taken for the event. The percentage will be calculated in two ways, one with 
+number of participants with event as the denominator and the other with total number of  
+participants as the denominator. The worst -case approach will be applied at participant 
+level for the maximum grade, i.e. , a participant will only be counted once as the 
+worst -case from all the events experienced by the participant. For action taken to an 
+event, a participant will be counted once under each action, e.g. , if a participant has an 
+event leading to both study intervention discontinuation and dose reduction, the 
+partic ipants will be counted once under both actions.  
+For each of these events, a summary of cumulative incidence by number of doses  
+received at first occurrence will be provided.  
+4.5.2.2.  Adverse Events Leading to Discontinuation of Study Treatment and 
+Other Significant  Adverse Events  
+The following categories of AEs will be summarized separately in descending order of 
+total incidence by PT only and separate supportive listings will be generated with 
+participant level details for those participants:  
+• AEs leading to permane nt discontinuation of study treatment . 
+• AEs leading to dose delays . 
+• AEs leading to dose reductions.  
+
+CONFIDENTIAL  
+  209628  
+ Page 43 of 69 
+ Only listings will be provided for the following:  
+• AEs leading to infusion stopped early and not completed . 
+• AEs leading to infusion interrupted but completed.  
+4.5.2.3.  COVID -19 Assessment and COVID -19 AEs 
+A standardized MedDRA Query (SMQ) will be used to identify all COVID -19 AEs.  
+A display of summary will be produced for COVID -19 Assessments for subjects with 
+Suspected, Probable or Confirmed COVID -19 case  diagnosis.  
+4.5.3.  Additional Safety Assessments  
+4.5.3.1.  Laboratory Data  
+The evaluation of clinical laboratory tests will focus on selected laboratory analytes from 
+the hematology and blood chemistry panel.  Refer S ection 10.13 Clinical Laboratory Tests 
+of the CSP for protocol required laboratory test.  
+Hematology and clinical chemistry data will be summarized using frequencies and 
+proportions according to NCI -CTCAE Version  5.0. Laborator y test results outside the 
+reference ranges that do not have an associated NCI -CTCAE criterion will be 
+summarized using proportions.  
+Descriptive statistics (mean, standard deviation, median, range) will be used to 
+summarize observed laboratory values and change from baseline in observed value at 
+each scheduled visit, as appropriate.  
+Summaries of worst -case grade increase from baseline grade will be provided for all the 
+laboratory  tests that are gradable by CTCAE v5.0. These summaries will display the 
+numbe r and percentage of participants  with a maximum post -baseline grade increasing 
+from their baseline grade. Any increase in grade from baseline will be summarized along 
+with any increase to a maximum Grade 3  and any increase to a maximum Grade of 4. 
+Missing baseline grade will be assumed as Grade 0. For laboratory tests that are graded 
+for both low and high values, summaries will be done separately and labelled by 
+direction, e.g., sodium will be summarized as hyponatremia and hypernatremia 
+separately.  
+A suppo rting listing of laboratory data for participants  with abnormalities of potential 
+clinical concern will be provided. A separate listing of laboratory data with character 
+values will also be available through subject -level data via RAPIDO DV . 
+Unless otherwi se specified, the denominator in percentage calculation at each scheduled 
+visit will be based on the number of participants  with non -missing value at each 
+particular visit.  
+Summaries of hepatobiliary laboratory events including possible Hy ’s law cases will be 
+provided in addition to what has been described above.  
+
+CONFIDENTIAL  
+  209628  
+ Page 44 of 69 
+ Possible Hy’s law cases are defined as any elevated alanine aminotransferase (ALT)  
+≥3×upper limit of normal (ULN)  AND  total bilirubin  ≥2×ULN  (>35% direct bilirubin)  
+OR international normalized ratio (INR)  >1.5. 
+An e -DISH plot of maximum post baseline total bilirubin versus maximum post -baseline 
+ALT will be created.  
+The following plots will also be provided:  
+Maximum post -baseline ALT vs baseline ALT  
+Maximum total bilirubin vs maximum post-baselin e ALT . 
+A Summary of Liver Monitoring/Stopping Event Reporting will be provided. The 
+medical conditions data for participants with liver stopping events will be listed. The 
+substance use data for participants with liver stopping events will be listed . 
+4.5.3.2.  Vital  Signs  
+Vital sign measurements to be measured in semi -supine position after 5  minutes rest will 
+include systolic and diastolic blood pressure, heart rate, and temperature.  
+Listing of vital sign values of potential clinical importance will be available through 
+subject -level data via RAPIDO DV . 
+4.5.3.3.  Ocular Examinations  
+As outlined in study protocol Schedule of Activities (Table 1 of Section 1.3), ophthalmic 
+exams are scheduled at s creening, during the study, and follow -up period . The ocular 
+findings from ophthalmic exams will be analyzed  as described below - 
+Visual acuity  
+▪ The following categories of logMAR score changes from baseline are defined:  
+ 
+No change  change from baseline  0.1 logMAR  
+possible worsened vision  change from baseline > 0.1 to  0.3 
+logMAR  
+definite worsened vision  change from baseline >0.3 logMAR 
+score  
+ 
+▪ A summary of characteristics of worsened vision (logMAR Score change from 
+baseline >0.1) will be provided, including time to onset of first occurrence: summary 
+statistics and frequency/percentage in categories (1 -21, 22 -42, 43 -63, 64 -105, >105 days); 
+outco me of first occurrence, duration of first occurrence: summary statistics and 
+frequency/percentage in categories (1 -21, 22 -42, 43 -63, 64 -105, >105 days); number of 
+occurrences based on participants with worsened vision; outcome post treatment 
+exposure; time  to resolution post treatment exposure, outcome of last event. The duration 
+is defined as time from onset of worsened vision to the first time the subject is free of 
+
+CONFIDENTIAL  
+  209628  
+ Page 45 of 69 
+ worsened vision (i.e. free of >0.1 logMAR Score change from baseline). It requires at 
+least one day gap between the resolution of all worsened vision from first occurrence to 
+the onset of second occurrence.  
+▪ A summary of characteristics of definite worsened vison (logMAR  score change 
+from baseline > 0.3 ) will be provided , including time to ons et of first occurrence: 
+summary statistics and frequency/percentage in categories (1 -21, 22 -42, 43 -63, 64 -105, 
+>105 days); outcome of first occurrence, duration of first occurrence: summary statistics 
+and frequency/percentage in categories (1 -21, 22 -42, 43 -63, 64 -105, >105 days); number 
+of occurrences based on participants with worsened vision; outcome post treatment 
+exposure; time to resolution post treatment exposure, outcome of last event. The duration 
+is defined as time from onset of definite worsened v ision to the first time the subject is 
+free of worsened vision (i.e. free of >  0.3 logMAR Score change from baseline). It 
+requires at least one day gap between the resolution of all worsened vision from first 
+occurrence to the onset of second occurrence.  
+▪ In addition, a summary of worst change from baseline (based on the eye with 
+worst change) in BCVA Score (logMAR Score) will be provided for categories “increase 
+>0.1 to 0.3”, “increase >0.3 to 0.6”, “increase >0.6”.  
+▪ A summary of worst change from baselin e (based on eye with worse eye and 
+better eye) in BCVA score (logMAR score ) will be provided for “ >=3 line decrease ”  
+“ 3 line decrease  logMAR change = 0.3  
+ 
+▪ Shift table for visual acuity from baseline to worst case post -baseline by eye (R/L) 
+will be provided  
+FUNDUS Photograph: Shift table from baseline to worst post -baseline by eye (R/L) and 
+subject (worse eye) for Vitreous normal in appearance (Yes to No), PVD (No to Yes), 
+Vitreous cell (No to Yes), Vitreous haze (No to Yes), Optic nerve normal in ap pearance 
+(Yes to No), and Retina normal in appearance (Yes to No).  
+ 
+Corneal Exam  
+▪ Shift table from baseline to worst case post -baseline by eye (R/L) for corneal 
+epithelium findings:  
+o Corneal epithelium (Normal to Abnormal),  
+o Microcyst -like deposits (No to Ye s). 
+o Subepithelial haze (No to Yes)  
+o Stromal opacity (No to Yes)  
+o Epithelial edema (No to Yes)  
+o Corneal erosion (No to Yes)  
+o Corneal ulcer (No to Yes)  
+o Corneal neovascularization (No to Yes)  
+o Superficial punctate keratopathy severity (No to yes)  
+
+CONFIDENTIAL  
+  209628  
+ Page 46 of 69 
+ ▪ A summary of Microcyst -like deposits by grade will be provided  for left, right 
+and worse eye.  
+Lens  
+▪ Shift table from baseline to worst case post -baseline by eye (R/L) for lens 
+findings:  
+o Cataract (No to Yes)  
+4.5.3.4.  Pregnancies  
+While pregnancy itself is not considered to be an A E or SAE, any pregnancy 
+complication or elective termination of a pregnancy for medical reasons will be recorded 
+as an AE or SAE as described in the protocol. If female study participant or female 
+partner of male participant become pregnant while on the st udy, the information will be 
+included in the narratives and no separate table or listing will be produced.  
+4.5.3.5.  ECOG Performance Status  
+ECOG performance status will be summarized at baseline and each post -baseline 
+scheduled visit. Summaries will use frequency a nd percentage of participants at each 
+planned assessment time. A summary of change from baseline by scheduled visits will be 
+performed, as well as the worst -case post -baseline and the best -case post -baseline 
+changes during the study (improved, no change, d eteriorated).  
+A supporting listing will also be available through subject -level data via RAPIDO DV . 
+4.6. Other Analys es 
+4.6.1.  Subgroup analyses  
+Subgroup analyses of the primary endpoint and key secondary endpoints may be made to 
+assess consistency of the intervention effect across the following subgroups  
+Subgroup  Categories  
+Age Group (at screening)  18 to <65, 65 to <75, ≥75 ; 
+<65, 65 
+Sex Male, Female  
+Ethnic Background  White, Black, Asian vs Other, Other  
+ISS Staging at Screening  I, II, III  
+Number of prior lines of 
+therapy  3, 4 
+If the number of participants is too small (less than [10%]) within a subgroup, then the 
+subgroup categories may be redefined prior to analysis . 
+
+CONFIDENTIAL  
+  209628  
+ Page 47 of 69 
+ 4.6.2.  Dosing Based on Baseline Disease Characteristics – Virtual 
+Treatment Ar m 
+Approaches for individualized dosing will be investigated by combining participants 
+from different treatment arms based on specific selection criteria to create a virtual 
+“treatment arm” (Arm V) for the resulting dosing approach. Each virtual treatment a rm 
+can then be summarized f or ocular toxicity and efficacy . Following virtual treatment 
+arms will be created based on International Staging System (ISS) stage -based dosing - 
+Arm V1: 1.9 mg/kg Q3W for ISS I and II and 2.5 mg/kg Q3W for ISS III.  
+Combine the ISS I/II participants at the 1.9 mg/kg Q3W dose from Arm B and the 
+ISS III participants at 2.5 mg/kg Q3W from Arm A to create an ISS stage -based 
+dosing treatment arm of 1.9 mg/kg Q3W in ISS I/II and 2.5 mg/kg Q3W in ISS III.  
+Arm V2: 2.5 mg/kg Q 6W for ISS I, 1.9 mg/kg Q3W for ISS II, and 2.5 mg/kg Q3W for 
+ISS III.  
+Combine the ISS I participants at the 2.5 mg/kg Q6W dose from Arm C with ISS II 
+participants at the 1.9 mg/kg Q3W dose from Arm B and the ISS III participants at 2.5 
+mg/kg Q3W from Arm A to create an ISS stage -based dosing treatment arm of 2.5mg/kg 
+Q6W in ISS I, 1.9 mg/kg Q3W in ISS II and 2.5 mg/kg Q3W in ISS III.  
+Arm V3: 1.9 mg/kg Q6W for ISS I, 1.9 mg/kg Q3Wfor ISS II, and 2.5 mg/kg Q3W for 
+ISS III.  
+Combine the ISS I participants at the 1.9 mg/kg Q6W dose from Arm D with ISS II 
+participants at the 1.9 mg/kg Q3W dose from Arm B and the ISS III participants at 2.5 
+mg/kg Q3W from Arm A to create an ISS stage -based dosing treatment arm of 2.5mg/kg 
+Q6W in ISS I, 1.9 mg/kg Q3W in ISS II and 2.5 mg/kg Q3W in ISS III.  
+Incidence rate of Grade ≥2 corneal events according to the KVA scale and ORR will be 
+summarized for Virtual treatment arm.  
+Virtual treatment arms based on other baseline characteristics may be defined prior to 
+analysis.  
+ 
+4.6.3.  Arm E  analyses  
+The end points specific to  Arm E of this study are the incidence of keratopathy (all 
+grades),  visual acuity changes, ocular symptoms,  related impacts based on OSDI, and 
+corneal  findings , changes from baseline  in pre -specified symptomatic AEs and i mpacts 
+measured by PRO -CTCAE, changes from baseline and proportion of participants with 
+within -participant meaningful change in self -reported ocular symptoms and related 
+impacts as measured by OSDI and level of overall bother/tolerability as measured by th e 
+single item FACT -GP5. 
+ 
+All the analysis regarding to these endpoints will be performed on safety population who 
+are assigned to arm E.  
+ 
+
+CONFIDENTIAL  
+  209628  
+ Page 48 of 69 
+ 4.6.3.1.  Endpoint definition and analyses  
+• Changes from baseline in symptomatic AEs and impact measured by PRO -
+CTCAE  
+ 
+The Patient Reported Outcomes Version of the Common Terminology Criteria for 
+Adverse Events (PRO -CTCAE) is a patient reported outcome measure developed to  
+evaluate symptomatic toxicity in patients on cancer clinical trials ( Basch , 2014). In 
+the present study, a subset of items selected from the PRO -CTCAE  Version 1.0 item 
+library will be administered to participants. These items include  mouth  sores, 
+problems tasting food, decreased appetite, nausea, vomi ting, constipation, diarrhea,  
+pain in abdomen, shortness of breath, cough, itchy skin, hives, numbness/tingling in  
+hands or feet, blurry vision, flashing lights, floaters, watery eyes, fatigue/lack of 
+energy,  pain/burning with urination, bruising, chills, and nosebleeds.  More 
+information  can be found in section 4.4. 
+For each selected item from the library: Maximum PRO -CTCAE score at post -
+baseline for each item attribute will be summarized by counts and propo rtions.  
+Change s from baseline at each scheduled visit for each item will be provided.  
+ 
+ 
+• Changes from baseline and proportion of participants with within -participant 
+meaningful change in self -reported ocular symptoms and related impacts as 
+measured by OSDI  
+ 
+The OSDI is a 12 item questionnaire designed to assess both the frequency of dry 
+eye symptoms and their impact on vision related functioning [ Dougherty , 2011;  
+Schiffman , 2000].   
+The OSDI inclu des a Total Score and 3 domain scores of Ocular Symptoms 
+(sensitivity to light, gritty eyes, painful or sore eyes), Vision Related Functioning 
+(blurred vision, poor vision, reading, driving at night, working on computer/ATM, 
+watching TV) and Environmental Triggers (windy conditions, dry areas, air 
+conditioning), with a recall period of “the last week”. The response options are based 
+on frequency: “none of the  time”, “some of the time”, “half of the time”, “most of 
+the time”, and “all of the time”.  
+ 
+𝑇𝑜𝑡𝑎 𝑙 𝑂𝑆𝐷𝐼  𝑆𝑐𝑜𝑟𝑒 =𝑆𝑢𝑚  𝑜𝑓 𝑠𝑐𝑜𝑟𝑒𝑠  𝑓𝑜𝑟 𝑎𝑙𝑙 𝑞𝑢𝑒𝑠𝑡𝑖𝑜𝑛𝑠  𝑎𝑛𝑠𝑤𝑒𝑟𝑒𝑑 ×100
+𝑇𝑜𝑡𝑎𝑙  𝑛𝑢𝑚𝑏𝑒𝑟  𝑜𝑓 𝑞𝑢𝑒𝑠𝑡𝑖𝑜𝑛𝑠  𝑎𝑛𝑠𝑤𝑒𝑟𝑒𝑑 ×4.   
+ 
+Subscale scores are computed similarly with only the questions from each subscale 
+used to generate its own score.  
+ 
+For each of the three sub -scales, the descriptive summary of the actual value and 
+change from baseline at selected time points will be provided.  
+ 
+Plots of mean change from baseline (including baseline) and 95% CI over time by 
+visit, and at end of study treatment, last follow -up, and worst -case post-baseline for 
+individual domains will also be provided.  
+
+CONFIDENTIAL  
+  209628  
+ Page 49 of 69 
+  
+ 
+• Level of overall bother/tolerability as measu red by the single item FACT -GP5  
+ 
+The FACT -GP5 item is a single item from the FACT -G [Cella , 1993], which 
+assesses  how bothersome the side effects of treatment are for participants with 
+cancer. The recall  period is the past 7 days, and the item has a 5-category  response 
+scale ranging from  “0=Not at all” to “4=Very much”.  
+ 
+The number and percentage will be reported for each category of FACT GP5 from  
+0 = Not at all, 1 = A little bit, 2 = Somewhat, 3 = Quite a bit, 4 = very much, 3+4,  
+Any scale  > 0, by visit.  
+ 
+• Incidence of keratopathy (all grades), visual acuity changes, ocular 
+symptoms, related impacts based on OSDI, and corneal findings  
+ 
+The number and corresponding percentage of participants with incidence of each of 
+the event s (keratopathy events (all grades  and by number of doses ), visual acuity  
+based on KVA grades , ocular symptoms, and corneal findings ) will be summarized 
+for arm E a long with the num ber and percentage of participants with the same event 
+in control arm A .  
+ 
+Also visual acuity  score and Ocular dose modifications  (dose reduction or dose 
+delay)  based on oncologist assessment will be summarized  for arm E patients . For 
+these two summaries . 
+ 
+An additional sensitivity analysis may be performed excluding participants from 
+Arm E sites with unresolvable data quality issues as determined and documented by 
+sponsor review.   
+ 
+4.6.4.  Pharmacokinetic Analyses  
+PK samples will be collected for belantamab  mafodo tin as indicated in the S chedule of 
+activities  tables of the protocol.  
+4.6.4.1.  Derived Pharmacokinetic Parameters  
+PK parameters will be derived by non -compartmental and/or population pharmacokinetic 
+analyses. If PK parameters will be derived by both approaches only one set of parameters 
+may be summarized.  
+Standard non -compartmental analysis (NCA), if performed, will be conducted according 
+to current working practices, using the currently supported version of Phoenix WinNonlin 
+and will provide the para meters listed in the table below, as data permit. The 
+pharmacokinetic parameters C -EOI and Ctrough will be determined directly from the 
+concentration -time dataset, as data permit. For the dosing occasions with only pre -dose 
+
+CONFIDENTIAL  
+  209628  
+ Page 50 of 69 
+ and end of infusion samples Cmax  and tmax will not be derived. Ctrough will not be 
+reported for cys -mcMMAF.   
+Population pharmacokinetic analyses (popPK), if performed, are described in Section 
+4.6.5 . 
+Belantamab Mafodotin and Cys -mcMMAF  
+For a NCA, if performed, the following pharmacokinetic parameters described below will 
+be determined separately for each analyte, as data permit:  
+Belantamab mafodotin : Cmax, C -EOI, tmax, Ctrough, tlast , and AUC(0 -). AUC(0 -
+504h) may also be computed for the Q6W regimen  
+cys-mcMMAF:  Cmax, C -EOI, tmax, tlast, and AUC(0 -168h)  
+For a popPK analysis, if performed, the following pharmacokinetic parameters described 
+below will be determined separately for each a nalyte, as data permit:  
+• Belantamab mafodotin : Cmax, Ctrough, Cavg, AUC(0 -), t½, CL, Vss  . AUC(0 -504h) 
+may also be computed for the Q6W regimen  
+• cys-mcMMAF:  Cmax, Cavg, AUC(0 -168h)  
+4.6.4.2.  Summary Measures  
+Drug concentrations and NCA pharmacokinetic parameters will be listed, summarized 
+descriptively (mean, standard deviation, median, minimum, maximum, geometric mean, 
+and the standard deviation, CV%, and 95% CI of log -transformed parameters) and 
+graphically presented (where appropriate)  by analyte, cycle or visit, and arm.  
+Details of the planned displays are provided in OPS document and will be based on GSK 
+Data Standards and statistical principles.  
+4.6.4.3.  Population of Interest  
+The pharmacokinetic analyses will be based on the Pharmacokinetic population, unless 
+otherwise specified.  
+4.6.5.  Population Pharmacokinetic (POPPK) Analysis  
+Belantamab mafodotin concentration -time data may be analy sed using a population 
+pharmacokinetic approach as data permit and may be combined wit h data from other 
+studies. These analyses may use previously developed population pharmacokinetic 
+model(s) to generate post hoc  pharmacokinetic parameter estimates for the individual 
+participants in this study. Based on the individual post hoc  parameter va lues, dosing 
+information, and sample collection times, drug concentrations at the time of sample 
+collection will be predicted for each participant. Model evaluation will consist of 
+comparison of model -predicted and observed concentrations. If necessary, mo del 
+estimation will be performed. If performed, the analyses will be conducted by, or under  
+the direct auspices of, Clinical Pharmacology Modelling and Simulation (CPMS),  
+
+CONFIDENTIAL  
+  209628  
+ Page 51 of 69 
+ GSK  using the currently supported versions of all software packages. Results of thes e 
+analyses may be provided in a separate report.  
+Further details are provided in Appendix 3 Population Pharmacokinetic (PopPK) 
+Analyses . 
+4.6.6.  Pharmacokinetic/Pharmacodynamic Analyses  
+4.6.6.1.  Exposure -Response for Efficacy and Safety Endpoints  
+If deemed appropriate and if data permit, exposure -response relationships between 
+belantamab mafodotin exposure and clinical activity and/or toxicity may be explor ed 
+using population methods. If data permit, the effects of covariates may be explored. Data 
+may be combined with data from other studies and results of these analys es may be 
+provided in a separate report.  If performed, the analyses will be conducted by, o r under 
+the direct auspices of, Clinical Pharmacology Modelling and Simulation (CPMS),  
+GSK  using the currently supported versions of all software packages.  
+ 
+Further details are provided in  Appendix 4: Pharmacokinetic/Pharmacodynamic 
+Analyses . 
+ 
+4.6.7.  Biomarker/Translational Research Analyses  
+If data permit, actual change and percent change of free BCMA expression level from 
+baseline will be summarized using des criptive statistics (mean, SD, median, min, max) 
+and displayed using boxplot by visit and time.  If data permit, additional exploratory 
+analyses may be performed exploring the relationship between clinical response and 
+other biologic characteristics includi ng BCMA expression on tumor cells, subsets of 
+immune cell phenotypes, circulating free DNA, soluble BCMA concentrations and other  
+novel biomarkers. Details of these analyses will be specified within a separate biomarker 
+SAP and then if warranted, the resul ts will be provided in a separate report.  
+4.6.8.  Immunogenicity Analyses  
+Serum samples for the analysis of anti -belantamab mafodotin antibodies will be collected 
+before each belantamab mafodotin infusion (at dose  1, 2, 4, 6, 9 and 12 at the same time 
+as the pre-infusion belantamab mafodotin pharmacokinetic samples are taken). These 
+samples will be tested by the sponsor or sponsor’s designee . 
+Immunogenicity sample analysis will be performed under the control of GSK, using the 
+currently approved analytical meth odology. The analytical site will be detailed in the 
+relevant sample processing documents (e.g., CLW) and raw data will be archived at the 
+analytical site for the specified portion of the retention period before being returned to the 
+GSK archives for the r eminder of the retention period . 
+4.7. Interim Analys es 
+Once 15 participants each in Arms A to D have been enrolled and have received two 
+doses of study treatment with one disease assessment following the second dose, or 
+confirmed PD per IMWG [ Kumar , 2016] or death , any arm in Arms B to D with ≤ 2 
+
+CONFIDENTIAL  
+  209628  
+ Page 52 of 69 
+ responders out of 15 participants will be discontinued from further enrollment and arms 
+with ≥3 responders will continue enrollmen t. Futility assessment will be based on 
+Evaluable population defined under Table 2. 
+ORR will be based on investigator -assessed confirmed response   as specified in  
+ 
+Table  3. Subject s with a confirmed PR or better (i.e., PR, VGPR, CR, and sCR)  are called 
+responders.  
+Enrollment will continue as analysis is being performed. If Arm D is stopped due to 
+futility, Arm E will also be stopped. If Arms B, C, D, or E are stopped due to  futility, 
+participants will be given the opportunity to switch to 2.5 mg/kg Q3W (Arm A/control 
+regimen)  with dose modifications based on the mKVA scale , provided the participant has 
+not experienced PD; the data collected from participants after switching will not be 
+included in the primary analysis and may be analyzed separately.  
+Available data from Arm  E will be provided at the time of the interim analysis.  
+4.8. Independent Data Monitoring Committee  
+An Independent Data Monitoring Committee (IDMC) consisting of at least 2  physicians 
+and 1  statistician will review safety and efficacy data as defined in the IDMC Charter. 
+Additional details, including the list of outputs supporting decision making at the interim 
+analysis, will be provided in the IDMC C harter.  
+The first IDMC review meeting is planned when approximately 15 participants each in 
+Arms A to D have been enrolled and received two doses of study treatment with one 
+disease assessment following the second dose, or confirmed PD per IMWG [ Kumar , 
+2016] or death . Other IDMC review meetings will be planned on an ad -hoc basis based 
+on any safety signals. Additional details will be provided in the IDMC Charter.  
+4.9. Change s to Protocol Defined Analyses  
+There  is no change to protocol defined analyses.  
+4.10.  Post treatment switch analysis  
+If any of the  Arms B, C, D, or E are stopped due to futility, participants in the stopped 
+Arm will be given the opportunity to switch to 2.5 mg/ kg Q3W (Arm A/control regimen), 
+provided the participant has not experienced PD; the data collected from participants after 
+switching will not be included in the primary analysis . 
+The following analysis will be performed and included in the CSR for participants 
+switched to Arm A  and reported separately:  
+Adverse event overview, Adverse event by preferred term and maximum grade , Serious 
+adverse event by preferred term and maximum grade , Ocular eve nt overview (CTCAE) 
+Corneal event overview  (mKVA) , Summary of overall response , summary/listing of PFS  
+and listing of overall survival.  
+ 
+
+CONFIDENTIAL  
+  209628  
+ Page 53 of 69 
+ 5.  SAMPLE SIZE DETERMINATION  
+Up to approximately 40 participants will be enrolled into Arms A [control], B, C, and D, 
+each, and up to approximately 20 participants will be enrolled into Arm E (N=180). The 
+sample size and associated operating  characteristics were evaluated via simulations.  
+5.1. Sample Size Assumptions  
+Based on the Grade  ≥2 incidence rate observed in the 95 participants in the 2.5  mg/kg 
+Q3W arm of the DREAMM -2 study (based on the 20  September  2019 data cutoff date), 
+the prior of the incidence rate in Arm  A is assumed to follow a Beta (6.32, 3.68) 
+distribution with a mean of 63.2% and an effective sample si ze of 10, which is 
+down -weighted so that the prior is informative yet data to be collected in this study will 
+still dominate the conclusion. The prior of those of Arms  B to D are assumed to follow a 
+Beta (0.41, 0.59) distribution with a mean of 41%, which corresponds to a 35% relative 
+reduction from the incidence rate of 63.2%, and an effective sample size of 1.  
+The operating characteristics in Table 8 are summarized based on 40  participants per arm. 
+The acceptance criterion is the posterior probability of the difference in incidence rates 
+between the control and test arm being >0.17 is >0.7 . The difference of 0.17 is chosen 
+such that there is a reasonable chance of identifying an arm with improved safety in this 
+study and the probability of falsely identifying an arm is well controlled. When the true 
+incidence rates of Grade  ≥2 are 63% and 4 0% in the control and test arms respectively , 
+the probability of meeting acceptance criterion is 80%. When the true differences in 
+incidence rates are 0, the probability of meeting acceptance criterion is within 4%, 
+suggesting that the probability of false ly identifying an arm that is not actually safer than 
+the control is very well controlled. In general, when there are 40  participants per arm, the 
+simulation has shown good operating characteristics.  
+Table 8 Study Safety Operating Characteristics  
+Incidence r ate of  
+Grade  2 corneal event  Probability of identifying an arm that meets acceptance criterion:  
+P (incidence rate of control – incidence rate of test arm >0.17) >0.7  Control Arm  Test Arm  
+0.5 0.1 >0.99  
+0.5 0.2 0.95 
+0.5 0.3 0.67 
+0.5 0.35 0.42 
+0.5 0.4 0.23 
+0.5 0.45 0.1 
+0.5 0.5 0.04 
+0.632  0.1 >0.99  
+0.632  0.2 >0.99  
+0.632  0.3 0.97 
+0.632  0.35 0.92 
+0.632  0.4 0.8 
+0.632  0.45 0.56 
+0.632  0.5 0.37 
+0.632  0.55 0.18 
+0.632  0.6 0.08 
+
+CONFIDENTIAL  
+  209628  
+ Page 54 of 69 
+ Incidence r ate of  
+Grade  2 corneal event  Probability of identifying an arm that meets acceptance criterion:  
+P (incidence rate of control – incidence rate of test arm >0.17) >0.7  Control Arm  Test Arm  
+0.632  0.632  0.03 
+0.7 0.1 >0.99  
+0.7 0.2 >0.99  
+0.7 0.3 0.99 
+0.7 0.35 0.99 
+0.7 0.4 0.94 
+0.7 0.45 0.84 
+0.7 0.5 0.68 
+0.7 0.55 0.42 
+0.7 0.6 0.23 
+0.7 0.632  0.16 
+0.7 0.7 0.03 
+5.2. Safety Stopping Rule for Arm E  
+Unacceptable toxicity is defined as the rate of Grade  4 corneal events (KVA scale) being 
+significantly (1 -sided alpha of 0.025) higher than 5%. Continuous monitoring will be 
+conducted once 5  participants are dosed in Arm  E. The observed number of participa nts 
+who experience Grade  4 corneal events (KVA scale) will be compared against the safety 
+stopping rule in  Table 9. Enrollment may stop for Arm  E if the safety stopping rule is met 
+based on the totality of the safety data. For example, if 2 out of 5  participants experience 
+Grade  4 corneal events (KVA scale), enrollment for the arm may stop after review of all 
+safety data.  
+If Arm  E is stopped due to safety , and participants are still on treatment, they will be 
+given the opportunity to switch to Arm  A in which they will receive study treatment at 
+the approved dose and schedule (2.5  mg/kg Q3W) with dose modification now based on 
+the KVA scale instead of on oc ular symptoms and visual acuity assessments.  
+Table 9 Safety Stopping Rule for Arm  E 
+Number of Participants Dosed  Stop if Number of Participants 
+with Grade4 Corneal events 
+(KVA  Scale ) is: Observed Rate  
+5 2 0.4 
+6-13 3 0.23-0.5 
+14-20 4 0.2-0.29 
+
+CONFIDENTIAL  
+  209628  
+ Page 55 of 69 
+ 6. SUPPORTING DOCUMENTATION  
+6.1. Appendix 1 Study Population Analyses  
+A summary of the number of participants in each of the participant level analysis set will 
+be provided . In this multi -center  global study, enrolment will be presented by country  and 
+site. 
+6.1.1.  Participant Disposition  
+A summary of the number of participants  in each of the analysis populations described in  
+Section  0 will be provided. In addition, the number of participants  enrolled by center  will 
+be summarized by dose level using the ITT population. A separate summary for 
+exclusions from each study population will be displayed. A listing of participants  
+excluded from analysis populations will also be provided.  
+A summary of participant  status and reason for study withdrawal will be provided. This 
+display will show the number and percentage of participants  who withdrew from the 
+study , including primary reasons for study withdrawal. Reasons for study withdrawal will 
+be presented in the order they are displayed in the eCRF.  
+A summary of study treatment status will be provided. This display will show the number 
+and percentage of participants  who are ongoing or discontinued study treatment and a 
+summary of the primary reasons for discontinuation of study treatment. Reasons for study 
+treatment discontinuation will be presented in the order they are displayed in the eCRF. A 
+listing o f study treatment discontinuation will be generated. The listing will include last  
+dose date, and reasons for study treatment discontinuation.  
+Summary of treatment discontinuation will be summarized by the categories of reasons 
+that lead to the treatment d iscontinuation, including any AE, any AE or mKVA scale 
+event , non -ocular AE, non -ocular AE or mKVA and any ocular AE or mKVA scale 
+event.  
+ 
+6.1.1.1.  Participant Completion  
+A participant will be considered to have withdrawn from the study if the participant has 
+not d ied and is lost to follow up, has withdrawn consent, at the investigator’s discretion is 
+no longer being followed, or if the study is closed/terminated.  
+6.1.1.2.  Extended Loss to Follow -up or Extended Time without an Adequate 
+Assessment  
+For participants, if two or more scheduled disease assessments are missed and are then 
+followed by an assessment of PD or death, PFS will be censored at the last adequate 
+assessment prior to PD or death. When the scheduled disease assessment is every 
+3 weeks, a window of 49  days (6  weeks +7  day window) will be used to determine 
+whether there was an extended time without adequate assessment. That is, if the time 
+
+CONFIDENTIAL  
+  209628  
+ Page 56 of 69 
+ difference between PD/death and last adequate assessment is more than 49  days, then 
+PFS will be censored at the last adequate  assessment prior to PD/death.  
+6.1.1.3.  End of Study Definition/Study Completion  
+The primary analysis is planned to be  performed at least 9 months after the first response 
+of the last responder (i.e., partial response [PR], very good partial response [VGPR], 
+comple te response [CR], and stringent complete response [sCR]) or 12 months after the 
+last participant is randomized into Arms A to D, whichever comes first . After the primary 
+analysis, the study will continue, and participants will remain on -treatment and conti nue 
+to be followed -up. An updated analysis for OS will be performed at end of study.  
+The final analysis will occur 15 months from LSFD and the DREAMM -14 study will 
+move into PACT. At that time the collection of new data for all recruited participants 
+who n o longer receive study treatment will stop entirely and the clinical study database 
+will be closed. As a part of PACT, participants may continue to receive belantamab 
+mafodotin if they are gaining clinical benefit as assessed by the investigator until they  
+meet any protocol defined treatment discontinuation criteria. Although the clinical study 
+database will be closed at the time of the final data cutoff, the study remains open until all 
+participants discontinue study treatment and complete the 70 -day safet y follow -up and 
+the end of study definition is reached. Only SAEs, overdose, and pregnancy cases, and 
+pre specified ocular data will be reported directly to the GSK.  The end of study is defined 
+when the last participant had their last visit (last participa nt last dose plus 70 days of SAE 
+reporting period) or 15 months after LSFD, whichever comes last. A participant is 
+considered to have completed the study if they have completed all periods of the study 
+including the last visit. GSK retains the right to req uest additional information for any 
+participant with ongoing AE(s)/SAE(s)/ocular events at the end of the study, if judged 
+necessary.  
+6.1.2.  Demographic and Baseline Characteristics  
+The demographic characteristics (e.g., age, race, ethnicity, sex, baseline height , and 
+baseline body weight and baseline BMI) will be summarized using mean, standard 
+deviation, minimum, median, and maximum. The count and percentage will be computed 
+for sex and ethnicity.  A listing will be provided.  
+Disease history and characteristics (e.g. , time since initial diagnosis in years, stage at  
+initial diagnosis, date of initial diagnosis) at initial diagnosis and screening will be listed.  
+Separate summaries of disease characteristics at initial diagnosis and screening will be  
+provided. Disease characteristics at screening, including stage, type of multiple myeloma,  
+number of prior lines, and types of therapy, myeloma light chain and myeloma  
+immunoglobulin, extramedullary disease  and lytic bone lesion will be summarized and 
+listed. 
+Medical conditions collected at screening will be listed and will be summarized by past 
+and current and by cancer -related and non -cancer related categories.  
+Substance use, including smoking history and alcohol use will be summarized.  
+
+CONFIDENTIAL  
+  209628  
+ Page 57 of 69 
+ Prior anti -cancer therapy will be coded using GSK Drug coding dictionary, then  
+summarized by type of therapy and listed. A listing of prior anti -cancer therapy will show  
+the relationship between ATC Level  1, Ingredient, and verbatim text. A summary of the  
+best respon se to the most recent prior anti -cancer therapy will be provided. A summary of 
+the number of prior anti -cancer therapy regimens will also be produced.  
+Prior anti -cancer therapy for multiple myeloma participants  will also be summarized by 
+type of therapy, a nd drug class. A summary of multiple myeloma participants’  refractory 
+to prior anti -cancer therapy by drug class will be provided.  
+Anti-cancer radiotherapy will be listed. Prior cancer and non -cancer related surgeries will 
+be summarized. Prior and on -treatment cancer and non -cancer related surgeries will be 
+listed.  
+6.1.3.  Protocol Deviations  
+Important protocol deviations will be listed.  No per protocol population was defined for 
+the study, hence no exclusions from the analysis will be performed based on the 
+popula tion. 
+Protocol deviations will be tracked by the study team throughout the conduct of the study 
+in accordance with the Protocol Deviation Management Plan . 
+A separate summary and listing of all inclusion/exclusion criteria deviations will also be  
+provided. This summary will be based on data as recorded on the inclusion/exclusion  
+page of the eCRF.  
+6.1.4.  Prior  and Concomitant Medications  
+Prior and c oncomitant medications will be coded using GSK Drug coding dictionary, 
+summarized, and listed. The summary of  concomitant medications will show the number 
+and percentage of participants  taking concomitant medications by Ingredient. Multi -
+ingredient products will be summarized by their separate ingredients rather than as a 
+combination of ingredients. Anatomical Th erapeutic Chemical (ATC) classification 
+Level  1 (Body System) information will be included in the dataset created but will not 
+appear on the listing or summary.  
+Both prior medications and concomitant medications will be summarized by  ATC  
+classification dru g class and GSK Drug coding dictionary name using the number and 
+percentage of participants  for each Arm. A participant  reporting the same medication 
+more than once will be counted only once when calculating the number and percentage of 
+participants who re ceived that medication in a given time category (prior or 
+concomitant). The summary of concomitant medications will be ordered alphabetically 
+by drug class and then by descending frequency of preferred name in total within the 
+drug class. For drugs with th e same frequency, sorting will be done alphabetically. 
+Summaries will be based on the safety population.  
+Prophylactic medication for infusion  -related reactions and prophylactic eye medications 
+will be summarized by drug class and drug name and listed sepa rately. In addition, the 
+
+CONFIDENTIAL  
+  209628  
+ Page 58 of 69 
+ percentage of duration of exposure that was on prophylactic steroid eye drop use will also 
+be summarized.  
+Blood products or blood supportive care products with onset date within the on -treatment 
+window will be included in the summa ry tables. The frequency and percentage of 
+participants  using blood products and blood supportive care products after the start of 
+study medication will be provided. Supporting listings will also be provided.  
+6.1.5.  Subsequent Anti -Cancer Therapies  
+The number and  percentage of participants that received chemotherapy, immunotherapy, 
+hormonal therapy, biologic therapy, radioactive therapy, small molecule targeted therapy, 
+as subsequent anti -MM therapy will be summarized. Time from study treatment 
+discontinuation to the first post -study treatment anti -MM therapy will also be included in 
+this summary table, if available.  
+Follow -up anticancer  therapy will be coded using GSK Drug coding dictionary, then 
+summarized by Ingredient  reporting first subsequent therapy and any subsequent therapy 
+separately.   
+A by-participant  listing of the type of follow -up anti -MM therapy received 
+(chemotherapy, immu notherapy, hormonal therapy, biologic therapy, radioactive therapy, 
+and small molecule targeted therapy) will be provided.  
+6.1.6.  Additional Analyses Due to the COVID -19 Pandemic  
+A participant is defined as having a suspected, probable, or confirmed COVID -19 
+infection during the study if the answer is “Confirmed”, “Probable” or “Suspected” to the 
+case diagnosis question from the COVID -19 coronavirus infection assessment eCRF. 
+Numbers of participants with a suspected, probable, or confirmed COVID -19 infection, 
+and of COVID -19 test results will be summarized.  
+6.2. Appendix 2 Electronic Clinical Outcome Assessment (eCOA) 
+Compliance  
+6.2.1.  Study Level compliance  
+Overall eCOA compliance (across all eCOAs and all participants) for the study is 
+calculated as:  
+Total  number  of complete  eCOAs
+Expected  number  of complete  eCOAs  per participant  ×Total  number  of participants×100 
+An eCOA is considered complete if there is no missing data within the assessment.  
+The target compliance for the study is 70%. The study eCOA compliance will be reported 
+for each treatment group.  
+
+CONFIDENTIAL  
+  209628  
+ Page 59 of 69 
+ A participant is considered to be compliant with their eCOAs if at least 80% of their 
+eCOAs are complete (have no missing data), i.e ., a participant is eCOA compliant if they 
+meet the following criteria : 
+Total  number  of complete  eCOAs  
+Expected  number  of complete  eCOAs×100 ≥80% 
+The number of participants who have  0-49%, 50-79% and 80% + comp leted  with eCOA 
+assessments will be summarized.  
+ 
+6.2.2.  Endpoint Level Compliance  
+Not applicable  
+6.3. Appendix 2 Data Derivations Rule  
+6.3.1.  Criteria for Potential Clinical Importance  
+Reference ranges for all laboratory parameters collected throughout the study are 
+provided by the laboratory. A laboratory value that is outside the reference range is 
+considered either high  abnormal (value above the upper limit of the reference range) or 
+low abnormal (value below the lower limit of the reference range). Note: a high abnormal 
+or low abnormal laboratory value is not necessarily of clinical concern.  
+National Cancer Institute C ommon Terminology Criteria for Adverse Events (NCI -
+CTCAE v4.0.3) will be used to assign grades to the relevant laboratory parameters, blood 
+pressure and QTc.  
+In addition, the following criteria will be used to flag potential clinical importance:  
+Parameter s Unit PCI Range  
+Heart rate  bpm <60 (L); >100 (H)  
+QRS interval  Msec  <75 (L); >110 (H)  
+6.3.2.  Study Period  
+Assessments and events will be classified according to the date/time of occurrence 
+relative to date/time of first dose of study treatment.  
+Study Phase  Definition  
+Pre-Treatment  Date/time ≤ Study Treatment Start Date/time  
+
+CONFIDENTIAL  
+  209628  
+ Page 60 of 69 
+ On-Treatment  Study Treatment Start Date/time < Date/time ≤ Study Treatment Stop 
+Date + 70 days  
+Post-
+treatment  Date/time > Study Treatment Stop Date + 70 days  
+6.3.3.  Study Day and Reference Dates  
+Calculated as the number of days from First Dose Date:  
+• Ref Date = Missing             → Study Day = Missing  
+• Ref Date < First Dose Date → Study Day = Ref Date – First Dose Date  
+• Ref Data ≥ First Dose Date → Study Day = Ref Date – (First Dose Date) + 1.  
+6.3.4.  Assessment Window  
+o Baseline disease assessments must be completed 28 days before the date of 
+randomization unless otherwise specified.  
+o Screening assessments performed within the permitted time do not need to be 
+repeated on Cycle  1 Day  1 unless otherwise specified.  
+o Safety laboratory assessments completed within 72  hours of first dose do not need 
+to be repeated on Cycle  1 Day  1. 
+o Imaging must be completed 28 days before the date of randomization.  
+o On-study Q3W and Q6W assessments have a ±3 -day window.  
+o After Cycle  1 Day  1, on -study ocular examinations should be performed 5 days 
+before dosing.  If the participant is not being dosed, ocular examinations may be 
+performed within ± 3 days of the Q3W visit.  
+o EOT visits have +30 day window.  
+o OS follow -up visits have a ±14 -day window.  
+6.3.5.  Multiple measurements at One Analysis Time Point  
+Mean of the measurements will be calculated and used in any derivation of summary 
+statistics but if listed, all data will be presented.  
+Participants having both High and Low val ues for Normal Ranges at any post -baseline 
+visit for safety parameters will be counted in both the High and Low categories of “Any 
+visit post -baseline” row of related summary tables. This will also be applicable to 
+relevant Potential Clinical Importance su mmary tables . 
+
+CONFIDENTIAL  
+  209628  
+ Page 61 of 69 
+ 6.3.6.  Handling of Partial Dates  
+Element  Reporting Detail  
+General  • Partial dates will be displayed as captured in participant listing displays.  
+• However, where necessary, display macros may impute dates as 
+temporary variables for sorting data in listings only. In addition, partial 
+dates may be imputed for “slotting ” data to study phases or for specific 
+analysis purposes as outlined below.  
+• Imputed p artial dates will not be used to derive study day, time to onset or 
+duration (e.g., time to onset or duration of adverse events), or elapsed time 
+variables (e.g., time since diagnosis). In addition, imputed dates are not 
+used for deriving the last contact date in overall survival analysis dataset.  
+Adverse 
+Events  • The eCRF allows for the possibility of partial dates (i.e., only month and 
+year) to be recorded for AE start and end dates; that is, the day of the 
+month may be missing.  
+o Missing Start Day: First of the month will be used unless this is 
+before the start date of study treatment; in this case the study 
+treatment start date will be used and hence the event is considered 
+On-treatment as defined in Section 6.3.2 . 
+o Missing Stop Day: Last day of the month will be used.  
+• Completely missing start dates will remain missing, with no imputation 
+applied. Consequently, time to onset and duration of such events will be 
+missing.  
+• Completely or partially missing end dates will remain missing, with no 
+imputation applied. Consequently, duration of such events will be missing.  
+Concomitant 
+Medications/  
+Medical 
+History  Partial dates for any concomitant medic ations recorded in the CRF will be 
+imputed using the following convention:  
+o If the partial date is a start date, a “01” will be used for the day 
+and “Jan” will be used for the month.  
+o If the partial date is a stop date, a “28/29/30/31” will be used for 
+the day (dependent on the month and year) and “Dec” will be used 
+for the month.  
+The recorded partial date will be displayed in listings.  
+New 
+Anti-Cancer 
+Therapy/  
+Radiotherapy/ 
+Surgical 
+Procedures for 
+Efficacy 
+Evaluation 
+(e.g., response 
+rate, 
+time-to-event)  Start dates for follow  up anticancer therapy, radiotherapy (where applicable), 
+and surgical procedures (where applicable) will be temporarily imputed to 
+define  event and censoring rules for progression -free survival, response rate, 
+time to progressi on, duration of response or time  to response (i.e. start date for 
+new anti -cancer  therapy). The imputed dates will not be stored on the 
+anticancer therapy, radio therapy, or surgical procedure datasets.  
+If missing start day, month, and year, then no imputa tion for completely 
+missing dates . 
+If missing start day and month, then no imputation should be done . 
+If missing start day, then do the following:  
+
+CONFIDENTIAL  
+  209628  
+ Page 62 of 69 
+ Element  Reporting Detail  
+o If partial date falls in the same month as the last dose of study 
+treatment, then assign to earlier of (date of last dose of study 
+treatment+1, last day of month).  
+o If partial date falls in the same month as the participant’s last 
+assessment and the participant’s last assessment is PD, then assign 
+to earlier of (date of PD+1, last day of month).  
+o If both rules above apply, then assign to latest of the 2 dates.  
+Otherwise, impute missing day to the first of the month.  
+If missing end date, then no imputation should be done.  
+Covariates for 
+efficacy 
+analysis (Date 
+of initial 
+diagnosis/Last 
+recurrence/Last 
+progression  If both month and day are missing, first of January will be used.  
+If only day is missing, first of the month will be used.  
+Treatment end 
+date In general, completely missing end dates are not imputed, with the following 
+exceptions for imputation of missing treatment end date at interim analyses.  
+For imputation of missing exposure end date at an interim analysis when 
+participants  are still on treatment, the following conventions will be applied:  
+o If the missing end date is in the last exposure record, the earliest 
+of:  
+▪ the date of the data cut -off, 
+▪ the date of withdrawal from the study, or  
+▪ the death date will be used.  
+o If the missing end date is not in the last exposure record, treatment 
+start date for the record will be used . 
+The imputed treatment end date will be used to calculate cumulative dose 
+and duration of treatment as specified in Section 4.5.1 . 
+If treatment end date is missing for a cycle, treatment start date for the cycle 
+will be used.  
+
+CONFIDENTIAL  
+  209628  
+ Page 63 of 69 
+ 6.3.7.  Treatment Emergent Adverse Even ts and On Treatment  
+Flag  Definition  
+Treatment Emergent  Study Treatment Start Date ≤ AE Start Date ≤ min  (Study 
+Treatment Stop Date + 70 day, Start of anti -cancer therapy)  
+AE Start Date is missing.  
+On treatment   Study Treatment Start Date ≤ AE Start Date ≤ Study Treatment 
+Stop Date + 70 day  
+NOTES:  
+If the study treatment stop date is missing, then the AE will be considered to be On -treatment.  
+Time of study treatment dosing  and start/stop time of AEs should be considered, if collected.  
+ 
+The “treatment emergent” definition of AEs will be used for all display s providing 
+summaries by  preferred term and maximum grade. All other AE displays will use the 
+“on-treatment” definition . 
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 64 of 69 
+ 6.3.8.  Abbreviations  
+Abbreviation  Definition  
+ADA  anti-drug antibody  
+AE adverse event  
+AUC  area under the curve  
+BCVA  best corrected visual acuity  
+BCMA  B-cell maturation antigen  
+Cavg  average plasma concentration  
+Cmax  maximum plasma concentration  
+CI Confidence interval  
+CSP clinical study protocol  
+CTCAE  common terminology criteria for adverse events  
+CR complete response  
+CSR  clinical study report  
+Ctau  trough plasma concentration  
+cys-mcMMAF  cysteine -maleimidocaproyl monomethyl auristatin F  
+ΔlogMAR  change in logarithm of the minimum angle of resolution  
+DNA  deoxyribonucleic acid  
+DoR  duration of response  
+ECG  electrocardiogram  
+eCRF  electronic Case Report Form  
+EORTC -QLQ -C30 European Organisation for Research and Treatment of Cancer 
+Quality of Life Questionnaire 30 -item Core Module  
+EORTC -QLQ -MY20  European Organisation for Research and Treatment of Cancer 
+Quality of Life Questionnaire 20 -item Multiple Myeloma 
+Mod ule 
+EOI end of infusion  
+EOT  end of treatment  
+FACT -GP5 Functional Assessment of Cancer Therapy –General  
+GSK  GlaxoSmithKline  
+HRQoL  health -related quality of life  
+IMWG  International Myeloma Working Group  
+ICF Informed Consent Form  
+IDMC  Independent Data Monitoring Committee  
+IDSL  Integrated Data Standards Library  
+INR international normalized ratio  
+ISS International Staging System  
+ITT Intent -to-Treat  
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 65 of 69 
+ IRR infusion -related reaction  
+KVA  keratopathy visual acuity  
+mKVA  modified keratopathy visual acuity  
+LDH  lactate dehydrogenase  
+logMAR  logarithm of the minimum angle of resolution  
+MedDRA  Medical Dictionary for Regulatory Activates  
+MRD  minimal residual disease  
+NE not evaluable  
+NCI-CTCAE  National Cancer Institute Common Terminology Criteria for 
+Adverse Events  
+NGS  next generation sequencing  
+OPS Output and Programming Specification  
+ORR  overall response rate  
+OS overall survival  
+OSDI  Ocular Surface Disease Index  
+PD progressive disease  
+PACT  Post Analysis Continued Treatment  
+PFS progression -free survival  
+PGIC  Patient Global Impression of Change  
+PGIS  Patient Global Impression of Severity  
+PK pharmacokinetic  
+PR partial response  
+PRO -CTCAE  Patient -Reported Outcomes version of the Common 
+Terminology Criteria for Adverse Events  
+PT preferred term  
+RRMM  relapsed or refractory multiple myeloma  
+SAP statistical analysis plan  
+SD stable disease  
+sCR stringent complete response  
+sBCMA  soluble B -cell maturation antigen  
+SOC  system organ class  
+TI toxicity index  
+ToxT  toxicity over time  
+TTP time to progression  
+TTR  time to response  
+VGPR  very good partial response  
+Q3W  every 3  weeks  
+Q6W  every 6  weeks  
+ 
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 66 of 69 
+ 6.4. Appendix 3 Population Pharmacokinetic (PopPK) Analyses  
+If deemed appropriate and if data permit, b elantamab mafodotin and/or cys -mcMMAF 
+plasma concentration -time data  may be analyzed by Pop PK methods using a non -linear 
+mixed -effects modelling  approach. The key obje ctive of this analysis is to predict 
+individual pharmacokinetic parameter values for belantamab mafodotin and/or cys -
+mcMMAF.  
+ 
+6.4.1.  Systems  
+The population PK analysis will be performed using NONMEM (ICON Solutions) and  
+PsN (Perl Speaks NONMEM) or another softwa re platform deemed appropriate.  
+Graphical displays and data summary will be produced using R (The R Foundation for  
+Statistical Computing). The analysis will be performed by, or under the direct auspices  
+of, Clinical Pharmacology Modelling and Simulation (CPMS), GSK  using  the currently 
+supported versions of all software packages.  
+ 
+6.4.2.  Data Assembly  
+Participant data will be collected in the electronic CRF and will be transmitted into a  
+validated database by GSK  data management. Derived/processed variables will be  
+provided by or under the guidance of Clinical Programming. Plasma samples will be  
+analyzed using approved analytical methodology. Data will be transferred electronically  
+to data managers to be processed  and stored in the GSK database. GSK or a designated  
+third party will generate the analysis  dataset s. 
+Previously generated belantamab mafodotin and/or cys -mcMMAF PK data  may be 
+merged with the PK data in order to provide a pooled NONMEM data set.  
+ 
+6.4.3.  Model Development  
+The initial analysis will use the population pharmacokinetic model developed for Study  
+BMA117159 and Study 205678; a more current population PK model may be used, if  
+available.  
+Initially, empirical Bayes estimates will be derived applying  the current PopPK model to  
+the Study 209628 dataset with the MAXEVAL=0 option. If the corresponding model  
+diagnostics indicate that this PopPK model is appropriate to represent the belantamab  
+mafodotin and/or cys -mcMMAF data from Study 209628 then individ ual PK  
+parameter estimates will be based on the current PopPK parameters.  
+If the parameter set of the current PopPK model applied to the Study 209628 data set  
+results in substantial bias or if a further exploration of the covariate effect in the Study  
+2096 28 population is deemed necessary, the parameters of the current PopPK model will  
+be re -estimated for the Study 209628 PK data alone before generating the individual PK  
+parameter estimates and/or for a pooled data set. Certain parameter values may be fixed 
+to the value in the current PopPK model if they cannot be estimated with sufficient  
+precision within the Study 209628 PK population. Covariates not available for the Study  
+209628 PK population but present in the current PopPK model may be removed fro m the  
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 67 of 69 
+ Study 209628 PopPK model. Lastly, a model refinement step, if needed, will include,  
+but may not be limited to, a qualification and possible modification of the model’s  
+random effect structure.  
+6.4.4.  Model Qualification  
+Any model development will be support ed, and the final model will be qualified using 
+the following criteria where appropriate:  
+• Scientific plausibility of parameter estimates  
+• Goodness of fit plots  
+• Relative standard errors (RSE) of the parameter estimates  
+• Objective function value  
+• Distribution a nd shrinkage of random effects.  
+• Successful minimization and execution of covariance step  
+• Condition number (ratio of the largest and smallest eigenvalue of the covariance 
+matrix  
+• Visual predictive check  
+• Bootstrap (if deemed necessary/feasible)  
+ 
+  
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 68 of 69 
+ 6.5. Appendix 4: Pharmacokinetic/Pharmacodynamic Analyses  
+If deemed appropriate and if data permit, exposure -response analyses may be conducted  
+using population methods to explore the relationship between exposure measures of  
+belantamab mafodotin (ADC and/or cys-mcMMAF) and clinical activity and/or toxicity  
+endpoints (e.g., response, AESIs).  If data permit, the effects of covariates may be  
+explored.  
+Exposure -response analyses will use the same systems and data assembly process as  
+described in Appendix 3 Population Pharmacokinetic (PopPK) Analyses .  
+The final popPK models for ADC and /or cys-mcMMAF will be applied to generate the  
+Following  Dose 1  post hoc exposure measures to be used in efficacy and safety exposure 
+response analyses: ADC maximum concentration (ADC Cmax), ADC trough 
+concentration (ADC Ctau), ADC average concentration (ADC Cavg),  and/or  cys-
+mcMMAF  Cmax, and cys -mcMMAF Cavg.  Probability of occurrence of event of interest 
+will be evaluated using logistics regression, while t ime to events endpoints may be 
+analyzed using Kaplan -Meier plots or cox-proportional hazard models.  
+ 
+For each exposure -response analysis, univariate analys is will be performed first to 
+identify the strongest individual associations of exposure and other relevant covariates to 
+clinical endpoint using change in the objective function. Following the univariate 
+analysis, covariate selection will be conducted usi ng a stepwise forward inclusion and 
+backward elimination method to determine the final multivariate model. Only  
+covariates that meet the significance level of <0.01 in the univariate analysis will be 
+included in the stepwise covariate search. Covariates  will be retained in the model in a 
+stepwise manner if their inclusion during forward  addition decreased the objective 
+function value (OFV) by =6.64 (P<0.01) over the  previous model, with the most 
+significant covariate being retained at each stage . This iterative process will continue 
+until all significant covariates are included, thus defining  the full model. Among all the 
+exposure measures, only the most significant one (at the step where the covariate enters 
+the model) will be selected. An exposure measure may be replaced by a more clinically 
+relevant exposure measure, despite not meeting the criteria, in order to get alignment 
+within similar endpoints. If none of the exposure measures are identified as statistically 
+significant in the univariate analysis, f urther covariate exploration may be discontinued.  
+From the full model, the significance of each covariate will be tested  
+individually by removing one by one until all non -significant covariates have been  
+excluded. A covariate will be retained if, upon rem oval, the OFV increased by more than  
+10.83 points (P< 0.001). The final model is defined as the model developed following the  
+backward elimination step.  A covariate may be retained in the final model, despite not 
+meeting the criteria above, if there is a s trong pharmacological or physiological rationale 
+for its inclusion.  
+ 
+The results of these analyses may be provided in a separate report.  
+
+CONFIDENTIAL  
+  209628  
+XBU Statistical Analysis Plan (SAP)  Template v1.0  24 March 2021  Page 69 of 69 
+ 7. REFERENCES  
+Aaronson NK, Ahmedzai S, Bergman B, Bullinger M, Cull A, Duez NJ, et al. The 
+European Organization for Research and Treatment of Can cer QLQ -C30: a quality -of-life 
+instrument for use in international clinical trials in oncology. J Natl Cancer Inst. 
+1993;85(5):365 -376. 
+Anderson KC, Alsina M, Atanackovic D, Biermann JS, Chandler JC, Costello C, et al. 
+NCCN Guidelines Insights: Multiple My eloma, Version 3.2016. J Natl Compr Canc 
+Netw. 2016;14(4):389 -400. 
+Basch E, Reeve BB, Mitchell SA, Clauser SB, Minasian LM, Dueck AC, et al. 
+Development of the National Cancer Institute's patient -reported outcomes version of the 
+common terminology criteria  for adverse events (PRO -CTCAE). J Natl Cancer Inst. 
+2014;106(9).  
+Brookmeyer R and Crowley J. A confidence interval for the median survival time. 
+Biometrics. 1982;38:29 -41. 
+Cella DF, Tulsky DS, Gray G, Sarafian B, Linn E, Bonomi A, et al. The Functional 
+Assessment of Cancer Therapy scale: development and validation of the general measure. 
+J Clin Oncol. 1993;11(3):570 -579. 
+Cocks K, Cohen D, Wisloff F, Sezer O, Lee S, Hippe E, et al. An international field study 
+of the reliability and validity of a disease -specific questionnaire module (the QLQ -
+MY20) in assessing the quality of life of patients with multiple myeloma. Eur J Cancer. 
+2007;43(11):1670 -1678.  
+Dougherty BE, Nichols JJ and Nichols KK. Rasch analysis of the Ocular Surface Disease 
+Index (OSDI). Invest O phthalmol Vis Sci. 2011;52(12):8630 -8635.  
+Greipp PR, San Miguel J, Durie BG, Crowley JJ, Barlogie B, Blade J, et al. International 
+staging system for multiple myeloma. J Clin Oncol. 2005;23(15):3412 -3420.  
+Guy W. ECDEU Assessment Manual for Psychopharmacolo gy, Revised. Rockville, MD: 
+National Institute of Mental Health; 1976.  
+Kumar S, Paiva B, Anderson KC, Durie B, Landgren O, Moreau P, et al. International 
+Myeloma Working Group consensus criteria for response and minimal residual disease 
+assessment in multi ple myeloma. Lancet Oncol. 2016;17(8):e328 -e346.  
+Moreau P, San Miguel J, Sonneveld P, Mateos MV, Zamagni E, Avet -Loiseau H, et al. 
+Multiple myeloma: ESMO Clinical Practice Guidelines for diagnosis, treatment and 
+follow -up. Ann Oncol. 2017;28(suppl_4):iv52 -iv61.  
+Proskorovsky I, Lewis P, Williams CD, Jordan K, Kyriakou C, Ishak J, et al. Mapping 
+EORTC QLQ -C30 and QLQ -MY20 to EQ -5D in patients with multiple myeloma. Health 
+Qual Life Outcomes. 2014;12:35.  
+Rajkumar SV. Multiple myeloma: 2016 update on diagnosis,  risk-stratification, and 
+management. Am J Hematol. 2016;91(7):719 -734. 
+Schiffman RM, Christianson MD, Jacobsen G, Hirsch JD and Reis BL. Reliability and 
+validity of the Ocular Surface Disease Index. Arch O phthalmol. 2000;118(5):615 -621. 

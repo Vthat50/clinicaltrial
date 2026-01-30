@@ -1,0 +1,3825 @@
+Statistical Analysis Plan I8H-MC-BDCU Version 4
+A Phase 3, Multicenter, Randomized, Parallel-Design, Open-Label Trial to Evaluate the Efficacy and Safety of 
+LY3209590 Compared With Insulin Degludec in Participants With Type 2 Diabetes Currently Treated With Basal 
+Insulin (QWINT-3)
+NCT05275400
+Approval Date: 27-May-2024
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 1 
+Title Page 
+Protocol Title: A Phase 3, Multicenter, Randomized, Parallel-Design, Open-Label Trial to 
+Evaluate the Efficacy and Safety of LY3209590 Compared with Insulin Degludec in Participants 
+with Type 2 Diabetes Currently Treated with Basal Insulin (QWINT-3) 
+Protocol Number: I8H-MC-BDCU(b) 
+Compound Number: LY3209590 
+Short Title: Efficacy and Safety of the Once-Weekly Basal Insulin LY3209590 Therapy 
+Compared with Daily Insulin Degludec in Adults with Type 2 Diabetes Treated with Basal 
+Insulin 
+Acronym: QWINT-3 (Once-Weekly Insulin Therapy) 
+Sponsor Name: Eli Lilly and Company 
+Legal Registered Address: Indianapolis, Indiana, USA 46285 
+Regulatory Agency Identifier Number(s)  
+IND: 129390  
+EudraCT: 2021-002569-16 
+Confidential Information 
+The information contained in this document is confidential and the information contained 
+within it may not be reproduced or otherwise disseminated without the approval of Eli Lilly 
+and Company or its subsidiaries
+Note to Regulatory Authorities: This document may contain protected personal data 
+and/or commercially confidential information exempt from public disclosure. Eli Lilly and 
+Company requests consultation regarding release/redaction prior to any public release. In 
+the United States, this document is subject to Freedom of Information Act (FOIA) 
+Exemption 4 and may not be reproduced or otherwise disseminated without the written 
+approval of Eli Lilly and Company or its subsidiaries. 
+Document ID: VV-CLIN-122290 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 2 
+Table of Contents 
+Title Page ........................................................................................................................................1
+Table of Contents ...........................................................................................................................2
+Version history ...............................................................................................................................4
+1.
+Introduction .....................................................................................................................8
+1.1.
+Objectives, Endpoints, and Estimands ..............................................................................8
+1.2.
+Study Design ...................................................................................................................11
+2.
+Statistical Hypotheses ...................................................................................................12
+2.1.
+Multiplicity Adjustment ..................................................................................................12
+3.
+Analysis Sets ..................................................................................................................14
+4.
+Statistical Analyses .......................................................................................................15
+4.1.
+General Considerations ...................................................................................................15
+4.2.
+Participant Dispositions ..................................................................................................18
+4.3.
+Primary Endpoint Analysis .............................................................................................19
+4.3.1.
+Definition of Endpoint ....................................................................................................19
+4.3.2.
+Main Analytical Approach ..............................................................................................19
+4.3.3.
+Sensitivity Analysis ........................................................................................................20
+4.3.4.
+Supplementary Analyses .................................................................................................21
+4.4.
+Secondary Endpoints Analysis .......................................................................................21
+4.4.1.
+Key Secondary Endpoints ...............................................................................................21
+4.4.2.
+Supportive Secondary Endpoints ....................................................................................22
+4.5.
+Tertiary Endpoint Analysis .............................................................................................25
+4.5.1.
+Tertiary Efficacy Endpoints ............................................................................................25
+4.5.2.
+Tertiary Safety Endpoints ...............................................................................................26
+4.5.3.
+Tertiary Patient Reported Outcomes ...............................................................................27
+4.6.
+Safety Analyses...............................................................................................................28
+4.6.1.
+Extent of Exposure ..........................................................................................................28
+4.6.2.
+Adverse Events ...............................................................................................................29
+4.6.3.
+Additional Safety Assessments .......................................................................................35
+4.7.
+Other Analyses ................................................................................................................42
+4.7.1.
+Immunogenicity ..............................................................................................................42
+4.7.2.
+Subgroup analyses ..........................................................................................................43
+4.8.
+Interim Analyses .............................................................................................................44
+4.8.1.
+Data Monitoring Committee (DMC) ..............................................................................44
+4.9.
+Changes to Protocol-Planned Analyses ..........................................................................44
+5.
+Sample Size Determination ..........................................................................................45
+6.
+Supporting Documentation ..........................................................................................46
+6.1.
+Appendix 1: Demographic and Baseline Characteristics ...............................................46
+6.2.
+Appendix 2: Treatment Compliance ...............................................................................46
+6.3.
+Appendix 3: Clinical Trial Registry Analyses ................................................................46
+6.4.
+Appendix 4: Concomitant Therapy.................................................................................47
+6.5.
+Appendix 5: Protocol Deviations ....................................................................................47
+6.6.
+Appendix 6: Derivation of CGM Variables ....................................................................48
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 3 
+6.6.1. 
+Glucose in Target Ranges, Hypoglycemia or Hyperglycemia ........................................49 
+6.6.2. 
+Hypoglycemic Episode ...................................................................................................50 
+6.6.3. 
+Mean Glucose and Glucose Management Indicator .......................................................51 
+6.6.4. 
+Glycemic Variability .......................................................................................................51 
+6.7. 
+Appendix 7: MedDRA PT for Diabetic Retinopathy or 
+Maculopathy ...................................................................................................................53 
+6.8. 
+Appendix 8: MedDRA PT for Peripheral Edema ...........................................................54 
+6.9. 
+Appendix 9: Empirical Estimation of Relative Event Rate ............................................55 
+6.10. 
+Appendix 10: Definition for Persistent/Recurrent Hypoglycemia .................................57 
+6.11. 
+Appendix 11: Statistical Analysis for Japan ...................................................................57 
+6.12. 
+Appendix 12: Abnormality Level Criteria for Chemistry and 
+Hematology Laboratory Results .....................................................................................58 
+6.13. 
+Appendix 13: Interaction Effect for Subgroup Analysis – 
+Treatment Regimen Estimand ........................................................................................59 
+7. 
+References ......................................................................................................................60 
+ 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 4 
+Version history  
+The Statistical Analysis Plan (SAP) Version 1 was approved on 03 March 2022, prior to the first 
+participant visit of the study. The SAP Version 1 was based on the Protocol I8H-MC-BDCU and 
+the amendment Protocol I8H-MC-BDCU(a) which were approved on 08 November 2021 and 
+28 January 2022, respectively. 
+The SAP Version 2 was approved on 17 May 2022, prior to the first production transfer of 
+blinded data. The SAP Version 2 was based on the amendment Protocol I8H-MC-BDCU(b) and 
+the I8H-MC-BDCU protocol addendum (2.1), approved on 13 May 2022 and 22 February 2022 
+respectively, in addition to the above protocol and protocol amendments. 
+The SAP Version 3 was approved on 20 Jan 2024, prior to the final production data. The SAP 
+Version 3 was based on the questions from different regulatory agencies and required updates, in 
+addition to the above protocol and protocol amendments. 
+This SAP is the fourth version based on the recommendations from the United States Food and 
+Drug Administration (FDA), in addition to the above protocol and protocol amendments. This 
+SAP is approved prior to the database lock. 
+Table 1. SAP Version History Summary  
+SAP 
+Version 
+Approval Date 
+Change 
+Rationale 
+1 
+Prior to the first 
+participant visit. 
+03 March 2022 
+Not Applicable 
+Original version 
+2 
+Prior to the first 
+production 
+transfer of 
+blinded data. 
+17 May 2022 
+Section 1.1: Added PK/PD Endpoint in Tertiary 
+Integrated from BDCU(a) 
+Section 3: Updated the analysis populations. 
+To meet the anticipated 
+requirement for excluding 
+inadvertently enrolled 
+participants in some countries. 
+Section 4.3.3: Changed the Sensitivity Analysis:  
+A 2-way tipping point analysis has been 
+added.  
+Imputation under the noninferiority null 
+hypothesis has been elaborated. 
+For clarification and to address 
+regulatory feedback. 
+Section 4.4.2.3: For SIM-Q and both the Basal 
+Insulin Experience questionnaires, treatment 
+comparison methodology has been changed to 
+Wilcoxon rank sum test. 
+Wilcoxon rank sum test is 
+more appropriate than Chi-
+Square test for ordinal data. 
+Section 4.5.1: For Tertiary Efficacy Endpoints: 
+Updated the analysis for the longitudinal 
+binary variables of achieving HbA1c targets. 
+To handle the missing data. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 5 
+SAP 
+Version 
+Approval Date 
+Change 
+Rationale 
+Updated the analysis for the longitudinal 
+binary variables of achieving HbA1c targets 
+without nocturnal hypoglycemia. 
+Section 4.6.3.1:  Replaced 365.25 with 36525 for 
+level 3 hypoglycemia event rate analysis.  
+Correction. 
+Section 4.7.2: New subgroups are added to the 
+analysis. 
+For clarification and to address 
+regulatory feedback. 
+Section 6.6 (Appendix 6): Added text “for 
+participants with at least 3 valid CGM days.” 
+To define a valid CGM 
+session. 
+Section 6.6.1: Added definition of average daily 
+time in hypoglycemia relative to dose 
+administration. 
+Added a CGM variable for 
+exploration. 
+Added Section 6.10 (Appendix 10) 
+Per regulatory input for 
+definition of Persistent/ 
+Recurrent Hypoglycemia 
+Added Section 6.11 (Appendix 11) 
+Per PMDA request. 
+Throughout SAP: Minor editorial changes. 
+For clarity. 
+Throughout SAP: Following glucose values in 
+mg/dL, added corresponding values in mmol/L. 
+Due to different regulatory 
+requirements. 
+Throughout SAP: “Visit xx (Week xx)” 
+references are changed to “Week xx (Visit xx).” 
+To be consistent with the 
+objectives. 
+3 
+prior to the 
+database lock 
+20 Jan 2024 
+Added, in Section 2.1, the plan for multiplicity 
+adjustment for primary and key secondary 
+efficacy objectives – the details of type I error 
+control strategy. 
+To finalize multiplicity 
+adjustment strategy. 
+Edited Section 3, to adjust Efficacy analysis set 2 
+for Efficacy Estimand. 
+To redefine the cut-off for 
+different analysis and 
+intercurrent events. 
+Edited Section 4.1 to define Baseline and 
+postbaseline observations and related analysis. 
+Correction. 
+Added, in Section 4.2, analysis of time-to-event 
+of interest in disposition. 
+Amended as per PSAP. 
+Edited Section 4.3.3 for sensitivity analysis of 
+primary endpoint and added Section 4.4.1.3 for 
+sensitivity analysis of key secondary endpoints. 
+To accommodate Regulatory 
+requirements 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 6 
+SAP 
+Version 
+Approval Date 
+Change 
+Rationale 
+Added subsections to Section 4.4.2. 
+For clarification of each 
+supportive secondary 
+endpoints. 
+Moved tertiary patient reported outcomes to 
+Section 4.5.3 from Section 4.4.2.3. 
+Correction. 
+Added subsections in 4.5.1 to explicitly mention 
+analysis method for tertiary outcome measures. 
+Methodology for multiple imputations for 
+missing data have been updated. 
+For clarification. 
+Changes were made throughout Section 4.6.2 to 
+align with the PSAP. Added analysis for P-R 
+hypoglycemia and medication error of interest in 
+Section 4.6.2.1 safety topic of interest. 
+For alignment with PSAP. 
+Made subsections to Section 4.6.3.1 
+(hypoglycemic events) to accommodate analysis 
+from patient reported hypoglycemia and newly 
+added CGM based derived hypoglycemia. Added 
+rule to identify as single hypoglycemia event 
+from the patient reported hypoglycemia events 
+that occurred within 60 minutes to each another. 
+Changed analysis of event rates to accommodate 
+baseline rate instead of baseline incidences in the 
+models.  
+For clarification. 
+Changes were made throughout Sections 4.6.3.2, 
+4.6.3.3 and 4.6.3.4 and added Section 6.12 to 
+align with the PSAP. 
+For alignment with PSAP. 
+Edited Section 4.7.1 and Section 4.7.2 for 
+clarification and reorganizing of the 
+corresponding analyses. Hence, added 
+Section 6.13 to clarify the interaction effect for 
+subgroup analysis. 
+For clarification. 
+Edited and added texts in Section 6.6 to clarify 
+handling of missing CGM data and definitions of 
+CGM derived hypoglycemic episodes. 
+For clarification. 
+Throughout the SAP made minor changes and 
+reorganization 
+For clarity, no change to 
+analysis methodologies, so not 
+detailed 
+4 
+prior to the 
+database lock 
+Added sensitivity analysis for primary (in 
+Section 4.4.3) and key secondary analyses (in 
+Section 4.4.1.3) of continuous endpoints to 
+To comply with FDA’s advice. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 7 
+SAP 
+Version 
+Approval Date 
+Change 
+Rationale 
+account for potential unequal residual variances 
+with different group sizes. 
+Added treatment regimen analysis for the 
+selected secondary and tertiary endpoints (fasting 
+serum glucose, fasting glucose from SMBG, and 
+selected CGM parameters in Sections 4.1 and 
+4.4.2.1. 
+To implement FDA’s advice. 
+Added missing data at baseline will be imputed 
+using MI approach under MAR assumption in 
+Section 4.4.1. 
+Addition. 
+Added adjustment for covariates and added 
+appropriate baseline covariates for the binary 
+targets in Section 4.5.1.2. Also suggested a 
+missing data imputation for missing 
+hypoglycemia incidence. 
+To implement FDA’s advice.  
+Added sensitivity analysis that considers all 
+hypoglycemic events as one hypoglycemic event 
+until a succeeding glucose value is ≥ 70 mg/dL in 
+Section 4.6.3.1.1.1. 
+To implement FDA’s feedback 
+for SAP of the trial I8H-MC-
+BDCV. 
+Added Section 4.6.4 analysis for device product 
+complaints. 
+According to the new SAP 
+template requirement 
+Updated the subgroups for race in Section 4.7.2. 
+To implement FDA’s advice. 
+Clarified definitions of valid CGM period and 
+visit; Added sensitivity analysis for selected 
+CGM parameters that derived from all data in 
+Appendix 6. 
+To implement FDA’s advice. 
+Clarified the SAP language regarding the use 
+unplanned measurements for post-baseline 
+observations for HbA1c analysis in Section 4.1. 
+Also clarified the SAP language for sensitivity 
+analysis in Section 4.3.3. 
+To clarify based on FDA’s 
+advice. 
+Abbreviations: CGM = continuous glucose monitor; FDA = Food and Drug Administration (United States); 
+PD = pharmacodynamics; PK = pharmacokinetics; P-R = persistent-recurrent; PSAP = program safety analysis 
+plan;  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 8 
+1. 
+Introduction  
+The study protocol contains a summary of the planned statistical analyses of the most important 
+endpoints, including primary and key secondary endpoints. There are no changes to the analyses 
+described in the protocol. This SAP includes the analyses details for efficacy, safety measures, 
+patient-reported outcomes, and parameters based on continuous glucose-monitoring (CGM). 
+Pharmacokinetic/pharmacodynamics (PK/PD) analyses will be conducted by the PK/PD group 
+and will be described in the PK analysis plan. The specifications for tables, figures and listings 
+will be described in separate documents. 
+1.1. 
+Objectives, Endpoints, and Estimands  
+ Objectives 
+Endpoints 
+Primary 
+ 
+To investigate the hypothesis that 
+LY3209590 is noninferior to the 
+comparator (insulin degludec) on 
+glycemic control in study 
+participants with T2D currently 
+on basal insulin 
+ 
+Change from baseline in HbA1c at Week 26 
+Key Secondary (Multiplicity Adjusted) 
+ 
+To demonstrate LY3209590 is 
+superior to insulin degludec in the 
+selected parameters of glycemic 
+control 
+ 
+Change from baseline in HbA1c at Week 26 
+ 
+The event rate of participant-reported clinically significant 
+nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] or 
+severe) during treatment phase up to Week 78 
+ 
+Time in glucose range between 70 and 180 mg/dL (3.9 and 
+10.0 mmol/L) inclusive measured during the CGM session 
+prior to Week 26 
+Other Secondary 
+ 
+To investigate the efficacy of 
+LY3209590 compared with 
+insulin degludec in additional 
+parameters of glycemic control 
+ 
+Change from baseline in HbA1c at Weeks 52 and 78 
+ 
+Change from baseline in fasting glucose measured by 
+SMBG at Weeks 26, 52, and 78 
+ 
+Glucose variability measured during the CGM session 
+prior to Weeks 26, 52, and 78 
+ 
+Time in glucose range between 70 and 180 mg/dL (3.9 and 
+10.0 mmol/L) inclusive measured during the CGM session 
+prior to Weeks 52 and 78 
+ 
+Insulin dose at Weeks 26, 52, and 78 
+ 
+To investigate the safety of 
+LY3209590 compared with 
+insulin degludec 
+ 
+Incidence and rate of composite of Level 2 and 3 
+hypoglycemia events during treatment period 
+ 
+Body weight change from baseline to Weeks 26, 52, and 
+78 
+ 
+Time in hypoglycemia with glucose <54 mg/dL 
+(3.0 mmol/L) measured during the CGM session prior to 
+Weeks 26, 52, and 78 
+ 
+Time in hyperglycemia range defined as glucose >180 
+mg/dL (10.0 mmol/L) measured during the CGM session 
+prior to Weeks 26, 52, and 78 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 9 
+ Objectives 
+Endpoints 
+ 
+To evaluate treatment impact 
+between LY3209590 and insulin 
+degludec based on patient-
+reported outcomes questionnaires 
+ 
+Change from baseline in TRIM-D at Weeks 26, 52, and 78 
+ 
+DTSQ change (DTSQc) from baseline at Weeks 26, 52, 
+and 78 
+Tertiary  
+ 
+To investigate the treatment 
+impact of LY3209590 compared 
+with insulin degludec on other 
+measures of efficacy, safety, and 
+patient-reported outcomes 
+ 
+Efficacy: 
+ 
+Percentage of participants achieving HbA1c < 7% at 
+Weeks 26, 52, and 78 
+ 
+Percentage of participants achieving HbA1c < 7% at Week 
+26 without nocturnal hypoglycemia during treatment phase 
+up to Week 26 
+ 
+Percentage of participants achieving HbA1c ≤ 6.5% at 
+Weeks 26, 52, and 78 
+ 
+Change from baseline in fasting serum glucose at Weeks 
+26, 52, and 78 
+Safety: 
+ 
+Incidence and rate of Level 2 hypoglycemia events during 
+treatment period 
+ 
+Incidence and rate of Level 3 hypoglycemia events during 
+treatment period 
+ 
+Incidence of positive treatment-emergent antibody of 
+LY3209590 
+PK/PD: 
+ 
+LY3209590 PK and concentration-response relationships 
+to key safety and efficacy measures 
+ 
+Potential intrinsic and extrinsic factors 
+Patient-Reported Outcomes: 
+ 
+Change from baseline in SIM-Q at Week 26 
+ 
+Frequency of responses to “Basal Insulin Experience: 
+Likelihood of incorporating into routine” at Weeks 26 and 
+78 
+ 
+Frequency of responses to “Basal Insulin Experience: 
+Preference” at Weeks 26 and 78 
+ 
+Change from baseline in EQ-5D-5L at Weeks 26, 52 and 
+78  
+Abbreviations: CGM = continuous glucose monitoring; DTSQc = Diabetes Treatment Satisfaction Questionnaire – 
+Change Version; HbA1c = hemoglobin A1c; SIM-Q = Simplicity Questionnaire; SMBG = self-monitoring of 
+blood glucose; T2D = type 2 diabetes; TRIM-D = Treatment-Related Impact Measure – Diabetes. 
+Primary Estimand (for primary objective) 
+US registration 
+The primary clinical question of interest is: What is the treatment difference between 
+LY3209590 and insulin degludec in change from baseline to Week 26 (Visit 22) in HbA1c in 
+study eligible participants with type 2 diabetes (T2D) currently on basal insulin regardless of 
+treatment discontinuation for any reason and regardless of initiation of rescue medication? 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 10 
+The treatment regimen estimand will be used for the primary objective and the attributes are 
+described in the following table. 
+Treatment Regimen Estimand Attribute 
+Description 
+Population 
+Targeted study population. See Section 3 for details 
+Endpoint  
+HbA1c change from baseline to Week 26. 
+Treatment condition  
+The randomized treatment regardless of treatment 
+discontinuation and use of rescue medications. 
+Remaining intercurrent events 
+None. The 2 intercurrent events, treatment 
+discontinuation for any reason and initiation of rescue 
+medication, are both addressed by the treatment 
+condition of interest attribute. 
+Population-level summary  
+Difference in mean change between treatment 
+conditions. 
+Abbreviations: HbA1c = hemoglobin A1c. 
+ 
+Rationale for estimand: The treatment regimen estimand estimates how participants with T2D 
+are treated in clinical practice and takes into account both efficacy and safety. 
+ 
+Registration for other countries 
+The primary clinical question of interest is: What is the treatment difference between 
+LY3209590 and insulin degludec in change from baseline to Week 26 (Visit 22) in HbA1c in 
+study eligible participants with T2D currently on basal insulin and adherence to the randomized 
+treatment without intercurrent events during the study treatment period? 
+The efficacy estimand will be used for the primary objective. This table describes the efficacy 
+estimand attributes. 
+Efficacy Regimen Estimand Attribute 
+Description 
+Population 
+Targeted study population. See Section 3 for details 
+Endpoint  
+HbA1c change from baseline to Week 26. 
+Treatment condition  
+The randomized treatment. 
+Remaining intercurrent events 
+None. The 2 intercurrent events, treatment 
+discontinuation for any reason and initiation of rescue 
+medication, are both handled by the hypothetical 
+strategy, for example, the potential outcome for those 
+participants if the intercurrent events have not occurred 
+will be estimated. 
+Population-level summary  
+Difference in mean changes between treatment 
+conditions. 
+Abbreviations: HbA1c = hemoglobin A1c. 
+ 
+Rationale for estimand: The efficacy estimand supports the interpretation of the treatment effect 
+from participants who adhere to study treatment and are free from the confounding effect of 
+rescue medications. 
+ 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 11 
+Secondary Estimands (for multiplicity-adjusted objectives) 
+The superiority test in change from baseline to Week 26 (Visit 22) in HbA1c will also be based 
+on the primary estimand described above.  
+The time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive measured 
+during the CGM session prior to Week 26 (Visit 22) will also use treatment regimen estimand 
+for US registration and efficacy estimand for other countries. 
+The participant-reported clinically significant nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] 
+or severe) is one of the safety measures for the study. The event rate will be based on all 
+available data during the specific analysis period. Relative rate between randomized treatment 
+groups will be used for treatment comparison.  
+1.2. 
+Study Design  
+ Study BDCU is a Phase 3, multicenter, randomized, open-label, comparator-controlled 
+study to evaluate the efficacy and safety of once-weekly basal insulin (LY3209590) 
+compared to insulin degludec in participants with T2D treated with basal insulin. 
+ The study includes a 3-week screening/lead-in period, a 78-week treatment period, and a 
+5-week safety follow-up period. 
+ Participants will continue prior stable diabetes therapy with 0 to 3 allowed non-insulin 
+antihyperglycemic medications during the study. 
+ Participants will discontinue their previous basal insulin doses at randomization and will 
+be assigned to either LY3209590 or insulin degludec U100. 
+ Assignment to treatment groups will be determined by an interactive web-response 
+system (IWRS). Participants will be randomly assigned to 1 of the 2 treatment groups in 
+2:1 ratio (LY3209590 : insulin degludec) at Week 0 (Visit 3). Stratification will be by 
+country, HbA1c stratum at Week -3 (Visit 1) (<8.0%, ≥8.0%), and the type of basal 
+insulin regimen at randomization (a. typical once-daily basal insulin; b. U-300 or BID 
+regimens). 
+ This is a treat-to-target study, both treatment groups will undergo titration to achieve an 
+FBG target within the range of 80-120 mg/dL. The primary endpoint at Week 26 (Visit 22) 
+is based on participants reaching stable insulin dose by 8 to 12 weeks and glycemic 
+stability in advance of the 26-week primary endpoint Hemoglobin A1c measure. 
+ Rescue therapy will be considered during the treatment period if the participants meet the 
+protocol criteria of severe, persistent hyperglycemia. 
+ If study intervention is permanently discontinued, the participant will be encouraged to 
+continue participation in the study for continued monitoring. Both efficacy (including 
+HbA1c) and safety data will continue to be collected per the schedule of activities in the 
+protocol. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 12 
+2. 
+Statistical Hypotheses  
+Primary Hypothesis 
+The primary objective of this study is to test the hypothesis that LY3209590 is noninferior to 
+insulin degludec on glycemic control as measured by change from baseline to Week 26 (Visit 22) 
+in HbA1c in participants with T2D currently on basal insulin. Thus, the null hypothesis (H01) to 
+be tested is the difference in the change from baseline to Week 26 (Visit 22) in HbA1c 
+(LY3209590 – insulin degludec) is greater than the noninferiority margin (NIM). The 2-sided 
+95% confidence interval (CI) will be used for testing the noninferiority. 
+Secondary Hypotheses 
+The key secondary (multiplicity adjusted) objectives are to test the hypotheses that LY3209590 
+is superior to insulin degludec with respect to:  
+ change from baseline in HbA1c at Week 26 (Visit 22)  
+H02: the difference (LY3209590 – insulin degludec) ≥ 0.0  
+ the event rate of clinically significant nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] 
+or severe) during treatment period up to Week 78 (Visit 37) 
+H03: the relative event rate (LY3209590 vs. insulin degludec) ≥ 1 
+ time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive 
+measured by CGM collected during the CGM session prior to Week 26 (Visit 22) 
+H04: the difference (LY3209590 – insulin degludec) ≤ 0.0 
+These hypotheses and the primary hypothesis will be tested using a strategy to control the overall 
+type 1 error. 
+2.1. 
+Multiplicity Adjustment  
+A graphical approach (Bretz et al. 2009; 2011) for multiple comparisons will be used to ensure 
+the strong control of the overall type I error rate for testing the primary and key secondary 
+(multiplicity adjusted) objectives. The overall significance level (α) will be set to 0.05. The total 
+α will be used for the primary objective first, then the α will be allocated and transitioned to 
+other key secondary objectives once the primary objective is met. Therefore, the noninferiority 
+test for the primary objective will be based on the 2-sided 95% CI. Once the upper limit of the 
+2-sided 95% CI is below the NIM, the non-inferiority is achieved and the α of 0.05 will be 
+distributed to test superiority for the key secondary objectives. If the p-value of the 2-sided test 
+for one of the key secondary objectives is below the assigned α level, the superiority is 
+demonstrated and the assigned α level will be distributed to the remaining objectives. The 
+iterative test procedure continues until none of the remaining objectives can be demonstrated 
+with their preserved α or all objectives are demonstrated successfully. The NIM of 0.4% (for 
+treatment regimen estimand) and 0.3% (for efficacy estimand) will both be tested to meet 
+different regulatory requirements. No multiplicity adjustments will be made for conducting 
+separate analyses relative to the treatment regimen and efficacy estimands. Each estimand will 
+have its own familywise error rate of 0.05.  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 13 
+For primary and key secondary efficacy objectives, the details of type I error control strategy are 
+illustrated in the figure : 
+  
+  
+  
+ 
+Both treatment regimen estimand and efficacy estimand will be used to assess these objectives. 
+As they are intended for different purposes, no multiplicity adjustments will be made for 
+conducting separate analyses relative to the treatment regimen estimand and efficacy estimands. 
+In addition, no multiplicity adjustments will be made for evaluating other secondary and 
+exploratory objectives, or for safety assessments. 
+ 
+H01 
+H02 
+H04 
+H03 
+1
+1
+1
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 14 
+3. 
+Analysis Sets  
+The following analysis populations and data sets are defined for the purpose of analysis. 
+Analysis Populations/ Data Sets 
+Description 
+Entered Population 
+All participants who sign the informed consent form 
+Randomized Population 
+All randomized participants. Participants will be analyzed according to the 
+treatment they were assigned. 
+Modified Intent-to-Treat 
+(mITT) Population 
+All randomized participants who took at least 1 dose of study treatment. 
+Participants will be analyzed according to the treatment they were assigned. 
+Efficacy Analysis Set 1 (EAS1) 
+for treatment regimen estimand 
+on efficacy measures 
+The data will include: 
+ 
+mITT Population excluding participants discontinuing the study 
+treatment due to inadvertent enrollment, and, 
+ 
+all measurements regardless of the use of study treatment or the 
+initiation of rescue medication. 
+Efficacy Analysis Set 2 (EAS2) 
+for efficacy estimand on 
+efficacy measures 
+The data will include: 
+ 
+mITT Population excluding participants discontinuing the study 
+treatment due to inadvertent enrollment, and, 
+ 
+measurements up to the early discontinuation of study treatment or 
+the initiation of rescue medication, 
+The data cutoff for participants who had an intercurrent event is defined by 
+the earliest date from below dates for individual participants except for the 
+analysis on study dose: 
+- the date of last study dose + 10 days for LY3209590, or +1 day for 
+Degludec  
+- the start date of the first rescue medication  
+The data cutoff for analysis on study dose is defined by the earliest date from 
+below dates for individual participants: 
+- the date of last study dose  
+- the start date of the first rescue medication 
+Safety Analysis Set (SS) 
+The data will include: 
+ 
+mITT Population, and, 
+ 
+all measurement regardless of the use of study treatment or the 
+initiation of rescue medication 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 15 
+4. 
+Statistical Analyses  
+4.1. 
+General Considerations  
+Statistical analysis of this study will be the responsibility of Eli Lilly and Company (Lilly) or its 
+designees. Any change to the data analysis methods described in the protocol will require an 
+amendment ONLY if it changes a principal feature of the protocol. Any other changes to the data 
+analysis methods described in the protocol, and the justification for making the change, will be 
+described in this SAP or the clinical study report. Additional exploratory analyses of data will be 
+conducted as deemed appropriate.  
+Unless otherwise stated, the efficacy analyses will be based on either efficacy analysis set 1 
+(EAS1, see the definition in Section 3) or efficacy analysis set 2 (EAS2, see the definition in 
+Section 3). For treatment regimen estimand, EAS1 will be used. For efficacy estimand, other 
+secondary and tertiary efficacy measures, EAS2 will be used (using the data up to the 
+intercurrent events). The treatment comparison will be based on either 2-sided test or 95% CI.  
+Unless otherwise noted, the safety analyses will be conducted on the Safety Analysis set (SS, see 
+the definition in Section 3). Percentages will be calculated using the mITT population as the 
+denominator. For events that are sex-specific, the denominator and computation of the 
+percentage will include only participants from the given sex. 
+For continuous measures, summary statistics will include sample size, mean, SD, median, 
+minimum, and maximum for both the actual and the change from baseline measurements. For 
+certain variables that are considered to be log-normally distributed, the geometric mean and 
+coefficient of variation (CV) will be provided instead. Either the mixed model repeated 
+measurement (MMRM) model or the analysis of covariance (ANCOVA) model will be used to 
+analyze continuous outcomes. Least-squares (LS) means, and standard errors derived from the 
+analysis models will also be displayed. Treatment comparisons will be displayed showing the 
+treatment difference LS means and the 95% CIs for the treatment differences, along with the p-
+values for the treatment comparisons. For certain safety laboratory measures, log-transformed 
+values will be analyzed in the statistical model instead. The actual, change from baseline and 
+percentage change from baseline will be presented using the derivation based on the output from 
+the statistical model and the assumption of lognormality. 
+For categorical measures, summary statistics will include sample size, frequency, and 
+percentages. Fisher’s exact test or logistic regression will be used for treatment comparisons, 
+unless otherwise stated. For laboratory values, both conventional (CN) and System International 
+(SI) units will be presented. Therefore, both % and mmol/mol will be presented for HbA1c and 
+both mg/dL and mmol/L will be presented for glucose measurements. 
+In this study, the negative binomial regression will be used to analyze the number of 
+hypoglycemic episodes. Group Mean instead of LS mean will be estimated and delta method will 
+be used to estimate the standard error of the Group Mean (Qu and Luo 2015). Group Mean is 
+defined as the mean response in the treatment group for the studied population. The difference 
+between LS mean and the Group Mean is that LS mean estimates the response by taking the 
+inverse link function on mean covariates, while the Group Mean takes the inverse link function 
+on individual patient covariates first and then averages over all patients. For analysis of 
+hypoglycemia, the empirical method based on exposure adjusted rate (calculated by total number 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 16 
+of events divided by total exposure) may be used for the treatment comparison if the number of 
+episodes is too small and leads to convergency issues in the negative binomial regression model. 
+The table below describes the definition of baseline and post-baseline observations for different 
+analyses. 
+Analysis  
+Baseline Observations 
+Post-Baseline Observations 
+HbA1c (treatment 
+regimen estimand) 
+The baseline is the last non-missing 
+assessment prior to or on the first day of 
+study treatment. 
+Planned measurements at primary and 
+secondary endpoints Weeks 26, 52, 78 
+(Visits 22, 30, 37) in EAS1. 
+Use unplanned measurements (on the same 
+visit day) if no planned measurement. 
+ 
+Multiple imputation approach will be used 
+to impute missing observations at these 
+endpoint visits. 
+HbA1c (efficacy 
+estimand) 
+The baseline is the last non-missing 
+assessment prior to or on the first day of 
+study treatment. 
+Weeks 2, 4, 12, 16, 26, 36, 52, 64 and 78 
+(Visit 5, 7, 15, 17, 22, 25, 30, 32, and 37) 
+in EAS2 for MMRM. 
+All planned measurements at scheduled 
+visits will be included. Use unplanned 
+measurements (on the same visit day) if no 
+planned measurement. 
+CGM parameters 
+(treatment regimen 
+estimand) 
+The baseline will be derived from the data 
+collected during CGM session prior to the 
+first dose date of study treatment. 
+Multiple imputation will be used to impute 
+missing observations at baseline. 
+The CGM sessions prior to Week 26, 52, 
+78 (Visit 22, 30, 37) in EAS1 
+ 
+Multiple imputation approach will be used 
+to impute missing observations at these 
+sessions. 
+CGM parameters 
+(efficacy estimand) 
+The baseline will be derived from the data 
+collected during CGM session prior to the 
+first dose date of study treatment. 
+The CGM sessions prior to Weeks 4, 12, 
+26, 52, 78 (Visit 7, 15, 22, 30, 37) in EAS2 
+for MMRM 
+Insulin dose during 
+the treatment period 
+The baseline period is the lead-in period 
+prior to the initiation of study treatment. 
+The following variables will be derived: 
+ 
+daily dose in U 
+ 
+weekly dose in U   
+ 
+dose in U/kg/day   
+The detailed description is added in 
+Section 4.4.2.1. 
+All scheduled visits between Week 0 
+(Visit 3) and Week 78 (Visit 37) in EAS2 
+for MMRM. 
+The following variables will be derived: 
+ 
+daily dose in U 
+ 
+weekly dose in U   
+ 
+dose in U/kg/day   
+The detailed description is added in 
+Section 4.4.2.1. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 17 
+Analysis  
+Baseline Observations 
+Post-Baseline Observations 
+Fasting glucose by 
+SMBG 
+The baseline period is the lead-in period 
+up to the first day of study treatment. The 
+average of all Fasting SMBG during Visit 
+2 date and on or prior to the first day of 
+study treatment will be considered as 
+baseline.  
+- For treatment regimen estimand, 
+multiple imputation will be used to impute 
+missing observations at baseline for 
+treatment regimen estimand. 
+Data will be summarized for each visit as 
+an average of all Fasting SMBG from the 
+time after the prior visit and up to that day 
+of the visit. 
+- For treatment regimen estimand, 
+measurements at Weeks 26, 52, 78 (Visits 
+22, 30, 37) in EAS1 for ANCOVA. 
+Multiple imputation approach will be used 
+to impute missing observations at these 
+endpoint visits. 
+- For efficacy estimand all 
+available data after the day of first dose of 
+study treatment up to Week 78 (Visit 37) 
+in EAS2 for MMRM.  
+Fasting Serum 
+Glucose by central 
+lab 
+The baseline is the last non-missing 
+assessment prior to or on the day of the 
+first dose of study treatment. 
+- For treatment regimen estimand, 
+multiple imputation will be used to impute 
+missing observations at baseline for 
+treatment regimen estimand. 
+All planned measurements at scheduled 
+visits will be included.  
+- For treatment regimen estimand, 
+measurements at Weeks 26, 52, 78 (Visits 
+22, 30, 37) in EAS1. Multiple imputation 
+approach will be used to impute missing 
+observations at these endpoint visits. 
+- For efficacy estimand all 
+scheduled visits after the day of first dose 
+up to Week 78 (Visit 37) in EAS2 for 
+MMRM. 
+Participant-reported 
+hypoglycemia 
+The baseline period is the screening/lead-
+in period prior to the first day of study 
+treatment. 
+ 
+ Treatment period starts on the first day 
+of study treatment and ends on Week 78 
+(Visit 37), if study completed treatment 
+or on the last dose date of study 
+treatment + 10 days and +1 day for 
+LY3209590 and Insulin Degludec, 
+respectively, if discontinued study 
+treatment early. 
+ Post-treatment period starts from end of 
+Treatment period +1 day and ends on the 
+last day in the study  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 18 
+Analysis  
+Baseline Observations 
+Post-Baseline Observations 
+TEAEs 
+The baseline period includes the 
+screening/lead-in period up to the first 
+dose of study treatment (AE Start Relative 
+to Exposure Assessment in CRF is used to 
+determine). 
+Safety analysis period starts after the first 
+dose(AE Start Relative to Exposure 
+Assessment in CRF is used to determine) 
+and ends at the last visit in the study 
+including safety follow-up period. 
+Note: An AE will be TEAE if reported to 
+be worsen in severity from baseline. 
+Safety laboratory 
+tests, vital signs and 
+body weight 
+The baseline will be the last non-missing 
+assessment prior to or on the first day of 
+study treatment. 
+Planned measurements at scheduled visits 
+will be included. 
+All scheduled visits after the first day of 
+study treatment up to follow-up Visit 802 
+for MMRM and/or ANCOVA. 
+Planned measurements at scheduled visits 
+will be included. 
+Elevated or low: 
+Laboratory values, 
+vital signs, and body 
+weight categorical 
+measures 
+Starts from the screening visit and ends 
+prior to or on the first day of study 
+treatment. 
+ 
+All available scheduled and unscheduled 
+measurements will be included. The 
+baseline for weight will be the last non-
+missing value during the baseline period. 
+Starts after the day of study treatment and 
+ends at the last visit in the study including 
+both treatment period and follow-up 
+period. 
+ 
+All available scheduled and unscheduled 
+measurements  in the specified analysis 
+period will be included. 
+Anti-LY3209590 
+antibody  
+Refer to PSAP. 
+Refer to PSAP. 
+Patient-reported 
+outcomes  
+The baseline will be the data collected at 
+Week 0 (Visit 3). 
+ All scheduled visits after Week 0 
+(Visit 3). 
+ Last collection after Week 0 (Visit 3). 
+Abbreviation: AE = adverse event; ANCOVA = analysis of covariance; CGM = continuous glucose monitoring; 
+CRF = case report form; EAS1 = efficacy analysis set 1; EAS2 = efficacy analysis set 2; HbA1c = hemoglobin 
+A1c; MMRM = mixed model repeated measurement; PSAP = program safety analysis plan; SMBG = self-
+monitored blood glucose; TEAE = treatment-emergent adverse event. 
+ 
+All analyses will be implemented using SAS Enterprise Guide Version 7.1 or above. 
+4.2. 
+Participant Dispositions  
+Reasons for discontinuation prior to randomization including screen failure will be summarized 
+for all participants who sign the informed consent form. 
+The number and percentage of participants who have completed or discontinued from the study 
+or treatment will be summarized by treatment using the Randomized Population. The individual 
+reasons for discontinuation will also be included in the summary. Comparison between 
+LY3209590 and Insulin Degludec will be conducted using the Fisher’s exact test.  
+A listing of the reasons for study/treatment discontinuations will be generated for the 
+Randomized Population. A listing of the randomized treatment for this study will also be 
+provided. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 19 
+Time to permanent discontinuation of study treatment, time to study discontinuation and time to 
+early discontinuation of study treatment due to AEs (if there is a sufficient number to warrant a 
+summary) will be presented as a figure. 
+4.3. 
+Primary Endpoint Analysis  
+4.3.1. 
+Definition of Endpoint  
+The primary endpoint of this study is the HbA1c change from baseline to Week 26 (Visit 22). 
+The HbA1c is reported in unit of % by central laboratory and will be converted to the unit of 
+mmol/mol using the following formula: HbA1c in mmol/mol = 10.93 * HbA1c in % - 23.5 
+(http://www.ngsp.org/ifccngsp.asp). The HbA1c analysis will be conducted for both units. 
+4.3.2. 
+Main Analytical Approach  
+The primary objective is to test the hypothesis that LY3209590 is noninferior to insulin degludec 
+on glycemic control in the targeted study population. The noninferiority test will be based on: 
+treatment regimen estimand for the US FDA submission and efficacy estimand for registrations 
+in other countries. The full significance level of 0.05 will be used for each estimand.  
+This table provides the details of treatment regimen estimand and efficacy estimand. 
+Treatment Regimen Estimand 
+Efficacy Estimand 
+Analysis 
+Population 
+All participants in EAS1 with non-missing 
+baseline measure 
+All participants in EAS2 with non-missing 
+baseline measure and at least one non-missing 
+post-baseline scheduled measure 
+Analysis 
+Data 
+All non-missing observations at baseline and 
+Week 26 (Visit 22) regardless of the use of 
+study intervention or rescue medications. 
+All non-missing observations at baseline and all 
+scheduled post-baseline timepoints during 
+treatment period (that is, Weeks 2, 4, 12, 16, 26, 
+36, 52, 64 and 78) prior to the date of last study 
+dose + 10 days for LY3209590 and +1 day for 
+Insulin Degludec, or the initiation of rescue 
+medication whichever is earlier (for participants 
+with an intercurrent event). 
+Missing 
+Data 
+There may be missing values at Week 26 
+(Visit 22) due to early study discontinuation. 
+The missing values will be imputed using 
+multiple imputation by the retrieved dropout 
+approach. The retrieved dropout participants 
+are those who discontinue study intervention 
+prior to Week 26 but have non-missing 
+measures at Week 26 in the same treatment 
+arm. If there are only a limited number of 
+retrieved participants (i.e., at least 1 arm has 
+less than 8 participants who discontinued 
+study treatment early and who have 
+endpoint visit measurements) or the model 
+cannot converge, the missing HbA1c at 
+There may be missing values due to the early 
+discontinuation of study intervention or use of 
+rescue medication. The MMRM model will be 
+used, and the missing values will be handled in 
+the MMRM analysis under the assumption of 
+missing at random. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 20 
+ 
+Treatment Regimen Estimand 
+Efficacy Estimand 
+Week 26 will be imputed by return-to-
+baseline multiple imputation approach (Qu 
+and Dai 2022). 
+Analysis 
+Model 
+After the imputation, the observed and 
+imputed data will be analyzed by the 
+ANCOVA model using treatment, strata 
+(country, and the type of basal insulin at 
+randomization), and baseline value of the 
+dependent variable as independent variables. 
+The statistical inference will be based on the 
+multiple imputation framework by Rubin 
+(1987). 
+The MMRM model will include treatment, strata 
+(country, and the type of basal insulin at 
+randomization), visit and treatment-by-visit 
+interaction as fixed effects, and baseline of the 
+dependent variable as a covariate. The Kenward-
+Roger approximation will be used to estimate 
+denominator degrees of freedom for the MMRM 
+models. An unstructured covariance structure will 
+be used to model the within-participant errors. If 
+this structure fails to converge, the following 
+covariance structures will be used in order until 
+one converges:  
+1. Toeplitz with heterogeneity  
+2. autoregressive with heterogeneity 3. 
+compound symmetry with heterogeneous 
+variances  
+4. Toeplitz  
+5. Autoregressive  
+6. compound symmetry without heterogeneous 
+variances. 
+Abbreviation: ANCOVA = analysis of covariance; EAS1 = Efficacy Analysis Set 1; EAS2 = Efficacy Analysis Set 
+2; HbA1c = hemoglobin A1c; MMRM = mixed model repeated measurement. 
+ 
+The 2-sided 95% CI of the LS mean difference (LY3209590 – insulin degludec) in the HbA1c 
+change from baseline to Week 26 (Visit 22) will be estimated. For both estimands, LY3209590 
+will be declared noninferior to insulin degludec if the upper limit of the 2-side 95% CI for the LS 
+mean difference in the HbA1c (measured in %) change from baseline is below NIM of +0.4%. In 
+addition, the 95% CI for the LS mean difference will be compared to an alternative NIM of 
++0.3%. 
+4.3.3. 
+Sensitivity Analysis  
+Two-way Tipping Point Analysis 
+To confirm the robustness of the primary endpoint results in treatment regimen estimand, a 2-
+way tipping point analysis represents varying assumptions for missing data from both treatment 
+groups will be conducted. This sensitivity analysis will focus on missing data at the primary 
+endpoint. Penalties for imputed missing values will be added for both treatment arms. The 
+ANCOVA model for treatment regimen estimand will be conducted after penalties are added. 
+The multiple imputation framework by Rubin (1987) will be used to summarize the results. The 
+corresponding p-values of non-inferiority test will be shown by color scale in the figure.   
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 21 
+Imputation under the noninferiority null hypothesis 
+After imputing the missing data used in the treatment-regimen estimand (Section 4.3.2), 
+imputation under the noninferiority null hypothesis will be conducted by adding 0.4 (NIM) to the 
+same imputed data of LY3209590 group only. The ANCOVA model for treatment regimen 
+estimand will rerun using the adjusted data. The multiple imputation framework by Rubin (1987) 
+will be used to summarize the results. 
+Including Inadvertently Enrolled Participants  
+The primary efficacy analysis will be repeated for the mITT population, including participants 
+inadvertently enrolled, for both treatment regimen estimand and efficacy estimand. 
+Assuming unequal variances due to different group sizes 
+A sensitivity analysis will be performed on the treatment regimen estimand, using the same 
+ANCOVA model described in Section 4.3.2 but assuming unequal variances to account for 
+potential unequal residual variances due to different group sizes. 
+4.3.4. 
+Supplementary Analyses  
+Additional analysis may be conducted as needed. 
+4.4. 
+Secondary Endpoints Analysis  
+4.4.1. 
+Key Secondary Endpoints  
+A graphical approach (see Section 2.1) will be used to control the overall type I error for the 
+primary objective and the key secondary objectives. The key secondary objectives will test the 
+superiority of LY3209590 compared with insulin degludec for the following endpoints: 
+1) change from baseline in HbA1c at Week 26 (Visit 22);  
+2) the event rate of clinically significant nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] 
+or severe) during the treatment period up to Week 78 (Visit 37); and  
+3) time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive 
+collected during the CGM session prior to Week 26 (Visit 22). 
+4.4.1.1. 
+Definition of Endpoint(s)  
+See Section 4.3.1 for the HbA1c change from baseline to Week 26 (Visit 22). 
+The hypoglycemia events will be based on participant entry into an e-diary which receives all 
+blood glucose (BG) measurements performed by the participant and transmitted via Bluetooth 
+from the study-provided glucometer. The nocturnal period is defined by midnight to 6 AM. The 
+event rate of clinically significant nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] or severe)  
+will be based on the count of the hypoglycemia episodes in the nocturnal period and the 
+corresponding exposure of study intervention. 
+The time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive will be 
+based on the percentage of CGM readings within the glucose range during the specific CGM 
+session. The derivation of CGM parameters is provided in Appendix 6 (Section 6.6). 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 22 
+4.4.1.2. 
+Main Analytical Approach  
+The superiority test in change from baseline to Week 26 (Visit 22) in HbA1c will be based on the 
+same primary endpoint analysis described in Section 4.3.2. 
+The rate of participant-reported nocturnal hypoglycemia will be analyzed by a negative binomial 
+regression. The analysis details are provided in Section 4.6.3.1. 
+The time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive measured 
+by CGM will be analyzed using an ANCOVA model for treatment regimen estimand and an 
+MMRM model for efficacy estimand. The analyses are similar to the primary analysis described 
+in Section 4.3.2 with additional term of baseline HbA1c stratum (<8.0%, ≥8.0%) in analysis 
+models. For treatment regimen estimand, For the treatment-regimen estimand, only participants 
+with an observation either at baseline or at Week 26 (Visit 22) will be included in the analysis. 
+The missing data at baseline will be imputed using multiple imputation with assumption of 
+missing at random and at Week 26 (Visit 22) the missing data will be imputed by multiple 
+imputation with the approach similar to the imputation used for the primary endpoint.  
+4.4.1.3. 
+Sensitivity Analysis  
+The analysis (in Section 4.4.1.2) will be repeated for mITT population, including participants 
+inadvertent enrolled, for both treatment regimen estimand and efficacy estimand. For the time in 
+glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive measured by CGM, a 
+sensitivity analysis will be performed on the treatment regimen estimand, using the same 
+ANCOVA model described in Section 4.3.2 but assuming unequal variances in order to account 
+for potential unequal residual variances due to different group sizes. 
+4.4.2. 
+Supportive Secondary Endpoints  
+4.4.2.1. 
+Other Efficacy Endpoints  
+The analysis of continuous efficacy measures of change from baseline for:  
+ HbA1c at Weeks 52 and 78 (Visits 30 and 37),  
+ fasting glucose by SMBG at Weeks 26, 52 and 78 (Visits 22, 30 and 37), and 
+ CGM (selected) parameters at the 4-week sessions prior to Weeks 26, 52 and 78 (Visits 
+22, 30 and 37) 
+will be based on both treatment regimen estimand and efficacy estimand. Analysis of insulin 
+dose will be based on efficacy estimand only. 
+For treatment regimen estimand, only participants with an observation either at baseline or at the 
+endpoint visit will be included in the analysis. The missing baseline will be imputed using 
+multiple imputation under assumption of missing at random. Missing data at the endpoint visit 
+will be imputed using either retrieved dropout or return-to-baseline multiple imputation approach 
+determined by the criterion described for the primary efficacy endpoint in Section 4.3.2. 
+ANCOVA analysis will be conducted similar to that for the primary endpoint. An additional 
+term of baseline HbA1c stratum (<8.0%, ≥8.0%) will be added into the model for the endpoints 
+except analysis of HbA1c. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 23 
+For efficacy estimand, participants with baseline and at least one post baseline observation will 
+be included in the analysis. The longitudinal observations of actual and change from baseline in 
+HbA1c up to Week 78 will be analyzed using the same MMRM model as for the efficacy 
+estimand described in Section 4.3.2. The analyses of other continuous efficacy measures (insulin 
+dose, fasting glucose and CGM parameters) will use an MMRM model similar to that for the 
+primary endpoint with an additional term of baseline HbA1c stratum (<8.0%, ≥8.0%). A 
+compound symmetry covariance structure will be used to model the within-participant errors for 
+fasting glucose from SMBG and insulin dose. 
+Additional analysis are as specified below. 
+4.4.2.1.1. Analysis for CGM Parameters  
+The time in glucose ranges will be based on the percentage and time of CGM readings within the 
+glucose ranges, and glucose variability will be based on the readings during the specific CGM 
+session. Section 6.6 (Appendix 6) provides the derivation of CGM parameters .  
+Longitudinal logistic regression model with independent variables of treatment, strata (country, 
+the type of basal insulin at randomization, and, baseline HbA1c stratum), visit and treatment-by-
+visit interaction and baseline of the dependent variable will be used to analyze CGM targets of 
+glycemic controls (see Section 6.6.1). Same order of variance-covariance structures will be used 
+as mentioned for MMRM in Section 4.3.2 for selection. 
+The time point for primary CGM data analysis is CGM session. In addition, the average time in 
+glucose range, hypoglycemia range and hyperglycemia range by week (by visit for treatment 
+period) will be summarized by treatment. Average daily time since last dose by CGM Session 
+during treatment period will also be summarized for LY3209590.   
+Missing data patterns will be summarized at daily, weekly (visit) and CGM session levels. 
+4.4.2.1.2. Study Insulin Dose Analysis  
+For study insulin dose, the average daily dose in U, weekly dose in U and daily dose in U/kg 
+during each visit for individual participants will be used in the analysis.  
+In the LY3209590 group,  
+ the average dose of each visit (that is, average of weekly doses since last visit) will be 
+used as the average weekly dose in U; 
+ the average daily dose in U will be the average weekly dose in U divided by 7; 
+ the average daily dose in U/kg will be the average daily dose in U divided by body 
+weight for the visit. 
+In the insulin degludec group,  
+ the average dose of each day within a visit (that is, average of each day doses since last 
+visit) will be used as the average daily dose in U; 
+ the average weekly dose in U will be calculated by the average daily dose in U multiplied 
+by 7; 
+ the average daily dose in U/kg will be the average daily dose in U divided by last 
+measured body weight on or prior to the visit. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 24 
+For participants using typical once-daily pre-study basal insulin, the average pre-study basal dose 
+during the lead-in period will be the baseline daily dose in U. For participants using pre-study 
+U-300 or NPH BID, the average pre-study basal dose during the lead-in period multiplied by 0.8 
+will be the baseline daily dose in U. The baseline daily dose in U multiplied by 7 will be the 
+baseline weekly dose in U for the study insulin dose analysis. The baseline daily dose in U 
+divided by baseline weight will be the baseline daily dose in U/kg. 
+4.4.2.1.3. Analysis of Fasting Blood Glucose  
+The analysis of fasting blood glucose (FBG), measured by SMBG, will be analyzed (in both CN 
+and SI units). If a subject does not indicate which BG measurement was fasting, the  FBG value 
+will be assigned programmatically by designating the FBG as the first measurement between 
+5am-10am. These programmatically derived FBG values will also be included in the analysis. 
+4.4.2.2. 
+Other Safety Endpoints  
+The safety measures based on CGM data will be analyzed as described in Section 4.4.2.1.1. For 
+other safety measures, the details are provided in Section 4.6. 
+4.4.2.3. 
+Patient Reported Outcome  
+The analyses for patient-reported outcomes will be based on the EAS2 data.  
+4.4.2.3.1. Treatment-Related Impact Measure – Diabetes (TRIM-D)  
+The TRIM-D is a self-administered instrument, which assesses the impact of diabetes treatment 
+on participants’ functioning and well-being across available diabetes treatments (Brod et al. 
+2009). The TRIM-D consists of 28 items each assessed on a 5-point scale, where higher scores 
+indicate a better health state, with a recall period of “over the past 2 weeks.” In addition to an 
+overall score, the TRIM-D items assess 5 domains of impact:  
+ Treatment Burden (6 items: Question 1a, Question 2a to 2e),  
+ Daily Life (5 items: Question 3a to 3b, Question 5a to 5c),  
+ Diabetes Management (5 items: Question 4a to 4e),  
+ Compliance (4 items: Question 6a, b, c, e), and 
+ Psychological Health (8 items: Question 6d, Question 7a to 7g). 
+Items within each domain are summed to obtain a raw domain score, which is then transformed 
+to a scale of 0 to 100 to obtain a transformed domain score. The transformed domain score can 
+be calculated by:  
+(sum of raw score - sum of lowest possible raw score) 
+(sum of highest possible raw score - sum of lowest possible raw score) × 100 
+For an example, Diabetes Management = ([sum of raw score -5]/[25-5])×100. If answer for the 
+5 questions in Diabetes Management (Question 4a to 4e) are all 1, then the sum of raw score is 
+5 and the transformed domain score is 0. All items can also be summed and transformed to 
+obtain a transformed total score in a similar way.  
+Summary statistics for the transformed scores of each domain and all domains will be provided 
+by study treatment. The scores at scheduled visits and the change from baseline will be analyzed 
+by the MMRM model similar to the other efficacy endpoints (see Section 4.4.2.1). The last 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 25 
+non-missing postbaseline observations will be analyzed by an ANCOVA model using the 
+independent variables of treatment, strata (country, and the type of basal insulin at 
+randomization, baseline HbA1c stratum), and baseline value of the dependent variable as 
+independent variables. 
+4.4.2.3.2. Diabetes Treatment Satisfaction Questionnaire (DTSQ)  
+Diabetes Treatment Satisfaction Questionnaire-Status (DTSQs) 
+The Diabetes Treatment Satisfaction Questionnaire-Status Version (DTSQs) (Bradley and Lewis 
+1990; Bradley 1994) is a diabetes-specific patient-reported outcome instrument that assesses the 
+overall treatment satisfaction and perceived frequency of hyperglycemia and hypoglycemia. It is 
+appropriate for use in both T1D and T2D. The DTSQs consists of 8 items that assess treatment 
+satisfaction as well as concerns about hyperglycemia and hypoglycemia over the past few weeks, 
+prior to the visit. Each item is rated on a 7-point Likert scale. Items 1 and 4-8 are rated from 0 
+(very dissatisfied) to 6 (very satisfied) and can be summed up to produce a treatment satisfaction 
+score ranging from 0 to 36. Items 2 and 3 are scored individually, and evaluate the perceived 
+frequency of hyperglycemia and hypoglycemia and are rated from 0 (none of the time) to 6 (most 
+of the time). 
+The collection of DTSQs is planned prior to the initiation of study treatment. The total scores of 
+Item 1 and 4-8 and the individual scores of Items 2 and 3 will be summarized. Wilcoxon rank-
+sum test will be used for treatment comparison. 
+Diabetes Treatment Satisfaction Questionnaire-Change (DTSQc) 
+The Diabetes Treatment Satisfaction Questionnaire-Change Version (DTSQc) (Bradley 1999) 
+was designed to overcome potential ceiling effects in the status version. The DTSQc has the 
+same 8 items as the status version but is reworded slightly to measure the change in treatment 
+satisfaction rather than absolute treatment satisfaction. Each item is scored on a scale of -3 to +3. 
+For all items except item 2 (perceived frequency of hyperglycemia) and item 3 (perceived 
+frequency of hypoglycemia), the higher the score, the greater the improvement in treatment 
+satisfaction and a score of 0 represents no change. For Items 2 and 3, the lower the score, the 
+better the perception. The ratings for Items 1 and 4-8 are summed to obtain a total treatment 
+satisfaction score ranging from -18 to 18. Items 2 and 3 are scored individually. 
+The collection of DTSQc is planned after the initiation of study treatment. The total scores of 
+Item 1 and 4-8 and the individual scores of Items 2 and 3 will be summarized. Wilcoxon rank-
+sum test will be used for treatment comparison. 
+4.5. 
+Tertiary Endpoint Analysis  
+4.5.1. 
+Tertiary Efficacy Endpoints  
+4.5.1.1. 
+Fasting Serum Glucose  
+Fasting serum glucose (FSG), measured by central laboratory, will be analyzed (for both 
+international units [SI] and conventional units [CN]) for both treatment regimen estimand and 
+efficacy estimand using same ANCOVA (at Weeks 26, 52 and 78)  and MMRM model (at all 
+scheduled visits), respectively as described in Section 4.3.2 with an additional term of baseline 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 26 
+HbA1c stratum (<8.0%, ≥8.0%), using data from EAS1 and EAS2, respectively. Missing data 
+imputation and analysis set will be the same as described in Section 4.4.2.1. 
+4.5.1.2. 
+Binary outcomes for HbA1c target  
+For analysis of the binary outcomes, the details are provided in the table below: 
+Analysis 
+Population 
+All participants in EAS1 with non-missing baseline measure 
+Analysis 
+Data 
+All non-missing observations at baseline and at the specified timepoints regardless of the use of 
+study intervention or rescue medications. 
+Endpoint 
+1) HbA1c target (< 7% or ≤ 6.5%) at the specified timepoints; 
+2) The composite of 
+a) binary outcome of HbA1c <7% at Week 26, and, 
+b) binary outcome of no nocturnal level 2 or 3 hypoglycemia during treatment phase up to 
+Week 26. 
+3) The composite of 
+a) binary outcome of HbA1c <7% at Week 26, and, 
+b) binary outcome of no level 2 or 3 hypoglycemia during treatment phase up to Week 26  
+with “Yes” indicating achieving the target (in respective endpoints defined above). 
+Missing 
+Data 
+1) For HbA1c, missing values at the specified timepoints will be imputed using the same 
+method for the primary endpoint (Section 4.3.2). 
+2) For hypoglycemia that are included in the composite endpoints, a participant who 
+discontinued both treatment and treatment period before Week 26 (Visit 22) is considered as 
+a non-responder (i.e. experienced the event). 
+Analysis 
+Model 
+These endpoints will be analyzed using a logistic regression model including 
+- 
+independent variables of treatment,  
+- 
+strata (country, and the type of basal insulin at randomization),  
+- 
+baseline HbA1c value 
+- 
+additionally, for the composite endpoint  
+o 
+baseline incidence of hypoglycemia and, 
+o 
+interaction term of baseline HbA1c value * baseline incidence of 
+hypoglycemia; if the model fails to converge, the interaction term will be 
+removed. 
+The unconditional treatment group effect will be assessed based on a robust variance estimator 
+for g-computation estimators (Ye et al. 2023). The estimated treatment group-specific odds ratio, 
+p-value, and 95% CI will be used for treatment comparison. The statistical inference will be 
+based on the multiple imputation framework by Rubin (1987). 
+Abbreviations: EAS1 = efficacy analysis set 1; HbA1c = hemoglobin A1c. 
+Note 1: Levels of hypoglycemia events and nocturnal events are defined in Section 4.6.3.1.1. 
+4.5.2. 
+Tertiary Safety Endpoints  
+For tertiary safety measures, the details are provided in Section 4.6 and the following 
+subsections. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 27 
+4.5.3. 
+Tertiary Patient Reported Outcomes  
+4.5.3.1. 
+EQ-5D-5L  
+The EQ-5D-5L (EuroQol Research Foundation 2019) is a standardized 5-item self-administered 
+instrument for use as a measure of health outcome. It provides a simple descriptive profile and a 
+single index value for health status that can be used in the clinical and economic evaluation of 
+health care as well as population health surveys. The EQ-5D-5L assesses 5 dimensions of health:  
+ mobility,  
+ selfcare, 
+ usual activities, 
+ pain/discomfort, and 
+ anxiety/depression.  
+The 5L version, scores each dimension at 5 levels:  
+ no problems,  
+ slight problems,  
+ moderate problems,  
+ severe problems, and 
+ unable to perform/extreme problems.  
+In addition to the health profile, a single health state index value can be derived based on a 
+formula that attaches weights to each of the levels in each dimension. This index value ranges 
+between less than 0 (where 0 is a health state equivalent to death; negative values are valued as 
+worse than dead) to 1 (perfect health).  
+The second part of the questionnaire consists of EQ Visual Analog Scale (VAS) which records 
+the respondent’s self-rated health status. The participant rates his/her perceived health from 0 
+(the worst imaginable health) to 100 (the best imaginable health). In conjunction with the health 
+state data, it provides a composite picture of the respondent’s health status. 
+The frequency and proportion of each level for a given item will be summarized by study 
+treatment for each scheduled visit. The EQ-5D-5L index, EQ VAS score and their change from 
+baseline will be analyzed by the MMRM model similar to the other efficacy endpoints (see 
+Section 4.4.2.1) for the scheduled postbaseline visits and by the ANCOVA model similar to the 
+TRIM-D for the last non-missing postbaseline observations. 
+4.5.3.2. 
+Simplicity Questionnaire (SIM-Q) Single Medication status version  
+The Simplicity of Diabetes Treatment Questionnaire (SIM-Q) single medication status version is 
+a brief 10-item measure developed to assess the simplicity and complexity of treatment for T2D. 
+This measure asks participants to think about a specific medication (prior basal insulin or current 
+study treatment) when completing each item on a 5-point scale ranging from “Very complex” to 
+“Very simple.” In Study BDCU, only the last 2 questions of the SIM-Q will be completed – 
+“How simple or complex is your medication treatment for diabetes?” and “Overall, how simple 
+or complex is it to manage your diabetes, including medication, checking your blood glucose 
+levels, diet, and any other aspects of diabetes treatment?” 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 28 
+The frequency and proportion of the response for each question will be summarized for each 
+scheduled visit. Treatment comparison will be conducted by Wilcoxon rank sum test. 
+4.5.3.3. 
+Basal Insulin Experience  
+Likelihood of incorporating into routine 
+This is a Lilly-developed, participant-completed question to understand the participant’s 
+likelihood of incorporating their study insulin into their diabetes management routine. The 
+question is rated on a 5-point scale with responses ranging from “very unlikely” to “very likely.” 
+The frequency and proportion of the responses will be summarized by study treatment and using 
+Wilcoxon rank sum test for treatment comparison. 
+Preference 
+This is a Lilly-developed, participant-completed question to understand the participant’s 
+preference for their pre-study or current study treatment. The question is rated on a 5-point scale 
+with responses ranging from “strongly prefer the study insulin” to “strongly prefer my previous 
+insulin.” The question also includes a “not applicable” option for participants that stayed on the 
+same insulin in the treatment phase. 
+The frequency and proportion of the responses will be summarized by study treatment and using 
+Wilcoxon rank sum test for treatment comparison. 
+4.6. 
+Safety Analyses  
+Safety measures include treatment exposure, adverse event (AE), vital signs, weight, hypoglycemia, 
+laboratory measures and immunogenicity. All safety analyses will be based on the SS. Unless 
+otherwise specified, safety analysis period will include both treatment period and follow-up period. 
+Percentages will be calculated using the SS as the denominator. For events that are gender-
+specific, the denominator and computation of the percentage will include only participants from 
+the given sex. Unless otherwise noted, Fisher’s exact test will be used for treatment comparison 
+and risk difference and 95% confidence intervals will be provided.  
+For continuous safety variables (for example, laboratory measures, vital signs, and weight), 
+descriptive statistics for the observed values and change from baseline at scheduled visits during 
+the treatment period and follow-up will be provided. For some selected laboratory measures 
+(i.e., liver enzyme tests, lipid measures), the log-transformed values of observed values, change 
+from baseline and percentage change from baseline will be analyzed by the MMRM model using 
+treatment, visit, and treatment by visit as fixed effect, baseline of the dependent variable as a 
+covariate, and compound symmetry as the variance-covariance structure. 
+The incidence and event rate of participant-reported and CGM-based hypoglycemia will be 
+summarized by treatment and analysis period for different types of hypoglycemia. Analysis 
+details are provided in Section 4.6.3.1. 
+4.6.1. 
+Extent of Exposure  
+Duration of exposure to study treatment will be summarized. No p-values will be reported in these 
+tables as they are intended to describe the study populations, rather than test hypotheses about them. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 29 
+Total patient-years of exposure will be reported. The number and proportion of participants falling 
+into the following different exposure categories will also be summarized by study treatment: 
+ >0, ≥30 days, ≥90 days, ≥180 days, ≥365 days, ≥545 days, and 
+ >0 and < 30 days, ≥30 and < 90 days, ≥90 and <180 days, ≥180 and < 365 days, 
+≥365 and <545 days, ≥545 days. 
+Exposure on study treatment will be calculated as:  
+ LY3209590: date of the last treatment administration – date of first treatment 
+administration + 7 days, and 
+ Insulin degludec: date of the last treatment administration – date of first treatment 
+administration + 1 day.  
+Total patient-years of exposure will be calculated by the sum of duration of exposure in days 
+divided by 365.25. The following summary statistics will be provided: n, mean, standard 
+deviation, median, minimum, maximum, interquartile range, and total exposure (that is, total 
+patient-years). 
+All participants who complete the study treatment period are required to complete a safety 
+follow-up period and participants who discontinue the study treatment prematurely are 
+encouraged to remain in the study for safety monitoring. The duration on study from the first 
+dose of study treatment to the study disposition (defined as treatment period disposition or follow 
+up disposition, whichever is later)date will also be summarized by treatment. 
+A listing of exposure to study treatment and time in study since first dose will be provided. 
+4.6.2. 
+Adverse Events  
+Events that are newly reported after the first dose of investigational product (IP) or reported to 
+worsen in severity from baseline will be considered treatment emergent adverse events (TEAEs). 
+The Medical Dictionary for Regulatory Activities (MedDRA) lowest level term (LLT) will be 
+used in the treatment-emergent assessment. The maximum severity for each LLT during the 
+baseline period (see the table in Section 4.1) will be used as baseline severity. 
+The table below describes the analysis related to AEs.  
+ 
+Analysis  
+Details 
+Overview of AEs 
+Number and percentage of participants who experienced: 
+ 
+SAE 
+ 
+Death 
+ 
+Discontinuation from study treatment due to an AE 
+ 
+Discontinuation from study due to an AE 
+ 
+TEAE 
+ 
+TEAE related to study treatment 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 30 
+Analysis  
+Details 
+Summary by PT within SOC 
+Number and percentage of participants with TEAEs using MedDRA PT nested 
+within SOC: 
+ 
+TEAE 
+ 
+TEAEs by Maximum Severity 
+ 
+SAE 
+ 
+AE leading to permanent discontinuation of study treatment 
+Events will be ordered by decreasing risk difference within SOC. SOCs will be 
+listed by decreasing risk difference. 
+For each participant and TEAE, the maximum severity for the MedDRA PT is 
+the maximum postbaseline severity observed from all associated LLTs mapping 
+to the MedDRA PT. The maximum severity will be determined based on the 
+non-missing severities. 
+Summary by PT (within 
+SMQ when applicable) 
+Number and percentage of participants with TEAEs using MedDRA PT 
+(irrespective of SOC): 
+ 
+TEAE 
+ 
+Common TEAEs (i.e., occurred in 1% before rounding in LY3209590 
+group) 
+ 
+TEAE of safety topic of interest by PT (within SMQ when applicable) 
+Events will be ordered by decreasing risk difference. Whenever applicable SMQs 
+will be ordered by decreasing risk difference. 
+Listing 
+Separate listings for the following events will be provided: 
+ 
+SAE, including death 
+ 
+AEs leading to study treatment discontinuation 
+ 
+Severe hypoglycemia 
+ 
+Events sent to the external adjudicator for MACE adjudication with 
+adjudicators’ assessment 
+ 
+Participants who receive rescue therapy due to severe/persistent 
+hyperglycemia 
+ 
+Persistent-recurrent hypoglycemia reported by investigators 
+ 
+Persistent-recurrent hypoglycemia identified by programing 
+ 
+Medication errors of interest 
+Abbreviation: AE = adverse event; LLT = lowest level term; MACE = major adverse cardiovascular event; 
+MedDRA = Medical Dictionary for Regulatory Activities; SAE = serious adverse event; SOC = System Organ 
+Class; PT = preferred term; TEAE = treatment emergent adverse event. 
+4.6.2.1. 
+Safety topic of Interest  
+4.6.2.1.1. Severe Hypoglycemia  
+Severe hypoglycemia is a severe event characterized by altered mental and/or physical status 
+requiring assistance for treatment of hypoglycemia. The determination of a hypoglycemic event as 
+an episode of severe hypoglycemia is made by the investigator based on the medical need of the 
+participant to have required assistance and is not predicated on the report of a participant simply 
+having received assistance. If a hypoglycemic event meets the criteria of severe hypoglycemia, the 
+investigator must record the event as serious on the AE case report form (CRF).  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 31 
+A summary of severe hypoglycemia by PT in decreasing order of risk difference (LY3209590 – 
+insulin Degludec) will be provided. The incidence and event rate during the treatment period will 
+be analyzed using the method described in Section 4.6.3.1. A listing of severe hypoglycemia 
+events will also be provided. 
+4.6.2.1.2. Persistent-Recurrent Hypoglycemia  
+The potential risk of persistent-recurrent hypoglycemia (P-R hypoglycemia) will be assessed from 
+the first dose date up to the end of the study. P-R hypoglycemia events will be identified using 
+1. using investigator assessment and clinical judgment to determine if recent repeated 
+hypoglycemia may have contributed to a participant reported hypoglycemic event that 
+degenerated with poor outcomes, and 
+2. using prespecified criteria and timeframe to derive events from e-diary database (see 
+definition in Appendix 10 [Section 6.10]).  
+Identification of P-R hypoglycemia based on investigator reporting is precipitated by a 
+hypoglycemic event that results in a participant response to questions that are indicative of 
+potential severe hypoglycemia . This information will trigger an e-mail alert notifying the 
+investigator to contact the study participant, obtain more information about the specific 
+hypoglycemic event, and provide them clinical guidance, if appropriate. Hypoglycemic events 
+that trigger alerts to investigators are those participants report in the e-Diary have required 
+treatment with glucagon or IV glucose, resulted in coma, motor vehicle accident or other trauma, 
+hospitalization, inability to treat themselves, or emergency medical care.  
+Upon receiving the e-mail notification, investigator will access the e-Diary database and answer 
+the following question: “In your clinical judgement, is this hypoglycemia event associated with 
+repeated hypoglycemia events?” Investigator should select “Yes” or “No” as an answer.  
+During protocol training, investigators are trained to consult the e-Diary database and review 
+participant’s blood glucose values and hypoglycemia reports to determine the best answer. If 
+investigator judges the hypoglycemic event that triggered an alert is related to repeated episodes 
+of hypoglycemia, the participant will be identified as having presented a P-R hypoglycemic 
+event reported by the investigator.  
+P-R hypoglycemia events and participants who present P-R hypoglycemia will be identified by 
+one or both approaches explained above. Summary statistics and a listing of the events identified 
+by both methods will be provided. 
+4.6.2.1.3. Systemic Hypersensitivity Reactions  
+Hypersensitivity reactions are exaggerated or inappropriate immunologic responses occurring in 
+response to an antigen or allergen. These can be systemic or localized. At all visits, participants 
+will be evaluated by the investigator for signs and symptoms suggestive of hypersensitivity. 
+Investigators will complete an CRF designed to record additional information about AEs 
+suggestive of a hypersensitivity reaction. The TEAEs of hypersensitivity reactions were 
+identified using MedDRA search of:  
+ Anaphylactic reaction SMQ (20000021; narrow terms),  
+ Hypersensitivity SMQ (20000214; narrow terms), and  
+ Angioedema SMQ (20000024; narrow terms).  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 32 
+The number and percentage of participants who reported a TEAE for the following will be analyzed:  
+ Any narrow term from any 1 of the 3 SMQs indicated above (that is, combined search 
+across narrow portions of all 3 SMQs), and  
+ Any narrow term within each SMQ, separately (that is, narrow SMQ search).  
+Individual PTs that satisfied the query will appear in the summary nested within each SMQ in 
+decreasing order of risk difference (LY3209590 – insulin Degludec).  
+The analyses above are the starting point for medical interpretation of any apparent differences 
+between treatment groups. For notable events, case review will be applied to make the final 
+determination of whether an event is most accurately described as a potential hypersensitivity 
+reaction to study treatment, or another event that is not clearly associated with study treatment 
+administration. This judgment will be on the basis of totality of information available, including 
+the content of a follow-up CRF collected for potential hypersensitivity events. 
+4.6.2.1.4. Injection Site Reactions  
+Injection site reactions (ISR) are AEs localized to the immediate site of the administration of a 
+medication. The evaluation of ISRs will be through the unsolicited reporting of ISR TEAEs and 
+through the use of an Injection Site Reaction Follow-up Form completed by the investigator for 
+each incidence of ISR.  
+A summary of the number of participants with reported events meeting any of the following 
+categories will be provided: 
+ MedDRA HLT of Injection site reactions,  
+ MedDRA HLT of Administration site reactions NEC, 
+ Lipodystrophies and localized amyloidosis, as represented by PTs of:  
+o lipoatrophy,  
+o lipodystrophy acquired,  
+o partial lipodystrophy,  
+o lipohypertrophy,  
+o sclerema, and  
+o cutaneous amyloidosis. 
+The summary will present the number of participants who reported: 
+ at least one AE meeting any of the above categories,  
+ any AE in each category, and 
+ any AE for each PT within a specific category. 
+The PTs will be listed for summary within each category in decreasing order of risk difference 
+(LY3209590 – insulin Degludec). 
+The additional data collected on the ISR follow-up forms will be summarized in 2 distinct ways:  
+1. at the participant-level (each participant contributes to totals at most once, regardless of 
+the number of ISR events the participant experienced), and 
+2. at the event level (each separate event contributes to totals, regardless of whether the 
+participant experienced multiple ISR events).  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 33 
+4.6.2.1.5. Neoplasms  
+The TEAEs of neoplasms will be identified by MedDRA narrow search for the following SMQ: 
+ Malignant tumours SMQ (20000194, narrow terms), and 
+ Tumours of unspecified malignancy SMQ (20000195, narrow terms). 
+A summary will present: 
+ Any narrow term from any 1 of the 2 SMQs indicated above (that is, combined search 
+across narrow portions of both SMQs), and  
+ Any narrow term within each SMQ, separately (that is, narrow SMQ search). 
+The PTs will be listed for summary within each SMQ in decreasing order of risk difference 
+(LY3209590 – insulin Degludec). 
+4.6.2.1.6. Diabetic Ketoacidosis (DKA)  
+The DKA will be searched by MedDRA PTs from all TEAEs. The number and percentage of 
+participants experiencing treatment-emergent DKA will be summarized by PT in decreasing 
+order of risk difference (LY3209590 – insulin Degludec).  
+The following PTs will be used in search of DKA: 
+ diabetic ketoacidosis, 
+ ketoacidosis, 
+ euglycaemic diabetic ketoacidosis, 
+ ketonuria, 
+ diabetic ketosis, 
+ diabetic ketoacidotic hyperglycaemic coma, 
+ ketosis, 
+ urine ketone body present, 
+ blood ketone body, 
+ blood ketone body increased, 
+ urine ketone body, 
+ blood ketone body present, and 
+ lactic acidosis. 
+4.6.2.1.7. Diabetic Retinopathy or Maculopathy  
+The diabetic retinopathy or maculopathy will be searched by MedDRA PTs from all TEAEs. The 
+list of PTs for the search is provided in Appendix 7 (Section 6.7). A summary of treatment-
+emergent retinopathy or maculopathy by PT in decreasing order of risk difference (LY3209590 – 
+insulin Degludec) will be provided. 
+4.6.2.1.8. Peripheral Edema  
+The peripheral edema will be searched by MedDRA PTs (see Section 6.8) from all TEAEs. The 
+number and percentage of participants experiencing treatment-emergent peripheral edema will be 
+summarized by PT in decreasing order of risk difference (LY3209590 – insulin Degludec).. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 34 
+4.6.2.1.9. Hypokalemia  
+The TEAEs of hypokalemia will be identified by narrow terms in Hypokalaemia SMQ 
+(20000233). A summary of the number of participants with reported treatment-emergent events 
+meeting the SMQ narrow search criteria by PT in decreasing order of risk difference 
+(LY3209590 – insulin Degludec) will be provided. 
+4.6.2.1.10. Hyperglycemia  
+The study treatments were designed as the treatment of hyperglycemia for diabetes patients. 
+Therefore, the hyperglycemia is usually not reported as an AE in diabetes studies. However, if a 
+participant develops severe, persistent hyperglycemia after randomization, a rescue therapy will 
+be considered. A listing of participants who receive rescue medication will be provided.  
+4.6.2.1.11. Major Adverse Cardiovascular Events (MACE)  
+Potential cerebrocardiovascular events will be identified by the investigative site or by a medical 
+review conducted by the sponsor or designee. A blinded external Clinical Event Committee will 
+adjudicate the events in a consistent and unbiased manner. Events include: 
+ death 
+ Cardiac ischemic events (including myocardial infarction or hospitalization for unstable 
+angina) 
+ cerebrovascular events (including stroke or Transient Ischemic Attack [TIA]) 
+ hospitalization for heart failure, and 
+ coronary revascularization procedure  
+Only confirmed MACE by the adjudication committee will be considered as Safety Topic of 
+Interest. A listing of MACE events reported by investigator, including reported term and 
+adjudication results, will be provided. 
+4.6.2.1.12. Medication Error of Interest  
+Medication Errors of Interest (MEI) are defined as medication error adverse events (SMQ 
+20000224 - narrow and broad terms) that meet the criteria of important protocol deviations 
+(IPD), according to the Trial Issue Management Plan (TIMP) and are indicative of multiple 
+doses. These events are considered important protocol deviations because of their potential to 
+impact participant's safety. For this same reason, these events are considered of special interest 
+among all medication error AEs reported in the trial. 
+MEIs are categorized as IPDs of ‘Investigational Medicinal Product and/or Investigational 
+Device’. Screening and identification of MEIs will occur during routine review of trial protocol 
+deviations and trial level safety reviews. 
+The number and percentage of participants reported with MEI will be analyzed.   
+A listing of MEI will also be provided. This listing will indicate if severe hypoglycemia or P-R 
+hypoglycemia occurred after the MEI. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 35 
+4.6.3. 
+Additional Safety Assessments  
+4.6.3.1. 
+Hypoglycemic Events  
+4.6.3.1.1. Participant-Reported Hypoglycemic Events  
+The following types of hypoglycemia events will be derived in the analysis data sets: 
+documented hypoglycemia as Level 1, Level 2, and Level 3 (severe hypoglycemia) according to 
+definitions based on the American Diabetes Association criteria where:  
+ Level 1: glucose <70 mg/dL (3.9 mmol/L) and ≥ 54 mg/dL (3.0 mmol/L); 
+ Level 2: glucose < 54 mg/dL (3.0 mmol/L); 
+ Level 3: severe hypoglycemia (confirmed by the investigator to be an event that required 
+assistance for treatment). 
+A set of Level 1 and Level 2 hypoglycemia events will be identified based on blood glucose 
+reading values reported in the participant e-diary. A Level 3 hypoglycemia event is only 
+confirmed by investigator and may not have an associated blood glucose reading. 
+If a hypoglycemic event is within 60 minutes of another hypoglycemic event, it is considered as 
+a continuation of the previous event. If there are multiple events within 60 minutes of each other 
+then all such events will be combined into a single episode with 
+ earliest date time and 
+ minimum glucose value, if applicable 
+ maximum severity (Level 1, 2 or 3) 
+ combining all symptoms and outcomes of the multiple hypoglycemic events. 
+The combined event starts from the first record with Level 1, 2 or 3, and ends when there are no 
+more events for at least 60 minutes.   
+Further, all episodes will be classified as nocturnal (occurs between midnight and 0600) or non-
+nocturnal (occurs between 0600 and midnight) hypoglycemia by the time of the originating 
+event. 
+The Level 2 and Level 3 events are considered as clinically significant hypoglycemia. Therefore, 
+the analysis on a composite of Level 2 and Level 3 (denoted as Level 2/3) hypoglycemia will 
+also be conducted.  
+The evaluation of potential persistent/recurrent hypoglycemia events will be through assessment of 
+the clinically significant events confirmed by investigators based on clinical judgment and through 
+events identified by pre-specified criteria (see Section 4.6.2.1.2 and Appendix 9 [Section 6.9] for 
+details) using information based on the participant-reported hypoglycemia. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 36 
+The details of planed analyses are provided in the table below. 
+Endpoint 
+Analysis Period 
+Statistical Method a 
+Event rate of Level 1 
+hypoglycemia events 
+(events/participant/year): 
+ 
+All documented  
+ 
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78 weeks, post-treatment period 
+Negative binomial regression with treatment, 
+baseline HbA1c and baseline Level 1 
+hypoglycemia rate as covariates, log 
+(exposure/365.25 days) as the offset in the 
+model. 
+Event rate of Level 2 
+hypoglycemia events 
+(events/participant/year): 
+ 
+All documented  
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78  weeks, post-treatment period 
+Negative binomial regression with treatment, 
+baseline HbA1c and baseline Level 2 
+hypoglycemia rate as covariates, log 
+(exposure/365.25 days) as the offset in the 
+model. 
+Event rate of Level 3 
+hypoglycemia events 
+(events/participant/100 
+year): 
+ 
+All documented  
+Baseline, 0-26, 0-52, 0-78, 26-
+52, 26-78, 52-78  weeks, post-
+treatment period 
+Negative binomial regression with treatment 
+and baseline HbA1c and baseline Level 3 
+hypoglycemia rate as covariates, log 
+(exposure/365.25 days) as the offset in the 
+model. 
+If the number of events is too small to run the 
+negative binomial regression, exposure 
+adjusted rate calculated by total number of 
+events divided by total exposure for individual 
+patients will be provided and the empirical 
+method (see Appendix 9 [Section 6.9] for 
+details) will be used for treatment comparison. 
+Event rate of Level 2/3 
+hypoglycemia events 
+(events/participant/year): 
+ 
+All documented  
+ 
+Nocturnal 
+ 
+Non-nocturnal 
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78  weeks, post-treatment period 
+Negative binomial regression with treatment, 
+baseline HbA1c and baseline hypoglycemia 
+rate of the same hypoglycemia type as 
+covariates, log (exposure/365.25 days) as the 
+offset in the model. 
+ 
+The plots of the mean cumulative functions 
+(MCFs) by each treatment arm will also be 
+created.  The population mean for cumulative 
+number of events up to time t, M(t), will be 
+estimated using a nonparametric estimation 
+method described by Nelson (2003). 
+Incidence of Level 1 
+hypoglycemia events: 
+ 
+All documented  
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78  weeks, post-treatment period 
+Logistic regression with treatment, baseline 
+HbA1c and baseline Level 1 hypoglycemia 
+incidence as covariates. 
+Incidence of Level 2 
+hypoglycemia events: 
+ 
+All documented 
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78  weeks, post-treatment period 
+Logistic regression with treatment, baseline 
+HbA1c and baseline Level 2 hypoglycemia 
+incidence as covariates. 
+Incidence of Level 3 
+hypoglycemia events: 
+ 
+All documented 
+Baseline, 0-26, 0-52, 0-78, 26-
+52, 26-78 , 52-78 weeks, post-
+treatment period 
+Logistic regression with treatment and baseline 
+HbA1c as covariates. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 37 
+Endpoint 
+Analysis Period 
+Statistical Method a 
+Incidence of Level 2/3 
+hypoglycemia events: 
+ 
+All documented  
+ 
+Nocturnal 
+ 
+Non-nocturnal 
+Baseline, 0-6, 0-12, 0-26, 0-52, 
+0-78, 12-26, 26-52, 26-78, 52-
+78  weeks, post-treatment period 
+Logistic regression with treatment, baseline 
+HbA1c and baseline hypoglycemia incidence 
+of the same hypoglycemia type as covariates. 
+ 
+Potential persistent-
+recurrent hypoglycemia 
+events:  
+ 
+identified by 
+investigators 
+ 
+identified by a 
+pre-specified 
+criteria 
+Safety analysis period (see 
+definition in Section 4.6) 
+The number of participants with at least one 
+event will be summarized and compared by 
+Fisher’s exact test. The number of events will 
+also be provided. 
+ 
+Listings of the events will also be provided. 
+Abbreviations: HbA1c = hemoglobin A1c; Level 2/3 = Level 2 and Level 3 composite.  
+Notes: The yearly hypoglycemia rate during defined period is calculated by the number of hypoglycemia within the 
+period/number of days patient at risk within the period*365.25.  For rare events, 100 year rate will be provided. 
+The hypoglycemia incidence during defined period indicates if the patient has at least 1 hypoglycemia events 
+within the period (Yes/No).  
+ 
+Group comparisons for hypoglycemia incidence and rate at baseline, baseline HbA1c is not included in the 
+model.  
+ 
+The hypoglycemia rate during the defined period is calculated by the number of hypoglycemia events within the 
+period/number of days a participant is at risk within the period. The hypoglycemia incidence during the defined 
+period indicates if the participant has at least 1 hypoglycemia event within the period (yes/no).  
+ 
+A sensitivity analysis will be performed for selected hypoglycemic endpoints using an alternative 
+definition of continuation of hypoglycemic events. Hypoglycemic events will be considered one 
+hypoglycemic episode until a succeeding glucose value is ≥ 70 mg/dL. All such events will be 
+combined into a single episode with the same attributes as defined earlier in this section. 
+4.6.3.1.2. Hypoglycemic Events Derived from CGM  
+Level 2, Level 2 ending with BG value ≥70 mg/dL, and Level 1 or Level 2 hypoglycemic events 
+collected from the sponsor provided CGM are defined in Section 6.6.2. Missing data will be 
+handled as described in Appendix 6 (Section 6.6). The analysis for incidence, event rate, and 
+duration are described in the table below: 
+Endpoint 
+Analysis Period 
+Statistical Method 
+Event rate of hypoglycemia 
+events (24-hour Period) in 
+events/participant/year:  
+ Level 1 or Level 2 
+ Level 2 
+ Level 2 hypoglycemic 
+events ending with BG 
+≥70 mg/dL 
+Baseline, 0-4, 8-
+12, 22-26, 48-52, 
+74-78 weeks, 
+follow-up period 
+Negative binomial regression with treatment, baseline 
+HbA1c and baseline event rate of the corresponding level 
+of hypoglycemia as covariates, log (exposure/365.25 days) 
+as the offset in the model. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 38 
+Endpoint 
+Analysis Period 
+Statistical Method 
+Incidence of hypoglycemia 
+events (24-hour Period): 
+ Level 1 or Level 2 
+ Level 2 
+ Level 2 hypoglycemic 
+events ending with BG 
+≥70 mg/dL 
+Baseline, 0-4, 8-
+12, 22-26, 48-52, 
+74-78 weeks, 
+follow-up period 
+Logistic regression with treatment, baseline HbA1c and 
+baseline incidence of the corresponding level of 
+hypoglycemia as covariates. 
+Duration of hypoglycemic 
+events (24-hour Period) in 
+minutes: 
+ Level 1 or Level 2 
+ Level 2 
+ Level 2 hypoglycemic 
+events ending with BG 
+≥70 mg/dL  
+ 
+Baseline, 0-4, 8-
+12, 22-26, 48-52, 
+74-78 weeks, 
+follow-up period 
+For individual CGM sessions (0-4, 8-12, 22-26, 48-52, 
+74-78 weeks): MMRM model with treatment, strata 
+(country, baseline HbA1c stratum and the type of basal 
+insulin at randomization), session and treatment-by- session 
+interaction as fixed effects, and baseline duration of the 
+corresponding level of hypoglycemic events as a covariate. 
+For Baseline and Follow-up period:  
+ANOVA models only include treatment as covariate. 
+Abbreviations: ANOVA = Analysis of covariance; CGM = Continuous Glucose monitor; HbA1c = glycated 
+hemoglobin; MMRM = mixed model for repeated measures. 
+Note: The hypoglycemic rate during defined period is a yearly rate and calculated by number of hypoglycemic 
+events within the period/number of days   participant at risk within the period*365.25. The hypoglycemia 
+incidence during defined period indicates if the patient has at least 1 hypoglycemic event within the period 
+(Yes/No).  
+ 
+The total number of episodes, number of episodes that includes Level 2 hypoglycemia episodes, and number of 
+episodes that include glucose readings <54 mg/dL (3.0 mmol/L) but no reported Level 2 hypoglycemia episodes 
+will be summarized for each CGM session. 
+A listing will be provided for participants with Level 2 hypoglycemia episodes lasting more than 
+360 minutes. 
+4.6.3.2. 
+Laboratory and Adverse Event for Hepatic Safety  
+Hepatic labs include:  
+ alanine aminotransferase (ALT), 
+ aspartate aminotransferase (AST), 
+ total bilirubin (TBL), 
+ direct bilirubin (DBL), 
+ serum alkaline phosphatase (ALP), and  
+ gamma-glutamyltransferase (GGT).  
+As specified by the protocol, when criteria are met for hepatic evaluations, investigators will 
+conduct close monitoring of hepatic symptoms and liver tests, perform a comprehensive 
+evaluation for alternative causes of abnormal liver tests, and complete follow-up hepatic safety 
+CRFs. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 39 
+The table below lists summary TFLs for the analysis of hepatic laboratory data. 
+Analysis 
+Details 
+Abnormal postbaseline 
+categories – hepatic 
+safety parameters 
+ALT: The number and percentage of participants with a measurement greater than or 
+equal to 1 time (1×), 3 times (3×), 5 times (5×), 10 times (10×), and 20 times (20×) 
+the performing laboratory ULN during the postbaseline period will be summarized 
+for all participants with a postbaseline value. 
+ 
+AST: The number and percentage of participants with a measurement greater than or 
+equal to 1 time (1×), 3 times (3×), 5 times (5×), 10 times (10×), and 20 times (20×) 
+the performing laboratory ULN during the postbaseline period will be summarized 
+for all participants with a postbaseline value. 
+ 
+ALP: The number and percentage of participants with a measurement greater than or 
+equal to 2 times (2×) and 3 times (3×) the performing laboratory ULN during the 
+postbaseline period will be summarized for all participants with a postbaseline value. 
+ 
+TBL: The number and percentage of participants with a measurement greater than or 
+equal to 2 times (2×), 5 times (5×), and 8 times (8×) the performing laboratory ULN 
+during the postbaseline period will be summarized for all participants with a 
+postbaseline value. 
+ 
+DBL: The number and percentage of participants with a measurement greater than or 
+equal to 2 times (2×) and 5 times (5×) the performing laboratory ULN during the 
+postbaseline period will be summarized for all participants with a postbaseline value. 
+ 
+GGT: The number and percentage of participants with a measurement greater than or 
+equal to 2 times (2×) the performing laboratory ULN during the postbaseline period 
+will be summarized for all participants with a postbaseline value. 
+Treatment-emergent 
+potentially drug-related 
+hepatic disorders 
+Potentially drug-related hepatic disorders are defined using a custom query based on 
+the following SMQs: 
+ 
+Broad and narrow terms in the Liver-related investigations, signs and 
+symptoms SMQ (20000008) 
+ 
+Broad and narrow terms in the Cholestasis and jaundice of hepatic origin 
+SMQ (20000009) 
+ 
+Broad and narrow terms in the Hepatitis non-infections SMQ (20000010) 
+ 
+Broad and narrow terms in the Hepatic failure, fibrosis and cirrhosis and 
+other liver damage SMQ (20000013) 
+ 
+Narrow terms in the Liver-related coagulation and bleeding disturbances 
+SMQ (20000015) 
+These SMQs are a subset of the sub-SMQs comprising the full Hepatic Disorders 
+SMQ. Only the sub-SMQs considered applicable to capturing potentially drug-
+related hepatic disorders are included. 
+ 
+The percentage of study participants with at least one of any of the MedDRA 
+preferred terms from any of the above SMQs will be summarized in addition to the 
+percentages for each MedDRA preferred term. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 40 
+Analysis 
+Details 
+Hepatocellular 
+drug-induced liver injury 
+screening plot (TBL vs 
+ALT or AST) 
+Each participant’s data is plotted based on their maximum postbaseline TBL (y-axis) 
+and transaminase (ALT or AST, whichever is higher), regardless of the time between 
+the 2 maximum values. Dashed lines represent TBL and transaminase cutoffs of 2× 
+ULN and 3× ULN, respectively. A potential Hy’s law case is circled and is defined as 
+having a maximum postbaseline TBL equal to or exceeding 2× ULN within 30 days 
+after maximum postbaseline ALT or AST equal to or exceeding 3× ULN, without 
+cholestasis (defined as ALP less than 2× ULN). 
+Hepatocellular 
+drug-induced liver injury 
+screening table  
+The percentages of study participants falling in each of the 3 relevant quadrants of 
+the plot (right upper, left upper, right lower) will be summarized in a table. 
+Cholestatic drug-induced 
+liver injury screening plot 
+(TBL vs ALP) 
+Each participant’s data is plotted based on their maximum postbaseline TBL (y-axis) 
+and ALP (x-axis), regardless of the time between the 2 maximum values. Lines 
+represent TBL and ALP cutoffs of 2× ULN and 3× ULN, respectively. A potential 
+cholestatic liver injury case is circled and is defined as having a maximum 
+postbaseline TBL equal to or exceeding 2× ULN within 30 days after maximum 
+postbaseline ALP equal to or exceeding 3× ULN. 
+Cholestatic drug-induced 
+liver injury screening 
+table  
+The percentages of study participants falling in each of the 3 relevant quadrants of 
+the plot (right upper, left upper, right lower) will be summarized in a table.  
+List of Participants with 
+potential hepatocellular 
+drug-induced liver injury 
+Includes participants falling in the right upper quadrant in the Hepatocellular Drug-
+Induced Liver Injury Screening plot  
+ 
+Variables to include are unique subject ID, age, sex, race, treatment, max AST, max 
+ALT, max ALP, max TBL 
+List of Participants with 
+potential cholestatic drug-
+induced liver injury 
+Includes participants falling in the right upper quadrant in the Cholestatic Drug-
+Induced Liver Injury Screening plot  
+ 
+Variables to include are unique subject identifier, age, sex, race, treatment, max AST, 
+max ALT, max ALP, max TBL 
+Abbreviations: ALP = alkaline phosphatase; ALT = alanine aminotransferase; AST = aspartate aminotransferase; 
+CRF = case report form; DBL = direct bilirubin; GGT = gamma-glutamyl transferase; MedDRA = Medical 
+Dictionary for Regulatory Activities; SMQ = Standardized MedDRA Query; TBL = total bilirubin; ULN = upper 
+limit of normal. 
+Planned and unplanned measurements will be included. The measurements do not need to be 
+taken at the same blood draw. 
+4.6.3.3. 
+Clinical Laboratory Evaluations  
+For the following selected laboratory measures: 
+ liver enzyme tests: ALT, ALP, AST, GGT, direct bilirubin and total bilirubin, and 
+ lipid measures: triglycerides, total cholesterol, LDL-C, and HDL-C (results from fasting 
+samples). 
+MMRM model (as described in Section 4.6) will be used for the observed values, change from 
+baseline and percentage change from baseline, for which log-transformation will be applied. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 41 
+Geometric LS means will be provided. Analyses will be provided in both international units (SI) 
+and conventional units (CN) if they are different. 
+Box plots with descriptive statistics for the observed values and change from baseline will be 
+provided by treatment group and visit. 
+For other laboratory measures, descriptive summaries will be provided for the observed values 
+and change from baseline by treatment group and visit.  
+The percentages of patients with elevated or low values meeting specified levels (see Appendix 11, 
+Section 6.11) at any time postbaseline (including scheduled and unscheduled measurements) will 
+be summarized and compared between treatment groups using Fisher’s exact test, and risk 
+difference and 95% confidence interval will be reported. 
+A listing of abnormal laboratory analytes collected quantitatively (high or low during 
+postbaseline using Level 2 definitions) and qualitatively (abnormal during postbaseline) will be 
+provided, including participant identification, treatment group, laboratory sample collection day 
+(that is, days from start of study drug), analyte name, abnormal result, reference low or high 
+limits, and level 2 cut-off value if applicable. 
+Scatter plots of baseline maximum baseline-by-maximum postbaseline measurements and 
+minimum baseline-by-minimum postbaseline measurements will not be created a-priori. They 
+may be created if warranted after review of the planned tables and figures, using Figures 6.3 and 
+6.4 from the Analysis and Displays for Labs white paper (PHUSE 2022) as the model. ADaM 
+datasets will include variables to enable the creation of scatter plots for use in either an 
+interactive tool or for ad-hoc figures. 
+4.6.3.4. 
+Vital Signs and Physical Characteristics  
+The planned summaries are provided in the table below. The measurements analyzed for vital 
+signs and physical characteristics include systolic BP, diastolic BP, pulse, weight, and BMI:  
+Analysis Type 
+Analysis Details 
+Observed 
+values and 
+change by visit   
+ 
+Includes all participants in the Safety Analysis Set who have both a baseline and at least 1 
+postbaseline observation. 
+ 
+MMRM model (as described in Section 4.6) will be used. 
+See also: Table 6.2 from the Analyses and Displays for Labs white paper (PHUSE 2022)  
+Summary by 
+category 
+ 
+Definitions provided in Tables 31-33 from FDA’s September 2022 Standard Safety Tables 
+and Figures document will be used for the numerator.   
+o 
+Systolic BP (mm Hg): Level 1 (low): <90, Level 1 (high): ≥90, Level 2 (high): 
+≥120, Level 3 (high): ≥140, Level 4 (high): ≥160, Level 5 (high): ≥180 
+o 
+Diastolic BP (mm Hg): Level 1 (low): <60, Level 1 (high): >60, Level 2 (high): 
+>90, Level 3 (high): >110, Level 4 (high): ≥120 
+ 
+Includes participants with at least one postbaseline measurement. 
+ 
+Statistical comparisons (using methods described in Section 4.6) will be included. 
+Participants 
+meeting CTC 
+grade changes 
+in weight   
+For weight, cutoffs informed by CTCAE version 5 (Grades 1-3) will be used: 
+o 
+(Loss) decrease:  Level 1: ≥5%, Level 2: ≥10%, Level 3: ≥20% 
+o 
+(Gain) increase: Level 1: ≥5%, Level 2: ≥10%, Level 3: ≥20% 
+Includes participants with both a baseline and at least 1 postbaseline observation. 
+ 
+Statistical comparisons (using methods described in Section 4.6) will be included. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 42 
+Scatter plots (to support vital sign evaluations): Scatter plots of maximum-by-maximum 
+measurements and minimum-by-minimum measurements will not be created a-priori. They may 
+be created if warranted after review of the planned tables and figures, using Figures 6.3 and 6.4 
+from the Analysis and Displays for Labs white paper (PHUSE 2022) as the model. ADaM 
+datasets will include variables to enable the creation of scatter plots for use in either an 
+interactive tool or for ad-hoc figures. 
+4.6.3.5. 
+Device Product Complaints  
+A summary and/or listing, as appropriate, of all product complaints, inclusive of device product 
+complaints that lead to an AE and/or SAE will be included by category. Additional summaries 
+may be provided as deemed appropriate. 
+4.7. 
+Other Analyses  
+4.7.1. 
+Immunogenicity  
+A participant is evaluable for Treatment Emergent (TE) Anti-Drug Antibody (ADA) if the 
+participant has a non-missing baseline ADA result, and at least 1 non-missing postbaseline ADA 
+result. 
+A participant who is evaluable for TE ADA is TE ADA+ if either of the following holds:  
+ Treatment-induced ADA: the participant has baseline status of ADA Not Present and at 
+least 1 postbaseline status of ADA Present with titer ≥1:40, which is 2 × minimum 
+required dilution (MRD) of the ADA assay (MRD = 1:20).  
+ Treatment-boosted ADA: the participant has baseline status of ADA Present and at least 
+1 postbaseline status of ADA Present with the titer being ≥2 dilutions (4-fold) of the 
+baseline titer. That is, the participant has baseline (B) status of ADA Present, with titer 
+1:B, and at least 1 postbaseline (P) status of ADA Present, with titer 1:P and P/B≥4. 
+Refer to the PSAP for all definitions and additional details for immunogenicity.  
+All analyses will be based on all evaluable TE ADA participants. The baseline ADA status will 
+be summarized by treatment group. The number and percentage of participants who are TE 
+ADA+ will be summarized by treatment group. The summary will include the number and 
+percentage of participants with treatment-induced ADA and treatment boosted ADA.  
+A summary of titer values will be provided for participants who are TE ADA positive.  
+This analysis will be performed for the following periods: 
+ The treatment period up to treatment discontinuation, and  
+ The entire postbaseline period, including safety follow-up. 
+A number of additional analyses of the immunogenicity data from this study will be presented in 
+an integrated summary document, alongside data from other studies.  The analyses to be 
+performed are described in the PSAP. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 43 
+4.7.2. 
+Subgroup analyses  
+The interaction effects will be evaluated using a significance level of 0.05, unadjusted. Subgroup 
+analyses will be conducted as defined in this section. Additional subgroup analysis may also be 
+performed as appropriate. 
+4.7.2.1. 
+Subgroup analysis for HbA1c  
+The subgroups, for analyzing HbA1c and change in HbA1c from baseline to Week 26, will be 
+defined as:  
+ baseline HbA1c stratum (<8.0% and ≥8.0%); 
+ type of pre-study basal insulin (typical once-daily basal insulin and U-300/ NPH BID 
+regimens); 
+ region (US and non-US);  
+ region (North America, South America, Europe, Asia); 
+ age (<65 years and ≥65 years); 
+ gender (Female and Male); 
+ ethnicity (Hispanic or Latino, Not Hispanic or Latino); 
+ race (American Indian or Alaska Native, Asian, Black or African American, Native 
+Hawaiian or Other Pacific Islander, and, White); 
+ number of Non-Insulin Antihyperglycemic Medications at baseline (≤1 and >1); 
+ estimated Glomerular Filtration Rate (eGFR) at baseline (<60, ≥60 to <90 and ≥90); and  
+ duration of diabetes per medical history (< median and ≥ median). 
+A subgroup category with less than 10 participants will not be included in the analysis. 
+For treatment regimen estimand: Analyses for HbA1c and its change will be performed using the 
+same ANCOVA model with the same independent variables as described in Section 4.3.2, 
+separately for each subgroup. The missing values will be imputed by multiple imputation method 
+same as the primary analysis for treatment regimen estimand. The statistical inference will be 
+based on the multiple imputation framework by Rubin (1987). The p-value for treatment by 
+subgroup interaction will be calculated using a chi-square test based on estimated treatment 
+differences within each subgroup (see details in Appendix 13 [Section 6.13]). 
+For efficacy estimand: Analyses for HbA1c and its change will be performed using the same 
+MMRM model described for the primary analysis in Section 4.3.2, separately for each subgroup. 
+In addition, significance of all the interaction effects will be assessed using a full model 
+including the same fixed effects given for the primary analysis model plus factors of subgroup, 
+2-way interaction of subgroup and treatment, 2-way interaction of subgroup and visit, and 3-way 
+interaction of treatment, visit and the subgroup.  
+4.7.2.2. 
+Subgroup analysis for Participant-Reported Hypoglycemic Events  
+The subgroups, for analyzing documented Level 2/3 hypoglycemia, non-nocturnal and nocturnal 
+hypoglycemia rates during 0-78 weeks, will be defined as: 
+ baseline HbA1c stratum (<8.0% and ≥8.0%); 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 44 
+ type of pre-study basal insulin (typical once-daily basal insulin and U-300/NPH BID 
+regimens); 
+ age (<65 years and ≥65 years); 
+ region (US and non-US); 
+ region (North America, South America, Europe, Asia); and  
+ estimated glomerular filtration rate (eGFR) at baseline (<60, ≥60 to <90 and 
+≥90 mL/min/1.73 m2). 
+The hypoglycemia rates will be analyzed using a negative binomial regression including the 
+same independent variables for hypoglycemia event analyses (see Section 4.6.3.1), separately for 
+each subgroup. The interaction effects will be evaluated using a full model using a negative 
+binomial regression including the same independent variables plus factors of subgroup, 2-way 
+interaction of subgroup and treatment. 
+4.8. 
+Interim Analyses  
+4.8.1. 
+Data Monitoring Committee (DMC)  
+An independent external DMC will be responsible for reviewing unblinded data during the study. 
+The committee will include 4 clinicians and 1 statistician who are independent experts not 
+involved in the study. The DMC will review unblinded safety data to ensure the safety of study 
+participants and some efficacy data to confirm a reasonable risk-benefit profile. A subset of 
+analyses described above in Sections 4.3 to 4.6 will be provided for the DMC review. The 
+external Statistical Analysis Center statistician/analyst will generate the unblinded reports and 
+confidentially distribute the unblinded reports to DMC members. Study team will remain blinded 
+to study treatment until the planned unblinding occurs. The DMC will be conducted to maintain 
+study integrity. Details of DMC is included in the DMC charter. 
+4.9. 
+Changes to Protocol-Planned Analyses  
+There are no changes to the analyses described in the protocol but additional details are provided. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 45 
+5. 
+Sample Size Determination  
+Approximately 939 participants will be randomly assigned to LY3209590 and insulin degludec 
+in a 2:1 ratio. With the assumption of 15% dropout at Week 26 (Visit 22), approximately 532 
+and 266 participants will complete 26 weeks of treatment on LY3209590 and insulin degludec, 
+respectively. 
+The primary objective of this study is to test the hypothesis that LY3209590 is noninferior to 
+insulin degludec on glycemic control as measured by change from baseline to Week 26 
+(Visit 22) in HbA1c in participants with T2D currently on basal insulin. 
+Assuming a NIM of 0.4%, no true difference between treatment groups, and a SD of 1.1%, 
+798 completers (532 on LY3209590 and 266 on insulin degludec) will provide greater than 99% 
+statistical power to show noninferiority between LY3209590 and insulin degludec using the 
+upper limit of a 2-sided 95% confidence interval (LY3209590 – insulin degludec). This sample 
+size also has at least 95% statistical power to show noninferiority between LY3209590 and 
+insulin degludec using a 0.3% NIM at Week 26 (Visit 22). 
+The 798 completers will provide 95% statistical power to demonstrate the superiority 
+(LY3209590 vs. insulin degludec) of change in HbA1c from baseline to 26 weeks (assuming a 
+SD of 1.1% and true mean difference is -0.3%) using the alpha of 0.05. 
+The 798 completers will provide at least 95% statistical power to show the superiority of the 
+percentage of time in glucose range between 70 and 180 mg/dL (3.9 and 10.0 mmol/L) inclusive 
+during the CGM session prior to Week 26 (Visit 22) between LY3209590 and insulin degludec 
+(assuming a SD of 18% and true mean difference is 5%) at alpha = 0.05. 
+The 798 participants will provide at least 80% statistical power to show the superiority of the 
+event rate of clinically significant nocturnal hypoglycemia (<54 mg/dL [3.0 mmol/L] or severe) 
+during treatment phase up to Week 78 (assuming event rate of 0.67 [SD = 2.6] and 1.1 
+[SD = 2.6] events per participant per year for LY3209590 and insulin degludec, respectively) 
+using a negative binomial distribution at alpha = 0.05. 
+ 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 46 
+6. 
+Supporting Documentation  
+6.1. 
+Appendix 1: Demographic and Baseline Characteristics  
+Demographic and baseline characteristics including but not limited to age (years), age groups 
+(<65, ≥65 and <75, ≥75 and <85, ≥85 years), sex, ethnicity, race, country, region, height, weight 
+(kg), body mass index (BMI: kg/m2), BMI groups (<25, ≥25 and <30, ≥30 and <35, ≥35 kg/m2), 
+eGFR groups (<30, ≥30 and <60, ≥60 and <90, ≥90 mL/min/1.73 m2), duration of diabetes 
+(years), HbA1c at screening, HbA1c stratum at screening (<8.0% and ≥8.0%), baseline HbA1c, 
+baseline HbA1c stratum (<8.0% and ≥8.0%), fasting serum glucose (mmol/L and mg/dL), type 
+of pre-study basal insulin, baseline non-insulin antihyperglycemic medications (type and 
+number) will be summarized by treatment group using the mITT, Randomized Population (if 
+different from the mITT) and mITT Population, excluding inadvertently enrolled participants. 
+Continuous measures will be summarized using descriptive statistics and treatment difference will 
+be analyzed using the analysis of variance. Categorical measures will be summarized using sample 
+size, frequency, and percentage and treatment difference will be analyzed using Chi-squared test. 
+The by-participant listing of demographic and baseline characteristics will be provided for 
+Randomized Population. 
+Historical conditions are conditions that end prior to inform consent and preexisting conditions are 
+conditions that are still ongoing at inform consent. The number and percentage of participants with 
+historical conditions will be summarized by treatment group using MedDRA PT using the mITT, 
+Randomized Population (if different from the mITT) and mITT Population, excluding 
+inadvertently enrolled participants. Events will be ordered by decreasing frequency. Similar 
+summary will also be provided for preexisting conditions.  
+6.2. 
+Appendix 2: Treatment Compliance  
+Treatment compliance will be summarized using the mITT population, excluding inadvertently 
+enrolled participants. 
+The study protocol provides dosing algorithm for both study treatments. The investigator will 
+calculate algorithm recommended dose based on the participant fasting blood glucose and 
+hypoglycemia occurrence reported in e-diary. If the investigator does not agree with the 
+algorithm recommended dose, the investigator will prescribe another dose for the participant and 
+choose the reason of not following the algorithm recommended dose from a pre specified list of 
+terms. The number and percentage of investigator prescribed doses different from algorithm 
+recommended doses will be provided to evaluate the adherence to the algorithm dose. The reason 
+for not following the algorithm recommended dose will also be summarized. 
+The first dose of study treatment is administered by site personnel and the subsequent doses are 
+self-administered. The number and percentage of investigator prescribed doses that are not equal 
+to participant administered dose will be provided.  
+6.3. 
+Appendix 3: Clinical Trial Registry Analyses  
+Additional analyses will be performed for the purpose of fulfilling the Clinical Trial Registry 
+(CTR) requirements. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 47 
+Analyses provided for the CTR requirements include the following: 
+ Summary of adverse events, provided as a dataset which will be converted to an XML 
+file. Both Serious Adverse Events and “Other” Non-Serious Adverse Events are 
+summarized by treatment group, by MedDRA PT. 
+ An AE is considered ‘Serious’ whether or not it is a TEAE. 
+ An AE is considered in the ‘Other’ category if it is both a TEAE and is not serious. For each 
+Serious AE and ‘Other’ AE, for each term and treatment group, the following are provided: 
+o the number of participants at risk of an event, 
+o the number of participants who experienced each event term, and 
+o the number of events experienced. 
+ For each Serious AE, these additional terms are provided for EudraCT: 
+o the total number of occurrences causally related to treatment, 
+o the total number of deaths, and 
+o the total number of deaths causally related to treatment.   
+ Consistent with www.ClinicalTrials.gov requirements, ‘Other’ AEs that occur in fewer 
+than 5% of patients/subjects in every treatment group may be excluded if a 5% threshold 
+is chosen. Allowable thresholds include 0% (all events), 1%, 2%, 3%, 4% and 5%. 
+ AE reporting is consistent with other document disclosures for example, the CSR, 
+manuscripts, and so forth.  
+ Demographic table including the following age ranges required by EudraCT: in utero, 
+preterm newborn infants (gestational age <37 weeks), newborns (0-27 days), infants and 
+toddlers (28 days – 23 months, children (2-11 years), adolescents (12-27 years), adults 
+(18-64 years), 65-85 years, and 85 years and over. 
+6.4. 
+Appendix 4: Concomitant Therapy  
+Concomitant therapy is defined as the therapy that starts, before, on, or after the first day of study 
+treatment but before the last dose date in the treatment period, and continues into the treatment 
+period, that is, either no end date (the therapy is ongoing) or an end date on or after the first day 
+of study treatment. 
+The number and percentages of participants who take concomitant medication will be 
+summarized by treatment using PTs nested within Anatomical Therapeutic Chemical (ATC) 
+Level. The concomitant medications will be ordered by decreasing frequency of LY3209590 
+within each ATC level. 
+6.5. 
+Appendix 5: Protocol Deviations  
+Important protocol deviations (IPDs) are the deviations from the study protocol that may 
+compromise the data integrity and patients’ safety. The IPD category and details of IPD 
+identification are provided in the trial issue management plan.  
+The number and percentage of participants with any reported IPDs will be summarized by treatment 
+group and IPD category. The IPDs identified by site monitoring and clinical database will be 
+integrated. If the IPD is identified by both methods, only the site monitoring IPD will be presented.  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 48 
+6.6. 
+Appendix 6: Derivation of CGM Variables  
+Blinded CGM will be worn by participants at the following designated weeks: 
+ Two weeks in screening/lead-in period with the data download at Week 0 (Visit 3), 
+ Four weeks after the initiation of study treatment with the data download at Week 4 (Visit 7), 
+ Four weeks near the end of weekly titration period with the data download at Week 12 
+(Visit 15), 
+ Four weeks near the primary endpoint with the data download at Week 26 (Visit 22), 
+ Four weeks near the end of 1-year treatment with the data download at Week 52 
+(Visit 30), 
+ Four weeks near the end of study treatment period with the data download at Week 78 
+(Visit 37), and 
+ Four weeks after the end of study treatment period with the data download at Week 83 
+(Visit 802).  
+Linear interpolation will be used to impute the missing glucose readings during intervals 
+>7 minutes and ≤15 minutes. Missing data will be imputed at a 5-minute interval using the BG 
+value before and the one after the interval.  
+For example, the BG reading before the interval is 50 mg/dL at time 100 min, and the BG 
+reading after interval is 70 at time 115 min, then the missing records will be imputed as: 
+ at time 105 min, BG reading=50+5*(70-50)/(115-100)=56.7, and 
+ at time 110 min, BG reading=50+10*(70-50)/(115-100)=63.3. 
+Glucose reading intervals >15 minutes will be treated as missing data and not be counted in the 
+length of the analysis periods. 
+As shown in the table below, all the CGM derivations are based on the data from valid CGM 
+periods of a day and period unless otherwise specified.   
+Period 
+Definition 
+Minimum Valid CGM Time Period for a Session 
+Valid CGM Day 
+(00:00-23:59) 
+≥70% of expected values 
+available (≥202 of 288 values) 
+≥ 3 valid CGM days within a visit defines a valid 
+CGM visit. A valid CGM session only includes valid 
+CGM visits. 
+Valid CGM Nighttime 
+(00:00-05:59) 
+≥70% of expected values 
+available (≥50 of 72 values) 
+≥ 3 valid CGM Nighttime periods within a visit 
+defines a valid CGM visit. A valid CGM session for 
+nighttime only includes valid CGM visits. 
+Valid CGM Daytime 
+(06:00-23:59) 
+≥70% of expected values 
+available 151 of 216 values) 
+≥ 3 valid CGM Daytime periods within a visit defines 
+a valid CGM visit. A valid CGM session for daytime 
+only includes valid CGM visits. 
+Abbreviation: CGM = continuous glucose monitoring. 
+For the primary analysis, CGM data must meet above criteria for the period in order to be 
+included as a valid CGM period. Sensitivity analysis will be done for selected parameters 
+including all available CGM data. 
+The ambulatory glucose profile during the 24-hour period will be generated with interquartile 
+ranges, at treatment-group level by CGM session, based upon the observed CGM measures. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 49 
+6.6.1. 
+Glucose in Target Ranges, Hypoglycemia or Hyperglycemia  
+The following variables of time in range, hypoglycemia, hyperglycemia during each CGM 
+session will be derived: 
+ Percentage and Duration (in minutes) of time per day where glucose values are within a 
+hypoglycemic range (defined as <54 mg/dL [3.0 mmol/L]) during the nighttime period 
+(defined as midnight to 0600 hours), the daytime period (defined as 0600 hours to 
+2400 hours) and a 24-hour period.  
+ Percentage and Duration (in minutes) of time per day where glucose values are within a 
+hypoglycemic range (defined as <70 mg/dL [3.9 mmol/L] and ≥54 mg/dL [3.0 mmol/L]) 
+during the nighttime period, the daytime period and a 24-hour period.  
+ Percentage and Duration (in minutes) of time per day where glucose values are within a 
+hypoglycemic range (defined as <70 mg/dL [3.9 mmol/L]) during the nighttime period, 
+the daytime period and a 24-hour period.  
+ Percentage and Duration (in minutes) of time per day glucose values are within a 
+hyperglycemic range (defined as >180 mg/dL [10.0 mmol/L] and ≤ 250 mg/dL 
+[13.9 mmol/L]) during the nighttime period, the daytime period and a 24-hour period. 
+ Percentage and Duration (in minutes) of time per day glucose values are within a 
+hyperglycemic range (defined as >250 mg/dL [13.9 mmol/L]) during the nighttime 
+period, the daytime period and a 24-hour period. 
+ Percentage and Duration (in minutes) of time per day glucose values are within a 
+hyperglycemic range (defined as >180 mg/dL [10.0 mmol/L]) during the nighttime 
+period, the daytime period and a 24-hour period. 
+ Percentage and Duration (in minutes) of time per day glucose values are within a 
+glycemia range (defined as between 70 mg/dL and 180 mg/dL [3.9 and 10.0 mmol/L]) 
+inclusive during the nighttime period, the daytime period and a 24-hour period. 
+ Percentage and Duration (in minutes) of time per day glucose values are within a 
+glycemia range (defined as between 70 mg/dL and 140 mg/dL [3.9 and 7.8 mmol/L] 
+inclusive) during the nighttime period, the daytime period and a 24-hour period. 
+The percentage of time within a glucose range (target, hypoglycemia or hyperglycemia ranges) 
+will be calculated as the number of observations within the specified range divided by the 
+number of observations in the time interval (for example, 24-hour period). The average 
+percentage of time among valid CGM days for the corresponding time interval during each CGM 
+session will be used in the analysis. 
+The duration (in minutes) within the glucose range will then be calculated as the average 
+percentage of time within the glucose range times the length of the period (24-hour, 18-hour, and 
+6-hour, for the periods of 24 hour, daytime or nighttime, respectively).  
+According to the guidance (Battelino et al. 2019), the following CGM targets of glycemic control 
+will also be derived during a 24-hour period.  
+ The percentage of time within a normal glycemia range (defined as between 70 mg/dL 
+and 180 mg/dL [3.9 and 10.0 mmol/L] inclusive) >70%.  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 50 
+ The percentage of time within a hypoglycemia range (defined as <70 mg/dL 
+[3.9 mmol/L]) <4%. 
+ The percentage of time within a hypoglycemia range (defined as <54 mg/dL 
+[3.0 mmol/L]) <1%. 
+ The percentage of time within a hyperglycemic range (defined as >180 mg/dL 
+[10.0 mmol/L]) <25%. 
+ The percentage of time within a hyperglycemic range (defined as >250 mg/dL 
+[13.9 mmol/L]) <5%. 
+In addition, according to the guidance in 2023 (Battelino et al. 2023), 2 composite endpoints will 
+be derived during a 24-hour period: 
+ >70% time in range 70 -180 mg/dL (3.9 - 10.0 mmol/L inclusive) and <4% time below 
+range <70 mg/dL (<3.9 mmol/L); and 
+ >70% time in range 70 -180 mg/dL (3.9 - 10.0 mmol/L inclusive) and <1% time below 
+range <54 mg/dL (<3.0 mmol/L). 
+The daily duration (in minutes) of time within a glucose range (defined as <54 mg/dL 
+[3.0 mmol/L]; <70 mg/dL [3.9 mmol/L] and ≥54 mg/dL [3.0 mmol/L]; <0 mg/dL [3.9 mmol/L]; 
+≥70 mg/dL[3.9 mmol/L] and ≤140 mg/dL [7.8 mmol/L]; ≥70 mg/dL [3.9 mmol/L] and 
+≤180 mg/dL [10.0 mmol/L]; >180 mg/dL[10.0 mmol/L] and ≤250 mg/dL[13.9 mmol/L]; 
+>250 mg/dL [13.9 mmol/L]) will be merged with the dose administration data to get the 
+summary of daily time in each glucose range since dose administration in the each CGM session 
+in the treatment period. For LY3209590, days relative to dose administration will be derived as 
+0 (dosing day), and then 1, 2, …, up to 6 days after most recent dose administration but before 
+the next dose administration. The average daily time in hypoglycemia for the given day (0 to 6) 
+relative to the dose administration among valid CGM days (with at least 70% data per day) 
+during each CGM session will be used in the analysis. 
+6.6.2. 
+Hypoglycemic Episode  
+According to the International Consensus Statement (Battelino et al. 2023), the CGM-determined 
+hypoglycemic episodes for Level 1 or 2 and  Level 2 are defined as below: 
+Hypoglycemia Level 
+Stating Time 
+Ending Time 
+Duration 
+Level 1 or 2 hypoglycemia  
+(BG <70 mg/dL 
+[3.9 mmol/L]) 
+Time of the 1st BG of 
+BGs <70 mg/dL for 
+≥15 consecutive minutes 
+Time of the last BG of the 
+BGs ≥70 mg/dL for 
+≥15 consecutive minutes 
+Time of the last 
+BG <70 mg/dL  –  time of 
+the 1st BG <70 mg/dL 
+Level 2 hypoglycemia (BG 
+<54 mg/dL [3.0 mmol/L]) 
+Time of the 1st BG of 
+BGs <54 mg/dL for 
+≥15 consecutive minutes 
+Time of the last BG of the 
+BGs ≥54 mg/dL for 
+≥15 consecutive minutes 
+Time of the last 
+BG <54 mg/dL – time of 
+the 1st BG <54 mg/dL 
+Level 2 hypoglycemia 
+ending with 
+BG ≥70 mg/dL 
+Time of the 1st BG of 
+BGs <54 mg/dL for 
+≥15 consecutive minutes 
+Time of the last BG that 
+ensures the BGs ≥70 mg/dL 
+for 15 consecutive minutes 
+Time of the last 
+BG <70 mg/dL – time of 
+the 1st BG <54 mg/dL 
+Abbreviation: BG = blood glucose (as captured in continuous glucose monitor [CGM]). 
+Note: Starting time and ending time are regardless of number of BG readings.  
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 51 
+If the truncated time interval is >7 and ≤15 minutes, linear interpolation will be used to impute 
+the missing data at 5-minute intervals as described in Section 6.6.  
+If the truncated time interval is >15 minutes: 
+• 
+at any time, which make the starting time undeterminable, then do not count this time 
+interval and no episodes start.  
+• 
+If it is after an episode started, which makes the ending time undeterminable, then the 
+episode ends at the starting time of the truncation.   
+• 
+If an episode started and continued until the end of a CGM session, then the episode ends 
+at the end of CGM session.   
+The average duration, incidence, event rate of the Level 1 or 2 and Level 2 hypoglycemia 
+episodes will be analyzed for each CGM session as planned in Section 4.6.3.1.2. The average 
+duration will be calculated by dividing the sum of the duration of individual episodes during the 
+given CGM session by the number of episodes and used in the analysis. The hypoglycemia event 
+rate (events/participant/year) will be calculated by dividing the number episodes by the number 
+of valid CGM days × 365.25 days.  
+6.6.3. 
+Mean Glucose and Glucose Management Indicator  
+The average glucose within a time period (a 24-hour period, daytime or nighttime) for each valid 
+CGM day will be calculated first and then the average of daily average for a CGM session will 
+be used as the mean glucose of the CGM session in the analysis. 
+The glucose management indicator (GMI) is a new parameter estimating A1c from CGM. The 
+GMI is based on the above mean glucose (24-hour period) by CGM using the below formula 
+(Bergenstal et al. 2018):  
+GMI(%) = 3.31 + 0.02392 × mean glucose (mg/dL) 
+6.6.4. 
+Glycemic Variability  
+Glycemic variability will be derived using the notation below: 
+i represents a time point within a time period (a 24-hour period, daytime or nighttime) 
+n represents the number of time points within the time period  
+k represents a valid CGM day within a visit 
+m represents the number of valid CGM days in the specific time period at a visit  
+BGk,i represents the glucose value at time point i on day k unless otherwise specified. 
+Sections 6.6.4.1 and 6.6.4.2 provide the derivation method for variables assessing within-day and 
+between-day glucose variability based on CGM readings. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 52 
+6.6.4.1. 
+Within-Day Variability  
+For variables assessing within-day variability, first determine the variability within each valid 
+CGM day, then average across days within a CGM session.  
+Within-day glucose SD (Rodbard 2009): 
+ 
+ 
+ 
+ 
+ 
+ 
+Within-day glucose CV (Clarke and Kovatchev 2009):  
+ 
+ 
+ 
+ 
+The low blood glucose index (LBGI), high blood glucose index (HBGI), and blood glucose risk 
+index (BGRI) will be calculated using the following standard formulas (Kovatchev et al. 2006). 
+The LBGI, HBGI, and BGRI will be derived for each valid CGM day of a visit and then average 
+across days within a CGM session. The calculations of LBGI, HBGI and BGRI take the 
+following steps: 
+1. For each blood glucose (BG [mg/dL]) at the ith time point, compute the following: 
+f(BGi) = 1.509×[(ln(BGi))1.084-5.381] 
+2. Compute BG risk for each reading 
+rl(BGi)=10× f(BGi), if f(BGi) < 0; otherwise rl(BGi) = 0 
+rh(BGi)=10× f(BGi), if f(BGi) > 0; otherwise rh(BGi) = 0 
+3. Compute LBGI and HBGI 
+
+
+
+n
+1
+i
+i)
+rl(BG
+n
+1
+LBGI
+ 
+
+
+
+n
+1
+i
+i)
+rh(BG
+n
+1
+HBGI
+ 
+4. Compute BGRI  
+BGRI = LBGI + HBGI 
+6.6.4.2. 
+Between-Day Variability  
+For variables assessing between-day variability, first determine the variability for each time point 
+across days within a CGM session then average across all time points.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m
+k
+i
+k
+i
+k
+m
+k
+k
+n
+m
+m
+SD
+1
+2
+n
+1
+i
+,
+n
+1
+i
+,
+1
+1
+)
+n
+BG
+(BG
+1
+SD
+1
+
+
+
+
+
+
+
+
+m
+k
+i
+k
+k
+m
+k
+k
+SD
+m
+CV
+m
+CV
+1
+n
+1
+i
+,
+1
+100
+)
+n
+BG
+(
+1
+1
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 53 
+Between-day glucose SD (Rodbard 2009): 
+ 
+Between-day glucose CV (Kovatchev et al. 2009): 
+ 
+Mean of daily differences (MODD): this parameter is calculated as the mean of absolute 
+differences between glucose values at corresponding time points of consecutive days. 
+
+
+
+
+
+
+
+
+1
+1
+n
+1
+i
+,
+1,
+n
+BG
+BG
+1
+1
+MODD
+m
+k
+i
+k
+i
+k
+m
+ 
+6.7. 
+Appendix 7: MedDRA PT for Diabetic Retinopathy or Maculopathy  
+The following PT will be used to identify TEAEs of diabetic retinopathy or maculopathy (see 
+Section 4.6.2.1.7): 
+ 
+Amaurosis 
+ 
+Amaurosis fugax 
+ 
+Arteriosclerotic retinopathy 
+ 
+Blindness 
+ 
+Blindness transient 
+ 
+Blindness unilateral 
+ 
+Choroidal neovascularisation 
+ 
+Cystoid macular oedema 
+ 
+Detachment of macular retinal pigment epithelium 
+ 
+Detachment of retinal pigment epithelium 
+ 
+Diabetic blindness 
+ 
+Diabetic eye disease 
+ 
+Diabetic retinal oedema 
+ 
+Diabetic retinopathy 
+ 
+Diabetic uveitis 
+ 
+Diplopia 
+ 
+Exudative retinopathy 
+ 
+Eye laser surgery 
+ 
+Fundoscopy 
+ 
+Fundoscopy abnormal 
+ 
+Intra-ocular injection 
+ 
+Macular detachment 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+n
+i
+m
+SD
+1
+2
+m
+1
+k
+i
+k,
+m
+1
+k
+i
+k,
+n
+1
+i
+i
+1
+m
+)
+BG
+(BG
+n
+1
+n
+1
+SD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+n
+i
+m
+k
+k
+i
+m
+n
+CV
+n
+CV
+1
+1
+i,
+n
+1
+i
+i
+100
+BG
+SD
+1
+1
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 54 
+ 
+Macular oedema 
+ 
+Maculopathy 
+ 
+Noninfective chorioretinitis 
+ 
+Noninfective retinitis 
+ 
+Phacotrabeculectomy 
+ 
+Retinal aneurysm 
+ 
+Retinal arteriovenous malformation 
+ 
+Retinal artery embolism 
+ 
+Retinal artery occlusion 
+ 
+Retinal artery stenosis 
+ 
+Retinal collateral vessels 
+ 
+Retinal cryoablation 
+ 
+Retinal detachment 
+ 
+Retinal exudates 
+ 
+Retinal haemorrhage 
+ 
+Retinal laser coagulation 
+ 
+Retinal neovascularisation 
+ 
+Retinal oedema 
+ 
+Retinal operation 
+ 
+Retinal thickening 
+ 
+Retinal vascular disorder 
+ 
+Retinal vascular occlusion 
+ 
+Retinal vein occlusion 
+ 
+Retinitis 
+ 
+Retinopathy 
+ 
+Retinopathy haemorrhagic 
+ 
+Retinopathy hypertensive 
+ 
+Retinopathy hyperviscosity 
+ 
+Retinopathy proliferative 
+ 
+Scintillating scotoma 
+ 
+Sudden visual loss 
+ 
+Venous stasis retinopathy 
+ 
+Vision blurred 
+ 
+Visual acuity reduced 
+ 
+Visual acuity reduced transiently 
+ 
+Visual impairment 
+ 
+Vitrectomy 
+6.8. 
+Appendix 8: MedDRA PT for Peripheral Edema  
+The analysis of peripheral edema (Section 4.6.2.1.8) will be based on the TEAEs in the 
+following terms: 
+ 
+Acute pulmonary oedema 
+ 
+Ascites 
+ 
+Brain oedema 
+ 
+Bronchial oedema 
+ 
+Capillary leak syndrome 
+ 
+Cerebral oedema management 
+ 
+Compression garment application 
+ 
+Cytotoxic oedema 
+ 
+Effusion 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 55 
+ 
+Fluid retention 
+ 
+Gastrointestinal oedema 
+ 
+Generalised oedema 
+ 
+Gravitational oedema 
+ 
+Hydraemia 
+ 
+Hypervolaemia 
+ 
+Hypoosmolar state 
+ 
+Lipoedema 
+ 
+Lymphoedema 
+ 
+Negative pressure pulmonary oedema 
+ 
+Non-cardiogenic pulmonary oedema 
+ 
+Non-pitting oedema 
+ 
+Oedema 
+ 
+Oedema blister 
+ 
+Oedema due to cardiac disease 
+ 
+Oedema due to hepatic disease 
+ 
+Oedema due to renal disease 
+ 
+Oedema mucosal 
+ 
+Oedema peripheral 
+ 
+Pelvic fluid collection 
+ 
+Pericardial effusion 
+ 
+Perinephric collection 
+ 
+Perinephric oedema 
+ 
+Peripheral swelling 
+ 
+Pleural effusion 
+ 
+Pulmonary oedema 
+ 
+Retroperitoneal effusion 
+ 
+Retroperitoneal oedema 
+ 
+Skin oedema 
+ 
+Skin swelling 
+ 
+Subdural effusion 
+ 
+Swelling 
+ 
+Visceral oedema 
+6.9. 
+Appendix 9: Empirical Estimation of Relative Event Rate  
+Traditionally, Poisson distribution has been assumed to draw inference for the rate of rare events. 
+When the event is rare and the sample size is large, it is known that the overall number of events 
+is approximately from Poisson distribution. However, for some not very rare events such as 
+severe hypoglycemic events in T2D patients, the total number of events may not be distributed 
+from Poisson and may be over-dispersed. Assuming Poisson distribution may significantly 
+underestimate the variance, and therefore may reduce the overage probability and inflate the 
+Type-I error. An empirical method in estimating the variance of the relative event rate without 
+assuming any distribution on the number of events will be provided in this appendix.  
+Let 𝑋𝑖𝑗 denote the count response variable for patient j in treatment group i. Let 𝑌𝑖= ∑𝑋𝑖𝑗
+𝑗
+ be 
+the total number of events for treatment group i, and 𝑇𝑖 denote the exposure for treatment group 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 56 
+i. Let i = 0 for the control group and i = 1 for the experimental treatment group. The event rate 
+for treatment group i can be calculated as 
+𝑟̂𝑖= 𝑌𝑖
+𝑇𝑖
+ 
+The empirical variance of r̂I is  
+𝑉𝑎𝑟
+̂ (𝑟̂𝑖) = 𝑇𝑖
+−2𝑉𝑎𝑟
+̂ (𝑌𝑖) = 𝑇𝑖
+−2𝑛𝑖𝑆𝑖
+2, 
+where 𝑆𝑖
+2 is the variance of 𝑋𝑖𝑗 for treatment group i. Using the delta-method, the variance of 
+log(𝑟̂𝑖) can be estimated as 
+𝑉𝑎𝑟
+̂ (log(𝑟̂𝑖)) = 𝑌𝑖
+−2𝑛𝑖𝑆𝑖
+2 
+The relative rate of the experimental treatment versus the control treatment is estimated as 
+𝜆̂ = 𝑟̂1
+𝑟̂0
+ 
+The variances of 𝜆̂ and log(𝜆̂) are  
+𝑉𝑎𝑟
+̂ (𝜆̂) = 𝜆̂2𝑉𝑎𝑟
+̂ (log(𝜆̂)) 
+𝑉𝑎𝑟
+̂ (log(𝜆̂)) = 𝑉𝑎𝑟
+̂ (log(𝑟̂0)) + 𝑉𝑎𝑟
+̂ (log(𝑟̂1)) = 𝑌0
+−2𝑛0𝑆0
+2 + 𝑌1
+−2𝑛1𝑆1
+2 
+Assuming log(𝜆̂) is asymptotically from a normal distribution, the 100(1 −𝛼)% confidence 
+interval for log(𝜆̂) can be constructed as 
+[log(𝜆̂) −𝑧1−𝛼
+2
+√𝑉𝑎𝑟
+̂ (log(𝜆̂)), log(𝜆̂) + 𝑧1−𝛼
+2
+√𝑉𝑎𝑟
+̂ (log(𝜆̂))] 
+Then, the 100(1 −𝛼)% confidence interval for 𝜆̂ is 
+ 
+[𝜆̂ exp (−𝑧1−𝛼
+2
+√𝑉𝑎𝑟
+̂ (log(𝜆̂))) ,
+𝜆̂ exp (𝑧1−𝛼
+2
+√𝑉𝑎𝑟
+̂ (log(𝜆̂)))] 
+(1) 
+ 
+The p-value for testing the null hypothesis of 𝐻0: 𝜆= 1 is calculated as 
+ 
+𝑝= 2Φ
+(
+ 
+|log(𝜆̂)|
+√𝑉𝑎𝑟
+̂ (log(𝜆̂)))
+  
+(2) 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 57 
+6.10. 
+Appendix 10: Definition for Persistent/Recurrent Hypoglycemia  
+A P-R hypoglycemia based on programming search in the e-diary database for hypoglycemic 
+events that meet prespecified criteria  - is defined as a set of hypoglycemic episodes that: 
+a) starts with the occurrence of a level 3, or level 2 hypoglycemic episode (<54mg/dL, [3.0 
+mmol/L]) and is followed by more episodes of hypoglycemia (<70mg/dL, [3.9 mmol/L]), 
+within the day of the initial episode,  
+AND 
+b) is followed by at least one episode of hypoglycemia (<70mg/dL, [3.9 mmol/L]) per day, 
+in the next 2 days or longer, and that ends when no hypoglycemia episode occurs for at 
+least 2 days. 
+An example of a set of hypoglycemic episodes meeting the prespecified criteria for a P-R 
+hypoglycemia event is illustrated in the figure below. 
+ 
+6.11. 
+Appendix 11: Statistical Analysis for Japan  
+Separate analyses will be performed for participants participating in Study BDCU from Japan 
+based on following subpopulations: 
+ Japanese population 
+ Japanese population whose prestudy basal insulin dose <10 U/day enrolled based on the 
+I8H-MC-BDCU protocol addendum (2.1) 
+ Japanese population whose prestudy basal insulin dose ≥10 U/day 
+ 
+The analysis methods will be similar to those described for the main part of this statistical 
+analysis plan.  If there is not sufficient number of participants in the subpopulation, summary 
+statistics will be provided instead.  Efficacy analyses for Japan will be based on efficacy 
+estimand for efficacy analyses.  
+The analyses to be included will be documented in a separate list of analyses which should 
+include dispositions, demographics, and selected efficacy and safety endpoints. 
+ 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 58 
+6.12. 
+Appendix 12: Abnormality Level Criteria for Chemistry and 
+Hematology Laboratory Results  
+Parameter 
+(in conventional unit) 
+High/Low 
+Level 1  
+Level 2  
+Level 3  
+General Chemistry 
+Sodium (mEq/L)  
+Low 
+<132 
+<130 
+<125 
+High 
+>150 
+>155 
+>160 
+Potassium (mEq/L)  
+Low 
+<3.6 
+<3.4 
+<3.0 
+High 
+>5.5 
+>6 
+>6.5 
+Chloride (mEq/L)  
+Low 
+<95 
+<88 
+<80 
+High 
+>108 
+>112 
+>115 
+Bicarbonate (mEq/L)  
+Low 
+<20 
+<18 
+<15 
+High 
+NA 
+NA 
+>30 
+Blood urea nitrogen (mg/dL)  
+High 
+>23 
+>27 
+>31 
+Calcium (mg/dL)  
+Low 
+<8.4 
+<8.0 
+<7.5 
+High 
+>10.5 
+>11.0 
+>12.0 
+Phosphate (mg/dL)  
+Low 
+<2.5 
+<2.0 
+<1.4 
+Protein (total) (g/dL)  
+Low 
+<6.0 
+<5.4 
+<5.0 
+Albumin (g/dL)  
+Low 
+<3.1 
+<2.5 
+<2.0 
+Uric Acid (urate) (mg/dL) 
+High 
+>7.0 
+NA 
+NA 
+Kidney Function 
+Creatinine (mg/dL)  
+Increase 
+≥1.5 × baseline 
+≥2.0 × baseline 
+≥3.0 × baseline 
+eGFR (ml/min/1.73m2)  
+Decrease 
+≥25% decrease 
+from baseline 
+≥50% decrease 
+from baseline 
+≥75% decrease 
+from baseline 
+Lipids 
+Cholesterol (total) (mg/dL)  
+High 
+>200 
+>240 
+>300 
+HDL (mg/dL) in males  
+Low 
+<40 
+<30 
+<20 
+HDL (mg/dL) in females  
+Low 
+<50 
+<40 
+<20 
+LDL (mg/dL)  
+High 
+>130 
+>160 
+>190 
+Triglycerides (mg/dL)  
+High 
+>150 
+>300 
+>500 
+Hematology 
+Complete Blood Count  
+WBC (cells/μL)  
+Low 
+<3500 
+<3000 
+<1000 
+High 
+>10,800 
+>13,000 
+>15,000 
+Hemoglobin (g/dL)  
+ 
+Decrease 
+NA 
+>1.5 decrease 
+from baseline 
+>2 decrease from 
+baseline 
+Increase 
+NA 
+>2 increase from 
+baseline 
+>3 increase from 
+baseline 
+Platelets (cells/μL)  
+Low 
+<140,000 
+<125,000 
+<100,000 
+Hemoglobin, male (g/dL)  
+Low 
+12.5-13.5 
+<12.5 
+<10.5 
+Hemoglobin, female (g/dL)  
+Low 
+11.0 – 12.0 
+<11 
+<9.5 
+WBC Differential  
+ 
+Lymphocytes (cells/μL)  
+Low 
+<1000 
+<750 
+<500 
+High 
+>4000 
+>10000 
+>20000 
+Neutrophils (cells/μL)  
+Low 
+<2000 
+<1000 
+<500 
+Eosinophils (cells/μL)  
+High 
+>650 
+>1500 
+>5000 
+Coagulation Studies  
+ 
+Prothrombin Time (seconds)  
+Increase 
+>1.1 × ULN 
+>1.3 × ULN 
+>1.5 × ULN 
+Abbreviations: eGFR = estimated glomerular filtration rate; HDL = high-density lipoprotein; LDL = low-density; 
+NA = not applicable; ULN = upper limit of normal. 
+Note: For Liver enzymes, Lilly defined categories will be used. 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 59 
+6.13. 
+Appendix 13: Interaction Effect for Subgroup Analysis – Treatment 
+Regimen Estimand  
+The ANCOVA analysis will be performed within each subgroup with multiple imputation of 
+missing primary measures. Statistical inference over multiple imputation of missing data will be 
+guided by Rubin (1987) to obtain 𝜃̂1 and 𝑠𝑒(𝜃̂1) for the treatment difference in subgroup 1, and 
+𝜃̂2 and 𝑠𝑒(𝜃̂2) in subgroup 2. Then, the distribution of treatment by subgroup interaction 
+(difference of treatment effects) is: 𝜃̂1 −𝜃̂2~ 𝑁(𝜃1 −𝜃2 , [𝑠𝑒(𝜃̂1)]
+2 + [𝑠𝑒(𝜃̂2)]
+2) 
+ 
+A z-statistic can be contrasted such that 𝑧=
+𝜃̂1−𝜃̂2
+√ [𝑠𝑒(𝜃̂1)]
+2+ [𝑠𝑒(𝜃̂2)]
+2 ~ 𝑁(0,1), under the null 
+hypothesis of no treatment by subgroup interaction. 
+  
+For k groups (k ≥ 2),  
+let 𝜽̂ = (𝜃̂1 , 𝜃̂2 , … , 𝜃̂𝑘)   and 𝑉𝑎𝑟(𝜽̂) = 𝑑𝑖𝑎𝑔([𝑠𝑒(𝜃̂1)]
+2, [𝑠𝑒(𝜃̂2)]
+2, … , [𝑠𝑒(𝜃̂𝑘)]
+2).  
+A chi-square test (with degrees of freedom = k-1) can be constructed as 
+𝑇= (𝐶𝜽̂)
+′(𝐶𝑉𝐶′)−1(𝐶𝜽̂) ~𝜒𝑘−1
+2
+ 
+where C is a matrix of contrast such that 
+𝐶= [
+−1
+1
+0
+   0
+−1
+1
+…
+  0
+ 0
+…
+  0
+ 0
+…
+…
+…
+  0
+  0
+  0
+…
+…
+…
+…
+−1
+1
+]
+.
+ 
+ 
+ 
+ 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 60 
+7. 
+References  
+Battelino T, Danne T, Bergenstal RM, et al. Clinical targets for continuous glucose monitoring 
+data interpretation: recommendations from the International Consensus on Time in Range. 
+Diabetes Care. 2019;42(8):1593-1603. https://doi.org/10.2337/dci19-0028. Epub 2019 Jun 8. 
+Battelino T, Alexander C, Amiel S. Continuous glucose monitoring and metrics for clinical 
+trials: an international consensus statement. Lancet Diabetes Endocrinol. 2023;11:42–57. 
+https://doi.org/10.1016/ S2213-8587(22)00319-9 
+Bergenstal RM, Beck RW, Close KL, et al. Glucose management indicator (GMI): a new term 
+for estimating A1c from continuous glucose monitoring. Diabetes Care. 
+2018;41(11):2275-2280. https://doi.org/10.2337/dc18-158 
+Bradley C. (ed). Handbook of Psychology and Diabetes: A Guide to Psychological Measurement 
+in Diabetes Research and Practice. Chur, Switzerland: Harwood Academic Publishers; 1994. 
+https://doi.org/10.1186/1477-7525-5-57 
+Bradley C. Diabetes treatment satisfaction questionnaire: change version for use alongside status 
+version provides appropriate solution where ceiling effects occur. Diabetes Care. 
+1999;22(3):530-532. https://doi.org/10.2337/diacare.22.3.530 
+Bradley C, Lewis KS. Measures of psychological well-being and treatment satisfaction 
+developed from the responses of people with tablet-treated diabetes. Diabet Med. 
+1990;7(5):445-451. https://doi.org/10.1111/j.1464-5491.1990.tb01421.x 
+Bretz F, Maurer W, Brannath W, Posch M. A graphical approach to sequentially rejective 
+multiple test procedures. Stat Med. 2009;28(4):586-604. https://doi.org/10.1002/sim.3495 
+Bretz F, Posch M, Glimm E, et al. Graphical approaches for multiple comparison procedures 
+using weighted Bonferroni, Simes, or parametric tests. Biom J. 2011;53(6):894-913. 
+https://doi.org/10.1002/bimj.201000239 
+Brod M, Hammer M, Christensen T, et al. Understanding and assessing the impact of treatment 
+in diabetes: the Treatment-Related Impact Measures for Diabetes and Devices (TRIM-
+Diabetes and TRIM-Diabetes Device). Health Qual Life Outcomes. 2009;7:83. 
+https://doi.org/10.1186/1477-7525-7-83 
+Clarke W, Kovatchev B. Statistical tools to analyze continuous glucose monitor data. Diabetes 
+Technol Ther. 2009;11(Suppl 1):S45-S54. https://doi.org/10.1089/dia.2008.0138 
+[EuroQol] European Quality of Life Research Foundation. EQ-5D-5L user guide, version 3.0. 
+Updated September 2019. Available at: https://euroqol.org/publications/user-guides 
+[FDA] Food and Drug Administration. Standard safety tables and figures: integrated guide, 
+2022. Available at: https://downloads.regulations.gov/FDA-2022-N-1961-
+0046/attachment_1.pdf 
+Kovatchev BP, Otto E, Cox D, et al. Evaluation of a new measure of blood glucose variability in 
+diabetes. Diabetes Care. 2006;29(11):2433–2438. https://doi.org/10.2337/dc06-1085 
+Kovatchev BP, Shields D, Breton M. Graphical and numerical evaluation of continuous glucose 
+sensing time lag. Diabetes Technol Ther. 2009;11(3):139-143. 
+https://doi.org/10.1089/dia.2008.0044 
+Approved on 27 May 2024 GMT
+CONFIDENTIAL 
+I8H-MC-BDCU Statistical Analysis Plan Version 4.0 
+LY3209590 
+PAGE 61 
+Nelson WB. Recurrent Events Analysis for Product Repairs, Disease Recurrences, and Other 
+Applications, The ASA-SIAM Series on Statistics and Applied Probability. Philadelphia, PA: 
+Society for Industrial and Applied Mathematics; 2003. 
+[PHUSE] Pharmaceutical Users Software Exchange. Analyses and displays associated with 
+laboratory analyte measurements in Phase 2-4 clinical trials and integrated submission 
+documents – update to recommendations. 2022. Available at: https://phuse.s3.eu-central-
+1.amazonaws.com/Deliverables/Safety+Analytics/WP068.pdf  
+Qu Y, Dai B. Return-to-baseline multiple imputation for missing values in clinical trials. Pharm 
+Stat. 2022;21(3):641-653. https://doi.org/10.1002/pst.2191 
+Qu Y, Luo J. Estimation of group means when adjusting for covariates in generalized linear 
+models. Pharm Stat. 2015;14(1):56-62. https://doi.org/10.1002/pst.1658 
+Rodbard D. New and improved methods to characterize glycemic variability using continuous 
+glucose monitoring. Diabetes Technol Ther. 2009;11(9):551-565. 
+https://doi.org/10.1089/dia.2009.0015 
+Rubin DB. Multiple Imputation for Nonresponse in Surveys. Hoboken, NJ: John Wiley & Sons, 
+Inc; 1987. 
+Ye T, Bannick M, Yi Y, Shao J. Robust variance estimation for covariate-adjusted unconditional 
+treatment effect in randomized clinical trials with binary outcomes. Stat Theory Relat Fields. 
+2023;7(2):159-163. https://doi.org/10.1080/24754269.2023.2205802 
+Approved on 27 May 2024 GMT
+Si g nat ure Pa ge f or V V- C LI N- 1 2 2 2 9 0 v 2. 0
+Si g nat ure Pa ge f or V V- C LI N- 1 2 2 2 9 0 v 2. 0
+A p pr o val
+2 7- Ma y- 2 0 2 4 0 9: 3 4: 4 8 G M T + 0 0 0 0
+A p pr o ve d o n 2 7 Ma y 2 0 2 4 G M T
+P P D

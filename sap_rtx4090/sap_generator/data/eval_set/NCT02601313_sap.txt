@@ -1,0 +1,1422 @@
+Sponsor: Kite Pharma, Inc.
+2400 Broadway
+Santa Monica, CA 90404
+United States of America
+Product Name: KTE-X19
+Protocol : A Phase 2 Multicenter Study  Evaluating the Efficacy  of 
+KTE- X19 in Subjects with Relapsed/Refractory  Mantle Cell 
+Lym phoma (ZUMA -2)
+Version Number: Version 6 .0
+Release Date: 08July 2019
+Replaces Previous Version(s): Version 5 .0; dated 2 2 October 2018
+CONFIDENTIALITY NOTI CE
+This document contains confidential information of Kite Pharma Inc., a wholly owned subsidiary 
+of Gilead Sciences Inc. This document must not be disclosed to an yone other than the site 
+research staff and members of the Institutional Review Board/ Independe nt Ethics C ommittee, a 
+scientific review board or an equivalent. The information in this document cannot be used for 
+any purpose other than the conduct of the clinical investigation without the prior written consent 
+of Kite Pharma Inc. Questions regardin g how this document should be used or the conduct of 
+the clinical trial should be directed to the key sponsor contacts.
+
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 2 08 July 2019TABLE OF CONTENTS
+TABLE OF CONTENTS .............................................................................................................................. ................ 2
+LIST OF TABLES ......................................................................................................................................................... 4
+LIST OF ABBREVIATIONS ........................................................................................................................................ 5
+1. INTRODUCT ION ................................................................................................................................................ 6
+2. OBJECTIVES ....................................................................................................................................................... 7
+3. STUDY OVERVIEW ........................................................................................................................................... 8
+3.1. Study Design ............................................................................................................................................ 8
+3.2. Hypothesis .............................................................................................................................. .................. 9
+3.3. Sample Size C onsiderations ..................................................................................................................... 9
+3.4. Statistical Assumptions ...............................................................
+........................................................... 11
+4. STUDY ENDPOINTS AND COVARIATES .................................................................................................... 12
+4.1. Endpoints ............................................................................................................................................... 12
+4.1.1. Primary ................................................................................................................................. 12
+4.1.2. Secondary ............................................................................................................................. 12
+4.1.3. Exploratory ........................................................................................................................... 12
+4.2. Covariates ............................................................................................................................................... 13
+4.2.1. Baseline Covariates .............................................................................................................. 13
+4.2.2. Tocilizumab and Steroid use after Anti -CD19 CAR T Cells Infusion ................................. 14
+5. DEFINITIONS .................................................................................................................................................... 15
+5.1. General ................................................................................................................................................... 15
+5.2. Safety ..................................................................................................................................................... 16
+5.3. Efficacy .................................................................................................................................................. 17
+6. ANALYSIS SE TS............................................................................................................................................... 19
+6.1. Modified Intent -to-treat.......................................................................................................................... 19
+6.2. Inferential Analysis Set .......................................................................................................................... 19
+6.3. Safety Analysis Set ................................................................................................................................ 19
+6.4. Full Analysis Set .................................................................................................................................... 19
+6.5. mITT Retreatment Analysis Set ............................................................................................................. 19
+6.6. Safety Retreatment Analysis Set ............................................................................................................ 19
+6.7. Subgroup Analysis Sets .......................................................................................................................... 19
+7. INTERIM ANALYSIS AND EARLY STOPPING GUIDE LINES ................................................................... 20
+7.1. Interim Analysis ..................................................................................................................................... 20
+7.2. Assessm ent of Criteria to Pause Enrollment .......................................................................................... 20
+7.3. Access to Aggregate and Subject -level Data and Individual Subject Treatment Assignments .............. 21
+8. DATA SCREENING AND ACCEPTANCE ...................................................................................................... 22
+8.1. General Principles .................................................................................................................................. 22
+8.2. Elect ronic Transfer and Archival of Data .............................................................................................. 22
+8.3. Handling of Missing and Incomplete Data ............................................................................................. 22
+8.3.1. Efficacy ................................................................................................................................ 22
+8.3.2. Safety .................................................................................................................................... 22
+8.4. Detection of Bias .................................................................................................................................... 23
+8.5. Outliers ................................................................................................................................................... 23
+8.6. Distributional Characteristics ................................................................................................................. 23
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 3 08 July 20198.7. Validation and Configuration Management ........................................................................................... 23
+9. STATISTICAL METHODS OF ANALYSIS .................................................................................................... 24
+9.1. General Principles .................................................................................................................................. 24
+9.2. Subject Accountability ........................................................................................................................... 24
+9.3. Important Protocol Deviations ............................................................................................................... 24
+9.4. Dem ographic and Baseline Characteristics ............................................................................................ 24
+9.5. Efficacy Analyses ...............................................................
+.................................................................... 25
+9.5.1. ORR and Best Response ....................................................................................................... 26
+9.5.2. DOR ..................................................................................................................................... 27
+9.5.3. PFS....................................................................................................................................... 27
+9.5.4. OS......................................................................................................................................... 27
+9.5.5. Tumor Burden ...................................................................................................................... 28
+9.5.6. Objective Response and Best Response Among Subjects Retreated w ith 
+Anti-CD19 CAR T Cells ...................................................................................................... 28
+9.5.7. DORR
+................................................................................................................................... 28
+9.5.8. Incidence of SCT .................................................................................................................. 28
+9.5.9. European Quality of Life -5 Dimensions and Visual Analogue Scale 
+Scores ................................................................................................................................... 28
+9.6. Safety Analyses ...................................................................................................................................... 28
+9.6.1. AEs....................................................................................................................................... 29
+9.6.2. Procedures and Concomitant Medications ........................................................................... 30
+9.6.3. Laboratory Test Results ........................................................................................................ 30
+9.6.4. Anti-CD19 CAR Antibodies ................................................................................................ 30
+9.6.5. RCR ...................................................................................................................................... 30
+9.6.6. Exposure to Study Treatment ............................................................................................... 30
+9.6.7. Exposure to Concomitant Medications and Procedures ....................................................... 31
+9.6.8. Mini -mental Status Exam ..................................................................................................... 31
+9.7. Subsequent Anti -cancer Therapy ........................................................................................................... 31
+9.8. Schedule of Study Treatment ................................................................................................................. 31
+9.9. CAR T Cells Measured in Peripheral Blood .......................................................................................... 32
+9.10. B-cell Aplasia ......................................................................................................................................... 32
+10. CHANGES FROM PROTOCO L-SPECIFIED ANALYSES ............................................................................. 33
+11. REFERENCES ................................................................................................................................................... 34
+12. HISTORY OF REVISIONS ............................................................................................................................... 35
+13. APPENDICES .................................................................................................................................................... 37
+Appendix 1. Conventions for Clinical Data That Require Imputation for Partial or Missing Dates ........... 37
+Appendix 2. Sample Adverse Event T able Layouts .................................................................................... 39
+Appendix 3. Derivation of Time to Event Endpoints and Last Date Known to Be Alive ........................... 40
+Appendix 4. Derivation of Simplified Mantle Cell Lymphoma International Prognostic Index ................ 44
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 4 08 July 2019LIST OF TABLES
+Table 1. Imputation Rules for Partial or Missing Start Dates ............................................................... 37
+Table 2. Subject Incidence of <AE Descriptor> AEs by Preferred Term (Worst Grade) ..................... 39
+Table 3. Subject Incidence of <AE Descriptor> AEs by System Organ Class 
+and Preferred 
+Term  (Worst Grade) ............................................................................................................... 39
+Table 4. Primary Analysis of DOR ...................................................................................................... 40
+Table 5. Sensitivity Ana lysis of DOR (to include data after SCT post study treatment) ...................... 41
+Table 6. Primary Analysis of PFS ........................................................................................................ 42
+Table 7. Sensitivity Analysis of PFS .................................................................................................... 42
+Table 8. Analysis of OS ........................................................................................................................ 43
+Table 9. Simplified Mantle Cell Lymphoma International Prognostic Index ....................................... 44
+Table 10. Risk Category Based on s -MIPI ............................................................................................. 44
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 5 08 July 2019LIST OF ABBREVIATION S 
+ADaM Analysis data model
+AE Adverse event
+Allo-SCT Allogeneic stem cell transplant
+Auto-SCT Autologous stem cell transplant
+CAR Chimeric antigen receptor
+CIF Cumulative incidence 
+CR Com plete response
+CRS Cytokine release syndrome
+CTCAE Common Term inology Criteria for Adverse Event
+DOR Duration of response
+DORR Duration of response to retreatment
+DSMB Data Safety Monitoring Board
+ECOG Eastern C ooperative Oncology G roup
+EQ-5D European quality of life -5 dimensions
+FAS Full analysis s et
+HLGT High -level group term
+IRRC Independent Radiology Review Committee
+MCL Mantle cell lymphoma 
+mITT Modified intent -to-treat
+MedDRA Medical Dictionary for Regulatory Activities
+NE Not evaluable
+OS Overall survival
+PD Progressive disease
+PFS Progression -free s urvival
+PR Partial response
+RCR Replication -competent retrovirus
+r/r MCL Relapsed/r efractory mantle cell lymphoma
+SAE Serious adverse event
+SCT Stem cell transplant
+SD Stable disease
+SDTM Study data tabulation model 
+SMQ Standardized MedDRA query 
+s-MIPI Simplified Mant leCell Lymphoma International Prognostic Index 
+SOC System  organ class
+SPD Sum of the product of the diameter
+TEAE Treatment- emergent adverse event
+TLS Tumor lysis syndrome
+VAS Visual analogue scale
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 6 08 July 20191. INTRODUCTION
+This statistical analy sis plan provides the pre -specification and details for the statistical anal yses 
+outlined within protocol KTE- C19-102 entitled “A Ph ase 2 Multic enter Study  Evaluating the 
+Efficacy  of KTE -X19 in Subjects with Relapsed/ Refractory Mantle Cell Ly mphoma
+(ZUMA -2).”  The scope of this document is to provide details on the planned interim, primary , 
+and final anal yses.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 7 08 July 20192. OBJECTIVES
+The primary  objective is to evaluate the efficacy  of KTE- X19, as measured by  objective 
+response rate (ORR), in subjects with relapsed/refractory  (r/r) mantle cell lymphoma (MCL ).  
+Secondary  objectives include assessing the safety  and tolerability  of KTE- X19,additional 
+efficacy  endpoints , and the change in the European Quality  of Life -5 Dimensions (EQ -5D) 
+scores from baseline to Month 6. 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 8 08 July 20193. STUDY  OVER VIEW
+3.1. Study Design
+Study  KTE -C19-102 is a multicenter, open- label Phase 2 study evaluating the safet y and efficacy  
+of KTE- X19 in subjects with r/rMCL .  
+Up to approximately  130 subjects with r/r MCL  in total will be enrolled and treated in2cohort s. 
+Cohort 1 will treat up to approximately  90subjects at a target dose of 2 x 106anti-CD19 CAR 
+Tcells/kg, inc luding at least 60 but up to approximately  80subjects treated with KTE- X19
+(According to original treatment not retreatment; r eferredto as KTE- X19 subjects in this 
+document) and 10 subjects treated with axicabtagene ciloleucel (According to original treatment 
+not retreatment; r eferredto as 
+axicabtagene ciloleucel subjects in this document). The Cohort 1 
+KTE- X19 subjects will form the basis for statistical hy pothesis testing on the primary  endpoint. 
+Cohort 2 will treat up to approximately  40 KTE- X19 subjects at a target dose of 0.5 x 106anti-
+CD19 CAR T cells/kg
+.Details regarding KTE -X19 and axicabtagene ciloleucel products can be 
+found in the protocol. Throughout this document, KTE- X19/axicabtagene ciloleucel may be 
+referred to as anti-CD19 CAR T cells.
+Each subject will proceed through the following study  periods:
+Screening
+Enrollment/ Leukaph eresis
+Bridging therap y, if applicable
+Conditioning chemotherapy  
+Investigational product treatment 
+Post-treatment assessment
+Long -term follow -up
+Additio nal details on study  procedures may  be found in the study  protocol.   
+An independent Data Safety Monitoring Board (DSMB) will meet and review safety  and/or 
+efficacy  data 4times during the stud y:
+For Cohort 1: The DSMB will first meet to review safet y data when 10subjects have been 
+treated with anti -CD19 CAR T cellsand have been followed for 30 day s. The DSMB will meet 
+for the second time to review both safet y and efficacy data after 20 subjects 
+have been treated 
+with anti-CD19 CAR T cell sand have h ad the opportunity  to complete the 3-month disease 
+assessment. The DSMB will review safety  again after 44 subjects in Cohort 1 have been treated 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 9 08 July 2019with anti-CD19 CAR T cell sand have had opportunity  to be followed for at least 30 day s after 
+the anti -CD19 CAR T cells infusion, with focus on the safet y data from the 6 KTE- X19 subjects 
+treated most recentl y within this cohort.
+For Cohort 2: The DSMB will meet to review both safet y and efficacy data after 10subjects 
+have been treated with KTE -X19 and have had the opportunity  to be followed for 30 day s.
+The DSMB will be chartered to make trial conduct recommendations based on an anal ysis of risk 
+vs benefit. The DSMB may  meet more often as needed. 
+There will be an additional interim anal ysis for C ohort 1 after 38subject streated with anti -CD19 
+CAR T cellsin Cohort 1 have had the opportunity  to be evaluated for response 6 months after the 
+anti-CD19 CA R T cellsinfusion. This interim analy sis will be performed for a Kite Pharma, 
+Inc., (hereafter referred to as Kite or Kite Pharma) internal review of the accumulating data of 
+safet y and efficacy. 
+The primary  anal ysis will occur after 60 KTE -X19 subject shave been enrolled and treated in 
+Cohort 1 and ha
+vehad the opportuni ty to be evaluated for response 6 months after the W eek 4 
+disease assessment (see details in Section 3.3).
+The primary analysis of efficacy  endpoints will be based on the Lugano C lassification {Cheson 
+2007} per Independent Radiology  Review Committee (IRRC) review. These assessments will 
+be re ferred to as “ Central Read” in this document . Secondary  efficacy  analy ses will be based on 
+investigator review of disease assessments, henceforth referred to as “ Investigator Read.”For 
+Cohort 1, the 
+Investigator Read will be based on the revised Interna tional Working Group 
+Criteria for Malignant Lymphoma {Cheson 2007}; for Cohort 2, the Investigator Read will be 
+based on 
+the Lugano C lassification {Cheson 2014}.   
+3.2. Hypothesis
+This study  is designed to differentiate between a treatment that has 
+a true ORR of 50% (target 
+response rate) per IRRC review and a treatment with a true ORR of 25% or less.  The h ypothesis 
+is that the ORR to KTE
+-X19 per IRRC review is significantl y greate r than 25%.  This hy pothesis 
+will be tested on Cohort 1 inferential analy sis set. No hy pothesis will be tested in the Cohort 1 
+axicabtagene ciloleucel subjects or Cohort 2 subjects – Analysis conducted on the data collected 
+from these subjects will be desc riptive.
+3.3. Sample Size Considerations
+This study  uses an open -label 2-cohort design to test for an improvement in ORR . Up to 
+approximately  130 subjects with r/r MCL  will be enrolled and treated with anti-CD19 CAR T 
+cells, including 10 axicabtagene ciloleucel subjects and 
+up to approximately 80KTE- X19
+subjects in Cohort 1 and up to approximately  40 KTE -X19 subjects in Cohort 2. Hypothesis 
+testing of the primary  endpoint ORR will be conducted onCohort 1inferential analy sis set . 
+Primary  anal ysis will be con ducted after 60 KTE -X19 subjects have been enrolled and treated 
+and have had the opportunity  to be assessed for response 6 months after the Week 4 disease 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 10 08 July 2019assessment . Asample size of 60 KTE- X19 subjects in Cohort 1 provides at least 96% power to 
+distinguish between an active therapy with a 50% true response rate from a therap y with a 
+response rate of 25% or less ,with a 1- sided alpha level of 0.025. 
+Four interim analy ses in Cohort 1 and one interim anal ysis in Cohort 2 will be performed :
+Cohort 1 interim analy sis 1 will be conducted after 10 subjects have been treated with 
+anti-CD19 CAR T cell s and have been followed for 30 day s.In this interim anal ysis, the 
+DSMB will review data for safet y onl y
+.
+Cohort 1 interim analy sis 2 will be conducted after 20 subjects have had the opportunity  to be 
+evaluated for response 3 months after treatment with anti-CD19 CAR T cell s.In this interim 
+analysis, the DSMB will review data for both safety  and efficacy (futility  only ).
+Cohort 1 interim analy sis 3 will occur after all the 38treated subject sin this cohort have had 
+the opportunity  to be evaluated for response 6 mon ths after 
+anti-CD19 CAR T cell s infusion.
+This interim analy sis will be performed for a Kite internal review of the accumulating data of 
+safet y and efficacy.
+Cohort 1 interim analysis 4 will occur after 44 subjects in Cohort 1 have been treated with 
+anti-CD19 CAR T cell s and have had the opportun ity to be followed for 30 day safter 
+anti-CD19 CAR T cell sinfusion.  In this interim analy sis, the DSMB will review data for 
+safet y onl y, with focus on the 6 KTE- X19 subjects treated most recentl y in this cohort.
+Cohort 2 interim analy sis will occur after 10 subjects in this cohort have been enrolled and 
+treated with KTE -X19 and have had the opportunity  to be followed for 30 day s after 
+KTE- X19 infusion.  This interim analy sis will be for safet y and efficacy .
+Accrual to and treatment on the study  will continue during all interim anal yses. The primary  
+analysis will occur after 60 KTE- X19 subjects have been enrolled and treated in Cohort 1 and 
+have had the opportunity  to be evaluated for response 6month safter the Week 4 disease 
+assessment . Data from b oth Cohort 1 and Cohort 2 will be anal yzed. However, as mentioned 
+above, no statistical hy pothesis will be formally  tested onCohort 1 axicabtagene ciloleucel
+subjects and Cohort 2  subjects, and,thus, no alpha -spending is assigned for the anal ysis of 
+Cohort 1 axicabtagene ciloleucel subjects and Cohort 2 subjects . The primary  anal ysis on
+Cohort 1 will use a 1 -sided alpha level of 0.025 , with one interim efficacy anal ysis for futility .
+This procedure preserves the designated overall al pha level (1- sided) of 0.025 and achieves at 
+least 96% power.
+For Cohort 1, a rho (parameter = 0.30) beta spending function will be used to allocate the beta 
+level between the futility  anal ysis and the primary  efficacy  anal ysis. The non -binding futility  
+boundary  for this interim anal ysis is reached if no more than 5 responders ( ≤5) out of 20 subjects 
+are observed. EAST version 6.4 was used to evaluate the statistical power and operating 
+characteristics of this design. 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 11 08 July 20193.4. Statistical Assumptions
+As described in Section 3.3, an open- label 2-cohort design is used for this study . In the C ohort 1 
+KTE- X19 subjects , a target ORR of 50% and a historical control rate of 25% are assumed for 
+statistical inference. The responses from subjects in the study  population are assumed to be 
+independent and follow binomial distribution ,and,thus, an exact binomial test will be used to 
+test the statistical hy pothesis.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 12 08 July 20194. STUDY  ENDPOINTS AND COV ARIA TES
+4.1. Endpoints
+4.1.1. Primary
+ORR, defined as the incidence of complete response (CR) or partial response ( PR) per the 
+Lugano Classification {Cheson 2014} as determined by  the IRRC review
+4.1.2.
+Secondary
+Duration of response (DOR)
+Best objective response
+ORR per investigator review
+Progression-f ree survival (PFS)
+Overall survival (OS)
+Incidence of adverse events (AEs) and clinicall y significant changes in laboratory  values
+Incidence of anti- CD19 CAR antibodies
+Levels of anti -CD19 CAR+T cells in blood
+Levels of cy tokines in serum
+Changes over time in the European quality  of life -5 dimensions ( EQ-5D) scale score and 
+EQ-5D visual analogue scale ( VAS )score
+4.1.3. Exploratory
+CCI
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 13 08 July 20194.2. Covariates
+4.2.1. Baseline Covariates
+The following baseline covariates may  be used to examine efficacy  and/or safet y in subgroups or 
+covariate anal yses:
+Eastern Cooperative Oncology  Group ( ECOG) performance status at baseline
+Age (in years) at baseline (< 65, ≥ 65)
+Sex (male, female)
+Race:  white, Asian, American Indian or Alaska Native, Black or African American, Native 
+Hawaiian or Other Pacific Islander, other (categories may  be collapsed or expanded based on 
+accrual)
+Relapsed/ Refractory subgroup ( relapsed after autologous stem cell transplant [ auto- SCT], 
+relapsed after last mantle cell ly mphoma [ MCL ]chemotherap y, refractory to last MCL  
+chemotherap y
+)
+Morphologic characteristics (blastoid, pleomorphic, diffuse, mantle zone, nodular)
+Ki-67 inde x(%)
+t(11; 14) (Y/N)
+Cyclin D1 overexpression (Y/N)
+Disease stage (I, II, III, IV) and extent (presence of B s ymptoms, S [splenic involvement ], 
+E [extranodal disease ], X [bulky  disease ], bone marrow involvement) as determined by  the 
+investigator at screening
+Simplified Mant leCell Lymphoma International Prognostic Index ( s-MIPI)
+Number of prior regimens
+Prior Burton t yrosine kinase inhibitors (ibrutinib vs acalabrutinib)
+CCI
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 14 08 July 2019Prior therap y regimens (anti -CD20 [Y/N ], anthracycline [Y/N ], bendamustine [Y/N ], 
+ibrutinib [Y/N ], acalabrutinib [Y/N], lenalidomide [Y/N ], bortezomib [Y/N ], temsirolimus 
+[Y/N ], stem cell transplant [Y/N ], platinum [Y/N ])
+Tumor bur den, as measured by  the SPD of selected nodes or lesions at baseline
+4.2.2. Tocilizumab and St eroid use after Anti -CD19 CAR T Cells Infusion
+Post-baseline tocilizumab and steroid use may  be used to examine efficacy  in subgroups or 
+covariat e anal yses:
+Tocilizumab use after Anti-CD19 CAR T cells infusion (Y/N)
+Steroids use after Anti-CD19 CAR T cells infusion (Y/N)
+Tocilizumab or steroids use after Anti-CD19 CAR T cells (Y/N)
+Tocilizumab and steroids use after Anti-CD19 CAR T cells (Y/N)
+Covariate levels that are sparse may be collapsed for purposes of statistical modeling.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 15 08 July 20195. DEFINITIONS
+5.1. General
+Study enrollment :  Study  enrollment occurs when a subject commences leukapheresis. 
+Study Day 0:Day 0 is defined as the day  the subject receives the first anti-CD19 CAR T cells
+infusion. The day  prior to Day 0 will be D ay –1. Any days after enrollment and prior to D ay –1 
+will be sequential 
+and negative integer -valued.
+Baseline:   The baseline value is defined as the last value taken prior to conditioning 
+chemotherap y
+.
+Study therapy:   Study therapy  includes conditioning chemotherap y andanti-CD19 CAR T cells .
+On-study:   Time from enrollment to the last date of contact .
+End of study
+:  Defined as when the last subject is assessed or received an intervention for 
+evaluation in the study , including survival asses sments .
+Relapsed/ Refractory subgroup :  Relapsed/refractory  subgroups are defined as below.  Subjects 
+meeting both “Relapsed after SCT” and any
+of the other categories will be categorized as 
+“Relapsed after SCT.”  Note that bridging therapies should not be included for defining the 
+Relapsed/Refractory  subgroups.
+Relapsed after SCT:  A subject is considered to be relapsed after SCT if the subject 
+experienced relapse (nonresponse, disease recurrence or disease progression) after SCT.
+Refractory  to last MCL  therapy :  A subject is considered to be refractory  to the last MCL  
+therap y if the subject failed to achieve a PR or CR to the last MCL  therap y.
+Relapsed after last MCL  therapy :  A subject is considered to be relapsed after last MCL  
+therap y if the subject responded and subsequentl y experienced disease progression after the 
+last MCL  chemotherap y.
+Bulky disease:  Bulk ydisease is defined as the presen ce of a single lesion with largest diameter 
+being 10cm or larger or mediastinum wider than 1/3 of the chest on a chest x -ray.  The presence 
+of bulky  disease will be determined by  the investigator when baseline disease extent is evaluated.
+Actual follow -uptime:   Actual 
+follow -up time among all subjects treated with anti-CD19 CAR 
+T cells is calculated as the time from the first dose of anti-CD19 CAR T cells to the date of 
+death, last date known to be alive, lost to follow -up, or full withdrawal of consent, whichever is 
+later.
+Potential follow -up time:   Potential follow -up time is defined as the time from the anti-CD19 
+CAR T cells infusion to the data cutoff date for the anal ysis.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 16 08 July 20195.2. Safety
+Treatment -emergent adverse event (TEAE) : Any adverse event with onset on or after the 
+anti-CD19 CAR T cells infusion. All TEAEs will be summarized by  preferred term and toxicity  
+grade. AEs occurred within other study period smay be summarized as appropriate. For subjects 
+taking retreatment of KTE -X19/ axicabtagene ciloleu cel, TEAEs during retreatment period may
+be summarized separately . 
+Deaths:  All deaths that occur from the beginning of the chemotherapy  conditioning period up 
+through the end of stud ywill be summarized .Deaths that occur from the anti-CD19 CAR T 
+cells infusion up through 30days after the infusion will also be summarized .For subjects taking 
+retreatment of KTE
+-X19/ axicabtagene ciloleucel, deaths occurred during retreatment period may  
+also be summarized separatel y.
+AEs of special interest :  Adverse events of special interest for KTE- X19/ axicabtagene ciloleucel
+treatment include identified risks (CRS, neurologic events , cytopenias, infections , and 
+hypogammaglobulinemia ) and potential risks ( immunogenicit y, secondary malignancies, RCR,
+and tumor ly sis sy ndrome [TLS]).
+CRS will be identified via collection of the s yndrome on a case report form (CRF) specificall y 
+designed to record CRS.  Specific individual sy mptoms of CRS (eg, fever) collected on the AE 
+log will be coded using Medical Di ctionary  for Regulatory  Activities (MedDRA) and linked to 
+the corresponding CRS episode.  I ndividual s ymptoms of CRS will be graded per Common 
+Terminology  Criteria for Adverse Events (CTCAE) v 4.03, and CRS as a syndrome will be 
+graded per modified Lee cri teria ((Lee et al, 2014) .  In the modified grading scale, neurologic 
+AEs are not to be reported as part of the CRS sy ndrome and will be reported separately  and 
+summarized separatel y. 
+Neurologic 
+events will be identified with a search strategy  based on kno wn neurologic toxicities 
+associated with anti- CD19 immunotherapy  ({Topp 2015 }).  The search strategy  focuses on 
+central nervous s ystem (CNS) toxicity , without regar d to relatedness, temporal relationship, or 
+concomitant conditions (eg, CRS). Additionally , the MedDRA s ystem organ classes (SOCs) of 
+Psychiatric Disorders and Nervous Sy stem Disorders will be reviewed for additional events; 
+these events will then be evalu ated for potential inclusion as neurologic AEs.
+Immunogenicit y will be identified by the development of antibodies to antibodies against CAR 
+expressing cells b y flow cytometry.  In addition, a manual review of the AE terms indicative of 
+autoimmunity , inclusive of infusion- related events and anaph ylactic reactions among subjects 
+who test positive for anti
+-CD19 CAR antibodies, will be performed.
+For other AEs of special interest, specific adverse events may  be mapped to these categories 
+using dictionary  coded event term and standardized MedDRA queries (SMQs) or other search 
+strategies.  Specific definitions of these events and the coded terms to w hich they  correspond will 
+be provided in the Program Safety  Anal ysisPlan. 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 17 08 July 2019Duration of an AEof special interest:   The duration of an AE of special interest may be 
+derived onl y among subjects for whom all events of the class have resolved by the anal ysis data 
+cutoff date.  The duration is defined as the stop day of the last AEin the event class
+–the start 
+day of the first AEin the event class + 1.  
+5.3. Efficacy
+ORR:  ORR is the proportion of subjects with either a CR or PR while on study .  All subjects 
+who do not meet the criteria for objective response by  the anal ysis data cutoff date will be 
+considered non -responders, including the subjects with non- evaluable assessment data and those 
+without any  assessment .The derivation of this endpoint will only  include response assessments 
+obtained prior to an y other additional therap y (eg,SCT or subsequent anti -cancer therap yor 
+retreatment with anti-CD19 CAR T cells ).  Response ma y be defined per C entral R eador
+Investigator Read.
+DOR :  DOR is defined only  for subjects who experience an objective response and is the time 
+from the first objective response to disease progression or death.  Response and progression may  
+be defined per 
+Central Reador Investigator Read.  Data from retreatment period will not be 
+included for anal ysis. Subjects not meeting the criteria for progression or death by the analy sis 
+data cutoff date will be censored at their last evaluable disease assessment date.  DOR will be 
+derived using disease assessments obtained on study  prior to initiation of new anti -cancer 
+therap y(including SCT) .  The DOR for subjects who undergo SCT while in remission will be 
+censored at the last evaluable disease assessment date prior to SCT; the DOR for subjects that 
+undergo other new anti -cancer therapies including the retreatment with anti-CD19 CAR T cells
+in the absence of documented relapse will be censored at the last evaluable disease assessment 
+prior to the new anti- cancer therapies. A sensitivity  analy sis will be conducted in which disease 
+assessments obtained after SCT are included in the derivation of DOR . Additional details on the
+derivation of DOR areprovided in Appendix 3.In case that 5% or more subjects with two or 
+more consecutive disease assessments missed 
+prior to receiving SCT or new anti- cancer therap y, 
+another sensitivity anal ysis will be performed with such subjects being counted as events and 
+their DOR event time imputed based on the first missed scheduled assessment visit prior to the 
+SCT or new anti -cancer therap y.
+PFS:   PFS is defined as the time from the anti-CD19 CAR T cells infusion date to the date of 
+disease progression or death from an y cause. For PFS analy sis with the full analy sis set (defined 
+in Section 6.4) in which enrolled but not treated subjects are included, the PFS time will be 
+calculated. as the time from the enrollment date to the date of
+ disease progression or death from 
+any cause. Prog ression may  be defined per C entral Read or Investigator Read.  Data from 
+retreatment period will not be included for anal ysis. Subjects alive and not meeting the criteria 
+for progression by  the analy sis data cutoff date will be censored at their last eval uable disease 
+assessment date.   PFS will be derived using disease assessments obtained on study  prior to 
+initiation of new anti -cancer therap y(including SCT) . The PFS for subjects who undergo SCT 
+while in remission will be censored at the last evaluable disease assessment date prior to SCT; 
+the PFS for subjects that undergo other new anti -
+cancer therapies in the absence of documented 
+relapse will be censored at the last evaluable disease assessment prior to the new anti -cancer 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 18 08 July 2019therapies .A sensitivity  analy sis will be conducted in which disease assessments obtained after 
+SCT are included in the derivation of PFS. Additional details on the derivation of PFS are
+provided in Appendix 3.
+OS:  OS is defined as the time from the anti-CD19 CAR T cells infusion to the date of death
+from an y cause .  Subjects who have not died by  the anal ysis data cutoff date will be censored at 
+the last date known to be alive or the data cutoff date, whichever is earlier. For OS analy sis with 
+the full anal ysis set, the OS time will be calculated as the time from the enrollment date to the 
+date of death from an y cause. Additional details on the derivation of ov erall survival and the 
+specific data modules that will be used to derive the last date known to be alive are provided in 
+Appendix 3.  
+Duration of 
+response to retreatment (DORR) :  DORR is defined the same as DOR, except 
+that the definition applies to the response after KTE -X19/ axicabtagene ciloleucel retreatment .
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 19 08 July 20196. ANAL YSIS SETS
+Analy sis sets are defined within each cohort as follows.
+6.1. Modified Intent -to-treat
+The mITT analy sis set will consist of all subjects enrolled and treated with anydose of 
+anti-CD19 CAR T cells
+.  This analy sis set will be used for efficacy  analy sesforCohort 1 
+subjects treated with axicabtagene ciloleucel and Cohort 2 subjects .
+6.2. Inferential Analysis Set
+The inferential anal ysis set will consist of the first 60 treated KTE -X19 subjects in Cohort 1. 
+This analy sis set will be used for 
+efficacy  analy ses in Cohort 1 and also the hy pothesis testing of 
+the primary  endpoint ORR at the tim e of the primary  anal ysis.
+6.3. Safety Analysis Set
+The safet y analysis set is defined as all subjects treated with an y dose of anti-CD19 CAR T cells
+(same as mITT) .
+6.4. Full Analysis Set
+The full anal ysis set ( FAS)will consist of all enrolled subjects and will be used for the summary  
+of subject disposition. This analy sis set will also be used for analyses of objective response rate 
+and other key  efficacy  endpoints (BOR, DOR, PFS, and OS).
+6.5. mITT Retreatment Analysis Set
+The mITT retreatment analy sis set will consist of all subjects who undergo re treatment with any 
+dose of anti-CD19 CAR T cells.  This set will be used for all retreatment efficacy  anal yses.
+6.6. Safety Retreatment Analysis Set
+The safet y retreatment analy sis set 
+will consist of all subjects who undergo retr eatment with 
+anti-CD19 CAR T cells.
+Note thatsubjects treated with anti-CD19 CAR T cells to expanded access (ie,“compassionate 
+use” subjects not treated under P rotocol KTE- C19-102) will not be included in the safet y 
+analysis set or the mITT anal ysis set
+. 
+6.7. Subgroup Analysis Sets
+Subgroup anal yses of selected efficacy  and safet y endpoints may  be performed for subgroups 
+defined b y the baseline covariates defined in Section 4.2.  
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 20 08 July 20197. INTERIM ANAL YSIS AND EARL Y STOPPING GUIDE LINES
+7.1. Interim Analysis
+An independent DSMB will be chartered to make recommendations on study  conduct.  The 
+DSMB will meet 4 times during the stud y (Cohort 1 interim a nalysis 1, Cohort 1 interim anal ysis 
+2, Cohort 1 interim analysis 4, and Cohort 2 i nterim analysis 1), as described in Section 3.1 and
+Section 3.3.  The DSMB will review safety  and efficacy  data and will be charter ed to make trial 
+conduct recommendations based on the risk versus benefit of tre
+atment with anti-CD19 CAR T 
+cells. For Cohort 1, a rho (parameter =0.30) beta spending function will be used to allocate the 
+beta level between the futility  anal ysis at Cohort 1 interim analy sis 2 and the primary  efficacy  
+analysis. The non -binding futility  boundary  for this interim analy sis is reached if no more than 
+5responders ( ≤ 5) out of 20subjects are observed. 
+Details 
+of the DSMB composition and responsibil ities may be found i n the DSMB charter .  
+In addition to 
+the 4 interim analy ses to be reviewed by  DSMB, an additional interim anal ysis 
+(Cohort 1 i nterim a nalysis 3) will be performed for a Kite internal review of the accumulating 
+data of safet y and efficacy  (see Section 3.3). After the planned primary  analy sis of the stud y, 
+additional efficacy  and safet y analyses may be performed to support r egulatory  interaction or 
+publications.  These analyses will be descriptive.
+7.2. Assessment of Criteria to Pause Enrollment
+As part of its oversight of the study , the DSMB will also assess criteria to pause enrollment after 
+10, 20, 30 , and 50 subjects treated with anti -CD19 CAR T cells in Cohort 1 have had the 
+opportunity  to be followed for 30 day s.  Enrollment will be paused if an y of the following 
+criteri ais met:
+Incidence of Grade 5 KTE -X19/ axicabtagene ciloleucel- related adverse events within 
+30days is > 10%.
+Incidence of the following Grade 4 KTE-X 19/axicabtagene ciloleucel-related adverse events 
+lasting more than 7 days is > 33%:
+Neurologic toxicities
+CRS (per Lee 2014 criteria)
+Other non- hematological serious adverse event (SAE)
+Infection (tre atment -related)
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 21 08 July 2019The assessments of criteria to pause enrollment will be triggered when 10, 20, 30 , and 
+50subjects have been treated with anti-CD19 CAR T cells and have had the opportunity  to be 
+followed for 30 day s. At each assessment, the subject incidence of the events listed in the above 
+criteria will be tabulated for the first treated 10 subjects, 20 subjects , 30subjects, and 
+50subjects, respectively . Ifeither criterion is met (with incidence rates calculated with 
+10subjects , 20subjects , 30subjects , and 50 subjects as denominators, respectivel y) prior to an
+assessment milestone , the DSMB will proceed with the assessment with available data. 
+7.3. Access to Aggregate and Subject -level Data and Individual Subject 
+Treatmen t Assignments
+This study  is open label.  Subjects, the study  sponsor, and investigators will be aware that each 
+subject is planned to be treated with KTE -X19/ axicabtagene ciloleucel.  Data handling 
+procedures designed to maintain the trial credibility  and validit y in this study are described in the 
+Trial Integrit y Document.
+An independent statistician will perform Cohort 1 i nterim a nalysis 1, Cohort 1 interim a nalysis 2, 
+Cohort 1 interim analy sis 4, and Cohort 2 interim a nalysis for the study , as well as th e safety  
+assessment to pause enrollment, and provide these reports to the DSMB.  Members of the DSMB 
+and independent statistician will not have an y direct contact with study center personnel or 
+subjects.  The DSMB will communicate recommendations to Kite P harma in accordance with the 
+DSMB charter. Additional details of the DMSB composition and reviews are described in the 
+DSMB charter.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 22 08 July 20198. DATA SCREENING AND ACCEPT ANCE
+8.1. General Principles
+The database will be subject to the edit checks outlined in the Data Manag ement Plan and 
+additional manual data reviews defined b y the study team.  Data inconsistencies will be reviewed 
+and resolved before the database snapshot for the primary  anal ysis and the final database lock.  
+For interim analy ses, snapshots may  include data that has not passed all data cleaning procedures 
+at the time the data are extracted for snapshot.  
+8.2. Electronic Transfer and Archival of Data
+The Medidata Rave system will be used to collect the data in thi s study .  Raw data extracted 
+from Medidata Rave will be archived prior to further dataset creation, maintenance, and analy sis.  
+Datasets (raw data, s
+tudy data tabulation m odel [ SDTM ]data, and/or anal ysis data m odel 
+[ADaM ]data) for planned anal yses will be archived.  An y additional unplanned anal yses that 
+occur after the primary  analy sis and prior to the final anal ysis will also be archived.   Key  data 
+external to the clinical study  database ( see below ) will be included in the relevant SDTM and 
+ADaM modules when the external data are available .
+Data fro m the central pathology  laboratory  (including tumor pathology , tumor genetic, and 
+molecular characteristics), the product manufacture (total T cells, CAR T cells [transduction 
+ratio
+], duration of manufacturing time), central laboratory  assessment of subject serum samples 
+(including CAR Tcell levels in the peripheral blood, antibody  assay s, RCR testing ),and central 
+radiology  review will be generated from contract laboratories and Kite Pharma.  These data will 
+be transferred to Kite and held in a peripheral directory and not built into the clinical trial 
+database. At the time when analyses require these data, they  may  be merged with the SDTM and 
+ADaM datasets.
+8.3. Handling of Missing and Incomplete Data
+8.3.1. Efficacy
+The method for handling missing data is described in the definition for each efficacy  endpoint.  
+Every  effort will be made to obtain complete dates for deaths.  In the event of a partial or missing 
+death date and the corresponding censoring date for survival, the algorithm in Appendix 1will be 
+used.
+8.3.2. Safety
+Partial AEstart dates will be imputed.  If dates are missing or incomplete for adverse event start 
+dates, the algorithm defined in Appendix 1will be used.  Compl etely  missing death dates or 
+death dates with onl y a year reported will not be imputed.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 23 08 July 20198.4. Detection of Bias
+A listing of subjects with important protocol deviations will be generated.  The deviations 
+included in this list will include ,but not be limited to, violations of eligibility  criteria and use of 
+exclusionary  medication during the stud y.  Lack of protocol compliance will be evaluated b y 
+summarizing the subject incidence of important protocol deviations.  High rates of important 
+protocol deviations may  indicate bias.
+Endpoints derived from investigator assessment of radiologic scans and disease assessments may  
+be subject to bias; the concordance between investigator and central review of radiologic scans 
+and disease assessments will be summarized where a ppropriate .
+8.5.
+Outliers
+Descriptive statistics may be used to identify  potential outliers in any  key variables anal yzed.  
+Suspected outliers will be included in all anal yses unless there is sufficient scientific justification 
+to exclude them.
+8.6. Distributional Characteristics
+The primary  anal ysis of the primary  endpoint is an exact binomial test used to compare the 
+observed ORR per Central Read to a response rate of 25% in the Cohort 1 inferential analy sis 
+set.  This test assumes only  the independence of the individual subject responses.  
+An exact 95% confidence interval will be generated about the ORR .  The Clopper -Pearson 
+method will be used to generate this interval.  While the Clopper -Pearson interval provides 
+adequate coverag e probability , it is commonly  wider than necessary  {Brown 2002}, leading to 
+overly  
+conservative estimates of the lower bound of objective response rate.  Sensitivity  anal yses 
+will be conducted in which the interval is calculated with different methods ( Section 9.5.1).
+8.7. Validation and Configuration Management
+Programs fo
+r the development of the SDTM and ADaM datasets and the generation of the tables, 
+figures, and listings will be developed and maintained according to Cytel Inc. Standard 
+Operating Procedures (SOPs) and Kite SOPs if applicable . The software and version used to 
+generate anal yses will be indicated in the archived documentation.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 24 08 July 20199. STATISTICAL  METHODS OF  ANAL YSIS
+9.1. General Principles
+The goal of the primary  statistical analy sis is to compare the observed ORR per Central R eadto 
+a histori cal control rate of 25% with an exact binomial test in the Cohort 1 inferential anal ysis 
+set. 
+Hypothesis testing will be one -sided, and all 95% confidence intervals will be 2- sided.  At 
+the time of the primary  analy sis
+, 95% confidence intervals for ORR will be presented for Cohort 
+1inferential analy sis set subjects .ORR with 95% confidence intervals may be generated for 
+Cohort 1 axicabtagene ciloleucel subjects, and Cohort 2 subjects, respectively , for descriptive 
+purpose only.
+The timing of the interi m and primary  anal yses will be based on subject accrual and 
+safet y or 
+disease assessment milestones. The primary  analy sis Clinical Study  Report will be written at the 
+primary  anal ysisof the study .  The Clinical Study Report may be amended with additional 
+subject safet y and survival 
+follow -up after the planned primary anal ysis.
+9.2. Subject Accountability
+The number of subjects screened, enrolled /leukaph eresed, treated with bridging therapy , treated 
+with conditioning chemotherap y, trea ted with anti - CD19 CAR T cells, and retreated with 
+anti-CD19 CAR T cells will be summarized.  The reason s for discontinuing treatment and 
+discontinuing study will be summarized.
+Summaries of actual and potential follow -up time among all subjects treated with anti-CD19 
+CAR T cells will be provided.
+The number of subjects enrolled by  country  and site will be summarized.  
+The number of subjects in each anal ysis set will be provided.
+9.3. Important Protocol Deviations
+The clinical stud y team will define important protocol deviation categories and review all 
+potential important protocol deviations at minimum, prior to the database snapshot for the 
+primary  efficacy  anal ysis.  Important protocol deviation swill be categorized by  deviation ty pe 
+(eg,entry eligibility, use of excluded medication).  The subject incidence of important protocol 
+deviations will be summarized overall and b y deviation category .
+9.4. Demographic and Baseline Characteristics
+Summary  statistics and frequencies for the demographic and baseline characte ristics as listed in 
+Section 4.2.1 will be tabulated .
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 25 08 July 20199.5. Efficacy Analyses
+The hy pothesis testing of ORR will be conducted on the inferential anal ysis set. Other e fficacy  
+analyses will also be conducted on the inferential analysis set for Cohort 1 KTE- X19 subjects . 
+FASwill also be used for anal yses on key efficacy endpoints (ORR, BOR, DOR, PFS, and OS).
+Efficacy  anal yses for Cohort 1 axicabtagene ciloleucel subjects and Cohort 2 subjects will be 
+conducted on the mITT analy sis set .  For the primary  anal ysis, the IRRC assessments based on 
+the Lugano C lassification {Cheson 2014}, referred to as “ Central R ead,” will be used.  
+Sensitivity  analy ses will be conducted based on the investigator assessments.  For Cohort 1, the 
+Investigator Read will be based on the revised International Working Group Criteria for 
+Malignant Lymphoma {Cheson 2007}; for Cohort 2, the investigator revi ew will be based on the 
+Lugano C lassification {Cheson 2014}. The independent radio logy reviewer sand investigators 
+will provide the determination of disease status (CR, PR, SD, PD, not evaluable [NE]) at each 
+time point.  Statistical analysis s ystem ( SAS)programs will be used to derive the best overall 
+response, DOR , and PFS based on these assessments. Efficacy anal yses of Cohort 1 
+axicabtagene ciloleucel subjects and Cohort 2 KTE -X19 subjects will be descriptive .
+The anal ysisof objective response rate and DOR will be presented in the following analysis sets:
+Inferential anal ysis set (Cohort 1 KTE- X19 subjects )
+mITT analysis set(Cohort 1 axicabtagene ciloleucel and Cohort 2 subjects )
+FAS ( Cohort 1 KTE- X19 subjects )
+Disease assessment obtained after retreatment will not be used in the primary  summaries of 
+objective and best response, DOR, and PFS .  For such subjects, disease assessments obtained 
+after retreatment will be included in the summaries of objective and best response to retreatment 
+with anti-CD19 CAR T cells and DORR .  The subject’s OS time will be derived from the last 
+date known 
+to be alive regardless of retreatment time.
+In the event an y subject undergoes an autologous or allogeneic SCT or an y other anti -cancer 
+therap y while on study , the subject’s best response will be derived onl y based on disease 
+outcomes assessed prior to SCT or initiation of new ther apy, whichever is earlier .  For subjects 
+without documentation of progression prior to initiation of new therap y (including SCT), DOR
+and PFS time will be censored at the last disease assessment prior to the in itiation of new therap y
+(including SCT) .  A se nsitivity  anal ysis for DOR willbe conducted in which disease assessments 
+after SCT are included to derive events and censoring times for subjects who undergo SCT while 
+in KTE- X19/ axicabtagene ciloleucel- induced response .  (See details in Appendix 3.)  
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 26 08 July 20199.5.1. ORR and Best Response
+9.5.1.1. Primary  Anal yses of ORR per Central Read
+The subject incidence of objective response per Central Read will be calculated.  The subject 
+incidence of best response (CR, PR, SD, PD, NE) per Central Read will be tabulated .  
+Confidence intervals will be provided about the ORR and best response, calculated with the 
+following methods:
+Clopper -Pearson (an exact i nterval)
+Wilson’s method (sensitivity  anal ysis)
+Agresti -Coull method (sensitivity  analy sis)
+The modified Jeffrey ’s method {Brown 2001 }(sensitivity  analy sis)
+An exact binomial test will be used to compare the observed ORR per C entral Readto the 
+hypothesized historical control rate of 25% for the inferential analy sis set subjects only. 
+The anal ysis of ORR and best response per Central Read will include subjects from the 
+Inferential anal ysis set for Cohort 1 and mITT set for Cohort 2.  A nalysis of objective response 
+in Cohort 1 KTE- X19 subjects will also be conducted using the FAS.
+9.5.1.2. Analy ses of Objective Response and Best Response per Investigator Read
+The anal yses of ORR and best response specified above will be repeated for ORR and best 
+response per Investigator Read.
+The concordance of objective response and best response per Central Read and Investigator R ead 
+will be evaluated in Cohort 1.  A summary  table of concordance, concordance rate, a kappa 
+statistic, and a 2 -sided 95% confidence interval about the kappa statistic will be provided.
+Further anal ysescomparing the Investigator and Central R eads may  be performed as appropriate .
+9.5.1.3. Subgroup Analy ses of ORR
+ORR and 95% confidence intervals will be generated for subgroups defined by  each of the 
+categorical covariates in Section 4.2.1 of the i nferential analysis set of Cohort 1 KTE- X19
+subjects .Subgroup anal ysis with additional covariates may  also be explored.
+A forest plot of the proportion of responders for each of thes e subgroups will be generated.  
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 27 08 July 20199.5.2. DOR  
+The Kaplan -Meier approach will be used to estimate DOR. The number of subjects censored 
+and the reasons for censoring will be summarized.  Analyses will be generated for DOR per 
+Central Read, as well as per Investigator Read.  The reverse Kaplan -Meier approach {Schemper 
+1996} will be used to estimate the follow -up time for DOR.   
+A sensitivity  anal ysis of DOR will be conducted in which disease assessments obtained after 
+SCT (for subjects who undergo SCT while in a KTE -X19/axicabtagene ciloleucel induced 
+response) are used in the derivation of DOR. In case that 5% or more subjects with two or more 
+consecutive disease assessments missed 
+prior to receiving SCT or new anti -cancer therap y, 
+another sensitivity anal ysis will be performed with such subjects being counted as events and 
+their DOR event time imputed based on the first missed scheduled assessment visit prior to the 
+SCT or new anti -cancer therap y.
+An anal ysis of DOR will also be conducted in the FAS for Cohort 1 KTE -X19 subjects .  
+DOR may  be summarized in subgroups defined by  the best response attained on study .
+9.5.3. PFS
+Kaplan -Meier plots, estimates ,and 2 -sided 95% confidence intervals will be generated for PFS.  
+Estimates of the proportion of subjects alive and progression- free at 3-month intervals will be 
+provided.  The number of subjects censor ed and the reasons for censoring will be summarized.  
+Analy ses will be generated for PFS per Central 
+Read and PFS per Investigator Read.
+A sensitivity  anal ysis will be conducted in which disease assessments obtained after SCT (for 
+subjects undergoing SCT while in a KTE
+-X19/axicabtagene ciloleucel induced response) are 
+included in the derivation of PFS.
+A PFS anal ysis will also be conducted in the FAS.
+Subgroup anal yses of the PFS rate at 6months may  be generated in subgroups defined b y the 
+covariates in Section 4.2.
+PFS may  be summarized in subgroups defined by  the best response attained on study .
+9.5.4. OS
+The anal ysis of OS will use the same methods as the analysis of PFS .An OS analy sis will also 
+be conducted in the FAS.
+OS may  be summarized in subgroups defined by  the best response attained on study .
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 28 08 July 20199.5.5. Tumor Burden
+The change in tumor burden, as measured b y the SPD of the sel ected lesions (reported as target 
+lesions) , from baseline to post -baseline nadir will be summarized in absolute numbers (mm2) and 
+percentage.  A graphical summary  of this change will be presented in a vertical bar chart with 
+each subject’s percent change f rom baseline to nadir display ed as a vertical bar, with color 
+coding that indicates best response attained (“waterfall” plot). Anal yses will be generated for 
+change in tumor burden per Central Read and per I nvestigator Read. Data collected after new 
+anti-
+cancer therap y, retreatment of anti-CD19 CAR T cells, or SCT will not be included for the 
+analyses.
+9.5.6. Objective Response and Best Response Among Subjects Retreated with Anti -
+CD19 CAR T Cells
+The incidence of subjects retreated with anti-CD19 CAR T cells will be tabulated or listed.  ORR 
+and best response (CR, PR, SD, PD , NE) to the retreatment among subjects retreated with 
+anti-CD19 CAR T cells will be calculated.  Confidence intervals may be provided about the 
+ORR and best response to the retreatment .  Anal yses may  be conducted per Central R ead and 
+Investigator Read .
+9.5.7. DORR
+The anal ysis of DORR may be conducted using the same methods as the analy sis of DOR .
+9.5.8. Incidence of SCT
+The subject incidence of SCT post-treatment with anti-CD19 CAR T cells and prior to disease 
+progression will be tabulated among subjects who undergo SCT while in KTE- X19/axicabtagene 
+ciloleucel induced response . 
+9.5.9. European Quality of Life -5 Dimensions and Visual Analogue Scale Scores
+EQ-5D and VAS scores will be summarized at baseline and post study  treatment visits. Changes 
+in the EQ-5D- 5L and VAS scores from baseline at each post-study  treatment visit will also be 
+summarized with descriptive statistics.
+Further anal yses of these quality  of life data may  be described in a supplemental statistical 
+analysis plan.
+9.6. Safety Analyses
+Safety  anal yses will be conducted on the safet y analysis set for Cohort 1 KTE -X19 subjects, 
+Cohort 1 axicabtagene ciloleucel subjects, and Cohort 2 subjects, respectively . Safety anal ysis
+will also be conducted on the treated KTE -X19 subjects combined from Cohort 1 and Cohort 2.
+The primary  anal ysis of safet y data will 
+summarize TEAEs , death, and laboratory values with 
+onset on or after the anti -CD19 CAR T cells infusion date and prior to retreatment period 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 29 08 July 2019(ifapplicable) .  Additional s ummary  tables may be provided to present the AEs that occurred 
+within certain study  period s.  For subjects who undergo retreatment with anti-CD19 CAR T 
+cells, AEs occurring in the retreatment period may be summarized or listed separately .  Sample 
+table lay outs are provided in 
+Appendix 2.
+AEs will be coded with the MedDRA at the ti me of each anal ysis.  
+The version of the MedDRA 
+may vary  over time as the current version in use is updated.  The severit y of AEs will be graded 
+using the National Cancer Institute CTCAE version 4.03.  
+CRS will be graded using a revised CRS grading scale developed by  Lee et al {Lee 2014}.  The 
+incidence and severity  of CRS wil l be reported as a syndrome with severity per Lee et al {Lee 
+2014}.  I ndividual s ymptoms associated with CRS will be graded per CTCAE version 4.03 .Fatal 
+AEs that are attributed to disease progression may be included in the death summary  with a 
+primary  death reason of “disease progression” regardless of the coded CTCAE version 4.03 
+preferred term .
+Subjects 
+enrolled, but not dosed with anti-CD19 CAR T cells, will be followed for AEs for 
+30days after the last study -specific procedure.   AEs reporte d in these subjects will be archived in 
+the study  database and available in SDTM and ADaM datasets, but will not be tabulated in AE
+summaries.
+9.6.1. AEs
+The subject incidence of the following TEAEs will be tabulated:
+Summary  of AEs (any, worst severit y, serious , treatment -related )
+All AEs
+All SAEs
+All KTE
+-X19/axicabtagene ciloleucel- related AEs
+All KTE- X19/axicabtagene ciloleucel- related SAEs
+All Grade 3 or higher AE s
+All Grade 3 or higher KTE -X19/axicabtagene ciloleucel- related AEs
+Fatal AEs
+AEs of special inte rest, including identified risks and potential risks 
+The subject incidence of deaths by  time period swill be provided.   
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 30 08 July 2019A subject listing of deaths through 30 day s after anti-CD19 CAR T cells infusion   will be 
+provided overall and by  treatment period.
+Subgroup anal yses of AEs may be generated for selected covariates from the list in Section 4.2.1.  
+The time to onset and resolution and the duration of CRS will be summarized. Cardiac 
+arrhythmias and cardiac failure in the context of CRS may  be summarized. 
+The time to onset and resolution and the duration of neurologic events will be summarized. 
+Cytopenias will be summarized by
+ categories of neutropenia, anemia, and thrombocy topenia; 
+cytopenias present after 30 day s from anti-CD19 CAR T cells infusion will also be summarized.
+Infections will be summarized by  categories (bacterial infections, viral infections, opportunistic 
+infections, and other infections).
+9.6.2. Procedures and Concomitant Medications
+The incidences of procedure and concomitant medications used to manage AEs will be tabulated
+(see Section 9.6.7).
+9.6.3.
+Laboratory Test Results
+Laboratory  results will be graded according to N ational Cancer Institute CTCAE version 4.03.  
+The incidence of post-infusion worst -grade lab toxicities for all anal yteswill be summarized .
+Additional summaries for the shift from baseline to the worst toxicity grade after anti-CD19 
+CAR T cells infusion may also be generated .
+9.6.4. Anti -CD19 CAR Antibodies
+The subject incidence of any  anti- CD19 CAR antibodies will be tabulated.  For subjects testing 
+positive for antibodies, the persistence of the antibody  over time will be listed and summarized.
+9.6.5. RCR
+The subject incidence of RCR detected in blood samples will be tabulated overall and b y 
+assessment time.  The p ersistence of RCR over time will be summarized.
+9.6.6. Exposure to Study Treatment  
+Summary  statistics and subject listings will be provided for the following:
+Total body  surface area -adjusted dose of cy clophosphamide
+Total body  surface area -adjusted dose of fludarabine
+Weight -
+adjusted dose of KTE- X19/axicabtagene ciloleucel
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 31 08 July 2019Total CAR T cells of the KTE- X19/axicabtagene ciloleucel infusion
+Total T cells of the KTE -X19/axicabtagene ciloleucel infusion
+Transduction ratio
+Percentages of CD4 and CD8 T cells
+Percentag es of Tcell memory  phenoty pes
+Interferon ( IFN)-gamma production in co -cultures of KTE- X19/axicabtagene ciloleucel
+product and CD19+target cells
+Vector copy number of KTE- X19/axicabtagene ciloleucel product
+Summaries may  also be provided by  demographics and baseline characteristics as appropriate. 
+Separate summaries will be presented for the retreatment conditioning chemotherap y and 
+KTE- X19/axicabtagene ciloleucel for subjects in the retreatment anal ysis set.
+9.6.7. Exposure to Concomitant Medications and Procedures
+The subject incidence of concomitant medications will be summarized by  medication category  
+and WHO Drug coded term.   The subject incidence of procedures will be tabulated. The 
+duration and indication of concomitant medications of interest, steroids and tocilizumab for 
+example, may be summarized. 
+9.6.8. Mini -mental Status Exam
+Summary  statistics for the Mini -Mental Status Exam score and change from baseline in the 
+Mini -Mental Status Exam score over time will be provided for all subjects in the safet y analysis 
+set and may  be summarized within groups defined by  the occurrence of Grade 3 or higher 
+neurotoxicity .  
+9.7. Subsequent Anti -cancer Therapy
+The incidence of subsequent anti -cancer therap y (by WHO Drug coded term) will be 
+summarized.
+9.8. Schedule of Study Treatment
+Summary  statistics will be provided for the following durations:
+Days from leukapheresis to KTE-X19 product release
+Days from leukaphe resis to receipt of anti-CD19 CAR T cells at the study  site 
+Days from leukapheresis to administration of anti-CD19 CAR T cells
+Duration of hospitalization forthe anti -CD19 CAR T cells infusion
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 32 08 July 20199.9. CAR T Cells Measured in Peripheral Blood
+Summary  statistics for the level of CAR T cells in serum post KTE- X19/axicabtagene ciloleucel
+infusion will be provided for CAR T cells measured at Day 7, Week 2, Week 4, Month 3, 
+Month 6, Month 12, and Month 24.  The maximum CAR Tcell level attained, the time at which 
+the maximum level was attained, and the time at which there were no detectable CAR T cells in 
+the serum will be summarized.   The area under the concentration over time curve may  be 
+summarized from Day 0 to Day 28.
+9.10. B- cell Aplasia
+The subject incidence of B -cell aplasia based on B cells measured by flow cy tometry and the 
+subject incidence of recovery  of B- cell saplasia will be summarized .The use of intravenous 
+immunoglobulin may be summarized.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 33 08 July 201910. CHANGES FROM PROTOCO L-SPECIFIED ANAL YSES
+None .
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 34 08 July 201911. REFERENCES
+Brown LD, Cai TT, DasGupta A. Interval Estimation for a Binomial Proportion. Statistical 
+Science 2001;16 (2):101 -33.
+Brown LD, Cai TT, DasGupta A. Confidence Intervals for a Binomial Proportion and 
+Asymptotic Expansions. The An nals of Statistics 2002;30 (1):160 -201.
+Cheson BD, Fisher RI, Barrington SF, Cavalli F, Schwartz L H, Zucca E, et al. 
+Recommendations for initial evaluation, staging, and response assessment of 
+Hodgkin and non -Hodgkin ly mphoma: the Lugano classification. J Clin Oncol 
+2014;32 (27):3059 -68.
+Cheson BD, Pfistner B, Juweid ME, Gasco yne RD, Specht L, Horning SJ, et al. Revised 
+response criteria for malignant l ymphoma. J Clin Oncol 2007;25 (5):579- 86.
+Hoster E, Drey ling M, Klapper W, Gisselbrecht C, van Hoof A, Klu in-Nelemans HC, et al. A 
+new prognostic index (MIPI) for patients with advanced -stage mantle cell 
+lymphoma. Blood 2008;111 (2):558
+-65.
+Lee DW, Gardner R, Porter DL, Louis CU, Ahmed N, Jensen M, et al. Current concepts in the 
+diagnosis and management of cyt okine release s yndrome. Blood 2014;124 
+(2):188-95.
+Schemper M, Smith TL . A note on quantify ing follow -up in studies of failure time. Control Clin 
+Trials 1996;17 (4):343 -6.
+Topp MS, Gökbuget N, Stein AS, Zugmaier G, O'Brien S, Bargou RC, et al. Safety  and a ctivit y 
+of blinatumomab for adult patients with relapsed or refractory  B-precursor acute 
+lymphoblastic leukaemia: a multicentre, single- arm, phase 2 study . Lancet 
+Oncology  2015;16 (1):57 -66.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 35 08 July 201912. HIST ORY OF REVISIONS
+Version Date Protocol Description of Changes
+Original (1.0) 15JUN2017 Original to 
+Amendment 3N/A
+2.0 17NOV2017 Amendment 4 Added Cohort 2 as pivotal cohort (N=40) and changed 
+Cohort 1 to non -pivotal cohort and decreased Cohort 1 
+sample size from N=67 to N=40;
+Modified the interim and primary analyses accordingly;
+Changed the primary efficacy endpoint from objective 
+response rate (ORR) based on investigator read per 
+Cheson 2007 to ORR based on Central R ead per Lugano 
+Classification (Cheson 2014);
+Changed the hypothesis testing on ORR fr om 40% vs. 
+20% to 50% vs. 25%; 
+Added QoL (EQ- 5D and VAS score) and RCR incidence 
+rate as secondary endpoint s;
+Added prior acalabrutinib to baseline characteristics 
+summary;
+Other minor or cosmetic changes.
+3.0 23APR2018 Amendment 4 Removed B -cell aplasia analysis; 
+Simplified the section of definitions; 
+Updated the potential risks and the analysis method;
+Added language forQoL (EQ -5D and VAS score) 
+summary ;
+Other minor or cosmetic changes.
+4.0 12JUL2018 Amendment 5 Specified that Cohort 1 KTE -X19 subjects w ill form the 
+basis for statistical hypothesis testing on the primary 
+endpoint;
+Increased the sample size of Cohort 1 from N=40 to 
+N=~9 0 (with at least 60 XLP subjects); 
+Specified that no hypothesis will be tested in the Cohort 1 
+axicabtagene ciloleucel subjects or Cohort 2 subjects ;
+Added an interim analysis to Cohort 1; 
+Changed the primary analysis time based on Cohort 1 
+enrollment (ie, after 60 C1 KTE -X19 subjects have had 
+the opport unity to be evaluated for response 6 months 
+after week 4 disease assessment) ; 
+Removed com peting -risk analysis on DOR;
+Other minor or cosmetic changes.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 36 08 July 2019Version Date Protocol Description of Changes
+5.0 22OCT2018 Amendment 6 Changed investigational product name from KTE- C19 to 
+KTE -X19; 
+Added a sensit ivity analysis on DOR in the event of 5% 
+or more subjects with two or more consecutive disease 
+assessments missed prior to receiving SCT or new  
+anti-cancer therapy;
+Indicated that inferential analysis set will be used for all 
+key efficacy analyses; 
+Indicated that full a nalysis set will be used for efficacy 
+analysis on ORR and other key efficacy endpoints;
+Other minor or cosmetic changes.
+6.0 8JUL 2019 Amendment 6 Specified that inferential analysis set and FAS will be 
+used for efficacy analyses in Cohort 1 KTE -X19 subjects 
+while mITT set w ill be used for Cohort 1 axicabtagene 
+ciloleucel and Cohort 2 efficacy analysis;
+Added the PFS and OS definitions for FAS;
+Indicated that safety analysis will also be done w ith all 
+treated KTE- X19 subjects com bined from  Cohort 1 and 
+Cohort 2 ;
+Added back B -cell aplasia analysis;
+Added summary for history of revisions; 
+Other minor or cosmetic changes.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 37 08 July 201913. APPENDICES
+Appendix 1. Conventions for Clinical Data That Require Imputation for Pa rtial or 
+Missing Dates
+The following data will be imputed using the following algorithm:
+Adverse event 
+(AE) start dates
+Deaths (see exceptions below)
+Concomitant medication start dates
+Subsequent anti -cancer therap y start dates
+Table 1. Imputation Rules for Partial or Missing Start Dates
+Start DateStop Date
+Com plete:  yyyymmdd Partial:  yyyymm Partial:  yyyy
+Missing
+< Day 0 ≥ Day 0< Day 0 
+yyyymm≥ Day 0
+yyyymm< Day 0 
+yyyy≥ Day 0
+yyyy
+Partial
+yyyymm= Day 0
+yyyymm
+21
+21 n/a 1 1
+≠ day 0
+yyyymm2 2 2 2 2
+Partial
+yyyy=Day 0
+yyyy
+31
+31 n/a 1 1
+≠ Day 0
+yyyy3 3 3 3 3
+Missing 4 1 4 1 4 1 1
+Abbreviation:  n/a, not applicable.
+Note:  If the start date imputation leads to a start date that is after the stop date, then do not impute the start date.
+1 = impute the date of D ay 0.
+2 = impute the first of themonth .
+3 = impute January 1 of the year .
+4 = impute January 1 of the stop year .I I I I I I I I 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 38 08 July 2019Imputation rules for partial or missing death dates:
+If death year and month are available ,but day  is missing:
+If mmyyyy for the last date known to be alive = mmyyyy  for death date, set death date to 
+the day  after the last date known to be alive .
+If mmyyyy for the last date known to be 
+alive < mmyyyy  for death date, set death date to 
+the first day  of the death month.
+If mmyyyy for last date known 
+to be alive > mm yyyy for death date, data error and do 
+not impute.
+If both month and day  are missing for death date or a death date is completely  missing, do 
+not impute , and censor the subject survival time at the analysis data cutoff date or the last 
+date known to be alive , whichever is later .
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 39 08 July 2019Appendix 2. Sample Adverse Event Table Layouts
+Sample Adverse Event (AE) Summary Layout 1:   All AE summaries listed in Section 9.6.1
+will be provided in format 1 (“Gr 1” and “Gr 2” columns are not needed for “Grade 3 or higher” 
+summary  tables).  The preferred terms will be sorted by  descending order of frequency  of the 
+“Any
+” column.
+Table 2. Subject Incidence of <AE Descriptor> A Es byPreferred Term 
+(Worst Grade )
+Any Gr 1 Gr2 Gr 3
+Gr 4 Gr 5
+Any <AE descriptor > adverse event 
+–n(%)XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+Preferred term 1 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+Preferred term 2 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+Abbreviation s:  AE, adverse event ; Gr, Gr ade.
+Sample Adverse Event Summary Layout 2:  AE summaries may also be provided in format 2
+(“Gr 1” and “Gr 2” columns are not needed for “Grade 3 or higher” summary  tables) .  The 
+system organ classes and preferred terms will be sorted by
+ alphabetical order of s ystem organ 
+class and descending incidence of preferred term within each s ystem organ class.
+Table 3. Subject Incidence of <AE Descriptor> AE s by System Organ Class 
+and Preferred Term (Worst Grade )
+Any Gr 1 Gr 2 Gr 3 Gr 4 Gr 5
+Any <AE descriptor > adverse event 
+–n(%)XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+System  Organ Class 1 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+     Preferred term 1 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+     Preferred term 2 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+System  Organ Class 2 XX (X) XX (X) XX (X) XX (X) XX (X) XX (X)
+…
+Abbreviation s:  AE, adverse event ; Gr, Gr ade.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 40 08 July 2019Appendix 3. Derivation of Time to Event Endpoints and Last Date Known to Be 
+Alive
+Additional detail on the derivations of duration of response (DOR) , duration of response to 
+retreatment 
+(DORR) , progression- free survival (PFS) , and overall survival (OS) isprovided 
+below.
+1) DOR
+DOR is defined onl y for subjects who experience an objective response (CR or PR) and is the 
+time from the first objective response to disease progression or death.  Response and progression 
+may be defined per Central Read or Investigator Read. Data from re treatment period will not be 
+included for anal ysis. Subjects not meeting the criteria for progression or death by the analy sis 
+data cutoff date will be censored at their last evaluable disease assessment date.  DOR will be 
+derived using disease assessments obtained on study  prior to initiation of new anti -cancer 
+therap y.  The DOR for subjects who undergo stem cell transplant ( SCT)while in remission will 
+be censored at the last evaluable disease assessment date prior to SCT; the DOR for subjects that 
+undergo other new anti -cancer therapies in the absence of documented relapse will be censored 
+at the last evaluable disease assessment prior to the new anti -cancer therapies. A sensitivity  
+analysis will be conducted in which disease assessments and de ath information obtained after 
+SCT are included in the derivation of duration of response.  
+Table 4. Primary A nalysis of D O R
+Circumstance Event/Censored Date of Event/Censoring
+Disease progression prior to initiation of new 
+anti-cancer therapy (including SCT)Event Progression date
+Death without documented disease progression and 
+without new anti -cancer therapy (including SCT)Event Death date
+Remain in response without new  anti-cancer 
+therapy (including SCT) Censored Last evaluable disease assessment date
+Initiated new anti -cancer therapy ( including SCT) 
+prior to documented progression or deathCensoredLast evaluable disease assessment date 
+prior to initiation of new therapy
+including SCT
+Remain in response without new  anti-cancer 
+therapy (including SCT) until withdrawal of consent 
+or loss to follow -upCensored Last evaluable disease assessment date 
+Abbreviations:  DOR, duration of response; SCT, stem cell transplant. 
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 41 08 July 2019Table 5. Sensitivity A nalysis of D O R (to include data after SCT post study 
+treatment )
+Circumstance Event/Censored Date of Event/Censoring
+Disease p rogression after SCT ,but prior to other 
+new anti -cancer therapyEvent Progression date
+Death after SCT without documented progression
+and other new anti -cancer therapyEvent Death date
+Remain in response after SCT without other new 
+anti-cancer therapyCensoredLast evaluable disease assessment date
+after SCT
+Remain in response after SCT prior to other 
+initiated new anti -cancer therapyCensoredLast evaluable disease assessment date 
+after SCT but prior to other initiated 
+new anti -cancer therapy
+For subjects w ithout SCT and all the other circumstances, follow  the same as the “Prim ary Analysis of DOR .”
+Abbreviations:  DOR, duration of response; SCT, stem cell transplant. 
+2)DORR
+DORR is defined the same as DOR, except that the definition applies to the response after 
+KTE- X19/ axicabtagene ciloleucel retreatment.   
+3)PFS
+PFS is defined as the time from the anti-CD19 CAR T cells infusion date to the date of disease 
+progression or death from any  cause.  Progression may  be defined per Central Read or 
+Investigator Read. For PFS anal ysis with the full anal ysis set in which enrolled but not treated 
+subjects are included, the PFS time will be calculated as the time from the enrollment date to the 
+date of disease progression or death from an y cause. Data from retreatment period 
+will not be 
+included for anal ysis. Subjects alive andnot meeting the criteria for progression by  the analy sis 
+data cutoff date will be censored at their last evaluable disease assessment date.  PFS will be 
+derived using disease assessments obtained on study  prior to initiation of new anti -cancer 
+therap y(including SCT) .  The PFS for subjects who undergo SCT while in remission will be 
+censored at the last evaluable disease assessment date prior to SCT; the PFS for subjects that 
+undergo other new anti -cancer therapies in the absence of documented relapse will be censored 
+at the last evaluable disease assessment prior to the new anti -cancer therapies. A sensitivity  
+analysis will be conducted in which disease assessments and death information obtained after 
+SCT are included in the derivation of PFS.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 42 08 July 2019Table 6. Primary Analysis of PFS
+Circumstance Event/Censored Date of Event/Censoring
+Disease progression prior to initiation of new 
+anti-cancer therapy (including SCT)Event Progression date
+Death without documented disease progression and 
+without new anti -cancer therapy (including SCT)Event Death date
+Remain in response and alive without new 
+anti-cancer therapy (including SCT) CensoredLast evaluable disease assessment 
+date
+Initiated new anti -cancer therapy ( including SCT) 
+prior to documented progression or deathCensoredLast evaluable disease assessment date 
+prior to initiation of new therapy
+including SCT. If no evaluable disease 
+assessment is available, then censor at 
+anti-CD19 CAR T cells infusion date
+Remained in response without new anti -cancer 
+therapy (including SCT) until withdrawal of consent 
+or loss to follow -up CensoredLast evaluable disease assessment 
+date. If no evaluable disease 
+assessment is available, then censor at 
+anti-CD19 CAR T cells infusion date
+Subject enrolled and treated with anti -CD19 CAR T 
+cells but the disease assessment has not been doneCensored Anti-CD19 CAR T cells infusion date
+Abbreviations:  PFS, progression -free survival; SCT, stem cell transplant.
+Table 7. Sensitivity Analysis of PFS
+Circumstance Event/Censored Date of Event/Censoring
+Disease p rogression after SCT ,but prior to other 
+new anti -cancer therapyEvent Progression date
+Death after SCT without documented progression
+and other new anti -cancer therapyEvent Death date
+Remain in response after SCT without other new 
+anti-cancer therapyCensoredLast evaluable disease assessment date
+after SCT
+Remain in response after SCT prior to other 
+initiated new anti -cancer therapyCensoredLast evaluable disease assessment date 
+after SCT but prior to other initiated 
+new anti -cancer therapy
+Forsubjects w ithout SCT and all the other circumstances, follow  the s ame derivation rule as the “Prim ary Analysis 
+of PFS .”
+Abbreviations:  PFS, progression -free survival; SCT, stem cell transplant.
+4)OS
+OS is defined as the time from the anti-CD19 CAR T cells infusion to the date of death from an y 
+cause . For OS analy sis with the full analy sis set, the OS time will be calculated as the time from 
+the enrollment date to the date of death from an y cause. Subjects who have not died by  the 
+analysis data cutoff date will be censored at the last date known to be alive or the data cutoff 
+date, whichever is earlier.
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 43 08 July 2019Table 8. Analysis of OS
+Circumstance Event/Censored Date of Event/Censoring
+Death before data cutoff date for analysis Event Date of death
+Death after data cutoff date for analysis Censored Data cutoff date
+Known to be alive after data cutoff date for analysis Censored Data cutoff date
+Alive up through data cutoff date and no further 
+information available after data cutoff dateCensored Last date known to be alive 
+Full w ithdrawal of consent or lost to follow -up prior 
+to data cutoff dateCensored Last date known to be alive 
+Abbreviation:  OS, overall survival.
+5)Last Date Known to be Alive
+The last date known to be alive with be derived by  obtaining the maximum complete date among 
+the following data modules:
+Start date of AE
+Leukapheresis dates
+Bridging therap y administration dates
+Conditioning chemo admin istration dates
+anti-CD19 CAR T cells infusion dates
+Computerized tomograph y (CT)scan dates
+Positron emission tomograph y (PET)scan dates
+Clinical sy mptoms of l ymphoma assessment dates
+Target lesion assessment
+Non-target lesion assessment
+New lesion assessment
+Other tumor assessment dates (Bone marrow and spleen assessments)
+Disease response assessment
+Long -term follow -up subject status date where status = alive
+End of treatment disposition where status is not equal to death, lost to follow - up
+End of Month 3 disposition where status is not equal to death, lost to follow -up
+End of study data where end of study  reason is not equal to death, lost to follow -up
+
+KTE -X19
+Statistical Analysis Plan Kite Pharma, Inc.
+KTE -C19-102 (ZUMA -2) Final
+CONFIDENTIAL Page 44 08 July 2019Appendix 4. Derivation of Simplified M antle Cell Lymphoma International 
+Prognostic Index
+The simplified Mantle Cell Lymphoma International Prog nostic Index (s-MIPI)will be derived 
+as described in Hoster {Hoster 2008}. 
+Table 9. Simplified Mantle Cell Lymphoma International Prognostic Index
+Points Age, y r ECOG LDH , ULN WBC, 109/L
+0 <50 0to 1 <0.67 < 6.700
+1 50to 59 NA 0.67 to 0.99 6.700 to 9.999
+2 60to 69 2to 4 1.000 to 1.49 10.000 to 14.999
+3 ≥70 NA ≥1.5000 ≥15.000
+Abbreviations:  ECOG, Eastern Cooperative Oncology Group; LDH, lactate dehydrogenase; NA, not applicable ; ULN, upper 
+limit of normal; WBC, white blood count; yr; year.
+For each prognostic factor, 0 to 3 points will be given to each subject and points will be summed 
+up to a maximum of 11 points . Subject s with 0 to 3 points in summary  will be classified as low 
+risk, subject s with 4to5 points as intermediate risk, and subjec ts with 6 to 11 points as high risk. 
+Eastern Cooperative Oncology  Group ( ECOG) performance status will be weighted with 2 points 
+if subject s areunable to work or bedridden (ECOG 2 to 4). Lactate deh ydrogenase ( LDH )will 
+be weighted according to the ratio to the upper limit of normal. Thus, for an upper limit of 
+normal of 240 U/L, the cutpoints w ill be 180 U/L , 240U/L, and 360U/L, for example.
+That is, Simplified Mantle Cell Ly mphoma International Prognostic Index ( s -MIPI)score = sum 
+of the points for age, ECOG performance status , LDH, and white blood count from the above 
+table. The s -MIPI score can be classified into 3 risk categories as follows .
+Table 10. Risk Category Based on s -MIPI
+s-MIPI score Risk Category
+0 to3 Low risk
+4 to5 Intermediate risk
+6 to11 High risk
+Abbreviation:  s-MIPI , simplified Mantle Cell Lymphoma International Prognostic Index .

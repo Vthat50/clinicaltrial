@@ -1,0 +1,71 @@
+Preliminary Analysis 
+ 
+ 
+To assess for possible differences between the conditions at baseline, demographic 
+characteristics (age, gender, sexual orientation, race, year in school, Hispanic ethnicity), and 
+baseline symptom measures (BDI-FS, PHQ-9, DASS-SF, PANAS, BADS-SF) will be compared. 
+Chi-square analysis will be used for categorical measures, and independent samples t-tests will 
+be used for continuous measures. Finally, the number of missing daily survey responses would 
+be compared across conditions using an independent samples t-test, and the proportion of 
+missing mid-treatment, post-treatment, and follow-up survey responses would be compared 
+across conditions using Chi-square tests. 
+ 
+Outcome Analysis 
+ 
+ 
+Linear mixed effects models will be used to model change in symptom measures (BDI-
+FS, PHQ-9, DASS-SF, PANAS, BADS-SF) from baseline to each of the mid-treatment, post-
+treatment, and follow-up timepoints. Models will include random effects for the intercept and 
+fixed effects for the intercept, condition (BA vs. SM), three time contrasts (baseline vs. each 
+subsequent timepoint), and interactions between condition and each of the time contrasts. This 
+model will allow for outcome variable scores to be estimated at each individual time point for 
+each group. Terms of primary interest include the main effect of treatment, which indicates the 
+difference in symptoms across conditions on average across all time points, as well as the 
+interaction between time and condition, which indicates the difference in symptom change across 
+conditions. The main effect of treatment in these models will be interpreted to indicate the 
+overall effect of the intervention on the outcomes, as recommended by Mallinckrodt et al. 
+(2008). Additionally, the omnibus treatment-by-time interaction will be interpreted to indicate 
+the overall difference across conditions in symptom change from baseline. Additionally, planned 
+analyses include examining the time-point specific interactions between treatment condition and 
+time (i.e., interaction of treatment condition and each of baseline-to-mid-treatment time, 
+baseline-to-post-treatment time, and baseline-to-follow-up time) and examining the simple effect 
+of treatment at each time-point after baseline (mid-treatment, post-treatment, follow-up). These 
+analyses will allow indexing the overall treatment effect as well as the effect of treatment on 
+symptom change from baseline to specific time-points. Missing data in all models will be 
+handled using full information maximum likelihood estimation. 
+ 
+Exploratory Analysis 
+ 
+ 
+To examine treatment satisfaction, I will calculate descriptive statistics on the Mental 
+Health Satisfaction Questionnaire scores within each condition and compare means using an 
+independent samples t-test. Additionally, to examine daily changes in PANAS and BADS-SF 
+scores during the 14-day intervention period, I will plot average scores over time within 
+conditions and conduct mixed effects models with linear and/or nonlinear time effects to capture 
+change over time in each condition. Given the richness of this longitudinal daily data, including 
+the possibility for a range of nonlinear change patterns, the modeling approach will be chosen 
+following visualization of scores over time, time series residual diagnostics (e.g., tests of residual 
+autocorrelation), model fit criteria (e.g., chi-square difference tests, Akaike Information Criteria, 
+and Bayesian Information Criteria comparisons across candidate models). Candidate models 
+include linear mixed models with and without polynomial growth terms, generalized additive 
+models, and linear mixed models with autoregressive and/or moving average error structures. 
+The key goal of these analyses will be to characterize as accurately and parsimoniously as 
+possible the change in daily symptoms over time within the two conditions. Missing data in all 
+models will be handled using full information maximum likelihood estimation. 
+Finally, to examine mechanisms of change, I will conduct structural equation models 
+examining changes in BADS-SF scores from pre-treatment to mid-treatment as a mediator of the 
+effect of treatment condition on change in BDI-FS scores from pre-treatment to post-treatment. 
+As with the daily diary data, this longitudinal analysis could be modeled in a number of possible 
+ways; with this in mind, a mediation model will be selected based on examining model fit 
+criteria and convergence for several possible models. One relatively simple possible model 
+would involve specifying treatment condition as a predictor of mid-treatment BADS-SF scores, 
+and modeling both treatment condition and mid-treatment BADS-SF scores as predictors of post-
+treatment BDI-FS scores, and examining the indirect effect using bootstrapping. On the other 
+hand, a more complex model would modeling longitudinal state-like relationships between 
+BADS-SF and BDI-FS over the three time-points using either random intercepts cross-lagged 
+panel modeling or latent change score modeling, and examining if the longitudinal relationship 
+between state-like changes in BADS-SF explain treatment condition’s effect on BDI-FS. Again, 
+the goal would be to select the most accurate and parsimonious model that will fit the data. 
+Missing data in all models will be handled using full information maximum likelihood 
+estimation. 
+ 

@@ -1,0 +1,13 @@
+IMPUTATION OF DATES 
+Incomplete Cancer Diagnosis 
+If day is missing, day will be set to 15th of the month, or date of first dose, whichever is 
+earlier. If month and day are missing, month and day will be set to July 1st, or date of first 
+dose, whichever is earlier. 
+AE 
+If onset date is completely missing, onset date is set to date of first dose unless end date is 
+before date of first dose, in which case the onset date is set to 28 days prior to end date. 
+If (year is present and month and day are missing) or (year and day are present and month is 
+missing): 
+BeyondSpring Pharmaceuticals, Inc. 
+Protocol: BPI-2358-105 
+Phase 2

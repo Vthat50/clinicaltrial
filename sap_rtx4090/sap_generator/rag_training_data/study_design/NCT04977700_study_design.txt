@@ -1,0 +1,101 @@
+Overview and Timeline 
+In the two-year R21 research (see timeline in Section 2.7. Form E), we will conduct rigorous formative 
+research and pilot-testing of the Strava Sun (SS) intervention. We will create study protocols in Month 1. 
+Outdoor exercisers (Strava users and non-users) will give input on initial concepts for SS in focus groups 
+during Months 2-5. An algorithm that predicts time of day and day of week exercising outdoors during high UV 
+will be built using retrospective Strava user data in Months 6-8. In Months 9-15, a prototype of the SS database 
+will be created and messages and delivery methods tested for usability/acceptability. In Months 16-21, 
+feasibility of SS will be tested in a pilot field trial with Strava users. While the many aims are to establish 
+methodologic feasibility, analysis of the pilot field trial in Months 22-24 will test the hypothesis that SS will 
+improve sun protection. To achieve the ambitious timeline, we will use protocols and methods developed in 
+prior research (see Box 2 and 3). All procedures will be approved by the Western Institutional Review Board.  
+3C.2. Target Population: Outdoor Exercisers on Strava 
+Target population will be users of the Strava social network. Inclusion criteria include a) being 18 or older, b) 
+U.S. resident, c) engaging in regular physical activity outdoors (at least 156 times in past year [3 times per 
+week]), and d) consenting. All participants except non-Strava users in focus groups will: e) be tenured Strava 
+members (for 1+ full calendar year), f) upload at least 13 activites to Strava in past month (i.e., 3 per week), 
+and g) give permission for us to access their activity data. Strava has 42 million members worldwide, providing 
+a very large user population. All recruiting, besides for focus groups, will occur by invitations through Strava 
+(e.g., posting in clubs). Interested users will click a link to a study registration website. We cannot screen 
+users based on inclusion criteria on Strava directly, so interested trial participants will complete a screener 
+on the study website to determine eligibility. We expect participants to regularly participate in outdoor 
+exercise, thus being a high-risk group, and to actively use Strava.  
+3C.3. Formative Focus Groups (Specific Aim 1) 
+Four focus groups will be conducted with adults who engage in outdoor physical 
+activity and use Strava, or not, in Colorado in Months 4-5 (compensation=$50). 
+Using Facebook and investigators’ networks, we will recruit a variety of 
+exercisers, including those who use Strava for recreation only and for competitive 
+training. Though not mutually exclusive, we will attempt to segment groups by 
+these uses. Strava users (n=2 focus groups; n=16 total; 8 male, 8 female) will 
+discuss a) Strava use, b) exercise behaviors, c) concerns about privacy, d) 
+willingness to receive sun safety advice while exercising and e) use of sun 
+protection while exercising. To explore interest in sun safety advice by those who 
+track physical activity through other means, non-Strava users (n=2 focus groups; 
+n=16 total; 8 male, 8 female; matched to Strava users in focus groups on race, 
+gender, and activity type) will discuss exercise behavior, privacy concerns, and 
+why they do not use Strava. Both groups will discuss time of day/day of week and 
+season they exercise outdoors, activity type, sun safety intentions, tanning 
+desirability, barriers to sun safety while physically active, SS concept, preferred 
+sun safety content/delivery methods, barriers to using SS, utility/acceptability of 
+sun safety advice through Strava, potential competitive advantages of sun safety, 
+willingness to use the advice while exercising, and privacy concerns. We will not 
+segment focus groups by age, but will examine age for differences in tailoring preferences. Transcripts will be 
+coded and analyzed using ATLAS.ti.® For this resubmission, we pilot-tested the focus group protocol (Box 1). 
+3C.4. Development of Algorithms (Specific Aim 2) 
+Dr. Anderson, Dr. Henry, and a computer science graduate student will develop a model that can predict 
+impending outdoor physical activity by Strava users during high UV based on their uploaded activity records 
+and relevant ambient factors (e.g., weather) and prescribe timely sun safety advice. We will use data-driven 
+machine learning analytics to develop an algorithm that forecasts the next outdoor physical activity bout, 
+assuming past behaviors and situational contexts predict future behavior.  
+3C.4.1. Collect Retrospective Activity Data. Data from 1,000 tenured adult Strava users in the 4 U.S. 
+Census regions will be obtained. Eligibility criteria includes: 1+ full calendar year of activities; at least 156 
+activities [3 per week] in past year; 18 and older; U.S. resident. Users will consent for their data to be 
+accessed and a full calendar year of all Strava data will be procured, including following variables, which are 
+all available through the Strava API80: distance, moving time, pace, elapsed time, start time, end time, date, 
+type of activity (e.g., run; ride; swim), and gear used. These data will be paired with calendar data (i.e., day of 
+week, season, holidays) and weather data from National Oceanic and Atmospheric Administration databases 
+(i.e., temperature; precipitation; humidity; UV level; wind) to create a multivariate time series of data for each 
+user. This data will be subjected to machine learning analytics to develop an algorithm that forecasts the 
+likelihood that the user will engage in outdoor activity in near future (duration of reliable prediction will be 
+modeled), including the nature of exercise bout (e.g., length of time; UV level). We will recruit users by posting 
+in clubs, a popular Strava feature (e.g., Strava Club has over 662,800 members81). We will post in various 
+clubs until 1,000 eligible members are enrolled. Participants will receive an authentication screen (see Figure 
+1) that identifies data we will access and how it will be used. We will raffle off 10 $50 gift cards as an incentive.
+3C.4.2. Use Machine Learning (AI) to Predict Outdoor Activity. Deep learning analytics, a branch
+of machine learning that mimics structures of the human brain, are innovative techniques that give more 
+flexibility and are typically more accurate than autoregressive integrated moving average (ARIMA) models.82,83 
+To predict future outdoor activity, we will use a type of artificial neural network, Recurrent Neural Network 
+(RNN), well-suited to temporal prediction,84 along with a Long Short-Term Memory (LSTM) approach.85 LSTM 
+neural network can learn long-term patterns and dependencies and provide stability to prediction algorithm by 
+evaluating when it is advantageous to remember or forget previous state, making assessing typically intractable 
+problems with very complex data possible. LSTM has been applied to several temporal processing problems in 
+public health, including influenza,86 colorectal cancer,87 and fall prevention.88 We will build a machine learning 
+model using Keras and TensorFlow in R. First, we will split time-series data into a training set and a validation 
+set of users, in an 80/20 split. We will train a LSTM neural network on the training set. Once trained, we will 
+layer on auxiliary calendar and weather data to try to reduce the model’s error and maximize predictive power. 
+We will compare models using several fit indices: Mean Absolute Percentage Error, Root Mean Squared Error, 
+and Root Mean Squared Percentage Error, and plot predicted scores across each model with observed scores to 
+determine closest match. We will apply the model with best fit and most accurate prediction to time-series in 
+validation set to assess how well it predicts new data.  
+3C.4.3. Integrate Predicted Outdoor Activity with Sun Protection Advice. Algorithms from our 
+sunZapp mobile app71 (see Box 2) will be employed to tailor sun safety advice to predicted outdoor physical 
+activity and personal risk of Strava users. Machine learning model will predict users’ risk of UV-exposure 
+(i.e., timing and duration of outdoor exercise). Users’ personal risk (i.e., skin type: hair and eye color and 
+skin tanability89) will be collected in SS user profile when first accepted by Strava users. We will use 5-day 
+Planner in sunZapp to combine predicted time and duration of outdoor activity bout, forecast UV Index, and 
+personal risk to calculate Strava users’ time to sunburn and provide tailored sun safety advice, based on the 
+World Health Organization’s (WHO) Global UV Index guidelines.90  To be modified based on results from 
+focus groups, we plan to deliver the advice in the evening and morning before the predicted outdoor physical 
+activity bout (and during extended bouts) through Strava comments and emails (see 3C.5.). Because Strava 
+users get notified by email and in the app, they likely will see the message before their next outdoor activity.  
+Box 2: Prior Research on Sun Safety Advice Algorithms 
+Under a contract from NCI (HHSN261200900025C), Dr. Buller and KB programmers created algorithms to 
+deliver real-time tailored sun safety advice over a mobile app, sunZapp.71 Algorithms first converted hourly 
+UV Index forecast for each 0.5° latitude-longitude grid worldwide published daily by National Oceanic and 
+Atmospheric Administration to UV radiation level. Using skin sun sensitivity input by the user, it calculated 
+time to receive 1 MED of UV (i.e., sunburning dose) to tailor advice on timing of precautions. Algorithms also 
+adjusted UV dose for sunscreen application/reapplication based on sun protection factor (SPF) and for use 
+of shade. Sun protection advice followed WHO’s UV Index guidelines.90 Amount of sunscreen was adjusted 
+for percent of skin uncovered by clothing. In two trials with national adult samples,59,91 sunZapp’s advice 
+improved users’ sun safety. In the first trial (n=604 adults from nationwide survey panel)
+... [truncated]

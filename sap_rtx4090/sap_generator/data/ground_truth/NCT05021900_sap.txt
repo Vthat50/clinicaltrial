@@ -1,0 +1,9131 @@
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 1 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol No. RP6530-2101 
+ 
+A Phase II, Multi-center, Randomized, Open label, two arm Study to Assess the Efficacy and 
+Safety of Tenalisib (RP6530), a PI3K δ/γ and SIK3 Inhibitor, in patients with Locally 
+Advanced or Metastatic Breast Cancer 
+ 
+Statistical Analysis Plan 
+ 
+Prepared for: 
+Rhizen Pharmaceuticals AG 
+ 
+ 
+Final Version 1.0 Date 12MAY2023 
+ 
+ 
+Prepared by: 
+Labcorp Drug Development 
+Clinical Development Commercialization Services 
+Princeton, NJ  
+VERSION HISTORY OF IMPLEMENED PLANS  
+Version 
+Date 
+Revision Author 
+Comments 
+NA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 2 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Table of Contents 
+ 
+ 
+ 
+1. 
+LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS .................................................................... 3 
+2. 
+INTRODUCTION ................................................................................................................................................. 4 
+3. 
+STUDY OBJECTIVES ........................................................................................................................................ 4 
+4. 
+STUDY DESIGN .................................................................................................................................................. 5 
+4.1 GENERAL DESIGN .................................................................................................................................................. 5 
+4.2 DISCUSSION OF STUDY DESIGN ............................................................................................................................ 5 
+4.3 METHOD OF ASSIGNMENT OF PATIENTS TO TREATMENT GROUPS .................................................................... 5 
+4.4 BLINDING................................................................................................................................................................. 5 
+4.5 DETERMINATION OF SAMPLE SIZE ........................................................................................................................ 6 
+5. 
+CHANGES IN THE CONDUCT OF THE STUDY OR PLANNED ANALYSES ........................................ 6 
+5.1 CHANGES IN THE CONDUCT OF THE STUDY ......................................................................................................... 6 
+5.2 CHANGES FROM THE ANALYSES PLANNED IN THE PROTOCOL ........................................................................... 6 
+6. 
+BASELINE, EFFICACY AND SAFETY EVALUATIONS ............................................................................. 6 
+6.1 SCHEDULE OF EVALUATIONS................................................................................................................................. 6 
+6.2 TIME POINT ALGORITHMS ...................................................................................................................................... 8 
+6.2.1 Relative Day.................................................................................................................................................. 8 
+6.2.2 Windows ........................................................................................................................................................ 9 
+6.3 BASELINE ASSESSMENTS ...................................................................................................................................... 9 
+6.4 EFFICACY VARIABLES ............................................................................................................................................ 9 
+6.4.1 Primary Efficacy Variable ......................................................................................................................... 9 
+6.4.2 Secondary Efficacy Variables .................................................................................................................. 9 
+6.4.3 Additional Efficacy Variables................................................................................................................. 10 
+6.5 DRUG CONCENTRATION MEASUREMENTS AND PHARMACOKINETIC PARAMETERS ......................................... 10 
+6.5.1 Handling of Pharmacokinetic Parameter Outliers............................................................................ 10 
+6.6 SAFETY ASSESSMENTS ....................................................................................................................................... 10 
+6.6.1 Duration of Treatment Exposure and Compliance to Study Treatment ..................................... 10 
+6.6.2 Clinical Laboratory Evaluations ............................................................................................................ 11 
+6.6.3 Other Observations Related to Safety ................................................................................................. 11 
+• 
+Vital Signs ...................................................................................................................................................................................... 11 
+• 
+Electrocardiogram (ECG) ............................................................................................................................................................ 11 
+• 
+Physical Examination ................................................................................................................................................................... 11 
+• 
+ECOG Performance Status ......................................................................................................................................................... 11 
+• 
+Medical and Surgical History ....................................................................................................................................................... 11 
+• 
+Prior and Concomitant Medications ........................................................................................................................................... 11 
+6.7 PHARMACODYNAMICS PARAMETERS .................................................................................................................. 11 
+7. 
+STATISTICAL METHODS ............................................................................................................................... 11 
+7.1 GENERAL METHODOLOGY ................................................................................................................................... 11 
+7.2 ADJUSTMENTS FOR COVARIATES ........................................................................................................................ 12 
+7.3 HANDLING OF DROPOUTS OR MISSING DATA .................................................................................................... 12 
+7.4 INTERIM ANALYSES AND DATA MONITORING ...................................................................................................... 13 
+7.5 MULTI-CENTRE STUDIES AND POOLING OF CENTRES ....................................................................................... 13 
+7.6 MULTIPLE COMPARISONS/MULTIPLICITY ............................................................................................................ 13 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 3 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+7.7 USE OF AN “EFFICACY SUBSET” OF PATIENTS ................................................................................................... 14 
+7.8 ACTIVE-CONTROL STUDIES INTENDED TO SHOW EQUIVALENCE ..................................................................... 14 
+7.9 EXAMINATION OF SUBGROUPS ............................................................................................................................ 14 
+8. 
+STATISTICAL ANALYSIS .............................................................................................................................. 14 
+8.1 DISPOSITION OF PATIENTS .................................................................................................................................. 14 
+8.2 PROTOCOL DEVIATIONS ...................................................................................................................................... 14 
+8.3 ANALYSIS POPULATIONS ..................................................................................................................................... 14 
+8.3.1 Safety Population ...................................................................................................................................... 14 
+8.3.2 Intent-to-Treat (ITT) Population ............................................................................................................. 14 
+8.3.3 Protocol (PP) Population ........................................................................................................................ 15 
+8.3.5 Pharmacokinetics (PK) population ...................................................................................................... 15 
+8.4 DEMOGRAPHIC AND OTHER BASELINE CHARACTERISTICS ............................................................................... 15 
+8.5 PRIOR AND CONCOMITANT THERAPY ................................................................................................................. 15 
+8.6 PRIOR THERAPIES ................................................................................................................................................ 16 
+8.7 ANALYSIS OF EFFICACY PARAMETERS ............................................................................................................... 16 
+8.7.1 Analysis of Primary Efficacy Variable ................................................................................................. 16 
+8.7.2 Analysis of Secondary Efficacy Variables ......................................................................................... 17 
+8.7.3 Analysis of Pharmacokinetic Variables .............................................................................................. 18 
+8.7.4 Subgroup Analyses .................................................................................................................................. 18 
+8.8 ANALYSIS OF SAFETY .......................................................................................................................................... 18 
+8.8. 1 Duration of Treatment Exposure and Compliance to Study Treatment .................................... 18 
+• 
+Duration of Treatment .................................................................................................................................................................. 18 
+• 
+Measurements of Treatment Compliance ................................................................................................................................. 18 
+8.8.2 Adverse Events ......................................................................................................................................... 19 
+8.8.3 Clinical Laboratory Evaluations ............................................................................................................ 20 
+8.8.4 Other Observations Related to Safety ................................................................................................. 21 
+• 
+Vital Signs .................................................................................................................................................................................... 21 
+• 
+Physical Findings ....................................................................................................................................................................... 21 
+• 
+Electrocardiogram ...................................................................................................................................................................... 21 
+• 
+Medical and Surgical history ................................................................................................................................................... 21 
+• 
+ECOG ............................................................................................................................................................................................. 21 
+• 
+Additional listings ...................................................................................................................................................................... 21 
+8.9 PHARMACODYNAMICS .......................................................................................................................................... 22 
+9. 
+COMPUTER SOFTWARE ............................................................................................................................... 22 
+10. 
+REFERENCES .................................................................................................................................................. 22 
+11. 
+APPENDICES .................................................................................................................................................... 22 
+12. 
+TABLE SHELLS AND SPECIFICATIONS ................................................................................................... 22 
+ 
+ 
+ 
+1. LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS 
+ 
+Table 1: Abbreviations and Definitions of Terms 
+ 
+ 
+Add or remove as necessary 
+AE(s) 
+adverse event(s) 
+b.i.d. 
+twice daily 
+BUN 
+blood urea nitrogen 
+CI 
+confidence interval 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 4 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+CR 
+Complete response 
+CRF 
+case report form 
+ECG 
+electrocardiogram 
+FDA 
+Food and Drug Administration 
+HDL 
+high-density lipoprotein 
+HEENT 
+head, eyes, ears, nose, and throat 
+HIV 
+human immunodeficiency virus 
+ICH 
+International Council for Harmonisation 
+IRB/IEC 
+Institutional Review Board/Independent Ethics Committee 
+ITT 
+intent-to-treat 
+LDH 
+lactate dehydrogenase 
+LDL 
+low-density lipoprotein 
+MedDRA 
+medical dictionary for regulatory activities 
+mg 
+milligram 
+n 
+number of patients 
+PR 
+Partial response 
+QTc 
+Q-T interval corrected for heart rate 
+QTc-F 
+Q-T interval corrected for heart rate using Frederica’s formula 
+SAE 
+serious adverse event 
+SAS 
+(statistical analysis software) 
+SD 
+Stable disease 
+SOC 
+system organ class 
+TEAE 
+treatment-emergent adverse event 
+WHO 
+World Health Organisation 
+ 
+ 
+ 
+2. INTRODUCTION 
+ 
+This statistical analysis plan (SAP) contains definition of analysis population(s), derived variables and 
+statistical methods for efficacy and safety analysis. 
+ 
+The SAP is written based on the following documentation: 
+Document 
+Date 
+Version 
+Protocol 
+29June2021 
+1.0 
+eCRF 
+24Sep2021 
+1.0 
+eCRF 
+16June2022 
+5.0 
+ 
+Breast cancer is the most common cancer diagnosed in women and is the second leading cause of cancer-
+related deaths. Based on these pre-clinical evidences with tenalisib and clinical evidences from other PI3K 
+inhibitors, it is proposed that tenalisib has the potential to treat the patients with locally advanced and 
+metastatic breast cancer. 
+ 
+The objective of the study is to assess the anti-tumour activity along with safety and efficacy of tenalisib at 
+two different doses in order to identify the optimal dose that shows signal of clinical efficacy with an 
+acceptable safety profile. This dose can be thus taken ahead for further development. Doses of 800 mg 
+BID and 1200 mg BID are proposed in this Phase II study. 
+ 
+ 
+3. STUDY OBJECTIVES 
+Primary Objective 
+To assess the anti-tumour activity of tenalisib in patients with locally advanced or metastatic breast cancer. 
+Secondary Objective 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 5 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+To evaluate the safety and tolerability of tenalisib. 
+Exploratory Objective 
+Changes in serum cytokines/chemokines and tumour tissue gene expression post treatment with tenalisib. 
+ 
+4. STUDY DESIGN 
+ 
+4.1 General Design 
+This is a Phase II, randomized, open label study, designed to evaluate the preliminary efficacy and safety of 
+tenalisib at two dose levels (800 mg BID and 1200 mg BID) in 40 patients with locally advanced or metastatic 
+breast cancer. Twenty patients each, will be enrolled in Group 1 (Tenalisib 800 mg BID) and Group 2 
+(Tenalisib 1200 mg BID). Both groups will run in parallel. The expected duration of patient participation in the 
+study will be approximately 24 months, unless the patient is discontinued from the study due to disease 
+progression, drug toxicity or consent withdrawal. 
+ 
+4.2 Discussion of Study Design 
+The study design flow chart is as follows: 
+ 
+ 
+4.3 Method of Assignment of Patients to Treatment Groups 
+This is a randomized, open label study. Eligible patients will be randomized to one of the two groups (Group 
+1: Tenalisib 800 mg BID and Group 2: Tenalisib 1200 mg BID) in 1:1 ratio based on the central randomization 
+list generated by a validated software. 
+ 
+4.4 Blinding 
+Blinding is not applicable as this is an open label study. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 6 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+4.5 Determination of Sample Size 
+A sample size of 20 per group will provide a precision of 13% for a two-sided 90% confidence interval based 
+on Exact (Clopper-Pearson) method assuming the percentage of patients without progression at the end of 
+6 months is 20%. Thus, a total of 40 patients (20 patients in each group) will be enrolled in the study. 
+ 
+5. 
+CHANGES IN THE CONDUCT OF THE STUDY OR PLANNED ANALYSES 
+ 
+5.1 Changes in the Conduct of the Study 
+The study was planned to administer tenalisib to all patients until disease progression or unacceptable toxicity 
+for a maximum duration of 24 months. However this was changed and the study was closed earlier before 
+all patients in the study showed disease progression. . 
+ 
+5.2 Changes from the Analyses Planned in the Protocol 
+There were no changes in the analysis planned in the protocol of the study at the time of preparing this 
+statistical analysis plan. 
+ 
+6. 
+BASELINE, EFFICACY and Safety EVALUATIONS 
+ 
+6.1 Schedule of Evaluations 
+The assessments to be conducted at each scheduled visit are displayed in the following table.  
+ 
+ 
+Table 1 
+Assessments Conducted at each Scheduled Visit  
+ 
+Table 5 : Schedule of Events  
+Cycle  
+Screening  C1  
+C2  
+C3  Monthly 
+visits  
+(C4 
+onward 
+up to 2 
+year)19  
+Efficacy 
+Visits  
+(C5, C7, 
+C9… up 
+to 2 
+year)20  
+EOT21  EOS22  
+Day  
+D-28 to 0  
+D1  D15  D1  D15  D1  D1  
+D1  
+-  
+-  
+Window period  
+-  
+ 
+±1  
+±1  ±3  
+±3  ±3  
+±7  
++7 
++30 
+Study Days  
+D-28 to 0  
+1  
+15  
+29  43  
+57  -  
+-  
+-  
+-  
+Informed Consent1  
+X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+Demographics2  
+X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+Medical history3  
+X  
+X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+Vitals4  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+Height and weight5  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+Physical examination6  X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+ECOG Performance 
+Status  
+X  
+X  
+-  
+X  
+-  
+-  
+X  
+-  
+X  
+-  
+Complete blood 
+count7  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+Chemistry panel I8  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+Chemistry panel II9  
+X  
+X  
+-  
+X  
+-  
+X  
+X  
+-  
+X  
+-  
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 7 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+HIV, HBV, HCV status  X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+PT and INR10  
+X  
+X  
+-  
+X  
+-  
+X  
+-  
+-  
+X  
+-  
+Cytokines/chemokines 
+analysis11  
+X  
+-  
+-  
+-  
+-  
+X  
+-  
+-  
+-  
+-  
+Urinalysis (routine)  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+Pregnancy test12  
+X  
+X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+12-lead ECGs13  
+X  
+X  
+-  
+X  
+-  
+X  
+-  
+-  
+X  
+-  
+Tumour biopsy14  
+X  
+-  
+-  
+-  
+-  
+X  
+-  
+-  
+-  
+-  
+Radiological 
+assessment (CT 
+and/or MRI)15  
+X  
+-  
+-  
+-  
+-  
+X  
+-  
+X  
+X  
+-  
+Bone scan16  
+X  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+Drug Dispensing17  
+-  
+X  
+-  
+X  
+-  
+X  
+X  
+-  
+-  
+-  
+Tenalisib 
+administration18  
+-  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+-  
+-  
+Drug compliance  
+-  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+-  
+AE evaluation  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+X  
+SAE evaluation  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+X  
+Concomitant 
+medication  
+X  
+X  
+X  
+X  
+X  
+X  
+X  
+-  
+X  
+X  
+Footnotes: 
+1. Patient should be re-consented, if informed consent is obtained > 30 days prior to the initiation of trial 
+treatment. The first day of tenalisib administration will be considered as C1D1. 
+2. Demographic profile will include age, sex and race. 
+3. Detailed history will be taken at screening that includes history of cancer, past history, no of prior therapies 
+and prior medication (in last 4weeks); and other medical history. Patient’s medical record must include prior 
+treatments received, dates of administration, response to prior therapies and date of progression. 
+4. Vitals will include pulse (sitting/supine); blood pressure (sitting/supine); respiratory rate and oral 
+temperature. Vitals will be done at pre-dose at all visits. 
+5. Weight will be measured at all visits. Height to be measured at screening only. 
+6. Physical examination will include systemic examination (General Appearance, HEENT, neck, 
+cardiovascular, lungs, abdomen, extremities, neurological, skin, and musculoskeletal). Complete physical 
+examination will be done at screening visit. At subsequent visits, abbreviated examination will be done 
+depending on the assessment of tumour. 
+7. This will include Hb, complete blood count, total leucocyte and differential count and platelet count. 
+Additional investigations will be performed if clinically indicated. Hematology must be done ≤ 7 days prior to 
+initiation of treatment. However, if these initial examinations are obtained within 72 hours of C1D1; they do 
+not have to be repeated. 
+8. Chemistry Panel I include blood glucose, albumin, total protein, total bilirubin, ALP, AST, ALT, GGT, LDH, 
+urea or blood urea nitrogen, creatinine, sodium, potassium, chloride, calcium, phosphorus. These tests must 
+be done ≤ 7 days prior to initiation of treatment. However, if these initial examinations are obtained within 72 
+hours of C1D1; they do not have to be repeated. These tests will be performed at supplementary visits if 
+clinically indicated. 
+9. Chemistry Panel II includes total cholesterol, TG, LDL, HDL, T3, T4 and TSH. These tests must be done 
+≤ 7 days prior to initiation of treatment. However, if these initial examinations are obtained within 72 hours of 
+C1D1; they do not have to be repeated. These tests will be performed at supplementary visits if clinically 
+indicated. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 8 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+10. The tests must be done ≤ 7 days prior to initiation of treatment. However, if initial examination is obtained 
+within 72 hours of C1D1; this does not have to be repeated. This test will be performed at supplementary 
+visits if clinically indicated. 
+11. Blood will be collected in all patients for serum cytokine/chemokine estimation at screening (baseline) 
+and at C3D1. 
+12. This is required for women of child-bearing potential. A serum pregnancy test will be performed at 
+screening and 72 hours prior to dosing. Urine pregnancy test will be performed at other visits as indicated. 
+13. ECGs will be performed at screening and C1D1 pre-dose to establish baseline cardiac activity. Additional 
+ECGs will be obtained if clinically indicated. All ECGs will be performed on local equipment. 
+14. A tumour biopsy will be performed in 10-12 patients who have consented for the biopsy. The biopsy will 
+be done after eligibility confirmation prior to the first dose on C1D1. A second tumour biopsy sample will be 
+taken at C3D1. 
+15. CT and/ or MRI will be performed at the time of screening within 28 days of screening. Disease will be 
+re-assessed at C3D1 (± 7 days) and approximately 8 weeks thereafter (± 7 days), and/or at the EOT (not 
+required if done within last 28 days) and/or as clinically indicated (if clinical progression is suspected). If a 
+CR or PR is noted, confirmatory scans should be performed at least 4 weeks after the initial response was 
+first documented. Tumour imaging should remain consistent throughout the study and should include those 
+thought by investigator to best capture status of disease. (Baseline scan, if already available as SOC within 
+28-days of screening is accepted as part of study protocol). Any other sites at which new disease is suspected 
+should also be appropriately imaged. 
+16. Bone scan will be done at the baseline when progression in bone is suspected. Bone scans need to be 
+repeated only when complete response is reported in target disease or when progression in bone is 
+suspected. 
+17. Tenalisib will be dispensed in a HDPE container having 30 tablets of tenalisib. 
+18. Tenalisib will be administered orally twice a day in 28-days of cycle. Tenalisib will be continued in patients 
+experiencing clinical benefit for 24 months unless progression of disease or toxicity is observed warranting 
+discontinuation of therapy. 
+19. All visits will be done monthly from Cycle 3 onwards for 24 months (e.g. C4, C5, C6…. C26). 
+20. All visits for efficacy assessments will be done at 8-weekly intervals (± 7 days) for 24 months (e.g.C5, 
+C7…. C26). 
+21. All patients will undergo the end-of-treatment (EOT) assessments within 7 days after last dose of study 
+drug or discontinuation. 
+22. Patients must be followed telephonically for adverse events for 30 calendar days after the last dose of 
+study drug. 
+6.2 Time Point Algorithms 
+6.2.1 Relative Day 
+The date of first dose of study drug will be considered relative day 1, and the day before the first dose of 
+study drug will be relative day -1. Relative days will be calculated as follows only when the full assessment 
+date is known (i.e., partial dates will have missing relative days): 
+For days on or after the first dose of study drug: 
+Date of Assessment – Date of First Dose of Study Drug + 1. 
+ 
+For days before the first dose of study drug: 
+Date of Assessment – Date of First Dose of Study Drug. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 9 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+6.2.2 Windows 
+For the purpose of statistical analysis, the visit numbers will be recalculated in terms of study days since the 
+first day of the trial medication, as illustrated in the following table: 
+ 
+Analysis Windows 
+ 
+Visit 
+Scheduled Study Day 
+Visit Window for Analysis (Days) 
+Screening 
+-28 to 0 
+- 
+C1D1 
+1 
+0 
+C1D15 
+15 
+14 – 16 
+C2D1 
+29 
+28 – 30 
+C2D15 
+43 
+40 – 46 
+C3D1 
+57 
+54 – 60 
+Monthly visits (C4 onward up to 
+2 year) 
+- 
+±3 
+Efficacy Visits (C5, C7, C9… up 
+to 2 year) 
+- 
+±7 
+EOT 
+- 
++7 
+EOS 
+- 
++30 
+EOT=End of Treatment; EOS= End of study; C1D1=Cycle 1 Day 1. 
+ 
+6.3 Baseline Assessments 
+The baseline measurement is the last predose measurement taken before first study treatment dose. 
+ 
+The following baseline assessments will be conducted prior to initial study drug administration: 
+• 
+Age 
+• 
+Race  
+• 
+Height 
+• 
+Weight 
+• 
+Menopausal Status 
+• 
+Medical History 
+• 
+Physical examination 
+• 
+ECOG Performance Status 
+• 
+Laboratory tests 
+• 
+Pregnancy test 
+• 
+12-lead ECGs 
+• 
+Radiological assessment 
+ 
+ 
+6.4 Efficacy Variables 
+All efficacy parameters will be summarized using ITT and PP analysis set. 
+ 
+6.4.1 Primary Efficacy Variable 
+The primary efficacy variable is the percentage of patients without disease progression at the end of 6 
+months i.e. 180 days: 
+Percentage = (patients without disease progression/total number of patients) *100. 
+ 
+6.4.2 Secondary Efficacy Variables 
+The best overall response is defined as the best visit response recorded from the start of the treatment until 
+disease progression/recurrence. This data will be summarized using frequency and percentage for 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 10 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Complete Response (CR), Partial Response (PR), Stable Disease (SD), and Progressive Disease (PD) for 
+each treatment group. 
+ 
+• 
+Overall Response Rate (ORR): The percentages of CR+PR will be calculated and presented along 
+with 95% confidence intervals of these percentages. 
+• 
+Clinical Benefit Rate (CBR): The percentages of CR+PR+SD>=24 weeks will be calculated and 
+presented along with 95% confidence intervals of these percentages. 
+• 
+Progression Free Survival (PFS): It is defined as time from the first dose of study drug to 
+documented disease progression or death due to any cause. This variable will be analyzed via 
+Kaplan-Meier methodology. 
+ 
+6.4.3 Additional Efficacy Variables 
+Duration of Treatment Exposure: Duration of treatment exposure is defined as the time from first 
+dose to last dose of drug.  
+ 
+Duration of Response: Duration of response (DoR) is defined as the time from the first occurrence of 
+partial or complete response to disease progression or death in patients who achieve complete or 
+partial response. For patients who neither progress nor die, the duration of response will be 
+censored on the last date the patient is known to be radiologically progression free. 
+ 
+Duration of clinical benefit: Duration of clinical benefit (DoCB) is defined as the time from the first 
+dose of study drug to disease progression or death in patients who achieve complete response, 
+partial response, or stable disease for 24 weeks or longer. For patients who neither progress nor 
+die, the duration of response will be censored on the last date the patient is known to be 
+radiologically progression free. 
+ 
+ 
+Proportion of patients with 6-Month and 1-year PFS. 
+PFS rate at 6-months or at 1-year: Proportion of patients who remained alive and progression-free 
+at 6 months or at 1-Year 
+ 
+ 
+6.5 Drug Concentration Measurements and Pharmacokinetic Parameters 
+Not Applicable. 
+ 
+6.5.1 Handling of Pharmacokinetic Parameter Outliers 
+Not Applicable. 
+6.6 Safety Assessments 
+The safety endpoints will be listed and/or summarized by dose cohort. 
+• 
+Number of Adverse events (AE),  
+• 
+Number of Grade 3/4 AEs,  
+• 
+Death  
+• 
+Number of Serious adverse events (SAE) evaluated and graded using NCI-CTCAE Version 5.0. 
+ 
+6.6.1 Duration of Treatment Exposure and Compliance to Study Treatment 
+Treatment compliance and the treatment exposure will be summarized descriptively (n, mean, median, 
+standard deviation, minimum and maximum values) and will also be listed. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 11 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+6.6.2 Clinical Laboratory Evaluations 
+Change from baseline for each visit will be defined as the visit value minus the baseline visit value.  
+ 
+6.6.3 Other Observations Related to Safety 
+• 
+Vital Signs 
+Absolute value of vital signs parameters will include summaries for systolic and diastolic blood pressure, 
+temperature, pulse, respiratory rate and weight.  
+Vitals will be done prior to the administration of study treatments, at the time points specified in schedule of 
+events. 
+• 
+Electrocardiogram (ECG) 
+Absolute value of ECG parameters will include summaries for heart rate, PR, QRS, QT, and QTcF 
+intervals.  
+ 
+• 
+Physical Examination 
+ 
+The investigator/qualified designee will perform a complete physical exam during the screening period and 
+as defined in Schedule of Events. Physical examination will include systemic examination (General 
+Appearance, HEENT, neck, cardiovascular, lungs, abdomen, lymph nodes, genitourinary (as applicable), 
+extremities, neurological, skin, and musculoskeletal). Physical examination also includes measurement of 
+accessible nodes and the size of the spleen and liver. 
+ 
+• 
+ECOG Performance Status 
+ 
+• 
+Medical and Surgical History 
+ 
+• 
+Prior and Concomitant Medications 
+ 
+6.7 Pharmacodynamics Parameters 
+ 
+Not Applicable. 
+ 
+ 
+7. 
+STATISTICAL METHODS 
+ 
+7.1 General Methodology 
+ 
+ All statistical analyses will be performed using SAS 9.4 or higher. 
+Continuous data will be summarized using descriptive statistics (number of patients (n), mean, standard 
+deviation (SD), median, minimum, and maximum). Summary statistics for continuous measures will be 
+provided for baseline, the actual measurements at each visit, and where appropriate, the change from 
+baseline measurements to each visit. Discrete data will be summarized using frequency counts and 
+percentages and where appropriate, the 95% Confidence Intervals (CIs) will be presented.  
+ 
+When count data are presented, the percentage will be suppressed when the count is zero in order to draw 
+attention to the non-zero counts. A row denoted “Missing” will be included in count tabulations where 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 12 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+necessary to account for dropouts and missing patients. Unless otherwise specified, the denominator for 
+percentages will be the number of patients with a non-missing assessment in a given treatment group 
+within the analysis population of interest. 
+ 
+All the patient data will be summarized by treatment group and overall. 
+ 
+The following sub-group analysis will be performed only for demographics, baseline characteristics and 
+efficacy tables: 
+ 
+1. de novo metastasis, recurrent (locoregional/distal) metastasis and Overall 
+ 
+ 
+Patient listings of all data from the case report forms (CRFs) as well as any derived variables will be 
+presented.  
+ 
+ 
+ 
+7.2 Adjustments for Covariates 
+Not applicable to this study  
+ 
+7.3 Handling of Dropouts or Missing Data 
+ 
+Missing results/events will not be imputed. Imputations will be done for missing dates as follows.  
+ 
+Missing Dates for Adverse Events and Concomitant Medications 
+ 
+Adverse events and concomitant medications with completely or partially missing assessment dates will 
+have imputation performed as explained below for the purposes of calculation of durations or relativity to 
+study medication. 
+ 
+For the end of a concomitant medication or adverse event: 
+ 
+• 
+If only Day of end date is missing: 
+The last date of the month and year reported or the date of the final contact with the patient, whichever is 
+earlier, will be used as the end date. 
+ 
+• 
+If Day and Month of end date are missing: 
+The last date of year i.e. December 31 of the year reported or the date of the last study contact with the 
+patient, whichever is earlier, will be used as the end date. 
+ 
+• 
+If Year of end date or complete end date is missing: 
+If the year of end of medication/event is missing or end date is completely missing, then no end date will be 
+imputed. 
+ 
+For the start of a concomitant medication or adverse event: 
+ 
+• 
+If only Day of start date is missing: 
+o If the start year and month of medication/event are the same as that for the first dose date, 
+then following approach will be used: 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 13 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+▪ 
+If the end date of medication/event is NOT before the first dose date or end date of 
+medication/event is completely missing, then impute the start day as the day of first 
+dose date 
+▪ 
+Otherwise, impute the start day as 1. 
+ 
+o If the start year and month of medication/event are NOT same as that for the first dose date, 
+then 
+▪ 
+Impute the start day as 1. 
+▪ 
+ 
+• 
+If Day and Month of start date are missing: 
+o If start year of medication/event is same as first dose year, then following approach will be 
+used: 
+i. 
+For medication, impute the start Month as January and the Day as 1 
+ii. 
+For adverse event, 
+• 
+If the end date of event is NOT before the first dose date or end date of event 
+is completely missing, then impute the start Month and Day as the Month and 
+Day of first dose date; 
+• 
+Otherwise, impute the start Month as January and the Day as 1. 
+o If start year of medication/event is NOT same as first dose year, then 
+• 
+Impute start Month as January and the Day as 1. 
+ 
+• 
+If Year of start date or complete start date is missing: 
+ 
+If the year of start of medication/event is missing or start date is completely missing, then no start date 
+will be imputed. 
+ 
+Missing Dates for Efficacy Endpoints 
+For time-to-event endpoint if the date is completely missing, no imputation will be performed. 
+However, the incomplete/partial dates will be handled following the general conventions as detailed for 
+adverse events and concomitant medications. 
+ 
+Missing dates for Primary Diagnosis/Prior therapy 
+ 
+Partial Primary diagnosis and prior therapy dates will have imputation performed as explained below for the 
+purposes of calculation of relativity to study medication. 
+ 
+• 
+If only Day is missing, impute the day 1 
+• 
+If Day and Month are missing, impute the Month as January and the Day as 1. 
+• 
+If the year of primary diagnosis is missing or the date of primary diagnosis is completely missing, 
+then no date will be imputed. 
+ 
+7.4 Interim Analyses and Data Monitoring 
+No interim analysis or data monitoring is planned for this study. 
+ 
+7.5 Multi-Centre Studies and Pooling of Centres 
+Data from all the centres will be pooled together for the analysis. 
+ 
+ 
+7.6 Multiple Comparisons/Multiplicity 
+Not applicable. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 14 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+7.7 Use of an “Efficacy Subset” of Patients 
+Not applicable to this study. 
+ 
+7.8 Active-Control Studies Intended to Show Equivalence 
+Not applicable to this study. 
+ 
+ 
+7.9 Examination of Subgroups 
+ 
+The following sub-group analysis will be performed only for demographics, baseline characteristics and 
+efficacy tables: 
+ 
+1. 
+de novo metastasis, recurrent (locoregional/distal) metastasis and Overall. 
+ 
+8. 
+STATISTICAL ANALYSIS 
+8.1 Disposition of Patients 
+A tabular presentation of the patient disposition data will be provided by treatment group and overall. It will 
+include the number of patients screened, enrolled, randomized, completed cycle 3, 6, 9,12 and 15, as well 
+as the number of dropouts, with reasons for discontinuation, number in each population sets, number of 
+patients with dose reductions or interruptions (if applicable), number patients with discontinuations due AEs 
+etc. All patients data will be used for this report. 
+ 
+8.2 Protocol Deviations 
+A full list of protocol deviations for the study report will be compiled prior to database closure. All deviations 
+will be reviewed by the Medical monitor prior to database closure. Each deviation will be categorized as 
+major and minor and a decision will be taken by medical monitor whether to include the patient in a PP 
+analysis population. 
+ 
+Protocol deviations will be presented as number and percentage of patients with minor and major 
+deviations in the study for each treatment group and overall for all the  patients in Safety analysis set. This 
+data will also be listed as appropriate. 
+ 
+8.3 Analysis Populations 
+The following analysis populations are planned for this study: 
+8.3.1 Safety Population 
+The Safety Population will include all patients who receive at least 1 dose of the study medication. This 
+population will be used for safety analysis. 
+ 
+8.3.2 Intent-to-Treat (ITT) Population 
+The ITT is the primary analysis population and will include data from patients who have received at least 1 
+dose of study medication. This population will be used for efficacy assessment. Per definition, the ITT and 
+Safety population are similar in this study. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 15 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+8.3.3 Protocol (PP) Population 
+The PP Population is a subset of the ITT population and will include patients without major protocol 
+deviations. This population will also be used for efficacy assessment. 
+ 
+A deviation from the protocol is an unintended and/or unanticipated departure from the procedures and/or 
+processes approved by the Sponsor and the IRB/IEC and agreed to by the Principal Investigator. Protocol 
+deviations will be documented by the clinical monitor throughout the course of monitoring visits. Principal 
+Investigator will be notified of deviations in writing by the monitor. The IRB/IEC should be notified of all 
+protocol deviations according to IRB/IEC reporting requirements. Examples deviations included but not 
+limited to: 
+• 
+Failure to obtain informed consent (e.g., there is no documentation of informed consent) for a patient; 
+• 
+Informed consent is obtained after initiation of study procedures; 
+• 
+Enrolment of patient who has failed to meet the inclusion/exclusion criteria. 
+ 
+8.3.5 Pharmacokinetics (PK) population 
+Not Applicable. 
+ 
+8.4 Demographic and Other Baseline Characteristics 
+All demographic and baseline summaries will be based on all the  patients in the Safety analysis Set. 
+ 
+Demographic and baseline characteristics data will be summarized using descriptive statistics (n, mean, 
+Standard Deviation, median, minimum, maximum) for continuous variables, and using frequencies and 
+percentages for categorical variables by treatment groups and overall. 
+ 
+Demographic characteristics will include age, race, gender, height, etc. 
+ 
+Disease characteristics will include time from initial diagnosis to enrolment, staging, number of prior 
+therapies, (systemic therapy, radiotherapy and cancer surgery), type of cancer (locally 
+advanced/metastatic), type of metastasis (de novo/recurrent), time from date of last therapy to enrolment, 
+ECOG performance status, etc. 
+ 
+The demographic and baseline characteristics will also be summarized by metastasis type (de novo 
+metastasis, recurrent (loco regional/distal) metastasis) and overall. 
+ 
+ 
+8.5 Prior and Concomitant Therapy  
+Prior medications are those that are taken only prior to initial dose of study drug. Concomitant medications 
+are those that were taken while on study drug. Also, the medications / non-drug treatments which start after 
+study treatment end date will be termed as ‘Concomitant’. 
+ 
+The medication data will be coded using WHO-Drug dictionary (WHODRUG GLOBAL B3 March 1, 2021) 
+and the non-drug treatments data will be coded using MedDRA dictionary Version 24.0 (Hierarchy). 
+ 
+A summary of frequencies and percentages by ATC level 2 and Preferred Terms  for each treatment group 
+along with overall and the listing of the prior and concomitant treatments taken will be provided for all the 
+patients in Safety Analysis Set. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 16 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+8.6 Prior Therapies 
+Total number of prior systemic therapies in any setting and metastatic setting will be summarized using 
+median and range. The prior systemic therapies in metastatic setting will include therapies give after the 
+diagnosis of metastatic disease. 
+ 
+Number of prior systemictherapies in any setting and metastatic setting will be summarized using median 
+and range.They will also be classified into- 
+• 
+Chemotherapy 
+• 
+Aromatase Inhibitors 
+• 
+Fulvestrant 
+• 
+CDK4/6 Inhibitors 
+• 
+Others 
+ 
+ 
+ 
+The last prior therapy will be classified in the following categories and will be summarized by frequency and 
+percentage- 
+• 
+    Chemotherapy 
+• 
+    Aromatase Inhibitors 
+• 
+    Fulvestrant 
+• 
+    CDK4/6 Inhibitors 
+• 
+    Tamoxifen 
+ 
+8.7 Analysis of Efficacy Parameters 
+All efficacy parameters will be summarized using ITT and PP analysis set. 
+.   
+ 
+In situation, identical patients qualify in ITT and PP analysis set, the statistical summaries for such 
+parameters will be presented only for ITT with corresponding note to avoid the replication of results. 
+ 
+ 
+8.7.1 Analysis of Primary Efficacy Variable 
+ 
+The primary endpoint will be analysed to assess the anti-tumour activity of tenalisib in patients with locally 
+advanced or metastatic breast cancer. 
+ 
+The summary of patients without disease progression at the end of 6 months will be provided by frequency 
+and percentage along with 95% confidence intervals of these percentages for both the treatment groups. 
+The 95% confidence intervals of these percentages will be calculated using exact method based on 
+binomial distribution. 
+ 
+The efficacy analysis will also be summarized by metastasis type (de novo metastasis, recurrent 
+metastasis) and overall. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 17 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+8.7.2 Analysis of Secondary Efficacy Variables 
+These secondary efficacy variables will be analysed and summarised to evaluate safety and tolerability of 
+tenalisib. 
+ 
+• 
+Overall Response Rate (ORR): It is defined as sum of CR and PR rates. 
+The percentages of CR+PR will be calculated and presented along with 95% confidence intervals of these 
+percentages.  
+This data will be summarized using frequency, and percentage along with 95% confidence intervals of 
+these percentages using exact method based on binomial distribution.  
+The corresponding listing will also be provided. 
+ 
+• 
+Clinical Benefit Rate (CBR): It is defined as sum of CR, PR and SD at 24 weeks or longer. 
+The percentages of CR+PR+SD>=24 weeks will be calculated and presented along with 95% confidence 
+intervals of these percentages. 
+This data will be summarized using frequency, and percentage along with 95% confidence intervals of 
+these percentages using exact method based on binomial distribution.  
+The corresponding listing will also be provided. 
+ 
+• 
+Progression Free Survival (PFS): It is defined as time from the first dose of study drug to 
+documented disease progression or death due to any cause.  
+PFS is measured from the time of first dose of study drug to radiographic (or tumour marker as 
+applicable) documentation of disease progression or death due to any cause. Patients who did not 
+progress or die will be censored on the last date the patient is known to be radiologically 
+progression free. The summary table for PFS rate at 6-Month and 1-year by metastasis type will 
+also be provided. 
+ 
+This variable will be analyzed via Kaplan-Meier methodology and displayed graphically for each treatment 
+group and overall. The following reports will be generated: 
+• 
+The Q1, median and Q3 PFS time will be provided. The 95% CI for the Q1, median, and Q3 PFS time 
+will be presented for each treatment group and metastasis group using Brookmeyer-Crowley method. 
+• 
+The number and % of patients with disease progressive events (further divided into progression or 
+death) will be provided. 
+• 
+The number and % of patients censored (further divided by reasons for censoring) will be provided. 
+• 
+Kaplan-Meier curves will be produced. 
+• 
+A listing of PFS data will be provided. 
+Additional efficacy variables 
+ 
+Duration of Treatment: Duration of treatment is defined as the time from first dose to last dose of drug. 
+ 
+Duration of response: Duration of response (DoR) is defined as the time from the first occurrence of 
+partial or complete response to disease progression or death in patients who achieve complete or partial 
+response. For patients who neither progress nor die, the duration of response will be censored on the last 
+date the patient is known to be radiologically progression free. This variable will be analyzed via Kaplan-
+Meier methodology for each treatment group and overall as well as metastasis type and overall. 
+• 
+The number and % of patients with partial or complete response. 
+• 
+The number and % of patients censored (further divided by reasons for censoring) will be provided. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 18 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+• 
+The Q1, median and Q3 will be provided. The 95% CI for the Q1, median, and Q3 will be presented 
+using Brookmeyer-Crowley method. 
+ 
+Duration of Clinical benefit: Duration of clinical benefit (DoCB) is defined as the time from the first dose of 
+the study drug to disease progression or death in patients who achieve complete response, partial 
+response, or stable disease for 24 weeks or longer. For patients who neither progress nor die, the duration 
+of response will be censored on the last date the patient is known to be radiologically progression free. This 
+variable will be analyzed via Kaplan-Meier methodology for each treatment group and overall as well as 
+metastasis type and overall. 
+• 
+The number and % of patients with partial or complete response or stable disease with 24 weeks or 
+longer. 
+• 
+The number and % of patients censored (further divided by reasons for censoring) will be provided. 
+• 
+The Q1, median and Q3 will be provided. The 95% CI for the Q1, median, and Q3 will be presented 
+using Brookmeyer-Crowley method. 
+ 
+Figures will be provided for best tumor response of each patient in Waterfall plot and visit wise tumor 
+response by plotting with change from baseline. 
+ 
+8.7.3 Analysis of Pharmacokinetic Variables  
+Not applicable. 
+ 
+8.7.4 Subgroup Analyses 
+Here the subgroups to be analysed are as follows: 
+ 
+1. de novo metastasis, recurrent metastasis and Overall      
+ 
+ 
+8.7.5 Exploratory Analyses 
+This is not applicable for this SAP. The same will be prepared by Rhizen and the analysis results 
+will be shared for inclusion in the study report. 
+ 
+8.8 Analysis of Safety 
+8.8. 1 Duration of Treatment Exposure and Compliance to Study Treatment 
+ 
+• Duration of Treatment  
+The duration of treatment (Treatment exposure) to the study medication for patient will be calculated as: 
+Treatment Exposure (day) = Last day of dosing – First Day of dosing + 1 
+A descriptive summary of duration of treatment (days) will be provided for each treatment group and by 
+type of metastasis. In addition, a plot for duration on treatment will be provided per patient. 
+ 
+• Measurements of Treatment Compliance 
+For each patient, the treatment compliance is captured for each cycle in the eCRF and is expressed as 
+percentage. The treatment compliance, will be summarized descriptively per Cycle for each treatment 
+group. This data will be listed for individual patient. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 19 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+8.8.2 Adverse Events 
+Adverse events (AEs) will be coded using the Medical Dictionary for Regulatory Activities MedDRA Version 
+24.0 (Hierarchy) for the Safety Analysis Set. 
+ 
+The analyses of safety will be based on the frequency of adverse events and their severity for patients in 
+each portion who received at least one dose of study treatment. 
+Adverse events will be summarised by system organ class and preferred term; a patient will only be 
+counted once per system organ class and once per preferred term within a treatment according to the 
+maximum NCI CTCAE v.5.0 grade attained. Patient counts and percentages and event counts will be 
+presented for each treatment and overall for all the summaries. 
+ 
+Treatment Emergent Adverse Events (TEAEs) are events with start date on or after the date of first dose of 
+treatment or events with start date prior to the date of first dose of treatment whose severity worsens on or 
+after the date of first dose of treatment. 
+ 
+An overall summary of TEAEs (number and percentage of patients along with the number of events) will be 
+presented with the following: 
+• 
+Any non-TEAE 
+• 
+Any TEAE 
+• 
+Related TEAEs 
+• 
+Serious TEAEs 
+• 
+Related Serious TEAEs 
+• 
+Grade >=3 TEAEs 
+• 
+Related Grade >=3 TEAEs 
+• 
+TEAEs leading to discontinuation 
+• 
+Related TEAEs leading to discontinuation 
+• 
+TEAEs leading to dose reduction 
+• 
+Related TEAEs leading to dose reduction 
+• 
+Serious TEAEs leading to discontinuation 
+• 
+Related Serious TEAEs leading to discontinuation 
+• 
+TEAEs leading to dose interruptions 
+• 
+Related TEAEs leading to dose interruptions 
+• 
+Fatal TEAEs 
+• 
+Related Fatal TEAEs 
+• 
+Protocol-Defined Adverse Events of Special Interest: 
+▪ 
+Pregnancy, abortion, birth defects/congenital anomalies 
+▪ 
+Overdose 
+ 
+Summaries showing the number of patients (n, %) along with number of events by SOC and PT will be 
+provided for the following: 
+1. TEAEs 
+2. Grade 3, 4 and 5 TEAEs 
+3. Treatment-related TEAEs 
+4. TEAE with maximum CTCAE grade 
+5. Treatment-Emergent SAEs 
+6. Treatment-Related SAEs 
+7. Treatment-related TEAEs with maximum CTCAE grade 
+8. TEAEs leading to dose reduction or interruptions 
+9. Treatment-related TEAEs leading to dose reduction or interruptions 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 20 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+10. TEAEs leading to Discontinuation of Study Drug 
+11. Treatment-related TEAEs leading to Discontinuation of Study Drug 
+12. Deaths 
+ 
+ 
+No statistical inference between the treatments will be performed on adverse events. 
+ 
+The adverse events data will also be listed for individual patients. 
+• 
+AEs 
+• 
+Related TEAEs 
+• 
+Treatment Emergent Grade 3, 4 and 5 AEs 
+• 
+Treatment Related Grade 3, 4 and 5 AEs 
+• 
+Treatment Emergent SAEs 
+• 
+Treatment Related SAEs 
+• 
+TEAE leading to discontinuation 
+ 
+8.8.3 Clinical Laboratory Evaluations 
+Absolute  and change from baseline values of laboratory parameters(viz. Total bilirubin, Hemoglobin, 
+Alkaline phosphatase, Platelet count, ALT, Total WBC, AST, Absolute neutrophil count, GGT, creatinine) 
+will be presented using descriptive statistics (n, mean, median, standard deviation, minimum and maximum 
+values) for each cycle for each treatment group and overall. 
+ 
+The laboratory data will also be listed. 
+A separate listing of patients with abnormal laboratory test values will also be presented. 
+Based on the available data which is captured in the database, the laboratory data will be listed for the 
+following clinical laboratory parameters: 
+ 
+Hematology 
+Chemistry 
+Panel I 
+Chemistry 
+Panel II 
+Urinalysis 
+Other 
+Hematocrit 
+Total bilirubin 
+Total 
+Cholesterol 
+Blood 
+Serum β-hCG 
+Hemoglobin 
+Alkaline 
+phosphatase 
+Triglyceride 
+(TG) 
+Glucose 
+Urine 
+pregnancy test 
+Platelet count 
+ALT 
+LDL 
+Protein 
+PT and INR 
+WBC (Total and 
+differentials) 
+AST 
+HDL 
+Specific gravity 
+ 
+Serology 
+(Hepatitis B, 
+Hepatitis C, 
+HIV)- Historical 
+data is 
+acceptable. 
+Absolute 
+neutrophil count 
+LDH 
+T3,T4,TSH 
+Microscopic 
+examb 
+ 
+ 
+GGT 
+ 
+ 
+ 
+ 
+Blood glucose 
+ 
+ 
+ 
+ 
+Albumin 
+ 
+ 
+ 
+ 
+Total protein 
+ 
+ 
+ 
+ 
+Urea or BUNa 
+ 
+ 
+ 
+ 
+Creatinine 
+ 
+ 
+ 
+ 
+Sodium 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 21 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Potassium 
+ 
+ 
+ 
+ 
+Calcium 
+ 
+ 
+ 
+ 
+Phosphorous 
+ 
+ 
+ 
+ 
+Chloride 
+ 
+ 
+ 
+a Blood Urea Nitrogen is preferred, if not available Urea may be tested. 
+b Microscopic exam, if abnormal results are noted 
+ 
+8.8.4 Other Observations Related to Safety 
+ 
+• 
+Vital Signs 
+Absolute values of Vital data will be summarized descriptively (n, mean, median, standard deviation, 
+minimum and maximum) per cycle for each treatment group and overall. A listing will also be provided. 
+ 
+A separate listing of patients with abnormal vital signs findings will also be presented. 
+• 
+Physical Findings 
+Physical examination data at screening visit and abnormal physical examination data at follow-up visits will 
+be listed. 
+• 
+Electrocardiogram 
+Absolute values  of ECG parameters as collected on CRF will be presented through n, mean, median, 
+standard deviation, minimum, and maximum per cycle for each treatment group and overall. A summary of 
+abnormal ECG results will also be provided per cycle for each treatment group including baseline visit using 
+frequencies and percentages. 
+A listing of this data will also be provided. Also, a separate listing for the abnormal ECG values will also be 
+presented. 
+• 
+Medical and Surgical history 
+This data will be summarized using frequencies and percentages for each treatment group and overall by 
+System Organ Class and Preferred Term. A listing will also be provided. 
+The medical history data will be coded using MedDRA dictionary Version 24.0 (Hierarchy). 
+• 
+ECOG 
+ECOG performance status as captured in the eCRF will be summarized per cycle with number and 
+percentage for each performance status category and treatment group along with overall. This data will 
+also be listed. 
+• 
+Additional listings 
+• 
+Patient Visits 
+• 
+Demography 
+• 
+Main consent and Tumor biopsy informed consent 
+• 
+Inclusion/Exclusion criteria 
+• 
+Enrolment status 
+• 
+Withdrawal or completion of study 
+• 
+Analysis populations 
+• 
+Breast Cancer diagnosis 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 22 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+• 
+Cancer diagnosis 
+• 
+Cancer assessment form at screening and follow up visits 
+• 
+Systemic therapy 
+• 
+Radiotherapy 
+• 
+Cancer treatment history surgery 
+• 
+Study drug exposure 
+• 
+Study drug accountability 
+• 
+Target lesion evaluation 
+• 
+Non-target lesion evaluation 
+• 
+Overall visit response assessment 
+• 
+Pregnancy test 
+• 
+Investigator Comments 
+ 
+ 
+8.9 Pharmacodynamics 
+ 
+Not Applicable. 
+ 
+ 
+9. 
+Computer Software 
+All analyses will be performed by Labcorp Drug Development using Version 9.4 or later of SAS software. 
+All summary tables and data listings will be prepared utilising SAS software. 
+ 
+ 
+10. 
+References 
+1. Brookmeyer R, Crowley JJ. A confidence interval for the median survival time. Biometrics. 38: 29-
+41, 1982. 
+ 
+11. 
+Appendices 
+ 
+None. 
+ 
+ 
+12. 
+Table shells and specifications 
+ 
+General programming instructions:  
+For tables:  
+1. The precision of the summary statistics (mean, median, SD, min, max) and inferential statistics (SE, 
+confidence limits) should be as below:  
+• 
+Mean, median, quartiles, minimum and maximum values, standard deviation (SD), and confidence 
+limits (CLs) should be reported with upto 2 decimal places. 
+• 
+Laboratory data should be reported upto 2 decimal places, as appropriate. 
+ 
+2. All p-values should be reported with precision 0.xxxx. If the p-value is less than 0.0001, the p-value 
+should appear in the table as “<0.0001”.  
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 23 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+3. Summary statistics for number of subjects with data summarized/analyzed should be lower case ‘n’ 
+or ‘n (%)’. Capital ‘N’ should only be used in column or row headers when indicating the total in the 
+denominator, for example (N=xx). 
+4. When displaying percentages, if count is 0, no percentage would be displayed.  
+ 
+For Listings: 
+1. For listings, if there is no observation in the listing, display the header portion, and display a 
+message of “No observation” in the table body text 
+ 
+The following table indicates the necessary outputs to support the report. 
+ 
+Sr. 
+No.  
+Category  Output 
+No.  
+Title  
+1  
+Table  
+Table 
+14.1.1.1 
+Patients Disposition - All Patients 
+2  
+Table  
+Table 
+14.1.2.1      
+Summary of Protocol Deviations – Safety Analysis Set 
+3 
+Table  
+Table 
+14.1.3.1 
+Demographic and Baseline Characteristics – Safety Analysis Set 
+4 
+Table  
+Table 
+14.1.3.2  
+Demographic and Baseline Characteristics for type of metastasis- Safety Analysis Set 
+5 
+Table  
+Table 
+14.1.4.1 
+Summary of Medical and Surgical History – Safety Analysis Set 
+6 
+Table  
+Table 
+14.1.5.1 
+Summary of Prior Medications - Safety Analysis Set 
+7 
+Table  
+Table 
+14.1.5.2 
+Summary of Concomitant Medications - Safety Analysis Set 
+8 
+Table  
+Table 
+14.1.5.3 
+Summary of Prior Non-Drug Treatments - Safety Analysis Set 
+9 
+Table  
+Table 
+14.1.5.4 
+Summary of Concomitant Non-Drug Treatments - Safety Analysis Set 
+10 
+Table  
+Table 
+14.2.1.1 
+Summary of patients without disease progression at the end of 6 months - ITT Analysis Set 
+11 
+Table  
+Table 
+14.2.1.2  
+Summary of Patients without Disease Progression at the End of 6 Months by Type of 
+Metastasis - ITT Analysis Set 
+12 
+Table  
+Table 
+14.2.1.3  
+Summary of patients without disease progression at the end of 6 months – Per Protocol 
+Analysis 
+13 
+Table  
+Table 
+14.2.1.3  
+Summary of Patients with 6-Month and 1-Year Progression Free Survival – ITT Analysis Set 
+14 
+Table  
+Table 
+14.2.1.3  
+Summary of Patients with 6-Month and 1-Year Progression Free Survival by Type of 
+Metastasis – ITT Analysis Set 
+15 
+Table  
+Table 
+14.2.1.3  
+Summary of Patients with 6-Month and 1-Year Progression Free Survival – Per Protocol 
+Analysis  
+16 
+Table  
+Table 
+14.2.2.1 
+Summary of Objective Response Rate and Clinical Benefit Rate - ITT Analysis Set 
+17 
+Table  
+Table 
+14.2.2.2  
+Summary of Objective Response Rate and Clinical Benefit Rate by type of Metastasis- ITT 
+Analysis Set 
+18 
+Table  
+Table 
+14.2.2.3  
+Summary of Objective Response Rate and Clinical Benefit Rate - Per Protocol Analysis 
+19 
+Table  
+Table 
+14.2.3.1 
+Summary of Progression Free Survival - ITT Analysis Set 
+20 
+Table  
+Table 
+14.2.3.2  
+Summary of Progression Free Survival by type of metastasis - ITT Analysis Set 
+21 
+Table  
+Table 
+14.2.3.3  
+Summary of Progression Free Survival - Per Protocol Analysis 
+22 
+Table  
+Table 
+14.2.4.1 
+Summary of Duration of Response – ITT Analysis Set 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 24 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+23 
+Table  
+Table 
+14.2.4.2  
+Summary of Duration of Response by type of metastasis – ITT Analysis Set 
+24 
+Table  
+Table 
+14.2.4.3  
+Summary of Duration of Response – Per Protocol Analysis 
+25 
+Table  
+Table 
+14.2.4.4  
+Summary of Duration of clinical benefit – ITT Analysis Set 
+26 
+Table  
+Table 
+14.2.4.5  
+Summary of Duration of clinical benefit by type of metastasis – ITT Analysis Set 
+27 
+Table  
+Table 
+14.2.4.6  
+Summary of Duration of clinical benefit – Per Protocol Analysis 
+28 
+Table  
+Table 
+14.3.1.1 
+Overall Summary of Adverse Events - Safety Analysis Set 
+29 
+Table  
+Table 
+14.3.1.2 
+Treatment-Emergent Adverse Events by System Organ Class and Preferred Term - Safety 
+Analysis Set 
+30 
+Table  
+Table 
+14.3.1.3  
+Treatment-Emergent Grade 3, 4 and 5 Adverse Events by System Organ Class and Preferred 
+Term – Safety Analysis Set 
+31 
+Table  
+Table 
+14.3.1.4 
+Treatment-Emergent Serious Adverse Events by System Organ Class and Preferred Term - 
+Safety Analysis Set 
+32 
+Table  
+Table 
+14.3.1.5  
+Treatment-Related Serious TEAEs by System Organ Class and Preferred Term - Safety 
+Analysis Set 
+33 
+Table  
+Table 
+14.3.1.6 
+ 
+Treatment-Emergent Adverse Events by System Organ Class, Preferred Term and maximum 
+CTCAE grade - Safety Analysis Set 
+34 
+Table  
+Table 
+14.3.1.7  
+Treatment-Related TEAEs by System Organ Class, Preferred Term and maximum CTCAE 
+grade - Safety Analysis Set 
+35 
+Table  
+Table 
+14.3.1.8  
+Summary of Deaths by System Organ Class and Preferred Term - Safety Analysis Set 
+36 
+Table 
+Table 
+14.3.1.9  
+Treatment-Emergent Adverse Events leading to Dose Reduction or Interruptions by System 
+Organ Class and Preferred Term – Safety Analysis Set 
+37 
+Table 
+Table 
+14.3.1.10  
+Treatment-Related TEAEs leading to Dose Reduction or Interruptions by System Organ Class 
+and Preferred Term- Safety Analysis Set 
+38 
+Table 
+Table 
+14.3.1.11  
+Treatment-Emergent Adverse Events leading to Discontinuation of Study Drug by System 
+Organ Class and Preferred Term- Safety Analysis Set 
+39 
+Table 
+Table 
+14.3.1.12  
+Treatment-Related TEAEs leading to Discontinuation of Study Drug by System Organ Class 
+and Preferred Term- Safety Analysis Set 
+40 
+Table  
+Table 
+14.3.2.1 
+Descriptive Summary of Hematology parameters - Safety Analysis Set 
+41 
+Table  
+Table 
+14.3.2.2  
+Descriptive Summary of Biochemistry parameters - Safety Analysis Set 
+42 
+Table  
+Table 
+14.3.3.1  
+Descriptive Summary of Vital Signs - Safety Analysis Set 
+43 
+Table  
+Table 
+14.3.4.1  
+Descriptive Summary of ECG - Safety Analysis Set 
+44 
+Table  
+Table 
+14.3.4.2 
+Summary of Abnormal ECG results - Safety Analysis Set 
+45 
+Table  
+Table 
+14.3.5.1 
+Summary of ECOG Performance Status - Safety Analysis Set 
+46 
+Table  
+Table 
+14.3.6.1 
+Duration of Treatment Exposure and Compliance - Safety Analysis Set 
+47 
+Table 
+Table 
+14.3.6.2  
+Duration of treatment exposure by type of metastasis – Safety Analysis Set 
+48 
+Listing  
+Listing 
+16.2.1.1 
+Screened patients - All Patients 
+49 
+Listing 
+Listing 
+16.2.1.2 
+Randomization - All Enrolled Patients 
+50 
+Listing 
+Listing 
+16.2.1.3 
+Eligibility Review - All Patients 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 25 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+51 
+Listing 
+Listing 
+16.2.1.4 
+Reasons for Withdrawal of Patient from the Study – Safety Analysis Set 
+52 
+Listing 
+Listing 
+16.2.1.5 
+ 
+Patient Visits - All Patients 
+53 
+Listing 
+Listing 
+16.2.2 
+Protocol Deviations during the Study - Safety Analysis Set 
+54 
+Listing 
+Listing 
+16.2.3 
+Analysis Populations - All Patients 
+55 
+Listing 
+Listing 
+16.2.4.1 
+Demography Data - Safety Analysis Set 
+56 
+Listing 
+Listing 
+16.2.4.2 
+Medical History, Surgical History and Concomitant/Current Illnesses - Safety Analysis Set 
+57 
+Listing 
+Listing 
+16.2.4.3 
+Prior Therapy - Safety Analysis Set 
+58 
+Listing 
+Listing 
+16.2.4.4 
+Cancer Diagnosis –  Safety Analysis Set 
+59 
+Listing 
+Listing 
+16.2.4.5 
+Prior and Concomitant Medications - Safety Analysis Set 
+60 
+Listing  
+Listing 
+16.2.4.6 
+Prior and Concomitant Non-Drug Treatments - Safety Analysis Set 
+61 
+Listing 
+Listing 
+16.2.5.1 
+Study Drug Exposure - Safety Analysis Set 
+62 
+Listing 
+Listing 
+16.2.5.2 
+Study Drug Accountability - Safety Analysis Set 
+63 
+Listing 
+Listing 
+16.2.6.1 
+Cancer Assessment – All Patients  
+64 
+Listing 
+Listing 
+16.2.6.2 
+Target Lesion Assessment - All Patients 
+65 
+Listing 
+Listing 
+16.2.6.3 
+Non-Target Lesion assessment - All Patients 
+66 
+Listing 
+Listing 
+16.2.6.4 
+Overall Tumor assessment - ITT Analysis Set 
+67 
+Listing 
+Listing 
+16.2.6.5 
+New lesion assessment – ITT Analysis Set 
+68 
+Listing 
+Listing 
+16.2.6.6 
+Visit Wise Response - ITT Analysis Set 
+69 
+Listing 
+Listing 
+16.2.6.7 
+ECOG Performance Status - Safety Analysis Set 
+70 
+Listing 
+Listing 
+16.2.7.1 
+Adverse Events - Safety Analysis Set 
+71 
+Listing 
+Listing 
+16.2.7.2  
+Treatment-Related TEAEs - Safety Analysis Set 
+72 
+Listing 
+Listing 
+16.2.7.3  
+Treatment-Emergent Grade 3, 4 and 5 Adverse Events - Safety Analysis Set 
+73 
+Listing  
+Listing 
+16.2.7.4  
+Treatment-Related Grade 3, 4 and 5 TEAEs - Safety Analysis Set 
+74 
+Listing 
+Listing 
+16.2.7.5  
+Treatment-Emergent Serious Adverse Events - Safety Analysis Set 
+75 
+Listing 
+Listing 
+16.2.7.6  
+Treatment-Related Serious TEAEs - Safety Analysis Set 
+76 
+Listing 
+Listing 
+16.2.7.7  
+Treatment-Emergent Adverse Events leading to Discontinuation of study drug – Safety 
+Analysis Set 
+77 
+Listing 
+Listing 
+16.2.7.8  
+Treatment-Emergent Adverse Events leading to death – Safety Analysis Set 
+78 
+Listing 
+Listing 
+16.2.8.1.1 
+Clinical Laboratory Evaluations – Hematology - Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 26 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+79 
+Listing 
+Listing 
+16.2.8.1.2 
+ 
+Abnormal Laboratory Values – Hematology - Safety Analysis Set 
+80 
+Listing 
+Listing 
+16.2.8.2.1  
+Clinical Laboratory Evaluations - Biochemistry - Safety Analysis Set 
+81 
+Listing 
+Listing 
+16.2.8.2.2  
+Abnormal Laboratory Values – Biochemistry – Safety Analysis Set 
+82 
+Listing 
+sting 
+16.2.8.3.1 
+Clinical Laboratory Evaluations – Urinalysis - Safety Analysis Set 
+83 
+Listing 
+Listing 
+16.2.8.3.2 
+ 
+Abnormal Laboratory Values – Urinalysis - Safety Analysis Set 
+84 
+Listing 
+Listing 
+16.2.8.4 
+ 
+Pregnancy Test - Safety Analysis Set 
+85 
+Listing  
+Listing 
+16.2.9.1 
+Vital Signs - Safety Analysis Set 
+86 
+Listing 
+Listing 
+16.2.9.2 
+ 
+Abnormal Clinically Significant Vital Signs Values - Safety Analysis Set 
+87 
+Listing 
+Listing 
+16.2.10.1 
+ 
+Physical Examination at Screening - Safety Analysis Set 
+88 
+Listing 
+Listing 
+16.2.10.2 
+ 
+Follow up Abnormal Physical Examination Results - Safety Analysis Set 
+89 
+Listing 
+Listing 
+16.2.11.1 
+12-Lead ECG Results - Safety Analysis Set 
+90 
+Listing 
+Listing 
+16.2.11.2 
+ 
+Abnormal ECG Values - Safety Analysis Set 
+91 
+Listing 
+Listing 
+16.2.12.1 
+Comment Logs – All Patients 
+ 
+92 
+Figure 
+ 
+Figure 
+Figure 
+14.1.6.2 
+Figure 
+14.1.6.3  
+Duration of Treatment plot- Safety Analysis Set 
+ 
+Duration of treatment plot by metastasis type – Safety Analysis Set  
+93 
+Figure 
+Figure 
+14.2.3.4 
+Kaplan-Meier plot for PFS- ITT Analysis Set 
+94 
+Figure 
+Figure 
+14.2.3.5  
+Kaplan-Meier plot for PFS- Per Protocol Analysis 
+95 
+Figure 
+Figure 
+14.2.2.4 
+Best Response (% change from Baseline) in sum of lesion diameters plot - ITT Analysis Set 
+96 
+Figure 
+Figure 
+14.2.2.5  
+Best Response (% change from Baseline) in sum of lesion diameters plot - Per Protocol 
+Analysis 
+97 
+Figure 
+Figure 
+14.2.2.6 
+Visit Wise Tumor Response Plot - ITT Analysis Set 
+98 
+Figure 
+Figure 
+14.2.2.7  
+Visit Wise Tumor Response Plot - Per Protocol Analysis 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 27 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+                                                                                                                                                                                                                                       Page xx of yy 
+Table 14.1.1.1 
+ 
+Patients Disposition 
+ 
+All Patients 
+ 
+ 
+Tenalisib 800 mg BID 
+Tenalisib 1200 mg BID 
+Overall 
+Total number of patients Screened 
+ 
+ xx 
+Number of patients Enrolled 
+ 
+ xx 
+ 
+ 
+Number of patients Randomized  
+  xx  
+ xx  
+ xx  
+ 
+ 
+Number (%) of patients 
+ 
+  Completed Cycle 3 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Completed Cycle 6 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Completed Cycle 9 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Completed Cycle 12 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+   Completed Cycle 15  
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+ 
+ 
+Discontinued study [n (%)]# 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x%) 
+Primary reason for discontinuation* 
+ 
+  Adverse Event [n (%)] 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Death [n (%)]$ 
+ 
+  Disease progression [n (%)] 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Investigator's decision [n (%}] 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Other [n (%)] 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+      Xxxxxxxxx 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+Number (%) of patients in 
+ 
+   Safety Analysis Set 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+   Intent-To-Treat Analysis Set 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+   Per Protocol Analysis Set 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+ 
+ 
+Number (%) of patients with 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 28 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Protocol RP6530-2101 
+                                                                                                                                                                                                                                       Page xx of yy 
+Table 14.1.1.1 
+ 
+Patients Disposition 
+ 
+All Patients 
+ 
+ 
+Tenalisib 800 mg BID 
+Tenalisib 1200 mg BID 
+Overall 
+  Drug interruptions due to AEs 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Drug discontinuation due to AEs 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+  Dose reduction due to AEs ^ 
+  xx (xx.x) 
+ xx (xx.x) 
+ xx (xx.x) 
+# Number of patients discontinued at the end of the study. 
+*A patient may have multiple reasons for discontinuation from the study and such patients are counted in each reason for discontinuation as reported in the eCRF. 
+$A patient who had a non-related adverse event which was documented as "death due to unknown cause" is also recorded an adverse event leading to study discontinuation. 
+Percentages are based on the total number of patients randomized in each treatment group. 
+Percentages for reason of discontinuation are based on the total number of patients discontinued in each treatment group. 
+Safety Analysis Set includes all patients who received at least one dose of study medication. 
+Intent-to-Treat Analysis Set includes all patients who received at least one dose of study medication. 
+Per Protocol Analysis Set includes all patients in the Intent-to-Treat Set without major protocol deviations. 
+Patients under the category 'Drug interruption followed by dose reduction' are counted in both the groups 'Drug interruption' and 'Dose reduction'. 
+^The dose reduction information is collated from the treatment exposure page of the eCRF. 
+AE:Adverse Event 
+Reference Listing xxxxxx 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 29 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101                                                                                                                                                                                               Page xx of yy 
+ 
+Table 14.1.2.1                                                                                                                                                                                                                                
+Summary of Protocol Deviations 
+Safety Analysis Set 
+ 
+ 
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%), E 
+Overall 
+(N=XX) 
+n (%), E 
+All Protocol Deviations 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Major Protocol Deviations 
+Minor Protocol Deviations 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+ 
+ 
+ 
+ 
+Patients with at least one protocol deviation 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Study medication therapy 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Study Procedure out of time frame/Missing 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Lab Procedure/Assessment missing 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Visit Schedule / Out-of-Window 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Concomitant Medications 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Consent Procedure 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Randomization/Study Drug 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Efficacy Assessment 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Inclusion / Exclusion Criteria 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+n: Number of patients with protocol deviation, E: Number of protocol deviations 
+ 
+Reference Listing xxxxx 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 30 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+ 
+Page xx of yy 
+Table 14.1.3.1 
+ 
+Demographic and Baseline Characteristics 
+ 
+Safety Analysis Set 
+ 
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%), E 
+Overall 
+(N=XX) 
+n (%), E 
+Age (years) 
+ 
+ 
+ 
+  n 
+Xx 
+xx 
+xx 
+  Mean 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+  SD 
+xx.xxxx 
+xx.xxxx 
+xx.xxxx 
+  Median 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+  Min, Max 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+ 
+ 
+ 
+ 
+Race [n (%)] 
+ 
+ 
+ 
+  Asian 
+xx (xx.xx) 
+xx (xx.xx 
+xx (xx.xx) 
+  Black or African American 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+ White/Caucasian 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+  Others 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+  Unknown/Not reported 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+ 
+ 
+ 
+ 
+Height (cm) 
+ 
+ 
+ 
+  n 
+Xx 
+xx 
+xx 
+  Mean 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+  SD 
+xx.xxxx 
+xx.xxxx 
+xx.xxxx 
+  Median 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+  Min, Max 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+ 
+ 
+ 
+ 
+Weight (kg) 
+ 
+ 
+ 
+  n 
+Xx 
+xx 
+xx 
+  Mean 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+  SD 
+xx.xxxx 
+xx.xxxx 
+xx.xxxx 
+  Median 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 31 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+  Min, Max 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+ 
+ 
+ 
+ 
+Childbearing potential[n (%)] 
+ 
+ 
+ 
+  Yes 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  No 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+Menopausal status[n (%)] 
+ 
+ 
+ 
+  Post-menopausal women 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+  Peri-menopausal women 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+  Pre-menopausal women 
+xx (xx.xx) 
+xx (xx.xx) 
+xx (xx.xx) 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 32 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Time from the initial diagnosis to enrollment 
+(months)* 
+ 
+ 
+ 
+   n 
+xx 
+xx 
+Xx 
+   Mean 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+   SD 
+xx.xxxx 
+xx.xxxx 
+xx.xxxx 
+   Median 
+   Q1, Q3 
+xx.xxx 
+xx.xxx, xx.xxx 
+xx.xxx 
+xx.xxx, xx.xxx 
+xx.xxx 
+xx.xxx, xx.xxx 
+   Min, Max 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+ 
+ 
+ 
+ 
+Number (%) of patients who received  
+ 
+ 
+ 
+   Systemic therapies  
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+   Surgeries 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+   Radiotherapy 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+Time from date of last therapy to enrollment (days)* 
+ 
+ 
+ 
+   n 
+xx 
+xx 
+xx 
+   Mean 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+   SD 
+xx.xxxx 
+xx.xxxx 
+xx.xxxx 
+   Median 
+xx.xxx 
+xx.xxx 
+xx.xxx 
+   Q1, Q3 
+xx.xxx, xx.xxx 
+xx.xxx, xx.xxx 
+xx.xxx, xx.xxx 
+   Min, Max 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+xx.xx, xx.xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 33 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Total number of prior systemic therapies in any 
+setting [Median (Range) ] 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+ 
+ 
+ 
+ 
+Number of patients with prior systemic therapies in 
+any setting [n (%)] 
+ 
+ 
+ 
+  Therapy < 3 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Therapy 3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Therapy > 5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+Total Number of prior systemic therapies in metastatic 
+setting [median (range)] 
+xx (Range) 
+xx (Range) 
+xx (Range) 
+ 
+ 
+ 
+ 
+Number of patients with prior systemic therapies in 
+metastatic setting [n (%)] 
+ 
+ 
+ 
+  Therapy < 3 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Therapy 3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Therapy > 5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  No Therapy 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+Number of Patients with prior systemic therapy in any 
+Setting , [n (%)] 
+ 
+ 
+ 
+    Chemotherapy 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+    Aromatase Inhibitors 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+    Fulvestrant 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+    CDK4/6 Inhibitors 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+    Others 
+xx (xx-xx) 
+xx (xx-xx) 
+xx (xx-xx) 
+ 
+ 
+ 
+ 
+Number of Patients with Prior Systemic Therapy in 
+Metastatic Setting [n (%)] 
+ 
+ 
+ 
+    Chemotherapy 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Aromatase Inhibitors 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Fulvestrant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    CDK4/6 Inhibitors 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Others 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 34 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+ 
+ 
+Last Prior Therapy [n (%)] 
+ 
+ 
+ 
+    Chemotherapy 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Aromatase Inhibitors 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Fulvestrant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    CDK4/6 Inhibitors 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+    Tamoxifen 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+Stage IVA/IVB [n (%)] 
+ 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Visceral Disease 
+ 
+xx (xx.x) 
+ 
+xx (xx.x) 
+ 
+xx (xx.x) 
+Non-Visceral Disease 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+Metastatic Sites [n (%)] 
+ 
+ 
+ 
+         Liver 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+         Lung 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+         Breast 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+         Bone 
+xx (xx.x) 
+xx (xx.x 
+xx (xx.x) 
+         Lymph Node 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+No. of lesion sites, n (%) 
+    ≥ 3 
+ 
+ 
+xx (xx.x) 
+ 
+xx (xx.x) 
+ 
+xx (xx.x) 
+Subtypes [n (%)] 
+ 
+ 
+ 
+ER+ PR+HER- 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ER+ PR-HER- 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+TNBC 
+xx (xx.x%) 
+xx (xx.x) 
+xx (xx.x%) 
+ 
+ 
+ 
+ 
+ECOG Performance Status** 
+ 
+ 
+ 
+  0 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  >=3 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 35 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+ 
+ 
+ 
+Percentages are based on the total number of patients (N) in each treatment group, Q1: First quartile, Q3: Third Quartile, ECOG:Eastern Cooperative Oncology Group. 
+*Partial dates are imputed using the missing data conventions as mentioned in the Statistical analysis plan. 
+**The baseline measurement is the last pre-treatment measurement taken on or before Cycle 1 Day 1. 
+Q1: First Quartile; Q3: Third Quartile; ECOG: Eastern Cooperative Oncology Group. 
+ 
+Reference Listing 16.2.4.x, 16.2.4.x, etc. 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+Use same format: 
+Table 14.1.3.2 Demographic and Baseline Characteristics for Type of Metastasis- Safety Analysis Set  
+<Column 1: same as table 14.1.3.1; Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+Add Footnote- “ Recurrent metastasis includes both loco regional and distal metastasis.” 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 36 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.1.4.1 
+Summary of Medical and Surgical History 
+Safety Analysis Set 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+MedDRA (version 24.0) coding dictionary applied. 
+A patient with two or more medical/surgical history terms in the same system organ class (or with the same preferred term) is counted only once for that system organ class (or  
+preferred term). 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+ 
+Reference Listing 16.2.4.x 
+Program:xx.sas Table Generation:ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+System Organ Class 
+  Preferred Term 
+  
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%) 
+Overall 
+(N=XX) 
+n (%) 
+Patients with at least one medical/surgical history 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+SOC1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT3 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+SOC2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 37 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.1.5.1 
+Summary of Prior Medications 
+Safety Analysis Set 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+Medications are coded using WHO-DD classification (version Mar2021). 
+A patient with two or more prior medications in the same ATC Level 2 (or with the same preferred term) is counted only once for that ATC Level 2 (or preferred term). 
+ATC Level 2 terms are sorted in alphabetical order. Preferred terms are sorted within ATC level 2 terms by descending order of frequency of overall preferred terms. 
+Prior medications are those that were taken only prior to the first dose of study drug. 
+ 
+     Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ATC Level 2 
+  Preferred Term  
+  
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%) 
+Overall 
+(N=XX) 
+n (%) 
+Patients with at least one Prior Medication 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ATC1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT3 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ATC2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 38 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.1.5.2 
+Summary of Concomitant Medications 
+Safety Analysis Set 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+Medications are coded using WHO-DD classification (version Mar2021). 
+A patient with two or more concomitant medications in the same ATC Level 2 (or with the same preferred term) is counted only once for that ATC Level 2 (or preferred term). 
+ATC Level 2 terms are sorted in alphabetical order. Preferred terms are sorted within ATC level 2 terms by descending order of frequency of overall preferred terms. 
+Concomitant Medication is defined as those taken while on study drug including the ones that started before the initial dose of study drug and the medications which start after 
+study drug. 
+ 
+     Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ATC Level 2 
+  Preferred Term  
+  
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%) 
+Overall 
+(N=XX) 
+n (%) 
+Patients with at least one  Concomitant Drug Treatments 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ATC1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 39 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.1.5.3 
+Summary of Prior Non-Drug Treatments 
+Safety Analysis Set 
+Percentages are based on the total number of patients (N) in each treatment group.  
+Non-drug treatments are coded using MedDRA (version 24.0). 
+A patient with two or more prior non-drug treatments in the same system organ class (or with the same preferred term) is counted only once for that system organ class (or preferred 
+term). 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+Prior non-drug treatments are those that were taken only prior to the first dose of study drug. 
+ 
+     Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ System Organ Class 
+  Preferred Term  
+  
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%) 
+Overall 
+(N=XX) 
+n (%) 
+Patients with at least one Prior Non-Drug Treatment 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+SOC1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 40 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.1.5.4 
+Summary of Concomitant Non-Drug Treatments 
+Safety Analysis Set 
+Percentages are based on the total number of patients (N) in each treatment group.  
+A patient with two or more concomitant non-drug treatments in the same system organ class (or with the same preferred term) is counted only once for that system organ class (or 
+preferred term). 
+Non-drug treatments are coded using MedDRA (version 24.0). 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+Concomitant non-drug treatments are those that were taken while on study drug. The non-drug treatments that started after the discontinuation of study drug will also be termed as 
+'Concomitant non-drug treatments' 
+ 
+     Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+System Organ Class 
+  Preferred Term  
+  
+Tenalisib 800 mg BID 
+(N=XX) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%) 
+Overall 
+(N=XX) 
+n (%) 
+Patients with at least one Concomitant  
+Non-Drug Treatment 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+SOC1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  PT2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+  Etc. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 41 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.2.1.1 
+Summary of Patients Without Disease Progression at the End of 6 Months 
+ITT Analysis Set 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+Overall 
+(N=xx) 
+ 
+ 
+ 
+ 
+Number (%) of patients without progression at the End of 6 months 
+95% CI* 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+The Intent - to - Treat (ITT) analysis set includes all patients who received at least 1 dose of study medication. 
+Percentages are based on the total number of patients (N) in each treatment group. 
+* The 95% CIs are reported using exact method based on binomial distribution. 
+At 6 months, patients with treatment duration ≥180 days are summarized. 
+ 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+Use same format for 
+1. Table 14.2.1.2 Summary of Patients without Disease Progression at the End of 6 Months by Type of Metastasis – ITT Analysis Set 
+<Column 1: same as table 14.2.1.1; Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+2. Table 14.2.1.3 Summary of Patients without Disease Progression at the End of 6 Months – Per Protocol Analysis  
+3. Table 14.2.1.4 Summary of Patients with 6-Month and 1-Year Progression Free Survival – ITT Analysis Set  
+<Column 1:  First line “Number (%) of patients without Progressive disease/Death at 6 Month” 
+                      Second line “Number (%) of patients without Progressive disease/Death at 1 year;  
+Add footnote-“At 1 year, patients with treatment duration ≥360 days are summarized.” 
+4. Table 14.2.1.5 Summary of Patients with 6-Month and 1-Year Progression Free Survival by Type of Metastasis – ITT Analysis Set  
+<Column 1:  First line “Number (%) of patients without Progressive disease/Death at 6 Month” 
+                      Second line “Number (%) of patients without Progressive disease/Death at 1 year;  
+Add footnote-“At 1 year, patients with treatment duration ≥360 days are summarized.” 
+Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+5. Table 14.2.1.6 Summary of Patients with 6-Month and 1-Year Progression Free Survival – Per Protocol Analysis 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 42 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.2.2.1 
+Summary of Objective Response Rate and Clinical Benefit Rate  
+ITT Analysis Set 
+ 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+Overall 
+(N=xx) 
+Number (%) of patients  
+95% CI* 
+ 
+ 
+ 
+    CR 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    PR 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    SD 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    SD>=24 weeks 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    PD 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    Not Evaluated 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    ORR (CR+PR) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+ 
+ 
+ 
+ 
+    CBR (CR+PR+SD>=24 weeks) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+xx (xx.x) 
+(xx.x, xx.x) 
+The ITT analysis set includes all patients who received at least 1 dose of study medication. 
+Percentages are based on the total number of patients (N) in each treatment group. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 43 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+* The 95% CIs are reported using exact method based on binomial distribution. 
+The BOR is defined as the best visit response recorded from the start of the treatment until disease progression/recurrence. The response rates (CR/ PR/ SD/SD>=24 weeks/PD) are 
+estimated using (BOR) recorded in each patient. For the patients without any post-baseline efficacy assessment, BOR is considered as 'Not evaluated'. 
+For SD ≥24 weeks, patients with treatment duration ≥168 (±7) days are summarized.  
+CR- Complete Response; PR- Partial Response; SD- Stable Disease; PD- Progressive Disease; ORR- Objective Response Rate; CBR- Clinical Benefit Rate. 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+Use same format for 
+1. Table 14.2.2.2 Summary of Objective Response Rate and Clinical Benefit Rate by type of metastasis – ITT Analysis Set 
+<Column 1: same as table 14.2.2.1; Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+2. Table 14.2.2.3 Summary of Objective Response Rate and Clinical Benefit Rate – Per Protocol Analysis 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 44 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol  RP6530-2101 
+Page xx of yy 
+Table 14.2.3.1 
+Summary of Progression Free Survival  
+ITT Analysis Set 
+ 
+ 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+Tenalisib 1200 mg BID 
+ (N=xx) 
+   
+Overall 
+(N=xx) 
+Number (%) of patients with Progressive 
+Disease/Death 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+ 
+ 
+ 
+   
+ 
+       Progressive Disease, n (%) 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+       Death, n (%) 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+ 
+ 
+ 
+   
+ 
+Number (%) of censored patients 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+ 
+ 
+ 
+   
+ 
+Reason for Censoring n(%) 
+ 
+ 
+   
+ 
+  xxxxxxxxxxxxxxxxx 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+  xxxxxxxxxxxxxxxxx 
+xx (xx.x) 
+xx (xx.x) 
+   
+xx (xx.x) 
+ 
+ 
+Time to Progressive Disease/ Death (days) 
+Quartiles (95% CI)* 
+ 
+ 
+ 
+ 
+  
+    Q1 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+ 
+ 
+ xx.x (xx.x, xx.x) 
+    Median  
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+ 
+ 
+ xx.x (xx.x, xx.x) 
+    Q3 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+ 
+ 
+ xx.x (xx.x, xx.x) 
+ 
+ 
+ 
+ 
+ 
+  
+    Range (min, max) 
+(xx,   xx) 
+(xx,   xx) 
+ 
+ 
+ (xx,   xx) 
+ 
+ 
+ 
+ 
+ 
+The ITT analysis set includes data from all patients who received at least 1 dose of study medication. 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 45 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Time to Progression Free Survival (PFS) is defined as the time from the first dose of the study drug to documented disease progression or death due to any cause. For 
+Patients who neither progress nor die, the duration of response is censored on the last date the patient is known to be radiologically progression free. 
+*Quartiles are calculated using Kaplan-Meier Estimate method. The 95% confidence intervals are calculated using Brookmeyer and Crowley Method. 
+ 
+ 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+Use same format for 
+1. Table 14.2.3.2 Summary of Progression Free Survival by type of metastasis – ITT Analysis Set 
+<Column 1: same as table 14.2.3.1; Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+2. Table 14.2.3.3 Summary of Progression Free Survival– Per Protocol Analysis  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 46 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.2.4.1 
+Summary of Duration of Response 
+ITT Analysis Set 
+ 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+ 
+Tenalisib 1200 mg BID 
+ (N=xx) 
+ 
+Overall 
+(N=xx) 
+ 
+Number (%) of Patients with Partial/Complete 
+Response * 
+xx.x (xx.x) 
+xx.x (xx.x) 
+xx.x (xx.x) 
+ 
+ 
+ 
+ 
+Number (%) of Censored Patients 
+xx.x (xx.x) 
+xx.x (xx.x) 
+xx.x (xx.x) 
+Reason for Censoring n (%) 
+ 
+ 
+ 
+         xxxxxxxxxxxxxxxxxxx 
+xx.x (xx.x) 
+xx.x (xx.x) 
+xx.x (xx.x) 
+ 
+ 
+ 
+ 
+Duration of Response (days) 
+ 
+ 
+ 
+Quartiles (95% CI)* 
+ 
+ 
+ 
+ 
+         Q1 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+         Median 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+         Q3 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+xx.x (xx.x, xx.x) 
+ 
+ 
+ 
+ 
+Range (min, max) 
+(xx,xx) 
+(xx,xx) 
+(xx,xx) 
+ 
+The ITT is the primary analysis population and will include data from patients who have received at least 1 dose of study medication. 
+*Percentages are based on the total number of patients (N) in each treatment group. 
+Percentages are based on the total number of patients with Partial/Complete Response in each treatment group. 
+ 
+Duration of Response (DoR) is defined as time from the first occurrence of partial or complete response to disease progression or death in patients who achieve complete 
+or partial response. For patients who neither progress nor die, the duration of response is censored on the last date the patient is known to be radiologically progression 
+free. 
+*Quartiles are calculated using Kaplan-Meier Estimate method. The 95% confidence intervals are displayed using Brookmeyer and Crowley Method.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 47 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss  
+Use same format for 
+1. Table 14.2.4.2 Summary of Duration of Response by type of metastasis – ITT Analysis Set 
+<Column 1: same as table 14.2.4.1; Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+2. Table 14.2.4.3 Summary of Duration of Response by type of metastasis – Per Protocol Analysis 
+ 
+ 
+3. Table 14.2.4.4 Summary of Duration of clinical benefit– ITT Analysis Set 
+<Column 1: Update the text to “Number (%) of Patients with Partial Response/Complete Response /Stable Disease>=24 weeks”;  
+ 
+ 
+ 
+        “Duration of Clinical Benefit (days)” 
+Updated footnote as-  
+Duration of clinical benefit (DoCB) is defined as the time from the first dose of study drug to disease progression or death in patients who achieve complete response, partial 
+response, or stable disease for 24 weeks or longer. For patients who neither progress nor die, the duration of response is censored on the last date the patient is known to be 
+radiologically progression free. 
+For stable disease ≥24 weeks, patients with treatment duration ≥168 (±7) days are summarized. 
+ 
+4. Table 14.2.4.5 Summary of Duration of clinical benefit by type of metastasis – ITT Analysis Set 
+<Column 1: Update the text to “Number (%) of Patients with Partial Response/Complete Response /Stable Disease >= 24 weeks”;  
+ 
+ 
+ 
+        “Duration of Clinical Benefit (days)” 
+Updated footnote as-  
+Duration of clinical benefit (DoCB) is defined as the time from the first dose of study drug to disease progression or death in patients who achieve complete response, partial 
+response, or stable disease for 24 weeks or longer. For patients who neither progress nor die, the duration of response is censored on the last date the patient is known to be 
+radiologically progression free. 
+For stable disease ≥24 weeks, patients with treatment duration ≥168 (±7) days are summarized. 
+ 
+Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+5. Table 14.2.4.6 Summary Duration of clinical benefit– Per Protocol Analysis  
+<Column 1: Update the text to “Number (%) of Patients with Partial Response/Complete Response /Stable Disease >= 24 weeks”;  
+ 
+ 
+ 
+        “Duration of Clinical Benefit (days)” 
+Updated footnote as- Duration of clinical benefit (DoCB) is defined as the time from the first dose of study drug to disease progression or death in patients who achieve complete 
+response, partial response, or stable disease for 24 weeks or longer. For patients who neither progress nor die, the duration of response is censored on the last date the patient is 
+known to be radiologically progression free. For stable disease ≥24 weeks, patients with treatment duration ≥168 (±7) days are summarized 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 48 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.1.1 
+Overall Summary of Adverse Events 
+Safety Analysis Set 
+ 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%), E 
+Overall 
+(N=XX) 
+n (%), E 
+Any non-TEAE 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Any TEAE 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Serious TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related Serious TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Grade ≥ 3 TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related Grade ≥ 3 TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+TEAEs leading to discontinuation 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related TEAEs leading to 
+discontinuation 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+TEAEs leading to dose reduction^ 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related TEAEs leading to dose 
+reduction^ 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Serious TEAEs leading to 
+discontinuation 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related Serious TEAEs leading to 
+discontinuation 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+TEAEs leading to drug interruption 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related TEAEs leading to 
+druginterruption 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Fatal TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+Related Fatal TEAEs 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+ 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 49 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Tenalisib 800 mg BID  
+(N=xx) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=XX) 
+n (%), E 
+Overall 
+(N=XX) 
+n (%), E 
+Protocol-Defined Adverse Events of 
+Special Interest 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+      Pregnancy 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+      Abortion 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+      Birth defects/congenital anomalies 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+      Overdose 
+xx (xx.x), xx 
+xx (xx.x), xx 
+xx (xx.x), xx 
+ 
+ 
+ 
+ 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+ 
+Treatment-Emergent Adverse Events are those that start on or after the date of first dose of study drug. 
+Discontinuation refers to discontinuation of study drug. 
+Patients under the category 'Drug interruption followed by dose reduction' are counted in both the groups 'Drug interruption' and 'Dose reduction'. 
+^The dose reduction information is collated from the treatment exposure page of the eCRF. 
+n: Number of patients with any event, E: Number of events, TEAE: Treatment-Emergent Adverse Event. 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 50 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.1.2 
+Treatment-Emergent Adverse Events by System Organ Class and Preferred Term 
+Safety Analysis Set 
+      
+System Organ Class 
+  Preferred Term  
+  
+Tenalisib 800 mg BID  
+(N=xx) 
+Tenalisib 1200 mg BID  
+(N=xx) 
+ 
+Overall 
+(N=xx) 
+ 
+ 
+Related  
+n (%), E 
+Not Related  
+n (%), E 
+ Total 
+n (%), E 
+Related  
+n (%), E 
+Not Related  
+n (%), E 
+Total 
+n (%), E 
+Related  
+n (%), E 
+Not Related  
+n (%), E 
+Total 
+n (%), E 
+At Least one TEAE 
+x (xx.x), xx 
+x (xx.x), xx 
+ x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+SOC1 
+x (xx.x), xx 
+x (xx.x), xx 
+ x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  PT1 
+x (xx.x), xx 
+x (xx.x), xx 
+ x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  PT2 
+x (xx.x), xx 
+x (xx.x), xx 
+ x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  Etc. 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+n: Number of patients with any event, E: Number of events, TEAE: Treatment-Emergent Adverse Event 
+A patient with two or more adverse events in the same system organ class (or with the same preferred term) is counted only once for that system organ class (or preferred term). 
+Treatment-Emergent Adverse Events are coded using MedDRA (version 24.0) 
+A patient experiencing an adverse event at multiple occasions with distinct relationships status with study treatment is counted under both “Related” and “Not Related” categories. The 
+events (E) are counted as per their relationship with the study treatment. 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+Treatment-Emergent Adverse Events are those that start on or after the date of first dose of study drug. 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+Use same format for 
+Table 14.3.1.3 Treatment-Emergent Grade 3, 4 and 5 Adverse Events by System Organ Class and Preferred Term – Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 51 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101                                                                                                                                                                                                                        Page xx of yy 
+Table 14.3.1.4 
+Treatment-Emergent Serious Adverse Events by System Organ Class and Preferred Term  
+Safety Analysis Set 
+ 
+System Organ Class 
+  Preferred Term  
+  
+Tenalisib 800 mg BID  
+(N=xx) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=xx) 
+n (%), E 
+Overall 
+(N=xx) 
+n (%), E 
+At Least one TEAE 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+ 
+ 
+ 
+SOC1 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  PT1 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  PT2 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+  Etc. 
+ 
+ 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+n: Number of patients with any event, E: Number of events, TEAE: Treatment-Emergent Adverse Event 
+A patient with two or more adverse events in the same system organ class (or with the same preferred term) is counted only once for that system organ class (or preferred term). 
+Treatment-Emergent Adverse Events are coded using MedDRA (version 24.0) 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+Treatment-Emergent Adverse Events are those that start on or after the date of first dose of study drug. 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+Use same format for 
+Table 14.3.1.5 Treatment-Related Serious TEAEs by System Organ Class and Preferred Term - Safety Analysis Set 
+Table 14.3.1.8 Summary of Deaths by System Organ Class and Preferred Term - Safety Analysis Set 
+Table 14.3.1.9 Treatment-Emergent Adverse Events leading to Dose Reduction or Interruptions by System Organ Class and Preferred Term – Safety Analysis Set 
+Add Footnote –“ Patients under the category 'Drug interruption followed by dose reduction' are counted in both the groups 'Drug interruption' and 'Dose reduction'.” 
+                           “^The dose reduction information is collated from the treatment exposure page of the eCRF.” 
+Table 14.3.1.10 Treatment-Related TEAEs leading to Dose Reduction or Interruptions by System Organ Class and Preferred Term 
+Add Footnote- “Patients under the category 'Drug interruption followed by dose reduction' are counted in both the groups 'Drug interruption' and 'Dose reduction'.” 
+                         “^The dose reduction information is collated from the treatment exposure page of the eCRF.” 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 52 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Table 14.3.1.11 Treatment-Emergent Adverse Events leading to Discontinuation of Study Drug by System Organ Class and Preferred Term 
+Table 14.3.1.12 Treatment-Related TEAEs leading to Discontinuation of Study Drug by System Organ Class and Preferred Term 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 53 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-1802                                                                                                                                                                                                                             Page xx of yy 
+Table 14.3.1.6 
+Treatment-Emergent Adverse Events by System Organ Class, Preferred Term and maximum CTCAE grade 
+Safety Analysis Set 
+ 
+Percentages are based on the total number of patients (N) in each treatment group.n: Number of patients with any event, E: Number of events, CTCAE: Common Terminology Criteria for 
+Adverse Events, TEAE: Treatment-Emergent Adverse Event 
+If a patient has two or more adverse events in the same system organ class (or with the same preferred term) with different CTCAE grades, then the event with the highest grade is 
+considered for that patient. 
+Treatment-Emergent Adverse Events are coded using MedDRA (version 24.0). 
+System organ classes are sorted in alphabetical order. Preferred terms are sorted within system organ class by descending order of frequency of overall preferred terms. 
+Treatment-Emergent Adverse Events are those that start on or after the date of first dose of study drug. 
+CTCAE Grade: 1=Mild, 2=Moderate, 3=Severe, 4=Life threatening, 5=Death 
+Reference Listing 16.2.7.1 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+Use same format for 
+System Organ Class 
+  Preferred Term 
+  
+CTCAE 
+Grade 
+  
+Tenalisib 800 mg BID 
+(N=xx) 
+n (%), E 
+Tenalisib 1200 mg BID 
+(N=xx) 
+n (%), E 
+Overall 
+(N=xx) 
+n (%), E 
+At least one TEAE 
+Total 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+1 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+2 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+3 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+4 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+5 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+ 
+ 
+ 
+ 
+Blood and lymphatic system 
+disorders 
+Total 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+1 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+2 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+3 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+4 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+ 
+5 
+x (xx.x), xx 
+x (xx.x), xx 
+x (xx.x), xx 
+Etc 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 54 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Table 14.3.1.7 Treatment-Related TEAEs by System Organ Class, Preferred Term and maximum CTCAE grade - Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 55 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.2.1 
+Descriptive Summary of Hematology parameters 
+Safety Analysis Set 
+Parmeter (unit): xxxxxxx (xxx) 
+ 
+The baseline measurement is the last pre-treatment measurement taken on or before Cycle 1 Day 1 
+Only scheduled visits are included in the table. 
+EOT: End of Treatment; NE: Non-Estimable. 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+Use same format for 
+Table 14.3.2.2 Descriptive Summary of Biochemistry parameters - Safety Analysis Set 
+Visit/  
+  Statistics 
+Tenalisib 800 mg BID 
+(N=xx) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+Overall 
+(N=xx) 
+Actual values 
+Change from baseline 
+values 
+Actual values 
+Change from baseline 
+values 
+Actual values 
+Change from baseline 
+values 
+Baseline 
+ 
+ 
+ 
+ 
+ 
+ 
+  N 
+   xx 
+  xx 
+  xx 
+  Mean 
+   x.xxx 
+  x.xxx 
+  x.xxx 
+  SD 
+   x.xxxx 
+  x.xxxx 
+  x.xxxx 
+  Median 
+   x.xxx 
+  x.xxx 
+  x.xxx 
+  Min, Max 
+   x.xx, x.xx 
+  x.xx, x.xx 
+  x.xx, x.xx 
+ 
+ 
+Cycle 1 Day 1 
+ 
+ 
+ 
+ 
+ 
+ 
+  N 
+   xx 
+  xx 
+  xx 
+  xx 
+  xx 
+  xx 
+  Mean 
+   x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  SD 
+   x.xxxx 
+  x.xxxx 
+  x.xxxx 
+  x.xxxx 
+  x.xxxx 
+  x.xxxx 
+  Median 
+   x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  x.xxx 
+  Min, Max 
+   x.xx, x.xx 
+  x.xx, x.xx 
+  x.xx, x.xx 
+  x.xx, x.xx 
+  x.xx, x.xx 
+  x.xx, x.xx 
+ 
+ 
+Continue for all visits and parameters 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 56 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Table 14.3.3.1 Descriptive Summary of Vital Signs - Safety Analysis Set 
+ 
+Note - Please remove the column for change from baseline. 
+               Add footnote-“Vitals is collected at Pre-dose during treatment visits” 
+Table 14.3.4.1 Descriptive Summary of ECG - Safety Analysis Set 
+              Note - Please remove the column for change from baseline. 
+               Add footnote-“ECG is collected at Pre-dose during treatment visits” 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 57 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.4.2 
+Summary of Abnormal ECG results 
+Safety Analysis Set 
+ 
+Visit  
+  
+Criteria  
+  
+Tenalisib 800 mg BID 
+(N=xx) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+n (%) 
+Overall 
+(N=xx) 
+n (%) 
+Baseline 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 1 Day 15 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 2 Day 1 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 2 Day 15 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 3 Day 1 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 3 Day 15 
+Clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+Not clinically significant 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+Continue for all visits 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+The baseline measurement is the last pre-treatment measurement taken on or before Cycle 1 Day 1. 
+ECG is collected at Pre-dose during treatment visits 
+EOT: End of Treatment. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 58 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Visit  
+  
+Criteria  
+  
+Tenalisib 800 mg BID 
+(N=xx) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+n (%) 
+Overall 
+(N=xx) 
+n (%) 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 59 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.5.1 
+Summary of ECOG Performance Status 
+Safety Analysis Set 
+Visit  
+  
+  
+  
+Performance Status 
+   
+  
+Tenalisib 800 mg BID  
+(N=xx) 
+n (%) 
+Tenalisib 1200 mg BID 
+(N=xx) 
+n (%) 
+Overall 
+(N=xx) 
+n (%) 
+Screening 
+0 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 1 Day 1 
+0 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 2 Day 1 
+0 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+ 
+ 
+ 
+ 
+Cycle 3 Day 1 
+0 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+1 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+2 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+ 
+3-5 
+xx (xx.x) 
+xx (xx.x) 
+xx (xx.x) 
+Continue for all visits 
+ 
+ 
+ 
+ 
+ 
+Percentages are based on the total number of patients (N) in each treatment group. 
+Only scheduled visits are included in the table. 
+Performance Status: 0=Normal activity, 1=Symptoms, but ambulatory, 2=In bed < 50% of the time, 3=In bed > 50% of the time, 4=100% bedridden, 5=Dead 
+ECOG: Eastern Cooperative Oncology Group 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 60 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 61 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Table 14.3.6.1 
+Duration of Treatment Exposure and Compliance 
+Safety Analysis Set 
+* Duration of treatment exposure = date of last dose - date of first dose + 1. 
+** As captured on CRF. 
+Q1: first quartile, Q3: third quartile 
+ 
+Reference Listing 16.2.x.x and 16.2x.x 
+Program: xx.sas Table Generation: ddmmmyyyy hh:mm:ss 
+ 
+Use same format for 
+ 
+  
+Cycle 
+Tenalisib 800 mg BID  
+(N=xx) 
+Tenalisib 1200 mg BID   
+(N=xx) 
+Overall 
+(N=xx) 
+ 
+Duration of Treatment Exposure (days) * Overall 
+ 
+ 
+ 
+ 
+ 
+   n 
+xx 
+xx 
+xx 
+ 
+ 
+   Mean 
+xx.x 
+xx.x 
+xx.x 
+ 
+ 
+   SD 
+xx.xx 
+xx.xx 
+xx.xx 
+ 
+ 
+   Median 
+xx.x 
+xx.x 
+xx.x 
+ 
+ 
+   Q1, Q3 
+xx.x, xx.x 
+xx.x, xx.x 
+xx.x, xx.x 
+ 
+ 
+   Min, Max 
+xx, xx 
+xx, xx 
+xx, xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Treatment Compliance (%) ** 
+Cycle 1 
+ 
+ 
+ 
+ 
+ 
+   n 
+xx 
+xx 
+xx 
+ 
+ 
+   Mean 
+xx.x 
+xx.x 
+xx.x 
+ 
+ 
+   SD 
+xx.xx 
+xx.xx 
+xx.xx 
+ 
+ 
+   Median 
+xx.x 
+xx.x 
+xx.x 
+ 
+ 
+   Min, Max 
+xx, xx 
+xx, xx 
+xx, xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Continue for 
+remaining 
+cycles.. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 62 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Table 14.3.6.2 Duration of treatment exposure by type of metastasis – Safety Analysis Set 
+<Column 1: same as table 14.3.6.1 but treatment compliance part will be removed;  
+Column 2: de novo metastasis; Column 3: recurrent metastasis; Column 4: Overall> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 63 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.1.1 
+Screened patients 
+All Patients 
+ 
+Patient ID 
+Date of Informed 
+Consent 
+ 
+Date of Screening 
+Is the patient enrolled 
+in study? 
+If No, please 
+comment 
+Was Biopsy taken? 
+Was Informed 
+consent 
+Obtained for 
+Biopsy 
+Testing? 
+Date of Informed 
+Consent for 
+Biopsy/Mutational 
+Testing 
+xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+No 
+Xxxx 
+Yes/ 
+Yes 
+DDMMMYYYY 
+xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+Yes 
+ 
+Yes 
+No 
+ 
+xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+Yes 
+ 
+No 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 64 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Listing 16.2.1.2 
+Randomization 
+All Enrolled Patients 
+ 
+ 
+ 
+Patient ID 
+Patient Randomized? 
+Randomized treatment group 
+Xxxx 
+Yes                                                    
+xxxx 
+Xxxx 
+Yes                                                    
+Xxxx 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 65 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Listing 16.2.1.3 
+Eligibility Review 
+All Patients 
+ 
+ 
+ 
+Patient ID 
+Is the patient eligible                       Enrollment Status 
+for the study? 
+If no, Give the Primary reason 
+Xxxx 
+Yes                                                    No 
+xxxx 
+Xxxx 
+Yes                                                    No 
+Xxxx 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 66 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.1.4 
+Reasons for Withdrawal of Patient from the Study 
+Safety Analysis Set 
+ 
+Patient 
+ID 
+     
+Treatment 
+Group 
+Date of 
+First/Last dose of 
+Tenalisib 
+administered 
+Last dose  
+administered 
+Date of 
+discontinuation/ 
+Study Day 
+Primary reason 
+for discontinuation 
+In case of AE, 
+Specify 
+AE No# 
+In case of 
+Progression 
+(Date of 
+progression) 
+In case of 
+Death 
+(Date of 
+death) 
+Was death 
+caused by the  
+toxicity of 
+study drug 
+ 
+Primary cause 
+of death 
+Xxxx 
+Xxxx 
+DDMMMYYYY/D
+DMMMYYYY 
+xxxx 
+DDMMMYYYY/x
+x 
+xxxx 
+xx 
+ 
+ 
+ 
+Xxxx 
+Xxxx 
+DDMMMYYYY/D
+DMMMYYYY 
+xxxx 
+DDMMMYYYY/x
+x 
+xxxx 
+ 
+DDMMMYYYY 
+DDMMMYY
+YY 
+No 
+Study Day = Treatment start date – Date of discontinuation +1 
+#: Related to study drug 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 67 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101                                                                                                                                      
+                                                              Page xx of yy 
+Listing 16.2.1.5 
+Patient Visits 
+All Patients 
+Patient ID 
+Treatment Group 
+Visit                  Date of Visit  
+                                                 
+Was this Visit Performed 
+Reason for visit not performed  
+Adverse event from 
+previous visit? 
+Concomitant 
+medication from previous 
+visit? 
+Xxxx 
+Xxxxxx 
+xxxx                  DDMMMYYYY 
+Yes 
+Yes 
+No 
+ 
+Xxxxxx 
+xxxx 
+No 
+xxxxxxxxxxxxxx 
+ 
+xxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 68 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.2 
+Protocol Deviations during the Study 
+Safety Analysis Set 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Date of  Deviation                           Type of Protocol Deviation (Main 
+Category) 
+Description of Protocol 
+Deviation 
+(SubCategory) 
+Category 
+Requires Exclusion from 
+PP Set 
+Xxxx 
+Xxxx 
+ DDMMMYYYY 
+xxxxxxxxxxx 
+Xxxxxxxxxxx 
+Minor 
+No 
+ 
+ DDMMMYYYY 
+xxxxxxxxxxx 
+Xxxxxxxxxxx 
+Major 
+Yes 
+ 
+ 
+Xxxx 
+Xxxxx 
+  DDMMMYYYY 
+xxxxxxxxxxx 
+Xxxxxxxxxxx 
+Minor 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 69 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.3 
+Analysis Populations 
+All Patients 
+ 
+ 
+Patient 
+ID 
+ 
+Treatment Group Safety Analysis 
+Set 
+Intent-to-Treat Analysis 
+Set  
+Per Protocol Analysis Set  
+Reason for exclusion from Intent-to-
+Treat Analysis Set 
+Reason for exclusion from Per 
+Protocol Analysis Set 
+Xxxx 
+ 
+Xxxxx 
+Yes 
+Yes 
+Yes 
+ 
+Xxxx 
+ 
+Xxxxx 
+Yes 
+No 
+No 
+ 
+xxxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Safety Analysis Set includes all patients who received at least one dose of study medication. 
+Intent-to-Treat Analysis Set includes all patients who received at least one dose of study medication. 
+Per Protocol Analysis Set includes all patients in the Intent-to-Treat Analysis Set without major protocol deviations. 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 70 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.4.1 
+Demography Data 
+Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Type of metastasis 
+Date of Birth 
+Age (years) Gender 
+Race 
+Height 
+(cm) 
+ 
+Childbearing potential? 
+Menopausal status 
+Xxxx 
+Xxxxx 
+de novo metastasis 
+DDMMMYYYY 
+xx.xx 
+Female 
+Xxxx 
+xx.xx 
+ 
+Post-menopausal 
+Xxxx 
+Xxxxx 
+Recurrent metastasis DDMMMYYYY 
+xx.xx 
+Female 
+Other:Xxxx 
+xx.xx 
+No 
+ 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 71 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.4.2 
+Medical History, Surgical History and Concomitant/Current Illnesses 
+Safety Analysis Set 
+ 
+ 
+Patient 
+ID 
+Treatment Group Event 
+Code 
+MH Verbatim Term SOC /Preferred Term 
+Start Date 
+End Date/ 
+Ongoing 
+Any Medication 
+Ongoing 
+If prior medication specify 
+number 
+Xxxx 
+Xxxxx 
+1 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+Ongoing 
+Yes 
+ 
+2 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+No 
+ 
+3 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+Ongoing 
+Yes 
+ 
+4 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+Ongoing 
+No 
+ 
+5 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+No 
+ 
+6 
+xxxx 
+xxxx / xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+Yes 
+ 
+MH: Medical history, SOC: System organ class 
+MedDRA (version 24.0) coding dictionary applied. 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 72 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.4.3 
+Prior Therapy 
+Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Total Therapies 
+undergone 
+prior to start of 
+study 
+Type of 
+therapy 
+Number of 
+Systemic 
+Therapies/ 
+Radiotherapies/
+Surgeries 
+Prior to Start 
+of Study 
+Systemic 
+Therapy/ SCT/ 
+Type of 
+Radiotherapy 
+Start Date / 
+End Date 
+or 
+Date of 
+Surgery 
+ 
+No. of cycles/ 
+Total 
+Radiation 
+Dose 
+Site of Surgery/ 
+Radiotherapy 
+ 
+Radio therapy given 
+along with 
+chemotherapy? 
+ 
+Treatment 
+Status/Best 
+Response * 
+Xxxx Xxxxx 
+xx 
+Systemic 
+Therapy 
+xxxx 
+DDMMM
+YYYY / 
+DDMMM
+YYYY 
+           xx 
+xxx 
+ 
+ 
+Xx/xxx 
+ 
+ 
+Radiotherapy 
+xxxxxxxxx 
+DDMMM
+YYYY / 
+DDMMM
+YYYY 
+            
+xxxx 
+ 
+Yes 
+ 
+Xx/xxx 
+ 
+ 
+Surgery 
+Other: xxxx 
+DDMMM
+YYYY  
+ 
+            
+xxxx 
+ 
+ 
+Xx/xxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+*Best Response: SD: Stable Disease; CR: Complete Response; PR: Partial Response; PD: Progressive Disease; ND: Not Assessed/Done; NE: Not Evaluable; UN: Unknown; NA: Not 
+Applicable. 
+#Last systemic therapy prior to start of study. 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 73 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101                                                                                                                                                                                                                 Page xx of yy 
+Listing 16.2.4.4                                                                                                                                                                                                                             
+Cancer Diagnosis 
+Safety Analysis Set 
+Patient 
+ID 
+Treatment Group Date of Primary 
+Diagnosis  
+ 
+ 
+Metastatic/ Locally 
+Advanced 
+Metastasis at the 
+time of primary 
+presentation 
+If No, Date of 
+diagnosis of 
+metastatic disease 
+Type of 
+metastasis 
+TNM 
+Staging 
+Histology 
+Hormone receptor 
+status 
+Xxxx 
+Xxxxx 
+DDMMMYYYY 
+ 
+Metastatic 
+Yes 
+DDMMMYYYY 
+xxxxxxxxx 
+IA1 
+xxxxxxxxx 
+xxxxxxxxx 
+ 
+ 
+ 
+Xxxx 
+Xxxxx 
+DDMMMYYYY 
+ 
+Metastatic 
+Yes 
+DDMMMYYYY 
+xxxxxxxxx 
+IA1 
+xxxxxxxxx 
+xxxxxxxxx 
+ 
+ 
+ 
+Xxxx 
+Xxxxx 
+DDMMMYYYY 
+ 
+Metastatic 
+Yes 
+DDMMMYYYY 
+xxxxxxxxx 
+IA1 
+xxxxxxxxx 
+xxxxxxxxx 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 74 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.4.5 
+Prior and Concomitant Medications 
+Safety Analysis Set 
+ 
+ 
+Patient 
+ID 
+ 
+Treatment Group 
+ATC Level 2/ 
+Preferred Term/ 
+Medication Name 
+Reason for 
+therapy 
+ 
+Start Date 
+ 
+Stop Date/ 
+Ongoing 
+Dose/Unit 
+  
+ 
+Frequency/Route 
+  
+ 
+Prior 
+or 
+Concomitant 
+Xxxx Xxxxxx 
+xxxx/ 
+xxxx/ 
+xxxx 
+MH: xxxx 
+DDMMMYYYY 
+Ongoing 
+Xx/xxx 
+ 
+Xxxx/xxxx 
+ 
+C 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx/ 
+xxxx/ 
+xxxx 
+AE: xxxx 
+DDMMMYYYY 
+Ongoing 
+Xx/xxx 
+ 
+Xxxx/xxxx 
+ 
+C 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx/ 
+xxxx/ 
+xxxx 
+Other: xxxx 
+DDMMMYYYY 
+DDMMMYYYY Xx/xxx 
+ 
+Xxxx/xxxx 
+ 
+P 
+MH: Medical History; AE: Adverse Event; P: Prior; C=Concomitant. 
+Medications are coded using WHO-DD classification (version Mar2021) 
+Prior medications are those that were taken only prior to the first dose of study drug.  
+Concomitant Medication is defined as those taken while on study drug including the ones that started before the initial dose of study drug and the medications which start after study drug. 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 75 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.4.6 
+Prior and Concomitant Non-Drug Treatments 
+Safety Analysis Set 
+ Patient 
+ ID 
+ 
+Treatment Group 
+System Organ Class/ 
+Preferred Term/ 
+Treatment Name 
+Reason for 
+therapy 
+ 
+Start Date 
+ 
+Stop Date/ 
+Ongoing 
+ Any 
+Comment 
+Prior or 
+Concomitant 
+Treatment 
+ Xxxx 
+Xxxxxxx 
+xxxx/ 
+xxxx/ 
+xxxx 
+AE: xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+xxxx 
+C 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx/ 
+xxxx/ 
+xxxx 
+Other:xxxx 
+DDMMMYYYY 
+Ongoing 
+xxxx 
+C 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx/ 
+xxxx/ 
+xxxx 
+MH:xxxx 
+DDMMMYYYY 
+DDMMMYYYY 
+xxxx 
+P 
+ 
+ 
+ 
+MH: Medical History; AE: Adverse Event; P: Prior; C=Concomitant. 
+Non drug treatments are coded using MedDRA (version 24.0) 
+Prior non-drug treatments are those that were taken only prior to the first dose of study drug.  
+Concomitant non-drug treatments are those that were taken while on study drug. The non-drug treatments that started after the discontinuation of study drug will also be termed as 
+'Concomitant non-drug treatments'. 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 76 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.5.1 
+Study Drug Exposure 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient 
+ID 
+ 
+Treatment Group Type of 
+metastasis 
+Cycle 
+  
+Start date/ 
+Stop date 
+Dose prescribed 
+(mg)/ 
+Dose administered 
+(mg) 
+ 
+Action taken to 
+study drug 
+  
+Reason for action taken 
+  
+Xxxx 
+ Xxxxxxx 
+xxxxxxxx 
+Cycle 1  
+DDMMMYYYY/ 
+DDMMMYYYY 
+800 mg /800 mg 
+ 
+xxx 
+Adverse event/toxicity: AE# 5 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+DDMMMYYYY/ 
+DDMMMYYYY 
+800 mg /800mg 
+ 
+xxx 
+xxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+EOT 
+DDMMMYYYY/ 
+DDMMMYYYY 
+800 mg /800mg 
+ 
+xxx 
+Other: xxx 
+ 
+EOT: End of Treatment 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 77 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101                                                                                                                                                                                                                       Page xx of yy 
+Listing 16.2.5.2 
+Study Drug Accountability 
+Safety Analysis Set 
+Patient 
+ID 
+   
+Treatment 
+Group 
+Dispensed Cycle/ 
+Return Cycle 
+Date dispensed/ 
+Returned 
+Strength  
+of tablet 
+  
+  
+Dose  
+prescribe 
+per day 
+(mg) 
+ 
+ No. of 
+tablets  
+Dispensed/ 
+Returned 
+  
+No. of 
+days 
+drug 
+interruptio
+n 
+ 
+Dose reduction 
+between 
+cycle/Date of 
+dose reduction 
+Dose of the 
+study drug 
+after dose 
+reduction 
+No. of days 
+drug 
+interruption 
+after dose 
+reduction 
+Compliance 
+(%) 
+ 
+ 
+Comments 
+  
+  
+  
+xxxx Xxxxx 
+  xxxx/xxxx 
+DDMMMYYYY/ 
+DDMMMYYYY 
+xxx 
+xxx 
+xxxx 
+xx  
+ No 
+xx 
+ 
+xx 
+xxxx 
+xxxx Xxxx 
+  xxxx/xxxx 
+DDMMMYYYY / 
+DDMMMYYYY 
+xxx 
+xxx 
+xxxx 
+xx  
+ Yes/ 
+DDMMMYYY
+Y 
+xx 
+ 
+xx 
+ 
+ 
+ 
+ 
+EOT: End of Treatment 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 78 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.1 
+Cancer Assessment 
+All Patients 
+ 
+ 
+ 
+ 
+EOT: End of Treatment 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Type of 
+Metastasis 
+ITT/PP 
+ Visit 
+ Assessment 
+performed/Date of 
+Assessment 
+ Reason if 
+assessment 
+not 
+performed 
+Lesion site  
+Presence of 
+lesion 
+ 
+ 
+Number/Location 
+of Lesion within 
+site 
+ 
+Site name/ 
+Number of 
+Lesion 
+within 
+other site or 
+soft tissue) 
+xxxx 
+Xxxxxx 
+xxxxxx 
+Yes/Yes 
+Screening 
+Yes/DDMMMYYYY  xxxxxx 
+Breast 
+Lymph 
+nodes 
+Lung 
+Yes 
+No 
+No 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Liver 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Bone 
+Other soft 
+tissue 
+ 
+ 
+ 
+ 
+ 
+Repeat for all the sites 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 79 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.2 
+Target Lesion Assessment 
+All Patients 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+ 
+Type of 
+metastasis 
+ ITT/PP 
+Number of 
+Measurable 
+Lesions/ 
+Target Lesions 
+at Screening 
+Visit 
+Assessment Performed/ 
+Date of Assessment 
+Evaluation 
+Method  
+ Lesion 
+Number/ 
+Anatomical 
+Location 
+ Tumor 
+Laterality/ 
+Lesion 
+Diameter 
+(cm) 
+ Sum 
+of lesion 
+diameters 
+% Change 
+from Nadir/ 
+% Change 
+in SLD from 
+Baseline# 
+>0.5cm 
+Absolute 
+Increase in 
+Any Lesion 
+Size/ 
+Overall 
+Response 
+of Target 
+Lesions 
+Xxxx Xxxxxx xxxxxxxx  Yes/Yes 
+x/x 
+Screening 
+Yes/DDMMMYYYY 
+CT 
+1/xxxxxx 
+Left/xx.x  xx.x 
+xx.x/xx.x 
+Xx/xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CT 
+1/xxxxxx 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Yes/Yes 
+xx/xx 
+Cycle 3 Day1 
+ Yes/DDMMMYYYY 
+CT 
+1/xxxxxx 
+ Left/xx.x   xx.x 
+xx.x/xx.xx 
+Xx/xx 
+ 
+ITT: Intent-To-Treat Analysis Set, PP: Per Protocol Analysis Set, EOT: End of Treatment,SLD: Sum of Lesion Diameter 
+#((SLD at Visit – SLD at Screening)/SLD at Screening)x100 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 80 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.3 
+Non-Target Lesion Assessment 
+All Patients 
+ 
+ 
+ 
+ 
+ITT: Intent-To-Treat Analysis Set, PP: Per Protocol Analysis Set, EOT: End of Treatment 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Type of 
+metastasis 
+ITT/PP 
+Non-
+target 
+Lesion at 
+screening 
+Visit     
+Was Assessment 
+Performed? 
+Date of 
+Assessment     
+Non-target 
+Lesion 
+Complete 
+Resolved? 
+Evaluation 
+Method  
+Lesion 
+Number/ 
+Anatomical 
+Location  
+Tumor 
+Laterality 
+ Lesion 
+Present 
+at 
+Screening 
+Any 
+unequivocal 
+increase in 
+lesion 
+Overall 
+Response 
+of Non-
+Target 
+Lesions 
+xxxx 
+Xxxxx 
+xxxxxx 
+Yes/Yes 
+Yes 
+Screening 
+Yes/ 
+DDMMMYYYY 
+No 
+CT 
+1/xxxx 
+Right 
+No 
+No 
+xxxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx 
+Xxxxx 
+xxxxx 
+Yes/Yes 
+Yes 
+Cycle 3 
+Day 1 
+ 
+Yes/ 
+DDMMMYYYY 
+No 
+CT 
+1/xxxx 
+Left 
+ No 
+No 
+xxxxxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 81 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.4 
+Overall Tumor assessment 
+ITT Analysis Set 
+ 
+ 
+ 
+ 
+ Patient 
+ID 
+Treatment 
+Group 
+Type of 
+metastasis  PP 
+Visit 
+Overall 
+tumor 
+assessment 
+performed? 
+If No, reason 
+Overall 
+assessment 
+date 
+Overall 
+Response 
+If progressive disease, date of 
+first radiological evidence of 
+progression 
+ 
+ 
+ xxxx 
+Xxxx 
+Xxxxx 
+ Yes 
+xxxx 
+Yes 
+DDMMMYYYY 
+Xxxxx 
+DDMMMYYYY 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ xxxx 
+Xxxxx 
+xxxxx 
+ Yes 
+xxxx 
+Yes 
+ 
+DDMMMYYYY 
+xxxxx 
+ 
+ 
+ 
+ 
+ xxxx 
+Xxxxx 
+xxxxx 
+ 
+xxxx 
+Yes 
+DDMMMYYYY 
+xxxxx 
+ 
+ 
+ xxxx 
+Xxxxx 
+xxxxx 
+ 
+xxxx 
+No 
+xxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ITT: Intent-To-Treat Analysis Set, PP: Per Protocol Analysis Set, EOT: End of Treatment 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 82 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.5 
+New lesion assessment 
+ITT Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ Patient 
+ID 
+Treatment 
+Group 
+ 
+Type of 
+metastasis 
+ PP 
+Visit 
+Any New Lesion? 
+ 
+Date of Detecting 
+New Lesion 
+Number of 
+new lesions 
+New lesion 
+site 
+Method of 
+assessment 
+Dimension, 
+If 
+Applicable 
+(cm) 
+ 
+ Xxxx 
+Xxxx 
+xxxx 
+ Yes 
+xxxx 
+Yes 
+DDMMMYYYY 
+Xx 
+xxx 
+Xxxx 
+xx 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Xxxx 
+Xxxxx 
+xxxxx 
+ Yes 
+xxxx 
+Yes 
+DDMMMYYYY 
+Xx 
+xxx 
+Xxxx 
+xx 
+ 
+ 
+ Xxxx 
+Xxxxxx 
+xxxxxx 
+ Yes 
+xxxx 
+Yes 
+DDMMMYYYY 
+Xx 
+xxxx 
+Xxxx 
+ 
+ 
+ 
+ Xxxx 
+Xxxxx 
+xxxxxx 
+ Yes 
+xxxx 
+No 
+ 
+ 
+ 
+ 
+ 
+ Xxxx 
+Xxxxx 
+xxxxxx 
+ Yes 
+xxxx 
+Yes 
+DDMMMYYYY 
+xx 
+xxx 
+Xxxx 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Xxxx 
+Xxxxx 
+xxxxxx 
+ Yes 
+xxxx 
+No 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ITT: Intent-To-Treat Analysis Set, PP: Per Protocol Analysis Set, EOT: End of Treatment 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+Protocol RP6530-1802 
+Page xx of yy 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 83 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Listing 16.2.6.6 
+Visit Wise Response 
+ITT Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Type of 
+Metastasis 
+PP 
+C3D1 C5D1 C7D1 C9D1 C11D1 C13D1 C15D1 C17D1 C19D1 
+EOT 
+BOR 
+ DOT(in 
+Days) 
+DOR (in 
+Days)  
+Best Change from 
+baseline 
+xxxx 
+Xxxx 
+Xxxxxxxx 
+Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+Xx 
+Xx 
+Xxxxx 
+xxxx 
+Xxxx 
+Xxxxxxx 
+Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+Xx 
+Xx 
+Xxxxx 
+xxxx 
+Xxxx 
+Xxxxxxxx 
+Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+Xx 
+Xx 
+Xxxxx 
+xxxx 
+Xxxx 
+Xxxxxxx 
+Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+Xx 
+Xx 
+Xxxxxx 
+xxxx 
+Xxxx 
+Xxxxxxx 
+Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+Xxxxxx 
+xxxx 
+Xxxx 
+xxxxxxxxx Yes 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xx 
+xxxxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The BOR is defined as the best visit response recorded from the start of the treatment until disease progression/recurrence. For the patients without any post-baseline efficacy assessment, 
+BOR is considered as 'Not evaluated'. 
+Duration of Treatment (DOT) = Date of Last Dose - Date of First Dose + 1. 
+Duration of Response (DOR) is defined as time from the first occurrence of partial or complete response to disease progression or death in patients who achieve complete or partial 
+response. For patients who neither progress nor die, the duration of response is censored on the last date the patient is known to be radiologically progression free. 
+Best change from baseline represents the smallest value of change from baseline in sum of lesion diameter among all the visits. 
+CR: Complete Response; PR: Partial Response; SD: Stable Disease; PD: Progressive Disease. 
+EOT: End of Treatment; BOR: Best Overall Response; DOT: Duration of Treatment; DOR: Duration of Response; NA: Not Applicable; NE: Not Evaluated; 
+ITT: Intent-to-Treat Analysis Set; PP: Per-Protocol Analysis Set. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 84 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.6.7 
+ECOG Performance Status 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Visit 
+ 
+Date of 
+Assessment 
+Performance 
+Status 
+Reason assessment not performed 
+Xxxx 
+Xxxxxx 
+Screening 
+DDMMMYYYY 
+1 
+ 
+ 
+Cycle 1 Day 1 
+DDMMMYYYY 
+1 
+ 
+ 
+Cycle 2 Day 1 
+Ect 
+DDMMMYYYY 
+1  
+ 
+ 
+End Of Treatment 
+DDMMMYYYY 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx  
+Xxxxxx 
+Screening 
+DDMMMYYYY 
+1 
+ 
+ 
+Cycle 1 Day 1 
+DDMMMYYYY 
+0 
+ 
+ 
+Cycle 2 Day 1 
+Ect 
+DDMMMYYYY 
+1  
+ 
+ 
+End Of Treatment 
+ 
+ 
+xxxx 
+ 
+ 
+ 
+Performance Status: 0=Normal activity, 1=Symptoms, but ambulatory, 2=In bed < 50% of the time, 3=In bed > 50% of the time, 4=100% bedridden, 5=Dead 
+ECOG: Eastern Cooperative Oncology Group; EOT:End of Treatment. 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 85 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.7.1 
+Adverse Events 
+Safety Analysis Set 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Event Code / 
+SOC / 
+Preferred 
+Term / 
+AE Verbatim Term* 
+Onset Date [Study Day] / 
+End Date [Study Day] / 
+AE Duration (days) 
+CTCAE/ 
+SAE 
+SAE Criteria  
+Action Taken with Study 
+Drug / 
+Relationship to Study Drug / 
+Outcome 
+Treatment 
+Given 
+for AE 
+Xxxx 
+Xxxxxx 
+xx/  
+xxxx/ 
+xxxx/ 
+xxxx 
+DDMMMYYYY [xx]/ 
+DDMMMYYYY [xx]/ 
+xx  
+ 
+Gradexx/ 
+No 
+No 
+xxxxxxxx 
+xxxx/ 
+xxxxx/ 
+xxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+SOC: System Organ Class, CTCAE: Common Terminology Criteria for Adverse Events 
+Adverse events are coded using MedDRA version 24.0 
+CTCAE Grade: 1=Mild, 2=Moderate, 3=Severe, 4=Life threatening, 5=Death 
+Study Day = (Onset date/End date) -Treatment start date + 1 
+*: Non-treatment-emergent adverse events 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 86 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Use same format for 
+ 
+<Note to Programmer: Please add the footnote “Treatment-Emergent Adverse Events are those that start on or after the date of first dose of study drug.”> 
+ 
+Listing 16.2.7.2 Treatment-Related TEAEs - Safety Analysis Set  
+Listing 16.2.7.3 Treatment-Emergent Grade 3, 4 and 5 Adverse Events - Safety Analysis Set 
+Listing 16.2.7.4 Treatment-Related Grade 3, 4 and 5 TEAEs - Safety Analysis Set 
+Listing 16.2.7.5 Treatment-Emergent Serious Adverse Events - Safety Analysis Set 
+Listing 16.2.7.6 Treatment-Related Serious TEAEs - Safety Analysis Set 
+Listing 16.2.7.7 Treatment-Emergent Adverse Events leading to Discontinuation of study drug - Safety Analysis Set  
+Listing 16.2.7.8 Treatment-Emergent Adverse Events leading to death - Safety Analysis Set  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 87 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.8.1.1 
+Clinical Laboratory Evaluations – Hematology 
+Safety Analysis Set 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Visit 
+Date/Time of 
+Collection 
+Test Name 
+ 
+Result 
+ 
+Unit 
+ 
+LLN 
+ULN 
+Normal/Abnormal 
+ 
+In case of CS, Specify 
+AE No 
+Xxxx 
+Xxxxxx 
+Screening 
+DDMMMYYYY/ 
+hh:mm 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+Normal 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx 
+xx 
+Abnormal, NCS 
+ 
+NCS: Not Clinically Significant; CS: Clinically Significant; EOT: End of Treatment; Clinical significance is applicable if results are out of reference range; LLN: Lower Limit of 
+Normal; ULN: Upper Limit of Normal 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+Use same format for 
+Listing 16.2.8.2.1 Clinical Laboratory Evaluations - Biochemistry - Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 88 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+ 
+Page xx of yy 
+Listing 16.2.8.1.2 
+Abnormal Laboratory Values – Hematology 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Visit 
+ 
+Date/Time of 
+Collection 
+Test Name 
+ 
+Result 
+ 
+Unit 
+ 
+LLN 
+ULN 
+Clinically 
+Significant? 
+In case of CS, 
+Specify 
+AE No 
+Xxxx Xxxxx 
+Screening 
+DDMMMYYYY/hh:mm 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+Cycle 1 Day 1 DDMMMYYYY/hh:mm 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+Yes 
+ 
+ 
+ 
+Xxxx 
+xx.x 
+xx 
+xx.x 
+xx.x 
+No 
+ 
+CS: Clinically Significant; EOT: End of Treatment; Clinical significance is applicable if results are out of reference range; LLN: Lower Limit of Normal; ULN: Upper Limit of Normal; 
+AE: Adverse Event. 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+Use same format for 
+Listing 16.2.8.2.2 Abnormal Laboratory Values – Biochemistry – Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 89 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.8.3.1 
+Clinical Laboratory Evaluations - Urinalysis 
+Safety Analysis Set 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Visit 
+ 
+Date/Time of 
+Collection 
+Test Name 
+ 
+Result 
+ 
+Unit 
+ 
+Normal/Abnormal 
+In case of CS, Specify 
+AE No 
+ 
+Xxxx 
+Xxxxx 
+Screening 
+DDMMMYYYY/ hh:mm xxxx 
+xx.x 
+xx 
+Normal 
+ 
+ 
+ 
+ 
+xxxx 
+xx.x 
+xx 
+Normal 
+ 
+ 
+ 
+ 
+xxxx 
+xx.x 
+xx 
+Abnormal, NCS 
+ 
+ 
+ 
+ 
+xxxx 
+xx.x 
+xx 
+Normal 
+ 
+ 
+ 
+ 
+xxxx 
+xx.x 
+xx 
+Normal 
+ 
+ 
+ 
+ 
+xxxx 
+xx.x 
+xx 
+Normal 
+ 
+ 
+NCS: Not Clinically significant; CS: Clinically Significant 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 90 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.8.3.2 
+Abnormal Laboratory Values - Urinalysis 
+Safety Analysis Set 
+Patient 
+ID 
+Treatment Group 
+Visit 
+ 
+Date/Time of 
+Collection 
+ 
+Test Name 
+ 
+Result 
+ 
+Unit 
+ 
+Clinically 
+Significant? 
+In case of CS, Specify 
+AE No 
+Xxxx 
+Xxxxx 
+xxxx 
+DDMMMYYYY/ hh:mm 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+xxxx 
+DDMMMYYYY/ hh:mm 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+xxxx 
+DDMMMYYYY/ hh:mm 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+ 
+ 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+ 
+ 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+xxxx 
+DDMMMYYYY/ hh:mm 
+xxxx 
+xxxx 
+xxxx 
+No 
+ 
+ 
+ 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 91 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.8.4 
+Pregnancy Test 
+Safety Analysis Set 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Type of test 
+Visit 
+Date test performed 
+Result 
+Reason for the test not performed 
+Xxxx 
+Xxxxx 
+Serum 
+xxxx 
+DDMMMYYYY 
+Negative 
+ 
+Xxxx 
+Xxxxx 
+Serum 
+xxxx 
+DDMMMYYYY 
+Negative 
+ 
+ 
+Urine 
+xxxx 
+ 
+ 
+xxxxx 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 92 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.9.1 
+Vital Signs 
+Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Visit 
+Date/Time of Examination 
+Weight (kg) 
+Systolic 
+Blood 
+Pressure 
+(mmHg) 
+Diastolic 
+Blood 
+Pressure 
+(mmHg) 
+ 
+Pulse 
+(beats/min) 
+Respiratory 
+Rate 
+(breaths/min) 
+Body 
+Temperature 
+(C) 
+If Abnormal 
+Clinically 
+Significant /Det
+ails 
+Reason 
+Vital Signs 
+not taken 
+xxxx 
+Xxxxxx 
+Screening 
+DDMMMYYYY/hh:mm   
+xx 
+xx 
+xx 
+ xx 
+xx 
+xx 
+ 
+ 
+Cycle 1 Day 1 DDMMMYYYY/hh:mm  
+xx 
+xx 
+xx 
+ xx 
+xx 
+xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Vitals is collected at Pre-dose during treatment visits 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 93 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.9.2 
+Abnormal Clinically Significant Vital Signs Values 
+Safety Analysis Set 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment 
+Group 
+Visit 
+Date/Time of Examination 
+Weight (kg) 
+Systolic 
+Blood 
+Pressure 
+(mmHg) 
+Diastolic 
+Blood 
+Pressure 
+(mmHg) 
+ 
+Pulse 
+(beats/min) 
+Respiratory 
+Rate 
+(breaths/min) 
+Body 
+Temperature 
+(C) 
+If Abnormal Clinically 
+Significant /Details 
+xxxx 
+Xxxxxx 
+Screening 
+DDMMMYYYY/hh:mm   
+xx 
+xx 
+xx 
+ xx 
+xx 
+xx 
+ 
+ 
+Cycle 1 Day 1 DDMMMYYYY/hh:mm  
+xx 
+xx 
+xx 
+ xx 
+xx 
+xx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Vitals is collected at Pre-dose during treatment visits 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 94 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.10.1 
+Physical Examination at Screening 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient       
+ID             
+Treatment 
+Group 
+Date of Examination 
+System 
+System 
+response 
+Specify Abnormal clinically significant If  Not Done, Reason for not 
+Performed 
+ 
+xxxx 
+Xxxxxxx 
+DDMMMYYYY 
+Xxxx 
+Normal 
+ 
+ 
+ 
+ 
+ 
+ 
+Xxxx 
+Not Done 
+ 
+ 
+ 
+ 
+ 
+ 
+Xxxx 
+Normal 
+ 
+ 
+ 
+ 
+ 
+ 
+Xxxx 
+Normal 
+ 
+ 
+ 
+ 
+ 
+ 
+Xxxx 
+Abnormal, NCS  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+NCS: Not Clinically Significant; CS: Clinically Significant. 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 95 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+ 
+Page xx of yy 
+Listing 16.2.10.2 
+Follow up Abnormal Physical Examination Results 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Visit 
+Date of Examination 
+System 
+System 
+response 
+Specify Abnormal 
+clinically significant  
+ Clinically significant compared to 
+Screening 
+xxxx 
+Xxxxxx 
+xxxx 
+DDMMMYYYY 
+Xxxx 
+xxxx 
+ 
+Yes 
+ 
+xxxx 
+DDMMMYYYY 
+Xxxx 
+xxxx 
+ 
+ 
+ 
+xxxx 
+DDMMMYYYY 
+Xxxx 
+xxxx 
+ 
+No 
+ 
+xxxx 
+DDMMMYYYY 
+Xxxx 
+xxxx 
+ 
+ 
+ 
+NCS: Not Clinically Significant; CS: Clinically Significant. 
+ 
+ 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 96 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.11.1 
+12-Lead ECG Results 
+Safety Analysis Set 
+ 
+ 
+ 
+Patient 
+ID 
+Treatment Group 
+Visit 
+Date/Time of ECG 
+ECG Test 
+Result 
+Unit 
+Interpretation 
+Abnormality 
+Details 
+Reason 
+ECG not 
+performed 
+xxxx 
+Xxxxxx 
+Screening 
+DDMMMYYYY   
+hh:mm 
+PR Interval 
+xxx.xx 
+sec 
+Normal 
+ 
+ 
+ 
+ 
+ 
+Heart Rate 
+xxx.xx 
+beats/min Abnormal, NCS 
+xxxxxx 
+ 
+ 
+ 
+ 
+QT Interval 
+xxx.xx 
+msec 
+Normal 
+ 
+ 
+ 
+ 
+ 
+QTcF Interval 
+xxx.xx 
+msec 
+ 
+ 
+ 
+ 
+ 
+ 
+QRS Duration 
+xxx.xx 
+msec 
+ 
+ 
+ 
+ 
+ECG is collected at Pre-dose during treatment visits 
+NCS: Not Clinically Significant, CS: Clinically Significant 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 97 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.11.2 
+Abnormal ECG Values 
+Safety Analysis Set 
+Patient 
+ID 
+Treatment Group 
+Visit 
+Date/Time of ECG 
+ECG Test 
+Result 
+Unit 
+Clinically 
+significant? 
+Abnormality Details 
+xxxx 
+Xxxxxx 
+xxxx 
+DDMMMYYYY   
+hh:mm 
+PR Interval 
+xxx 
+xxx 
+No 
+xxxx 
+ 
+ 
+ 
+Heart Rate 
+xxx 
+xxx 
+No 
+xxxx 
+ 
+ 
+ 
+QT Interval 
+xxx 
+xxx 
+No 
+xxxx 
+ 
+ 
+ 
+QTcF Interval 
+xxx 
+xxx 
+No 
+xxxx 
+ 
+ 
+ 
+QRS Duration 
+xxx 
+xxx 
+No 
+xxxx 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+xxxx 
+DDMMMYYYY   
+hh:mm 
+xxxx 
+xxx 
+xxx 
+No 
+xxxx 
+ECG is collected at Pre-dose during treatment visits 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 98 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Listing 16.2.12.1 
+Comment Log 
+All Patients 
+ 
+Patient ID 
+Visit 
+Form  
+Comment 
+xxxx 
+xxxx 
+Xxxx 
+xxxx 
+ 
+xxxx 
+Xxxx 
+xxxx 
+xxxx 
+xxxx 
+Xxxx 
+xxxx 
+ 
+ 
+EOT: End of Treatment. 
+ 
+Program: xx.sas Listing Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 99 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Figure 14.1.6.2 
+Duration of Treatment plot 
+Safety Analysis Set 
+ 
+ 
+Duration of Treatment = Date of Last Dose - Date of First Dose + 1. 
+The Best Overall Response (BOR) is defined as the best visit response recorded from the start of the treatment until disease progression/recurrence. For the patients without any post-
+baseline efficacy assessment, BOR is considered as 'Not evaluated'. 
+For SD ≥24 weeks, patients with treatment duration ≥168 (±7) days are summarized. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 100 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Reference Listing 16.2.x.x 
+Program: xx.sas Figure Generation: ddmmmyyyy hh:mm:ss 
+<Note to Programmer>  
+• 
+Add categories as CR, PR, SD≥24 weeks, SD<4 weeks, PD, No response 
+• 
+Please present this plot by descending frequency of duration (i.e. maximum frequency (on top) to minimum frequency (at the bottom)) 
+• 
+There should be colour coding as per the best response (CR, PR, PD, etc), for all bars and a legend describing the same. 
+• 
+Please include the “No response” category when there is no response available for any patient. 
+ 
+• 
+Figure 14.1.6.3 Duration of treatment plot by metastasis type – Safety Analysis Set  
+o 
+This will be same as 14.1.6.2. The y-axis will be updated to display type of metastasis/patient ID. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 101 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Figure 14.2.3.4 
+Kaplan-Meier plot for PFS 
+ITT Analysis Set 
+ 
+ 
+The Intent-to-Treat (ITT) analysis set includes all patients who received at least 1 dose of study medication. 
+Median is calculated using Kaplan-Meier Estimate method. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 102 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Time to Progression Free Survival (PFS) is defined as the time from the first dose of the study drug to documented disease progression or death due to any cause. For Patients who 
+neither progress nor die, the duration of response is censored on the last date the patient is known to be radiologically progression free. 
+Both the treatment groups are collectively used to represent the Overall group. 
+Patients qualifying in Intent-to-Treat (ITT) and Per-Protocol (PP) analysis sets are identical. 
+ 
+Program: xx.sas Figure Generation: ddmmmyyyy hh:mm:ss 
+ 
+ 
+<Note to Programmer>  
+In the first page plot will be by treatment groups and next page by overall. 
+ 
+Use same format for 
+1. Figure 14.2.3.5 Kaplan-Meier plot for PFS – Per Protocol Analysis 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 103 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+  
+Protocol RP6530-2101 
+Page xx of yy 
+Figure 14.2.2.4 
+Best Response (% change from Baseline) in sum of lesion diameters plot 
+ITT Analysis Set 
+ 
+ 
+ 
+The Best Overall Response (BOR) is defined as the best visit response recorded from the start of the treatment until disease progression/recurrence. 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 104 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+Best change from baseline represents the smallest value of change from baseline in sum of lesion diameter among all the visits. 
+Patients with at least 1 post-baseline efficacy assessment are considered. 
+Patients qualifying in Intent-to-Treat (ITT) and Per-Protocol (PP) analysis sets are identical. 
+CR: Complete Response; PR: Partial Response; SD: Stable Disease; PD: Progressive Disease. 
+ 
+ 
+Use same format for 
+1. Figure 14.2.2.5 Best Response (% change from Baseline) in sum of lesion diameters plot – Per Protocol Analysis 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 105 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+Protocol RP6530-2101 
+Page xx of yy 
+Figure 14.2.2.6 
+Visit Wise Tumor Response Plot 
+ITT Analysis Set 
+ 
+ 
+ 
+ 
+% Change from Baseline=((Sum of Lesions Diameter at Visit – Sum of Lesions Diameter at Screening)/Sum of Lesions Diameter at Screening)x100. 
+Patients with at least 1 post-baseline efficacy assessment are considered. 
+Patients qualifying in Intent-to-Treat (ITT) and Per-Protocol (PP) analysis sets are identical. 
+ 
+ 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Sponsor Name: Rhizen Pharmaceuticals AG 
+Sponsor Protocol ID: RP6530-2101 
+Labcorp Drug Development Study ID: 000000223291. 
+ 
+CONFIDENTIAL 
+Page 106 of 106 
+Document Date: 12MAY2023. 
+ 
+ST-AD-032 version 01 
+ 
+ 
+<Note to Programmer>  
+In the first page plot will be by treatment groups and next page by overall. 
+ 
+ 
+ 
+Use same format for 
+1. Figure 14.2.2.7 Visit Wise Tumor Response Plot – Per Protocol Analysis 
+ 

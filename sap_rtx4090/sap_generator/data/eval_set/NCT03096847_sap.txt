@@ -1,0 +1,1400 @@
+Clinical Development 
+LEE011/Ribociclib/Kisquali® 
+   CLEE011XDE01  / NCT03096847
+A national phase IIIb, multi-center, open label study for 
+women and men with hormone-receptor positive, HER2-
+negative locally advanced or metastatic breast cancer treated 
+with ribociclib (LEE011) in combination with letrozole  
+RIBECCA 
+Statistical Analysis Plan (SAP) 
+Author:  : 
+ (TS)  
+Document type:  SAP Documentation  
+Document status:  Final  Version  3.0 
+Release date:  22-Apr-2020
+Number of pages:  27 
+Property of Novartis 
+For business use only 
+May not be used, divulged, published or otherwise disclosed 
+without the consent of Novartis 
+
+
+Novartis For business use only Page 2 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Signature Page 
+ 
+ 
+ 
+ 
+Dr.  _________________________ ____________ 
+( ) Signature Date 
+ 
+ 
+ 
+ 
+Dr.   _________________________ ____________ 
+(Trial Statistican)  Signature Date 
+ 
+ 
+ 
+ 
+  _________________________ ____________ 
+( ) Sig
+nature Date 
+  
+
+
+Novartis For business use only Page 3 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Document History – Changes compared to previous final version of SAP 
+ 
+Date  Time point  Reason for update  Outcome for update  Section and title 
+impacted 
+(Current)  
+25-SEP-
+2017  Prior to 1st 
+interim analysis  Creation of draft version  for 
+review by Novartis TS/ML  N/A – First version  NA 
+06-NOV -
+2017  After RAMP -
+Meeting for 
+IA1 Revision of draft version  Draft 02   
+14-DEC -
+2017  Before 1st 
+Interim analysis  Revised after review TS Dr. 
+ Draft 03   
+14-DEC -
+2017  Before 1st 
+Interim analysis  Prefinal version for IA1  Prefinal 01   
+20-DEC -
+2017  Before 1st 
+Interim analysis  Revised after review by 
+ Dr.  Prefinal 02  
+Final version 1.0  
+(21-DEC -2021 ) Signature page 
+included  
+30-OCT -
+2019  After 3rd 
+interim 
+analysis, before 
+final analysis   post-hoc multivariate 
+analysis for neutropenia 
+and AST/ALT 
+elevations included,  
+ programming details 
+added  
+Sensitivity analyses 
+added (in -/excluding 
+centers with relevant 
+inspection finding)  
+ Final Version 2.0   2.13 Other 
+exploratory 
+analyses  
+ Several  
+ 
+ 
+22-Apr-
+2020  After Data 
+Review 
+Meeting  Final decision rules for 
+Populations  Final version 3.0 (22-Apr-
+2020 ) Section 5.8:  
+Table 1,  
+Table 2  
+ 
+
+
+Novartis For business use only Page 4 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Table of contents 
+1 Introduction  ................................ ................................ ................................ ......................... 8 
+1.1
+ Study design ................................................................ ................................ ............. 8  
+1.2 Study objectives and endpoints  ................................ ................................ ............... 8 
+2
+ Statistical methods  ................................................................ ................................ ............. 10  
+2.1 Data analysis general information  ................................ ................................ ......... 10 
+2.1.1
+ General definitions  ................................ ................................ ................ 11 
+2.2
+ Analysis sets  ................................................................ ................................ .......... 11  
+2.2.1 Subgroup of interest  ................................ ................................ .............. 11 
+2.3
+ Patient disposition, demographics and other baseline characteristics ................... 12 
+2.3.1 P
+atient disposition ................................................................................. 12 
+2.4 Tr
+eatments (study treatment, rescue medication, concomitant therapies, 
+complianc
+e) ............................................................................................................ 12 
+2.4.1 Study treatment / compliance ................................................................ 12 
+2.4.2 P
+rior, concomitant and post therapies ................................................... 13 
+2.5 Ana
+lysis of the primary objective .......................................................................... 13 
+2.5.1 P
+rimary endpoint ................................................................................... 13 
+2.5.2 S
+tatistical hypothesis, model, and method of analysis .......................... 15 
+2.5.3 Ha
+ndling of missing values/censoring/discontinuations ....................... 15 
+2.5.4 S
+upportive analyses ............................................................................... 15 
+2.6 Ana
+lysis of the key secondary objective ............................................................... 16 
+2.7
+ Analysis of secondary efficacy objective(s) .......................................................... 16 
+2.7.1 S
+econdary endpoints ............................................................................. 16 
+2.7.2 S
+tatistical hypothesis, model, and method of analysis .......................... 16 
+2.7.3 Ha
+ndling of missing values/censoring/discontinuations ....................... 17 
+2.8 S
+afety analyses ....................................................................................................... 17 
+2.8.1 Adve
+rse events (AEs) ............................................................................ 17 
+2.8.2  Deaths .................................................................................................... 19 
+2.8.3 Laboratory data ..................................................................................... 19 
+2.8.4 Othe
+r safety data ................................................................................... 19 
+2.9 P
+harmacokinetic endpoints .................................................................................... 19 
+2.10 P
+D and PK/PD analyses......................................................................................... 20 
+2.11 P
+atient-reported outcomes ..................................................................................... 20 
+2.12 B
+iomarkers ............................................................................................................. 20 
+2.13 Othe
+r Exploratory analyses .................................................................................... 20 
+2.14 I
+nterim analysis ...................................................................................................... 21 
+
+Novartis For business use only Page 5 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+3 Sample size calculation ..................................................................................................... 21 
+4 Change to protocol specified analyses .............................................................................. 21 
+5 Appe
+ndix ........................................................................................................................... 22 
+5.1 De
+finition of efficacy variables ............................................................................. 22 
+5.1.1 C
+linical Benefit Rate (CBR) until week 24 ........................................... 22 
+5.1.2 Ove
+rall response rate (ORR) by week 24 ............................................. 23 
+5.1.3 P
+rogression-free survival ...................................................................... 23  
+5.1.4 Overall survival (OS) ............................................................................ 23 
+5.2 De
+finiton of safety variables .................................................................................. 23 
+5.2.1 Dur
+ation of study treatment exposure ................................................... 23 
+5.2.2 C
+umulative dose .................................................................................... 24 
+5.2.3 Dose
+ intensity (DI) ................................................................................ 24 
+5.2.4 P
+lanned dose intensity (PDI) ................................................................. 24 
+5.2.5 R
+elative dose intensity (RDI) ................................................................ 24 
+5.2.6 Me
+an relative dose intensity (mean RDI) ............................................. 24 
+5.2.7 Adve
+rse events of special interest ......................................................... 24 
+5.3 P
+rogramming rules ................................................................................................. 24  
+5.3.1 Calculation of ‘time to event’ variables ................................................ 24 
+5.4 I
+mputation rules ..................................................................................................... 25 
+5.4.1 I
+ncomplete assessment dates ................................................................. 25 
+5.4.2 I
+ncomplete dates for last known date patient alive or death ................. 25 
+5.4.3 Non
+-target lesion response .................................................................... 25 
+5.4.4 C
+ensoring reason ................................................................................... 25 
+5.4.5 S
+tudy treatment ..................................................................................... 26 
+5.4.6 AE
+ date imputation ............................................................................... 26 
+5.4.7 C
+oncomitant medication date imputation ............................................. 26 
+5.5 AE
+s coding/grading ............................................................................................... 27 
+5.6
+ Laboratory parameters derivations ........................................................................ 27 
+5.7 S
+tatistical models ................................................................................................... 27 
+5.7.1 P
+rimary analysis .................................................................................... 27 
+5.8 R
+ule of exclusion criteria of analysis sets.............................................................. 27 
+6
+ Reference  ................................ ................................ ................................ ........................... 29 
+
+Novartis For business use only Page 6 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+List of abbreviations 
+ 
+aBC  
+AE  Advanced Breast Cancer  
+Adverse Event  
+ALT  Alanine aminotransferase/glutamic pyruvic 
+transaminase/GPT  
+AST  Aspartate aminotransferase/glutamic 
+oxaloacetic transaminase/GOT  
+β-hCG  β-subunit of hCG gonadotropin – free hCG 
+gonadotropin  
+BLRM  Bayesian Logistic Regression Model  
+CBR  
+CISH  Clinical benefit rate  
+Chromogen -in situ -Hybridisierung  
+CNS  Central nervous system  
+CR  Complete response  
+CRF  Case Report/Record Form; the term CRF can 
+be applied to either EDC or Paper  
+CRO  Contract Research Organization  
+CSR  Clinical study report  
+CSR addendum  
+  An addendum to Clinical Study Report (CSR) 
+that captures all the additional information that 
+is not included in the CSR  
+CT  
+DDI  
+DFS Computed tomography  
+Drug -Drug -Interaction  
+Disease -free survival  
+DLT  Dose Limiting Toxicity  
+DS&E  Drug Safety and Epidemiology  
+ECG  Electrocardiogram  
+ECOG  Eastern cooperative oncology group  
+ER  
+FAS 
+FISH  
+FSH  
+GBM  Estrogen receptor  
+Full Analysis Set  
+Fluoreszenz -in-situ-Hybridization  
+follikelstimulierendes Hormon  
+Glioblastoma  multiforme  
+i.v.  intravenous(ly)  
+ICH  International Conference on Harmonization  
+IEC  Independent Ethics Committee  
+IRB  Institutional Review Board  
+LPFV  
+LPLV  Last Patient First Visit  
+Last Patient Last Visit  
+MAP  Master Analysis Plan documents project 
+standards in the statistical methods which will 
+be used within the individual clinical trial RAP 
+documentation  
+MTD  Maximum Tolerated Dose  
+NCI-CTCAE  National cancer institute – common terminolgy  
+criteria for adverse events  
+NCRNPD  neither complete response nor progressive 
+disease  
+PD  
+PFS  Progressive disease  
+Progression Free Survival  
+p.o.  per os /by mouth/orally  
+PHI  Protected Health Information  
+
+Novartis For business use only Page 7 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+PgR  
+PR  
+QTcF  Progesterone receptor  
+Partial Response  
+QT corrected for HR using Fridericia's 
+method  
+ORR  Overall response rate  
+OS  Overall survival  
+RAP  The Report and Analysis Plan (RAP) is a 
+regulatory document which provides 
+evidence of preplanned analyses  
+REB  Research Ethics  Board  
+RECIST  Response Evaluation Criteria in Solid 
+Tumors  
+SAE  
+SAF Serious Adverse Event  
+Safety Analysis Set  
+SD  
+SISH  
+SmPC  
+SOD  Stable disease  
+silver -in situ -Hybridisation  
+Summaries of Product Characteristics  
+Sum of Diameter  
+SOP  
+TTF  
+TTP  
+UNK  Standard Operating Procedure  
+Time to treatment failure  
+Time to Progression  
+Unknown  
+  
+ 
+
+Novartis For business use only Page 8 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+1 Introduction 
+This statistical analysis plan describes the final and the three pre-planned interim analyses. 
+It is based on the 4th amendment of the study protocol, dated 05-JUN-2019. 
+1.1 Study de
+sign 
+This was a national, multi-center, open-label, phase IIIb trial to determine the efficacy and 
+safety of treatment with ribociclib (LEE011) plus letrozole in patients with HR+, HER2-
+negative advanced (recurrent or metastatic) breast cancer.  
+In this trial a total of 500 patients from 100 centers were planned to be recruited. 
+The study  w
+as designed as an open-label, single-arm trial, hence no randomization took place. 
+The primary efficacy and safety analysis was conducted on all patient data at the time all 
+patients who are still receiving study drug will have completed at least 24 weeks of treatment 
+(or discontinued prematurely). The additional data for any patients continuing to receive study 
+drug past these times, as allowed by the protocol, was further summarized in a report once these 
+patients compl
+eted the study. 
+Three 
+interim analyses were planned during the study. The first interim analysis was conducted 
+one year after the first patient has been enrolled and included a preliminary analysis on safety. 
+The second interim analysis was conducted 12 months after LPFV in the 30% pretreated and 
+premenopausal cohort (=Cohort B, see section 2.2.1 Subgroup of interest ) a nd included a 
+preliminary analysis on safety, efficacy and quality of life. The third interim analysis took place 
+6 months after the last patient had been recruited into cohort A (see section 2.2.1 Subgroup of 
+intere
+st) and included a preliminary analysis on safety and efficacy. 
+1.2 Study ob
+jectives and endpoints 
+Objectives and related endpoints are described in the table below (in accordance with Table 3-1 
+from the protocol). 
+ 
+Primary  Objective  Endpoint  
+The primary objective of this study is the assessment of 
+the clinical benefit rate  after 24 weeks  for the total 
+population and for cohorts A and B separately:  
+1. Cohort A : postmenopausal women and men who 
+received no prior treatment for advanced disease. 
+(70% group)  
+2. Cohort B : pre-, and perimenopausal women who 
+receiv ed no prior treatment for advanced disease 
+as well as pre -, peri - and postmenopausal women 
+and men who received no more than 1 prior 
+chemotherapy and 2 prior lines of endocrine 
+therapy for advanced disease (30% group)  Clinical Benefit Rate (CBR) after 
+24 w eeks of treatment as defined 
+by RECIST 1.1 as percentage of 
+patients with CR, PR or SD until 
+week  24 or longer as well as 
+patients with NCRNPD >24 
+weeks for patients with non -
+measurable disease  
+ 
+
+Novartis For business use only Page 9 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Secondary  Objective s  Endpoint  
+To assess the clinical benefit rate (CBR) after 24 weeks  
+among Cohort B1 and B2:  
+ 
+- Cohort B1 : pre- and perimenopausal women 
+without prior therapy for advanced disease  
+ 
+- Cohort B2:  pre-, peri - and postmenopausal women 
+and men who were pretreated for advanced disease  Clinical Benefit Rate (CBR) after 
+24 weeks of treatment as defined 
+by RECIST 1.1 as percentage of 
+patients with CR, PR or SD  until 
+week  24 or longer as well as 
+patients with NCRNPD >24 
+weeks for patients with non -
+measurable disease  
+Progression -free surv ival (PFS) for the three different 
+populations : 
+Cohort A, Cohort B1, Cohort B2   PFS based on radiologic 
+assessment by investigator using 
+RECIST 1.1 criteria (e.g. m edian 
+PFS, PFS rate at 12 and 18 
+months)  
+Overall survival  (OS) for the three different pop ulations, 
+defined as the time from date of start of treatment to date 
+of death due to any cause.  Overall survival (OS) (e.g. OS 
+rate at 12 and 24 months)  
+Overall response rate  (ORR) for the three different 
+populations, defined as complete response or par tial 
+response as defined by RECIST 1.1  Overall Response Rate (ORR) 
+after 24 weeks  
+To evaluate the safety and tolerability  of ribociclib in 
+combination with letrozole (and goserelin in 
+premenopausal patients)  Frequency/severity of AEs  
+AEs of special interest: 
+Frequency, severity, frequency 
+per patient, time to Event, 
+duration of Event and recurrence  
+Laboratory values  
+To evaluate patient reported outcomes  for health 
+related quality of life  Time to 10% deterioration in the 
+global health  status/QOL scale 
+score of the EORTC QLQ -C30 
+ 
+Change from baseline in the 
+global health status/QOL scale 
+score of the EORTC QLQ -C30 
+ 
+
+Novartis For business use only Page 10 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Exploratory  Objectives   
+(out of scope of this statistical analysis plan)   Endpoint  
+  
+ 
+ 
+  
+  
+ 
+  
+  
+ 
+ Analysis methods and endpoints 
+will be used that resemble the 
+current scientific standard at the 
+time of analysis.  
+ 
+Such  analyses will be described 
+in a separate analysis plan  
+ 
+2 Statistical methods 
+2.1 Data analysis general information 
+The data were analyzed by . Analysis was carried out using the SAS 
+(Statistial Analysis System) software, version 9.2, 2009, SAS Institute Inc., Cary, North 
+Carolina, USA. 
+Interim analyses were carried out by  as well. The analyses were 
+based on definitions within this SAP and RAP 7.1 and the tables generated for the particular 
+interim analyse s were marked in RAP 7.2. 
+The first 
+interim analysis included a preliminary analysis of safety (as well as baseline 
+characteristics). The second interim analysis included a preliminary analysis of safety, efficacy 
+and quality of life. The third interim analysis included a preliminary analysis of safety and 
+efficacy. The primary efficacy and safety analysis was conducted on all patient data at the time 
+all patients who are still receiving study drug had completed at least 24 weeks of treatment (or 
+discontinued prematurely). The additional data for any patients continuing to receive study drug 
+past these times, as allowed by the protocol, were further summarized in a report once these 
+patients completed the study. 
+In gen
+eral, categorical variables were summarized by absolute and relative frequencies. 
+Continuous variables were summarized by descriptive statistics (number of non-missing 
+observations, m
+ean, standard deviation, minimum, median and maximum). Time- to-event data 
+including rates of affected patients were assessed using the Kaplan-Meier method. The primary 
+aim of this trial was in estimation rather than significance testing of statistical hypotheses. Thus, 
+mainly statistical estimators along with appropriate two-sided 95% confidence intervals were 
+used. However, changes from baseline were explored using suitable statistical tests for paired 
+samples. No adjustment for multiplicity was done due to the exploratory nature of the trial. 
+The data from all participating centers were combined, so that an adequate number of patients 
+was available for analysis and the factor center was included in the analysis of the primary 
+endpoint. 
+
+
+Novartis For business use only Page 11 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+ 
+2.1.1 General definitions  
+Study treatment: The combination of drugs including investigational drug 
+ribociclib as well as letrozole and goserelin acetate. 
+ 
+On-treatm
+ent period: Period the patient was exposed to any study treatment, i.e from 
+the first administrati
+on of any study treatment at or after C1/D1 to 
+the last administration of any study treatment (for ribociclib and 
+letrozole documented on the Treatment Completion CRF and for 
+Goserelin documented on the Dosage Administration record but 
+not later than the End- of-study visit (see 5.2.1) 
+ 
+ 
+2.2 
+Analysis sets 
+The Enrolled Patient Population (ENR)  includes all patients who signed an informed 
+consent re
+gardless whether they received study treatment or not. 
+The Full
+ Analysis Set (FAS)  comprises all patients to whom study treatment has been assigned. 
+Patients with critical findings by an inspection were excluded. 
+The Safety Set (SAF) includes all patients who received at least one dose of study treatment.  
+The Per-
+Protocol Set (PPS)  consists of a subset of the patients in the FAS who are complian t 
+with requirements of the CSP. During the data review meeting the violations against the C SP 
+were identified and assessed as relevant for analysis (called “major”) or not (“minor”). The PPS 
+may be analyzed if a substantial number of patients was not compliant with the requirements of 
+CSP. This decision will be done during a data review meeting before analysis. 
+2.2.1
+ Subgroup of interest 
+All results of this study were displayed for the total population and for cohorts A, B, B1 and 
+B2 separatel
+y (each cohort is displayed in a separate column) :  
+ Cohort A : Postme nopausal women and men who received no prior treatment for 
+advanced disease. 
+ Cohort B : Pre-, and perimenopausal women who received no prior treatment for 
+advanced disease ( B1) as well as pre-, peri- and postmenopausal women and men who 
+receiv
+ed prior therapy ( B2). According to exclusion criteria only patients with no more 
+than 1 prior chemotherapy and 2 prior lines of endocrine therapy for advanced disease 
+were included. 
+ 
+
+Novartis For business use only Page 12 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Cohorts:  Postmenopausal 
+women or men  Pre- or perimenopausal 
+women  
+Treatment naive  A B1 
+Pre-treated  B2 B2 
+ 
+Further subgroups of interest may be analyzed for selected endpoints. These subgroups were: 
+ Men 
+
+ Pre- and perimenopausal women 
+across all
+ cohorts. 
+During review of analysis tables it will be defined which tables will be additionally produced 
+for the further subgroups. 
+2.3 Patient disposition, 
+demographics and other baseline 
+characteristics 
+Demographic and other baseline characteristics were summarized for the Full Analysis Set 
+(FAS). Baseline characteristics include prior medication, past/current medical conditions and 
+disease history. 
+2.3.1 Patient disposition 
+Patient disposition was summarized for all patients by absolute and relative frequency of 
+patients completing the study phases screening, treatment and study completion. Reasons for 
+discontinuation were shown for the Enrolled Patient Population (ENR) for screening resp. the 
+Full Analysis Set (FAS). 
+The number of patients per visit and the number of on-treatment visits were given for the 
+FAS. 
+Frequencies of major (=leading to exclusion from per-protocol population) and minor protocol 
+violations were reported. 
+2.4 Treatments (study treatment, rescue medication, concomitant 
+therapies, compliance) 
+2.4.1 Study treatment / compliance 
+Duration (days) of study treatment exposure for patients who took at least one dose of any of 
+the components of the study treatment was calculated as the difference between the last and 
+first day of drug application +1 day. For details see 5.2.1 . 
+The duration includes the periods of temporary interruptions for any reason. Additionally, 
+duration of drug exposure w as summarized using descriptive statistics separately for 
+ribociclib, letroz
+ole and goserelin, respectively.  
+
+Novartis For business use only Page 13 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+The cumulative dose, dose intensity (DI) and relative dose intensity (RDI) were summarized 
+by cohort. Cumulative dose is defined as the total dose given during the study treatment 
+exposure. F
+or patients who did not receive the respective drug the cumulative dose was set to 
+zero (in c
+ase of goselerin for pre- and perimenopausal patients only). The dose intensity (DI) 
+for patie
+nts with non-zero duration of exposure is defined as cumulative dose / duration of 
+exposure. For patients who did not receive any drug, the DI was set to zero. Planned dose 
+intensity
+ (PDI) is the assigned dose in mg/day prescribed by the investigator to be given to 
+patients. Relative dose intensity (RDI) is defined as DI divided by PDI. The DI and RDI were 
+summarized separately for each of the study treatment components, but using the duration of 
+the whole study treatment exposure, not the duration of each of the components. In addition, 
+for combi na
+tions, the RDI was calculated as mean RDI of each of the study treatment 
+components on a per-patient basis. 
+ 
+Ribociclib interruptions (defined as null doses for any reason except “as per protocol”) were 
+displaye
+d by the number of affected patients, the total duration and frequencies of study drug 
+interruptions. The total duration was calculated by end date – start date of interruption (for 
+any 
+reason except “as per-protocol”) + 1 day. All interruptions of a patient are summed up to 
+the total duration (f
+or any reason except “as per protocol”) 
+Frequencies of the number of patients with ribociclib dose reduction (defined as dose > 0 mg 
+but lower than the pr
+evious dose) as well as the number of dose reductions by reason were 
+given. Additionally, dose reductions and dose interruptions were tabulated in combined 
+fashion. I
+n the combined summary, the dose interruptions were considered as dose reductions 
+to 0 mg and therefore all reductions/interruptions were labeled as reductions and tabulated in 
+one table. 
+The
+se analyses were performed for the Safety S et (SAF).  
+2.4.2 Prior , concomitant and post therapies 
+Rega
+rding the prior treatment for advanced breast cancer, the number, type, setting and best 
+response of regimes before study were evaluated. The type was classified by WHO ATC level 2 
+and pref
+erred name. Radiotherapies and surgeries were analysed similarily. 
+Concomitant medications and significant non-drug therapies prior to and after the start of the 
+study drug will be coded according to the WHO Drug Reference List and summarized by ATC 
+class and preferred term using frequency distributions. 
+2.5 Analysis of the primary objective 
+2.5.1 Primary endpoint 
+The primary objective of this study was the assessment of the clinical benefit rate after 24 
+weeks. 
+The Clinical Benefit Rate (CBR) is the proportion of patients with a best overall response of 
+confirmed complete (CR) or partial (PR) response or stable disease (SD) or non-complete 
+response, non-progressive disease (NCRNPD) within Week 24. The best overall response for 
+
+Novartis For business use only Page 14 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+each patient is determined from the sequence of investigator overall lesion responses until week 
+24 according to RECIST 1.1. To be assigned a best overall response of CR at least two 
+determina
+tions of CR at least 4 weeks apart before progression are required. To be assigned a 
+best overall response of PR at least two determinations of PR or better at least 4 weeks apart 
+before progression (and not qualifying for a CR) are required. To be assigned a stable disease, 
+two determinations of SD at least 12 weeks apart (and not qualifying for PR or CR) are required.  
+Patients with best overall response “unknown” will be summarized by reason for having 
+unknown status. The following reasons will be used: 
+ No valid post-baseline assessment 
+ All post-baseline assessments have overall response UNK 
+ New anti-neoplastic therapy started before first post-baseline assessment 
+ SD too e
+arly (≤6 weeks after randomization) 
+ PD too late (>12 weeks after randomization and not qualifying for CR, PR, or SD) 
+Spec
+ial (and rare) cases where BOR is unknown due to both early SD and late PD 
+will be classified as “SD too early” 
+During data review. i.e. before analysis, the number and reasons for best responses falling into 
+the category “unknown” according to RECIST 1.1 criteria are investigated. In addition, the 
+impact of confirmation of response on the outcome in the context of the visit schedule and 
+assessment timepoints will be assessed. If necessary, further sensitivity analyses were defined 
+to adjust for this uninformative category. 
+Any discontinuation due to ‘Disease progression’ without documentation of progression by 
+RECIST criteria will be carefully reviewed during the data review meeting. Only patients with 
+documented de
+terioration of symptoms indicative of progression of disease should have this 
+reason for discontinuation of treatment or study evaluation. 
+ 
+Per RECIST 1.1, a change in methodology can be defined as either a change in contrast use (e.g. 
+keeping the same technique, like CT, but switching from with to without contrast use or vice-
+versa, regardless of the justification for the change) or a change in technique (e.g. from CT to 
+MRI, or vice-versa), or a change in any other imaging modality. A change in methodology will 
+result by default in an UNK (unknown) overall lesion response assessment. However, another 
+response assessment than the Novartis calculated UNK response may be accepted from the 
+investigator or the central blinded reviewer if a definitive response assessment can be justified 
+based on the available information. Potential discrepancies between the modality used and 
+overall lesion response (e.g. change in modality but response is different from ‘Unknown’) will 
+be queried during the data validation process.” 
+Additionally, the CBR at EOT was determined. 
+
+Novartis For business use only Page 15 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+2.5.2 Statistical hypothesis, model, and method of analysis 
+In this single-arm trial, the primary objective is to estimate the CBR. Therefore, no statistical 
+hypothesis or model is underlying the analysis.  
+The CBR (best overall response of CR or PR or SD or NCRNPD) as well as individual response 
+categories (CR, PR, SD, PD, NCRNPD or unknown) will be summarized using frequency tables 
+together with their associated two-sided exact 95% confidence intervals (Clopper-Pearson 
+method).  
+The Full Analysis Set will be used for the primary efficacy analysis, the per-protocol set will 
+serve as sensitivity analysis. Further, selected analysis tables (see RAP module 7.1) were 
+desplayed as sensitivity analysis for a modified FAS population which inexcludes patients from 
+centers with a relevant inspection finding. 
+ 
+2.5.3 Handling of missing values/censoring/discontinuations 
+Since the definition of the primary variable was derived from tumor assessments based on 
+RECIST 1.1 criteria, these criteria apply for the handling of missing values in tumor 
+assessments. The evaluation of overall lesion response at each assessment is a composite of the 
+target lesion response, non-target lesion response and presence of new lesions (see protocol, 
+Post-text supplement 1). If the evaluation of any of the target or non-target lesions identified at 
+baseline could not be made during follow-up, the overall status must be ‘unknown’ unless 
+progression was seen. Patients with a best overall response assessment of unknown (UNK) were 
+not be regarded as ‘responders’ but were included in the denominator for the calculation of the 
+ORR for the FAS. 
+ 
+For patients who took other anti-neoplastic drugs their efficacy data will be censored so that the 
+tumor assessments made after the administration of the other anti-neoplastic drugs are not included 
+in the primary efficacy analyses. Sensitivity analysis including these observations may be performed 
+if decided during data review meeting. 
+2.5.4 Supportive analyses 
+CBR until Week 24 were additionally presented for the Per-protocol Set (PPS). Furthermore, the 
+CBR were summarized by subgroups (cohorts A, B, B1 and B2) for the FAS and PPS, respectively. 
+2.5.4.1 Time to reponse (CR or PR) 
+Furthermore, the time to overall response (CR or PR) were analyzed by Kaplan Meier curve and 
+Kaplan meier statistics for the total population and for cohorts. The time to overall response is the 
+time between date of start of treatment until first documented response (CR od PR). Patients who 
+did not achieve a confirmed PR or CR will be censored: 
+- At maximum follow-up (i.e. FPFV to LPLV used for analysis) for patients who had a PFS 
+event (i.e. either progressed or died due to any cause) 
+
+Novartis For business use only Page 16 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+2.5.4.2 At last adequate tumor assessment date otherwise Duration of response 
+(DoR) 
+DoR applies only to patients whose best overall response was CR or PR. The start date is the date 
+of first documented response (CR or PR) and the end date is the date of event defined as the first 
+documented progression or death due to underlying cancer. In other words, the start date will be 
+determined using the time the response was first determined and not using the time the response 
+was c
+onfirmed. If a patient has not had an event, duration is censored at the date of last adequate 
+tumor assessment. DoR will be summarized for the total population and the cohorts separately. 
+Distribution of duration of response will be estimated using the Kaplan-Meier method and the 
+median response duration will be presented along with 95% confidence interval only if there are 
+sufficient numbers of events.  
+ 
+2.6 Analysis of the key secondary objective 
+No ‘key’ secondary objective was defined. 
+2.7 Ana
+lysis of secondary efficacy objective(s) 
+2.7.1 Secondary endpoints 
+2.7.2 Statistical hypothesis, model, and method of analysis 
+The following secondary efficacy variables were analyzed in an explorative manner for the full 
+analysis set (FAS): overall response rate (ORR) by Week 24, progression-free survival (PFS) 
+and overall
+ survival (OS).  
+ 
+ORR within Week 24  
+The ORR 
+within Week 24 was derived from the sequence of overall lesion responses as 
+described for the primary efficacy variable. The ORR by Week 24 was summarized using 
+frequency tables presenting absolute and relative frequencies together with appropriate 
+confidence intervals. Furthermore, the ORR at EOT was analyzed. 
+ 
+Progression-free survival  
+Progression-free survival (PFS) is the time from date of start of treatment to the date of event 
+defined as the first documented progression or death due to any cause. If a patient had not had 
+an event, progression-free survival was censored at the date of last adequate tumor assessment. 
+Disease progression for primary efficacy endpoint derivation was assessed using the local 
+investigator’s tumor assessment (treating center’s radiologist). PFS was summarized using the 
+Kaplan-Meier method. Percentiles (25%, median, 75%) of the event time distribution were 
+presented along with their two-sided 95% confidence interval. Additionally, Kaplan-Meier 
+estimates for the proportions of patients progression- free by Week 48 and Week 72 were 
+presented. The Kaplan-Meier curve (with censored patients at number of patients at risk) was 
+displayed graphically. 
+ 
+Overall survival  
+Overall survival (OS) is defined as the time from date of start of treatment to date of death due 
+to any cause. If a patient was not known to have died, survival was censored at the date of last 
+
+Novartis For business use only Page 17 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+contact. OS was summarized using the Kaplan-Meier method as described above. The Kaplan-
+Meier curve was displayed graphically. Additionally, the proportion of patients alive at 48 and 
+96 weeks we
+re presented 
+2.7.3
+ Handling of missing values/censoring/discontinuations 
+Same instructions as for primary analysis 
+2.8 Safety analyses 
+The analysis of safety objectives was described in section 10.5.2.1. of the study protocol. All 
+listings and tables are presented for the Safety Analysis Set by pretreatment group and total, i.e. 
+cohorts A, B1, B2, B and total: 
+ postmenopausal women or men without prior treatment for advanced disease (cohort A) 
+ pre-
+ and perimenopausal women without prior treatment for advanced disease 
+(cohort B1)
+ 
+ pre-, peri and postmenopausal women with prior treatment for advanced disease 
+(cohort B
+2) 
+The overa
+ll observation period will be divided into three mutually exclusive segments: 
+1. pre-treatment period: from day of patient’s informed consent to the day before first 
+dose of study
+ treatment 
+2. on-treatment period plus 30 days: from day of first dose of study medication to 30 
+da
+ys after last dose of study treatment 
+3. post-treatment period: starting at day 30+1 after last dose of study treatment. 
+Gose
+relin and letrozole after end of treatment were not considered as study treatment, see 
+5.2.1. 
+As a 
+sensitivity analysis selected analysis tables (see RAP module 7.1) were desplayed for a 
+modified SAF population which excludes patients from centers with a relevant inspection finding. 
+ 
+2.8.1 Adverse events (AEs) 
+Summary tables for adverse events (AEs) include only AEs that started or worsened during the 
+on-treatment period plus 30 days, the treatment -emergent  AEs. However, all safety data 
+(including those from the pre and post-treatment periods) will be listed in CSR section 16.2. 
+Absolute and relative frequencies for patients with AEs collected during the pre-treatment and 
+post-treatment period are presented. 
+The following analyses are presented for the different types of AEs: 
+
+Novartis For business use only Page 18 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+ Incidence 
+(frequency 
+table)  Two -level 
+frequency 
+table  
+SOC x PT 
+(MedDRA)  Patient 
+data 
+Listing  
+(section 
+14.3.1)  Maximum 
+severity 
+(frequency 
+table)  Time 
+to 
+event  Dur-
+ation of 
+event  Recurrence /
+frequency of 
+events per 
+patient  
+Treatment 
+emergent AEs  X X  X    
+Treatment 
+emergent 
+serious AEs  X X X X X X X 
+Treatment 
+emergent non -
+serious AEs  X X      
+TEAE with 
+suspected drug 
+relation to 
+ribociclib  X X      
+TEAE leading 
+to permanent 
+discontinuation 
+of study drug  X X      
+TEAE of 
+special interest  X x x  X X X 
+Death (in pre -
+/on-/post -
+treatment 
+period)  X  X     
+The incidence frequency table  presents the number, percentage and 95% confidence for 
+occurrence of at least one event of the respective AE type. This table is separated by each of the 
+observation period (pre-/on-/post-treatment) and total. Denominator (for each period) is the 
+number of pati
+ents in the Safety Analysis Set (SAF). 
+The two-level frequency table  calculates absolute and relative frequencies for MedDRA 
+S
+ystem Organ Class es (SOC) and Preferred Terms (PT) within SOCs. Again, the number of 
+patients i
+n SAF is used as denominator and each event is counted only once in the respective 
+category. The MedDRA version currently available at time point of analysis is used for 
+decoding
+. 
+The frequency table for maximum severity  analyses the maximum CTC-AE grade and 
+display n a
+nd % for each category (total, SOC, and PT). Again, the number of patients in SAF 
+is used as denominator and each maximum severity is counted only once in the respective 
+categ
+ory. 
+All patient data are listed in CSR section 16.2. Additionally data listings  relevant for safety 
+assessment are presented in section 14.3.2. Here, the patient identification, the verbatim term 
+given by the investigator, MedDRA preferred term and system organ class, start/end dates, 
+
+Novartis For business use only Page 19 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+severity, seriousness, relationship to study drug and action taken are listed. The AE onset will 
+also be shown relative (in number of days) to the date of initial dose. 
+ 
+2.8.1
+.1 Adverse events of special interest / grouping of AEs 
+ 
+The following (S)AEs of special interest were defined: 
+ Neutropenia (MedDRA Code 10029354) 
+ Hepa
+tobiliary toxicity, defined as grade 3 or 4 increases in ALT or/and AST 
+(MedDRA Codes: 10001
+551, 10003481) 
+ QT prolongation (MedDRA Code 10014387) 
+I
+n addit
+ion, the time to occurrence from start of study drug to the (first) onset of a TEAE of 
+special inte
+rest (TEAESI) is analysed by sample statistics as well as the duration (star t – end + 
+1 day). F
+urther the number of TEAESI occurring in one patients during on-treatment period is 
+displayed. 
+ 
+2.8.2 Deaths 
+The number of deaths in the pre-, on- and post-treatment period plus 30 days were displayed as 
+absolute and re
+lative frequencies with 95% confidence intervals. Deaths are listed by patient. 
+2.8.3 Laboratory data 
+Normal laboratory values were not documented in the CRF. Abnormal laboratory parameters 
+that induced clinical signs or symptoms, required therapy or required changes in study drug(s) 
+constituted 
+an adverse event and were recorded on the Adverse Events CRF. These relevant 
+laboratory
+ values associated with an adverse event were listed only. 
+2.8.4 Other safety data 
+2.8.4.1 ECG and cardiac imaging data 
+ECG results were summarized using frequency distributions by visit.  
+2.8.4.2 Vital signs 
+Vital signs were summarized descriptively by visit for baseline and all post-baseline time 
+points and cha
+nge from baseline to these time points.  
+2.8.4
+.3 ECOG Performance Status 
+The ECOG Performance Status was summarized using frequency distributions by visit. Shifts 
+from baseline
+ value to worst (i.e. the highest) post-baseline value were summarized using 
+frequen
+cy distributions. 
+2.9 Pharmacokinetic endpoints   
+Not applicable 
+
+Novartis For business use only Page 20 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+2.10 PD and PK/PD analyses 
+Not applicable 
+2.11 Patient -reported outcomes 
+Health-related quality of life (HRQoL) was assessed using the EORTC QLQ-C30 and BR23 
+questionnaires. 
+Descriptive statistics was used to summarize the individual item and scored sub-scale scores of 
+QoL data at each scheduled assessment time point. Patients were included if they completed at 
+least one que
+stionnaire item. Additionally, change from baseline in the domain scores at the 
+time of each assessment was summarized. Patients with an evaluable baseline score and at least 
+one evaluable post-baseline score during the treatment period were included in the change from 
+baseline analyses (assessments after disease progression were excluded). 
+The time (from start of study drug) to 10% deterioration in EORTC QLQ-C30 was analysed by 
+sample statistics. 
+2.12 Biomarkers 
+Analysis of Biomarker was described in a stand-alone analysis plan document.  
+2.13 Other Exploratory analyses 
+Multivariate regression analysis to identify prognostic factors for Neutropenia 
+respe
+ctively AST/ALT increase. 
+This anal
+ysis was not foreseen in the study protocol but included on request of the principal 
+investigator for the presentation of interim and final results. 
+ Two separate multivariate regression analyses were calculated for the se intere sting events 
+(dependent variables): 
+1. Neutropenia, selected from AE data set via PTs “neutropenia” and/or “neutrophil 
+count decr
+eased” 
+2. Increase in ALT or AST: Selected from AE dataset via PTs “ALANINE 
+AMINO
+TRANSFERASE INCREASED” and/or “ASPARTATE 
+AMINOTRANSFERASE INCREASED” 
+The following effects (without interactions) were investigated by Type 3 estimates and Wald’s 
+confidence intervals for Odds ratios: 
+ Age at baseline (categorical): <60 years, 60-70 years, and >= 70 years 
+ B MI at baseline (categorical, rounded to integers): < 20, 20-25, 26-29, and >30 kg/m² 
+ Presence (no vs. yes) of bone metastases at study start 
+ Use of c
+hemo therapy as prior antineoplastic medication (no vs. yes) 
+ The rapy line: 1st, 2nd, and >= 3rd 
+
+Novartis For business use only Page 21 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+2.14 Interim analysis  
+Three interim analyses were planned during the study. The first interim analysis was conducted 
+one year after the first patient has been enrolled and included a preliminary analysis on safety. 
+The sec
+ond interim analysis was conducted 12 months after LPFV in the 30% pretreated and 
+premenopausal cohort and included a preliminary analysis on safety, efficacy and quality of life. 
+The third 
+interim analysis took place 6 months after the last patient had been recruited and 
+included a preliminary analysis on safety and efficacy. 
+3 Sample
+ size calculation 
+Sample size assumptions in this study for postmenopausal patients without prior treatment for 
+advanced disease are based on the data from the CLEE011X2107 study (Juric, poster presented 
+at ASCO 2016), which enrolled a similar patient population. 
+Rega
+rding patients in later than first lines and pretreated premenopausal patients, assumptions 
+are based on Cristofanilli et al 2016 - PALOMA-3 final analysis.  
+It is e
+xpected that the CBR (based on local assessment) by week 24 is in a range as reported for 
+the CLEE011X2107study for the ribociclib + letrozole group (CBR = 79%, 95% confidence 
+interval [59% to 92%]).  
+Using the lower limit of the CI (59%) as a pessimistic estimate for the CBR by week 24, a 
+sample size of 500 produces a two-sided 95% confidence interval with a width equal to 8.6 
+percentage points (the associated 95% CI is [54.7% to 63.3%]). When using the same CBR as 
+observed (CBR 79%), a sample size of 500 produces a two-sided 95% confidence interval with 
+a width equal to 7.2 percentage points (the 95% CI is [75.4% to 82.6%]). Using the upper limit 
+of the CI (92%) as an optimistic estimate for the CBR, a sample size of 500 produces a two-
+sided 95% confidence interval with a width equal to 4.8 percentage points (the 95% CI is 89.6% 
+to 94.4%]). Assuming an estimated rate of 70% to be recruited in the subgroup of 
+postmenopausal first line patients resulting in a sample size of 350 patients, the width of the 
+confidence interval will be between 10.4 percentage points (pessimistic scenario) and 5.6 
+percentage points (optimistic scenario).  
+Regarding the subgroup of second or further treatment lines and premenopausal patients, 
+assuming an estimated rate of 30% to be recruited, and further based on the data as presented 
+by Cristofanili et al. (CBR 67%, 95% CI [61.3% to 71.5%]), the resulting precision based on 
+150 patients leads to a width of the resulting 95% confidence interval between 15.6 percentage 
+points (pessimistic scenario) and 14.4 percentage points (optimistic scenario).  
+Thus, a sample size of 500 patients allows estimating the CBR in this patient population with 
+reasonable precision. 
+4 Change to protocol specified analyses 
+Additionally to protocol specified analyses, the time to and duration of RECIST response was 
+analysed for the full analysis set (FAS). 
+
+Novartis For business use only Page 22 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+5 Appendix 
+5.1 Definition of efficacy variables  
+Progression:  
+1. ds.eotdreasn = 4 (Main reason for ribociclib discontinuation = progressive disease) 
+2. ds.eotprdi1n = 1 (
+Radiologic progression according to RECIST 1.1) OR  
+3. ds.eotprdi3n
+ = 1 (Clinically symptomatic progress) OR 
+4. zr.r
+ecoveran = 4 (Overall lesion response = Progressive Disease) OR 
+5. zr.r
+ecnewln=1 (New Lesion) 
+Progr
+ession date:  
+1. ds.eotcprdt (date of clinically symptomatic progress) OR 
+2. Date of Evaluation where zr.recoveran = 4 or zr.recnewln = 1 
+Response: 
+3.
+ zr.recoveran (Overall lesion response) 
+Assessme
+nt Date: 
+4. zr.tlesdt (Date of image or examination, Target Lesion Assessment) 
+5.
+ zr.ntlesdt (Date of image or examination, Non-Target Lesion Assessment) 
+6. zr.nle
+sdt (Date of image or examination at which new lesion appeared) 
+Date of D
+eath: 
+7. sc.deathdt 
+Date of last contact: 
+8. sc.eoslcdt 
+S
+tart of treatment = first administration of Ribociclib or Letrozole: 
+9. min(min(zq.ribostdt), min(zq.letrstdt)) 
+ 
+5.1.
+1 Clinical Benefit Rate (CBR) until week 24 
+Best overall response in (CR, PR, SD, NCRNPD): 
+1. zr.recoveran = 1; at least two determinations of CR at least 4 weeks apart before progression 
+OR 
+2. zr.recoveran = 2; at least two determinations of PR or better at least 4 weeks apart before 
+progression (and not qualifying for a CR)  
+3. zr.recoveran = 3; two determinations of SD at least 12 weeks apart (and not qualifying for 
+PR or PD)
+ 
+
+Novartis For business use only Page 23 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+4. zr.recoveran = 5 
+Tumor evaluations are scheduled for baseline, Cycle 4 and cycle 7 etc. (every 12 weeks). Thus, 
+to assess the CBR at week 24 the first two post-baseline evaluations have to be considered. 
+Additionally it has to be checked that no progression occurred during the following 4 weeks. 
+Deviations against the time schedule is investigated and assessed during the data review 
+meeting. 
+5.1.2 Overall response rate (ORR) by week 24 
+Similar to 5.1.1, but the best overall response must be in in (CR, PR) 
+5.1.3
+ Progression-free survival  
+Start date = Start of treatment (first administration of Ribociclib or Letrozole) 
+End date = First date of progress or date of death or (if no event) date of last tumor assessment 
+5.1.4
+ Overall survival (OS) 
+Start date = Start of treatment (first administration of Ribociclib or Letrozole) 
+End date = Date of death or (if no event) date of last contact 
+5.2 Definiton of safety variables  
+5.2.1 Duration of study treatment exposure 
+For ribociclib and letrozole the duration of exposure (days) = date of last administration of 
+ribociclib resp. letrozole – date of first administraton of ribociclib resp. letrozole + 1 day. The 
+first admi
+nistration of the study treatments ribociclib and letrozole are taken from the respective 
+Dosage Administration Record, i.e. the date of first dose > 0 at/after C1/D1. The date of last 
+administration of the study treatments ribociclib and letrozole are taken from the Treatment 
+Completion CRF. In case of ongoing treatment, resulting in missing end days on Treatment 
+Completion CRF, the end date is substituted hierarchy by: 
+- End date 
+of last administration with dose >0 of ribociclib resp. letrozole on the Dosage 
+Administration record before End- of-Treatment-visit  
+- If th
+e end date of the last administration with dose >0 of ribociclib resp. letrozole on the 
+Dosage Administration is missing (normally because “ongoing” is ticked) the date of 
+the last visit during the on-treatment period (C1/D1 to End-of-treatment) is used to 
+substitute the end date. 
+For goselerin the duration of exposure (days) = date of last administration of goseler in – date 
+of first a
+dministraton of goselerin + 1 day. The first administration of the study treatment 
+goselerin is taken from the respective Dosage Administration Record, i.e. the first dose > 0 
+at/after C1/D1. The end of the third component goselerin is not asked at the Treatment 
+Completion CRF and must be derived from the Dosage Administration record therefore. 
+Goselerin may be continued in combination with a follow-up therapy and may be documented 
+on the Dosage Administration Record, although it is no longer a study treatment. For this reason 
+
+Novartis For business use only Page 24 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+the date of last goselerin administration is the last dose > 0 administered until the End-of-
+treatment visit. 
+The exposure to study treatment is displayed for each of the third components separately, and 
+in combination. For combination, called “exposure to any of the study treatments”, the first start 
+date and the last end date of the study treatments is used for calculation. 
+The duration of exposure includes the periods of temporary interruption (of any component of 
+the study treatment for any reason). 
+ 
+5.2.2 Cumulative dose 
+Cumulative dose (mg) = total dose given during study treatment exposure 
+For patients who do not receive any drug the cumulative dose is set to zero. 
+5.2.3 Dose intensity (DI) 
+Dose intensity (mg/day) = cumulative dose (mg) / duration of exposure of study treatment (days) 
+For patients who do not receive any drug the dose intensity is set to zero. 
+5.2.4 Planned dose intensity (PDI) 
+Planned dose intensity (mg/day) = total daily dose pescribed 
+5.2.5 Relative dose intensity (RDI) 
+Relative dose intensity (mg/day) = dose intensity (mg/day) / planned dose intensity (mg/day) 
+5.2.6 Mean relative dose intensity (mean RDI) 
+Mean relative dose intensity (mg/day) = mean of the relative dose intensity per patient by study 
+treatment component 
+5.2.7 Adverse events of special interest 
+ Neutropenia = AE term: MedDRA Preferred Term “Neutropenia” (10029354) 
+ Hepa
+tobiliary toxicity = AE term: MedDRA Preferred Term “Alanine aminotransferase 
+increa
+sed” (10001551) or “Aspartate aminotransferase increased” (10003481), Toxicity 
+grade “Grade 3” or “Grade 4” 
+ QT prolongation = AE term: MedDRA Preferred Term “Electrocardiogram QT 
+prolonged”
+ (10014387) 
+5.3 Programming rules  
+5.3.1 Calculation of ‘time to event’ variables 
+Time to event = end date - start date + 1 (in days). 
+
+Novartis For business use only Page 25 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+When no post-baseline tumor assessments was available, the date of first application of 
+treatment was used as end date (duration = 1 day) when time was to be censored at last tumor 
+assessment, i.e. time to event variables can never be negative. 
+ 
+5.4 Imputation  rules 
+5.4.1 Incomplete assessment dates 
+All investigation dates (e.g. X-ray, CT scan) must have be en completed with day, month and 
+year. 
+ 
+If one or more investigation dates was incomplete but other investigation dates were available, 
+this/these
+ incomplete date(s) was/were not considered for calculation of the assessment date 
+(and assessment date was calculated as outlined in Section 3.2.7). If all measurement dates had 
+no day recorded, the 1st of the month is used.  
+If the month was not completed, for any of the investigations, the respective assessment was 
+considered to be at the date which is exactly between previous and following assessment. If a 
+previous and following assessment was not available, this assessment was not used for any 
+calculation. 
+5.4.2 Incomplete dates for last known date patient alive or death 
+All dates must have been completed with day, month and year. If the day was missing, the 15th 
+of the month was used for incomplete death dates or dates of last contact. 
+5.4.3
+ Non-target lesion response 
+If no non-target lesions were identified at baseline (and therefore not followed throughout the 
+study), the non-target lesion response at each assessment was considered ‘not applicable (NA)’. 
+5.4.4 Censoring reason 
+In order to summarize the various reasons for censoring, the following categories were 
+calculated for each time to event variable based on the treatment completion page, the end of 
+study page and the survival follow-up page.  
+ 
+For survival the following
+ censoring reasons are possible:  
+ Alive 
+ Unknown/
+Lost to follow-up 
+ 
+For PFS a
+nd TTP (and therefore duration of responses) the following censoring reasons are 
+possible:  
+ Ongoing without event 
+ L ost to follow- up 
+ Withdrew consent 
+ Adequate assessment no longer available* 
+ Event documented after two or more missing tumor assessments (optional, see Table 
+3-2)  
+
+Novartis For business use only Page 26 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+ Death due to reason other than underlying cancer (only used for TTP and duration of 
+response)  
+ Initiation of new anti-cancer therapy 
+*Adequate assessment is defined in Section 3.2.7. This reason was applicable when adequate 
+evaluations were missing for a specified period prior to data cut-off (or prior to any other 
+censoring reason) corresponding to the unavailability of two or more planned tumor 
+assessments prior to the cut-off date. The following clarifications concerning this reason should 
+also be noted:  
+ This may be when there has been a definite decision to stop evaluation (e.g. 
+reason=
+“Sponsor decision” on study evaluation completion page), when patients are not 
+followed for progression after treatment completion or when only UNK assessments are 
+available just prior to data cut-off).  
+ The reason "Adequate assessment no longer available" also prevails in situations when 
+another 
+censoring reason (e.g. withdrawal of consent, loss to follow-up or alternative 
+anti-cancer therapy) has occurred more than the specified period following the last 
+adequate assessment.  
+ This reason will also be used to censor in case of no baseline assessment.  
+ 
+5.4.
+5 Study treatment 
+In case of missing or partial start date, the start date should be shifted to the earliest possible 
+date, but not earlier than the C1/D1 visit, i.e. the beginning of the on-treatment period, 
+respectively not earlier than the previous administration. Missing or partial end dates (which 
+result often from “ongoing” answers)  should be shifted forward as far as possible: At maximum 
+to the last do
+cumented on-treatment visit, i.e. C1/D1 to End-of-treatment-visit and not later than 
+the following administration.  
+5.4.6
+ AE date imputation 
+In case of missing or partial start date or end date of an AE, the start date should be shifted to 
+the earliest possible date, but not ealier than the first intake of study drug while the end date 
+should be shifted forward as far as possible. 
+5.4.7 Concomitant medication date imputation 
+In case of missing or partial start date or end date of a concomitant medication, the start date 
+should be shifted to the earliest possible date, but not earlier than the first intake of study drug 
+while the end date should be shifted forward as far as possible. 
+5.4.7.1
+ Prior antineoplastic therapies date imputation 
+In case of missing or partial start date or end date of a prior therapy, the start date should be 
+shifted to the earliest possible date, but not earlier than the initial diagnosis while the end date 
+should be shifted as far back as possible, but not later than the first intake of study drug. 
+
+Novartis For business use only Page 27 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+5.4.7.2 Post antineoplastic therapies date imputation 
+In case of missing or partial start date or end date of a post therapy, the start date should be 
+shifted to the earliest possible date, but not earlier than the first intake of study drug while the 
+end date should be shifted forward as far as possible. 
+5.4.7.3 Other imputations 
+5.5 AEs coding/grading 
+Adverse events were assessed according to the Common Terminology Criteria for Adverse 
+Events (CTCAE) version 4.03. If CTCAE grading d id not exist for an adverse event, the severity 
+of mild, moderate, severe, and life-threatening, corresponding to Grades 1 - 4, was used. 
+CTCAE Grade 5 (death) was not used in this study. 
+5.6 Laboratory pa
+rameters derivations 
+Not applicable. 
+5.7 Statistical models 
+5.7.1 Primary analysis 
+No statistical hypothesis or model was underlying the analysis. 
+5.8 Rule of exclusion criteria 
+of analysis sets  
+Table 1 Protocol deviations that cause subjects to be excluded 
+Deviation 
+ID Description of Deviation  Exclusion in Analyses  
+I_06 No positive hormone receptor status  Excluded form PP analysis  
+I_07 positive HER2 receptor status  Excluded form PP analysis  
+I_08 No negative HER2 receptor status  Excluded form PP analysis  
+E_04  Patient received any non -permitted prior 
+medication or therapy  
+ Excluded form PP analysis, only 
+if medication/therapy is assessed 
+as influencing the primary 
+parameter in Data Review 
+Meeting (DRM)  
+ 
+E_12  History or clinical evidence of central 
+nervous system metastases not meeting 
+the specific criteria for eligibility  Excluded form PP analysis  
+D_01  Patient continued with trial treatment in 
+spite of IMP Ribociclib was interrupted 
+for > 28 days.  Excluded form PP analysis  
+M_01  Non-permitted concomitant medication  Excluded form PP analysis  
+
+Novartis For business use only Page 28 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+ 
+ 
+Table 2 Subject Classification 
+Analysis Set  PD ID that      
+cause subjects to be excluded  Non-PD criteria that cause  
+subjects to be excluded  
+ENR  NA Not having informed cons ent; 
+SAF NA Not having informed consent;  Screening failure, 
+not treated with any do se of study treatment  
+SAF 2  (for 
+sensitivity 
+analysis of 
+AE) NA Not having informed consent;  Screening failure, 
+not treated with any do se of study treatment; 
+Centers with a critical finding by audit / 
+inspection (as assessed by Novartis 
+“Massnahmenausschuss”)  
+FAS NA Not having informed consent;  Screening failure;  
+not intended to  be treated with any do se of study 
+treatment ; Centers wit h a critical finding by  (only if during DRM 
+medication/therapy is assessed 
+as influencing the primary 
+parameter)  
+S_03  IMP (Ribociclib and letrozole) intake is 
+not 80 -120%  Excluded from PPS  if leading to 
+invalid primary enpoint 
+(assessed additionally during  
+DRM , although not specified in 
+VAP Module 3)  
+O_03  Tumor evaluation omitted  
+if assessed during DRM as relevant 
+(timepoint, frequency)   
+O_05  Tumor assessment method invalid or 
+changed during course of study  
+ Excluded form PP analysis if 
+leading to invalid primary 
+endpoint (assessed during DRM)  
+ 
+O_09  Any data for evaluating the primary 
+endpoint is missing  
+ 
+ Excluded form PP analysis, if 
+leading in invalid assessment of 
+primary endpoint (assessed in 
+DRM)  
+ 
+O_10  Complete patient’s study visit was 
+omitted  
+ Excluded form PP analysis, if 
+leading in invalid assessment of 
+primary endpoint (assessed in 
+DRM)  
+ 
+
+Novartis For business use only Page 29 
+SAP, Version 3 .0  CLEE011XDE01 
+ 
+Analysis Set  PD ID that      
+cause subjects to be excluded  Non-PD criteria that cause  
+subjects to be excluded  
+audit / inspection  (as assessed by Novartis 
+“Massnahmenausschuss ”) 
+FAS 2 (for 
+sensitivity 
+analysis of 
+primary 
+parameter)  NA Not having informed consent;  Screening failure;  
+not intended to be treated with any do se of study 
+treatment  
+PPS I_01 – I_08 
+E_04, E_12,  
+D_01, M_01,  
+O_03, O_05, O_09, O_10  Not in FAS;  not treated with any do se of study 
+treatment  
+ 
+ 
+6 Reference 
+None. 

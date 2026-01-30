@@ -1,0 +1,252 @@
+{
+  "timestamp": "2026-01-13T14:14:56.476832",
+  "api_url": "http://localhost:8001",
+  "total_protocols": 5,
+  "average_score": 32.69230769230769,
+  "results": [
+    {
+      "nct_id": "NCT00592501",
+      "score": 30.76923076923077,
+      "matches": [],
+      "partial": [
+        "sample_size",
+        "randomization_ratio",
+        "alpha",
+        "alpha_sided",
+        "primary_endpoints",
+        "primary_test",
+        "stratification_factors",
+        "power_pfs",
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [],
+      "generated_fields": {
+        "sample_size": 25,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "acute toxicity",
+          "compliance rate",
+          "sialometry",
+          "swallowing function",
+          "trismus",
+          "chemosensory function",
+          "speech function",
+          "quality of life"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": 0,
+        "alpha_spending": null,
+        "missing_data_method": "complete case analysis",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": null,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": null,
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT00632853",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT00310388",
+      "score": 25.0,
+      "matches": [],
+      "partial": [
+        "randomization_ratio",
+        "alpha",
+        "alpha_sided",
+        "primary_endpoints",
+        "primary_test",
+        "stratification_factors",
+        "power_pfs",
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "sample_size"
+      ],
+      "generated_fields": {
+        "sample_size": 376,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "TEAEs",
+          "Safety"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": 510,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "safety",
+          "tolerability"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT00200161",
+      "score": 40.38461538461539,
+      "matches": [
+        "randomization_ratio"
+      ],
+      "partial": [
+        "sample_size",
+        "alpha",
+        "alpha_sided",
+        "primary_test",
+        "power_pfs",
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "primary_endpoints",
+        "stratification_factors"
+      ],
+      "generated_fields": {
+        "sample_size": 127,
+        "randomization_ratio": "1:1",
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": null,
+        "power_os": 80,
+        "primary_endpoints": [
+          "12-month overall survival rate"
+        ],
+        "primary_test": "Fisher's exact test",
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": "censored at last known alive date",
+        "multiplicity_method": "no formal adjustment"
+      },
+      "reference_fields": {
+        "sample_size": null,
+        "randomization_ratio": "1:1",
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "OS"
+        ],
+        "primary_test": null,
+        "stratification_factors": [
+          "age",
+          "performance status",
+          "treating institution",
+          "extent of resection"
+        ],
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT00538031",
+      "score": 34.61538461538461,
+      "matches": [],
+      "partial": [
+        "sample_size",
+        "randomization_ratio",
+        "alpha",
+        "alpha_sided",
+        "primary_test",
+        "stratification_factors",
+        "power_pfs",
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "primary_endpoints"
+      ],
+      "generated_fields": {
+        "sample_size": 52,
+        "randomization_ratio": "1:1",
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "Overall Response Rate",
+          "Time to Treatment Failure",
+          "Overall Survival"
+        ],
+        "primary_test": "Fisher's exact test",
+        "stratification_factors": null,
+        "interim_count": 0,
+        "alpha_spending": null,
+        "missing_data_method": "multiple imputation",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": null,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "response rate",
+          "time to disease progression"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    }
+  ]
+}

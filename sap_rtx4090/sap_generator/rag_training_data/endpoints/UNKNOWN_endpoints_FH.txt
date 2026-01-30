@@ -1,0 +1,77 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: UNKNOWN
+Section: ENDPOINTS
+Features: immunotherapy, non_proportional_hazards, fleming_harrington, methodology
+Quality Tier: 1 (Specialized)
+
+---
+
+various non-PH patterns.
+Key Words: Immunotherapy, Efﬁcacy, Non-Proportional Hazard, Delayed Effect, Time-to-Event
+1. Introduction
+In many disease areas, a time-to-event (TTE) endpoint is used as the primary endpoint in
+randomized clinical trials. The most common method for the analysis of TTE data is the
+log-rank test and the Cox proportional-hazard (PH) model under the PH assumption, and
+the hazard ratio (HR) derived from the Cox-model is used to quantify the relative effect
+between treatment groups. Under the PH assumption, the log-rank test is the most power
+test, and the HR can be interpreted approximately as a constant relative measure of risk over
+time, for instance S1(t) = S0(t)HR, where S1(t) and S0(t) are the the survival function at
+time t for two randomized treatment groups.
+With the emergence of novel therapies such as targeted therapies and immunothera-
+pies in cancer, the PH assumption often does not hold. Depending on the mechanism of
+the drug, non-PH can demonstrate different patterns. For example, unlike chemotherapies
+that attach tumor cells directly, immunotherapies target the immune system to elicit effec-
+t on cancer cells. The indirect effect could lead to delayed effect as manifested by late
+separation on the Kaplan-Meier (KM) curves. The delayed treatment effect can also be
+maintained thanks to its durability on some patients resulting in ﬂat survival tails and long-
+term beneﬁt. In contrast, a small molecule targeted therapy may manifest fast and dramatic
+tumor regression early on, however, the effect may not last and could diminish over time,
+with the survival curves demonstrating a diminishing or “belly-shape” pattern (Figure 1).
+In both cases, the PH assumption is violated.
+The log-rank test is still statistically valid under non-PH, but it may suffer signiﬁcant
+power loss owing to its relationship with the score test in the Cox-PH model. The loss in
+power increases the failure rate of clinical trials for promising novel therapies. Furthermore,
+the HR is not interpretable under non-PH despite the fact that it can be approximated as the
+weighted HR over time on the log-scale (Huang and Kuan, 2018).
+In the literature, a number of methods have been proposed to tackle the non-PH issue,
+such as, notably, weighted log-rank test (e.g. Fleming and Harrington, 1981), or a lin-
+∗Pﬁzer Inc., 445 Eastern Point Rd, Groton, CT 06340
+ 
+833
+JSM 2018 - Section on Statistical Graphics
+ear combination or the maximum of several test statistics (Tarone, 1981; Gastwirth, 1985;
+Zucker and Lakatos, 1990; Self, 1991; Lee, 1996). The test proposed by Yang and Pren-
+tice (2010) is a weighted logrank test whose weights are obtained by ﬁtting the data to a
+proposed model.
+Since we conventionally present the KM curves to show the temporal proﬁle of survival
+data, it is natural to perform a test that directly compares two survival function, rather than
+their hazard functions. Such interesting class of methods is the KM-based method that
+measures the relative between-group difference by the difference or ratio between the KM
+curves (Pepe and Fleming, 1989; Royston and Parmar, 2011; Uno et al., 2014), which
+is different from the rank-based methods (such as the log-rank test or weighted log-rank
+test) that essentially assess effect by (weighted) difference of hazard functions. Without
+parametric extrapolation, the KM curves contain all the information of the survival data.
+Therefore, the KM-based method is an appealing robust approach to summarize between-
+group difference that does not rely on the PH assumption.
+In this paper, we give an overview of three KM methods proposed in the literature and
+discuss their beneﬁts and limitations. Section 2 describes the concepts of each method. In
+Section 3, we conduct a simulation study to compare these methods under various non-PH
+scenarios. Section 4 concludes with a discussion.
+2. Kaplan-Meier Based Methods
+2.1
+Restricted Mean Survival Time (RMST)
+The most widely used KM-based method is the restricted mean survival time (RMST),
+which is a robust and clinically interpretable summary measure of the survival time dis-
+tribution that does not rely on the PH assumption. Unlike the median survival time, it is
+estimable even under heavy censoring. There has been considerable methodological re-
+search (e.g., Zucker, 1998; Royston and Parmar, 2011; Royston and Parmar, 2013; Uno
+et al., 2014) on the use of RMST to estimate treatment effects as an alternative to the HR
+approach. The RMST methodology is applicable independent of the PH assumption, and
+a test of the difference or ratio between the RMST for the experimental arm and the con-
+trol arm may be more appropriate to determine superiority with respect to the time-to-event
+endpoint. The RMST depends on the selection of cutoff (truncation) time τ, which needs to
+be pre-speciﬁed to avoid selection bias (after seeing the data). Common selections include
+ﬁxed landmark times of clinical relevance (e.g. x-year), minimum of the largest observed
+event time in each of the two groups, or minimum of the largest observed time (event or
+censoring) in each of the two groups.
+The RMST µ of a random time-to-event variable T is the mean of the survival 

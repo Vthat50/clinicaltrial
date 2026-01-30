@@ -1,0 +1,373 @@
+# =============================================================================
+# STUDY DESIGN TEMPLATES
+# =============================================================================
+# Pre-defined study period structures for different oncology trial designs
+#
+# Usage in study config:
+#   study_design: "induction_maintenance"
+#   design_parameters:
+#     induction_cycles: 6
+#     chemotherapy_agents: ["Carboplatin", "Paclitaxel"]
+
+version: "2.0"
+config_type: "study_designs"
+
+# =============================================================================
+# INDUCTION + MAINTENANCE DESIGN
+# =============================================================================
+# Common in lung cancer, ovarian cancer
+# Example: Bevacizumab + chemo (induction) → Bevacizumab alone (maintenance)
+induction_maintenance:
+  name: "Induction + Maintenance"
+  description: "Combination therapy induction followed by monotherapy maintenance"
+
+  periods:
+    whole:
+      code: "WHOLE"
+      label: "Whole Study Period"
+      definition: "From first dose through Safety Follow-up"
+      filter: "TRTSDT <= ADT <= TRTEDTM + {followup_days}"
+
+    induction:
+      code: "INDUCTION"
+      label: "Induction Period"
+      definition: "Cycles 1-{induction_cycles} with combination therapy"
+      filter: "APERIOD = 'INDUCTION'"
+      typical_duration: "18 weeks (6 cycles × 3 weeks)"
+
+    maintenance:
+      code: "MAINTENANCE"
+      label: "Maintenance Period"
+      definition: "Cycle {induction_cycles}+1 onwards with monotherapy"
+      filter: "APERIOD = 'MAINTENANCE'"
+      entry_criteria: "Completed induction without progression"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "From last dose + 1 day through Safety Follow-up visit"
+      filter: "APERIOD = 'FOLLOW-UP'"
+      typical_duration: "30-90 days"
+
+  period_stratification_note: |
+    Analyses presented for:
+    1. Whole Study Period (primary)
+    2. Induction Period (combination phase)
+    3. Maintenance Period (monotherapy phase)
+    4. Follow-up Period (post-treatment)
+
+  parameters:
+    induction_cycles:
+      type: integer
+      default: 6
+      description: "Number of induction cycles"
+    followup_days:
+      type: integer
+      default: 30
+      description: "Days after last dose for safety follow-up"
+    chemotherapy_agents:
+      type: list
+      description: "Chemotherapy agents used during induction"
+
+# =============================================================================
+# CONTINUOUS THERAPY DESIGN
+# =============================================================================
+# Common for targeted therapies, immunotherapy
+# Example: Pembrolizumab until progression
+continuous:
+  name: "Continuous Therapy"
+  description: "Therapy continues until progression, toxicity, or max duration"
+
+  periods:
+    whole:
+      code: "WHOLE"
+      label: "Whole Study Period"
+      definition: "From first dose through Safety Follow-up"
+      filter: "TRTSDT <= ADT <= TRTEDTM + {followup_days}"
+
+    on_treatment:
+      code: "ON-TREATMENT"
+      label: "On-Treatment Period"
+      definition: "From first dose through last dose + {on_treatment_window} days"
+      filter: "TRTSDT <= ADT <= TRTEDT + {on_treatment_window}"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "From last dose + {on_treatment_window} + 1 day onwards"
+      filter: "ADT > TRTEDT + {on_treatment_window}"
+
+  parameters:
+    on_treatment_window:
+      type: integer
+      default: 30
+      description: "Days after last dose still considered on-treatment"
+    max_duration:
+      type: string
+      default: "24 months"
+      description: "Maximum treatment duration"
+    followup_days:
+      type: integer
+      default: 90
+      description: "Days after last dose for safety follow-up"
+
+# =============================================================================
+# ADJUVANT DESIGN
+# =============================================================================
+# Post-surgery treatment to prevent recurrence
+# Example: Pembrolizumab adjuvant for melanoma
+adjuvant:
+  name: "Adjuvant Therapy"
+  description: "Post-surgical treatment to prevent recurrence"
+
+  periods:
+    whole:
+      code: "WHOLE"
+      label: "Whole Study Period"
+      definition: "From first dose through end of study"
+
+    treatment:
+      code: "TREATMENT"
+      label: "Treatment Period"
+      definition: "From first dose through completion or discontinuation"
+      typical_duration: "12 months"
+
+    surveillance:
+      code: "SURVEILLANCE"
+      label: "Surveillance Period"
+      definition: "Post-treatment monitoring for recurrence"
+      typical_duration: "3-5 years"
+
+  key_endpoints:
+    - "Disease-Free Survival (DFS)"
+    - "Recurrence-Free Survival (RFS)"
+    - "Distant Metastasis-Free Survival (DMFS)"
+    - "Overall Survival (OS)"
+
+  parameters:
+    treatment_duration:
+      type: string
+      default: "12 months"
+      description: "Planned treatment duration"
+    surveillance_duration:
+      type: string
+      default: "5 years"
+      description: "Post-treatment surveillance period"
+    surgery_to_randomization:
+      type: integer
+      default: 12
+      description: "Maximum weeks from surgery to randomization"
+
+# =============================================================================
+# NEOADJUVANT DESIGN
+# =============================================================================
+# Pre-surgery treatment to shrink tumor
+# Example: Pembrolizumab + chemo neoadjuvant for NSCLC
+neoadjuvant:
+  name: "Neoadjuvant Therapy"
+  description: "Pre-surgical treatment to improve surgical outcomes"
+
+  periods:
+    neoadjuvant:
+      code: "NEOADJUVANT"
+      label: "Neoadjuvant Period"
+      definition: "From first dose through surgery"
+      typical_duration: "3-4 cycles"
+
+    perioperative:
+      code: "PERIOPERATIVE"
+      label: "Perioperative Period"
+      definition: "Surgery ± 30 days"
+
+    adjuvant:
+      code: "ADJUVANT"
+      label: "Adjuvant Period"
+      definition: "Post-surgery treatment continuation"
+      typical_duration: "Up to 12 months total"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "Post-treatment surveillance"
+
+  key_endpoints:
+    - "Pathological Complete Response (pCR)"
+    - "Major Pathological Response (MPR)"
+    - "Event-Free Survival (EFS)"
+    - "Overall Survival (OS)"
+
+  parameters:
+    neoadjuvant_cycles:
+      type: integer
+      default: 4
+      description: "Number of neoadjuvant cycles"
+    surgery_window:
+      type: string
+      default: "4-6 weeks post last neoadjuvant dose"
+      description: "Timing of surgery"
+
+# =============================================================================
+# PERIOPERATIVE DESIGN
+# =============================================================================
+# Neoadjuvant + Adjuvant combined
+# Example: Durvalumab perioperative for NSCLC
+perioperative:
+  name: "Perioperative Therapy"
+  description: "Combined neoadjuvant and adjuvant approach"
+
+  periods:
+    neoadjuvant:
+      code: "NEOADJUVANT"
+      label: "Neoadjuvant Period"
+      definition: "Pre-surgery treatment"
+
+    surgery:
+      code: "SURGERY"
+      label: "Surgery Period"
+      definition: "Surgical resection and recovery"
+
+    adjuvant:
+      code: "ADJUVANT"
+      label: "Adjuvant Period"
+      definition: "Post-surgery treatment continuation"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "Long-term surveillance"
+
+# =============================================================================
+# CROSSOVER DESIGN
+# =============================================================================
+# Patients can switch to other arm upon progression
+# Example: Many immunotherapy trials
+crossover:
+  name: "Crossover Design"
+  description: "Patients may cross to alternate treatment upon progression"
+
+  periods:
+    initial_treatment:
+      code: "INITIAL"
+      label: "Initial Treatment Period"
+      definition: "From randomization to progression or crossover"
+
+    crossover:
+      code: "CROSSOVER"
+      label: "Crossover Period"
+      definition: "Treatment after crossing to alternate arm"
+      population: "Subjects who crossed over"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "Post-treatment follow-up"
+
+  analysis_considerations:
+    - "ITT analysis regardless of crossover"
+    - "Sensitivity analysis censoring at crossover"
+    - "RPSFT (Rank Preserving Structural Failure Time) adjustment"
+    - "IPCW (Inverse Probability of Censoring Weighting)"
+
+  parameters:
+    crossover_trigger:
+      type: string
+      default: "Confirmed progression"
+      description: "Criteria for crossover eligibility"
+    crossover_arm:
+      type: string
+      description: "Which arm(s) can cross over"
+
+# =============================================================================
+# COMBINATION VS MONOTHERAPY DESIGN
+# =============================================================================
+# Direct comparison of combination vs single agent
+# Example: Pembrolizumab + chemo vs chemo alone
+combination_vs_mono:
+  name: "Combination vs Monotherapy"
+  description: "Compares combination therapy to single agent"
+
+  arms:
+    combination:
+      label: "Combination Arm"
+      description: "Study drug + backbone therapy"
+    monotherapy:
+      label: "Monotherapy Arm"
+      description: "Backbone therapy alone (or placebo + backbone)"
+
+  periods:
+    concurrent:
+      code: "CONCURRENT"
+      label: "Concurrent Period"
+      definition: "While both agents administered together"
+
+    continuation:
+      code: "CONTINUATION"
+      label: "Continuation Period"
+      definition: "After backbone completed, study drug continues"
+      applies_to: "Combination arm only"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "Post all treatment"
+
+# =============================================================================
+# DOSE ESCALATION / EXPANSION (PHASE I)
+# =============================================================================
+dose_escalation:
+  name: "Dose Escalation with Expansion"
+  description: "Phase I design with dose escalation and expansion cohorts"
+
+  phases:
+    escalation:
+      code: "ESCALATION"
+      label: "Dose Escalation Phase"
+      description: "Sequential dose cohorts to determine MTD/RP2D"
+      design_types:
+        - "3+3"
+        - "mTPI"
+        - "BOIN"
+        - "CRM"
+
+    expansion:
+      code: "EXPANSION"
+      label: "Dose Expansion Phase"
+      description: "Expansion at RP2D for preliminary efficacy"
+      cohort_types:
+        - "Indication-specific"
+        - "Biomarker-selected"
+
+  key_endpoints:
+    - "Dose-Limiting Toxicity (DLT)"
+    - "Maximum Tolerated Dose (MTD)"
+    - "Recommended Phase 2 Dose (RP2D)"
+
+  parameters:
+    dlt_window:
+      type: integer
+      default: 21
+      description: "DLT evaluation window in days"
+
+# =============================================================================
+# SINGLE ARM DESIGN
+# =============================================================================
+single_arm:
+  name: "Single Arm"
+  description: "Non-comparative single arm trial"
+
+  periods:
+    treatment:
+      code: "TREATMENT"
+      label: "Treatment Period"
+      definition: "From first dose to discontinuation"
+
+    followup:
+      code: "FOLLOW-UP"
+      label: "Follow-up Period"
+      definition: "Post-treatment follow-up"
+
+  analysis_notes:
+    - "No treatment comparison"
+    - "Historical control may be used"
+    - "Exact binomial CI for response rates"
+    - "Single-arm KM for survival"

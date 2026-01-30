@@ -1,0 +1,126 @@
+[
+  {
+    "trial_id": "NCT01784848",
+    "indication": "Gastric",
+    "phase": "Phase 3",
+    "overall_score": 5.6,
+    "timestamp": "2026-01-16T02:32:10.810211",
+    "section_scores": {
+      "2_objectives_endpoints_estimands": {
+        "score": 5.9,
+        "elements_present": "5/17",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 6,
+        "specificity": 9,
+        "conciseness": 4,
+        "quality": 6,
+        "gaps": [
+          "Missing primary objective statement in proper objective format",
+          "Secondary objectives not presented as objectives but only as endpoints",
+          "No exploratory objectives or endpoints identified",
+          "Missing disclaimer about inferential testing for exploratory analyses",
+          "Intercurrent event handling needs more comprehensive detail"
+        ],
+        "summary": "Good endpoint definitions and estimand framework but missing critical objective statements and includes excessive introductory content not relevant to this SAP section."
+      },
+      "3_study_design": {
+        "score": 5.6,
+        "elements_present": "8/21",
+        "critical_met": false,
+        "accuracy": 7,
+        "completeness": 5,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 6,
+        "gaps": [
+          "Missing formal hypothesis statements (H0 and H1)",
+          "No alpha level or statistical significance criteria",
+          "Missing analysis trigger and data cutoff definitions",
+          "No success criteria for trial outcome",
+          "Missing one-sided vs two-sided test specification"
+        ],
+        "summary": "Well-structured population definitions but missing critical statistical hypothesis framework and analysis triggers required for regulatory submission."
+      },
+      "4_statistical_analyses": {
+        "score": 4.8,
+        "elements_present": "8/41",
+        "critical_met": false,
+        "accuracy": 7,
+        "completeness": 4,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 5,
+        "gaps": [
+          "Visit window definitions and target days completely missing",
+          "No intercurrent event handling per ICH E9(R1) framework",
+          "Missing p-value reporting conventions and rounding rules",
+          "No subgroup analysis specifications",
+          "TEAE definition and on-treatment period missing"
+        ],
+        "summary": "The generated content covers basic statistical methods well but lacks many critical operational elements like visit windows, intercurrent events, and comprehensive analysis specifications required for FDA submission."
+      },
+      "6_efficacy": {
+        "score": 5.5,
+        "elements_present": "5/30",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 6,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 7,
+        "gaps": [
+          "Missing estimand restatement from Section 2",
+          "No endpoint derivation formula provided",
+          "Missing secondary analyses of primary endpoint",
+          "No stratification handling specified",
+          "Assessment type not defined"
+        ],
+        "summary": "Well-structured sensitivity and subgroup analyses but missing critical efficacy analysis fundamentals and containing excessive detail beyond reference scope."
+      },
+      "7_safety": {
+        "score": 6.9,
+        "elements_present": "10/16",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 8,
+        "specificity": 6,
+        "conciseness": 4,
+        "quality": 7,
+        "gaps": [
+          "Normal range handling not specified (central vs local lab)",
+          "Missing specific gastric cancer safety considerations",
+          "No reference to actual study endpoints from protocol"
+        ],
+        "summary": "Well-executed safety section with proper CTCAE implementation but over-elaborated beyond reference scope and missing normal range specifications."
+      }
+    },
+    "weakest_sections": [
+      "4_statistical_analyses",
+      "6_efficacy"
+    ],
+    "strongest_sections": [
+      "2_objectives_endpoints_estimands",
+      "7_safety"
+    ],
+    "critical_failures": [
+      "4_statistical_analyses",
+      "6_efficacy",
+      "3_study_design",
+      "2_objectives_endpoints_estimands",
+      "7_safety"
+    ],
+    "top_gaps": [
+      "2. Objectives, Endpoints, and Estimands: Missing primary objective statement in proper objective format",
+      "2. Objectives, Endpoints, and Estimands: Secondary objectives not presented as objectives but only as endpoints",
+      "2. Objectives, Endpoints, and Estimands: No exploratory objectives or endpoints identified",
+      "2. Objectives, Endpoints, and Estimands: Missing disclaimer about inferential testing for exploratory analyses",
+      "2. Objectives, Endpoints, and Estimands: Intercurrent event handling needs more comprehensive detail",
+      "3. Study Design: Missing formal hypothesis statements (H0 and H1)",
+      "3. Study Design: No alpha level or statistical significance criteria",
+      "3. Study Design: Missing analysis trigger and data cutoff definitions",
+      "3. Study Design: No success criteria for trial outcome",
+      "3. Study Design: Missing one-sided vs two-sided test specification"
+    ]
+  }
+]

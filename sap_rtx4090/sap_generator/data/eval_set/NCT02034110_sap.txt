@@ -1,0 +1,1388 @@
+Novartis For business use only Page 2of 35
+SAP CDRB436X2201 / BRF117019
+Document History  –Changes compared to previous final version of SAP
+Date Time 
+pointReason for 
+updateOutcome for update Section and title 
+impacted 
+(Current)
+
+Novartis For business use only Page 3of 35
+SAP CDRB436X2201 / BRF117019
+Table of contents
+Table of contents .................................................................................................................3
+List of abbreviations ............................................................................................................5
+1Introducti on
+.........................................................................................................................6
+1.1 Study  design .............................................................................................................6
+1.2 Study  objectives and endpoints ...............................................................................7
+2Statistical methods ...............................................................................................................7
+2.1 Data analy sis general information ...........................................................................7
+2.1.1 General definitions ..................................................................................8
+2.2 Analy sis sets ..........................................................................................................10
+2.2.1 Subgroup of interest ..............................................................................11
+2.3
+Patient disposition, demographics and other baseline characteristics ...................11
+2.3.1 Patient disposition .................................................................................11
+2.3.2 Demographics and baseline data ...........................................................11
+2.3.3 Study  treatment / compliance ................................................................11
+2.3.4 Prior, concomitant and post therapies ...................................................12
+2.3.5 Protocol Deviations ...............................................................................13
+2.4 Analy sis of the primary  objective ..........................................................................13
+2.4.1 Primary  endpoint ...................................................................................13
+2.4.2 Statistical hy pothesis, model, and method of analy sis..........................
+18
+2.4.3 Handling of missing values/censoring/discontinuations .......................19
+2.4.4 Supportive analy ses...............................................................................19
+2.5 Analy sis of the key  secondary  objective ...............................................................19
+2.6 Analy sis of secondary  efficacy  objective(s) ..........................................................19
+2.6.1 Duration of response .............................................................................19
+2.6.2 Progression
+-free survival ......................................................................21
+2.6.3 Overall survival .....................................................................................22
+2.7 Safety  anal yses.......................................................................................................22
+2.7.1 Adverse events (AEs)
+............................................................................22
+2.7.2 Deaths ....................................................................................................24
+2.7.3 Laboratory  data .....................................................................................24
+2.7.4 Other safety  data ...................................................................................25
+2.8
+Pharmacokinetic endpoints....................................................................................25
+26
+2.10 Biomarkers .............................................................................................................26
+2.11 Other Exploratory  anal yses....................................................................................26
+2.12 Interim anal ysis......................................................................................................27
+
+
+Novartis For business use only Page 4of 35
+SAP CDRB436X2201 / BRF117019
+3Change to protocol specified anal yses..............................................................................27
+4Appendix ...........................................................................................................................27
+4.1 Clinical review of anti
+-cancer therapies for censoring criteria ..............................27
+4.2 Extended L oss to Follow -up or Extended Time without an Adequate 
+Assessment ............................................................................................................27
+4.3 Date Associa ted with Response .............................................................................28
+4.4 Imputation rules .....................................................................................................28
+4.4.1 Demograph y (ADSL) ............................................................................28
+4.4.2 Initial diagnosis of primary  tumor t ype under study .............................
+29
+4.4.3 Adverse events (ADAE) .......................................................................29
+4.4.4 Surgery  and radiotherap y
+......................................................................30
+4.4.5 Concomitant medication and blood and blood supportive care 
+products .................................................................................................30
+4.4.6
+Time to event (Duration of response and Progression- free survival) 
+and best confirmed overall response .....................................................31
+4.4.7
+Imputation of missing exposure end dates............................................32
+4.5 Multiple Assessments ............................................................................................33
+4.6 Laboratory  parameters derivations ........................................................................33
+4.7 ECG parameters .....................................................................................................33
+4.8 Cardiac Scan Modalities (ECHO) .........................................................................34
+4.9 Left ventricular ejection fraction ...........................................................................34
+4.10 Vital signs ..............................................................................................................34
+4.11 Statistical models ...................................................................................................35
+5Reference ...........................................................................................................................35
+
+Novartis For business use only Page 5of 35
+SAP CDRB436X2201 / BRF117019
+List of abbreviations
+AE
+ASI
+ATC
+BTCAdverse Event
+Adenocarcinoma of the small intestine
+Anaplastic Thy roid Cancer
+Biliar y Tract Cancer
+CRF
+CSR
+DMS
+ECG
+eCRF
+eCRS
+GIST
+HCLCase Report Form
+Clinical Study Report
+Document Management System
+Electrocardiogram
+electronic Case Report Form
+electronic Case Retrieval Sheet
+Gastrointestinal stromal tumor
+Hairy Cell Leukemia
+HGG High Grade Glioma
+IA Interim Analyses
+LGG Low Grade Glioma
+MedDRA
+MM
+MRD
+NGGCT
+NSGCTMedical Dictionar y for Regula tory Activities
+Multiple Myeloma
+Minimal Residual Disease
+Non-geminom atous germ cell tumor
+Non-seminomatous germ cell tumor
+PK Pharmacokinetics
+PRO Patient- reported Outcomes
+RAP Report ing&Analy sis P rocess
+SAP
+SASStatistical Analysis Plan
+Statistical Analysis Sy stem
+TFLs Tables, Figures, Listings
+WHO World Health Organization
+
+
+Novartis For business use only Page 6of 35
+SAP CDRB436X2201 / BRF117019
+1 Introduction
+This statistical analy sis plan (SAP) details all planned analyses to support the final clinical study  
+report (CSR) and publication of final study results from BRF117019/CDRB436X2201.  This is 
+a phase II study  to evaluate the clinical efficacy  and safety  of the combination therapy  of 
+dabrafenib (DRB436) and trametinib (TMT212) using a single -arm multi- histology  study 
+design in several rare cancer t ypes. 
+In this S AP, references will be made to the following documents: 
+• Protocol amendment 11 dated 04 Jun 2020
+•Annotated electronic Case Report Form (eC RF) BRF117019/CDRB436X2201 SV16.0
+•Charter for the Independent Data Monitoring Committee (IDMC) version 2.0 dated 23 
+Jun2016
+1.1 Stud y design
+This is a Phase II, open -label, non-randomized, multi -center study  of oral dabrafenib in 
+combination with oral trametinib in subjects with rare cancers with the BRAF V600E mutation.  
+The following histologies will be included in this study: ATC, BTC, GIST, WHO Grade 1 or 2 
+glioma, WHO Grade 3 or 4 glioma , NSGCT/NGGCT, ASI, HCL and MM (Cohorts 1 to 9, 
+respectivel y). 
+For each cohort, up to 25 evaluable subjects will be enrolled in the primary analy sis cohort. If 
+a given cohort is stopped early  for efficacy , a histology  specific expansion cohort may be 
+opened to allow for additional patient enrollment.  
+The primary  anal ysis cohort is comprised of those patients enrolled within a histology -specific 
+group prior to capping at 25 patients per cohort or prior to early stopping for efficacy  or futility . 
+The primary  anal ysis cohort will form the basis of the Bay esian modelling of ORR. 
+If a cohort closes early at an interim analy sis because it meets the rules for early  stopping for 
+efficacy , an expansion cohort may be opened to allow additional patient enrollment for that 
+particular histology . The patients in the expansion cohort will provide supportive efficacy  data 
+and will NOT contribute to the Bayesian modeling of ORR. The expansion cohort(s) will enroll 
+subjects for the duration of trial enrollment. 
+Only  subjects with histologically  or cytologically  confirmed advanced disease with no available 
+treatment options as determined by  locally  or regionally  available standards of care and by  the 
+treating phy sician’s disc retion will be eligible for enrollment.  Subjects may  be enrolled based 
+on local testing of the BRAF V600E mutation and mutation status will be confirmed by a central 
+reference laboratory .  
+Subjects will receive dabrafenib 150 mg BID orally  plus trametini b 2 mg once daily  orally on 
+a continuous dosing schedule.  An adaptive design with multiple interim evaluations will 
+determine if one or more histologic cohorts should discontinue enrolment early due to either 
+success or futility .  Evaluations are based ona hierarchical statistical model that borrows 
+information in a limited way  from histologies that demonstrate similar response rates based on 
+the accumulated trial data.  A complete description of the study  design and rationale is included 
+in the Protocol.
+
+Novartis For business use only Page 8of 35
+SAP CDRB436X2201 / BRF117019
+Data from all participating centers will be pooled prior to analysis. Subject accrual isspread 
+thinly  across centers and summaries of data by  center woul d be unlikel y to be informative and 
+therefore will not be provided.
+All data up to death or study  withdrawal will be included in each anal ysis.  Unscheduled visits 
+will not be included in summaries, except to derive minimum/maximum post-baseline or on-
+treatment values. Unscheduled visits will be presented in subject listings.
+Planned times relative to study  drug dosing will be used in all tables and summary  figures .
+Unless otherwise stated, continuous variables will be summarized with n, mean, median, 
+standard deviation, minimum and maximum, and categorical variables will be summarized with 
+frequency  counts and percentages. 
+2.1.1 General d efinition s
+Study treatment
+Study  treatment in this study  refers to either dabrafenib or trametinib.
+Reference dates
+There are two reference dates:
+The date of screening is the reference date for determination of age, since age is an 
+eligib
+ility requirement. 
+The study  treatment start date is the reference date for efficacy  and safet y.
+Study day
+If the date of i nterest occurs on or after the reference date then the stud y day will be cal culated 
+as (date of interest -reference date) + 1. If the date of interest occurs before the reference date
+then the study  day will be cal culated as (date of interest –reference date). There is no study  day 
+0.
+Duration and elapsed time
+Durations (e.g., the duration of an adverse event, duration of exposure , etc.)are calculated as
+the 
+stop date minus the start date plus one.
+For elapsed time (e.g., the time since initial diagnosis):
+If the event date is on or after the reference date, then the elapsed time is the event date 
+minus the reference date + 1
+If the event date is before the reference date then the elapsed time is the event date minus 
+the reference date
+When reporting time to event (TTE) durations such as PFS in months, divide the number of 
+days by 30.4375; to report in weeks divide the number of days by 7; to report in years divide 
+the number of day s by 365.25.
+
+Novartis For business use only Page 9of 35
+SAP CDRB436X2201 / BRF117019
+Baseline
+Baseline will be defined as the most recent, non-missing value prior to or on the first study  
+treatment dose date. For laboratory  data, baseline will be defined as the most recent, non-
+missing value from a central laboratory  prior to or on the first study  treatment dose date. If there 
+are no 
+central labs collected for a subject and lab test prior to or on the first dose of study  
+treatment, the most recent, non-missing value from a local laboratory  prior to or on the first 
+dose of study  treatment will be defined as the baseline value.
+Change from baseline
+Change from baseline will be presented for safety data.  Change from baseline is calculated as:
+For records occurring after baseline: (visit value) 
+-baseline value.
+Percent change from baseline is calculated as:
+For records occurring after baseline: ((change from baseline) / Baseline value) *100.
+If either the baseline or visit value is missing, the change from baseline and/or percent change 
+from bas eline is set to missing as well.
+Time in relation to treatment
+Adverse events, serious adverse events, death, laboratory  data, vitals, ECG and ECHO, will be 
+assigned to the study  time periods defined below. Partial dates will be imputed into full dates, 
+if applicable, for slotting data to the appropriate categories below (see Section 4.4). Flag 
+variables (time in relation to study treatment) indicating th e study time periods will be added to 
+these datasets.
+Pre-therapy 
+is defined as the time prior to the subject’s first dose of stud y treatment. 
+On-therapy is defined as the time from first dose of study treatment until 30 days after the last 
+dose date of s tudy treatment. 
+Post-therapy is defined as any  time bey ond the on -therap y period.
+Some datasets include the first dose day  as On -therapy  and some exclude the first dose date as 
+On-Therap y. The first dose day (Day 1) is considered pre -therapy  for ECOG, ECG, vital signs, 
+liver events, lab tests, and cardiac scan. The first dose day (Day 1) is considered to be On-
+therap y for adverse events and concomitant medications.
+Study time period for concomitant medications and blood and blood 
+supportive care products
+Concomitant Medication and Blood and Blood Supportive Care Product start and end dates will 
+be assigned to study  time periods in relation to first dose of study  treatment as defined below. 
+The start date reference time flag variables and end date reference time flag variables will be 
+added to the concomitant medications and blood and blood supportive products datasets, 
+respectivel y.
+Start relative to treatment: Assign to 'BEFORE' if start date is prior to study  treatment start 
+date or if subject has not taken any study  treatment or (start date is missing and end date is 
+before study  treatment start date). Else assign to 'DURING' if the start date falls on or between 
+the first and last dose dates of study  treatment or if subject is ongoing (not all study  treatment 
+
+Novartis For business use only Page 10of 35
+SAP CDRB436X2201 / BRF117019
+discontinuation records completed) or start date is missing. Else assign to 'AFTER' if start date 
+is after the on -therapy  period.
+End relative to treatment : Assign to 'BEFORE' if end date is prior to study  treatment start 
+date or if subject has not taken any study  treatment. Else assign to 'DURING' if end date falls 
+on or between the first and last dose dates of study  treatmentor if subject is ongoing (not all 
+study  treatment discontinuation records completed) or (end date is missing and start relative to 
+treatment not 'AFTER'). Else assign to 'AFTER' if start date is after the on-therap y period or 
+(end date is missing and start relative to treatment='AFTER') .
+Only  on-therapy  blood and blood supportive care products that start after the start of study 
+treatment are included in the Blood Products and Blood Supportive Care Product summaries. 
+Therefore, for summary tables, include blood and blood supportive care product records where 
+start relative to treatment in ('DURING') and end relative to treatment i n ('DURI NG','AFTER'). 
+All data will be reported in listings. 
+Concomitant medication start relative to treatment and end relative to treatment flags are used 
+to select data to include in the Concomitant Medication summaries as follows:
+Summary  of Concomita nt Medications: This summary  will contain medications including 
+those with start date prior to study  treatment start date and continue (missing end date or 
+end date after stud y treatment start date) on therapy. Note that an y medications with start 
+date and end date prior to study  treatment start date will be excluded. In addition, any  
+medication that was started during post
+-therap y will be excluded. I nclude concomitant 
+medication records where start relative to treatment in ('BEFORE','DURING') and end 
+relative to treatment in ('DURING','AFTER').
+Summary  of Concomitant Medications with On- Therap y Onset: This summary will 
+contain medications with start date after stud y treatment start date. In addition, any 
+medication that was started during post- therap y (see above for definition of post -therap y) 
+will be excluded. I nclude concomitant medication records where start relative to treatment 
+in ('DURING') and end relative to treatment in ('DURI NG','AFTER').
+Other derivations or data handling procedures related to thi s analy sis plan are given in section 
+4.
+2.2 Analysis sets
+As specified in the protocol, for the final analysis the Intent -to-Treat population will be used 
+for primary  analysis of efficacy  endpoints. The BRAF V600E population will be used for 
+supportive analysis of efficacy .  The All Treated Subjects population will be used for Safet y 
+analysis. These anal ysis populations are defined below:
+The Intent -to-Treat (ITT) population is defined as all enrolled subjects regardless of whether or 
+not treatment was administered.
+The BRAF 
+V600E population is defined as all enrolled subjects regardless of whether or not 
+treatment was administered, who obtain positive verification of the BRAF 
+V600E mutation 
+from a certified central reference laboratory .
+The All Treated Subjects population is defined as all s ubjects who receive at least one dose of 
+dabrafenib or trametinib.
+
+Novartis For business use only Page 11of 35
+SAP CDRB436X2201 / BRF117019
+A summary  of the number of subjects in each of the analysis populations will be provided. A 
+listing of subjects included in each anal ysis population will also be provided.
+2.2.1 Subgroup of inter est
+Efficacy  data (investigator and independent reviewer -assessed ORR, DoR, PFS and OS) will 
+be presented for the following subgroups within the WHO Grade 3 or 4 Glioma cohort:
+By grade (3 or 4)
+By age group (18- 39 or 40+)
+2.3 Patient disposition, demographics and other baseline 
+characteristics
+2.3.1 Patient disposition
+A summary  of subject status and reason for study  withdrawal will be provided for the ITT 
+population . This display  will show the number and percentage of subjects who withdrew from 
+the study , including primary  reason for study  withdrawal. Reasons for study  withdrawal will be 
+presented in the order they are display ed in the eCRF. A listing of the subject disposition/end 
+of study  record for all subjects who discontinued the study  prematurel y will be produ ced.
+2.3.2 Demographics and baseline data
+The demographic characteristics including age, sex, race, ethnicity , child- bearing potential, 
+baseline height and weight will be summarized and listed for each histologic cohort.  The 
+count (n), mean, standard deviation, median, minimum value, and maximum value will be 
+computed for age, height, and weight. The count and percentage will be computed for sex, 
+race, ethnicity , child -bearing potential, and age categories ( <18, 18 -64, 65- 74, and 75 - 84, 
+and >=85 years).
+Disease history  and characteristics at initial diagnosis and screening will be listed. Separate 
+summaries of disease characteristics at initial diagnosis and screening will be provided for each 
+histologic cohort .
+Medical conditions will be graded according to the CTCAE, Version 4.0 and coded to preferred 
+term using theMedDRA dictionary .  Medical conditions present at screening will be 
+summarized and listed.
+2.3.3 Study treatment / compliance
+A summary  of study  treatment status will be provided for the ATS population. This display  will 
+show the number and percentage of subjects who are ongoing or discontinued study  and the 
+primary  reason(s) for discontinuation of study  treatment. Reasons for study  treatment 
+discontinuation will be presented in the order they are display ed in the eCRF. Separate tables 
+will be produced for dabrafenib and trametinib.  Separate listings for study  treatment 
+discontinuation will also be generated for dabrafenib and trametinib.
+Summary  of exposure to study  treatment will be provided. The summary will include subject 
+daily  dose, population level daily  dose, cumulative dose, duration on treatment for dabrafenib, 
+duration on treatment for trametinib, and duration on combination treatment. The subject 
+average dail y dose is defined as the subject’s cu mulative dose divided b y the duration on stud y 
+
+Novartis For business use only Page 12of 35
+SAP CDRB436X2201 / BRF117019
+treatment.  For the analysis of population level daily  dose, a dose on each day  for each subject 
+will be treated as an observation and the summary will be based on the dose on each individual 
+day for all subje cts.  Duration on treatment for dabrafenib or trametinib is defined as months 
+from the first dose to the last non- zero dose, regardless of dose interruption before the last non -
+zero dose. In addition to mean, median, min and max, duration on dabrafenib, duration on 
+trametinib and duration on 
+combination treatment will also be summarized in the following 
+categories: <3 months, 3-6 months, >6- 9 months, >9-12 months, >12-24 months, >24-36 
+months, and >36 months.
+Dose reductions will be summarised by number of reductions and reasons for reductions for 
+dabrafenib and trametinib separately . 
+Dose interruptions will be summarised by number of interruptions and reasons for the 
+interruptions for dabrafenib and trametinib separately .
+A summary  of overall compliance based on the exposure data will be produced separatel y for 
+dabrafenib and trametinib for the ATS population. Percentage overall compliance will be 
+summarized using the mean, standard deviation, minimum, median, and maximum. In addition, 
+percentage overall compliance will be categorized and summarized by <80%, 80%- 105%, 
+and >105%. 
+The calculation of overall compliance is based on the entire interval of dosing for dabrafenib 
+and trametinib. The formula for daily  dose medication is compliance (%) = [total cumul ative 
+actual dose / (duration of study  treatment x prescribed dose)] x 100 where duration of study 
+treatment is last dose -first dose +1. For dabrafenib, the prescribed dose is 300mg per day , and 
+for trametinib, the prescribed daily  dose is 2mg per day .
+Listings of overall compliance will be produced separatel y for dabrafenib and trametinib.
+2.3.4 Prior, concomitant and post therap ies
+Concomitant medications will be coded using WHO Drug coding dictionary , summarized, and 
+listed. The summary  ofconcomitant medications will show the number and percentage of 
+subjects taking concom itant medications by Ingredient. Multi -ingredient products will be 
+summarized by their separate ingredients rather than as a combination of ingredients. 
+Anatomical Therap eutic Chemical (ATC) classification Level 1 (Body  System) information 
+will be included in the data listing only. In order to be considered a concomitant medication, 
+the concomitant medication must have been taken at some point during the on-therap y window.
+Prior anti
+-cancer therapy will be coded using WHO Drug coding dictionary , then summarized
+by type of therap y and listed.  Separate tables will be produced displaying prior medications b y 
+ingredient (counting multiple ingredients taken as part of a combined treatment on separate 
+rows) and display ing combination regimens as single rows e.g. cisplatin + gemcitabine. 
+Combined regimens will be defined based on common start dates of each ingredient, which are 
+entered separatel y onthe eCRF. A summary  of the number of prior anti-cancer therap y 
+regimens will also be produced.
+Prior anti-cancer radiotherap y and prior cancer and non-cancer surgical procedures will be listed.
+The number and percentage of subjects that received chemother apy, immunotherap y, hormonal 
+therap y, biologic therapy, radioactive therap y, small molecule targeted therapy , radiotherap y 
+and cancer -
+specific surgery  as post study  treatment anti-cancer therapy  will be summarized.  
+
+Novartis For business use only Page 13of 35
+SAP CDRB436X2201 / BRF117019
+Summary  statistics for the time from study treatment discontinuation to the first post study 
+treatment anti -cancer therapy  (in weeks) will also be included in this summary  table.
+Follow -up anti-cancer therapy  will be coded using WHO Drug coding dictionary , then 
+summarized by ingredient. A listin g of the type of follow -up anti-cancer therap y received 
+(chemotherap y, immunotherap y, hormonal therapy, biologic therap y, radioactive therapy , small 
+molecule targeted therapy ) and details of the anti-cancer therapy  for each subject will be 
+provided. 
+Anti- cancer radiotherap y and both cancer -and non-cancer related surgical procedures will be 
+listed separatel y.
+2.3.5 Protocol Deviations
+Protocol deviations identified during the study  are reviewed by the study  team.  During this 
+review, deviations are classified asimportant or not important based on their impact on data 
+reliability  and/or patient safet y, wellbeing or rights.
+Important protocol deviations including inclusion/exclusion criteria deviations will be 
+summarized. A separate summary  of inclusion/exclusion criteria deviations will also be 
+provided. All important protocol deviations will be listed. Following the COVID -19 pandemic, 
+separate tables will be created to display  the protocol deviations related to COVID -19 and those 
+not related to COVID -19.  Deviati ons related to COVID -19 will be classified as important to 
+ensure transparent presentation of the impact of the pandemic in the clinical study  report. Where 
+applicable, the relationship of a protocol deviation to COVID -19 will be display ed in the listing.
+Deviations will not result in subject exclusion from any population. However, for protocol 
+deviations that are deemed by clinical team as having a significant impact on the interpretation 
+of the efficacy  results (e.g. subject with incorrect histologic t ypeenrolled), sensitivity  analy sis 
+for efficacy  may  be conducted by  excluding subjects with such deviations.
+2.4 Analysis of the primary  objective
+The analyses of the primary  endpoint will take place once all patients have either died or been 
+transitioned off the study . The primary  analysis population for efficacy  analyses is ITT. The 
+BRAF V600E population will be used for supportive analyses of efficacy . Summaries of 
+primary  endpoint results may be provided for the primar y anal ysis cohort, the expansion cohort 
+and primary  and expansion cohorts combined.
+2.4.1 Primary  endpoint
+The primary  efficacy  assessment will be the evaluation of overall response rate (ORR) 
+calculated as a proportion of the subjects who have a confirmed response relative to the total 
+number of subjects in the analy sis population.  Clinical response to dabrafenib in combination 
+with trametinib will be assessed according to the appropriatel y established response criteria fo r 
+each histologic cohort. Table 2-1outlines the response criteria and subcategories for overall 
+respon sefor each histologic cohort. Following feedback on the WHO Grade 1 and 2 Glioma 
+cohort from the FDA, additional summaries of best response and duration of response will be 
+produced excluding Minor Response (MR) from the subcategories defined as Response for this 
+cohort .
+
+Novartis For business use only Page 14of 35
+SAP CDRB436X2201 / BRF117019
+Table 2-1 Response Criteria and Definition of Response by  Histology
+Histology Response CriteriaResponse Subcategories 
+defined as Overall 
+Response
+ATC, BTC, GIST, ASI RECIST 1.1 CR, PR
+NSGCT/NGGCTRECIST 1.1; Serum tumor 
+markers normalization or not 
+will be considered as part of 
+response criteria 
+(serum tumor markers: AFP, 
+-HCG)Marker -Negative CR (CR -), 
+Marker -Positive CR (CR+), 
+Marker -Negative Partial 
+Remission (PR -), Marker -
+Positive Partial Rem ission
+(PR+)
+WHO Grade 1 and 2 GliomaResponse Assessment 
+Crite ria for W HO Grade 1 or 
+2 Glioma : RANO W orking 
+Group CR, PR, MR
+WHO Grade 3 and 4 GliomaUpdated Response 
+Assessment Crite ria for 
+WHO Grade 3 or 4 Glioma : 
+RANO W orking Group CR, PR
+MMIMWG Uniform Response 
+Criteria for MMsCR, CR, PR, VGPR
+HCLAdapted from NCCN 
+guidelines, Consensus 
+Resolution Criteria and 
+previous studies definitionCRwithout MRD (CR -MRD), 
+CR with MRD (CR+MRD), 
+PR
+Abbreviations: AFP, alpha -fetoprotein; ASI, adenocarcinoma of the small intestine; ATC, 
+anaplastic thyroid cancer; -hCG, beta -human chorionic gonadotropin; BTC, biliary tract 
+cancer; CR, complete response; GIST, gastrointestinal stromal tumor; HCL, hairy cell 
+leukemia; IM WG, International Myeloma W orking Group; MM, multiple myeloma; MR, 
+minor response; MRD, minimal residual disease; NCCN, National Comprehensive Cancer 
+Network; NGGCT, non -geminomatous germ cell tumor; NSGCT, non -seminomatous germ 
+cell tumor ; PR, partial response; RANO, Response Assessment for Neuro -Oncology; 
+RECIST, Response Evaluation Criteria in Solid Tumors; sCR, stringent complete response; 
+VGPR, very good partial response; W HO, W orld Health Organization
+The best confirmed overall respo nse is the best confirmed response recorded from the start of 
+treatment until disease progression or start of new anti-cancer therapy , whichever earlier, and 
+will be determined programmatically  based on investigator assessment at each time point.
+If there are two assessments separated by not evaluable (NE) assessment(s) the best response 
+shall be assessed apply ing the algorithm below, collapsing data by  ignoring NE assessments.
+Subjects with best response of Not Evaluable (NE), unknown or missing will be considered 
+non-responders; i.e. they  will be included in the denominator when calculating the percentage.
+The first assessment may occur before the first planned assessment.  Confirmation of response 
+may be based on planned and/or unscheduled assessments. 
+Table 2-2, Table 2 -3 , and Table 2-4below outline the programming algorithm used to define 
+confirmed response for each of the histologic cohorts.
+
+Novartis For business use only Page 15of 35
+SAP CDRB436X2201 / BRF117019
+Table 2-2 Confirmed Response Criteria for Solid Tumors follo wing RECIST 1.1 
+(ATC, BTC, GIST, A SI, NSGCT/NGGCT) or RANO (WHO Grade 1&2 
+Glioma, WHO Grade 3&4 Glioma)
+Confirmed 
+Response CategoryCriteria for Definition of Confirmed Response
+CR, PR, MR, CR-, 
+CR+, PR -andPR+.  
+(MR only  applicable 
+for WHO Grade 
+1&2 glioma)
+(CR- , CR+, PR -, and 
+PR+ only applicable 
+to NSGCT/NGGCT)•Two consecutive assessments are required. A confirmatory  disease 
+assessment should be performed no less than 4 weeks (28 day s) from th e 
+time of initial CR, PR, MR, CR- , CR+, PR -or PR+. If a response of an y 
+type is assessed and the consecutive assessment is a response of lower 
+magnitude then the confirmed response corresponds with the latter 
+assessment which is the response of lower magnitude.  For example, a CR 
+followed b y PR results in a confirmed PR response.
+•If there is 1 assessment within this category , the timing of this assessment is 
+less than 6 weeks after the first dosing and all other assessments are either 
+NE, missing or no t done then the confirmed response is NE.
+•Confirmed responses in this category  cannot be assigned for assessments 
+after a patient has an overall response assessment of PD.
+•For NSGCT/NGGCT, ordering of response magnitude from high to low is 
+CR
+-, CR+, PR -, PR+.  For WHO Grade 1&2 glioma, ordering of response 
+magnitude from high to low is CR, PR, MR.  For all other solid tumors, the 
+ordering of response magnitude from high to low is CR, PR.
+SD • S D does not need to be confi rmed b y a second assessment if the disease 
+assessment meets the SD criteria after first dose of study drug at a minimum 
+interval of 6 weeks (42 day s).No further minimum window adjustment for 
+assessment will be permitted.  If the minimum time for SD is not met, the 
+best response will depend on the subsequent assessments or will be NE . For 
+example, if an assessment of S D is follow ed by PD and SD does not meet 
+the minimum time requirement for SD, the best response will be PD. When 
+the only  assessment (other than NE) after initiation of treatme nt is SD and 
+the minimum time of 6 weeks from first dose of study  drug is not met, 
+the 
+best confirmed response is NE.
+•If an assessment in the following categories (CR, PR, MR, CR -, CR+, PR -
+and PR+) is followed b y SD or PD, and the timing of the initial assessment 
+is greater than or equal to 6 weeks after the first dosing, then the confirmed 
+response is SD.
+•If there is 1 assessment in the following categories ( CR,PR, MR, CR -, 
+CR+, PR -and PR+) and the timing of the assessment is greater than or 
+equal to 6 weeks after the first dosing, and consecutive assessments are 
+either missing , not done or NE then the confirmed response is SD .
+•Confirmed responses in this category  cannot be assigned for assessments 
+after a patient has an overall response assessment of PD.
+PD •PD does not need to be confirmed b y a second assessment of PD to confirm 
+PD as the best response.  When the only  assessment (other than NE) at an y 
+point after initiation of treatment is PD the confirmed response is PD.
+NE •When a confirmation (of any above category except SD and PD ) cannot be 
+made due to lack of assessments the confirmed response is NE.
+
+Novartis For business use only Page 16of 35
+SAP CDRB436X2201 / BRF117019
+•If there is 1 assessment in the following categories ( CR,PR, MR, CR -, 
+CR+, PR -and PR+) and the timing of the assessment is less than 6 weeks 
+after the first dosing,  and consecutive assessments are either missing, not 
+done or NE then the confirmed response is NE .
+•If all assessments were NE or missing then the confirmed response is NE.
+•If only  non
+-measurable disease exists at baseline and the response is given 
+as Non -CR/Non -PD then the confirmed response is NE.
+Table 2-3 Confirmed Response Criteria for MM
+Confirmed Response 
+CategoryCriteria for Definition of Con firmed Response
+sCR, CR, VGPR, PR, 
+Minimal Response 
+(MnR ), SDTwo consecutive assessments are required.   At least one day  of 
+separation between two consecutive assessments is required to confirm 
+response.
+If a response of an y type is assessed and the consecutive assessment is a 
+response of lower magnitude then the confirmed response corresponds 
+with the latter assessment which is the response of lower magnitude. 
+For example, a PR followed b y MnR results in a confirmed MnR 
+response, or a PR followed by  SD results in a confirmed SD.  
+Two 
+consecutive assessments of SD will constitute a confirmed SD.
+If there is 1 assessment and consecutive assessments are either missing 
+or not done then the confirmed response is NE.
+The ordering of response magnitude from high to low is sCR, CR, 
+VGPR, PR, M nRSD.
+Confirmed responses in this category  cannot be assigned for 
+assessments after a patient has an overall response assessment of PD.
+PD PD does not need to be confirmed by a second assessment of PD to 
+confirm PD as the best response.  When the only  assessment (other than 
+NE) at an y point after initiation of treatment is PD the confirmed 
+response is PD.
+NE When a confirmatio n (of sCR, CR, VGPR, PR, MnR orSD) cannot be 
+made due to lack of assessments the confirmed response is NE.  F or 
+example, if there is 1 assessment in the following categories (sCR, CR, 
+VGPR, PR, MnR, SD) and consecutive assessments are either missing, 
+not done or NE then the confirmed response is NE.
+I
+f all assessments were NE or missing then the confirmed response is 
+NE.
+
+Novartis For business use only Page 17of 35
+SAP CDRB436X2201 / BRF117019
+Table 2-4 Confirmed Response Criteria for HCL
+Confirmed Response 
+CategoryCriteria for Definition of Confirmed Response
+CR-MRD, CR+MRD, 
+PR, MRTwo consecutive assessments are required .  Aconfirmatory  disease 
+assessment should be performed no less than 4 weeks (28 day s) from the 
+time of initial CR -MRD, CR + MRD, PR or MR.
+If a response of an y type (CR
+-MRD, CR+MRD, PR, MR ) is assessed and 
+the consecutive assessment is a response of lower magnitude then the 
+confirmed response corresponds with the latter assessment which is the 
+response of lower magnitude.  For example, a PR followed by  MR 
+results in a confirmed MR response.
+The ordering of response magnitude from high to low is CR -MRD, CR+ 
+MRD, PR, MR.
+Confirmed responses in this category  cannot be assigned for assessments 
+after a patient has an overall response assessment of PD.
+SD SD does not need to be confi rmed b y a second assessment if the disease 
+assessment meets the criteria after first dose of study drug at a minimum 
+interval of 4 weeks (28 day s).If the minimum time for SD is not met, the 
+best response will depend on the subsequent assessment sor will be NE . 
+For example, if an assessment of S D is followed by PD and SD does not 
+meet the minimum time requirement, the best response will be PD. When 
+the only  assessment (other than NE) after initiation of treatment is SD 
+and the minimum time for SD is not met, the 
+best confirmed response is 
+NE.
+If an assessment in the following categories ( CR-MRD, CR+MRD, PR, 
+MR) is followed by  SD or PD, and the timing of the initial assessment is 
+greater than or equal to 4 weeks after the first dosing, then the co nfirmed 
+response is SD.
+If there is 1 assessment in the following categories ( CR-MRD, 
+CR+MRD, PR, MR ) and the timing of the assessment is greater than or 
+equal to 4 weeks after the first dosing,  and consecutive assessments are 
+either missing, not done or NEthen the confirmed response is SD.
+Confirmed responses in this category  cannot be assigned for assessments 
+after a patient has an overall response assessment of PD.
+PD PD does not need to be confirmed b y a second assessment of PD to 
+confirm PD as the best response.  When the only  assessment (other than 
+NE) at an y point after initiation of treatment is PD the confirmed 
+response is PD.
+NE When a confirmation (of CR-MRD, CR+MRD , PR or MR) cannot be 
+made due to lack of assessments the confirmed response i s NE.
+If there is 1 assessment in the following categories ( CR-MRD, 
+CR+MRD, PR, MR ) and the timing of the assessment is less than 4 
+weeks after the first dosing,  and consecutive assessments are either 
+missing, not done or NE then the confirmed response is NE.
+
+Novartis For business use only Page 18of 35
+SAP CDRB436X2201 / BRF117019
+Confirmed Response 
+CategoryCriteria for Definition of Confirmed Response
+If all assessments were NE or missing then the confirmed response is 
+NE.
+2.4.2 Statistical hy pothesis, model, and method of analy sis
+Confirmed ORR will be calculated as the proportion of subjects that have a confirmed response 
+relative to the total number of subjects in the corresponding analy sis population.
+Confirmed ORR will be analyzed using an integrated analysis across the histologic cohorts with 
+the hierarchical model.  Model-based interim decision rules have been used through the study 
+to identify  whether one or more histologic cohorts halt enrolment early for futility /harm or 
+benefit based on efficacy data.
+Model -based decision rules for the final analysis are provided in the protocol . At the final 
+analysis, a minimum of 2 subjects will be required in a histologic cohort inorder tomeet 
+statistical succes s. A histologic cohort will be declared active if the posterior probability  that the 
+ORR exceeds its corresponding historical control is sufficiently  high (>92%) based on the 
+hierarchical mode l. That is, 
+P (j> C j% |current data) > 92%, for the j -thhistology .
+This decision rule has been determined based on extensive simulations of the study  design as 
+described in the protocol.
+A summary  of the Bayesian hierarchical model -based analysis will be provided.  For each 
+histology  the following measures will be reported: the total number of subjects, the protocol -
+specified historical control response rate, the estimated response rate and 95% credible interval 
+(based on the posterior mean and 2.5% and 97.5% percentiles), and the posterior probabilit y 
+that the ORR exceeds its corresponding historical control response rate.
+Descriptive summaries of best confirmed response along with the corresponding 95% exact 
+confidence interval swill be provided for each response criteria for the varying histologic 
+cohorts in order to characterize the observed response data and support the model -based 
+analyses for ORR. Best response and ORR will be presented for the primary cohort, expansion 
+cohort and primary
+ and expansion combined for each histology  for which an expansion cohort 
+was opened.
+The model -based analysis of ORR and supporting summaries of best confirmed response will 
+be re -produced based on the BRAF V600E Population.
+All supporting individual response and lesion data will be listed. For histologic cohorts using 
+RECI ST1.1 (ATC, BTC, GI ST, ASI ), a listing of all investigator -assessed lesion assessments 
+will be provided. For glioma cohorts (WHO Grade 1 or 2 and WHO Grade 3 or 4), listings of 
+measureable, non-measureable, and new lesions will be provided.   For HCL , separate listings 
+of lymph nodes including palpable lymph nodes will be provided. For MM, supportive 
+laboratory  results including serum and urine monoclonal protein, serum free light chain (FLC) 
+and FLC ratio will be listed.
+
+Novartis For business use only Page 19of 35
+SAP CDRB436X2201 / BRF117019
+2.4.3 Handling of missing values/censoring/discontinuations
+Response assessments occurring after disease progression or thestart of new anti-cancer 
+therap y will not be included in the determination of best response. Response assess ments 
+occurring after end of study  treatment but before disease progression or the start of new anti-
+cancer therap y will be included. There will be no imputation of missing values.
+2.4.4 Supportive analy ses
+Descriptive summaries of best response based on independent radiology  review will be 
+provided for the ATC, BTC, ASI, WHO Grade 1 or 2 Glioma and WHO Grade 3 or 4 Glioma 
+cohorts as sensitivity  analyses. Specificall y, the best response based on independent reviewer 
+assessment will be determined programmatically and summarized in the same way as the best 
+response based on investigator assessment. 
+An assessment of the concordance between the investigator -assessed response and independent 
+reviewer -assessed response will be performed for each of the cohorts listed above. Kappa 
+coefficient will be reported along with the corresponding 95% confidence interval.  
+The concordance rate is calculated as percent agreement (the proportion of best response that 
+agree between investigator assessment and independent reviewer a ssessment):
+                  =#      ℎ             + #      ℎ     −          
+      #                   
+If ORR from either investigator assessment or independent reviewer a ssessment for a subject is 
+missing, then the subject will be excluded from the calculation of the concordance rate. 
+An overall listing of subject response data based on independent radiology  review will be 
+provided alongside the investigator assessed responses for the ITT population in the ATC, BTC, 
+ASI, GIST, WHO Grade 1 or 2 Glioma and WHO Grade 3 or 4 Glioma cohorts.  This listing 
+will display  both independent reviewer -assessed and investigator assessed response evaluations, 
+the best confirmed responses, and BRAF V600E central confirmation status.
+2.5 Analysis of the key  secondary  objective
+There is no key  secondary  objective for this study .
+2.6 Analysis of secondary  efficacy  objective (s)
+The secondary  efficacy  endpoints include duration of response (DoR), progression free survival 
+(PFS) and overall survival (OS).  The secondary  efficacy  endpoints will be analy zed for ATC, 
+BTC, ASI, WHO Grade 1 or 2 Glioma, WHO Grade 3 or 4 Glioma, MM and HCL  cohorts. The 
+analyses of the second ary endpoint swill take place once all patients have either died or been 
+transitioned off the stud y. The main population for efficacy  anal yses is ITT. The BRAF V600E 
+population will be used for supportive anal yses of efficacy .
+2.6.1 Duration of response
+For the subset of subjects who show a c onfirmed response as defined for each cohort in Error! 
+Reference source not found. 2.4.1, duration of response (DoR) is defined as the time (in weeks) 
+from the first documented evidence of response (the first response prior to confirmation) until 
+the time of documented disease progress ion or death due to any  cause.
+
+Novartis For business use only Page 20of 35
+SAP CDRB436X2201 / BRF117019
+For the cohorts assessed using RECI ST 1.1 and RANO criteria, the analy sis of DoR will be 
+based on radiological response from investigator assessment. The date of disease progression 
+is defined as the date of radiological disease progression based on the appropriat e disease 
+response criteria.  Clinical progression, defined as investigator assessed clinical progression in 
+the absence of radiological confirmation, is not considered a progression event in this analysis.  
+Specificall y, in the event of clinical progressi onleading to discontinuation of study  treatment 
+and radiological assessment, if radiological assessments do not indicate radiological 
+progression, then the subject will be censored at the time of last radiological assessment. If a 
+subject has notprogress ed, not died , andnotstarted new anti-cancer therapy , DoR will be 
+censored at the date of the last adequate assessment.
+For the HCL cohort, the overall investigator -assessed response will be used to determine timing 
+of response and/or progression.  Relaps ed disease will be considered as progression for the 
+analysis.
+Details of censoring after extended time without adequate asses
+sment are given in section 4.2. 
+For subjects who receive subsequent anti -cancer therap y
+, the following rule will apply :
+If anti -cancer therapy  is started without documented progression or is started prior to 
+progression
+, then DoR will be censored at the date of the last adequat e disease assessment 
+that is no later than the date of initiation of anti- cancer therap y (i.e. if disease assessment 
+occurs on the same day  as the start of new anti -cancer therap y then the assessment will be 
+used, as it will be assumed that the assessment occur s prior to the administration of new 
+anti-cancer therap y).
+DoR based on the investigator response will be summarized for ATC, BTC, ASI , WHO Grade 
+1 or 2 
+Glioma, WHO Grade 3 or 4 Glioma and HCL  cohorts. If data warrant, Kaplan -Meier 
+method will be used to summarize DoR descriptively  and graphicall y. The median DoR and the 
+first and third quartiles will be presented, along with corresponding 95% confidence intervals. 
+Brookmey er-Crowley  method will be used for the confidence interval calculation. DoR will
+also be summarized at 6 months, 12 months and 24 months. 
+Listing of DoR based on investigator assessment will also be provided.
+In addition, swim lane plots will be generated for response data based on investigator 
+assessment. These plots will present the best confirmed response category , duration of treatment, 
+time of the first response, duration of response, time of the first disease progression based on 
+radiological assessment and study  treatment status at the time of data cut -off for the analy sis.  
+As a sensitivity  anal ysis, DoR based on independent radiology  review will be summarized and 
+listed for the ATC, BTC, WHO Grade 1 or 2 Glioma, and WHO Grade 3 or 4 Glioma cohorts, 
+including the estimated median, first and third quartiles, 6 and 12 month Kaplan-Meier 
+estimates. The derivation of DoR based on independent radiology  review is similar to that based 
+on the investigator assessment. 
+For the HCL cohort only, and for the subset of subjects who have a confirmed complete 
+response (with or without MRD), the complete response duration will be calculated as the time 
+from first CR until the earliest of the first subsequent non-CR adequate assessment or death due 
+to any  cause. Censoring rules will be applied the same as with Duration of Response. Kaplan -
+Meie r estimates will be used to estimate the 
+median and quartiles of the complete response 
+duration as well as the complete response duration at 180 day s. The number and proportion of 
+
+Novartis For business use only Page 21of 35
+SAP CDRB436X2201 / BRF117019
+the ITT population with complete response duration of at least 180 days willbe calculated along 
+with the corresponding Clopper- Pearson exact confidence interval. The time to first confirmed 
+complete response and time to first confirmed overall response will both be summarized with 
+the minimum, maximum, 1stand 3rdquartiles and m edian display ed in weeks. Only  confirmed 
+responders will be included in each of the summaries.
+Summaries of reasons for censoring DoR by both investigator assessment and independent 
+radiology  review will be produced with additional information about censor ing due to COVID -
+19 related protocol deviations.  The number and percentage of subjects with each censoring 
+reason (1. PD or death after >=2 consecutive missed visits, 2. New anti-cancer treatment started 
+prior to documented PD, 3. No baseline (or adequate post-baseline) assessments, 4. No 
+progression or death, separated into follow -up ended and follow -up ongoing) will be displayed 
+along with relevant COVID -19 related censoring reasons (study  withdrawal due to COVID -19 
+and missing visits due to COVID -19) derived from protocol deviations data.  Further details of 
+these outputs are given in the programming notes to the TFL shells.
+2.6.2 Progression- free survival
+Progression- free survival (PFS) is defined as the interval (in weeks) between the first dose of 
+study  treatment and earlier date of disease progression or death due to an y cause.  
+For the cohorts assessed using RECI ST 1.1 and RANO criteria, the primary  analysis of PFS 
+will be based on radiological response from investigator assessment.  The date of disease 
+progression is defined as the date of radiological progression based on imaging data.  Subjects 
+who do not meet the RECI ST 1.1 or RANO criteria for progression and are still alive will be 
+censored.  Clinical progression, defined as investigator assessed clinical progression in the 
+absence of radiological confirmation, is not considered a progression event in this analy sis.  
+Specificall y, in the event of clinical progression leading to discontinuation of study  treatment 
+and radiological assessment, if 
+radiolo gical assessments do not indicate radiological 
+progression, then the subject will be censored at the time of last radiological assessment. If a 
+subject has not progressed, not died, and not started new anti-cancer therapy , PFS will be 
+censored at the date of the last adequate assessment. For the HCL  cohort, the overall 
+investigator -assessed response will be used to determine timing of progression.  
+Details of censoring after extended time without adequate assessment are given in section 4.2. 
+For subjects who receive subsequent anti -cancer therap y, the following rule will apply :
+If anti -cancer therapy  is started without documented progression or is sta rted prior to 
+progression, then PFS will be censored at the date of the last adequate disease assessment 
+that is no later than the date of initiation of anti- cancer therapy (i.e. if disease assessment 
+occurs on the same day  as the start of new anti -cancer therapy  then the assessment will be 
+used, as it will be assumed that the assessment occurs prior to the administration of new 
+anti-cancer therap y).  
+If a subject does not have an adequate post-baseline assessment that is no later than the 
+date of initiation of anti -cancer therap y, PFS will be censored at the date of the first dose. 
+If any adequate post -baseline assessment exists after the date of initiation of anti -cancer 
+therap y, the reason for censoring will be recorded as “new anti -cancer treatment star ted 
+prior to disease progression”.  Otherwise if no adequate post- baseline assessments exist, 
+
+Novartis For business use only Page 22of 35
+SAP CDRB436X2201 / BRF117019
+the reason for censoring will be recorded as “no baseline (or post- baseline adequate) 
+tumor assessments”.
+PFS based on the investigator assessment will be summarized descriptively  and graphicall y 
+using Kaplan -Meier methods. The Kaplan -Meier estimate for the median progression- free 
+survival time and the first and third quartiles will be determined along with approximate 95% 
+confidence intervals.  Brookmey er-Crowley  method will be used for the confidence interval 
+calculation. Kaplan -Meier estimate of PFS at 6 months, 12 months and 24 months will be 
+summarized. 
+Listing of progression free survival based on investigator assessment will also be provided. 
+As a sensitivity  analysis, PFS based on independent reviewer assessment will be summarized 
+and listed (except for the MM and HCL  cohorts which have no independent review) similarly 
+as that of PFS based on investigator assessment.
+Summaries of reasons for censorin g PFS by both investigator assessment and independent 
+radiology  review will be produced with additional information about censoring due to COVID -
+19 related protocol deviations.  The number and percentage of subjects with each censoring 
+reason (1. PD or death after >=2 consecutive missed visits, 2. New anti-cancer treatment started 
+prior to documented PD, 3. No baseline (or adequate post-baseline) assessments, 4. No 
+progression or death, separated into follow -up ended and follow -up ongoing) will be displayed
+along with relevant COVID -19 related censoring reasons (study  withdrawal due to COVID -19 
+and missing visits due to COVID -19) derived from protocol deviations data.  Further details of 
+these outputs are given in the programming notes to the TFL shells.
+2.6.3 Overall survival
+Overall survival (OS) is defined as the time (in weeks) from first dose until death due to any 
+cause. The length of this interval is estimated as the date of death minus date of first dose plus 
+1 day.  Subjects who have not died will be censo red at the date of last contact (as recorded in 
+the eCRF). The last date of contact will be defined as the maximum date of any visit date, 
+survival follow -up date, or date of study  withdrawal.  Only patient contacts recorded in the 
+eCRF can be used for the calculation of last date of contact.
+Overall survival will be summarized descriptively  and graphically  using Kaplan- Meier method.  
+The Kaplan -Meier estimate for the median overall survival time and the first and third quartiles 
+will be presented, along with approximate 95% confidence intervals. Brookmey er-Crowley  
+method will be used for the confidence interval calculation. Overall survival at 6 months, 12 
+months and 24 months will be summarized using the Kaplan -Meier method.  
+Listing of overall survival d ata will also be provided. 
+2.7 Safet y analyses
+All safet y anal yses will be based on the All -Treated subjects (ATS) population.
+2.7.1 Adverse events (A Es)
+Adverse events (AEs) will be graded according to the CTCAE, Version 4.0. Adverse events 
+will be coded using the Medical Dictionar y for Regulatory  Activities (MedDRA ). For the final 
+analysis,version 24.1 of MedDRA will be used.
+
+Novartis For business use only Page 23of 35
+SAP CDRB436X2201 / BRF117019
+All AEs will be summarized based on frequency  and proportion of total subjects experiencing 
+the event, grouped b y system organ class and pr eferred term (PT).
+A summary  of number and percentage of subjects with any  adverse events by  maximum grade 
+will be produced for each histologic cohort. In this summary  AEs will be sorted by PTin 
+descending order of total incidence. The summary  will use the following algorithms for 
+counting the subject:
+Preferred term row: Subjects experiencing the same AE preferred term several times with 
+different grades will onl y be counted once with the maximum grade.
+Any event row: Each subject with at least one adverse event will be counted only once at the 
+maximum grade no matter how man y events they have.
+For the legal requirements of ClinicalTrials.gov and EudraCT, two required tables of on-therapy 
+adverse events 
+which are not serious adverse events with an incidenc e of at least 5% and on-
+therap y serious adverse events and SAEs suspected to be related to study treatment will be 
+provided b y system organ class and preferred term for the all treated subjects population.
+If for thesame patient, several consecutive AEs (irrespective of study  treatment causality, 
+seriousness and severit y) occurred with the same SOC and PT:
+a single occurrence will be counted if there is  ≤ 1 day  gap between the end date of the 
+preceding AE and the start date of the consecutive AE
+more than one occurrence will be counted if there is > 1 day  gap between the end date of 
+the preceding AE and the start date of the consecutive AE
+For occurrence, the presence of at least one SAE / SAE suspected to be related to study 
+treatment / non SAE has to be checked in a block e.g., among AEs in a ≤ 1 day  gap block, if at 
+least one SAE is occurring, then one occurrence is calculated for that SAE.
+The number of deaths resulting from SAEs suspected to be related to study  treatment and SAEs 
+irrespective of study  treatment relationship will be provided by  SOC and PT.
+All SAEs and fatal SAEs will be tabulated based on the number and percentage of subjects who 
+experienced the event. The summary  tables will be display ed in descending order of total 
+incidence b y PT onl y.
+Separate listings with subject -level details will be generated for fatal SAEs and non-fatal SAEs. 
+These listings will include PT, verbatim text, onset date, data of resolution, outcome, event 
+duration, time since first and last dose, maximum grades, seriousness, action taken with study 
+treatment and relatedness to study  treatment.
+The following categories of AEs will be summarized in descending order of total incidence by 
+PT only :
+AEs Leading to Permanent Discontinuation of Any  Study  Treatment 
+AEs Leading to Dose Interruptions
+AEs Leadings to Dose Reductions
+.
+2.7.1.1 Adverse events of special interest / grouping of A Es
+A comprehensive list of MedDRA terms based on the program -level electronic case retrieval 
+sheet (eCRS) will be used to identify  each ty pe of events. Changes to the MedDRA dictionary 
+
+Novartis For business use only Page 24of 35
+SAP CDRB436X2201 / BRF117019
+may occur between the start of the study  and the time of reporting and/or emerging data from 
+on-going studies may highlight additional adverse events of special interest, there fore the list 
+of terms to be used for each event of interest and the specific events of interest wi ll be based on 
+the safet y management team (SMT) agreements in place at the time of reporting. 
+Adverse events of special interest include
+:
+Skin related toxicities
+Ocular events
+Cardiac related events
+Hepatic disorders
+Pneumonitis/I nterstitial lung disease
+Bleeding events
+Hypertension
+Hypersensitivity
+New primary  or secondary  malignancy
+Venous thromboembolism
+Pyrexia
+Uveitis
+Pre-renal and Intrinsic Renal Failur e
+Pancreatitis
+Hypergl ycemia
+Neutropenia
+The summary  of number and percentage of subjects with each type of adverse event of special 
+interest by maximum grade will be produced foreach histologic cohort and all cohort s
+combined. AEs will be sorted by PT in descending order of total incidence.
+2.7.2 Deaths
+All deaths will be summarized based on the number and percentage of subjects, by time of death 
+(on-therap y and post -therapy ) and the primary cause of death. On- therapy  and post -therap y are 
+defined in section 2.1.1. A supportive listing will be generated to provide subject - specific details 
+for subject who died.
+2.7.3 Laboratory  data
+The full list of laboratory tests is given in the study protocol section 7.4.8.
+Laboratory  grades will be reported using the Common Terminology  Criteria for Adverse Events 
+(CTCAE v4.0).
+Summaries of worst case grade increase from baseline grade will be provided for all the lab 
+tests that are gradable by CTCAE v4.0. These summaries will display the number and 
+percentage of subjects with a maximum on -therapy grade increasing from their baseline grade. 
+Any increase in grade from baseline will be summarized along with any increase to a maximum 
+grade of 3 and any  increase to a maximum grade of 4. Missing baseline grade will be assumed 
+as grade 0. In addition, the summary  will include grade increase from baseline by scheduled 
+
+Novartis For business use only Page 25of 35
+SAP CDRB436X2201 / BRF117019
+visits. For laboratory  tests that are graded for both low and high values, summaries will be done 
+separately  and labeled by direction, e.g., sodium will be summarized as hyponatremia and 
+hypernatremia.
+For lab tests that are not gradable by CTCAE v4.0, summaries of worst case changes from 
+baseline with respect to normal range will be generated. Decreases to low, changes to normal 
+or no changes from baseline, and increases to high will be summarized at each scheduled visit 
+as well as for the worst case on-therapy . If a subject has a decrease to low and an increase to 
+high during the same time interval, then the subject is counted in both the “Decrease to Low” 
+categories and the “Increase to High” categories. Detailed derivation of baseline assessment is 
+specified in Section 2.1.1 .
+Unless otherwise specified, the denominator in percentage calculation at each scheduled visit 
+will be based on the number of subjects with non -missing value at each particular visit.
+An eDISH plot showing the peak on-therapy  total bilirubin versus peak on -therap y ALT will 
+be plotted by histological cohort combining primary  analysis and expansion cohorts. Upon data 
+review during the conduct of the study, an additional eDISH plot might be consider ed showing 
+peak on-therapy  total bilirubin versus peak on-therapy  AST if there are potential cases based 
+on AST rather than ALT. Subject plots showing the time course of ALT, AST, ALP and total 
+bilirubin will also be produced. The number and percentage of subjects with ALT, AST and 
+bilirubin above relevant thresholds (e.g. 3 x ULN) at any time on-therapy  will be display ed.  
+Criteria relating to the combined elevations of ALT or AST and bilirubin are based on the peak 
+values at an y time on -therapy  and do not have to be concurrent.
+2.7.4 Other safety  data
+2.7.4.1 ECG and cardiac imaging data
+The results of scheduled assessments ofECG will be summarized. A summary  of ECG findings 
+will classify  each result into “Normal”, “Abnormal, not clinicall y significant” or “Abnormal, 
+clinically  significant” as entered on the eCRF. Bazett’s and Fridericia’s corrections of QT 
+values will be summarized using the categories in section 4.7for both an increase in grade from 
+baseline and the amount of increase. The summaries will display  results by visit and for the 
+worst case (largest increase) post -baseline.
+2.7.4.2 Vital signs
+Systolic and diastolic blood pressure, heart rate, temperature in degrees Celsius will be 
+summarized by histologic cohort and visit. The worst case post baseline will display the largest 
+value after baseline in the study .Changes from baseline in systolic and diastolic blood pressure, 
+heart rate and temperature in degree s Celsius will be summarized including the categories in 
+section 4.10
+.
+2.8 Pharmacokinetic endpoints
+Summary  statistics of concentration- time data for trametinib, dabrafenib and metabolites of 
+dabrafenib (Hy droxy-dabrafenib and Desmeth yl-dabrafenib) will be provided, both for the full 
+PK population and separately  for subjects from Japanese and non-Japanese race categories.  
+Concentration -time data for trametinib, dabrafenib and its metabolites will be listed.
+
+Novartis For business use only Page 27of 35
+SAP CDRB436X2201 / BRF117019
+2.12 Interim analy sis
+Interim analyses have been carried out to monitor efficacy  and safet y at regular intervals 
+through the study  enrollment and for health authority  submission and publication after the end 
+of enrollment. Details of interim analy ses aregiven in section 18.3.2 of the protocol and the 
+interim reporting and analy sis plans. 
+3 Change to protocol specified analyses
+No changes were made to anal yses specified in the protocol.
+4 Appendix
+4.1 Clinical review of anti -cancer therapies for censoring criter ia
+Due to the inconsistent recording of anti-cancer therapies (including surgeries) in the eCRF, a 
+manual review of all relevant therapies will be carried out to ensure that the correct records are 
+used to censor the best confirmed overall response, progre ssion -free survival and duration of 
+response.  Specificall y, spreadsheets of unique on-therap y or follow - up anti-cancer therapies, 
+radiotherapies, and cancer -related surgeries will be sent to a clinical reviewer to identify  the 
+interventional treatments for the disease under study  and distinguish them from diagnostic 
+procedures, such as biopsies, and surgeries for adverse events not connected with the disease 
+under study , such as squamous cell carcinoma.
+4.2 Extended Loss to Follow -up or Extended Time without a n 
+Adequate A ssessment
+Since missing scheduled disease assessments prior to progression or death increases the 
+uncertaint y about when the event actually  occurs, PFS and DoR will be censored for subjects 
+who have progression or die after missing two or more scheduled disease assessments. 
+Specificall y, if there are two or more scheduled assessments which are missing followed by 
+progression or death, PFS and DoR will be censored at the last adequate assessment prior to 
+progression or death.
+For the purpose of this calculation, the last adequate assessment is defined as the last assessment 
+prior to progression or death with response other than NE or missing.
+For solid tumor cohorts (ATC, BTC, GIST, NSGCT/NGGCT, ASI, WHO Grade 1 or 2 Glioma 
+and Grade 3 or 4 Glioma ) and MM cohort, when the scheduled disease assessment is every  8 
+weeks (for the first 48 weeks of study  treatment), a window of 119 days (16 weeks + 7 day 
+window) will be used to determine whether there was an extended time without adequate 
+assessment. When the scheduled disease assessment is every 12 weeks (after the first 48 weeks 
+of study  treatment), a window of 175 days (24 weeks + 7 day window) will be used to determine 
+whether there was an extended time without adequate assessment. Specifically , extended lost-
+to-follow -up period is defined using different time windows as described in Table 4-1.
+Table 4
+-1 Extended lost -to-follo w-up period at different study  times
+Last adequate assessment Extended lost -to-follow -up period
+<= end of week 44 16 + 1 weeks (119 days)
+
+Novartis For business use only Page 28of 35
+SAP CDRB436X2201 / BRF117019
+Last adequate assessment Extended lost -to-follow -up period
+(<=308 day s)
+>= beginning of week 45  –  <= end of week 54
+(>308 days,  <=378 days)20 + 1 weeks (147 days)
+>= beginning of week 55  
+(>378 days)24 + 1 weeks (175 days)
+For the HCL  cohort, the scheduled disease assessment is every  4 weeks for the first 48 weeks 
+of study  treatment, then at least every  8 w eeks for patients tolerating the study  drug in the 
+judgement of the treating investigator. Following protocol amendment 11, the interval between 
+assessments beyond the first 48 weeks is increased to at least every  12 weeks. To provide 
+reasonable allowance for missed assessments within the new schedule, the same rules will be 
+used for HCL as for the solid tumor cohorts and MM to determine whether there was an 
+extended time without adequate assessment.
+4.3 Date Associated with Response
+For MM and HCL, investigator assessment of disease is entered in the eCRF on the VISIT form.  
+The date of the VISIT is captured but the date of the response assessment is not captured 
+separately .  The date associated with response will be the visit date for the VI SIT on whi ch the 
+investigator assessed disease. A disease assessment may occur at an unscheduled visit.  The 
+date of the unscheduled visit would be assigned to any  response assessed on that date.   
+For all solid tumor histologies, for each disease assessment after baseline, determine a date 
+associated with the response. For complete response (CR), partial response (PR), and when 
+applicable minor response (MR), assign to the latest date within the disease assessments. For 
+stable disease (SD), Non-CR/Non -PD or Not Evaluable, assign to the earliest date within the 
+disease assessments. For progressive disease (PD), assign to the earliest assessment date 
+associated with the progression.
+4.4 Imputation rules
+Partial dates may be imputed for ‘slotting’ data to study  time periods or for specific analysis 
+purposes as outlined below.
+4.4.1 Demography  (ADSL)
+Dataset Date Missing 
+ElementRule
+ADSL Birth date 
+(BRTHDT)day, 
+month, 
+and y earNo Imputation for completely  missing dates
+day and 
+monthImputed to June 30
+
+Novartis For business use only Page 29of 35
+SAP CDRB436X2201 / BRF117019
+4.4.2 Initial diagnosis of primary  tumor type under study
+Dataset Date Missing 
+ElementRule
+Disease  
+Characteristics 
+(ADDC)Initial 
+Diagnosis
+Dateday, 
+month, 
+and y earNo imputation for completely  missing date
+day, 
+monthImpute the missing month and day  as January  1
+day Impute the missing day as 1st of the month.
+4.4.3 Adverse events (A DAE)
+Imputations in the adverse events dataset are used for slotting events to the appropriate study 
+time periods and for sorting in data listings.
+Dataset Date Missing 
+ElementRule
+Adverse 
+Events 
+(ADAE)Start 
+Dateday, 
+month, 
+and y earNo Imputation for completely  missing dates
+day, 
+monthIf study  treatment start date is missing (i.e. subject did not 
+start study  treatment), then set start date = January  1.
+Else if study  treatment start date is not missing: 
+oIf year of start date = year of study  treatment start 
+date then 
+If stop date contains a full date and stop 
+date is earlier than stud y treatment start 
+date then set start date = January  1. 
+Else set start date = stud y treatment 
+start date. 
+oElse set start date = January  1.
+day If study  treatment start date is missing (i.e. subject did not 
+start study  treatment), then set start date = 1st of month. 
+Else if study  treatment start date is not missing: 
+oIf month and year of start date = month and year of 
+study  treatment start date then 
+If stop date contains a full date and stop 
+date is earlier than stud y treatment start 
+date then set start date= 1st of month. 
+Else set start date = stud y treatment 
+start date.
+oElse set start date = 1st of month.
+End 
+DateNo imputation for partial end dates will be performed
+
+
+Novartis For business use only Page 30of 35
+SAP CDRB436X2201 / BRF117019
+4.4.4 Surgery  and radiotherapy
+The following imputation will be used for surgical procedures and start dates of radiotherap y.  
+End dates of radiotherapy  will not be imputed.
+Dataset Missing 
+ElementRule
+Surgical 
+Procedures and 
+Radiotherap y 
+(ADPR)day, month, 
+and y earNo Imputation for completely  missing dates
+day, month If partial date contains a year onl y set to January  1st.
+day If partial date contains a month and y ear set to the 1st
+of the month
+4.4.5 Concomitant medication and blood and blood supportive care 
+products
+Impute start and end dates for use in derivation of the reference variables, concomitant 
+medication 
+start and end relati ve to treatment and blood and blood supportive care start and end 
+relative to treatment , but do not permanently  store the imputed start and end dates in the analy sis 
+datasets. The reference variables will be used to differentiate before, during and after for the 
+concomitant medication or blood or blood supportive care start and end dates. 
+Dataset Date Missing 
+ElementRule
+Concomitant 
+Medication
+Blood and 
+Blood 
+Supportive 
+Care Products Start 
+Dateday, 
+month, 
+and y earNo Imputation for completely  missing dates
+day, 
+monthIf study  treatment start date is missing (i.e. subject 
+did not start study  treatment), then set start date = 
+January  1. 
+Else if study  treatment start date is not missing: 
+oIf year of start date = year of study  treatment 
+start date then 
+If stop date contains a full date and 
+stop date is earlier than study 
+treatment start date then set start date 
+= January  1. 
+
+
+Novartis For business use only Page 31of 35
+SAP CDRB436X2201 / BRF117019
+Dataset Date Missing 
+ElementRule
+Else set start date = study  treatment 
+start date. 
+oElse set start date = January  1.
+day If study  treatment start date is missing (i.e. subject 
+did not start study  treatment), then set start date = 
+1st of month. 
+Else if study  treatment start date is not missing: 
+oIf month and year of start date = month and 
+year of s tudy treatment start date then 
+If stop date contains a full date and 
+stop date is earlier than study 
+treatment start date then set start 
+date= 1st of month. 
+Else set start date = study  treatment 
+start date.
+oElse set start date = 1st of month.
+End 
+Dateday, 
+month, 
+and y earNo Imputation for completely  missing dates
+day, 
+monthIf partial end date contains y ear onl y, set end date = 
+earliest of December 31 or date of last contact. 
+day If partial end date contains month and year, set end 
+date = earliest of last day of the month or date of last 
+contact.
+4.4.6 Time to event (Duration of response and Progression- free survival) 
+and best confirmed overall response
+On-therap yor follow -
+upanti-cancer therapy , including radiotherap y and cancer -related surger y 
+start dates ,may be imputed to determine date of first new anti-cancer therapy , in order to define 
+event and censoring dates for progression- free survival and duration of response and inclusion 
+of correct records in derivation of best confirmed overall response . 
+Dates will only  be imputed when a month and y ear are available but the day  is missing. In this 
+case, only the date of first new anti-cancer therapy  (not all anti-cancer therapy  and radiotherap y 
+start dates) will be stored on appropriate efficacy  datasets.
+The date of first new anti-cancer therapy  is derived as the earliest date of new anti-cancer 
+therap y (e.g. chemotherapy ), radiotherap y, or cancer related surgical procedur e and will include 
+imputed dates.  If the date is an imputed date, then the flag variable is assigned the value of 'D' 
+to indicate that the day  portion of the date is imputed (following ADaM convention) .
+
+
+Novartis For business use only Page 32of 35
+SAP CDRB436X2201 / BRF117019
+As multiple dates are used to derive the new anti-cancer therapy  date ensure that the flag is only 
+set to ‘D’ if the derived date is imputed.  For example, if the date of new radiotherap y is imputed 
+but the date of new systemic anti-cancer therapy  is prior to date of new radiotherapy  and the 
+new systemic an ti-cancer therapy date is not a partial date then the flag should be set to missing 
+as the date used for first new anti-cancer therap y is not an imputed date. The following rules 
+will be used to impute the date when 
+partial start dates are present.
+Dataset Date Missing 
+ElementRule
+Anti- Cancer 
+Therap y 
+Where 
+applicable: 
+Radiotherap y 
+Surgical 
+ProceduresStart 
+Dateday, month, 
+and y earNo Imputation for completely  missing dates
+day, month No imputation for missing day and month 
+(note the eCRF should only allow for missing 
+day)
+day If partial date falls in the same month as the 
+last dose of study  treatment, then assign to 
+earlier of (date of last dose of study 
+treatment+1, last day  of month). 
+If partial date falls in the same month as the 
+subjec t’s first occurrence of PD, then assign to 
+earlier of (date of PD+1, last day  of month). 
+If both rules above apply, then assign to latest 
+of the 2 dates 
+Otherwise, impute missing day to the first of 
+the month.
+End 
+DateNo imputation for partial end dates will be 
+performed
+4.4.7 Imputation of missing exposure end dates
+Exposure end dates should be completed for the final study  analysis.  For any subjects with 
+missing exposure end dates at the final analysis, the missing date will be imputed to the earliest
+of date of withdrawal from the study or death date.  If none of these dates are available then the 
+date of last patient last visit will be used. The imputed exposure end date will be stored in the 
+exposure analy sis dataset and an exposure end date imputat ion flag variable will be derived 
+indicating which exposure end date records are imputed. I mputed exposure end dates will also 
+
+
+Novartis For business use only Page 33of 35
+SAP CDRB436X2201 / BRF117019
+be stored on the study  treatment end date variable (ADSL.TRTEDT). This variable will hold 
+the last date of exposure across both s tudy treatments.
+4.5 Multiple A ssessments
+All data will be reported according to the nominal visit date for which it was reported (that is, 
+no visit windows will be applied during dataset creation). Unscheduled data will only be 
+included in the display  section s that report worst -case on- therapy .
+If multiple assessments are reported on the same date for the same scheduled planned time, then 
+the mean of multiple measurements reported for the same date will be analy zed, with the 
+exception of laboratory  data report ed from both central and local laboratories. If laboratory  data 
+is reported from both central and local laboratories with the same date, then the central 
+laboratory  data will be analy zed to provide consistency  with measurements from other subjects.
+4.6 Laboratory  parameters derivations
+Reference ranges for all laboratory  parameters collected throughout the study  are provided by 
+the laboratory . A laboratory  value that is outside the reference range is considered either high 
+abnormal (value above the upper limit of the reference range) or low abnormal (value below 
+the lower limit of the reference range). Note: a high abnormal or low abnormal laboratory  value 
+is not necessarily  of clinical concern. The laboratory  reference ranges will be provided on the 
+listings of laboratory  data. Clinical laboratory  test results outside of the reference range will be 
+flagged in the listings.
+To identify  laboratory  values of potential clinical importance, National Cancer Institute 
+Common Terminology  Criteria for Adverse Events (NCI -CTCAE v4.0) will be used to assign 
+grades to the relevant laboratory  parameters.
+4.7 ECG parameters
+To identify  QTc (Bazett’s and Fridericia’s ) values of potential clinical importance, NCI-
+CTCAE v4.0 will be used to assign grades (see adverse event ‘Elect rocardiogram QT corrected 
+interval prolonged’). 
+ECG Parameter Potential Clinical Importance (PCI) Range Unit
+Absolute QTc B  or 
+QTcF interval450 to <481 (Grade 1)
+481 to <501 (Grade 2)
+501 (Grade 3)Msec
+Increase from baseline Increase of 31 to 60
+Increase of >60Msec
+The following criteria will be used to flag other ECG values that are values of potential clinical 
+importance: 
+
+Novartis For business use only Page 34of 35
+SAP CDRB436X2201 / BRF117019
+ECG Parameter Potential Clinical Importance (PCI) Range Unit
+PR interval <110 (L) and >220 (H) Msec
+QRS interval <75 (L) and >110 (H) Msec
+4.8 Cardiac Scan Modalities (ECHO)
+An ECHO modality  will be used for determining cardiac scan data (e.g., left ventricular ejection 
+fraction (LVEF)) for all subjects throughout the study . The absolute change from baseline value 
+will not be calculated for any  time point in which the post- baseline value was determined by  a 
+cardiac scan modality  other than ECHO.
+4.9 Left ventricular ejection fraction
+The following criteria will be used to flag LVEF values that are values of potential clinical 
+importance: 
+To identify  LVEF values of potential clinical importance, NCI-CTCAE v4.0 will be used to 
+assign categories that align with the grades for ‘Ejection fraction decreased’.
+LVEF Parameter Unit Potential Clinical Importance (PCI) Range
+Absolute change from 
+baseline LVEF% No change or an y increase
+Any decrease
+o>0-<10 decrease
+o10-19 decrease
+o20 decrease
+o10 decrease and 
+LLN
+o10 decrease and below LLN
+o20 decrease and  LLN
+o20 decrease and below LLN
+Relative change from 
+baseline LVEF%   20 decrease and  LLN
+  20 decrease and below LLN
+4.10 Vital signs 
+To identify heart rate values of potential clinical importance, NCI -CTCAE v4.0 will be used to 
+assign categories that align with the grades for ‘Sinus bradycardia’, ‘Sinus tachy cardia’, 
+‘Supraventricular tach ycardia’, and ‘Ventricular tach ycardia’.
+The following criteria will be used to flag heart rate values that are values of potential clinical 
+importance:
+
+Novartis For business use only Page 35of 35
+SAP CDRB436X2201 / BRF117019
+Vital Sign Parameter Potential Clinical Importance (PCI) Range Unit
+Decrease from baseline 
+Heart RateDecrease to <60 bpm
+Increase from baseline 
+Heart RateIncrease to >100 bpm
+To identify  blood pressure values of potential clinical importance, NCI-CTCAE v4.0 will be 
+used to assign categories that align with the grades for ‘Hypertension’.
+Vital Sign Parameter Potential Clinical Importance (PCI) Range Unit
+Increase from baseline
+Systolic Blood Pressure120 to <140 (Grade 1)
+140 to <160 (Grade 2)
+160 (Grade 3)mmHg
+Increase from baseline 
+Diastolic Blood Pressure80 to <90 (Grade 1)
+90 to <100 (Grade 2)
+100 (Grade 3)mmHg
+To identify temperature values of potential clinical importance, NCI -CTCAE v4.0 will be used 
+to assign categories that align with the grades for ‘Hy pothermia’ and ‘Fever’.
+Vital Sign Parameter Potential Clinical Importance (PCI) Range Unit
+Increase from baseline 
+temperatureIncrease to  38 Degrees 
+C
+Decrease from baseline 
+Diastolic Blood PressureDecrease to  35 Degrees 
+C
+4.11 Statistical models
+For the evaluation of ORR, extensive simulation studies were conducted and described in the 
+Protocol to evaluate the performance of the design that incorporates multiple interim analy ses, 
+and develop the Bayesian statistical model. No T ype I error rate adjustments for multiplicity in 
+primary  or seconda ry analy ses will be conducted. 
+5 Reference

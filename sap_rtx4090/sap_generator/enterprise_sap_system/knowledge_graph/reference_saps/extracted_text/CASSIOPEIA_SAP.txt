@@ -1,0 +1,2219 @@
+
+--- Page 1 ---
+Official Title of Study: 
+Study of Daratumumab (JNJ-54767414 (HuMax® CD38) in Combination with Bortezomib (VELCADE), 
+Thalidomide, and Dexamethasone (VTD) in the First Line Treatment of Transplant Eligible Subjects 
+with Newly Diagnosed Multiple Myeloma. 
+ 
+ 
+NCT Number: NCT02541383 
+ 
+ 
+Document Date (Date in which document was last revised): 16 September 2020 
+
+
+--- Page 2 ---
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+1
+Status: Approved,  Date: 16 September 2020
+Janssen Research & Development 
+Statistical Analysis Plan (Part 2)
+A Phase 3 Study of Daratumumab (JNJ-54767414 (HuMax® CD38) in Combination with 
+Bortezomib (VELCADE), Thalidomide, and Dexamethasone (VTd) in the First Line Treatment of 
+Transplant Eligible Subjects with Newly Diagnosed Multiple Myeloma
+Protocol 54767414MMY3006; Phase 3
+JNJ54767414  (daratumumab)
+Status:
+Approved
+Date:
+16 September 2020
+Prepared by:
+Janssen Research & Development, LLC
+Document No.: EDMS-RIM-161303, 1.0
+Confidentiality Statement
+The information provided herein contains Company trade secrets, commercial or financial information that the Company 
+customarily holds close and treats as confidential.  The information is being provided under the assurance that the recipient
+will maintain the confidentiality of the information under applicable statutes, regulations, rules, protective orders or 
+otherwise.
+
+
+--- Page 3 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+2
+Status: Approved,  Date: 16 September 2020
+TABLE OF CONTENTS
+TABLE OF CONTENTS................................................................................................................................2
+LIST OF IN-TEXT TABLES ..........................................................................................................................4
+LIST OF IN-TEXT FIGURES.........................................................................................................................4
+ABBREVIATIONS.........................................................................................................................................5
+1.
+INTRODUCTION..................................................................................................................................6
+1.1.
+Trial Objectives.................................................................................................................................6
+1.2.
+Trial Design.......................................................................................................................................7
+1.3.
+Statistical Hypotheses for Trial Objectives .......................................................................................9
+1.4.
+Sample Size Justification..................................................................................................................9
+1.5.
+Randomization and Blinding.............................................................................................................9
+2.
+GENERAL ANALYSIS DEFINITIONS...............................................................................................10
+2.1.
+Visit Windows .................................................................................................................................10
+2.2.
+Pooling Algorithm for Analysis Centers ..........................................................................................10
+2.3.
+Analysis Sets ..................................................................................................................................10
+2.4.
+Definition of Subgroups ..................................................................................................................11
+2.5.
+Imputation of Missing Data.............................................................................................................12
+2.5.1.
+Adverse Event Start and End Date .............................................................................................12
+2.5.2.
+Concomitant Medication/Therapy Start and End Date................................................................13
+2.5.3.
+Subsequent Anti-cancer Therapy Start Date ..............................................................................13
+2.6.
+Other General Definitions ...............................................................................................................14
+2.6.1.
+Treatment Arms...........................................................................................................................14
+2.6.2.
+International Staging System (ISS) Staging................................................................................14
+2.6.3.
+Month and Year...........................................................................................................................14
+2.6.4.
+Maximum Date ............................................................................................................................14
+2.6.5.
+End of Follow-up and Duration of Follow-up...............................................................................14
+2.6.6.
+Relationship of Adverse Events to Study Medication .................................................................14
+2.6.7.
+General Analysis Specifications..................................................................................................14
+3.
+INTERIM ANALYSIS..........................................................................................................................15
+4.
+SUBJECT INFORMATION ................................................................................................................15
+4.1.
+Demographics and Baseline Characteristics..................................................................................15
+4.2.
+Disposition Information ...................................................................................................................15
+4.3.
+Treatment Compliance ...................................................................................................................16
+4.4.
+Extent of Exposure .........................................................................................................................16
+4.5.
+Protocol Deviations.........................................................................................................................16
+4.6.
+Concomitant Medications ...............................................................................................................16
+4.7.
+Subsequent Anticancer Therapies in Part 2...................................................................................16
+5.
+EFFICACY..........................................................................................................................................17
+5.1.
+Analysis Specifications ...................................................................................................................17
+5.1.1.
+Level of Significance ...................................................................................................................17
+5.1.2.
+Data Handling Rules ...................................................................................................................17
+5.2.
+Primary Efficacy Endpoint in Part 2................................................................................................18
+5.2.1.
+Definition .....................................................................................................................................18
+5.2.2.
+Analysis Methods ........................................................................................................................18
+5.2.3.
+Sensitivity and Supplementary Analysis .....................................................................................19
+5.3.
+Major Secondary Endpoints in Part 2.............................................................................................19
+
+
+--- Page 4 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+3
+Status: Approved,  Date: 16 September 2020
+5.3.1.
+Time to Progression from 2nd Randomization .............................................................................19
+5.3.1.1.
+Definition ..................................................................................................................................19
+5.3.1.2.
+Analysis Methods .....................................................................................................................19
+5.3.2.
+Overall CR or better rate .............................................................................................................20
+5.3.2.1.
+Definition ..................................................................................................................................20
+5.3.2.2.
+Analysis Methods .....................................................................................................................20
+5.3.3.
+Overall MRD negative rate..........................................................................................................20
+5.3.3.1.
+Definition ..................................................................................................................................21
+5.3.3.2.
+Analysis Methods .....................................................................................................................21
+5.3.4.
+MRD Negative CR or Better Rate ...............................................................................................21
+5.3.4.1.
+Definition ..................................................................................................................................21
+5.3.4.2.
+Analysis Methods .....................................................................................................................22
+5.3.5.
+Progression-free Survival after next line of therapy (PFS2) from 2nd Randomization ................22
+5.3.5.1.
+Definition ..................................................................................................................................22
+5.3.5.2.
+Analysis Methods .....................................................................................................................23
+5.3.6.
+Overall Survival (OS) from 2nd Randomization ...........................................................................23
+5.3.6.1.
+Definition ..................................................................................................................................23
+5.3.6.2.
+Analysis Methods .....................................................................................................................23
+5.4.
+Other Secondary Endpoints in Part 2.............................................................................................23
+5.4.1.
+Rate of Improved Response During Maintenance......................................................................23
+5.4.1.1.
+Definition ..................................................................................................................................23
+5.4.1.2.
+Analysis Methods .....................................................................................................................24
+5.4.2.
+Rate of MRD Negative Conversion During Maintenance............................................................24
+5.4.2.1.
+Definition ..................................................................................................................................24
+5.4.2.2.
+Analysis Methods .....................................................................................................................24
+5.4.3.
+Rate of MRD Negative CR or Better Conversion During Maintenance ......................................24
+5.4.3.1.
+Definition ..................................................................................................................................24
+5.4.3.2.
+Analysis Methods .....................................................................................................................24
+5.5.
+Time to Subsequent Antimyeloma Treatment................................................................................24
+5.5.1.1.
+Definition ..................................................................................................................................24
+5.5.1.2.
+Analysis Methods .....................................................................................................................25
+5.6.
+Subgroup Analysis of Efficacy Endpoints in Part 2 ........................................................................25
+6.
+SAFETY..............................................................................................................................................25
+6.1.
+Adverse Events in Part 2 ................................................................................................................25
+6.1.1.
+Treatment Emergent Adverse Events.........................................................................................26
+6.1.2.
+Adverse Events of Clinical Interest .............................................................................................27
+6.1.2.1
+Infusion-Related Reactions .........................................................................................................27
+6.1.2.2
+Infections .....................................................................................................................................28
+6.1.2.2.1 Infections/Infestations .................................................................................................................28
+6.1.2.2.2 Opportunistic Infections...............................................................................................................28
+6.1.2.3
+Neutropenia.................................................................................................................................28
+6.1.2.4
+Thrombocytopenia.......................................................................................................................28
+6.1.2.5
+Hemorrhage ................................................................................................................................28
+6.1.2.6
+Peripheral neuropathies ..............................................................................................................28
+6.1.2.7
+Second Primary Malignancy .......................................................................................................28
+6.2.
+Deaths in Part 2..............................................................................................................................29
+6.3.
+Vital Signs.......................................................................................................................................29
+6.4.
+Clinical Laboratory Tests ................................................................................................................29
+6.5.
+Other Safety Parameters................................................................................................................29
+6.5.1.
+ECOG Performance Status.........................................................................................................29
+7.
+PHARMACOKINETICS/IMMUNOGENICITY/PHARMACODYNAMICS...........................................29
+7.1.1.
+Sampling Timepoints...................................................................................................................29
+7.1.2.
+Analysis Methods ........................................................................................................................30
+
+
+--- Page 5 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+4
+Status: Approved,  Date: 16 September 2020
+8.
+BIOMARKER .....................................................................................................................................30
+8.1.
+Minimal Residual Disease (MRD)...................................................................................................30
+8.1.1.
+Sampling Timepoints...................................................................................................................30
+8.1.2.
+Analysis Methods ........................................................................................................................30
+9.
+PATIENT REPORTED OUTCOMES (PRO)......................................................................................30
+9.1.1.
+PRO Instruments.........................................................................................................................31
+9.1.2.
+Analysis Methods ........................................................................................................................31
+REFERENCES ............................................................................................................................................33
+ATTACHMENT 1:
+PD AND RESPONSE ALGORITHM..........................................................................34
+LIST OF IN-TEXT TABLES
+Table 1:
+Part 2 (Maintenance Phase) Stratification Factors......................................................................9
+Table 2:
+Subgroup Analyses for Efficacy and Safety Endpoints.............................................................11
+Table 3:
+PFS from 2nd Randomization Event and Censoring Method.....................................................18
+Table 4:
+PFS2 from 2nd Randomization Event and Censoring Method...................................................23
+LIST OF IN-TEXT FIGURES
+Figure 1:
+Schematic Overview of the Study ...............................................................................................8
+
+
+--- Page 6 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+5
+Status: Approved,  Date: 16 September 2020
+ABBREVIATIONS
+AE
+Adverse event
+ALB
+Albumin
+ALKY
+Alkylating agent
+ASCT
+Autologous stem cell transplant
+B2MG
+Beta2 microglobulin
+CI
+Confidence interval
+CMH
+Cochran-Mantel-Haenszel
+CR
+Complete response
+DOR
+Duration of response
+DPS
+Data presentation specifications
+ECOG
+European cooperative oncology group
+EORTC
+European Organization for Research and Treatment of Cancer
+EQ-5D-5L
+EuroQol Five Dimension Questionnaire
+eCRF
+Electronic case report form
+GHS
+Global health status
+FLC
+HEMAR
+Free light chain
+Health Economics/Market Access/Reimbursement
+HRQoL
+Health-related quality of life
+ICH
+International Conference on Harmonization
+IMiD
+Immunomodulatory drug
+IMWG
+International multiple myeloma working group
+IRR
+Infusion related reaction
+ISS
+International staging system
+ITT
+Intent-to-Treat
+IWRS
+Interactive web response system
+LLN
+Lower limit normal
+MedDRA
+Medical Dictionary for Regulatory Activities
+MM
+Multiple myeloma
+MRD
+Minimal residual disease
+NCI CTC
+National cancer institute common terminology criteria
+NE
+Not evaluable
+ORR
+Overall response rate
+OS
+Overall survival
+PD
+Progressive disease
+PFS
+Progression free survival
+PI
+Proteasome inhibitor
+PR
+Partial response
+PRO
+Patient reported outcome
+PT
+Preferred term
+SAE
+Serious adverse event
+SAP
+Statistical Analysis Plan
+sCR
+Stringent complete response
+SD
+Stable disease
+SOC
+System organ class
+TEAE
+Treatment-emergent adverse event
+TTP
+Time to disease progression
+TTR
+Time to response
+ULN
+Upper limit normal
+VAS
+Visual analog scale
+VGPR 
+Very good partial response
+VTd
+VELCADE (bortezomib) + thalidomide + dexamethasone 
+
+
+--- Page 7 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+6
+Status: Approved,  Date: 16 September 2020
+1.
+INTRODUCTION
+This statistical analysis plan (SAP) contains definitions of the analysis set(s), derived variables and 
+statistical methods for the primary analyses pertaining to Part 2 specified in the protocol 
+54767414MMY3006.
+Part 2 is defined as the study where subjects with at least a partial response by IMWG criteria after 
+induction/ASCT/consolidation (Part1) are randomized to enter the Maintenance Phase:
+
+Arm A: Observation only until documented disease progression (or a maximum of 2 years)
+
+Arm B: Daratumumab monotherapy until documented disease progression (limited to 2 years maximum 
+treatment duration)
+1.1.
+Trial Objectives
+Primary Objective
+The primary objective in Part 2 is to determine if the use of daratumumab as single agent in 
+maintenance compared to observation only will increase progression-free survival (PFS) when used 
+after autologous stem cell transplant and consolidation therapy.
+Secondary Objectives
+Major secondary efficacy objectives in Part 2 of the trial are:
+
+Time to progression (TTP) from second randomization
+
+Complete response (CR) or better rate
+
+Stringent complete response (sCR) rate 
+
+Rate of improved response
+
+Minimal residual disease (MRD) negative CR or better rate
+
+Minimal residual disease (MRD) negative rate
+
+Rate of MRD negative CR or better conversion rate
+
+Rate of MRD negative conversion
+
+Progression-free survival after next line of therapy (PFS2) from second randomization
+
+Overall survival (OS) from second randomization
+Other secondary objectives are:
+
+To evaluate health-related quality of life (HRQoL) and health economic/resource utilization
+
+To assess immunogenicity of daratumumab
+
+To assess safety and tolerability of daratumumab
+
+
+--- Page 8 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+7
+Status: Approved,  Date: 16 September 2020
+Exploratory Objectives
+The exploratory objective of the study is to evaluate daratumumab’s impact on response and 
+resistance to treatment. 
+1.2.
+Trial Design
+This is a randomized, open-label, active control, parallel group, multicenter, Phase 3 study in subjects 
+with previously untreated multiple myeloma. Out of 1080 subjects randomized in Part 1 
+(Induction Phase) of the trial, approximately 800 subjects (400/arm) were supposed to be randomized 
+in Part 2 (Maintenance Phase). The actual accrual into the Induction phase was 1085 subjects and is 
+886 subjects in the Maintenance phase.
+The Treatment Phase in Part 2 is described below and will extend from the second randomization 
+after completion of consolidation treatment and determination of response (partial response [PR] or 
+better) at approximately Day 100 after autologous stem cell transplant (ASCT) until the documented 
+progressive disease (PD) or 2 years of maintenance therapy/observation, whichever occurs first. The 
+Follow-up Phase will extend from treatment discontinuation or completion of observation period,
+until death, loss to follow-up, withdrawal of consent, or study end, whichever occurs first.
+Part 2: Maintenance Phase (1:1 Second randomization of subjects achieving at least a PR 
+after consolidation)
+After completion of consolidation and determination of response at approximately Day 100 after 
+ASCT, subjects with at least a PR will be randomized to Arm A and Arm B in 1:1 manner. Subjects
+will then enter the Maintenance Phase. Subjects who have not achieved at least a PR after the 
+completion of consolidation treatment and therefore are not second randomized to Part2 will enter 
+the Follow-up Phase for Part 1 and will be followed until disease progression or death, even if they 
+receive subsequent treatment.
+
+Arm A: Observation only until documented disease progression Arm B: Daratumumab monotherapy
+(16 mg/kg once every 8 weeks) until documented disease progression (limited to 2 years maximum 
+treatment duration). 
+A schematic overview of the study is provided in Figure 1 below.
+
+
+--- Page 9 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+8
+Status: Approved,  Date: 16 September 2020
+Figure 1:
+Schematic Overview of the Study
+Response will be assessed approximately 100 days after ASCT and eligibility for the second 
+randomization will be determined. Subjects will be stratified at the second randomization by type of 
+induction treatment (VTd or VTd + daratumumab) and by depth of response to induction / ASCT /
+consolidation therapy (as determined by MRD status and post-consolidation response, see table 1). 
+Assessment of tumor response and disease progression will be conducted in accordance with the 
+International Myeloma Working Group (IMWG) response criteria. An assessment of MRD will be 
+conducted using next-generation sequencing and next generation flow cytometry on bone marrow 
+aspirate from the subjects who achieve at least VGPR in maintenance phase. 
+Safety evaluations will include adverse event monitoring, physical examinations, clinical laboratory 
+parameters (hematology and chemistry), vital sign measurements, and Eastern Cooperative Oncology 
+Group (ECOG) performance status. 
+The primary analysis for Part 2, i.e. PFS, will be performed when approximately 390 PFS events have 
+been observed among subjects randomized to Maintenance phase after the second randomization. In 
+addition, an interim analysis is planned for Part 2 after approximately 273 (70%) PFS events are 
+observed in the population of subjects who are second randomized to Maintenance phase.  After the 
+
+
+--- Page 10 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+9
+Status: Approved,  Date: 16 September 2020
+interim analysis, IDMC will make recommendations regarding the continuation of the study. The 
+details will be provided in a separate IDMC charter.
+A final data cutoff will occur at the end of study, when approximately 350 subjects have died, or 
+approximately 5 years after the last subject is randomized in Part 2 to the Maintenance phase, 
+whichever comes first. Investigators will be informed when the cutoffs are to occur. 
+1.3.
+Statistical Hypotheses for Trial Objectives
+The statistical hypothesis in Part 2 of the trial is that daratumumab maintenance after ASCT prolongs 
+PFS compared with observation.
+1.4.
+Sample Size Justification
+For Part 2 (maintenance phase), it is assumed that median PFS from the second randomization is 
+45 months for observation, and daratumumab maintenance will decrease the risk of progression or 
+death by 25% (HR=0.75; estimated median PFS of 60 months for daratumumab maintenance). To 
+achieve 80% power with a significance level of 0.05, 390 PFS events are needed. 
+1.5.
+Randomization and Blinding
+Permuted block randomization will be implemented in this study.
+At the second randomization, subjects will be stratified by type of induction treatment and by depth of 
+response to induction/consolidation therapy (as determined by MRD status and post-consolidation 
+response). The stratification factors for the second randomization are presented in Table 1. This is an 
+open-label study. Subjects and sites will not be blinded to treatment assignment.
+Table 1:
+Part 2 (Maintenance Phase) Stratification Factors
+Randomized to VTd arm in the induction/ASCT/consolidation phase
+MRD* Status
+IMWG Response
+sCR
+CR
+VGPR
+PR
+Negative
+Stratum 1
+Stratum 1
+Stratum 1
+NA**
+Positive
+Stratum 2
+Stratum 3
+Stratum 3
+Stratum 4
+Randomized to VTd+dara arm in the induction/ASCT/consolidation phase
+MRD* Status
+IMWG Response
+sCR
+CR
+VGPR
+PR
+Negative
+Stratum 5
+Stratum 5
+Stratum 5
+NA**
+Positive
+Stratum 6
+Stratum 7
+Stratum 7
+Stratum 8
+CR=complete response; IMWG=International Myeloma Working Group; MRD=minimum residual 
+disease; PR=partial response; sCR=stringent complete response; VGPR=very good partial response
+* MRD by Flow at 10-4 as a stratification factor recorded in the CRF.
+** Six subjects were observed to be MRD negative with IMWG response of PR at Day 100 post-ASCT. 
+These subjects were mapped to Stratum 4 or Stratum 8 due to the lack of specific stratum defined in the 
+protocol for such subjects.
+
+
+--- Page 11 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+10
+Status: Approved,  Date: 16 September 2020
+2.
+GENERAL ANALYSIS DEFINITIONS
+2.1.
+Visit Windows
+Analysis time points for Part 2 will be based on treatment phase (maintenance) and administrations 
+instead of visits. 
+Maintenance phase (8 weeks per administration):
+The start date of the maintenance phase is the 2nd randomization date, and the end date of the 
+maintenance phase is the start date of the follow-up phase - 1 day (if not available, use the 
+maximum date defined in section 2.6.). 
+Pre-maintenance baseline value:
+For subjects who are randomized in the maintenance phase, the last non-missing observation on or 
+before the date of second randomization or Week 1 visit date, whichever is later.
+End of treatment (EOT):
+a.
+For subjects treated with Daratumumab maintenance treatment, within 30 days after 
+the last dose of Daratumumab treatment has been discontinued or completed. 
+b. For subjects assigned to observation maintenance arm, within 30 days after the last 
+observation visit or as soon as possible before the start of subsequent therapy.  
+Follow-up phase:
+The follow-up phase will begin once a subject discontinues treatment with study medications, 
+except for subjects randomized to Arm A (observation) in the maintenance phase. These subjects 
+will enter the follow-up phase after end of treatment visit date in the maintenance phase, disease 
+progression, start of new anticancer therapy, or end of maintenance phase due to any reasons, 
+whichever is earliest.  
+Relative day:
+Assessments will be presented chronologically by administration day, study day, which are defined 
+as the follows:
+administration Day = assessment date – start date of the administration + 1
+Study Day in the maintenance phase = assessment date – start date of the maintenance phase + 1.
+2.2.
+Pooling Algorithm for Analysis Centers
+Data from all study centers will be pooled for analyses. 
+2.3.
+Analysis Sets
+The following analysis sets are defined. 
+ITT
+o
+Maintenance-specific Intent-to-treat (ITT-m) analysis set: includes all subjects 
+randomized in the second randomization. Analyses for Part 2 maintenance comparison of 
+demographics, baseline characteristics, baseline lab, and primary and secondary efficacy 
+endpoints will be primarily analyzed based on this population.
+
+
+--- Page 12 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+11
+Status: Approved,  Date: 16 September 2020
+Safety
+o
+Maintenance-specific Safety (Safety-m) analysis set: includes all subjects randomized to 
+Arm B (daratumumab) in the second randomization and have received at least 1 
+administration of daratumumab and all subjects randomized to Arm A (observation) in the 
+second randomization. This population will be used for all safety analyses for Part 2.
+Immune response-evaluable
+o
+Maintenance-specific immune response-evaluable analysis set: includes all subjects 
+who received at least 1 administration of daratumumab in either Part 1 or Part 2 
+(maintenance phase) and had at least 1 immunogenicity sample obtained during Part 2 after 
+the first administration.
+Pharmacokinetic (PK)
+o
+Maintenance-specific PK-evaluable analysis set: includes all subjects who received at 
+least 1 administration of daratumumab either in Part 1 or Part 2 (maintenance phase) and 
+had at least 1 pharmacokinetic sample obtained during Part 2 after the first administration.
+2.4.
+Definition of Subgroups 
+Subgroup analysis will be performed for the subgroups specified in Table 2.
+Table 2:
+Subgroup Analyses for Efficacy and Safety Endpoints
+Subgroup
+Definition
+Analysis Type
+Sex
+Male, Female
+E, S
+Age
+<50, 50-60, >60 
+E, S
+Site
+IFM, Hovon
+E, S
+ISS staging 
+I, II, and III
+E 
+Cytogenetics
+high risk vs. standard risk 
+E
+Pre-maintenance baseline renal 
+function (CrCl)
+E: >90 mL/min; ≤90 mL/min; 
+S:  ≤90, >90 mL/min
+E, S
+Pre-maintenance baseline renal 
+function (CrCl) with adjustment for 
+overweight subjects (BMI>30kg/m2)
+≤90, >90 mL/min
+S
+Type of MM
+IgG, Non-IgG 
+E
+Pre-maintenance baseline ECOG 
+performance score
+0, ≥1
+E
+Induction/ASCT/Consolidation 
+treatment group
+VTd, DVTd
+E
+MRD (Stratification factor)
+MRD positive, MRD negative 
+E
+Response (Stratification factor)
+VGPR or better vs PR
+E
+E: efficacy (PFS, Overall CR or better rate, Overall MRD negative rate); S: TEAE
+Note: Age will be calculated based on the second randomization date and date of birth of the subject.
+Subgroups that are not specified as pre-maintenance baseline will be based on the pre-induction baseline results.
+
+
+--- Page 13 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+12
+Status: Approved,  Date: 16 September 2020
+2.5.
+Imputation of Missing Data
+Unless specified otherwise, no data imputation will be applied for missing safety evaluations, and all 
+available data for all subjects will be presented. For analysis and reporting purpose, missing/partial 
+dates in medical history (date of initial MM diagnosis), adverse event (AE onset date; AE end date), 
+concomitant therapies (start date; end date), and subsequent anti-cancer therapies (start date) will be 
+imputed. 
+2.5.1.
+Adverse Event Start and End Date
+Adverse Event Start Date
+If the onset date of an adverse event is completely or partially missing, the following imputation rules 
+will be used.
+
+When month and year are presented and the day is missing:
+o
+If the onset month and year are the same as the month and year of second randomization
+date, the day of second randomization date or the day-component of the AE end date 
+(possibly imputed) is imputed, whichever is earlier; 
+o
+If the onset month and year are not the same as the month and year of second 
+randomization date, the first day of the month is imputed.
+
+When only a year of the onset date is present:
+o
+If the onset year is the same as the year of second randomization date:
+
+If AE end date is available and is prior to second randomization date, the day and 
+month of AE end date are imputed;
+
+Otherwise, the day and month of second randomization date are imputed. 
+o
+If the onset year is different from the year of second randomization date, the 1st of January 
+is imputed.
+
+If the onset date is completely missing, the second randomization date is imputed as the onset 
+date.
+No imputation will be done for partial or missing AE onset time.
+
+
+--- Page 14 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+13
+Status: Approved,  Date: 16 September 2020
+Adverse Event End Date
+If the end date of an adverse event is completely or partially missing, the following imputation rules 
+will be used.
+
+If month and year are present and the day of the month is missing, the last day of the month is 
+imputed. 
+
+If only a year is present, the 31st of December is used. 
+After the imputation, if the imputed date is later than the date of death (if available) after imputation, 
+the date of death will be used as the imputed date.
+No imputation will be done for partial or missing AE end time.
+2.5.2.
+Concomitant Medication/Therapy Start and End Date
+For concomitant medications/therapy, if the start or end date is completely missing, no imputation 
+will be performed. If the start or end date is partially missing, the following imputation rules will be 
+used. 
+
+If only the day is missing, the 15th day of the month will be used. 
+
+If both the day and month are missing, the 30th of June will be used.
+If the medication/therapy was taken after second randomization, and the imputed start date is prior to 
+second randomization date, further adjust the imputed start date as second randomization date. Also 
+adjust the imputed medication/therapy end date so that it is on or after second randomization date.
+2.5.3.
+Subsequent Anti-cancer Therapy Start Date
+If the start date of subsequent anti-cancer therapy is completely missing or the month is missing, no 
+imputation will be performed. If only the day of subsequent therapy start date is missing, the 
+following imputation rules will be applied:
+
+If the month and year of the start date are the same as the month and year of the last dosing date
+(for observational arm, end of treatment date in disposition or 2 years after second randomization
+if end of treatment date in disposition is not available), the day of last dosing date or the 
+day-component of the stop date of subsequent anti-cancer therapy will be imputed, whichever is 
+earlier. 
+
+If the month and year of the start date are not the same as the month and year of last dosing date
+(for observational arm, end of treatment date in disposition or 2 years after second randomization
+if end of treatment date in disposition is not available), the first day of the month will be imputed.
+
+
+--- Page 15 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+14
+Status: Approved,  Date: 16 September 2020
+2.6.
+Other General Definitions
+2.6.1.
+Treatment Arms
+Treatment arms for Part 2
+maintenance phase are: Observation vs. Daratumumab. 
+Induction-maintenance arms are: VTd-Observation, VTd-Daratumumab, DVTd-Observation, 
+DVTd-Daratumumab.
+2.6.2.
+International Staging System (ISS) Staging
+ISS stage is based on the combination of serum β2-microglobulin (B2MG) and serum albumin 
+(ALB) at baseline for the induction phase.
+
+Stage I: B2MG <3.5 mg/L and ALB ≥3.5 g/dL (≥35 g/L) 
+
+Stage III: B2MG ≥5.5 mg/L
+
+Stage II: neither I nor III
+2.6.3.
+Month and Year
+One year equals to 365.25 days. One month equals to 365.25/12 days.
+2.6.4.
+Maximum Date
+Maximum date is same as overall survival date.
+2.6.5.
+End of Follow-up and Duration of Follow-up
+The end of follow-up is defined as the maximum date.
+Duration of follow-up since second randomization (in months) equals the end of follow-up minus the 
+second randomization date plus 1, divided by 365.25/12.
+2.6.6.
+Relationship of Adverse Events to Study Medication
+For each adverse event, its relationship to study medication is determined by investigator and 
+recorded on the eCRF. An adverse event is considered as related to study medication if the 
+relationship is possible, probable or very likely.
+2.6.7.
+General Analysis Specifications
+Categorical variables are to be summarized using frequency counts and percentages. Continuous 
+variables are to be summarized by the following descriptive statistics: mean, standard deviation, 
+median and range (minimum and maximum). 
+
+
+--- Page 16 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+15
+Status: Approved,  Date: 16 September 2020
+3.
+INTERIM ANALYSIS 
+The primary objective of Part 2 of the study is to evaluate the 2 maintenance arms with response for 
+PFS, which will be performed when approximately 390 PFS events have been observed in the 
+population of subjects who are second randomized in the maintenance phase. 
+An interim analysis is planned for Part 2 of the study after 273 (70%) PFS events are observed in the 
+population of subjects who are second randomized. The significance level at this interim analysis will 
+be determined based on the observed number of PFS events at the time of the analysis, using the 
+O’Brien-Fleming boundaries as implemented by the Lan-DeMets alpha spending method. If 273 PFS 
+events are observed, the alpha to be spent in this interim analysis will be 0.0147 (2-sided) and will be 
+0.0455 (2-sided) for the final analyses.
+4.
+SUBJECT INFORMATION
+4.1.
+Demographics and Baseline Characteristics
+Demographics: age (continuous), age category (< 50 years, 50-60, and > 60 years), sex (male, female), 
+height (cm), weight (kg) and ECOG performance status (0, >=1) at the pre-maintenance baseline will 
+be summarized by induction-maintenance arms for ITT-m subjects.
+Baseline disease characteristics such as, type of myeloma (heavy chain, light chain, biclonal),  type 
+of measurable disease, free light chain (ratio K/L, dFLC), ISS staging (I, II, III), cytogenetics profile, 
+time since initial diagnosis (months), serum M-protein, urine M-protein, number of lytic bone lesions 
+(None, 1-3, 4-6, more than 7), plasmacytoma (Yes, No) presence of diffuse myeloma-related 
+osteopenia (Yes, No), presence of evaluable bone marrow assessment (Yes, No), bone marrow % 
+plasma cells (<10, 10 – ≤ 30, > 30), bone marrow cellularity (hypocellular, normocellular, moderately 
+cellular, severely acellular, indeterminate) at the baseline of the first randomization will be 
+summarized by induction-maintenance treatment arms for the ITT-m subjects. 
+A summary for depth of response, including MRD status assessed by NGS method at pre-maintenance 
+baseline will be summarized by induction-maintenance treatment arms.
+A summary of hematology and chemistry laboratory values at pre-maintenance baseline will be 
+provided.
+General medical history will be summarized by body system and condition status as reported on eCRF 
+for ITT-m subjects by maintenance treatment arms.
+4.2.
+Disposition Information
+For Part 2, the number of subjects who completed, discontinued the maintenance treatment phase will 
+be summarized for ITT-m analysis set by maintenance arms. The number of subjects that are 
+randomized to daratumumab maintenance arm but were not treated along with the reasons will be 
+presented. Subjects who discontinued the study along with the reasons reported for the 
+discontinuation on the eCRF will also be summarized.
+
+
+--- Page 17 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+16
+Status: Approved,  Date: 16 September 2020
+4.3.
+Treatment Compliance
+Refer to Section 4.4.
+4.4.
+Extent of Exposure
+Extent of exposure to daratumumab during the maintenance phase will be summarized and presented
+by the induction-maintenance treatment arms based on the maintenance-specific safety analysis set
+for the subjects that are randomized to Arm B (daratumumab). 
+The number of daratumumab administrations (continuous and categorical variables) will be 
+summarized. For subjects randomized to daratumumab maintenance arm, duration of study treatment
+during the maintenance phase will be calculated as the number of days from the date of the first
+administration of daratumumab during the maintenance phase to the date of the last administration of 
+daratumumab. For subjects randomized to the observation maintenance arm, duration of study 
+treatment will be calculated as the number of days from the date of second randomization to the end 
+of treatment date.  Duration of study treatment will be summarized descriptively.
+The total dose administered for daratumumab (mg/kg) will be summarized by descriptive statistics. 
+The dose intensity, which is defined as the sum of total dose administered divided by the number of
+treatment administrations, will be calculated for daratumumab and summarized by descriptive 
+statistics. Relative dose intensity (%) is the ratio of total dose received and total planned dose, where 
+total planned dose will be calculated as the planned dose level times the number of administrations.
+Descriptive summary statistics will be presented for relative dose intensity.
+4.5.
+Protocol Deviations
+The incidence of major protocol deviation during the maintenance phase of the study, together with 
+the corresponding deviation terms will be summarized by maintenance treatment arms for the ITT-m
+subjects. A listing of all major protocol deviations during the maintenance phase will be provided. In 
+case COVID-19 pandemic leads to major protocol deviations those will be flagged as such.
+4.6.
+Concomitant Medications
+Concomitant medications collected o n the CRF page during the maintenance phase of the study
+will be summarized by
+therapeutic class, pharmacologic class, and drug name for each
+maintenance treatment arm. A similar summary will be provided for subjects randomized to Arm 
+B (daratumumab) who received growth factor support, pre-infusion medication and post-infusion 
+medication, respectively. Additionally, prophylactic antiviral medication use will be tabulated.
+4.7.
+Subsequent Anticancer Therapies in Part 2
+Subsequent anticancer therapies during the maintenance phase will be tabulated by therapeutic class,
+pharmacologic class, and drug name within each maintenance treatment arm for the ITT-m subjects.
+
+
+--- Page 18 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+17
+Status: Approved,  Date: 16 September 2020
+5.
+EFFICACY
+A validated computerized algorithm, which is based on the IMWG response criteria (Durie 2006, 
+Rajkumar 2011), which has been used and validated by an independent review committee in study 
+MMY2002, will be utilized to determine response and disease progression for each subject. As a
+sensitivity analysis, investigator assessments of response and disease progression per the IMWG 
+response criteria will also be performed.
+5.1.
+Analysis Specifications
+5.1.1.
+Level of Significance
+All statistical hypothesis tests and 95% confidence interval presented will be 2-sided. The primary 
+hypothesis will be tested at the 0.05 significance level (overall). The main purpose for Part 2 of the 
+study is to evaluate the 2 maintenance arms with response for PFS, which will be performed when 
+approximately 390 PFS events have been observed in the population of subjects who are second 
+randomized in the maintenance phase. 
+In Part 2, if the testing for the primary endpoint of PFS post-completion of maintenance therapy is
+statistically significant, the following key secondary endpoints in Part 2 as given in the order below
+will be sequentially tested. Each endpoint will be tested with an overall two-sided alpha of 0.05 by
+utilizing a hierarchical testing approach as proposed by (Tang and Geller, 1999) that strongly
+controls Type I error rate. The key secondary endpoints are ordered as follows:
+1) TTP from second randomization
+2) Overall CR or better rate 
+3) Overall MRD negative CR or better rate
+4) OS from second randomization
+An interim analysis will be performed after 273 (70%) PFS events are observed in the ITT-m subjects. 
+The significance level at this interim analysis will be determined based on the observed number of 
+PFS events at the time of the analysis, using the O’Brien-Fleming boundaries as implemented by the 
+Lan-DeMets alpha spending method. If 273 PFS events are observed, the alpha to be spent in this 
+interim analysis will be 0.0147 (2-sided) and will be 0.0455 (2-sided) for the final analyses.
+For OS, a modified linear alpha spending function will be used to determine the efficacy boundary. 
+The alpha to be spent for OS at the time of interim efficacy analysis (i.e, 273 PFS events, which is 
+70% of the total planned PFS events) is 0.0002 (2-sided). The final analysis of OS will occur when 
+approximately 350 deaths have been recorded, or approximately 5 years after the last subject is second 
+randomized to the Maintenance phase, whichever comes first. 
+5.1.2.
+Data Handling Rules
+There is no imputation planned for missing efficacy endpoint values, except for missing MRD 
+assessment results as such results will be considered as positive.
+
+
+--- Page 19 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+18
+Status: Approved,  Date: 16 September 2020
+5.2.
+Primary Efficacy Endpoint in Part 2
+The primary efficacy endpoint is the PFS.
+5.2.1.
+Definition
+PFS is defined as the duration from the date of second randomization to progressive disease, 
+according to the validated computerized algorithm based on the IMWG criteria, or death, whichever 
+occurs first.
+Determination of dates of PFS event from 2nd randomization and dates for censoring is summarized 
+in Table 3 as follows.
+Table 3:
+PFS from 2nd Randomization Event and Censoring Method
+Situation
+Date of Progression or Censoring
+Outcome
+No post-second randomization disease
+assessment
+Second randomization
+Censored
+Disease progression
+Earliest date that indicates disease 
+progression
+PFS event
+Death in the absence of PD
+Date of death
+PFS event
+Other (e.g., withdrawal of consent to study
+participation, lost to follow-up, etc.)
+Date of last disease assessment prior to
+Other
+Censored
+5.2.2.
+Analysis Methods
+The primary comparison of the 2 randomized maintenance treatments (daratumumab maintenance 
+and observation) will be made with respect to PFS from the second randomization using a stratified 
+log-rank test in the ITT-m population. The Kaplan-Meier method will be used to estimate the 
+distribution of PFS from the second randomization for each arm. The treatment effect (hazard ratio) 
+and its 2-sided 95% confidence intervals will be estimated using a stratified Cox regression model 
+with maintenance treatment as the sole explanatory variable. The stratification factors used in the 
+analysis include type of induction treatment and depth of response to induction/consolidation therapy 
+(Please refer to Table 1 for the stratification factors used for second randomization). 
+In addition, the interaction between induction/consolidation and maintenance will be tested at a 
+2-sided significance level of 0.05 by a stratified Cox regression model that includes the interaction 
+term between maintenance treatment and induction/consolidation treatment. The stratification factor 
+will only include the depth of response.
+The comparison of the 2 randomized maintenance treatments will also be made with respect to PFS 
+from the second randomization using a stratified log-rank test in the ITT-m analysis set separately by 
+the induction treatment received (VTd or DVTd) by the subjects. The stratification factor will include 
+the depth of response. The Kaplan-Meier method will be used to estimate the distribution of PFS from 
+
+
+--- Page 20 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+19
+Status: Approved,  Date: 16 September 2020
+the second randomization for each of the maintenance treatment arm and Kaplan-Meier plots will be 
+created separately by the induction treatment received.
+5.2.3.
+Sensitivity and Supplementary Analysis
+A sensitivity analysis of PFS from 2nd randomization based on investigator assessment of progressive 
+disease as per the IMWG response criteria will be performed in a similar manner as described in
+Section 5.2.2.
+Another sensitivity analysis of PFS from 2nd randomization based on investigator assessment of PD 
+as per the IMWG response criteria will be performed separately for each of the induction treatment 
+received by the subjects.
+Additionally, a sensitivity analysis of PFS from 2nd randomization by censoring data due to start of
+subsequent anticancer therapy will be performed in a similar manner as described in Section 5.2.2.
+Further, a sensitivity analysis of PFS derived from the algorithm by censoring for death or
+progression after missing more than one evaluation will be performed in a similar
+manner as
+described in Section 5.2.2.
+A supplementary analysis of PFS derived from the algorithm by censoring for death due to COVID-
+19 for subjects, who have not developed a confirmed progressive disease, will be performed in a 
+similar manner as described in Section 5.2.2.
+A sensitivity analysis using unstratified log-rank test and unstratified Cox regression model will also 
+be performed.
+5.3.
+Major Secondary Endpoints in Part 2
+5.3.1.
+Time to Progression from 2nd Randomization
+5.3.1.1.
+Definition
+TTP from 2nd randomization is defined as the duration from the date of second randomization to
+confirmed progressive disease, according to the validated computerized algorithm based on the
+IMWG response criteria, or death due to progressive disease, whichever occurs first.
+The censoring rules for TTP from second randomization will be similar to the ones applied for PFS 
+from second randomization (please refer to Table 3), except that death not due to PD will be censored 
+instead of considering that as an event for TTP. 
+5.3.1.2.
+Analysis Methods
+TTP from 2nd randomization will be analyzed in a similar manner as PFS from 2nd randomization 
+described in Section 5.2.2 based on the ITT-m population.
+
+
+--- Page 21 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+20
+Status: Approved,  Date: 16 September 2020
+Competing risk analysis will be performed for TTP as a sensitivity analysis by treating deaths not due 
+to PD as competing events. The treatment effect (hazard ratio) and its 2-sided 95% confidence 
+intervals will be estimated using a proportional sub-distribution hazards model with maintenance 
+treatment as the sole explanatory variable. The stratification factors used in the analysis include type 
+of induction treatment and depth of response to induction/consolidation therapy (Please refer to 
+Table 1 for the stratification factors used for second randomization).
+5.3.2.
+Overall CR or better rate 
+5.3.2.1.
+Definition
+All patients came to maintenance phase had PR or better at post-consolidation by investigator.  
+Overall CR or better rate is defined as the percentage of ITT-m subjects who have achieved CR or 
+better from post-consolidation onward per validated computerized algorithm based on the IMWG 
+criteria. The response of CR or better must be achieved on or prior to the start of subsequent therapies.
+Overall VGPR or better rate is defined as the percentage of ITT-m subjects who achieved the best 
+response of VGPR or better from post-consolidation onward. The VGPR better status is assessed 
+using the computerized algorithm based on the IMWG response criteria and must be achieved on or 
+prior to start of subsequent therapies.
+Further, additional analyses of overall CR or better rate at 1 year and 2 years will be conducted.  
+Overall CR or better rate at 1 year (or 2 years) defines as the percentage of ITT-m subjects who 
+achieved the best response of CR or better from post-consolidation onward to 1 year (or 2 years) after 
+second randomization. The CR or better status is assessed using the computerized algorithm based 
+on the IMWG response criteria and must be achieved on study treatment or on observation and on 
+or prior to start of subsequent therapies with no progressive disease within 1 year (or 2 years) after 
+second randomization.
+5.3.2.2.
+Analysis Methods
+The comparison of the 2 randomized maintenance arms (observation vs. daratumumab) will be made 
+with respect to CR or better rate using the stratified Cochran-Mantel-Haenszel (CMH) chi-square test 
+in the ITT-m analysis set. A Mantel-Haenszel odds ratio, along with its 2-sided 95% confidence 
+interval and the p-value from the CMH test will be reported. Stratification factors used in the analysis 
+include the stratification factors used for the second randomization (Please refer to Table 1 for the 
+stratification factors). 
+CR or better rate at 1 year and 2 years will be analyzed in a similar manner to the analysis of overall 
+CR or better rate as described above
+5.3.3.
+Overall MRD negative rate 
+An assessment of MRD will be conducted using next generation flow cytometry (NGF) and next 
+generation sequencing (NGS) on bone marrow aspirates for all subjects who achieve at least VGPR 
+in maintenance phase. NGS will be performed on subjects with available sample with the clonoSEQ 
+
+
+--- Page 22 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+21
+Status: Approved,  Date: 16 September 2020
+MRD assay to detect malignant plasma cells and will be considered as the primary method of MRD 
+assessment. The clonoSEQ assay and Euroflow based multiparametric flow cytometry assay both 
+have a sensitivity of 1 cancer cell in the background of 100,000 white blood cells (<10-5) or greater
+and will both be utilized in this study to assess MRD.
+5.3.3.1.
+Definition
+Overall MRD negative rate is defined as the proportion of subjects who have achieved negative MRD 
+status from post-consolidation onward. The MRD negativity must be achieved on or prior to the start 
+of subsequent therapies. For analysis purpose, subjects in the ITT-m population without MRD
+assessment will be considered as having positive MRD.
+Additionally, analyses of overall MRD negativity rate at 1 year and 2 years will be performed.  It is
+defined
+as
+the proportion
+of subjects
+who have achieved negative MRD status from 
+post-consolidation onward to 1 year (or 2 years) after second randomization. The MRD negativity 
+must be achieved on study treatment or on observation and on or prior to the start of subsequent 
+therapies and the last MRD assessment within 1 year (or 2 years) after second randomization has to 
+be negative. For analysis purpose, subjects in the ITT-m population without MRD assessment will
+be considered as having positive MRD
+5.3.3.2.
+Analysis Methods
+The MRD negative rate by using threshold of < 10-5 will be analyzed like the analysis of CR or better
+rate as described in Section 5.3.2.2. MRD by flow is used as the primary analysis, while MRD by 
+next generation sequencing (NGS) is used as the sensitivity analysis.
+Overall MRD negativity rate at 1 year and 2 years will be analyzed in a similar manner to the analysis 
+of overall MRD negativity rate as described above.
+A sensitivity analysis of MRD negative rate by using threshold of <10-6will be performed in a similar 
+manner as described above.
+5.3.4.
+MRD Negative CR or Better Rate
+5.3.4.1.
+Definition
+MRD negative CR or better rate is defined as the proportion of subjects who achieved negative MRD 
+(at 10-5 threshold value) and CR or better response per validated computerized algorithm based on 
+the IMWG criteria from post-consolidation onward. The MRD negativity and CR or better response 
+must be achieved on or prior to the start of subsequent therapies. For analysis purpose, subjects in the 
+ITT-m population without MRD assessment will be considered as having positive MRD.
+Further MRD negative CR or better rate at 1 year (or 2 years) defines as the proportion of subjects 
+who achieved negative MRD (at 10-5 threshold value) and CR or better response per validated 
+computerized algorithm based on the IMWG criteria from post-consolidation onward to 1 year (or 2 
+years) after second randomization. The MRD negativity and CR or better response must be achieved 
+
+
+--- Page 23 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+22
+Status: Approved,  Date: 16 September 2020
+on study treatment or on observation and on or prior to the start of subsequent therapies and patient 
+should not have progression disease within 1 year (or 2 years) after second randomization. The last 
+MRD assessment within 1 year (or 2 years) after second randomization has to be negative. For
+analysis purpose, subjects in the ITT-m population without MRD assessment will be considered as
+having positive MRD.
+5.3.4.2.
+Analysis Methods
+The comparison of the MRD negative CR or better rate between the 2 randomized maintenance arms 
+(observation vs. daratumumab) will be made using the stratified CMH chi-square test in the ITT-m
+analysis set. A Mantel-Haenszel odds ratio, along with its 2-sided 95% confidence interval and the 
+p-value from the CMH test will be reported. Stratification factors used in the analysis include the 
+stratification factors used for the second randomization (Please refer to Table 1 for the stratification 
+factors). 
+MRD negative CR or better rate at 1 year and 2 years will be analyzed in a similar manner to the 
+analysis of MRD negative CR or better rate as described above.
+5.3.5.
+Progression-free Survival after next line of therapy (PFS2) from 2nd
+Randomization
+5.3.5.1.
+Definition
+Progression-free survival on next line of therapy (PFS2) from 2nd randomization is defined as:
+
+The time from second randomization to the 2nd progression or death, whichever comes first.
+The 2nd disease progression will be based on investigator judgment.
+
+Any deaths are considered as PFS2 events. 
+
+Subjects, who are alive and with no disease progression, will be censored at the last disease 
+assessment. 
+
+Subjects without any post-second randomization follow-up will be censored at the date of second 
+randomization.
+
+Otherwise, subject will be censored at the minimum of last disease assessment and last date of 
+follow-up.
+Determination of dates of PFS2 from 2nd randomization event and dates for censoring is summarized
+in Table 4 as follows.
+
+
+--- Page 24 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+23
+Status: Approved,  Date: 16 September 2020
+Table 4:
+PFS2 from 2nd Randomization Event and Censoring Method
+Situation
+Date of Progression or Censoring
+Outcome
+No post-second randomization 
+disease assessment 
+Second randomization
+Censored
+Alive and no disease progression
+Date of last disease assessment 
+Censored
+Two disease progressions from two 
+different lines of treatments or death 
+Minimum of earliest date that indicates 
+the 2nd progression and date of death
+PFS2 event
+Other
+Minimum of last disease assessment and 
+last date of follow-up
+Censored
+5.3.5.2.
+Analysis Methods
+PFS2 from 2nd randomization will be analyzed for the ITT-m population. The analysis like PFS from 
+2nd randomization described in Section 5.2.2 will be performed. If the number of PFS2 events is less 
+than 80, non-stratified analyses will be used.
+5.3.6.
+Overall Survival (OS) from 2nd Randomization
+5.3.6.1.
+Definition
+Overall survival from 2nd randomization is measured from the date of second randomization to the 
+date of death due to any cause. Subjects who are lost to follow-up will be censored at the time of lost 
+to follow-up. Subjects who are still alive at the clinical cut-off date for the analysis will be censored 
+at the last known alive date. The date of last known alive will be determined by the maximum 
+collection/assessment date among the selected data domains within the clinical database.
+5.3.6.2.
+Analysis Methods
+OS from 2nd randomization will be analyzed for the ITT-m population. The analysis like PFS from 
+2nd randomization described in Section 5.2.2 will be performed. If the number of deaths is less than 
+80, non-stratified analyses will be used.
+5.4.
+Other Secondary Endpoints in Part 2
+5.4.1.
+Rate of Improved Response During Maintenance
+5.4.1.1.
+Definition
+Rate of improved response during maintenance is defined as the proportion of subjects who have 
+achieved a better category of response as per the validated computerized algorithm based on IMWG 
+criteria during maintenance compared to the response status at the end of consolidation (up to the 
+second randomization). This will be evaluated among the group of subjects who achieved the 
+response of PR, VGPR, and CR at the second randomization. The response has to be assessed on or 
+before the start of the subsequent therapy.
+
+
+--- Page 25 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+24
+Status: Approved,  Date: 16 September 2020
+5.4.1.2.
+Analysis Methods
+The rate of improved response will be analyzed for ITT-m subjects in a similar manner to the analysis 
+of CR or better rate as described in Section 5.3.2.2. Improvement in responses by one, two, and three 
+categories with further clarification on the specific response improvements will also be presented in 
+the summary.
+5.4.2.
+Rate of MRD Negative Conversion During Maintenance
+5.4.2.1.
+Definition
+The rate of MRD negative conversion during maintenance is defined as the percentage of subjects 
+who achieved de novo MRD negative status during maintenance among subjects with MRD positive 
+measurement at Day 100 post-ASCT.
+Subjects with missing MRD measurement at day 100 
+post-ASCT will not be included
+5.4.2.2.
+Analysis Methods
+The rate of MRD negative conversion during maintenance will be analyzed in a similar manner to the 
+analysis of CR or better rate as described in Section 5.3.2.2. 
+5.4.3.
+Rate of MRD Negative CR or Better Conversion During Maintenance
+5.4.3.1.
+Definition
+The rate of MRD negative CR or better conversion during maintenance is defined as the percentage 
+of subjects who achieved de novo MRD negative and CR or better status during maintenance among 
+subjects with post-consolidation response status worse than CR or a positive MRD measurement at 
+Day 100 post-ASCT. Subjects with missing MRD measurement at day 100 post-ASCT will not be 
+included
+5.4.3.2.
+Analysis Methods
+The rate of MRD negative CR or better conversion during maintenance will be analyzed in a similar 
+manner to the analysis of CR or better rate as described in Section 5.3.2.2. 
+5.5.
+Time to Subsequent Antimyeloma Treatment
+5.5.1.1.
+Definition
+Time to subsequent antimyeloma treatment is defined as the time from second randomization to the
+start of subsequent antimyeloma treatment. Death due to PD without start of subsequent therapy
+will be considered as event. Subjects who withdrew consent to study or are lost to follow-up or die
+due to causes other than disease progression will be censored at the date of death or the last date
+known to be alive.
+
+
+--- Page 26 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+25
+Status: Approved,  Date: 16 September 2020
+5.5.1.2.
+Analysis Methods
+The Kaplan-Meier method will be used to estimate the distribution of time to subsequent antimyeloma 
+treatment for the ITT-m population. Median time to subsequent antimyeloma treatment with 95% CI 
+will be tabulated. In addition, a Kaplan-Meier curve for time to subsequent antimyeloma treatment 
+will be plotted. The hazards ratio and its 95% CI will be obtained through a stratified Cox’s regression 
+model with maintenance treatment as the sole explanatory variable. Treatment comparison will be 
+made via a stratified log-rank test. The stratification factors used in the analysis include type of 
+induction treatment and depth of response to induction/consolidation therapy (Please refer to Table 1
+for the stratification factors used for second randomization). 
+5.6.
+Subgroup Analysis of Efficacy Endpoints in Part 2
+For assessment of internal consistency and investigation of homogeneity of the treatment effect across 
+subgroups, a subgroup analysis of the primary and secondary endpoints of PFS, overall CR or better 
+rate, and overall MRD negative rate on pre-specified subgroups defined in Section 2.4 will be 
+conducted. Subgroup analyses will be performed if data warrants such investigation. 
+Forest plots of subgroup analysis of the given endpoints will be generated.  
+6.
+SAFETY
+Key safety analyses will be summarized by the induction-maintenance treatment arms
+(VTd-Observation, VTd-Daratumumab, DVTd-Observation, and DVTd-Daratumumab) and total 
+columns for observation and Dara maintenance for subjects in maintenance-specific safety analysis 
+set in Part 2.
+6.1.
+Adverse Events in Part 2
+Unless otherwise specified, treatment-emergent adverse events are defined as follows:
+Arm A (observation): Any AE with onset date and time on or after the date of second randomization 
+through the day prior to start of subsequent therapy or end of observation date +30 days in the 
+maintenance phase, whichever is earlier.  Adverse events start before second randomization and 
+ongoing at second randomization with an improvement or no change in toxicity will not be considered 
+as a treatment-emergent adverse event in part 2. 
+Arm B (daratumumab): Any AE with onset date and time on or after the date of second randomization
+through 30 days after the last study agent administration; or the day prior to start of subsequent
+therapy, whichever is earlier; or any AE that is considered Dara related on or after second 
+randomization.  Adverse events start before second randomization and ongoing at second 
+randomization with an improvement or no change in toxicity will not be considered as a 
+treatment-emergent adverse event in part 2.
+AEs will be monitored throughout the study. All AEs will be recorded in standard medical 
+terminology and graded according to the National Cancer Institute Common Terminology Criteria 
+
+
+--- Page 27 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+26
+Status: Approved,  Date: 16 September 2020
+for Adverse Events (NCI-CTCAE), most recent version. For AE reporting, the verbatim term used in 
+the eCRF by investigators to identify adverse events will be coded using the latest version of Medical 
+Dictionary for Regulatory Activities (MedDRA) coding dictionary. Unless otherwise specified, at 
+each level of subject summarization in reporting the incidence of the AE, a subject is counted once if 
+one or more events were recorded.  
+Treatment-emergent adverse events will be summarized for induction-maintenance treatment arms in 
+Part 2. An overview of TEAEs reported through the maintenance phase will be provided for each 
+treatment arm. The overview will include summaries of subjects with TEAEs, with TEAEs related to 
+study treatment, with TEAEs of maximum toxicity grade of 1 to 5, SAEs, TEAEs leading to 
+discontinuation of study treatment (Arm B only).
+TEAEs leading to discontinuation of study treatment are summarized for subjects having 
+discontinued the study treatment due to adverse event(s) on the end of treatment CRF page. A 
+summary of number of subjects who discontinued study treatment because of 1 or more TEAEs by 
+MedDRA system-organ class and preferred term will be provided. 
+6.1.1.
+Treatment Emergent Adverse Events
+The following summaries will be provided for all TEAEs: 
+
+An overview of TEAE  
+
+An overview of TEAE by subgroups specified in Section 2.4
+In addition, the following summaries will be generated: 
+
+TEAEs by system organ class (SOC) and preferred term (PT)
+
+Most common (at least 10%) TEAEs by SOC, PT
+
+TEAEs by SOC, PT by subgroups specified in Section 2.4
+
+TEAEs by SOC, PT, and relationship to study drug (Arm B only)
+
+TEAEs by SOC, PT, and worst grade
+
+
+Serious TEAEs by SOC and PT
+
+Most common (at least 0.6%) serious TEAEs by SOC, PT
+
+Serious TEAEs by SOC, PT by subgroups specified in Section 2.4
+
+
+Grade 3/4 TEAEs by SOC and PT
+
+Most common (at least 1%) Grade 3/4 TEAEs by SOC, PT
+
+Grade 3/4 TEAEs by SOC, PT by subgroups specified in Section 2.4
+
+
+--- Page 28 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+27
+Status: Approved,  Date: 16 September 2020
+The following summaries of treatment modifications (only in Arm B) due to TEAEs will be provided: 
+
+Administration delay due to TEAE by PT and grade 3/4.
+
+Infusion skipping due to TEAE by PT and grade 3/4.
+
+Infusion interruption due to TEAE by PT and grade 3/4.
+In addition, the following summaries will be generated: 
+
+Treatment discontinuation (Arm B only) due to TEAEs by PT and grade ≥ 3.
+
+TEAEs with outcome of death by PT and relationship to study medication
+6.1.2.
+Adverse Events of Clinical Interest
+The adverse events of clinical interest would focus on below items (detail would be defined on the 
+DPS or below sections),
+
+Infusion related reactions (IRR)
+
+Infections
+o
+Infections and Infestations 
+o
+Opportunistic infections
+
+Hemorrhage events
+
+Interferences for blood typing
+
+Neutropenia events
+
+Thrombocytopenia events
+
+Second primary malignancies (SPM)
+6.1.2.1
+Infusion-Related Reactions 
+Subjects with any IRR associated with daratumumab administration will be summarized by
+MedDRA system-organ class and preferred term. The summaries will be presented by all grades,
+Grade 3, 4, and 5. In addition, the total number of subjects with IRR in more than 1 infusion will be
+reported. Additionally, the timing of IRR associated with daratumumab administration will be
+evaluated through a summary of IRR by event onset time. IRRs leading to infusion modifications 
+during infusion will be summarized by system-organ class and preferred term. The summaries will 
+be presented by induction treatment arms for the subjects treated with daratumumab maintenance.  A 
+summary of infusion related reaction at first Daratumumab maintenance infusion by infusion volume
+will also be provided.
+
+
+--- Page 29 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+28
+Status: Approved,  Date: 16 September 2020
+A
+listing of subjects with Grade 3 or higher treatment-emergent infusion-related reactions
+associated with daratumumab administration will be provided. In addition, subjects with treatment-
+emergent infusion-related reactions resulting in discontinuation of daratumumab will be listed. 
+6.1.2.2
+Infections
+6.1.2.2.1 Infections/Infestations
+Infections and infestations refer to adverse events with SOC of infections and infestations. A 
+summary of number of subjects with 1 or more toxicity Grade 3 or 4 treatment-emergent infections 
+and infestations by MedDRA preferred term and relationship to treatment will be provided.
+Additional summary analyses may include by onset time (i.e., ≤ 6 months vs. 6-≤ 12 months vs. 12+
+months from the date of second randomization).
+6.1.2.2.2 Opportunistic Infections
+Opportunistic Infections refer to adverse events with PT which would be defined on the DPS. The 
+summaries will be presented by for grades and Grade 3 or 4 for each induction-maintenance treatment 
+arm.
+6.1.2.3
+Neutropenia
+Neutropenia refers to adverse events with PT which would be defined on the DPS. The summaries 
+will be presented for all grades and Grade 3 or 4 for each induction-maintenance treatment arm.
+6.1.2.4
+Thrombocytopenia
+Thrombocytopenia refers to adverse events with PT which would be defined on the DPS. The
+summaries will be presented for all grades and Grade 3 or 4 for each induction-maintenance 
+treatment arm.
+6.1.2.5
+Hemorrhage
+Hemorrhage will be defined by Standardized MedDRA Queries (SMQ) with the first subcategory 
+SMQ of hemorrhage terms (exclude laboratory terms). The summaries will be presented for all 
+grades and Grade 3 or 4 for each induction-maintenance treatment arm.
+6.1.2.6
+Peripheral neuropathies
+Peripheral neuropathies (PNs) refer to adverse events with high level term (HLT) of peripheral 
+neuropathies NEC. Incidences of PNs will be summarized by MedDRA high level term and preferred 
+term. 
+The
+summaries will be presented
+for
+all grades and grade
+3 or
+4 for
+each 
+induction-maintenance treatment arm.
+6.1.2.7
+Second Primary Malignancy
+SPM data is collected from both the AE form and the SPM form. A listing of second primary 
+malignancy (SPM) will be provided.  Second primary malignancies will be clinically reviewed and 
+
+
+--- Page 30 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+29
+Status: Approved,  Date: 16 September 2020
+categorized as cutaneous/non-invasive, non-cutaneous/invasive or hematologic malignancies, which 
+will be summarized accordingly.
+6.2.
+Deaths in Part 2
+The total number of subjects who died during the maintenance phase will be tabulated by induction-
+maintenance treatment arm. The number of subjects who died within 30 days of end of treatment
+(Arm A) or within 30 days of last dose of study maintenance treatment (Arm B) will be summarized 
+for the Part 2 maintenance-specific safety subjects. The primary cause of death collected on eCRF 
+page will also be summarized. If the primary cause of death reported is AE, the number of subjects 
+who died due to at least one reasonably study drug related AE will be further reported. 
+A listing of subjects who died after second randomization during maintenance phase will be provided. 
+6.3.
+Vital Signs
+Vital signs including temperature (oC), systolic and diastolic blood pressure (mmHg) and pulse (beats 
+per minute [bpm]) values will be descriptively summarized (mean, standard deviation, median, 
+minimum and maximum) at each scheduled time point by induction-maintenance treatment arms 
+using maintenance-specific safety set.
+6.4.
+Clinical Laboratory Tests
+Treatment-emergent worst toxicity grade (NCI-CTAE version 4.03) during maintenance treatment
+phase, defined as the worst toxicity grade observed for any laboratory parameter assessed on or after 
+the second randomization, will be tabulated for applicable laboratory parameters for maintenance-
+specific safety subjects for Part 2. Descriptive statistics for values and changes from pre-maintenance 
+baseline for these laboratory parameters will be provided. In addition, shifts from pre-maintenance 
+baseline toxicity grade to worst toxicity grade during maintenance treatment phase will be generated. 
+6.5.
+Other Safety Parameters
+6.5.1.
+ECOG Performance Status
+Frequencies of ECOG performance status (0, >=1) over time during the maintenance treatment phase 
+will be summarized for maintenance-specific safety subjects for Part 2. In addition, shift from pre-
+maintenance baseline to worst score during maintenance treatment phase will be provided. 
+7.
+PHARMACOKINETICS/IMMUNOGENICITY/PHARMACODYNAMICS
+Samples to assess the generation of antibodies to daratumumab (immunogenicity) and concentration 
+of daratumumab will be obtained from subjects according to the Time and Events Schedule in the 
+protocol.
+7.1.1.
+Sampling Timepoints
+For subjects receiving daratumumab treatment, the daratumumab immunogenicity and concentration 
+data for Part 2 analysis will be collected at the pre-dose of Week 1 and Week 52 of maintenance 
+
+
+--- Page 31 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+30
+Status: Approved,  Date: 16 September 2020
+treatment, and 8 weeks post last dose of Daratumumab and will be summarized using descriptive 
+statistics.
+7.1.2.
+Analysis Methods
+The incidence
+of anti-daratumumab antibodies
+will be summarized by
+daratumumab 
+induction/consolidation and maintenance treatments among immune response-evaluable analysis set 
+in the maintenance subjects.
+Concentration of daratumumab in serum will be summarized by daratumumab induction/
+consolidation and maintenance treatments using pharmacokinetic-evaluable analysis set in the 
+maintenance subjects. The summary will be descriptive including the mean, SD, coefficient of 
+variation, median, range and geometric mean, at each assessment visit during the maintenance phase.
+8.
+BIOMARKER
+Biomarker studies are designed to identify markers predictive of response (or resistance) to 
+daratumumab. Planned analyses are based on the availability of clinically valid assays and may be 
+deferred if emerging study data show no likelihood of providing useful scientific information. Results 
+of biomarker analyses may be presented in a separate report.
+Blood samples will be drawn from all subjects to better understand the mechanism of action and
+mechanism of resistance of daratumumab and summarized as applicable.
+8.1.
+Minimal Residual Disease (MRD)
+An assessment of MRD will be conducted using NGS and multiparametric flow cytometry on bone 
+marrow aspirates for all subjects who achieve at least VGPR in maintenance phase.
+8.1.1.
+Sampling Timepoints
+In Part 2, bone marrow aspirates will be analyzed by EuroFlow based multiparametric flow cytometry 
+assay and NGS for MRD on Week 25, 52 and 105.
+8.1.2.
+Analysis Methods
+Details on MRD negativity rate analyses are described in Section 5.3.3.2. 
+9.
+PATIENT REPORTED OUTCOMES (PRO)
+It is anticipated that daratumumab will provide benefits in terms of symptom reduction, improved 
+functioning, and improved utilities. To measure functional status, well-being, and symptoms, the 
+EORTC QLQ-C30 and the EQ-5D-5L instruments will be used. Both questionnaires will be 
+completed at the timepoints outlined in the Time and Events Schedule given in the protocol before 
+any other study procedures scheduled for the same day.
+
+
+--- Page 32 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+31
+Status: Approved,  Date: 16 September 2020
+9.1.1.
+PRO Instruments
+The EORTC QLQ-C30 includes 30 items resulting in 5 functional scales (physical, role, emotional, 
+cognitive, and social), 1 Global Health Status (GHS) scale, 3 symptom scales (fatigue, 
+nausea/vomiting, and pain), and 6 single items (dyspnea, insomnia, appetite loss, constipation, 
+diarrhea, and financial difficulties). The instrument contains 28 items using a Likert scale with 4 
+response options: “Not at All,” “A Little,” “Quite a Bit,” and “Very Much” (scored 1 to 4). Two 
+additional items use response options (1 to 7): 1 = Very Poor, to 7 = Excellent. All scale and item 
+scores will be linearly transformed to be in the range from 0 to 100 according to the algorithm in 
+EORTC QLQ-C30 scoring manual, version 3.0 (Fayers et al, 2001). A higher score represents a 
+higher ("better") HRQoL, higher (“better”) level of functioning, or a higher ("worse") level of 
+symptoms.
+The EQ-5D-5L is a 5-item questionnaire that assesses 5 domains including mobility, self-care, usual 
+activities, pain/discomfort and anxiety/depression plus a visual analog scale (VAS) rating “health 
+today” with anchors ranging from 0 (worst imaginable health state) to 100 (best imaginable health 
+state). The scores for the 5 dimensions are used to compute a single utility score ranging from 0 to 1 
+representing the general health status of the individual (but scoring by the UK algorithm allows for 
+value less than 0).
+The PRO includes the following:
+
+Summary Scores
+o
+EORTC-QLQ-C30 functional scales (physical, role, emotional, cognitive, social), 
+global health status (GHS) scale, symptom scales (pain, fatigue, nausea/vomiting)
+o
+EQ-5D-5L utility score
+
+Single Item Scores
+o
+EORTC QLQ-C30 single symptom items 
+o
+EQ-5D-5L visual analog scale (VAS) 
+9.1.2.
+Analysis Methods
+Compliance rates for completion of EORTC QLQ-C30 and EQ-5D-5L at each time point during the 
+maintenance phase will be generated based on the actual number of subjects received PRO 
+assessments over the number of expected.
+EORTC QLQ-C30 domain scores (functional scales, GHS, symptom scales), and single symptom 
+items will be descriptively summarized at each time point for ITT-m analysis set by maintenance 
+treatment arms. Descriptive statistics will also be provided for change from pre-maintenance baseline 
+in GHS score by the MRD negativity status.
+EQ-5D-5L utility score and VAS will be descriptively summarized at each time point for ITT-m 
+analysis set by maintenance treatment arms.
+
+
+--- Page 33 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+32
+Status: Approved,  Date: 16 September 2020
+A repeated measures mixed effects model analysis will be conducted estimating change from baseline 
+(pre-maintenance) at each time point between two maintenance arms. ITT-m subjects who have a 
+baseline value, last PRO assessment before second randomization, and at least one value from the 
+maintenance phase are included in the analysis. Change from baseline will be fitted to a mixed effects 
+model including subjects as a random effect, and baseline value, treatment group, time in month, 
+treatment-by-time interaction, and stratification factors as fixed effects.
+A distribution-based method will be used to define improvement/worsening in scores, i.e.,
+half SD away from the mean score at baseline (pre-maintenance) combining both treatment groups.
+Time to improvement will be summarized by using descriptive statistics such as mean, standard 
+deviation (SD), median and range. Time to worsening will be estimated using Kaplan-Meier methods. 
+The hazard ratio for Daratumumab relative to observation group and its associated 95% confidence 
+interval (CI) will be calculated based on the stratified Cox proportional hazards model by the 
+stratification factor at second randomization. Death due to disease progression will be considered as 
+worsening. Subjects who have not met the definition of worsening will be censored at the last PRO 
+assessment. Subjects without pre-maintenance baseline assessment or post pre-maintenance baseline 
+assessment will be censored at date of second randomization.
+
+
+--- Page 34 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+33
+Status: Approved,  Date: 16 September 2020
+REFERENCES
+Rajkumar SV, Harousseau J-L, Durie B, et al. Consensus recommendations for the uniform reporting of clinical trials: 
+report of the International Myeloma Workshop Consensus Panel 1. Blood. 2011; 4691-4695.
+Durie BG, Harousseau JL, Miguel JS, et al. International uniform response criteria for multiple myeloma. Leukemia 
+2006; 20:1467–1473. Corrigenda/Erratum in: Leukemia. 2007; 21: 1134-1135.
+Tang DI, Geller NL. Closed testing procedures for group sequential clinical trials with multiple endpoints. Biometrics. 
+1999;55(4):1188-1192
+
+
+--- Page 35 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+34
+Status: Approved,  Date: 16 September 2020
+ATTACHMENT 1:
+PD AND RESPONSE ALGORITHM
+PD and Response Algorithm
+54767414MMY3006
+The issues addressed by the program are: 
+1. Whether or not the disease progressed and date* of progression 
+2. The date* of censoring for subjects whose disease never progressed
+3. Reason(s) for PD
+4. The date* and category of best and first response
+5. Duration of response
+* Day post-randomization for randomized subjects.  
+1
+Determination of PD and Relapse from CR
+1.1
+IMWG Criteria 
+1.1.1 Progressive Disease
+PD is to be used for calculation of time to disease progression and progression-free survival 
+for all subjects including those experiencing CR.
+PD is defined as satisfying any one of the criteria listed below. These are identical to the 
+IMWG criteria as described in the protocol. Further explanations (noted in superscript) 
+pertaining to particular PD criteria are provided in Section 1.2, Clarifications and 
+Modifications. 
+a.
+Increase (1.2.2) of ≥25% in the level of serum M-protein and absolute increase (1.2.2)
+must be ≥0.5 g/dL (5 g/L) (1.2.3; 1.2.4).
+b. Increase (1.2.2, 1.2.18) of ≥25% in the 24-hour urinary light chain excretion (urine M-
+protein) and absolute increase (1.2.2) must be ≥200 mg/24 hours (1.2.3).
+c.
+Only in subjects without measurable serum and urine M-protein levels:  increase 
+(1.2.2) of ≥25% in the difference between involved and uninvolved FLC levels (1.2.20)
+and absolute increase (1.2.2) must be >10 mg/dL (1.2.3).
+d. Only in subjects without measurable serum and urine M-protein levels and without 
+measurable disease by FLC levels: increase (1.2.2) of ≥25% in the level of bone 
+marrow plasma cells percentage and absolute increase (1.2.2) must be ≥10% (1.2.3).
+e.
+Definite increase (1.2.8) in the size of existing bone lesions (1.2.9) or soft tissue 
+plasmacytomas (1.2.9; 1.2.10).
+f.
+Definite development of new bone lesions (1.2.11) or soft tissue plasmacytomas (1.2.12, 
+1.2.13).
+
+
+--- Page 36 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+35
+Status: Approved,  Date: 16 September 2020
+g. Development of hypercalcemia (1.2.14; 1.2.15; 1.2.16) (corrected serum calcium >2.875 
+mmol/L or >11.5 mg/dL) that can be attributed solely to the PC proliferative 
+disorder.
+1.1.2 Relapse from CR 
+Relapse from CR is to be used for calculation of disease-free survival for subjects 
+experiencing CR.
+Relapse from CR is defined as satisfying any one of the criteria listed below (a, b, or c). These 
+are identical to the IMWG criteria as described in the protocols. Further explanations (noted 
+in superscript) pertaining to particular relapse from CR criteria are provided in Section 1.2, 
+Clarifications and Modifications. 
+a.
+Reappearance of serum or urinary M-protein by immunofixation or 
+electrophoresis (1.2.3; 1.2.7).
+b. Development of 5% plasma cells in the bone marrow.
+c.
+Appearance of any other sign of progression (i.e., new plasmacytomas, lytic bone 
+lesion if the lesion is marked ‘relationship with the disease’, or hypercalcemia)
+(1.2.11; 1.2.12; 1.2.13; 1.2.14; 1.2.15).
+1.2
+Clarifications and Modifications
+In order to allow these rules to be applied consistently and to be programmed, the Sponsor 
+has added certain clarifications and modifications for using the IMWG criteria. 
+1.2.1
+Measurable disease is defined in the protocol by at least one of the following 
+measurement: (1) serum M-protein ≥ 1g/dL (≥ 10 g/L) or ≥ 0.5 g/dL (≥ 5 g/L) for subjects 
+with IgA, IgD, IgE or IgM multiple myeloma; (2) urine M-protein ≥ 200 mg/24h; (3) serum 
+FLC assay: involved FLC level ≥ 10 mg/dL (≥ 100 mg/L) provided serum FLC ratio is 
+abnormal.
+1.2.2
+The reference point for calculating increase and % of increase for M-protein, FLC and 
+bone marrow plasma cells will be the lowest response value and the “lowest response value” 
+does not need to be a confirmed value. 
+1.2.3
+Requires 2 consecutive (i.e., no intermediate values that do not meet the definition of 
+PD) assessments made at any time before the institution of any new therapy (i.e., subsequent 
+anti-cancer therapy). If a subject has an unconfirmed PD followed by death due to PD within 
+30 days of unconfirmed PD, or PD (the same parameter as of initial observed PD) observed 
+within 4 weeks after start of subsequent anti-cancer therapy, the unconfirmed PD will be 
+considered as PD.  
+1.2.4
+If nadir serum M-protein is ≥ 50g/L (≥5 g/dL), M-protein increases of ≥ 10g/L (1g/dL) 
+is sufficient for progressive disease. It does not require meeting “increase of ≥ 25% in the 
+level of serum M-protein”. 
+
+
+--- Page 37 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+36
+Status: Approved,  Date: 16 September 2020
+1.2.5
+Any 2 consecutive increase of serum M-protein ≥5 g/L (≥0.5 g/dL) is consistent with 
+progressive disease, assuming that increase of ≥25% is met or not applicable, even if the serum 
+M-protein level is below measurable disease threshold.
+1.2.6
+The baseline value for assessing disease progression is the last pretreatment 
+measurement (it applies to SPEP, UPEP, FLC, plasmacytomas and bone lesions except as
+noticed in Section 1.2.10).  For example, if there is a screening value and a Cycle 1 Day 1 
+value (prior to start of treatment) for M-protein, the program ignores the screening value and 
+uses Cycle 1 Day 1 as the reference point for assessing PD for the first post-treatment results.
+1.2.7
+The program disregards serum M-protein and urine paraprotein measurements prior 
+to Day 5 after dosing.  These tests are considered too soon after dosing to be regarded as 
+legitimate on-treatment values. 
+1.2.8
+The program computes the date of progression as the earliest date of any of the tests 
+listed in Section 1.1.1 (a, b, e, f or g for subjects with measurable serum or/and urine M-
+protein; or a, b, c, e, f or g for subjects without measurable serum and urine M-protein) that 
+indicate PD. Similarity, the program computes the date of relapse from CR as the earliest date 
+of any of the tests listed in Section 1.1.2 (a, b, or c) that indicate relapse from CR. 
+1.2.9
+For PD due to bone lesions, the algorithm will rely on information collected on the 
+eCRF regarding skeletal survey (i.e., increase in the size of lytic bone lesions or increase in 
+the total number of lytic bone lesions if the lesion is marked ‘relationship with the disease’) 
+and other radiology reports. At any time, study sites may report progressive disease based on 
+an increase in the size or number of lytic bone lesions if the lesion is marked ‘relationship 
+with the disease’.  The algorithm accepts this determination as definitive.
+1.2.10 Plasmacytomas/bone lesions that are first reported during the first week on study are 
+treated as baseline plasmacytomas/bone lesions. The rationale for this rule is that 
+plasmacytomas/bone lesions take time to develop, so anything reported within 1 week of first 
+dose almost certainly existed before the start of study drug.  In the case that no pre-treatment 
+value for plasmacytomas/bone lesion is available, the first post-treatment value is used as 
+baseline.  
+1.2.11 For plasmacytomas, the Sponsor has defined “definite increase in size” as an increase 
+of over 50% in the sum of the products of the two longest perpendicular diameters when 
+available, using the smallest previous product as the reference point.
+1.2.12 New post-baseline bone lesions are evidence of PD. If no baseline bone lesions are 
+available, then any subsequent data that report a bone lesion will be considered as 
+development of new bone lesions.
+1.2.13 New post-baseline plasmacytomas are evidence of PD, even if the measurements are 
+not available.  If no baseline plasmacytoma data are available, then any subsequent data that 
+
+
+--- Page 38 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+37
+Status: Approved,  Date: 16 September 2020
+report a plasmacytoma will be considered as a “new” plasmacytoma and will be considered 
+as evidence of PD.
+1.2.14 Hypercalcemia will be based on corrected calcium values as long as they are available 
+(i.e., corrected calcium values are collected or serum calcium and albumin are collected).  If 
+corrected calcium values are not available, free-ionized calcium values will be used if they 
+are available.  Hypercalcemia based on free-ionized calcium will be defined as >1.5 mmol/L.
+1.2.15 For subjects who have hypercalcemia at baseline, the program will never assess PD 
+due to “development of hypercalcemia”.  A subject is considered to have hypercalcemia at 
+baseline if he or she meets one of the following criteria:
+a.
+For subjects with corrected calcium values, any corrected calcium value >ULN 
+which occurs on or before Day 4 (relative to first dose).
+Note: if subject had central and local assessments done on the same day, the central 
+record takes precedence.
+b.
+For subjects without corrected calcium values in all visits, but with free-
+ionized calcium values on or before Day 4, any free-ionized calcium value 
+>ULN which occurs on or before Day 4 (relative to first dose).  
+1.2.16 For subjects with normal calcium at baseline, if the first PD criteria met is a post-
+baseline hypercalcemic value, then the following programming algorithm will be applied:
+a. The program will first search for evidence of progression in other parameters 
+within the following 112 days. If PD is determined in other parameters within 
+the following 112 days, then the subject is assessed as PD.  The date of PD is the 
+date of the initial hypercalcemic value and hypercalcemia is indicated as the 
+reason or one of the reasons for PD.   
+b. If PD is not determined in other parameters within 112 days, the program will 
+search for the next available corrected calcium/free-ionized calcium value.  If 
+the second value also meets the criteria for hypercalcemia, the subject is assessed 
+as PD.  The date of PD is the date of the initial hypercalcemic value and 
+hypercalcemia is indicated as the reason or one of the reasons for PD.
+c. If there is no more follow-up calcium value, then the subject is assessed as PD.
+d. Any PD identified through a), b) or c) will be flagged and reviewed by clinical 
+to ensure that hypercalcemia can be attributed solely to the plasma cell 
+proliferative disorder. Hypercalcemia due to other reasons will not be considered 
+as PD in the algorithm.
+1.2.17 Descriptive (or non-numeric) results from bone marrow aspirate or bone marrow 
+biopsy will be given a numeric interpretation based on the following conventions: 
+a.
+Percentage plasma cells reported as a range on the CRF page will be assigned the mean 
+value (i.e., lower range plus upper range divide by 2) that will be analyzed by the 
+
+
+--- Page 39 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+38
+Status: Approved,  Date: 16 September 2020
+programming algorithm (e.g., an amount reported as 10-15% would be interpreted as 
+12.5%).
+b. Percent plasma cells reported as <x% will be interpreted as (x-1)% and percent plasma 
+cells reported as >x% will be interpreted as x%.
+c.
+Other conventions include:
+Reported as:
+Interpreted as:
+“Not significantly present”
+4%
+“Sheets of plasma cells not seen”
+4%
+1.2.18 Imputation of UPEP and SPEP values: If the serum immunofixation result is “Not 
+Detected” and the SPEP value is missing or not done, then SPEP value is treated as 0.  If the 
+urine immunofixation is “Not Detected” and the UPEP is missing or not done, then UPEP 
+value is treated as 0.
+1.2.19 a. Spurious UPEP values are not used in the determination.  Determination of a 
+spurious value is as follows:  If at least 4 values exist in the neighborhood (+/- 178 days) of 
+the value of interest, the mean and standard deviation of the values is computed (not including 
+the value of interest in the calculation).  The value of interest is compared to the mean +/- 3 
+standard deviations.  If the value < mean-3*standard deviation or the value > 
+mean+3*standard deviation then the value is considered spurious.  The last two values 
+available for a particular subject are never considered as spurious.  The baseline value for a 
+subject is also never considered as spurious.
+b. If the first PD criteria met is two consecutive UPEP values and subject has started 
+subsequent anticancer therapy, this subject is assessed as PD and date of PD is the date of 
+first UPEP assessment. Otherwise, if the first PD criteria met is two consecutive UPEP 
+values and subject has not started subsequent anticancer therapy, then the following 
+programming algorithm will be applied:
+1) The program will first search for evidence of progression in other parameters 
+within the following 178 days.  If PD is determined in other parameters within the 
+following 178 days, then the subject is assessed as PD.  The date of PD is the date 
+of the initial UPEP value.
+2) If PD is not determined in other parameters within 178 days and no more UPEP 
+values are available, then the subject is assessed as PD due to UPEP.
+3)  Otherwise, the third UPEP value is considered.  If the third value meets the criteria 
+for PD, the subject is assessed as PD due to UPEP.  If the third value does not meet 
+the criteria for PD, but other parameters indicate PD within the next 178 days, the 
+subject is assessed as PD due to UPEP at the time of the initial UPEP value.
+4) Otherwise, the fourth UPEP value is considered.  If the fourth value meets the 
+criteria for PD, the subject is assessed as PD due to UPEP.  If the fourth value does 
+not meet the criteria for PD, the subject is not assessed as PD due to UPEP.  If no 
+fourth UPEP value is available, the subject is not assessed as PD. 
+
+
+--- Page 40 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+39
+Status: Approved,  Date: 16 September 2020
+1.2.20 Difference between involved and uninvolved FLC level is defined as absolute value 
+of kappa FLC level minus lambda FLC level in the serum.
+1.2.21 Development of plasma cell leukemia is considered as disease progression. The date 
+of PD is the date of event onset.
+
+
+--- Page 41 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+40
+Status: Approved,  Date: 16 September 2020
+2
+Determination of Date of Censoring and Reason for PD
+The date of last post-baseline efficacy measure is used as the censoring date for all subjects 
+without progressive disease. Subjects that have no post-baseline efficacy data are censored at 
+the date of randomization for randomized subjects.    
+The reason(s) for PD is defined as the initial reason(s) that caused the program to indicate PD 
+as well as any other criteria that were met by the time of confirmation of PD.  Indicator 
+variables for each reason (SPEP, UPEP, FLC, bone marrow, bone lesion [increase in number, 
+increase in size], extramedullary plasmacytoma [new extramedullary plasmacytoma, increase
+in size], hypercalcemia and plasma cell leukemia) are created.
+3
+Determination of Response Category and Duration of Response
+3.1
+IMWG Criteria
+According to IMWG criteria, response categories include complete response (CR), stringent 
+complete response (sCR), very good partial response (VGPR), partial response (PR), stable 
+disease (SD), and progressive disease (PD) (defined in Section 1).  Although minimal 
+response (MR) is not officially a response category in the IMWG criteria, consensus 
+recommendations state that for subjects with relapsed and /or refractory myeloma, MR should 
+be reported separately in clinical trials. Categories of sCR, CR, VGPR, PR, and SD are 
+determined using the IMWG criteria and MR adopted from the EBMT criteria for subjects 
+with relapsed refractory myeloma as outlined below.
+Further explanations (noted in superscript) pertaining to particular response criteria are 
+provided in Section 3.2, Clarifications and Modifications.  The definition for duration of 
+response is also covered in Section 3.2.18.
+3.1.1
+Definition of CR
+Requires all of the following:
+a.
+Negative immunofixation of serum and urine (3.2.4; 3.2.5; 3.2.6; 3.2.19).
+b. Disappearance of any soft tissue plasmacytomas.
+c.
+<5% plasma cells in the bone marrow (3.2.7).
+3.1.2
+Definition of sCR
+Requires all of the following:
+a.
+CR as defined above.
+b. Normal FLC ratio (3.2.5, 3.2.8).
+c.
+Absence of clonal bone marrow plasma cell (PCs)(3.2.21) by 2- to 4-color flow 
+cytometry.
+3.1.3
+Definition of VGPR
+
+
+--- Page 42 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+41
+Status: Approved,  Date: 16 September 2020
+Requires any of the following:
+a.
+Serum and urine M-component detectable by immunofixation but not on 
+electrophoresis (3.2.5; 3.2.11;3.2.12), or
+b. ≥90% reduction (3.2.10) in serum M-protein plus urine M-protein <100 mg/24 hours 
+(3.2.5; 3.2.11)
+c.
+If the serum and urine M-protein are not measurable, a reduction (3.2.10) of >90% 
+in the difference between involved and uninvolved FLC levels (3.2.5; 3.2.13) is 
+required.
+d. In addition to the above criteria, if present at baseline, ≥50% reduction (3.2.10) in 
+the size of soft tissue plasmacytomas is also required.
+3.1.4
+Definition of PR 
+Requires all of the following:
+a.
+50% reduction (3.2.10) of serum M-protein (3.2.5) and reduction (3.2.10) in 24-hour 
+urinary M-protein by 90% or to <200 mg/24 hours (3.2.5).
+b. If the serum and urine M-protein are not measurable, a reduction (3.2.10) of ≥50% in 
+the difference between involved and uninvolved FLC levels (3.2.5; 3.2.13) is required.
+c.
+In addition to the above criteria, if present at baseline, ≥50% reduction (3.2.10) in the 
+size of soft tissue plasmacytomas is also required.
+3.1.5
+Definition of SD
+Not meeting the criteria for sCR, CR, VGPR, PR, or PD.
+3.2
+Clarifications and Modifications
+As was the case with PD, developing a program to assess response requires adding certain 
+clarifications, minor modifications and additions to the IMWG criteria.
+3.2.1
+Only subjects with measurable disease at baseline are eligible for assessment of 
+response (i.e., considered in the response-evaluable population).  Measurable disease is 
+defined in Section 1.2.1; only legitimated on treatment serum M-protein and urine paraprotein 
+measurements are used for assessment of response. The legitimated on treatment 
+measurements is defined in Section 1.2.6.
+3.2.2
+CR, sCR, VGPR, PR, MR and SD response categories require no known evidence of 
+progressive or new bone lesions if radiographic studies were performed. Once the program 
+has determined PD for a subject, no subsequent response assessments are performed.  For 
+example, a subject who progresses at week 6 cannot have a first response or best response that 
+starts after week 6.
+
+
+--- Page 43 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+42
+Status: Approved,  Date: 16 September 2020
+3.2.3
+Subjects with measurable disease (defined in Section 1.2.1) in serum (SPEP) and urine 
+(UPEP) need to be followed by both SPEP and UPEP for response assessment and 
+categorization; Except for assessment of CR or better, subjects with measurable disease 
+restricted to the SPEP will need to be followed only by SPEP (i.e., urine M-protein need not 
+show a reduction, but the available urine M-protein values must not meet the criteria for PD); 
+correspondingly, subjects with measurable disease restricted to the UPEP will need to be 
+followed only UPEP (i.e., serum M-protein need not show a reduction, but the available serum 
+M-protein values must not meet the criteria for PD). For example, a subject who has baseline 
+values of 0.1 g/dL of IgG M-protein and 300 mg/24 hrs. of urine paraprotein and who 
+subsequently maintains values of 0.1 g/dL and 120 mg/24 hrs. will be regarded as achieving 
+a PR; Subjects with measurable disease in either SPEP or UPEP or both will be assessed for 
+response only based on these two tests and not by the FLC assay. 
+3.2.4
+To be considered CR, both serum and urine immunofixation must be carried out and 
+be negative regardless of the size of baseline M-protein in the serum or urine; subjects with 
+negative UPEP values pretreatment still require UPEP testing to confirm CR.
+3.2.5
+Requires 2 consecutive (i.e., no intermediate values that do not meet the definition of 
+response) assessments made at any time before the institution of any new therapy (i.e., 
+subsequent anti-cancer therapy).
+3.2.6
+For coding CR in subjects in whom the only measurable disease is by serum FLC 
+levels: it requires a normal FLC ratio (Kappa/Lambda) in addition to CR criteria. However, a 
+normal FLC ratio is not required if the involved FLC level decrease to below detectable level 
+(Kappa<0.5 mg/L; or lambda<0.6 mg/L). The default reference range of 0.26 to 1.65 will be 
+used to determine normal FLC ratio, if the reference range from central/local laboratory is not 
+available.
+3.2.7
+If all criteria for confirmed CR were met, except that bone marrow aspirate and biopsy 
+were not performed, and baseline bone marrow evaluation showed <5% plasma cells, then the 
+algorithm accepts this as a CR.  If both bone marrow aspirate and bone marrow biopsy 
+were 
+performed at baseline, then both values must have <5% plasma cells for the rule to be 
+applied.  For subjects without measurable disease at baseline or subjects whose baseline bone 
+marrow plasma cells percentage is >5%, bone marrow confirmation is required for CR 
+response. 
+3.2.8
+Normal FLC ratio is required for all subjects regardless of whether disease at baseline 
+was measurable on serum, urine, both or neither. However, a normal FLC ratio is not required 
+if the involved FLC level decrease to below detectable level (Kappa<0.5 mg/L; or lambda<0.6 
+mg/L). The default reference range of 0.26 to 1.65 will be used to determine normal FLC ratio 
+(Kappa/Lambda), if the reference range from central/local laboratory is not available.
+
+
+--- Page 44 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+43
+Status: Approved,  Date: 16 September 2020
+3.2.9
+Presence/absence of clonal cells is based upon the kappa/lambda ratio. An abnormal 
+kappa/lambda ratio by immunohistochemistry or immunofluorescence requires a minimum of 
+100 plasma cells for analysis. An abnormal ratio reflecting presence of an abnormal clone is 
+kappa/lambda of >4:1 or <1:2.
+3.2.10 Reductions are based on changes from baseline.
+3.2.11 VGPR categories require serum and urine studies regardless of whether disease at 
+baseline was measurable on serum, urine, both or neither. For coding VGPR in subjects in 
+whom the only measurable disease is by SPEP, it is not required that UPEP value must meet 
+VGPR criteria, but UPEP test must be performed and not meeting PD criteria whenever SPEP 
+meet VGPR criteria; correspondingly, for coding VGPR in subjects with measurable disease 
+restricted to the UPEP, it is not required that SPEP value must meet VGPR criteria, but SPEP 
+test must be performed and not meeting PD criteria whenever UPEP meet VGPR criteria.
+3.2.12 Serum and urine M-protein via SPEP and UPEP must be reported as 0, not detected, 
+or below level of quantification and positive serum or urine immunofixation.
+3.2.13 Difference between involved and uninvolved FLC level is defined as absolute value 
+of kappa FLC level minus lambda FLC level in the serum.
+3.2.14 Skeletal survey is not required for assessment of response unless clinically indicated.  
+However, if skeletal survey is performed, there should be no indication of disease progression 
+before confirmation of response.
+3.2.15 The date of first/best response is the earliest date that all available and required 
+response criteria are met.  The date of serum immunofixation response is the initial date of 
+response, not the date of confirmation.  The date of urine immunofixation response is the 
+initial date of response, not the date of confirmation.  The latest date of response (date at which 
+all criteria were met) among all the relevant response criteria will also be stored in the analysis 
+dataset.
+3.2.16 Duration of response (DOR) applies to subjects achieving at least PR by IMWG 
+criteria and is measured from start of achieving PR (first observation of PR before 
+confirmation) to the time of disease progression, with deaths owing to causes other than 
+progression not counted but censored. DOR is derived as (date of PD or date of censoring –
+date of first response + 1).
+3.2.18 Occasionally, the results of the urine immunofixation and UPEP may conflict.  If the 
+urine IFE is negative and the UPEP has any value less than 200 mg/24 hrs., the UPEP is 
+disregarded and the urine results are treated as satisfying the requirement for a CR.  Similarly, 
+if serum IFE becomes and remains negative, appearance of low level of paraprotein (0.5 g/dL 
+or 5 g/L) in SPEP will be disregarded.
+3.2.19 A DIRA result of NEGATIVE is treated as equivalent to a negative immunofixation 
+of serum (SIFE) if it is associated with (IGG, Kappa). If SIFE is not done at the visit of DIRA 
+result of NEGATIVE, then the baseline SIFE needs to be (IGG, Kappa) to be treated as 
+
+
+--- Page 45 ---
+JNJ54767414  (daratumumab)
+Statistical Analysis Plan 54767414MMY3006 (Part 2)
+CONFIDENTIAL – FOIA Exemptions Apply in U.S.
+44
+Status: Approved,  Date: 16 September 2020
+equivalent to a negative SIFE. If there is no repeat of the DIRA test, we consider a single 
+DIRA test as equivalent of two consecutive immunofixation of serum tests if that indicates a 
+CR. 
+3.2.20 Subjects with at least one post-baseline disease assessment corresponding to the type 
+of measurable disease at baseline and also not falling into any response category or 
+progressive disease are assigned as response category- stable disease (SD).
+3.2.21 Refers to <10-3 residual clonal plasma cells.
+4
+REFERENCES 
+1. BGM Durie et al. International uniform response criteria for multiple myeloma. Leukemia 
+2006
+2. Rajkumar et al. Consensus recommendations for the uniform reporting of clinical trials: report 
+of the International Myeloma Workshop Consensus Panel 1. Blood 2011

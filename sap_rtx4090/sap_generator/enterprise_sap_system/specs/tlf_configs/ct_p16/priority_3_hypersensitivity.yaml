@@ -1,0 +1,564 @@
+# CT-P16 Priority 3 Hypersensitivity Monitoring TLF Shells
+# ========================================================
+# Infusion-Related Monitoring (Vital Signs and ECG)
+# Per SAP Sections 10.4, 10.5: ECG and Hypersensitivity Monitoring
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 3
+  category: "Hypersensitivity Monitoring"
+  sap_sections: ["10.4", "10.5"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# HYPERSENSITIVITY MONITORING TABLES
+# =============================================================================
+# Per SAP Section 10.5:
+# "The number and percentage of patients who have a clinically notable vital
+# sign hypersensitivity result will be presented by treatment group, visit,
+# time point and parameter."
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.8.1: Hypersensitivity Vital Signs Monitoring
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.1"
+    title: "Summary of Vital Signs During Infusion - Hypersensitivity Monitoring (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Timepoint\nParameter"
+        width: 2.5
+        alignment: L
+        source_variable: "ADVS.ATPT / PARAM"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADVS"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADVS.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx, xx"
+        source_variable: "ADVS.AVAL"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADVS"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADVS.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx, xx"
+        source_variable: "ADVS.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Pre-Infusion"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Systolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Diastolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Pulse Rate (bpm)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Temperature (°C)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Respiratory Rate (breaths/min)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Oxygen Saturation (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "End of Infusion"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Systolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Diastolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Pulse Rate (bpm)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Temperature (°C)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Respiratory Rate (breaths/min)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Oxygen Saturation (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "60 Minutes Post-Infusion"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Systolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Diastolic BP (mmHg)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Pulse Rate (bpm)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Temperature (°C)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Respiratory Rate (breaths/min)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Oxygen Saturation (%)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Hypersensitivity monitoring at Cycle 1 Day 1 infusion."
+      - symbol: "b"
+        text: "Timepoints: Pre-infusion (within 30 min before), End of infusion, 60 min post-infusion."
+      - symbol: "c"
+        text: "Statistics pooled across all subjects at each timepoint."
+
+    source_dataset: "ADVS"
+    filter_condition: "SAFFL = 'Y' and AVISIT = 'CYCLE 1 DAY 1' and ATPT in ('PRE-INFUSION', 'END OF INFUSION', '60 MIN POST-INFUSION')"
+    sort_order: ["ATPTN", "PARAMN", "TRT01AN"]
+
+    programming_notes:
+      - "Hypersensitivity monitoring at specific timepoints around infusion"
+      - "Cycle 1 Day 1 primary focus (first infusion)"
+      - "ATPT (Analysis Timepoint) identifies pre/during/post infusion"
+      - "Monitor for signs of infusion reactions"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.2: Clinically Notable Infusion-Related Changes
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.2"
+    title: "Incidence of Clinically Notable Vital Sign Changes During Infusion (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Criterion"
+        width: 4.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADVS"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADVS"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADVS"
+
+    stub_rows:
+      - level: 0
+        label: "Any Clinically Notable Change"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Blood Pressure"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "SBP increase ≥30 mmHg from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "SBP decrease ≥30 mmHg from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "DBP increase ≥20 mmHg from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "DBP decrease ≥20 mmHg from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Pulse Rate"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Increase ≥20 bpm from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Decrease ≥20 bpm from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Temperature"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Increase ≥1°C from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Fever (≥38°C) during/post infusion"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Oxygen Saturation"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Decrease ≥5% from pre-infusion"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "SpO2 <90% during/post infusion"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Clinically notable change = meeting criterion during or after infusion compared to pre-infusion."
+      - symbol: "b"
+        text: "Subjects counted if criterion met at any infusion (any cycle)."
+      - symbol: "c"
+        text: "These criteria may indicate infusion-related reaction."
+
+    source_dataset: "ADVS"
+    filter_condition: "SAFFL = 'Y' and ATPT in ('END OF INFUSION', '60 MIN POST-INFUSION')"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Compare end-of-infusion and post-infusion to pre-infusion baseline"
+      - "Calculate change: AVAL (post) - AVAL (pre)"
+      - "Flag subjects meeting each criterion at any infusion"
+      - "May indicate infusion-related hypersensitivity reaction"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.3: ECG Findings Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.3"
+    title: "Summary of ECG Findings (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter / Visit"
+        width: 3.0
+        alignment: L
+        source_variable: "ADEG.PARAM / AVISIT"
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADEG"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADEG"
+
+    stub_rows:
+      - level: 0
+        label: "QTcF Interval (ms)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "End of Treatment"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Change from Baseline"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "QTcF Categories, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "QTcF ≤450 ms"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "QTcF >450 to ≤480 ms"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "QTcF >480 to ≤500 ms"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "QTcF >500 ms"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "QTcF Change from Baseline Categories, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Increase ≤30 ms"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Increase >30 to ≤60 ms"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Increase >60 ms"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "ECG Interpretation, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Normal"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Abnormal, not clinically significant"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Abnormal, clinically significant"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "QTcF = QT interval corrected using Fridericia formula."
+      - symbol: "b"
+        text: "ECG performed at Screening, Cycle 1 Day 1 (pre-infusion), and End of Treatment."
+      - symbol: "c"
+        text: "Categorical thresholds per ICH E14 guidance."
+
+    source_dataset: "ADEG"
+    filter_condition: "SAFFL = 'Y'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "ECG data from ADEG dataset"
+      - "QTcF primary interval (Fridericia correction)"
+      - "Categorical analysis per ICH E14"
+      - "QTcF >500 ms or increase >60 ms = clinically concerning"
+      - "ECG interpretation from investigator"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.4: ECG Shift Table
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.4"
+    title: "Shift Table of ECG Findings from Baseline to Post-Baseline (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Baseline\nInterpretation"
+        width: 2.5
+        alignment: L
+        source_variable: "ADEG.BASEGRP"
+      - header: "CT-P16 (N=xxx) Post-Baseline"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "Normal"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+      - header: "Abnormal NCS"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+      - header: "Abnormal CS"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+      - header: "EU-Avastin (N=xxx) Post-Baseline"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "Normal"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+      - header: "Abnormal NCS"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+      - header: "Abnormal CS"
+        width: 1.0
+        alignment: C
+        format: "xxx"
+        source_variable: "ADEG"
+
+    stub_rows:
+      - level: 0
+        label: "Normal"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Abnormal, not clinically significant"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Abnormal, clinically significant"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "NCS = Not Clinically Significant; CS = Clinically Significant."
+      - symbol: "b"
+        text: "Post-baseline = worst interpretation at any post-baseline assessment."
+      - symbol: "c"
+        text: "Per SAP Section 10.4."
+
+    source_dataset: "ADEG"
+    filter_condition: "SAFFL = 'Y' and PARAMCD = 'INTP'"
+    sort_order: ["BASEGRPN", "TRT01AN"]
+
+    programming_notes:
+      - "ECG interpretation shift: baseline vs worst post-baseline"
+      - "Categories: Normal, Abnormal NCS, Abnormal CS"
+      - "Count subjects in each baseline × post-baseline cell"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Hypersensitivity Monitoring Tables in this file: 4
+#   - Infusion Vital Signs: 1
+#   - Clinically Notable Changes: 1
+#   - ECG Findings: 1
+#   - ECG Shift Table: 1

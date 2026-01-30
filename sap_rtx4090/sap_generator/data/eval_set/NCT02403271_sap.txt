@@ -1,0 +1,565 @@
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 1 of 15 
+ 
+Version 3.0  Proprietary and Confidential                                               01 December 2017  
+ 
+ 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan 
+ 
+ 
+A Multi-Center Study of the Bruton’s Tyrosine Kinase (BTK) Inhibitor, 
+Ibrutinib, in combination with Durvalumab  (MEDI4736), in Subjects with 
+Relapsed or Refractory Solid Tumors  
+ 
+ 
+ 
+PCYC-1135-CA 
+Prepared by:  Shanhong Guan  
+ 
+1 December 2017 
+Version 3.0 
+ 
+ 
+ 
+Confidentiality Statement  
+The information in this document is considered privile ged and confidential by  Pharmacyclics LLC., and may not be 
+disclosed to others except to the extent necessary to obtain Institutional Review Board approval and informed 
+consent, or as required by Federal and State Laws.  Persons to whom this information is disclosed must be informed 
+that this information is privileged and confidential and that it should not be further disclosed . 
+  
+
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 2 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+TABLE OF CONTENTS  
+LIST OF ABBREVIATION S ................................ ................................ ................................ .......3 
+1. INTRODUCTION  ................................ ................................ ................................ .................. 5 
+1.1. Study Design  ................................ ................................ ................................ .................. 5 
+1.2. Endpoints ................................ ................................ ................................ ....................... 7 
+1.3. Statistical Hypotheses  ................................ ................................ ................................ ....8 
+1.4. Sample Size Determination ................................ ................................ ............................ 8 
+1.5. Planned Analyses  ................................ ................................ ................................ ...........9 
+1.5.1.  Phase 1b Analyses  ................................ ................................ ............................ 9 
+1.5.2.  Phase 2 A nalyses ................................ ................................ .............................. 9 
+1.6. Testing Procedure and Level of Significance  ................................ ................................ 9 
+2. GENERAL ANALYSIS CON SIDERATION  ................................ ................................ ....10 
+2.1. Analysis Sets  ................................ ................................ ................................ ................ 10 
+Enrolled Population  ................................ ................................ ................................ ....10 
+DLT Eval uable Population for Phase 1b  ................................ ................................ ....10 
+2.2. Definition of Subgroups  ................................ ................................ ............................... 10 
+3. SUBJECT INFORMATION ................................ ................................ ................................ 11 
+3.1. Subject Disposition  ................................ ................................ ................................ ......11 
+3.2. Demographics and Baseline Characteristics  ................................ ................................ 11 
+3.3. Prior and Concomitant Medications  ................................ ................................ ............11 
+3.4. Extent of Exposure to Study Treatment  ................................ ................................ .......11 
+3.5. Previous Treatment History and Subsequent Antineoplastic Therapies  ...................... 11 
+4. EFFICACY AND SAFETY ANALYSES  ................................ ................................ ...........11 
+4.1. Efficacy Analyses  ................................ ................................ ................................ ........11 
+4.2. Safety Analyses  ................................ ................................ ................................ ............13 
+5. MODIFICATION OF ANAL YSIS TO THE PROTOCOL  ................................ .............15 
+6. REFERENCES  ................................ ................................ ................................ ..................... 15 
+ 
+ 
+LIST OF TABLES  
+Table 1 Phase 1b Dosing Lev els ................................ ................................ ................................ ......6 
+Table 2 Summary of Efficacy  Analyses ................................ ................................ ........................ 12 
+Table 3 Summary of  Safety Anal yses  ................................ ................................ ........................... 14 
+ 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 3 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+LIST OF ABBREVIATION S 
+Abbreviation  Definition  
+AE adverse event  
+ANC Absolute neutrophil counts  
+ATC Anatomical Therapeutic Chemical  
+BOR best overall response  
+CBC complete blood count  
+CIT Chemoimmunotherapy  
+CR complete response  
+CRF case report form  
+CSR clinical study report  
+CTCAE Common Termino logy Criteria for Adverse Events  
+DCR Disease control rate  
+DOR Duration of response  
+DLT Dose limiting toxicity  
+EOT End of treatment  
+ECG Electrocardiogram  
+ECOG Eastern Cooperative Oncology Group  
+EU European Union  
+FDA Food and Drug Administration  
+FISH fluorescence in situ hybridization  
+Hgb hemoglobin  
+IPD important protocol deviation  
+ITT intent-to-treat 
+IWRS Interactive Web Response System  
+MedDRA  Medical Dictionary for Regulatory Activities  
+MRI magnetic resonance imaging  
+MTD Maximum tolerated dose  
+NCI National Cancer Institute  
+NE not evaluable  
+ORR overall response rate  
+OS overall survival  
+PCYC Pharmacyclics LLC 
+PD progressive disease  
+PFS Progression  free survival  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 4 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Abbreviation  Definition  
+PK Pharmacokinetic  
+PLT platelets 
+PR partial response  
+RP2D Recommended Phase 2 dose  
+SAP statistical analysis plan  
+SD stable disease  
+SOC system organ class  
+TEAE Treatment -emergent adverse events  
+TNM Tumor node metastases staging  
+TTP time to progression  
+TTR time to response  
+UNK unknown 
+WBC white blood count  
+WHO World Health Organization  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 5 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+1. INTRODUCTION  
+This statistical analysis plan (SAP) lay s out key elements including definition s and statistical 
+methods for analysis of data in evaluation of effi cacy and safety for the PCYC -1135-CA study. 
+Analyses of pharmacokinetics data  and biomarkers will be addressed in separate documents.  
+1.1. Study Design  
+This is a non -randomized, open -label, multi -center, Phase 1b/2 study to evaluate the efficacy and 
+safety of ibrutinib in combination with durvalumab in subjects with relapsed or  refractory solid 
+tumor types (Stage III/IV per TNM staging):  
+• Non-small Cell Lung  cancer (NSCLC): adenocarcinoma or squamous -cell carcinoma  
+• Breast cancer: HER2 positive or triple negative  
+• Pancreatic cancer: adenocarcinoma  
+RECIST 1.1 criteria will be used to evaluate response and document objective disease 
+progression.  
+Phase 1b:  
+Phase 1b will follow a 6+3 dose de -escalation design to evaluate dose limiting toxicity (DLT) 
+and determine the recommended phase 2 dose (RP2D) or maximum tolerated dose (MTD) for 
+this study. In cohort 1 (consisting  6 subjects regardless of tumor type ), ibrutinib  will be 
+administered PO at a dose of 560  mg daily in combination with durvalumab  at a dose of 10 
+mg/kg IV every 2  weeks in 28 -day cycles until DLT or disease progression occurs. The DLT 
+observation period includes Cycle 1 and laboratory assessments on Day  1 of Cycle 2 which will 
+occur before the durvalumab  infusion on Day 1 of Cycle 2. If 2  subjects within the initial cohort 
+of 6 subjects experience a DLT, an additional 3  subjects will be enrolled at the same dose level. 
+If 3 or more of 6 subjects experien ce a DLT, dose de -escalation will occur. If the subject 
+incidence of DLTs during the first 28 days (Cycle 1=28 days and including laboratory 
+assessments on Day 1 Cycle 2) of study treatment is <33.3% (ie, ≤1 of 6 or ≤2 of 9), this dose 
+level will be consid ered safe to proceed to Phase 2, and will be defined as the RP2D.  A DLT is 
+defined as any Grade 3 or higher non -hematologic or Grade 4 hematologic AE possibly related 
+to study treatment (s) occurring during the DLT observation period . 
+A similar 6+3 cohort d esign will be utilized in the dose de -escalation cohorts (see Table 1). De-
+escalation cohorts -1A and -1B will be opened simultaneously to determine which dosing 
+schedule is most appropriate for the phase 2 portion of the study. Determination of the RP2D 
+will be based on the safety profile of the 2 treatment regimens. If necessary, the dose de -
+escalation cohort -2 will be enrolled thereafter . 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 6 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Table 1: Phase 1b Dosing Levels  
+28-Day Dosing Cycle  Ibrutinib  MEDI4736  
+Cohort 1  560 mg once daily PO  10 mg/kg IV  
+Cohort -1A* 420 mg once daily PO  10 mg/kg IV  
+Cohort -1B* 560 mg once daily PO  3 mg/kg IV  
+Cohort -2 420 mg once daily PO  3 mg/kg IV  
+*: Cohorts -1A and -1B are 2 parallel cohorts and will be enrolled concurrently in the sequence of -1A followed by 
+-1B. 
+After the RP2D is determined, enrollment in Phase 2 will commence. Subjects who were not 
+treated at the RP2D in Phase 1b will continue to be treated at the assigned dose. All subjects 
+enrolled under Phase 1b will be followed for response evaluation  and overall survival.  
+Phase 2: 
+Subjects with one of t hree solid tumor type s (Stage III/IV)  will be enrolled per the specifications 
+below. 
+• NSCLC (adenocarcinoma and squamous -cell carcinoma at an approximate 2:1 ratio) (ie, at 
+least 15 subjects with squamous -cell carcinoma will be enrolled)  
+• Breast cancer (triple -negative and HER2 -positive cancer at an approximate 2:1 ratio) (ie, 15 
+subjects with triple -negative breast cancer will be enrolled)  
+• Pancreatic Cancer Cohort: (adenocarcinoma ) 
+For each of the above three cohorts, the statistical framework of Simon’s optimal 2 -stage design 
+will be implemented to enroll subjects (a n interim analysis for futility in the first stage and the 
+final analysis in the second stage ). The interim analysis for futility will be performed t o evaluate 
+the response and safety profile. Enrollment will continue while the interim analysis is performed. 
+A cohort may be discontinued based on the interim efficacy and/or safety results. The decisions 
+based on the results of the interim analysis are i ndependent in the 3 individual disease cohorts. 
+At the time of the interim safety assessment, Investigators that enrolled subjects and the Sponsor 
+(at a minimum: a Medical Monitor, a Drug Safety representative, and a Biostatistician) will 
+review safety dat a and make recommendations for the conduct of the study: continue the trial 
+unchanged, consider modifying in part or in whole, or stop the trial due to safety concerns.  
+NSCLC and breast cancer cohorts (n=43 per cohort):  
+The breast and NSCLC  cohorts will each enroll 43 evaluable subjects. Subjects who discontinue 
+prior to the first tumor response assessment for reasons other than progressive disease will not be 
+considered evaluable for response. An interim analysis for futility will be performed for each 
+cohort independently after first 18 subjects in a cohort are evaluable for tumor response. If 2 or 
+fewer responders are observed among the 18  evaluable subjects, the Sponsor may consider 
+discontinuation of this cohort; however, assessment of biomarkers  (that may aid in prospective 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 7 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+enrichment for responders) or tumor measurements (showing clinically relevant tumor 
+reductions, ie, <30%, that fit the criteria for SD) may support continued enrollment.  
+Pancreatic cancer cohort (n=44):  
+This cohort will enroll 44 evaluable subjects. An interim analysis for futility will be performed 
+after 17 subjects are evaluable for tumor response. If 1 or no responder is observed among the 
+first 17 evaluable subjects, the Sponsor may consider discontin uation of this cohort. Same as in 
+the other two cohorts, the assessment of biomarkers or tumor measurements may support 
+continued enrollment .  
+ 
+1.2. Endpoints  
+Primary Endpoint s 
+Phase 1b:  
+• Recommended Phase 2 Dose (RP2D) or Maximum Tolerated Dose (MTD)  
+• Safety and tolerability  of ibrutinib in combination with durvalumab  
+Phase 2: 
+• Overall Response Rate ( ORR) 
+ 
+Secondary Endpoint s 
+Phase 1b:  
+• ORR 
+• Disease control rate ( DCR) at Week 20 (e nd of Cycle 5)  
+• Duration of response ( DOR) 
+Phase 2:  
+• DCR at Week 20 (e nd of Cycle 5) 
+• DOR 
+• Progression -free survival ( PFS) 
+• Overall survival ( OS) 
+ 
+Safety Assessments  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 8 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Safety and tolerability asse ssments include adverse events, clinical laboratory tests, and vital 
+signs.  
+ 
+1.3. Statistical Hypotheses  
+There is no hypothesis testing for Phase1b. The primary objective of Phase 2 is to evaluate overall 
+response rate (ORR) for the combination therapy at RP2D. Hypothesis testing will be conducted 
+to address this objective as follows:  
+Null hypothesis (H 0):            P <= x%; where P denotes overall respon se rate. 
+Alternative hypothesis (H a): P >= y%; where P denotes overall response rate.  
+For NSCLC cohort and breast cancer cohort,  a true response rate of 10% (H 0) versus 25% (H a) 
+will be tested . For pancreatic cancer cohort, a true response rate of 5% (H 0) versus 18% ( Ha) will 
+be tested.  
+1.4. Sample Size Determination  
+The study is not powered for comparison of dose cohorts or tumor type cohorts.  
+Phase 1b : Dose de-escalation will follow the 6+3 design  and up to four dose cohorts will be 
+enrolled for the DLT to determine the RP2D for the combination therapy . Therefore, Phase 1b 
+will enroll a minimum of 6 and a m aximum of 36 evaluable subjects.  
+Phase 2: Hypothesis for the true response rate will be tested as described below independently 
+for each tumor type cohort b ased on the statistical framework of Simon’s optimal 2 -stage design. 
+With a 1-sided error rate of 0.05, each tumor type cohort would have 80% power based on the 
+true response rate in the alternative hypothesis. Approximately 130 subjects (including the 
+subjects treated at the RP2D in Phase 1b and with the tumor type) across the three tumor type 
+cohorts will be included in the Phase 2 analyses.  
+NSCLC cohort and breast cancer cohort ( n=18 for interim and n=43 for final per cohort):  
+For each of the two tumor type cohorts, a true response rate of 10% (H 0) versus 25% (H a) will be 
+tested and the probability of early stopping is at least 73.4% if the true response rate is ≤10% 
+(H0), and no greater than 13.5% if the true response rate is ≥25% (H a). 
+An interim analysis (for futility) will be performed based on the first 18 evaluable subjects for 
+each cohort independently. If 2 or fewer responders are observed among the 18 evaluable 
+subjects in a cohort, the enrollment may be stopped. Otherwise, the co hort will continue to enroll 
+an additional 25 evaluable subjects for a total of 43 evaluable subjects for the final analysis. The 
+null hypothesis will be rejected if 8 or more responders are observed among the 43 evaluable 
+subjects. 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 9 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Each cohort will enroll  subjects according to the histolo gy ratio described in Section 1 .1. 
+Pancreatic cancer cohort ( n=17 for interim and n=44 for final): 
+A true response rate of 5% (H 0) versus 18% ( Ha) will be tested and the probability of early 
+stopping is at least 79.2% if t he true response rate is ≤5% (H 0), and no greater than 16.2% if the 
+true response rate is ≥18% (H a). 
+An interim analysis (for futility) will be performed based on the first 17 evaluable subjects. If 1 
+or no responder is observed among the 17 evaluable subj ects, the enrollment may be stopped. 
+Otherwise, this cohort will continue to enroll an additional 27 evaluable subjects for a total of 44 
+evaluable subjects for the final analysis. The null hypothesis will be rejected if 5 or more 
+responders are observed a mong the 44 evaluable subjects.  
+  
+1.5. Planned Analyses 
+1.5.1. Phase 1b Analys es 
+The primary objective of Phase 1b is to determine the RP2D or MTD and to evaluate safety and 
+tolerability of ibrutinib in combination with durvalumab. The secondary objectives are to 
+evaluate efficacy and PK and PD in subjects receiving the combination regimen.  
+1.5.2. Phase 2 Analyses  
+Interim Analysis  for Futility : For each tumor type cohort, the interim analysis will be performed 
+after the first 18 evaluable subjects (for the NSCLC and breast ca ncer cohorts) /17 evaluable 
+subjects (for the pancreatic cancer cohort) completed at least one tumor response assessment or 
+at least 3 responders (in the NSCLC and breast cancer cohorts) / 2  responders (in the pancreatic 
+cancer cohort) were observed, which ever occurs first. Confirmation of response is not required 
+for those responders for the interim analysis.  
+Final Analysis: The final analysis for both safety and efficacy  will be performed at the end of the 
+study based on all subjects treated for this study . A Clinical Study Report (CSR) will be 
+produced when the analysis has been performed for all three cohorts.  
+ 
+1.6. Testing Procedure and Level of Significance  
+The 2-sided significance level for the final analysis of primary endpoint  (ORR) will be 0.05.  
+Analyses of secondary endpoints will be performed using the same  significance level .  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 10 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+2. GENERAL ANALYSIS CON SIDERATION  
+Time to event or duration of event endpoints will be based on the actual event date (or censoring 
+date) rather than visit number or  visit label. Missing efficacy or safety data will not be imputed 
+unless otherwise specified . 
+In general, the baseline value is defined as the last valid measurement on or prior  to the first dose 
+of study treatment . For by-visit analysis, visit windows wil l be used to associate assessment with 
+a scheduled visit and will be created in reference to the date of first dose of study treatment to 
+assign visit number based on assessment date.  
+2.1. Analysis Sets 
+Enrolled Population  
+This population includes all subjects who were enrolled in Phase 1b and Phase 2 (signed the 
+informed consent and met all eligibility criteria) . 
+Response -evaluable Population  
+The Response -evaluable Population is defined as all enrolled subjects who received  at least one 
+dose of study treatment (ibrutinib or durvalumab ) and provided at least one post -baseline 
+response assessment. This population includes all the qualified subjects from both Phase 1b and 
+Phase 2. The Response-evaluable Population will be used as the primary population for analyses 
+based on overall response rate and disease control rate at Week 20 ( end of Cycle 5). 
+Safety Population  (Treated Population)  
+Safety population  (Treated Population) includes all subjects who received at least 1 dose of study 
+treatment  (ibrutinib or durvalumab ). Subjects in this population will be analyzed as randomized  
+for the randomized subjects . The safety population will be used to summarize the safety  
+(including dosing)  data.   
+DLT Evaluable Population for Phase 1b  
+DLT evaluable population includes Phase 1b subjects who received study treatment  and did not 
+meet the criteria for subject replacement (in Section 1. 4.1) during the DLT observation period . 
+2.2. Definition of Subgroups  
+Subgroup  Definition of subgroup  Type of Ana lysis  
+PD-L1 Expression  High versus Low/None  D, E (ORR)  
+Histology for NSCLC cohort  adenocarcinoma versus squamous -
+cell carcinoma  D, E (ORR)  
+Histology for Breast Cancer cohort  HER2-positive versus triple -negative D, E (ORR)  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 11 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+D: Demographics and baseline disease characteristics. E: Efficacy. ORR: Overall response rate.  
+3. SUBJECT INFORMATION  
+3.1. Subject Disposition  
+Subject disposition will  be summarized by each tumor type cohort . Subject enrollment will be 
+summarized by region, country, and investigator.  
+Time on study is defined in the same way as overall survival with reversed censoring, i.e., 
+subjects who died will be censored at death date. The Kaplan -Meier method will be used to 
+estimate the median time on study.  
+3.2. Demographics and Baseline Charac teristics  
+Baseline characteristics and demographic information at baseline will be summarized with 
+descriptive statistics  by tumor type cohort .  
+3.3. Prior and  Concomitant M edications  
+Medications will be coded to a generic name and an Anatomical T herapeutic Chemical (ATC) 
+class per the World Health Organization ( WHO) drug dictionary. Concomitant m edications will 
+be summarized by therapeutic class  and preferred term  and by tumor type cohort . Concomitant 
+medications are defined as medications that were taken at any time on tr eatment (i.e. from the 
+date of the first dose of study treatment  through the date of the last dose of study treatment) . The 
+following concomitant medications  will be summarized separately: growth factors , blood 
+supportive products and immunoglobulin , CYP3A inhibitors /inducers, anticoagulants and /or 
+antiplatelets .  
+3.4. Extent of Exposure  to Study Treatment  
+Exposure to study  treatment  will be summarized by tumor type cohort . Descriptive statistics will 
+be provided for treatment duration and dosing informati on (e.g. total cumulative dose 
+administered, relative dose intensity, dose reduction due to adverse events) for all study 
+treatment s.  
+3.5. Previous Treatment Histor y and Subsequent Antineoplastic Therapies  
+Previous treatment history and s ubsequent  antineoplast ic agents will be summarized  separately . 
+4. EFFICAC Y AND SAFETY ANALYSES  
+4.1. Efficacy Analyses  
+Efficacy endpoints and analysis methods  are summarized in Table 2.  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 12 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+ 
+Table 2: Summary of Efficacy Analyses  
+ 
+Endpoint  Definition  Analysis Method s 
+Primary Endpoint  
+Overall 
+Response 
+Rate 
+(ORR) Proportion of subjects achieving the 
+best overall responses of CR or PR  
+with confirmation  Primary (Response -evaluable population)  
+• Proportion and 2 -sided 95% CI based on exact 
+Binomial distribution (Clopper -Pearson) 
+• Waterfall plo t on tumor load from target lesion  
+Sensitivity  (Treated population)  
+Proportion and 2 -sided 95% CI based on exact 
+Binomial distribution (Clopper -Pearson 
+Subgroup  (Response -evaluable population)  
+• PD-L1: High vs. Low/None (all cohorts)  
+• Histology (Breast Ca: HER2 positive vs. 
+Triple negative; NSCLC: Ad enocarcinoma vs. 
+Squamous -cell Carcinoma)  
+ 
+Secondary Endpoints  
+Disease 
+Control 
+Rate 
+(DCR) at 
+Cycle 5 Proportion of response -evaluable 
+subjects who maintain disease 
+control (CR, PR or SD) at Week 20 
+(Cycle 5)  Primary (Response -evaluable population)  
+Proportion and 2 -sided 95% CI based on exact 
+Binomial distribution (Clopper -Pearson) 
+Sensitivity  (Treated population)  
+Proportion and 2 -sided 95% CI based on exact 
+Binomial distribution (Clopper -Pearson) 
+Duration of 
+Response 
+(DOR) Duration of time from the date of 
+initial response to the date of disease 
+progression or the date of death due 
+to any cause, whichever occurs first  Primary (Response -evaluable population)  
+Proportion and Kaplan -Meier estimate  
+Sensitivity  (Response -evaluable population)  
+Proportion and Kaplan -Meier estimate for 
+confirmed and unconfirmed response  
+Progression 
+Free 
+Survival 
+(PFS) Duration of time from the first  
+dose date of study treatment 
+(ibrutinib or durvalumab ) to the first 
+documentation of disease  Primary (Treated population)  
+• All PD and death considered events regardless 
+any anticancer therapy prior to PD  
+• Kaplan-Meier curve  
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 13 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Endpoint  Definition  Analysis Method s 
+progression or the date of death due 
+to any cause, whichever occurs first  
+ Sensitivity  (Treated population)  
+• Subjects are censored for use of  subsequent 
+anticancer  therapy prior to PD or death; 
+subjects are censored after missing two or 
+more consecutive assessment prior to PD or 
+death 
+•  Kaplan-Meier curve  
+ 
+Overall 
+Survival 
+(OS) Duration of time from the first dose 
+date of study treatment  
+(ibrutinib or durvalumab) to the date 
+of death due to any cause  Primary (Treated population)  
+• All death considered events regardless of any 
+anticancer therapy prior to death  
+• Kaplan-Meier curve  
+4.2. Safety Analyses  
+Safety data wil l be summarized by tumor type cohorts . Table 3 summarizes the safety analyses to 
+be performed  for all tumor type cohorts . 
+Adverse events (AEs) will be coded in accordance with the Medical Dictionary for Regulatory 
+Activities (MedDRA ). Severity of AEs will be graded by the investigator according the NCI -
+CTCAE v4.03.   
+All laboratory values will be converted to and reported as international standard (SI) units. In 
+general, only data from the central laboratory will be summarized and an alyzed. Laboratory 
+parameters will be graded using the NCI CTCAE v4.0 3. 
+Unless otherwise specified, only baseline and post -baseline values collected during the 
+treatment -emergent period will be included in the safety analysis. In general, the treatment -
+emergent period is defined as the period from the date of the first dose of  study treatment up to 
+30 days after last dose of ibrutinib or 90 days after last dose of durvalumab, whichever occurs 
+later, or the day before initiation of subsequent antineoplastic therapy.  
+The treatment -emergent adverse events (TEAEs) are those events  that occur or worsen during 
+the treatment -emergent period or that are related to the study treatment.  Safety data include 
+subject disposition/ study status, demographics, baseline characteristics and baseline disease 
+characteristics, study drug and treatment exposure, treatment discontinuation and study exit 
+including primary reason, duration of treatment, TEAEs of grade 3 and above, serious TEAEs, 
+TEAEs of major hemorrhage, TEAEs leading to any study treatment discontinuation, survival 
+status, and d eath listings . 
+ 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 14 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+Table 3: Summary of Safety Analyses  
+ 
+Safety 
+Assessment  Definition  Analysis Methods  
+ 
+Safety and 
+tolerability   
+AE: TEAEs, SAEs, grade 3 or 
+worse TEAEs, related TEAEs, 
+TEAEs leading to treatment 
+discontinuation, TEAEs leading to 
+dose reducti on, TEAEs leading to 
+death, protocol - defined events of 
+special interest, and other safety 
+observations  
+ 
+Worst post -baseline toxicity grade 
+for selected lab tests: Worst post -
+baseline toxicity grade, Hgb, 
+creatinine clearance, abnormal 
+uric acid, liver function 
+abnormalities  
+ 
+Vital signs,  blood pressure, heart 
+rate, temperature, respiratory rate, 
+weight Descriptive summary statistics and/or 
+listings 
+AE: adverse event; SAE : serious adverse event ; TEAE: treatment -emergent adverse event  
+ 
+
+ PCYC-1135-CA 
+Statistical Analysis Plan  Page 15 of 15 
+ 
+Version 3.0  Proprietary and Confidential  01 December 2017  
+5. MODIFICATION OF ANALYSIS TO THE PROT OCOL 
+Below is the major change  made to the analyses in the protocol : 
+• Data from all three tumor type cohorts will be pooled together to perform a total 
+analysis in the final analysis. This analysis is not specified in the protocol.  
+• The terminology ‘Safety Assessments’ instead of ‘Safety Endpoints’ is used in 
+Section 1.2 safety analysis part  
+    
+6. REFERENCE S 
+Simon R, “ Optimal Two -Stage Designs for Phase II Clinical Trials ” Controlled Clinical Trials 
+10:1-10 (1989)  
+Rubinstein L and Simon R, “Phase I Clinical Trial Design ” Biometric Research Branch, National 
+Cancer Institute , Handbook of Anticancer Drug Development  (2004) 
+Eisenhauer EA et al, “New Response Evaluation Criteria in Solid Tumors; Revised RECIST 
+Guideline (version 1.1). European Jo urnal of Cancer 45:228 -247 (2009)  
+US Food and Drug Administration , “Guidance for Industry: Clinical Trial  Endpoints for the 
+Approval of Cancer Drugs and Biologics ” (May 2007 ) 
+US Food and Drug Administration , “Guidance for Industry: Clinical Trial Endpoints  for the 
+Approval of Non -Small Cell Lung Cancer Drugs and Biologics ” (April 2015 ) 
+EMA, Appendix1 to the Guideline on the Evaluation of Anticancer Medicinal Products in Man: 
+Methodological Considerations for Using Progression -free Survival (PFS) or Disease-free Survival  
+in Confirmatory Trials  (2011) 
+Fleming TR, Rothmann MD, and Lu HL , “Issues in using progression -free survival when 
+evaluating oncology products ” J Clin Oncol 27:2874 -2880 (2009) 
+ 
+ 
+ 

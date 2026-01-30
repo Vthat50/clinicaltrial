@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "created": "2026-01-09T14:09:31.954221",
+    "solutions": [
+      "flexible_schema",
+      "confidence_scores",
+      "source_linking",
+      "document_versioning",
+      "no_inference_edges"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "doc:9be2c03b",
+      "type": "document",
+      "properties": {
+        "doc_id": "doc:9be2c03b"
+      },
+      "confidence": 1.0,
+      "source_quote": "",
+      "source_page": "",
+      "source_section": "",
+      "source_doc": "",
+      "editable": true,
+      "version": 1,
+      "deprecated": false,
+      "superseded_by": null,
+      "created_at": "2026-01-09T14:09:31.950237"
+    },
+    {
+      "id": "endpoint:56a64ad0",
+      "type": "endpoint",
+      "properties": {
+        "name": "Overall Survival"
+      },
+      "confidence": 0.95,
+      "source_quote": "...drawal, disease progression, or death.\n  Outcome: Overall Survival\n  Time Frame: N/A\n  Description: Time to death (o...",
+      "source_page": "",
+      "source_section": "",
+      "source_doc": "doc:9be2c03b",
+      "editable": true,
+      "version": 1,
+      "deprecated": false,
+      "superseded_by": null,
+      "created_at": "2026-01-09T14:09:31.950246"
+    },
+    {
+      "id": "endpoint:c59465cc",
+      "type": "endpoint",
+      "properties": {
+        "name": "Progression-Free Survival"
+      },
+      "confidence": 0.95,
+      "source_quote": "...ination can be considered scar tissue.\n  Outcome: Progression-free Survival\n  Time Frame: N/A\n  Description: Progression-free...",
+      "source_page": "",
+      "source_section": "",
+      "source_doc": "doc:9be2c03b",
+      "editable": true,
+      "version": 1,
+      "deprecated": false,
+      "superseded_by": null,
+      "created_at": "2026-01-09T14:09:31.950251"
+    },
+    {
+      "id": "endpoint:8cc443af",
+      "type": "endpoint",
+      "properties": {
+        "name": "Duration Of Response"
+      },
+      "confidence": 0.85,
+      "source_quote": "...ions occurring at least 4 weeks apart.\n  Outcome: Duration of Response for All Confirmed Responders (CR + CCR + PR)\n  Ti...",
+      "source_page": "",
+      "source_section": "",
+      "source_doc": "doc:9be2c03b",
+      "editable": true,
+      "version": 1,
+      "deprecated": false,
+      "superseded_by": null,
+      "created_at": "2026-01-09T14:09:31.950254"
+    },
+    {
+      "id": "endpoint:af440fe7",
+      "type": "endpoint",
+      "properties": {
+        "name": "Time To Progression"
+      },
+      "confidence": 0.85,
+      "source_quote": "...me: N/A\n  Description: Progression-free survival (time to progression or death) is defined as the time from the start o...",
+      "source_page": "",
+      "source_section": "",
+      "source_doc": "doc:9be2c03b",
+      "editable": true,
+      "version": 1,
+      "deprecated": false,
+      "superseded_by": null,
+      "created_at": "2026-01-09T14:09:31.950257"
+    }
+  ],
+  "edges": [
+    {
+      "source": "endpoint:56a64ad0",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:c59465cc",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:8cc443af",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:af440fe7",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:56a64ad0",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:c59465cc",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:8cc443af",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    },
+    {
+      "source": "endpoint:af440fe7",
+      "target": "doc:9be2c03b",
+      "type": "extracted_from",
+      "properties": {},
+      "is_factual": true
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc:9be2c03b",
+      "filename": "NCT00938041_sap.txt",
+      "doc_type": "SAP",
+      "user_id": "test_user",
+      "version": 2,
+      "uploaded_at": "2026-01-09T14:09:31.946628",
+      "replaces": "doc:9be2c03b"
+    }
+  ],
+  "statistics": {
+    "total_nodes": 5,
+    "total_edges": 8,
+    "node_types": {
+      "document": 1,
+      "endpoint": 4
+    },
+    "avg_confidence": 0.9199999999999999
+  }
+}

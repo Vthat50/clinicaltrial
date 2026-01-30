@@ -1,0 +1,422 @@
+# CT-P16 Priority 2 Overall Survival (OS) TLF Shells
+# ====================================================
+# OS Analysis - ITT and PP Populations
+# Per SAP Section 8.2: Time-to-Event Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 2
+  category: "Overall Survival"
+  sap_sections: ["8.2.3"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# OS TABLES
+# =============================================================================
+# Per SAP Section 8.2.3:
+# "Overall survival is defined as the time from the date of randomization to
+# the date of death from any cause."
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.2.5.1: OS Summary - ITT Population
+  # ---------------------------------------------------------------------------
+  - number: "14.2.5.1"
+    title: "Summary of Overall Survival (ITT Population)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Deaths, n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Alive at data cutoff"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Lost to follow-up"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Withdrew consent"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Survival Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Unstratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "OS defined as time from randomization to death from any cause."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI for percentiles by Brookmeyer-Crowley method."
+      - symbol: "c"
+        text: "HR from stratified Cox model; stratification factors: country/region, sex, disease status, ECOG PS."
+      - symbol: "d"
+        text: "HR < 1 favors CT-P16."
+      - symbol: "e"
+        text: "P-value from stratified log-rank test."
+      - symbol: "f"
+        text: "Data cutoff: [DATE]."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'OS'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "OS from ADTTE where PARAMCD = 'OS'"
+      - "AVAL in days; convert to months: AVAL / 30.4375"
+      - "CNSR = 0 for deaths, CNSR = 1 for censored"
+      - "Use PROC LIFETEST for KM estimates"
+      - "Use PROC PHREG for stratified HR"
+      - "Stratification: REGION1N, SEXN, DISSTATN, ECOGPSN"
+      - "Survival rates at 12, 24, 36 months (per SAP)"
+      - "OS is secondary endpoint - descriptive"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.5.2: OS Summary - PP Population
+  # ---------------------------------------------------------------------------
+  - number: "14.2.5.2"
+    title: "Summary of Overall Survival (PP Population)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Deaths, n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Survival Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population: Per-Protocol Population excluding major protocol deviations."
+      - symbol: "a"
+        text: "OS defined as time from randomization to death from any cause."
+      - symbol: "b"
+        text: "SUPPORTIVE ANALYSIS."
+      - symbol: "c"
+        text: "HR < 1 favors CT-P16."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'OS'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where PPROTFL = 'Y'"
+      - "PP Population excludes major protocol deviations"
+      - "Supportive analysis for OS"
+      - "Same methodology as ITT analysis"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.5.3: Deaths Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.2.5.3"
+    title: "Summary of Deaths (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADSL"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADSL"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADSL"
+
+    stub_rows:
+      - level: 0
+        label: "Total Deaths"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Timing of Death"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "During Induction Period"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "During Maintenance Period"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "During Follow-up Period"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Primary Cause of Death"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Disease progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Adverse event"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Treatment-related adverse event"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Non-treatment-related adverse event"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Other"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Unknown"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Deaths within 30 Days of Last Dose"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Deaths within 90 Days of Last Dose"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Primary cause of death as reported by investigator."
+      - symbol: "b"
+        text: "Treatment-related per investigator assessment."
+      - symbol: "c"
+        text: "Deaths at any time during study participation."
+
+    source_dataset: "ADSL"
+    filter_condition: "SAFFL = 'Y' and DTHFL = 'Y'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Deaths from ADSL where DTHFL = 'Y'"
+      - "Timing based on DTHDT vs study period dates"
+      - "Cause of death from DTHCAUS"
+      - "Treatment-related deaths: linked to ADAE where AEOUT = 'FATAL' and AEREL is related"
+      - "30/90 day windows: DTHDT - TRTEDT"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total OS Tables in this file: 3
+#   - OS Summary: 2 (ITT, PP)
+#   - Deaths Summary: 1

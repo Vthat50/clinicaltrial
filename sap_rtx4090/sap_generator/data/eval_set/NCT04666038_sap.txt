@@ -1,0 +1,1357 @@
+Statistical Analysis Plan LOXO-BTK-20020 (J2N-OX-JZNN) Version 3.0
+Study of LOXO-305 Versus Investigator's Choice (IdelaR or BR) in Patients With Previously
+Treated Chronic Lymphocytic Leukemia (CLL)/ Small Lymphocytic Lymphoma (SLL) (BRUIN
+CLL-321)
+NCT04666038
+Approval Date: 06-Sep-2023
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+Version 3.0 Confidential and Proprietary  Page 1 of 37 STATISTICAL ANALYSIS  PLAN  
+FOR CLINICAL STUDY L OXO -BTK -20020  
+Loxo Oncology, Inc .  
+281 Tresser Boulevard  
+Stamford CT 06901  
+Protocol Number: LOXO -BTK -20020  (J2N -OX-JZNN)  
+Protocol Title: A Phase 3 Open -Label, Randomized Study of LOXO -305 versus 
+Investigator ’s Choice of Idelalisib plus Rituximab or Bendamustine  plus Rituximab in 
+BTK Inhibitor Pretreated Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma 
+(BRUIN CLL -321) 
+Compound Number: Pirtobrutinib ( LOXO -305, LY3527727 ) 
+Current Version 3.0: 06 SEPTEMBER  2023  
+Confidentiality Statement  
+This document is a confidential communication of Loxo Oncology, Inc . (Loxo)  and/or Eli Lilly and Company 
+(Lilly ). The recipient agrees that no information contained herein will be published or disclosed without written 
+approval from Loxo. This document may be disclosed to duly authorized representatives of regulatory authoritie s, as 
+appropriate , under the condition that it is confidential.  
+Note to Regulatory Authorities:  This document may contain protected personal data and/or commercially 
+confidential information exempt from public disclosure. Loxo and/or Lilly requests consultation regarding 
+release/redaction prior to any pub lic release. In the United States, this document is subject to Freedom of 
+Information Act (FOIA) Exemption 4 and may not be reproduced or otherwise disseminated without the written 
+approval of Loxo and/or Lilly.  
+
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+Version 3.0 Confidential and Proprietary  Page 2 of 37 STATISTICAL ANALYSIS  PLAN  
+PROTOCOL LOXO -BTK-20020  
+SIGNATURE PAGE  
+Prepared by:  
+e-signature can be found at the end of this document
+Executive Director, Biostatistics  Date  
+Reviewed and approved at Loxo Oncology by:  
+e-signature can be found at the end of this document
+Vice President, Biostatistics  Date  
+Reviewed and approved at Loxo Oncology by:  
+e-signature can be found at the end of this document
+Senior Vice President, Development -Oncology  Date  
+PPD
+PPD
+PPD
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 3 of 37 TABLE OF CONTENTS  
+ 
+LIST OF FIGURES  ................................ ................................ ................................ ....................... 4 
+LIST OF ABBREVIATION S ................................ ................................ ................................ .......5 
+VERSION HISTORY  ................................ ................................ ................................ .................... 7 
+1.0 INTRODUCTION ................................ ................................ ................................ .............. 8 
+1.1 Objectives, Endpoints, and Estimands  ................................ ................................ .....8 
+1.1.1  Objective and Endpoints  ................................ ................................ ......... 8 
+1.1.2  Primary Estimand  ................................ ................................ .................... 9 
+1.1.3 Secondary Estimands  ................................ ................................ ............ 10 
+1.2 Study Design  ................................ ................................ ................................ .......... 11 
+2.0 STATISTICAL HYPOTHES ES................................ ................................ ..................... 12 
+2.1 Primary Hypothesis  ................................ ................................ ................................ 12 
+2.2 Multiplicity Adjustment  ................................ ................................ ......................... 12 
+3.0 ANALYSIS SETS ................................ ................................ ................................ ............. 12 
+4.0 STATIS TICAL ANALYSES  ................................ ................................ .......................... 13 
+4.1 General Considerations  ................................ ................................ .......................... 13 
+4.1.1 Definitions  ................................ ................................ ............................. 13 
+4.1.2  Handling of Dropouts or Missing Data  ................................ ................. 15 
+4.2 Participant Dispositions  ................................ ................................ ......................... 16 
+4.2.1  Protocol Deviations  ................................ ................................ ............... 16 
+4.3 Primary Endpoints Analysis  ................................ ................................ .................. 16 
+4.3.1  Definition of Endpoint(s)  ................................ ................................ ......16 
+4.3.2  Main Analytical Approach  ................................ ................................ ....17 
+4.3.3  Sensitivity Analyses  ................................ ................................ .............. 17 
+4.4 Secondary Efficacy Endpoints  ................................ ................................ ............... 17 
+4.4.1  Key Secondary Efficacy Endpoints  ................................ ...................... 17 
+4.4.2  Supportive Secondary Efficacy Endpoints ................................ ............ 18 
+4.5 Tertiary/Exploratory Endpoints Analysis  ................................ .............................. 19 
+4.5.1  Pharmacokinetic Analyses  ................................ ................................ ....19 
+  
+4.6 Safety Analyses  ................................ ................................ ................................ ......20 
+4.6.1  Extent of Exposure  ................................ ................................ ................ 20 
+4.6.2  Adverse Events ................................ ................................ ...................... 21 
+4.6.3  Additional Safety Assessments  ................................ ............................. 22 
+4.7 Other Analyses  ................................ ................................ ................................ .......23 
+4.7.1  Other Variables and/or Parameters  ................................ ....................... 23 
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 4 of 37 4.7.2  Subgroup Analyses  ................................ ................................ ............... 24 
+4.8 Interim Analyses  ................................ ................................ ................................ ....25 
+4.8.1  Interim Analysis of Overall Survival  ................................ .................... 25 
+4.8.2  Data Monitoring Committee  ................................ ................................ .26 
+4.9 Changes to Protocol -Planned Analyses  ................................ ................................ .26 
+5.0 SAMPLE SIZE DETERMIN ATION  ................................ ................................ ............. 26 
+6.0 SUPPORTING DOCUMENTA TION  ................................ ................................ ........... 27 
+6.1 Demographic and Baseline Characteristic  ................................ ............................. 27 
+6.1.1  Demography  ................................ ................................ .......................... 27 
+6.1.2  Baseline Disease Characteristics  ................................ ........................... 27 
+6.2 Censoring Rules for Time -to-Event Endpoint  ................................ ....................... 29 
+6.2.1  Censoring Rules for PFS  ................................ ................................ .......29 
+6.2.2  Censoring Rules for OS  ................................ ................................ ........ 30 
+6.2.3  Censoring Rules for DoR  ................................ ................................ ......31 
+6.2.4  Censoring Rules for EFS  ................................ ................................ .......32 
+6.2.5  Censoring Rules for TTNT  ................................ ................................ ...33 
+6.3 Algorithms for Handling Partial Dates of Medications  ................................ ......... 34 
+6.4 Clinical Trial Registry Analyses  ................................ ................................ ............ 36 
+7.0 REFERENCES  ................................ ................................ ................................ ................. 37 
+ 
+ 
+List of Figures  
+Figure 1:  Diagram of Statistical Testing Procedure for Primary and Key 
+Secondary Efficacy Endpoints  ................................ ................................ ...26 
+ 
+ 
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 5 of 37 LIST OF ABBREVIATION S 
+Term  Definition  
+ADI actual dose intensity  
+AE adverse event  
+AEPCS  adverse event of potential clinical significance  
+AESI   adverse event of special interest  
+BID  twice a day  
+BOR  best overall response  
+BR bendamustine with rituximab  
+BTK  Bruton’s tyrosine kinase  
+CI confidence interval  
+CLL/SLL  chronic lymphocytic leukemia/small lymphocytic 
+lymphoma  
+CMH  Cochran -Mantel -Haenszel  
+CONSORT  Consolidated Standards of Reporting Trials  
+CR complete response  
+CRF  case report form  
+CRi complete response with incomplete bone marrow recovery  
+CSR  clinical study report  
+CTCAE  Common Terminology Criteria in Adverse Events  
+CTR  clinical trial registry  
+DMC  Data Monitoring Committee  
+DoR  duration of response  
+ECG  electrocardiograms  
+ECOG  Eastern Cooperative Oncology Group  
+eCRF  electronic case report form  
+EFS event -free survival  
+FISH  fluorescence in situ hybridization  
+HR hazard ratio  
+IdelaR  idelalisib with rituximab  
+IPD important protocol deviations  
+IRC Independent Review Committee  
+ITT intention to treat  
+IV intravenous(ly)  
+iwCLL  International Workshop on Chronic Lymphocytic 
+Leukemia  
+IXRS  interactive voice/web response system  
+KM Kaplan -Meier  
+LFT liver function test  
+MedDRA  Medical Dictionary for Regulatory Activities  
+NCI-CTCAE  National Cancer Institute - Common Terminology Criteria 
+for Adverse Events  
+NED  no evidence of disease  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 6 of 37 Term  Definition  
+nPR nodular partial response  
+ORR  overall response rate  
+OS overall survival  
+PD progressive disease  
+PDI planned dose intensity  
+PFS progression -free survival  
+PK pharmacokinetics  
+PO by mouth  
+PR partial response  
+PR-L partial response with lymphocytosis  
+PRO  patient -reported outcome  
+PT preferred term  
+QD once daily  
+RBC  red blood cell  
+RDI relative dose intensity  
+SAE  serious adverse event  
+SAP statistical analysis plan  
+SD stable disease  
+SOC  system organ class  
+TEAE  treatment -emergent adverse event  
+TOT  time on treatment  
+TTF time to treatment failure  
+TTNT  time to next treatment  
+TTW  time to worsening  
+UNK  unknown  
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 7 of 37 VERSION HISTORY  
+This SAP is based on v ersion 6.0 of the protocol for Study LOXO -BTK -20020  dated  
+15 February 2023 . 
+SAP Version  Approval Date  Change  Rationale  
+1.0 11 Jun 2021  Not Applicable  Original version  
+2.0 19 Jun 2023  Change the study drug name from 
+LOXO -305 to pirtobrutinib  Align with the current version of 
+the study protocol  
+Remove time to treatment failure  Align with the current version of 
+the study protocol  
+Add additional sensitivity analysis 
+to IRC -PFS, OS  Additional sensitivity analysis to 
+evaluate impact of censoring 
+rule and crossover data  
+Add subgroup analysis for OS  Add subgroup analysis to better 
+characterize key secondary 
+efficacy endpoint OS  
+Update subgroup analysis for 
+Race/Ethnicity  Update to incorporate diversity, 
+equity, and inclusion plan  
+3.0 06 Sep 2023   Add descriptive  interim analysis 
+for OS  Allow data maturity in OS with 
+extended follow -up 
+Update in Handling of Missing 
+Data  Align with eCRF data collection 
+and data standard  
+Clarification language on 
+sensitivity analysis regarding 
+IPD for IRC -PFS  Align with IPD review process   
+Clarification language on 
+subgroup analysis  Provide a nalysis method  for small 
+sample size in subgroups  
+Add TTNT censoring rule  Align with other efficacy 
+endpoints  
+Miscellaneous revisions   
+ Align with EDC data capture, data 
+standard; minor corrections  
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 8 of 37 1.0 INTRODUCTION  
+The purpose of this SAP is to provide details of the statistical analyses for Study 
+LOXO -BTK -20020 (also referred to as BRUIN  CLL -321), which is entitled “A Phase 3 
+Open -Label, Randomized Study of LOXO -305 versus Investigator Choice of Idelalisib plus 
+Rituximab or Bendamustine  plus Rituximab in BTK Inhibitor Pretreated Chronic Lymphocytic 
+Leukemia/Small Lymphocytic Lymphoma (BRUIN CLL -321).” 
+There are no changes to the analyses described in the protocol.  
+1.1 Objectives , Endpoints , and Estimands  
+1.1.1 Objective and Endpoints  
+Objectives  Endpoints  
+Primary    
+Evaluate progression -free survival (PFS) 
+of pirtobrutinib  as monotherapy (Arm A) 
+to Investigator’s choice of idelalisib plus 
+rituximab (IdelaR) or bendamustine plus 
+rituximab (BR) (Arm B).  Assessed by independent review committee (IRC)  
+PFS per International Workshop on Chronic Lymphocytic Leukemia 
+(iwCLL)  2018 c riteria  
+Secondary   
+Evaluate the effectiveness of Arm A 
+compared to Arm B based on overall 
+response rate (ORR) and time -to-event (s) 
+outcomes . Assessed by Investigator:  
+PFS per iwCLL 2018 criteria  
+Overall survival (OS)  
+Time to next treatment (TTNT), defined as time from the date of 
+randomization to the date of the next systemic anticancer  
+therapy for CLL/SLL  or death, whichever occurs first   
+Event -free survival (EFS) defined as the time from date of 
+randomization to the date of progressive disease (PD) or start of 
+new treatment for CLL/SLL or discontinuation from study 
+treatment  due to toxicity or death  due to any cause , whichever 
+occurs first  
+Asses sed by Investigator  and IRC:  
+ORR  
+Duration of response (D oR) 
+Evaluate the safety and tolerability of 
+each treatment arm . Including, but not limited to,  serious adverse events (SAEs), adverse 
+events (AEs), deaths, and clinical laboratory abnormalities per 
+National Cancer Institute Common Terminology Criteria in Adverse 
+Events v5.0 (NCI-CTCAE  v5.0). 
+Evaluate the effectiveness of Arm A 
+compared to Arm B based on patient -
+reported outcomes  (PRO) . Patient -reported  outcomes of:  
+Time to worsening (TTW) of CLL/SLL -related symptoms  
+TTW of physical functioning  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 9 of 37 Objectives  Endpoints  
+Tertiary/Exploratory   
+The estimands  are described below following the ICH E9 (R1) addendum ( European Medicine s 
+Agency 2020 ).  
+1.1.2 Primary Estimand  
+The primary research question is: What is the difference in PFS between pirtobrutinib  and 
+Investigator’s choice of IdelaR  or BR as treatment for patients with CLL/SLL  who have been 
+pretreated with covalent BTK inhibitor ? 
+The estimand for the primary objective is described by the following attributes:  
+• Population:  adult patients with CLL/SLL who have been pretreated with covalent BTK 
+inhibitor  and randomized to study intervention ( Primary Analysis population). Further details 
+can be found in Protocol Section 5 , Study Population.  
+• Endpoint: IRC-assessed PFS in the Primary Analysis population s, which is defined as the 
+time fr om randomization until the earlier occurrence of documented PD by IRC or death 
+without documented PD.  
+• Treatment condition:  the randomized study intervention ( pirtobrutinib  or IdelaR or BR)  
+will be administered in 28 -day cycles until meeting any protocol -defined reason for treatment 
+discontinuation or completing the assigned treatment. Further details on study interventions 
+including interventions, concomitant therapy , and dose modification can be found in 
+Protocol  Section 6 , Study Intervention.  
+• Intercurrent -event strategies:  
+• Subsequent anticancer therapy for CLL/SLL prior to PD or death without PD is handled 
+with on treatment strategy.  
+• Extended time without adequate disease assessment  (i.e., 2 or more consecutively missed 
+disease assessment visits)  prior to PD or death without PD is handled with on treatment 
+strategy.  
+• Study intervention discontinuation prior to PD or death without PD is handled with 
+treatment policy strategy.  
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 10 of 37 • Population -level summary measure:  HR of PFS comparing pirtobrutinib  vs Ide laR or BR 
+estimated using a stratified Cox regression model ( Cox 1972 ) 
+• Rationale for estimand:  The interest lies in the relative treatment effect without the 
+confounding effect of the subsequent  anticancer therapy for CLL/SLL or extended time 
+without adequate assessment.  
+A subsequent anticancer therapy for CLL/SLL taken prior to PD or death without progression 
+will confound the treatment effect of pirtobrutinib  in terms of PFS. If the subsequent anticancer 
+therapy is taken, futur e disease recurrence/progression status is not needed. The participant will 
+be censored and only the time prior to the initiation of the subsequent anticancer therapy will be 
+considered in analysis.  
+PD or death without progression observed after an extended time without adequate disease  
+assessment may have occurred much earlier but is not reported because the scheduled assessment 
+was not done. This inadequate observation may introduce bias to PFS estima tes. If extended time 
+without adequate assessment occurs, the participant will be censored and only the time up to the 
+last adequate tumor assessment will be considered in analysis.  
+Study intervention discontinuation due to reasons other than PD or death w ithout progression is 
+handled with treatment policy as it reflects clinical practice. Time from randomization until 
+disease progression, or death without PD, regardless of study intervention discontinuation , will 
+be considered in analysis.  
+1.1.3 Secondary Estima nds 
+1.1.3.1  Overall Survival  
+A secondary research question  is: What is the difference in OS between pirtobrutinib  and 
+Investigator’s choice of IdelaR or BR as treatment for patients with CLL/SLL  and pretreated 
+with covalent BTK inhibitor ? 
+The estimand s for the secondary  objective are described by the following attributes:  
+• Population:  adult patients with CLL/SLL and pretreated with covalent BTK inhibitor  and 
+randomized to study intervention ( Primary Analysis population during the entire study 
+including the crossover  period). Further details can be found in Protocol Section 5 , Study 
+Population.  
+• Endpoint: OS, which is defined as the time from randomization until death from any cause . 
+• Treatment condition:  the randomized study intervention ( pirtobrutinib  versus IdelaR or  BR) 
+will be administered in 28 -day cycles until any protocol -defined reason is met for study 
+discontinuation or the assigned treatment  is completed . Further details on study interventions , 
+including interventions, concomitant therapy , and dose modificatio n, can be found in 
+Protocol Section 6 , Study Intervention.  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 11 of 37 • Intercurrent -event strategies:  
+• Study intervention discontinuation prior to death is handled with treatment policy 
+strategy.  
+• Subsequent  anticancer therapy for CLL/SLL (including pirtobrutinib  for crossover 
+participants) prior to death is handled with treatment policy strategy . 
+• Population -level summary measure:  Hazard ratio of OS in pirtobrutinib  vs IdelaR or BR 
+estimated using a stratified Cox regression model ( Cox 1972 ). 
+• Rationale for estimand: The interest lies in whether there is treatment benefit in OS where 
+patients are treated with pirtobrutinib  after prior  covalent  BTK inhibitor treatment and with 
+other anticancer therapies after PD or death without PD. Study interve ntion discontinuation 
+due to reasons other than death and subsequent anticancer therapy for CLL/SLL taken prior 
+to death  are handled with treatment policy as it reflects clinical practice for  patients .  
+1.2 Study Design  
+LOXO -BTK -20020 ( BRUIN CLL -321) is a Phas e 3, global, multicenter, randomized ( 1:1), 
+open -label  study comparing  pirtobrutinib  as continuous monotherapy (Arm A) to Investigator’s 
+choice of either idelalisib plus rituximab (IdelaR)  or bendamustine plus rituximab (BR)  (Arm B) 
+in CLL/SLL patients  who have been treated with a covalent BTK inhibitor, approved (ibrutinib 
+or acalabrutinib) or investigational . 
+BRUIN CLL -321 will enroll adult CLL/SLL patients with an indication for treatment as defined 
+by iwCLL 2018 criteria ( Hallek  et al.  2018 ). During Screening, Investigator’s choice therapy 
+(IdelaR or BR) must be selected by the Investigator prior to randomization for each patient. 
+Patients who have been treated previously  with IdelaR or BR and had either documented PD as 
+determined by the Investigator or could not tolerate the regimen should not be retreated with 
+same regimen. Eligible patients will be randomized 1:1 to either Arm A or Arm B based on the 
+following stratification factors:  
+• Deletion 17p presence (yes, no)  
+• Recei pt of prior venetoclax treatment (yes, no)  
+After confirmation of eligibility, approximately 250 patients will be randomly assigned in a 
+1:1 ratio to  
+• Arm A: pirtobrutinib  (200 mg PO QD) every 28 days, continuously, or 
+• Arm B: Investigator’s choice of the fol lowing therapies:  
+• idelalisib (150 mg PO BID , every 28 days continuously ) plus rituximab (375  mg/m2 on 
+C1D1 for the first  28-day cycle and then 500 mg/m2 every 2 weeks for 4 doses  (C1D15, 
+C2D1,  C2D15, C3D1)  and then every 4 weeks for 3 doses (C4D1, C5D1, C6D1 ) for a 
+total of 8 doses)  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 12 of 37 • bendamustine ( 6 cycles at 70 mg/m2 IV on Days 1 and 2 of each cycle ) plus rituximab 
+(375 mg/m2 Day 1 of the first cycle and 500 mg/m2 Day 1 of Cycles 2 to 6 ) 
+Study treatment wil l be given until PD, unacceptable toxicity, withdrawal of consent, death or 
+initiation of a new anticancer therapy , or treatment completion  occurs . Patients randomly 
+assigned to Arm B will be allowed to cross  over to Arm A upon confirmation of PD by IRC an d 
+if they meet the eligibility criteria for crossover (Protocol Section 5.3).  Patients who have PD per 
+the Investigator ’s assessment but not IRC  assessment  are not eligible for crossover until they 
+meet IRC PD criteria.  
+A detailed description of the study design is contained in the protocol.  
+2.0 STATISTICAL HYPOTHES ES 
+2.1 Primary Hypothesis  
+Treatment  with pirtobrutinib  as continuous monotherapy will provide superior PFS (assessed by 
+IRC) over treatment with Investigator’s choice of idelalisib plus rituximab or bendamustine plus 
+rituximab  in patients with covalent BTK inhibitor pretreated CLL/SLL . 
+2.2 Multiplicity Adjustment  
+The statistical comparisons for the primary efficacy endpoint and the key secondary endpoint 
+will be carried out  in the hierarchical order:  
+• IRC-assessed PFS, then  
+• OS 
+To be specific, only if the test of IRC -assessed PFS is statistically significant will OS be tested 
+inferentially for statistical  significance . Since a hierarchical  group sequential  gate-keep ing 
+strategy ( Glimm et al. 2010 ) is used, each  hypothesis  will be tested at  
+ (see  details for each endpoint over interim and final analyses in 
+Section  4.8), and a family -wise type I error will be controlled at   
+3.0 ANALYSIS  SETS  
+For purposes of analysis, the following populations are defined:  
+Population  Description  
+Entered  All participants who sign informed consent . 
+Intention  to treat  (ITT)  All randomized patients, even if a patient does not take the assigned treatment, does not 
+receive the correct treatment, or otherwise does not follow the protocol. Patients will be 
+analyzed according to the treatment arm they were assigned to regardless of what actual 
+treatment they receive.  
+Unless otherwise specified, all analyses using the ITT population will include data only 
+prior to crossover for Arm B  patient s who crossed over to Arm A, except for OS related 
+analyses.  
+CCI
+CCI
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 13 of 37 Population  Description  
+Safety  All randomized patients who take at least 1 dose (including a partial dose) of study 
+treatment. Analysis of safety data will be based on the actual treatment a patient 
+received on  the first study treatment administration , regardless of which treatment they 
+were randomized to receive (“as treated”).  
+Unless otherwise specified, all analyses using the Safety population will include data 
+collected prior to crossover for Arm B patient s who crossed over to Arm A.   
+Crossover  A subpopulation of patients included in the ITT population who were randomized to 
+Arm B and crossed over to receive at least 1 dose of pirtobrutinib . The Crossover 
+population will be used for selected safety analyses including data collected during 
+crossover period starting from the date of first dose of pirtobrutinib , if deemed 
+necessary.  
+ 
+4.0 STATISTICAL ANALYSES  
+4.1 General Considerations  
+Statistical analysis of this study will be the responsibility of Loxo Oncology , Inc.  or its designee. 
+All tests of treatment effects will be conducted at a two-sided alpha level of , unless 
+otherwise stated, and all CIs will be given at a  level, unless otherwise stated. 
+Statistical analysis will be performed using SAS sof tware (SAS, version 9.4 or higher).  
+Continuous variables will be summarized using descriptive statistics (i.e., number of patients, 
+mean, median, standard deviation, Q1, Q3, minimum, and maximum). Categorical variables will 
+be summarized by frequency and i ts corresponding percentage.  
+All efficacy (except OS analyses) and safety analyses will include data prior to crossover for 
+Arm B patients who crossed over to Arm A (ITT and Safety populations, respectively). OS will 
+be analyzed based on ITT population du ring the entire study, including the crossover period. The 
+safety data during crossover period will be summarized and reported separately.  
+Any change to the data analysis methods described in the protocol will require an amendment  
+only if it changes a prin cipal feature of the protocol. Any other change to the data analysis  
+methods described in the protocol, and the justification for making the change, will be described  
+in the clinical study report . Additional exploratory analyses of the data will be conducted as 
+deemed  appropriate.  
+4.1.1 Definitions  
+Definitions of efficacy, safety, and PRO analysis variables are listed in respective  sections of the 
+SAP. Other variables are listed below alphabetically:  
+• Age (years): (informed consent date - date of birth + 1)  / 365.25; Birth month and day are 
+imputed to be 01 July because only birth year is collected through eCRF.  
+CCI
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 14 of 37 • Baseline Measurement:  unless otherwise specified, the last nonmissing measurement prior 
+to the first dose of study treatment . Baseline measurement o f radiographic imaging will use 
+the last nonmissing measurement on or prior to  date of  randomization.  
+• Crossover Period:  the crossover period is defined only for patients who were randomized to 
+Arm B and crossed over to pirtobrutinib , and the crossover peri od is defined as time from 
+date of first dose of crossover pirtobrutinib  monotherapy to study discontinuation date.  
+• Duration:  duration is calculated as:  
+• Duration (days): ( end date – start date + 1)  
+• Duration (weeks): ( end date – start date + 1)  / 7 
+• Duration  (months): ( end date – start date + 1) / 30.4375  
+(days in months = (1/12)  × average number of days in a year)  
+• Duration (years): ( end date – start date + 1) / 365.25  
+• Duration of disease: (randomization date – diagnosis of cancer date + 1)  
+• Study Day (safety  and tolerability analyses):   
+• If the assessment is done on or after the first dose day:  assessment date – first dose 
+date + 1 
+• If the assessment is done prior to the first dose day: assessment date – first dose date   
+• Date of first dose is defined as Study D ay 1. Study date for Arm B patients will not 
+include the crossover period.  
+• Study Day (baseline and efficacy analyses):   
+• If the assessment is done on or after randomization: assessment date – randomization 
+date + 1 
+• If the assessment is done prior to randomization: assessment date – randomization date  
+• Date of randomization is defined as Study Day 1 . Study date for Arm B patients will not 
+include the crossover period except OS related analyses.  
+• Study Day for Crossover Period:   
+• Study day for crossover pe riod is only defined for Arm  B patients who crossed over to 
+pirtobrutinib .  
+• Study day is calculated as assessment date – date of first dose of pirtobrutinib  + 1 day.  
+• If the assessment is done prior to the first dose day, study day will be calculated as 
+assessment date – first dose date.  
+• Date of first dose is defined as Crossover Period Study Day 1.  
+• Time  to Event : the event or censoring time (days) is calculated as date of 
+event/ censoring  – randomization date + 1.  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 15 of 37 4.1.2 Handling of Dropouts or Missing Data  
+All analyses and descriptive summaries will be based on the observed data. Unless otherwise 
+specified, missing data will not be imputed or “carried forward .” Rules for handling dropouts or 
+missing data are listed by type of analysis alphabetically.  
+• AE: 
+• The missing day of onset of an AE will be set to:  
+• First day of the month that the event occurred, if the onset yyyy -mm is after the 
+yyyy -mm of first study treatment;  
+• The day of the first study treatment, if the onset yyyy -mm is the same as yyyy -mm of 
+the first  study treatment; or  
+• The date of informed consent  or first day of the month that the event occurred , 
+whichever is later, if the onset yyyy -mm is before the yyyy -mm of the first treatment , 
+or if the onset yyyy -mm is the same as yyyy -mm of the first study tr eatment  and AE 
+resolution date is on or before the date of the first study treatment . 
+• The missing day of resolution of an AE will be set to:  
+• The last day of the month of the occurrence. If the patient died in the same month,  
+then set the imputed date as th e death date.  
+• If the onset date of an AE is missing both the day and  month, the onset date will be set to:  
+• 01 January of the year of onset, if the onset year is after the year of the first study  
+treatment;  
+• The date of the first treatment, if the onset year  is the same as the year of the first  
+study treatment; or  
+• The date of informed consent  or 01 January of the year of onset , if the onset year is 
+before the year of the first  treatment , or if the onset year is the same as the year of the  
+first study treatmen t and AE resolution date is on or before the date of the first study 
+treatment . 
+• If the resolution date of an AE is missing both the day  and month, the date will be set to:  
+• 31 December of the year of occurrence. If the patient died in the same year, then  set 
+the imputed date as the death date.  
+• If the date is completely missing, then no imputation will be done and the event will be 
+considered as treatment -emergent with unknown onset date, unless the end date rules out 
+the possibility.  
+• Missing or partially m issing start or end dates for medications will be imputed based on the 
+conventions described in Section 6.3. 
+• Diagnosis date, the following conventions will be used for imputing partial dates:  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 16 of 37 • If only the day of the month is missing, the 15th o f the month will be used to replace the  
+missing day.  
+• If both the day and the month are missing, “ 01 Jul” will be used to replace the missing  
+information.  
+• General rule for imputing other dates:  
+• If only the day is missing, then assign Day 15 of the month, or the date of death if the  
+patient died prior to 15th of the same month to the day.  
+• If month is missing, then the date will be set to July 1st of the year, or the date of death if  
+the patient died prior to July 1st of the same year.  
+• In all cases, after im putation, check if the imputed date is logically consistent with other 
+relevant  date variable(s) and make appropriate correction if necessary.  
+• Time -to-event analysis: all censored data will be accounted for using appropriate statistical 
+methods.  
+4.2 Participa nt Dispositions  
+A detailed description of participant disposition will be provided according to the CONSORT 
+publishing requirements, including a summary of the number and percentage of patients entered 
+into the study , randomized in the study, and treated, as well as number and percentage of patients 
+completing the study or discontinuing (overall and by reason for discontinuation).  
+Patient disposition for Crossover population  will be summarized in a separate table.  
+4.2.1 Protocol Deviations  
+Protocol deviation  categories are defined and managed by the study team during the protocol 
+deviation reviews throughout the study before database lock. These definitions of protocol 
+deviation categories  and descriptions will be used during the course of the study. The fina l IPD 
+list is used to produce the summary of IPD table and listing.  In addition,  this final IPD list will 
+also be reviewed to identify  those that could  impact efficacy analysis  and will be iden tified 
+accordingly to support  IRC-assessed PFS  sensitivity analysis (Section 4.3.3 ). 
+4.3 Primary Endpoints  Analysis  
+4.3.1 Definition of Endpoint (s) 
+The primary endpoint of PFS assessed by the IRC is defined as the time from randomization 
+until the occurrence of documented disease progression by the IRC, per iwCLL 2018 criteria 
+(Hallek  et al. 2018 ; Cheson et al. 2012 ), or death from any cause in the absence of documented 
+PD. Patients known to be alive and without PD will be censored at the time of the last adequate 
+disease assessment.  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 17 of 37 The analysis of IRC -assessed PFS is event driven. The final analysis will be conducted when 
+approximately  ev ents assessed by IRC  have been observed.  
+4.3.2 Main Analytical Approach  
+The IRC-assessed PFS will be compared between treatment arms using a stratified logrank test, 
+stratified by t he 2 randomization strata based on the IWRS data:  del 17p presence (yes versus no) 
+and receipt of prior venetoclax treatment (yes versus no). The corresponding HR between 
+treatment arms will be estimated using a stratified Cox regression model ( Cox 1972 ). PFS KM 
+survival curves, medians, and PFS rates at va rious time points with 95% CI for each treatment 
+arm will be estimated using the KM method ( Kaplan and Meier 1958 ). The table in Section 
+Error! Reference source not found.  defines censoring rules to be applied to the  IRC-assessed  
+PFS main analysis . 
+4.3.3 Sensitivity Analyses  
+Several  sensitivity analyses for the IRC -assessed PFS will be conducted as defined below:  
+• Repeat the primary analysis for IRC -assessed  PFS using unstratified logrank test and an 
+unstratified Cox regression model.  
+• Subjects with the use of any subsequent anticancer therapy prior to the first IRC  confirmed 
+PD or death due to any cause will not be censored at the last adequate assessment pri or to the 
+start date of the subsequent anticancer therapy.  
+• IRC-assessed PD or death after 2 or more consecutively missed visits will be included  as a 
+PFS event . 
+• Exclude patients with IPDs deemed to  impact efficacy analysis  
+4.4 Secondary Efficacy Endpoints  
+4.4.1 Key Secondary Efficacy Endpoints  
+4.4.1.1  Overall Survival  
+4.4.1.1.1  Definition of Endpoint  
+OS is defined as the time from randomization until death from any cause. If the patient is alive or 
+lost to follow -up at the time of data analysis, OS data will be censored on the last date the patient 
+is known to be alive.  
+4.4.1.1.2  Main Analytical Approach  
+The analysis timepoint(s), gate -keeping strategy, and related alpha -spending scheme regarding 
+OS analyses are described in Section  4.8. The analysis  method of OS  analysis will be similar to 
+the main analysis for IRC -assessed PFS in Section 4.3.2 . The table in  Section 6.2.2  defines 
+censoring rules to be applied to the OS analysis.   
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 18 of 37 4.4.1.1.3  Sensitivity Analysis  
+A sensitivity analysis for OS will be conducted . Subjects  who cross  over from Arm B will be 
+censored at the time of crossover . 
+4.4.2 Supportive Secondary Efficacy Endpoints  
+4.4.2.1  Overall Response Rate Assessed by IRC  
+ORR according to IRC -assessed BOR is defined as the number of patients who achieve a BOR 
+of CR, CRi, nPR or PR at or before the initiation of subsequent anticancer therapy divided by the 
+total number of patients randomized to each treatment arm. IRC -assess ed best overall response is 
+the best overall response recorded from the start of treatment until IRC -assessed PD, in the order 
+of CR, CRi, nPR, PR, SD, nonPD, PD, NED, or UNK. Patients who do not have any  
+post-baseline disease response assessments are cons idered nonresponders and are included in the 
+denominator when calculating the response rate.  
+The ORR, with 95% CI, will be summarized for each treatment arm. ORR will be compared 
+between Arm A and Arm B using a CMH test stratified by the randomization str ata. 
+4.4.2.2  Progression -Free Survival per Investigator Assessment  
+PFS per Investigator assessment is defined according to the same criteria  (iwCLL 2018 criteria ) 
+and will be analyzed using the same methodology as for the PFS per IRC assessment in 
+Section  4.3.2 .  
+4.4.2.3  Overall Response Rate With or Without Inclusion of PR -L Per Investigator 
+Assessment  
+The ORR according to Investigator -assessed BOR per iwCLL 2018 criteria will also be 
+evaluated using the same analyses planned for IRC -assessed ORR in Section 4.4.1.1.2 . ORR 
+including  PR-L assessed by both Investigator and IRC will be analyzed with the same analyses 
+planned for ORR assessed by IRC in Section 4.4.1.1.2 . 
+The concord ance for BOR (PR or better, PR -L or better, PD, respectively) assessed by the 
+Investigator and IRC will be provided . 
+4.4.2.4  Duration of Response ( With or Without Inclusion of PR -L) 
+DoR will be analyzed for patients who achieve a BOR of CR, C Ri, nPR or PR. The DoR 
+according to both IRC - and Investigator -assessed BOR will be evaluated.  
+DoR is defined as the time from the date of the first documented response until the first date of 
+the documentation of PD per iwCLL 2018 criteria, or the date of death from an y cause in the 
+absence of documented PD. Patients who are alive and without documented PD at the time of 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 19 of 37 data cutoff will be censored. Details of the censoring rules are described in  Section 6.2.3 . 
+DoR  analysis will be similar to the main analysis for IRC -assessed PFS in Section 4.3.2 . 
+DoR including PR -L is de fined similarly to DoR with the inclusion of PR -L as a response 
+(i.e., PR-L or better). DoR including PR -L assessed by both Investigator and IRC will be 
+analyzed with the same analysis method used for DoR.  
+4.4.2.5  Event-Free Survival  
+EFS is defined as the time from randomization to the first occurrence of:  
+• Documented disease progression per iwCLL 2018 criteria as assessed by Investigator ; or 
+• Initiation of subsequent anticancer therapy for CLL/SLL; or  
+• Unacceptable toxicity leading to treatment discontinuation as assessed by the Investigator ; or 
+• Death (due to any cause).  
+EFS analysis will be similar to the primary  analysis for IRC -assessed PFS in Section 4.3.2 . The 
+table in Section 6.2.4  defines censoring rules to be applied to the EFS analysis.  
+4.4.2.6  Time to Next Treatment  
+TTNT is defined as time from the date of randomization to the date of initiation of the 
+subsequent anticance r therapy for CLL/SLL , therapy of pirtobrutinib  for Arm B patients who 
+crossover, or death due to any cause, whichever occurs first. For patients who have not  received 
+the next anticancer therapy and are still alive or lost to follow -up at the time of data  analysis 
+cutoff, TTNT will be censored at the last date the patient is known to be alive. TTNT analysis 
+will be similar to the main analysis for IRC -assessed PFS in Section  4.3.2 . The censoring rules 
+are defined in Section 6.2.5 . 
+4.4.2.7  Patient -Reported Outcomes  
+Details of planned analysis of TTW of CLL/SLL -related symptoms and TTW of physical 
+functioning will be provided in a separate  PRO  SAP.  
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 20 of 37 4.6 Safety Analyses  
+All safety analyses, unless otherwise specified, will be performed  using the Safety population 
+and will be analyzed as treated and summarized by treatment arms  (Arm A , Arm B), and by 
+IdelaR and BR for Arm B,  unless otherwise specified.  The safety data during crossover period 
+will be summarized and reported separately . 
+4.6.1 Extent of Exposure  
+Exposure of each drug will be summarized  by treatment arm  for all treated  patients based on the 
+following:  
+• Time on treatment (TOT) is calculated as :  
+• pirtobrutinib  and idelalisib : (date of last dose – date of first dose + 1)  / 30.4375  
+• bendamustine and rituximab : (date of last dose  – date of first dose + 28)  / 30.4375  
+• Dose intensities  
+• Dose modifications  
+Dose intensities of pirtobrutinib  and idelalisib will be summarized descriptively as actual dose 
+intensity (ADI), planned dose intensity (PDI) and relative dose intensity (RDI).  
+• The ADI (mg/day) will be calculated as the actual cumulative dose of each drug received 
+divided by TOT (days).  
+• The PDI of each drug is defined as follows:  
+PDI (mg/day) = assigned dose level (mg)/day  
+• The RDI is the percentage of dose received relative to the planned dose through to treatment 
+discontinuation and is defined as follows:  
+RDI (%) = (ADI / PDI) × 100%  
+Dose intensities of bendamustine and rituximab will be summarized descriptively by RDI (%) , 
+which is defin ed as (total cumulative dose received [mg/m2]/total dose prescribed [mg/m2] from 
+cycles 1 to 6 × 100). 
+The number and percentage of patients with dose reductions, dose interruptions, and dose 
+withholdings  will be summarized for each drug with the reason for each dose modification.  
+All analyses of pirtobrutinib  exposure will only be performed for the study treatment period for 
+patients randomly assigned to Arm A. All analyses of idelalisib, bendamustine, and rituximab 
+exposure will be performed for the stu dy treatment period for patients randomly assigned to 
+Arm B. Exposure of pirtobrutinib  for Crossover population will be summarized similarly to that 
+of Arm A and reported separately.  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 21 of 37 4.6.2 Adverse Events  
+The MedDRA PT derived from the verbatim term will be use d when reporting AEs by MedDRA 
+terms. Severity will be measured using the grade defined by the NCI -CTCAE Version  5.0.  
+TEAEs are events that first occurred or worsened in severity from the first dose of study drug  
+through 30 days  (+ 7 days window)  after th e date of the last dose of study treatment or the first 
+date of starting new anticancer therapy for CLL/SLL, whichever is earlier. TEAE will be 
+summarized by SOC and by decreasing frequency of PT within SOC (all Grade and Grade  3), 
+by decreasing frequenc y of PT (all Grade and Grade  3)  
+SAE s are any AE that  at any dose:  
+• results in death  
+• is life-threatening  
+• requires hospitalization or prolonged of existing  hospitalization  
+• results in disability/incapacity  
+• is a congenital anomaly/birth defect  
+• is an important medical event  
+TEAE analyses will include summaries of the following:  
+• AEs, including severity and possible relationship to study treatment  
+• SAEs , including  severity  and possible relationship to study treatment  
+• AEs leading to dose adjustments  
+• AEs leading to death  
+• AEs leading to study treatment discontinuation  
+4.6.2.1  Advers e Events  of Special Interest   
+AESIs are bleeding, bruising, petechiae  and purpura,  hemorrhage, anemia, neutropenia, 
+thrombocytopenia, infections, infections without COVID -19, COVID -19, a nd atrial fibrillation 
+or atrial  flutter . Categories of AESI may be modified as the understanding of the safety of 
+pirtobrutinib  increases.  
+4.6.2.2  Adverse Events  of Potential Clinical Significance  
+AEPCS will include : second primary malignancy, second primary mal ignancy (excluding 
+nonmelanoma skin cancer) , nonmelanoma skin cancer , lymphocytosis, tumor lysis syndrome, 
+rash, cardiac failure, supraventricular tachyarrhythmias excluding atrial fibrillation and atrial 
+flutter, ventricular tachyarrhythmias, and hypertensio n. 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 22 of 37 4.6.2.3  Consolidated Adverse Events  
+Consolidated AEs  are selected composite AE terms consisting of synonymous PTs to allow 
+meaningful interpretation of the AE data.  The final list of AESI, AEPCS, and consolidated AE 
+categories and their respective PTs will be maintained at both compound and study level and 
+reported in the CSR.  
+AEs for Crossover population will be analyzed  similarly and reported separately.  
+4.6.3 Additional Safety Assessments  
+4.6.3.1  Deaths  
+• Summary of deaths (all deaths, deaths on treatment , and de aths within 30 days of last dose of 
+study treatment ) and their primary cause (study disease progression, AE, other)  
+• Listing of TEAEs  leading to death  
+• Deaths for Crossover population will be analyzed similarly and reported separately  
+4.6.3.2  Laboratory Abnormalities  
+The severity of laboratory results will be classified according to NCI -CTCAE v5.0 except for 
+LFT. For LFT abnormalities, toxicity grades based on NCI-CTCAE  v4.03  will be assigned.  The 
+standard  LFT panel  will consist of ALT, AST, and total bil irubin . 
+Treatment -emergent changes in laboratory values will be reported for the Safety population. The 
+laboratory toxicity by worst NCI -CTCAE grade and shifts in toxicity grading from Baseline to 
+the worst postbaseline grade will be summarized. Change fro m Baseline to worst postbaseline 
+and to last postbaseline value will be calculated for each parameter.  
+4.6.3.3  ECOG Performance Status  
+The ECOG performance status grade ranges from 0 to 5. The ECOG performance score  will be 
+summarized by descriptive statistics. Shift to maximum postbaseline score in  ECOG 
+performance score will be summarized by treatment arms.  
+4.6.3.4  Electrocardiograms  
+Subject incidence of ECG  (QTcF)  abnormality at Baseline and postbaseline visits will be  
+summarized for Arm A.   
+4.6.3.5  Vital Signs  
+Vital  sign measurements will be summarized using descriptive statistics. Systolic and diastolic  
+blood pressure will be graded using NCI -CTCAE  Version 5.0. Treatment -emergent abnormal 
+changes in vital signs will be summari zed and reported . 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 23 of 37 4.7 Other Analyses  
+Unless otherwise  specified, all the planned analysis in this section will be based on ITT 
+population.  
+4.7.1 Other Variables and/or Parameters  
+4.7.1.1  Demographic and Baseline Characteristics  
+Demographics , baseline characteristics, and me dical history will be reported for the ITT 
+population using descriptive statistics. The variables to be used in the summary of demographics 
+and baseline disease characteristics are detailed in  Section 6.1. 
+4.7.1.2  Prior Anticancer Therapy  for CLL/SLL  
+The following  variables will be summarized across patients to characterize the extent of prior 
+therapy:  
+• Prior systemic therapies  
+• Prior covalent BTK inhib itor 
+• Prior veneto clax 
+• Prior BCL -2 inhibitor  
+• Prior radiotherapy  
+• Number of prior lines of therapy  
+The number of regimens or treatment courses each patient received prior to enrolling this study 
+will be reviewe d by a medical review er of the reported treatments and their corresponding start 
+and end dates.  
+The reported medication term for prior therapy, concomitant therapy, or subsequent anticancer 
+therapy for CLL/SLL will be assigned to a therapeutic class and preferred term using the World 
+Health Organization Drug Dictionary.  
+4.7.1.3  Concomitant Therapy  
+A summary of standardized names of concomitant medication by treatment arm by decreasing 
+frequency will be generated.   
+4.7.1.4  Subsequent Anticancer Therapy for CLL/SLL  
+The numbers and percentages of p atients receiving subsequent anticancer therapies for CLL/SLL 
+will be provided by type of therapy (radiotherapy  and systemic therapy), by drug class , and/or 
+name.  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 24 of 37 4.7.1.5  Medical Resource Utilization  
+Medical resource utilization includes the following categories:  
+• Number of hospitalizations per person -year 
+• Number of emergency department visits per person -year 
+• Number of plasma, whole blood, and packed RBC transfusions per person -year 
+• Number of platelet transfusions per person -year 
+• Number of hematopoietic growth facto r treatments per person -year 
+Medical resource utilization will be summarized using descriptive statistics by treatment arm.  
+4.7.2 Subgroup Analyses  
+To determine whether the treatment effect is consistent across various subgroups, the  
+between -group treatment effe ct for the primary efficacy endpoint of  PFS assessed by IRC  and 
+the key secondary efficacy endpoint of OS will be  estimated (with a nominal 95% CI)  and 
+plotted using forest plots within each category of the following subgroups when appropriate 
+(defined based on eCRF data  unless otherwise specified ): 
+• Age at study entry  (< 65 years versus  ≥ 65 years, < 75 years versus  ≥ 75 years, and 
+< 85 years versus  ≥ 85 years)  
+• Sex (male versus  female)  
+• Race (White, Asian,  Black or African American , other)  
+• Ethnicity ( Hisp anic or Latino , not Hispanic or Latino , other ) 
+• Region (North America, Europe, Asia, Australia ) 
+• Histology (CLL versus  SLL)  
+• Rai stage ( 0-II versus  III-IV) 
+• ECOG performance status at Baseline (0-1, 2) 
+• Prior lines of systemic therapies (1 , 2, 3, ≥ 4) 
+• Receipt of prior BCL -2 treatment  (yes, no)  
+• Receipt of prior venetoclax treatment (yes, no ; per IWRS)  
+• Most recent prior anticancer therapy including covalent BTK inhibitor  (yes, no)  
+• Reason for discontinuation from the most recent prior covalent BTK  inhibitor  (PD versus  
+toxicity versus  other)  
+• Bulky disease (<5 cm versus  ≥ 5 cm , < 10 cm versus  ≥ 10 cm)  
+• β2 microglobulin (mg/L) group at Baseline (≤ 3.5 mg/L, > 3.5 mg/L)  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+Version 3.0 Confidential and Proprietary  Page 25 of 37 • Intended  comparator (IdelaR, BR)  
+In the event that certain subgroup by treatment arm category contain s not at least 1  event, 
+depending on the subgroup, such categor y may be combined with other category under the 
+subgroup or potentially exclud ed from the analysis. Additional subgroup analyses may be 
+performed as deemed appropriate.   
+4.8 Interim Analyses  
+There is no interim efficacy analysis planned for the primary efficacy endpoint IRC -assessed  
+PFS in this study.  
+4.8.1 Interim Analysis of Overall Survival  
+A descriptive interim analysis of OS , without formal testing,  will be conducted at the time of the 
+IRC-assessed PFS final analysis. An arbitrary  will be allocated to the 
+OS to account for  early look of OS  data and the descriptive analysis planned .  
+The final analysis of OS will occur approximately  months after the primary analysis of PFS  to 
+allow adequate fol low-up time for OS assessment  or when approximately  OS events have 
+been observed. The  p-value boundary for the final analysis of OS will be equal to 
+  
+  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 26 of 37 Figure  1:  Diagram of Statistical Testing Procedure for Primary and Key 
+Secondary Efficacy Endpoints  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Abbreviations: ; p = one-sided p -value;  FA = final analysis ; IRC  = Independent  Review 
+Committee; PFS  = progression -free survival; OS  = overall survival .  
+* An arbitrary alpha split of  is applied  
+ 
+4.8.2 Data Monitoring Committee  
+An independent DMC  will review the safety data periodically and provide recommendations 
+according to the DMC charter. Details are contained in a separate DMC charter.  
+4.9 Changes to Protocol -Planned Analyses  
+Changes to the timing of OS analyses as described in the current SAP amendment.  
+5.0  SAMPLE SIZE DETERMI NATION  
+The sample size of this study was determined (under the assumption of 1:1 randomization) to 
+allow sufficient power for testing IRC -assessed PFS in an error -controlled fashion. For the 
+IRC-assessed PFS, assuming a true HR of  IRC -assessed PFS events are required to 
+provide approximately  power at a significance level of  to reject the null 
+hypothesis (HR = 1 .0) using the logrank test. This corresponds to an improvement in median 
+IRC-assessed PFS from  months in comparator arm to  months for pirtobrutinib  arm. 
+Allowing a dropout rate of approximately  by the time of primary PFS analysis, the study is 
+expected to enroll approximately 250 patients. The accrual period is assumed to be 
+approximat ely  months, and the final analysis is expected to occur approximately  months 
+after the first patient has been randomized.  
+No 
+PFS FA  
+ OS FA  
+PFS by IRC  
+ 
+STOP  
+OS 
+ 
+OS 
+p <  
+No 
+STOP  
+Yes 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 27 of 37 6.0 SUPPORTING DOCUMENTA TION  
+6.1 Demographic and Baseline Characteristic  
+6.1.1 Demography  
+The following variables will be summarized across pa tients to describe the demographics at 
+enrollment:  
+• Age at study entry : summarized as a continuous variable in years relative to the date 
+informed consent is signed. Age will also be summarized categorically based on the 
+following age groups:  
+• < 50 years  
+• 50 to < 65 years  
+• 65 to < 75 years  
+• 75 to < 85 years  
+• ≥ 85 years  
+• < 65 versus ≥ 65 years  
+• < 75 versus ≥ 75 years  
+• < 85 versus ≥ 85 years  
+• Sex  
+• Race  
+• Ethnicity  
+• Region  (North America, Europe, Asian, Australia ) 
+• Height (cm)  
+• Weight (kg)  
+• BSA (m2)  
+6.1.2 Baseline Disease Characteri stics 
+The following variables will be summarized across patients:  
+• ECOG performance status (0, 1, 2)  
+• Time (months) from initial diagnosis to first dose  
+• Histology (CLL, SLL)  
+• Rai stage (0, I, II, III, and IV)  
+• Bulky disease (< 5 cm versus ≥ 5 cm; < 10 cm versus ≥ 10 cm)  
+• β2 microglobulin (mg/L) group at Baseline (≤ 3.5 mg/L, > 3.5 mg/L)  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+Version 3.0 Confidential and Proprietary  Page 28 of 37 • Cytopenia at Baseline  
+• Neutropenia : absolute neutrophil count (ANC ) < l.5 x 109/L  
+• Anemia : Hgb < 11 g/dL  
+• Thrombocytopenia : platelet counts <100 x 109/L 
+• Any of the above  
+• Disease -related  symptoms (weight loss, fever, night sweats, fatigue)  
+Additional baseline disease variables may be included . 
+CCI
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 29 of 37 6.2  Censoring Rules for Time -to-Event Endpoint  
+6.2.1 Censoring Rules for PFS  
+Situation  Outcome  Date  Event Description/  
+Censoring Reason  
+Documented PD or death on or before data cutoff date:  
+Progression documented on or 
+between scheduled visits on or 
+before data cutoff, whichever 
+occurred first  Event  Earliest date of disease 
+assessment documenting 
+progression  PD 
+Death without documented 
+progression on  or before data 
+cutoff  Event  Date of death  Death  
+Patients without documented PD or death on or before data cutoff date will be censored per censoring 
+rules, unless otherwise specified:  
+No documented progression or 
+death on or before of data cutoff  Censored  Date of last adequate 
+disease assessment on or 
+before  data cutoff  No documented progression 
+or death at data cutoff  
+Study discontinuation without 
+documented progression or death  Censored  Date of last adequate 
+disease assessment  on or 
+before study  
+discontinuation  as reported 
+on end of study CRF  Study exit  
+Documented progression or death 
+after start of subsequent anticancer 
+therapy  Censored  Date of last adequate 
+disease assessment prior to 
+subsequent anticancer 
+therapy  Event after subsequent 
+anticancer therapy  
+Subsequent anticancer therapy 
+without documented progression or 
+death  Censored  Date of last adequate 
+disease assessment prior to 
+subsequent anticancer 
+therapy  Subsequent anticancer 
+therapy without event  
+Documented progression or death 
+immediately after 2 or more 
+consecutively missed scheduled 
+disease assessment visits  Censored  Date of last adequate 
+disease assessment prior to 
+the consecutively missed 
+visits  Event after 2 or more 
+consecutively missed visi ts 
+No adequate disease assessment at 
+postbaseline  Censored  Date of randomization  No adequate disease 
+assessment at postbaseline  
+No radiological tumor assessment 
+at Baseline  Censored  Date of randomization  No baseline tumor 
+assessment  
+The last adequate disease assessment is defined as the last overall response that is not “UNK ” (unknown)  for 
+IRC-assessed response and not “NE” (Not Evaluable ) for Investigator -assessed response . 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 30 of 37 6.2.2 Censoring Rules for  OS 
+Situation  Outcome  Date  Event Description/  
+Censoring Reason  
+Death on or before data cutoff  date Event  Date of death  Death  
+Alive at data cutoff   Censored  Date of data cutoff  Alive at data cutoff  
+Study discontinuation  without 
+death on or before data cutoff date   Censored  Date of discontinuation from 
+study participation as reported 
+on end of study CRF  Study exit 
+Unknown survival status at data 
+cutoff   Censored  Date patient  last known to be 
+alive  Unknown survival status  
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 31 of 37 6.2.3 Censoring Rules for D oR  
+Situation  Outcome  Date  Event Description/  
+Censoring Reason  
+Documented progressive disease or death on or before data cutoff date:  
+Progression documented on or 
+between scheduled visits on or 
+before data cutoff, whichever 
+occurred first  Event  Earliest date of disease 
+assessment documenting 
+progression  PD 
+Death without documented 
+progression on or before data 
+cutoff  Event  Date of death  Death  
+Patients without documented PD or death on or before data cutoff date will be censored  per censoring 
+rules , unless otherwise specified:  
+No documented progression or 
+death on or before of data cutoff  Censored  Date of last adequate disease 
+assessment on or before  data 
+cutoff  No documented 
+progression or death at 
+data cutoff  
+Study discontinuation without 
+documented progression or death  Censored  Date of last adequate disease 
+assessment  on or before  study 
+discontinuation as reported on 
+end of study CRF  Study exit  
+Documented progression or death 
+after start of subsequent anticancer 
+therapy  Censored  Date of last adequate disease 
+assessment  prior to subsequent 
+anticancer therapy  Event after subsequent 
+anticancer therapy  
+Subsequent anticancer therapy 
+without documented progression or 
+death  Censored  Date of last adequate disease 
+assessment prior to subsequent 
+anticancer therapy  Subsequent ant icancer 
+therapy without event  
+Documented progression or death 
+immediately after 2 or more 
+consecutively missed scheduled 
+disease assessment visits  Censored  Date of last adequate disease 
+assessment prior to the 
+consecutively missed visits  Event after 2 or  more 
+consecutively missed 
+visits  
+The last adequate disease assessment is defined as the last overall response that is not “UNK ” (unknown ) for 
+IRC-assessed response and not “NE” (Not Evaluable) for Investigator -assessed response.  
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 32 of 37 6.2.4 Censoring Rules for EFS 
+Situation  Outcome  Date  Event Description/  
+Censoring Reason  
+Earliest of d ocumented PD, event of interest, or death on or before data cutoff date:  
+Progression documented on or 
+between scheduled visits, on or 
+before data cutoff  date Event  Earliest date of disease 
+assessment documenting 
+progression  PD 
+Treatment  discontinuation due to 
+unacceptable toxicity   Event  Date of treatment 
+discontinuation  Treatment 
+discontinuation  
+Start of subsequent anticancer 
+therapy  Event  Date of initiation of 
+subsequent anticancer therapy  Subsequent anticancer 
+therapy  
+Death on or before data cutoff  Event  Date of death  Death  
+Patients wi thout EFS events will be c ensor ed on or before data cutoff  date: 
+No documented progressive 
+disease, no subsequent anticancer 
+therapy received, no treatment 
+discontinuation  due to 
+unacceptable toxicity , and no 
+death, on or before data cutoff  Censored  Date of last adequate disease 
+assessmen t on or before data 
+cutoff  No documented event at  
+data cutoff  
+Study discontinuation without 
+documen ted events  Censored  Date of last adequate disease 
+assessment  on or before data 
+cutoff  Study exit  
+No adequate disease assessment 
+available at postbaseline  Censored  Date of randomization  No adequate disease 
+assessment  
+No radiological tumor assessment 
+at Baseline  Censored  Date of randomization  No baseline tumor 
+assessment  
+The last adequate disease assessment is defined as the last overall response that is not “NE” (Not Evaluable) for 
+Investigator -assessed response . 
+ 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 33 of 37 6.2.5 Censoring Rules for TTNT  
+Situation  Outcome  Date  Event Description/  
+Censoring Reason  
+Earliest of the following events  on or before data cutoff date:  
+Start of subsequent anticancer 
+therapy  Event  Date of initiation of 
+subsequent anticancer therapy  Subsequent anticancer 
+therapy  
+Death on or before data cutoff  Event  Date of death  Death  
+Start of t herapy of pirtobrutinib for 
+Arm B who crossover  Event  Date of initiation of 
+pirtobrutinib for Arm B who 
+crossover  Therapy of pirtobrutinib 
+for Arm B who 
+crossover  
+Patients without TTNT events will be  censor ed on or before data cutoff date:  
+Have n ot received next anticancer 
+therapy including crossover 
+therapy and are still alive on or 
+before data cutoff  Censored  Date of data cutoff  No documented event at  
+data cutoff  
+Study discontinuation without 
+documented events  Censored  Date of discontinuation from 
+study participation as reported 
+on end of study CRF  Study exit  
+Unknown survival status at data 
+cutoff   Censored  Date patient  last known to be 
+alive  Unknown survival status  
+ 
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 34 of 37 6.3 Algorithms for H andling Partial Dates of Medications  
+ Start Date  Stop Date  Action  
+Known  Known  
+ If stop date < study drug start date, assign as PRIOR  
+If stop date ≥ study drug start date, and start date ≤ end of treatment, assign as 
+CONCOMITANT  
+If stop date ≥ study drug start date and start date > end of treatment, assign as 
+POSTTREATMENT  
+Partial  
+ Impute stop date as latest possible date (i.e., last day of month if day unknown 
+or 31 Dec if day and month are unknown), then:  
+If stop date < study drug start date, assign as  PRIOR  
+If stop date ≥ study drug start date, and start date ≤ end of treatment, assign as 
+CONCOMITANT  
+If stop date ≥ study drug start date, and start date > end of treatment, assign as 
+POSTTREATMENT  
+Missing or 
+Unknown  If stop date is missing, then PRIOR will never be assumed or assigned  
+If start date ≤ end of treatment, assign as CONCOMITANT  
+If start date > end of treatment, assign as POSTTREATMENT  
+Partial  Known  Impute start date as earliest possible date (i.e., first day of month if day 
+unknown or 01 Jan if day and month unknown), then:  
+If stop date < study drug start date, assign as PRIOR  
+If stop date ≥ study drug start date and start date ≤ end of treatment, assign as 
+CONCOMITANT  
+If stop date ≥ study drug start date and start date > end of treatment,  assign as 
+POSTTREATMENT  
+Partial  
+ Impute start date as earliest possible date (i.e., first day of month if day 
+unknown or 01 Jan if day and month are unknown) and impute stop date as 
+latest possible date (i.e., last day of month if day unknown or 31 Dec if day 
+and month are unknown), then:  
+If stop date < study drug start date, assign as PRIOR  
+If stop date ≥ study drug start date and start date ≤ end of treatment, assign as 
+CONCOMITANT  
+If stop date ≥ study drug start date and start date > end of treatment,  assign as 
+POSTTREATMENT  
+Missing or 
+Unknown  Impute start date as earliest possible date (i.e., first day of month if day 
+unknown or 01 Jan if day and month unknown), then:  
+If stop date is missing, then PRIOR will never be assumed or assigned  
+If start date ≤ end of treatment, assign as CONCOMITANT  
+If start date > end of treatment, assign as POSTTREATMENT  
+Missing or 
+Unknown  Known  
+ 
+ 
+ If stop date < study drug start date, assign as PRIOR  
+If stop date ≥ study drug start date, assign as CONCOMITANT  
+If start date is missing, then POSTTREATMENT will never be assumed or 
+assigned  
+Partial  
+ Impute stop date as latest possible date (i.e., last day of month if day unknown 
+or:    
+31 Dec if day and month are unknown), then:  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 35 of 37  Start Date  Stop Date  Action  
+If stop date < study drug start date, assign as PRIOR  
+If stop date ≥ study drug start date, assign as COMCOMITANT  
+If start date is missing, then POSTTREATMENT will never be assumed r 
+assigned  
+Missing or 
+Unknown  Assign as CONCOMITANT  
+ 
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 36 of 37 6.4 Clinical Trial Registry Analyses  
+Additional analyses will be performed for the purpose of fulfilling the CTR requirements.   
+Analyses provided for the CTR requirements include the following : 
+Summary of AEs, provided as a dataset which will be converted to an XML file . Both SAEs  and 
+“Other ” AEs are summarized  by treatment group  and by  MedDRA PT. 
+• An AE is considered “Serious ” whether or not it is a TEAE.  
+• An AE is considered in the “Other ” category if it is both a TEAE and is not serious. For each 
+Serious AE and “Other ” AE, for each term and treat ment group, the following are provided:  
+• The number of participants at risk of an event  
+• The number of participants who experienced each event te rm 
+• The number of events experienced  
+• Consistent with www.ClinicalTrials.gov requirements, “Other ” AEs that occur i n fewer than 
+5% of patients /subjects  in every treatment group may be excluded  if a 5% threshold is 
+chosen.  
+• Adverse event  reporting is consistent with other document disclosures , e.g., the CSR, 
+manuscripts, and so forth.  
+ 
+  
+
+Loxo Oncology, Inc .  Statistical Analysis Plan  
+LOXO -BTK -20020 (J2N -OX-JZNN)  06 September  2023  
+ 
+Version 3.0 Confidential and Proprietary  Page 37 of 37 7.0 REFERENCES  
+Cheson BD, Byrd JC, Rai KR et al. Novel targeted agents and the need to refine clinical end 
+points in chronic lymphocytic leukemia. J Clin Oncol . 2012; 30(23):2820 -2822. 
+doi:10.1200/JCO.2012.43.3748.  
+Cox DR. Regression models and Life -Tables. J Royal Stat S oc Ser B . 1972;34(2):187 -220. 
+doi:10.1111/j.2517 -6161.1972.tb00899.x . 
+European Medicines Agency . ICH E9 (R1) Addendum on  Estimands  and Sensitivity Analysis in 
+Clinical Trials to the Guideline on Statistical Principles for Clinical Trials . Scientific Guideline . 
+February 2020. https://www.ema.europa.eu/en/documents/scientific -guideline/ich -e9-r1-
+addendum -estimands -sensitivity -analysis -clinical -trials -guideline -statistical -principles_en.pdf . 
+Glimm E, Maurer W, Bretz F. Hierarchical testing of multiple en dpoints in group -sequential 
+trials. Stat Med . 2010;29(2):219 -228. doi:10.1002/sim.3748   
+Hallek M, Cheson BD, Catovsky D, et al. iwCLL Guidelines for Diagnosis, Indications for 
+Treatment, Response Assessment, and Supportive Management of CLL. Blood . 
+2018;13 1(25):2745 -2760. doi:10.1182/blood -2017 -09-806398.  
+Kaplan EL  and Meier P. Nonparametric Estimation from Incomplete Observations. J Am Stat 
+Assoc . 1958;53(282):457 -481. doi: 10.1080/01621459.1958.10501452 . 
+
+Signature Page for LOXO-BTK-20020-statistical-analysis-plan-v3.0
+Signature Page for LOXO-BTK-20020-statistical-analysis-plan-v3.0Approval Task
+Biostatistics
+08-Sep-2023 18:29:05 GMT+0000
+Approval Task
+Regulatory
+08-Sep-2023 21:48:27 GMT+0000
+Approval Task
+Biostatistics
+08-Sep-2023 22:30:15 GMT+0000
+PPD
+PPD
+PPD

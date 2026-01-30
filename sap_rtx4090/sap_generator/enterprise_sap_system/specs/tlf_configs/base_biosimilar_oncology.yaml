@@ -1,0 +1,520 @@
+# Base Biosimilar Oncology TLF Configuration
+# ============================================
+# Reusable templates for biosimilar oncology studies
+# Supports: Period stratification, Central/Local review, Immunogenicity
+
+metadata:
+  template_name: "Biosimilar Oncology"
+  version: "1.0"
+  applicable_to:
+    - biosimilar
+    - oncology
+    - infused_biologic
+
+# =============================================================================
+# COMMON DEFINITIONS
+# =============================================================================
+
+study_periods:
+  - id: whole
+    name: "Whole Study Period"
+    description: "From first dose to end of follow-up"
+    filter_suffix: ""
+  - id: induction
+    name: "Induction Study Period"
+    description: "Cycles 1-6 with chemotherapy"
+    filter_suffix: "and APERIODC = 'INDUCTION'"
+  - id: maintenance
+    name: "Maintenance Study Period"
+    description: "Monotherapy after induction"
+    filter_suffix: "and APERIODC = 'MAINTENANCE'"
+  - id: followup
+    name: "Follow-up Period"
+    description: "Post-treatment follow-up"
+    filter_suffix: "and APERIODC = 'FOLLOW-UP'"
+
+review_types:
+  - id: central
+    name: "Central Review"
+    abbreviation: "IRC"
+    description: "Independent Radiological Committee assessment"
+    filter_suffix: "and EVALBY = 'CENTRAL'"
+  - id: local
+    name: "Local Review"
+    abbreviation: "INV"
+    description: "Investigator assessment"
+    filter_suffix: "and EVALBY = 'LOCAL'"
+
+populations:
+  itt:
+    name: "ITT Population"
+    description: "All randomized subjects"
+    filter: "ITTFL = 'Y'"
+    dataset: "ADSL"
+  pp:
+    name: "PP Population"
+    description: "Per-Protocol Population"
+    filter: "PPROTFL = 'Y'"
+    dataset: "ADSL"
+  safety:
+    name: "Safety Population"
+    description: "All subjects who received at least one dose"
+    filter: "SAFFL = 'Y'"
+    dataset: "ADSL"
+  pk:
+    name: "PK Population"
+    description: "Subjects with evaluable PK data"
+    filter: "PKFL = 'Y'"
+    dataset: "ADSL"
+  ada:
+    name: "ADA Population"
+    description: "Subjects with at least one ADA assessment"
+    filter: "ADAFL = 'Y'"
+    dataset: "ADSL"
+
+treatment_arms:
+  test:
+    name: "CT-P16"
+    code: "CT-P16"
+  reference:
+    name: "EU-Approved Avastin"
+    code: "AVASTIN"
+
+# =============================================================================
+# COLUMN TEMPLATES
+# =============================================================================
+
+column_templates:
+  two_arm_counts:
+    - header: ""
+      width: 2.5
+      alignment: L
+      format: null
+    - header: "CT-P16\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "n (xx.x)"
+    - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "n (xx.x)"
+    - header: "Total\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "n (xx.x)"
+
+  two_arm_with_diff:
+    - header: ""
+      width: 2.5
+      alignment: L
+      format: null
+    - header: "CT-P16\n(N=xxx)"
+      width: 1.3
+      alignment: C
+      format: null
+    - header: "EU-Approved Avastin\n(N=xxx)"
+      width: 1.3
+      alignment: C
+      format: null
+    - header: "Difference\n(95% CI)"
+      width: 1.5
+      alignment: C
+      format: "xx.x (xx.x, xx.x)"
+
+  tte_summary:
+    - header: "Parameter"
+      width: 2.5
+      alignment: L
+      format: null
+    - header: "CT-P16\n(N=xxx)"
+      width: 1.8
+      alignment: C
+      format: null
+    - header: "EU-Approved Avastin\n(N=xxx)"
+      width: 1.8
+      alignment: C
+      format: null
+
+# =============================================================================
+# FOOTNOTE TEMPLATES
+# =============================================================================
+
+footnote_templates:
+  teae_definition:
+    symbol: "a"
+    text: "TEAEs defined as AEs with onset on or after first dose of study drug and within 28 days after the last dose of study drug or end of treatment, whichever is later."
+
+  treatment_related:
+    symbol: "b"
+    text: "Treatment-related per investigator assessment (related or possibly related)."
+
+  subject_counting:
+    symbol: "c"
+    text: "Subjects are counted once per category regardless of the number of events."
+
+  meddra_version:
+    symbol: ""
+    text: "MedDRA version 24.0 or higher coding dictionary."
+
+  percentage_basis:
+    symbol: ""
+    text: "Percentages based on the number of subjects in each treatment group."
+
+  recist_criteria:
+    symbol: "a"
+    text: "Per RECIST version 1.1 criteria."
+
+  clopper_pearson:
+    symbol: "b"
+    text: "95% CI computed using Clopper-Pearson exact method."
+
+  risk_difference:
+    symbol: "c"
+    text: "Risk difference = CT-P16 - EU-Approved Avastin; 95% CI by Newcombe method."
+
+  brookmeyer_crowley:
+    symbol: "a"
+    text: "95% CI for median computed using Brookmeyer-Crowley method."
+
+  km_estimates:
+    symbol: "b"
+    text: "Based on Kaplan-Meier estimates."
+
+  stratified_cox:
+    symbol: "c"
+    text: "HR from stratified Cox model; stratification factors: country/region, sex, disease status, ECOG PS."
+
+  hr_interpretation:
+    symbol: "d"
+    text: "HR < 1 favors CT-P16."
+
+  ada_definition:
+    symbol: "a"
+    text: "ADA-positive defined as subjects with treatment-emergent ADA or treatment-boosted ADA."
+
+  nab_definition:
+    symbol: "b"
+    text: "NAb-positive defined as subjects with ADA-positive result and NAb-positive result."
+
+  baseline_ada:
+    symbol: "c"
+    text: "Baseline is defined as the last non-missing value prior to first dose."
+
+# =============================================================================
+# ROW TEMPLATES (Stubs)
+# =============================================================================
+
+row_templates:
+  teae_overview:
+    - level: 0
+      label: "Subjects with at least one:"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Grade ≥3 TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Grade 4 TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Grade 5 TEAE (Death)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Serious TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Treatment-related TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Treatment-related Grade ≥3 TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Treatment-related Serious TEAE"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "TEAE leading to study drug discontinuation"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "TEAE leading to study drug interruption"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "TEAE leading to dose reduction"
+      bold: false
+      row_type: data
+
+  bor_categories:
+    - level: 0
+      label: "Best Overall Response"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "Complete Response (CR)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Partial Response (PR)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Stable Disease (SD)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Progressive Disease (PD)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Not Evaluable (NE)"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Objective Response Rate (CR+PR)"
+      bold: true
+      row_type: total
+    - level: 1
+      label: "n (%)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "95% CI"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Risk Difference [95% CI]"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Disease Control Rate (CR+PR+SD)"
+      bold: true
+      row_type: total
+    - level: 1
+      label: "n (%)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "95% CI"
+      bold: false
+      row_type: data
+
+  tte_summary:
+    - level: 0
+      label: "Number of Events, n (%)"
+      bold: true
+      row_type: data
+    - level: 1
+      label: "Disease Progression"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Death"
+      bold: false
+      row_type: data
+    - level: 0
+      label: "Number Censored, n (%)"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Kaplan-Meier Estimates"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "25th Percentile (months) [95% CI]"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "Median (months) [95% CI]"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "75th Percentile (months) [95% CI]"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Event-free Probability [95% CI]"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "At 6 Months"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "At 12 Months"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "At 24 Months"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "At 36 Months"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Stratified Analysis"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "Hazard Ratio [95% CI]"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "P-value (Stratified Log-rank)"
+      bold: false
+      row_type: data
+
+  ada_incidence:
+    - level: 0
+      label: "Subjects with at least one ADA result"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "N"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Baseline ADA Status"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "ADA-negative"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "ADA-positive"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Post-baseline ADA Status (Any Time)"
+      bold: true
+      row_type: header
+    - level: 1
+      label: "ADA-negative"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "ADA-positive"
+      bold: false
+      row_type: data
+    - level: 2
+      label: "Treatment-emergent ADA"
+      bold: false
+      row_type: data
+    - level: 2
+      label: "Treatment-boosted ADA"
+      bold: false
+      row_type: data
+    - level: 0
+      label: ""
+      bold: false
+      row_type: spacer
+    - level: 0
+      label: "Overall ADA Incidence"
+      bold: true
+      row_type: total
+    - level: 1
+      label: "n (%)"
+      bold: false
+      row_type: data
+    - level: 1
+      label: "95% CI"
+      bold: false
+      row_type: data
+
+# =============================================================================
+# AESI CATEGORIES (Bevacizumab-specific)
+# =============================================================================
+
+aesi_categories:
+  - category: "Hypersensitivity/Infusion-Related Reactions"
+    soc_filter: "AESI_HYPERSENS = 'Y'"
+  - category: "Hypertension"
+    soc_filter: "AESI_HYPERT = 'Y'"
+  - category: "Proteinuria"
+    soc_filter: "AESI_PROTEIN = 'Y'"
+  - category: "Hemorrhages"
+    soc_filter: "AESI_HEMORR = 'Y'"
+  - category: "Arterial Thromboembolic Events"
+    soc_filter: "AESI_ATE = 'Y'"
+  - category: "Venous Thromboembolic Events"
+    soc_filter: "AESI_VTE = 'Y'"
+  - category: "Gastrointestinal Perforations and Fistulae"
+    soc_filter: "AESI_GIPERF = 'Y'"
+  - category: "Wound Healing Complications"
+    soc_filter: "AESI_WOUND = 'Y'"
+  - category: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+    soc_filter: "AESI_PRES = 'Y'"
+  - category: "Congestive Heart Failure"
+    soc_filter: "AESI_CHF = 'Y'"
+  - category: "Ovarian Failure/Fertility"
+    soc_filter: "AESI_OVARIAN = 'Y'"
+
+# =============================================================================
+# PROGRAMMING NOTES TEMPLATES
+# =============================================================================
+
+programming_notes:
+  teae_counting:
+    - "Count subjects, not events"
+    - "Subject counted once per category regardless of number of events"
+    - "Percentages based on N in column header (population count)"
+    - "Use worst grade for severity categorization"
+
+  orr_analysis:
+    - "BOR derived from ADRS where PARAMCD = 'BOR'"
+    - "ORR = (n CR + n PR) / N evaluable"
+    - "Use PROC FREQ with EXACT BINOMIAL option for CI"
+    - "Risk difference CI by Newcombe method"
+
+  tte_analysis:
+    - "Use PROC LIFETEST for KM estimates"
+    - "Use PROC PHREG for stratified Cox model"
+    - "Time in months: AVAL / 30.4375"
+    - "Censoring per protocol-defined hierarchy"
+    - "Stratification factors from ADSL: STRESSION, SEXN, DISSTATN, ECOGPSN"
+
+  ada_analysis:
+    - "Treatment-emergent: negative at baseline, positive post-baseline"
+    - "Treatment-boosted: positive at baseline with ≥4-fold increase"
+    - "Titer summarized using geometric mean and CV%"
+    - "Use PROC FREQ for incidence, PROC MEANS for titer"

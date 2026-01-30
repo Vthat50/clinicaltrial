@@ -1,0 +1,736 @@
+Statistical Analysis Plan (SAP)
+SAP version number:
+2
+Statistician:
+Erin Gabriel
+Principal investigator:
+Niels Thue Olsen
+Sponsor:
+Herlev and Gentofte Hospital
+Protocol title:
+Balloon Lithoplasty for Preparation of Severely Calcified
+Coronary Lesions Before Stent Implantation – a Nationwide Randomized Trial
+ClinicalTrials.gov ID:
+NCT04253171
+1
+Document date: September 20, 2024
+Note: inspiration to write this SAP came from the SAP template provided by TransCelerate 1 as
+well as recommendations from Gamble et al. [6], Stevens et al. [11] and Evans and Ting [1].
+1Available via: https://www.transceleratebiopharmainc.com/assets/clinical-content-reuse-solutions/
+2
+Contents
+1
+Statistical Analysis Plan Approval Signature Page
+4
+2
+List of Abbreviations
+5
+3
+Introduction
+5
+3.1
+Objectives, Endpoints, and Estimands
+. . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.1
+Primary
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.2
+Key Secondary Endpoints . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.1.3
+Exploratory
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+4
+Population
+9
+4.1
+Study Design
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+5
+Multiplicity Adjustment
+10
+6
+Analysis Sets
+11
+7
+Statistical Analyses
+11
+7.1
+Primary Endpoint Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+7.1.1
+Main Analytical Approach . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+7.1.2
+Sensitivity Analyses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+7.2
+Additional Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+7.3
+Secondary Endpoints Analyses
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+7.3.1
+Secondary Safety Sensitivity Analyses
+. . . . . . . . . . . . . . . . . . . .
+14
+7.3.2
+Additional Survival Analysis . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+7.4
+Exploratory Endpoints Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+7.4.1
+Subgroup Analyses
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7.4.2
+Timing of Follow-up Visits
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7.4.3
+Recruitment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7.4.4
+Descriptive Statistics of Baseline Characteristics . . . . . . . . . . . . . . .
+16
+7.4.5
+Descriptive Statistics of Outcomes . . . . . . . . . . . . . . . . . . . . . .
+16
+7.4.6
+Consort data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+7.5
+Changes to Protocol-Planned Analyses . . . . . . . . . . . . . . . . . . . . . . . .
+16
+8
+Sample Size Determination and Power Calculation
+17
+9
+Supporting Documentation
+17
+9.1
+R Code for Power calculations (Primary Estimand Analysis) . . . . . . . . . . . . .
+17
+9.2
+R Code for the Exact Unconditional Test (Primary Estimand Analysis) . . . . . . .
+17
+9.3
+R Code for Exact 95%-CI for the Difference in Other Mortality Risk . . . . . . . .
+17
+References
+19
+3
+ 
+2
+List of Abbreviations
+• SAP: Statistical analysis plan
+• BALI: Balloon lithoplasty
+• PCI: Percutaneous coronary intervention
+• OCT: Optical Coherence Tomography
+• MLA: minimal lumen area
+• IVL: intravascular lithoplasty
+• MSA: minimal stent area
+3
+Introduction
+This document is the Statistical Analysis Plan (SAP) for a randomized (1:1), superiority, clinical trial
+comparing the use of balloon intravascular lithoplasty (IVL) to the current conventional techniques
+of routine lesion preparation before implantation of newest-generation drug-eluting stents in severely
+calcified coronary lesions. The protocol for this trial been registered at ClinicalTrials.gov. Version
+5.3 of the protocol was used to make this SAP.
+3.1
+Objectives, Endpoints, and Estimands
+3.1.1
+Primary
+The primary objective is to show that the use of balloon lithoplasty for routine lesion preparation is
+superior to the current conventional techniques used for routine lesion preparation before implan-
+tation of newest-generation drug-eluting stents in severely calcified coronary lesions. The primary
+outcome is a composite of measures indicating procedural failure and 1-year target vessel failure.
+Specifically, the two intervention being compared are:
+• Routine lesion preparation with balloon intravascular lithoplasty (IVL) with or without the
+use of rotational atherectomy at the operators discretion, and
+• Routine lesion preparation with conventional techniques using conventional balloons, modified
+balloons, or high-pressure balloons with or without the use of rotational atherectomy at the
+operators discretion
+prior to implantation of newest-generation drug-eluting stents in severely calcified coronary lesions.
+After the procedure, patients are followed for one year to determine the primary composite endpoint.
+The primary composite endpoint is determined by the following:
+• Failed or no stent delivery determined by the angiographic core laboratory.
+Failed or no stent delivery is defined as failure to deliver and deploy 1 or more coronary stents
+to cover the intended length of the intended target lesion.
+5
+• OCT-assessed residual area stenosis ≥20%.
+Residual area stenosis is defined as 1 -[in-stent minimal lumen area (MLA) / reference lumen
+area]. Residual area stenosis will be determined primarily by OCT, or, if necessary, by quan-
+titative coronary angiography, as defined in the OCT and quantitative coronary angiography
+definitions section of the protocol. The use of angiography is a form of imputation and we
+will investigate the impact of this in Section 7.1.2.
+• Target vessel failure within one year.
+Defined as cardiac death, target vessel-related myocardial infarction, or clinically driven target
+vessel revascularization.
+– Cardiac death is defined as death due to coronary heart disease, sudden cardiac death,
+heart failure including cardiogenic shock, and death related to the cardiac procedure
+within 28 days from the procedure. If death is not clearly attributable to other non-
+cardiac causes, it is adjudicated as cardiac.
+– Target vessel myocardial infarction is defined as myocardial infarction according to the
+4th Universal definition of Myocardial Infarction or peri-procedural myocardial infarction
+within 48 hours. Peri-procedural myocardial infarction is defined according to ARC-2
+criteria: Troponin elevation of 35 times the 99th URL (or CK-MB elevation of >5 times
+the 99th URL) and either: ST-segment changes, new pathological Q waves, angiographic
+evidence of a flow limiting complication (loss of patency of a side branch, persistent slow-
+flow or no-reflow, or embolization), imaging evidence of new loss of viable myocardium,
+or new wall motion abnormality within 48 hours after the PCI. In patients with elevated
+biomarkers prior to the procedure, the post-procedure troponin must rise by >20% and
+still be >35 times the 99th percentile URL. MIs will default to target vessel-related MIs
+unless there is other proof of definite attribution to a non-target vessel.
+– Clinically-driven target vessel revascularization is defined as coronary artery bypass graft-
+ing or PCI of index vessel performed due to symptoms or signs of ischemia.
+Accordingly, the primary estimand is described by the following attributes:
+• Population: Adults with severely calcified coronary lesions with indication for PCI, the specific
+population is defined by the inclusion and exclusion criteria as given in Section 4.
+• Endpoint: is a composite of procedural failure and within 1-year target vessel failure.
+• Treatment: The interventions are conventional lesion preparation and preparation including
+balloon lithoplasty prior to implantation of newest-generation drug-eluting stents
+• Intercurrent events:
+– Failure to obtain all information needed to evaluate the primary composite endpoint
+for reasons other than death from a cause not included in the primary endpoint, i.e.
+reason other than cardiac death. This will be addressed in the “Sensitivity Analyses for
+missingness” in Section 7.1.2.
+• Population-level summary: Difference in 1-year risk of composite endpoint of procedural
+failure and within 1-year target vessel failure.
+6
+Remark: The justification for the ”Intercurrent Events” is that we wish to report the difference in
+the risk of the primary endpoint comparing the two interventions in a world where people may die
+of other causes within the year, thus non-cardiac death is not an intercurrent event. The estimand
+of interest is made clear by the population of interest being among all patients and not just those
+that do not die from other causes.
+We recognize that by ignoring non-cardiac death, we allow for the possibility that an intervention
+that kills people in some unexpected way would be considered superior by our primary estimand.
+Thus, as outlined in Section 7.1.1, we will never report the findings of the primary analysis without
+also reporting a comparison of the incidence of non-cardiac death between the intervention arms.
+Correspondingly, the primary clinical question of interest is:
+“What are the risks of the composite endpoint among patients randomized to receive IVL for
+lesion preparation before implantation of newest-generation drug-eluting stents in a severely calcified
+coronary lesion, and how does this risk compare to using the current conventional techniques of
+lesion preparation, regardless of actual use of balloon lithoplasty, additional interventions performed
+during initial PCI or additional treatments during the one-year after procedure, or other changes in
+status of patients not included in the endpoint of interest?”
+3.1.2
+Key Secondary Endpoints
+Safety Endpoints
+1. major adverse cardiac events and its components within one year:
+-1a Cardiac death at or before one year after the index procedure
+-1b Any myocardial infarction at or before one year after the index procedure
+-1c Stroke at or before one year after the index procedure
+2. In-hospital procedure events
+-2a Periprocedural myocardial infarction
+-2b Coronary dissection (flow-limiting or beyond intended by lesion preparation)
+-2c Coronary perforation/rupture
+Efficacy Endpoints
+1. Components of the primary composite endpoint:
+-3a Failed or no stent delivery
+-3b Residual area stenosis ≥20% (OCT-assessed) after PCI
+-3c Target vessel failure at 1 year
+2. Components of target vessel failure at 1 year:
+-4a Cardiac death
+-4b Target vessel-related myocardial infarction
+-4c Clinically driven target vessel revascularization.
+3. OCT endpoints
+7
+-5a Stent expansion at index procedure, MSA divided by the average reference area.
+-5b In-stent late lumen loss up to 1 year, which is the decrease in MLA area from the index
+procedure.
+Correspondingly, the secondary objectives are to estimate the risks for each of the secondary out-
+comes if they are binary, and some comparison of those risks by arm, or to estimate the average
+values of continuous measures and some comparison of those average values by arm. The clinical
+questions of interest are:
+Safety:
+“What are the risks of any major adverse cardiac event overall and via the pathways of cardiac
+death, any myocardial infarction or stroke within one year among patients randomized to receive
+IVL for lesion preparation before implantation of newest-generation drug-eluting stents in a severely
+calcified coronary lesion, and how does this risk compare to using the current conventional tech-
+niques of lesion preparation, regardless of actual use of balloon lithoplasty, additional interventions
+performed during initial PCI or additional treatments during the one-year after procedure, or other
+changes in status of patients not included in the endpoint of interest?”
+“What are the risks of any in-hospital procedure event overall and via the pathways of peripro-
+cedural myocardial infarction, coronary dissection being beyond intended by lesion preparation or
+coronary perforation/rupture among patients randomized to receive IVL for lesion preparation be-
+fore implantation of newest-generation drug-eluting stents in severely calcified coronary lesion, and
+how does this risk compare to using the current conventional techniques of lesion preparation,
+regardless of actual use of balloon lithoplasty, additional intervention performed during initial PCI
+or additional treatments during the one-year after procedure, or other changes in status of patients
+not included in the endpoint of interest?”
+Efficacy:
+“What are the risks of failed or no stent delivery, OCT-assessed residual area stenosis ≥20% or
+target vessel failure within one year among patients randomized to receive IVL for lesion preparation
+before implantation of newest-generation drug-eluting stents in severely calcified coronary lesion,
+and how does this risk compare to using the current conventional techniques of lesion preparation,
+regardless of actual use of balloon lithoplasty, additional intervention performed during initial PCI
+or additional treatments during the one-year after procedure, or other changes in status of patients
+not included in the endpoint of interest?”
+“What are the risks of target vessel failure within one year via the pathways of cardiac death that
+is possibly related to target vessel failure, target vessel-related myocardial infraction, or clinically
+driven target vessel revascularization within a year of index procedure among patients randomized
+to receive IVL for lesion preparation before implantation of newest-generation drug-eluting stents in
+severely calcified coronary lesion, and how does this risk compare to using the current conventional
+techniques of lesion preparation, regardless of actual use of balloon lithoplasty, additional interven-
+tion performed during initial PCI or additional treatments during the one-year after procedure, or
+other changes in status of patients not included in the endpoint of interest?”
+“What is the average stent expansion among patients having IVL for lesion preparation at index
+procedure and how does this stent expansion compare to using the current conventional techniques
+8
+of lesion preparation, regardless of actual use of balloon lithoplasty?”
+“What is the average in-stent late lumen loss among patients undergoing IVL for lesion prepa-
+ration at index procedure and how does this in-stent late lumen loss compare to using the current
+conventional techniques of balloon lesion preparation,regardless of actual use of balloon lithoplasty,
+additional intervention performed during initial PCI or additional treatments during the one-year
+after procedure, or other changes in status of patients not included in the endpoint of interest?
+3.1.3
+Exploratory
+There are several exploratory endpoints:
+• Procedural endpoints
+– Complications (many)
+– Procedure details (durations/doses etc)
+– Procedure cost
+• OCT endpoints at index procedure
+– Stent malapposition
+– Calcium disruption
+• OCT endpoints at 1 year
+– In-segment late lumen loss
+– In-segment re-stenosis
+– Stent malapposition
+• Symptom status at 1 year
+Here, we do not specify a hypothesis, as we will also not report p-values from any exploratory
+analysis.
+4
+Population
+Inclusion criteria
+• Age ≥18 years and <90 years
+• Stable coronary heart disease or non-ST elevation acute coronary syndrome
+• PCI planned in a severely calcified, non-occluded, de-novo lesion in a native vessel.
+• Functional evidence of ischemia (non-invasive stress test or fractional flow reserve) in the
+target vessel territory or stenosis ≥90% by visual estimate
+• Target vessel reference diameter visually estimated at 2.5-4 mm on angiography with ability
+to pass a 0.014” guidewire across lesion
+9
+• Ability to tolerate dual antiplatelet therapy
+• Informed consent
+Exclusion criteria
+• Study lesion is unprotected left main
+• Chronic total occlusion of study lesion
+• Severely calcified bifurcated lesion with expected need to use two-stent technique
+• Coronary artery dissection of study lesion
+• ST-segment elevation acute myocardial infarction within 72 hours
+• Planned later revascularization in non-study lesions (other lesions in need of revascularization
+must be treated before treatment of the study lesion, either staged or during the study
+procedure)
+• Planned cardiovascular interventions within 30 days after study intervention
+• Clinical instability including decompensated heart disease
+• Life expectancy of less than 1 year
+• Active peptic ulcer or upper gastrointestinal bleeding with 6 months
+• Ongoing systemic infection
+• Pregnant or nursing
+• Left ventricular ejection fraction < 35%
+• Renal function with eGFR < 30 mL/min
+4.1
+Study Design
+This is a two-arm, randomized (1:1), parallel, multinational open-label but assessor-blinded supe-
+riority clinical trial. The assessment of the primary outcome is blinded. Patients are booked for
+clinical follow-up 12 months after the procedure. At the clinical follow-up clinical events relevant
+to the primary endpoint are recorded prior to coronary angiography. OCT is performed again at
+this time (prior to any additional intervention, if conducted), and the results are available to the
+operator. As the clinical follow-up occurs prior to the coronary angiography, events triggered by
+coronary angiography are not part of the primary endpoint at one year.
+5
+Multiplicity Adjustment
+No multiple testing correction will be used, as formal hypothesis testing will be performed only
+for the primary endpoint/estimand described in Section 3.1.1, for the null hypothesis defined in
+Section 7.1.1.
+Reporting for other endpoints/estimands will either be limited to point estimates of effects with
+95% (two-sided) confidence intervals, or p-values will be noted explicitly as secondary. The widths
+of the intervals will not be adjusted for multiplicity; therefore, it will not be possible to use them
+in place of formal hypothesis testing. This is in line with current recommendations [8].
+10
+6
+Analysis Sets
+• The “Main analysis set A” consists of all randomized participants who have a complete
+measure of the primary composite endpoint.
+This will exclude three groups of patients:
+patients who withdraw consent prior to 1 year and explicitly do not wish to participate in
+the 1-year clinical follow-up data collection, patients that are deemed to be lost to follow-up
+by the Clinical Endpoint Adjudication Board (see section 4.3 of protocol version 5.3), and
+patients who lack baseline OCT or Quantitative coronary angiography.
+• The “Sensitivity analysis set or Main analysis B” consists of all randomized participants.
+• Secondary Safety endpoint analysis set 1, 1a, 1b, 1c: consists of all randomized partic-
+ipants who have a measure of in-hospital and 1 year major adverse cardiac events for set 1,
+all randomized participants who have a measure of Cardiac death at or before one year after
+the index procedure, 1a, all randomized participants who have a measure of any myocardial
+infarction at or before one year after the index procedure, 1b, and all randomized participants
+who have a measure of stroke at or before one year after the index procedure, 1c.
+• Secondary Safety endpoint analysis set 2, 2a, 2b, 2c: consists of all randomized par-
+ticipants who have a measure of in-hospital procedure events overall, 2, of periprocedural
+myocardial infarction, 2a, coronary dissection (beyond intended by lesion preparation), 2b,
+and coronary perforation/rupture, 2c. As it is very likely that all randomized participants will
+have measures of these events or be followed to know that the event did not occur, all of
+these groups may be the same as ”Sensitivity analysis set or Main analysis B”
+7
+Statistical Analyses
+7.1
+Primary Endpoint Analysis
+7.1.1
+Main Analytical Approach
+For this analysis, we will use the “Main analysis set A” detailed in Section 6. We will estimate
+the primary estimand, that is, the risk ratio π1/π0, as the empirical (i.e. observed) proportion of
+participants with the composite endpoint within 12 months after index PCI. An appropriate two-
+sided 95% confidence interval and matching p-value for the null hypothesis: H0 : π1/π0 = 1 will
+be computed.
+We will use the function uncondExact2x2 of the R package exact2x2; see [2] for the mathe-
+matical details and Appendix 9.2 for the specific R code that we will use. If the p-value is ≤0.05
+and the risk ratio is < 1 for the composite primary endpoint then we will consider this evidence of
+the superiority of balloon lithoplasty preparation of lesions in comparison to current conventional
+techniques to reduce the risk of the composite endpoint. If the p-value is ≤0.05 and the risk
+ratio is > 1, we will consider this evidence of harm of balloon lithoplasty preparation of lesions in
+comparison to current conventional techniques, i.e. it increases the risk of the composite endpoint.
+Using dataset “Main analysis set B” detailed in Section 6, we will, in addition, estimate the
+difference in risk π1 −π0 of all mortality that is not cardiac death within at least 12 months; the
+competing risk of the composite endpoint. An appropriate exact two-sided 95% confidence interval
+for the parameter π1 −π0 will be computed. This will be reported regardless of the result of the
+above analysis. We will again use the function uncondExact2x2 of the R package exact2x2; see
+11
+[2] for the mathematical details and Appendix 9.2 for the specific R code that we will use. The
+primary composite endpoint results will never be presented without the results for all other causes
+of mortality unless there are no other deaths in the full trial.
+In addition, regardless of the results, we will report the estimates of the arm-specific risk of the
+composite endpoint and the risk of mortality that is not cardiac death within one year (i.e. the
+empirical proportions) together with exact binomial two-sided 95% confidence intervals (computed
+using the binom.test() function of R).
+Note that the above statistical analyses will ignore that the randomization was stratified by
+site. This is usually not recommended, as this usually leads to a decrease in power as stratification
+variables are percision variables [3, 7]. However, our context is very specific, as we expect for there
+to be a low number of composite endpoint events, at least in the IVL arm. This has two important
+consequences. First, the loss of power is expected to be negligible. Second, ensuring proper type-I
+error control using a “covariate-adjusted” alternative approach is difficult using standard software.
+Additionally, the impact of not adjusting will be investigated as part of the Sensitivity Analyses.
+7.1.2
+Sensitivity Analyses
+For missingness The main analysis is based on the “Main analysis set A”, which does not include
+patients for whom the primary endpoint is missing. This choice may be anti-conservative if the
+reason for drop-out was related to the outcome and differed between arms. For this reason, we
+will use the causal bounds from Gabriel et al. [5] for the effect given in equation 2 and the best-
+case/worst-case bounds equation 3 of the same paper if there are any missing composite outcome
+values based on “Main analysis set B” detailed in Section 6. If there is additional noncompliance, we
+will use the equivalent bounds for the per-protocol effect, as this can sometimes give large intervals.
+Given the conservative nature of the bounds, we will not further place confidence intervals on them
+unless it is deemed necessary for publication, in which case exact confidence intervals will be used.
+For mechanistic imputation The composite outcome may have some form of “mechanistic”
+imputation, i.e. residual area stenosis >20% is determined by direct measurement (OCT) of, if
+necessary, by quantitcative coronary angiography. Values indicating residual area stenosis >20%
+from OCT or angiography are considered reliable, however, particularly with quantitative coronary
+angiography, missing OCT analysis due to poor image quality or failure to obtain OCT is possible
+and may be related to residual area stenosis. Thus, we will impute all “mechanistic” imputed
+residual area stenosis that were found to be <20% to be >20% to determine the impact that
+missed OCT analyses could cause. Additionally, all patients without true measure of no event, that
+were adjudicated to have no event for the primary analysis, will instead be imputed to have an
+event and the impact of the adjudication will be determined by rerunning the primary analysis.
+As part of the sensitivity analysis, we will adjust individually and collectively, if possible, for sev-
+eral variables known to be strongly predictive of the composite outcome but not used as stratifying
+variables for randomization. Thus, if by chance they are imbalanced in randomization, adjustment
+for them may reduce the effect of interest. In each regression, we will also adjust for site, with an
+indicator for each site that has at least three events and combining sites that are geographically
+close as needed when less than three events have occurred within a site. This will provide the
+correct standard error estimates since the randomization was stratified by site. For this reason, the
+results may be more significant or significant when the primary analysis is not, regardless of the
+results of the sensitivity analysis adjusting for site; this analysis will not replace the primary analysis
+in the publication as it does not strongly control the type I error rate. The additional variables
+include:
+12
+• Presentation (acute vs. chronic)
+• Prior revascularization
+• Diabetes mellitus
+• LAD vs non-LAD
+Logistic regression, including both main effects and interactions with treatment assignment,
+will be considered whenever possible; we will obtain marginal risk ratios via standardization (g-
+computation). Example code is provided in the code section 9.2. If this is not possible, i.e. the
+method will not converge due to the lack of events, we will run a main effect only model.
+7.2
+Additional Analysis
+In addition to the primary analysis based on the risk ratio of the composite primary endpoint and
+the risk difference of non-cardiac deaths, we will display cause specific cumulative incidence using
+time to the composite endpoint. If there is not competing risk of non-cardiac death, these will
+instead be the kaplan-meier curves.
+7.3
+Secondary Endpoints Analyses
+For binary secondary safety endpoints we will use chi-squared tests, as we are more concerned with
+type II errors, i.e. not observing a true safety signal over making a type I error. Just as with the
+primary composite endpoint, we will never report findings for the secondary endpoints without the
+competing risk of death not included in the endpoint. For continuous outcomes we will use linear
+regression adjusting for site.
+We will use the datasets numbered in the same manner as the safety outcome as detailed in
+Section 6 for each of the secondary safety analyses, as follows: The justification for this is that
+unlike efficacy secondary analysis that we would like to be comparable to the primary results and
+using the same dataset, for safety we will use all available data.
+Safety endpoints
+1. In-hospital and 1 year major adverse cardiac events and its components:
+-1a Cardiac death at or before one year after the index procedure
+-1b Any myocardial infarction at or before one year after the index procedure
+-1c Stroke at or before one year after the index procedure
+2. In-hospital procedure events
+-2a Periprocedural myocardial infarction
+-2b Coronary dissection (beyond intended by lesion preparation)
+-2c Coronary perforation/rupture
+For binary efficacy endpoints we will use the same exact testing as for the primary composite
+end point for binary outcomes and site adjusted linear regression for continuous outcomes. For all
+secondary efficacy analyses we will use the “Main analysis set A” detailed in Section 6, to make
+the results comparable and on the same set as the primary.
+Efficacy endpoints
+13
+1. Components of the primary composite endpoint:
+-3a Failed or no stent delivery
+-3b Residual area stenosis ≥20%
+-3c Target vessel failure within one year
+2. Components of target vessel failure at or before 1 year:
+-4a Cardiac death.
+-4b Target vessel-related myocardial infarction
+-4c Clinically driven target vessel revascularization.
+3. OCT endpoints
+-5a Stent expansion at index procedure, MSA divided by the average reference area.
+-5b In-stent late lumen loss up to 1 year, which is the decrease in MLA area from the index
+procedure
+7.3.1
+Secondary Safety Sensitivity Analyses
+Just as in the main analysis, if there are missing values in any of the safety datasets, 1, 1a, 1b,
+1c, 2, 2a, 2b, or 2c, we will report the best/worst case bounds Gabriel et al. [5]. There will be no
+additional sensitivity analysis for the secondary efficacy endpoints.
+7.3.2
+Additional Survival Analysis
+For all binary event endpoints among the secondary endpoint in addition to the risk ratio of the
+endpoint and the risk difference of death from a cause not including in that particular event, we will
+display cause specific cumulative incidence using time to the endpoint. If there is not competing
+risks, these will instead be the kaplan-meier curves.
+7.4
+Exploratory Endpoints Analysis
+For binary exploratory endpoints we will use the same exact testing as for the primary composite
+end point for binary outcomes and site adjusted linear regression for continuous outcomes. Multiple
+datasets will be considered, with the default data set being “Main analysis set A”, whenever possi-
+ble. As some of the exploratory endpoints may have more missingness than the primary composite,
+when this is not possible the largest possible dataset will always be used.
+There are several exploratory endpoints:
+• Procedural endpoints
+– Complications (many)
+– Procedure details (durations/doses etc)
+– Procedure cost
+• OCT endpoints at index procedure
+14
+– Stent expansion
+– Stent malapposition
+– Calcium disruption
+• OCT endpoints at 1 year
+– In-stent late lumen loss
+– In-segment late lumen loss
+– In-segment re-stenosis
+– Stent malapposition
+– Quantification of neointima
+• Symptom status at 1 year
+7.4.1
+Subgroup Analyses
+Prespecified subgroup analysis of the primary composite endpoints in patients with 4 points on the
+OCT calcium score defined by Fujino et al. [4]. In order to have 4 points the patient must have
+presence of all 3 criteria: maximum calcium angle >180 degrees, maximum calcium thickness of
+> 0.5mm, and calcium length > 5.0mm. Consequently, we exclude the patients who
+• do not have any OCT during index admission
+• patients who have less than 4 points on the score
+Within this subgroup we will perform the primary analysis and any secondary analyses that are
+possibly given the subgroup. If the subgroup is small and events become rare, we will use exact
+methods to avoid type I error rate inflation.
+7.4.2
+Timing of Follow-up Visits
+Descriptive statistics, per arm, will be presented for the time from randomization to the “12-month”
+follow-up visit (which will possible be slightly less or more than 12 months for all patients). Median,
+minimum, maximum, first and third quartiles will be reported. An exploratory analysis of time to
+the ‘’12-month” visit will be preformed to ensure that there is no significant difference in timing
+by arm.
+7.4.3
+Recruitment
+Recruitment of the patients will be summarized via descriptive statistics. Especially, start and end
+dates of recruitment will be presented as well as a flowchart, inspired by the CONSORT guidelines
+and template [10].
+15
+7.4.4
+Descriptive Statistics of Baseline Characteristics
+Baseline characteristics will be descriptively summarized, within each of these four groups: ran-
+domized each arm within the main analysis set A and each arm among any patients that do not
+complete follow-up The list of baseline variables to be summarized includes the variables outlined
+in Table 1.
+Table 1: Table 1 draft
+Age, yrs
+mean(SD)
+Women
+Freq (%)
+Acute coronary syndrome
+Freq (%)
+NYHA >2
+Freq (%)
+CCS >2
+Freq (%)
+Ejection fraction
+Freq (%)
+BMI
+kg m-2
+Medical history
+Diabetes mellitus
+Freq (%)
+Hypertension
+Freq (%)
+Current smoker
+Freq (%)
+Renal insufficiency
+Freq (%)
+Myocardial infarction or coronary revascularization
+Freq (%)
+For continuous variables, we will present median, first and third quartiles and also minimum and
+maximum. Categorical variables will be summarized by numbers and percentages. Hypothesis tests
+will not be performed to compare baseline characteristics, but clinical importance of any apparent
+imbalance will be noted. This is in line with usual recommendations [9].
+7.4.5
+Descriptive Statistics of Outcomes
+Outcomes (primary, secondary and exploritory) will also be descriptively summarized, within relevant
+subgroups. Similar descriptive statistics as for baseline characteristics will be used. Mean and
+standard deviation will be presented instead of median, first and third quartiles (or in addition to
+those) whenever appropriate. For each outcome.
+7.4.6
+Consort data
+Available data about enrollment, protocol adherence and follow-up will be presented in a in a flow
+diagram, following the CONSORT guidelines [10].
+7.5
+Changes to Protocol-Planned Analyses
+• The power calculations are changed from the protocol as outlined below, the original analysis
+was planned as a chi-squared test, but the rate of events may be too low for this to have
+correct type I error rate. Thus, we will use an exact test to strongly control type I error. The
+new power calculations are given in Section 8, below.
+16
+8
+Sample Size Determination and Power Calculation
+In the protocol, it was stated that to reach 80% power to detect a true difference of 15%, with
+25% in the standard of care group and 10% events in the IVL group for a two-sided test with alpha
+of 0.05, 194 patients total, 97 per arm, are needed when randomized 1:1. However, it was planned
+to enroll 200 patients to allow for a low level of loss to follow-up.
+Instead, when using the intended exact method, we find that 194, 97 per arm, only provides
+78% power for the hypothesized true difference in risks. Using the intended enrollment of 100
+per arm, we reach the desired 80% power. These power calculations were carried out using the
+Power2x2 function, as outlined below.
+9
+Supporting Documentation
+9.1
+R Code for Power calculations (Primary Estimand Analysis)
+library(exact2x2)
+Power2x2(n1,n2,.1,.25,0.05, pvalFunc=
+function(x1,n1,x2,n2){
+uncondExact2x2(x1,n1,x2,n2,
+parmtype="ratio", method="FisherAdj", midp=FALSE)$p.value
+}
+)
+9.2
+R Code for the Exact Unconditional Test (Primary Estimand Analysis)
+library(exact2x2)
+uncondExact2x2(x1=x1obs,
+# x1obs is the number of events in IVL group
+n1=n1obs,
+# n1obs is the number of patients in IVL group
+x2=x2obs,
+# x2obs is the number of events in SOC group
+n2=n2obs,
+# n2obs is the number of patients in SOC group
+parmtype="ratio",
+# estimand is risk ratio
+alternative="two.sided",
+method="FisherAdj",
+# using Fisher’s exact for ordering of the
+parameter space
+midp=FALSE,
+#midp False so that it is exact in all cases
+not just exact on average
+conf.level = 0.95,
+# 95% confidence level
+conf.int=TRUE)
+# indicating to compute a CI
+9.3
+R Code for Exact 95%-CI for the Difference in Other Mortality Risk
+library(exact2x2)
+uncondExact2x2(x1=x1obs,
+# x1obs is the number of events in IVL group
+n1=n1obs,
+# n1obs is the number of patients in IVL group
+x2=x2obs,
+# x2obs is the number of events in SOC group
+n2=n2obs,
+# n2obs is the number of patients in SOC group
+parmtype="difference",
+# estimand is risk difference
+alternative = "two.sided", # two-sided CI wanted
+method="score",
+# score statistic ordering is used
+conf.level = 0.95,
+# 95% confidence level
+17
+conf.int=TRUE)
+# computation of CI wanted
+18
+References
+[1] Evans, S. and Ting, N. (2015). Fundamental concepts for new clinical trialists. CRC Press.
+[2] Fay, M. P. and Hunsberger, S. A. (2021). Practical valid inferences for the two-sample binomial problem.
+Statistics Surveys, 15:72–110.
+[3] FDA
+(2023).
+Adjusting
+for
+covariates
+in
+randomized
+clinical
+trials
+for
+drugs
+and
+bio-
+logical
+products
+guidance
+for
+industry.
+Technical
+report,
+Food
+and
+Drug
+Administration,
+https://www.fda.gov/media/148910/download.
+[4] Fujino, A., Mintz, G. S., Matsumura, M., Lee, T., Kim, S.-Y., Hoshino, M., Usui, E., Yonetsu, T., Haag,
+E. S., Shlofmitz, R. A., et al. (2018). A new optical coherence tomography-based calcium scoring system
+to predict stent underexpansion. EuroIntervention, 13(18):e2182–e2189.
+[5] Gabriel, E., Sj¨olander, A., , and Sachs, M. C. (2023).
+Nonparametric bounds for causal effects in
+imperfect randomized experiments. Journal of the American Statistical Association, 118(541):684–692.
+[6] Gamble, C., Krishan, A., Stocken, D., Lewis, S., Juszczak, E., Dor´e, C., Williamson, P. R., Altman,
+D. G., Montgomery, A., Lim, P., et al. (2017). Guidelines for the content of statistical analysis plans in
+clinical trials. Jama, 318(23):2337–2343.
+[7] Kahan, B. C. and Morris, T. P. (2012). Improper analysis of trials randomised using stratified blocks or
+minimisation. Statistics in Medicine, 31(4):328–340.
+[8] NEJM (2023). Statistical Reporting Guidelines of the New England Journal of Medicine, section Multi-
+plicity considerations. https://www.nejm.org/author-center/new-manuscripts. Accessed: 2023-10-24.
+[9] Schulz, Altman, and Moher, for the CONSORT Group (2023).
+CONSORT 2010 Statement: up-
+dated guidelines for reporting parallel group randomised trials. https://www.goodreports.org/reporting-
+checklists/consort/. Accessed: 2023-11-17.
+[10] Schulz, K. F., Altman, D. G., and Moher, D. (2010). Consort 2010 statement: updated guidelines for
+reporting parallel group randomised trials. Journal of Pharmacology and pharmacotherapeutics, 1(2):100–
+107.
+[11] Stevens, G., Dolley, S., Mogg, R., and Connor, J. T. (2023). A template for the authoring of statistical
+analysis plans. Contemporary Clinical Trials Communications, page 101100.
+19

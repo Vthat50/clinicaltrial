@@ -1,0 +1,105 @@
+Statistical Analysis Plan 
+Using Retrospective and Real-Time Physical Activity 
+Tracking to Predict Risk of Sunburn in Outdoor 
+Exercisers on Strava 
+NCT04977700 
+06/22/2020
+Using Retrospective and Real-Time Physical Activity Tracking to Predict 
+Risk of Sunburn in Outdoor Exercisers on Strava 
+1R21CA241637-01A1 
+Recreational UV exposure is associated with every form of skin cancer and individuals who engage in more 
+physical activity have a higher prevalence of sunburn, a proximal biomarker of melanoma risk, perhaps 
+explaining why melanoma is the only cancer with which physical activity is positively correlated. Mobile 
+technology for tracking physical activity has become increasingly prevalent and Strava, an activity tracking app 
+and social networking site for athletes, is one of the most popular of these technologies. This research will test 
+the feasibility of delivering location-based, ecologically-valid sun safety advice to Strava users at times when 
+they are predicted to be engaged in outdoor physical activity, by utilizing Strava’s public open-source 
+Applications Programming Interface.  
+2. SPECIFIC AIMS
+Skin cancer is the most common cancer in the United States. In 2019, over 5.4 million cases of keratinocyte
+cancers (basal and squamous cell) and 96,480 cases of melanoma will diagnosed and melanoma will cause 
+7,230 deaths.3 Skin cancer treatment is a financial burden on the nation’s health system.3 Thus, the U.S. 
+Surgeon General has designated skin cancer prevention as a major national priority.4 Skin cancer is 
+preventable because excessive exposure to ultraviolet radiation (UV), the primary risk factor, is easily 
+modifiable. But, many Americans do not apply sunscreen, wear UV-protective clothing or wide-brimmed hats, 
+or stay in shade and approximately one-third of American adults experience damaging sunburns annually.5 
+     Recreational UV exposure is associated with skin cancer.6 Individuals who engage in more physical activity 
+have a higher prevalence of sunburn,5,7-10 a proximal biomarker of melanoma risk, and melanoma is positively 
+associated with physical activity.11 For some athletes, forgetting to apply sunscreen12,13 or not liking its feel 
+while engaged in physical activity can be barriers to sun protection.12,14 An expert meeting hosted by the 
+National Cancer Institute (NCI) identified sun safety during physical activity as a priority research area15 and 
+the Surgeon General prioritized strategies for coordinating messages on sun safety and physical activity in his 
+Call to Action to Prevent Skin Cancer.16 
+     Online and mobile technologies for tracking physical activity have exploded over the past decade. Many 
+Americans wear activity trackers or GPS-enabled devices (e.g., Fitbit and Garmin) and upload their physical 
+activity data to websites/mobile apps. Strava, an activity tracking app and social networking site for athletes of 
+all abilities, is one of the most popular. Millions share their own activities and follow and comment on physical 
+activity by other users in their network. This R21 research responds to PAR-19-309 “Stimulating Innovations 
+in Behavioral Intervention Research for Cancer Prevention and Control” with the goal of increasing skin 
+cancer prevention among a high-risk population, adults who engage in outdoor physical activity by 
+establishing feasibility of interfacing sun protection advice with the Strava website/mobile app. Specifically, 
+we will show that we can create an algorithm that a) predicts when individuals are likely to be engaged in 
+physical activity outdoors and b) delivers sun safety advice tailored to time, location, and personal risk (e.g., 
+skin sun sensitivity). We need to establish feasibility before conducting a future randomized trial evaluating the 
+efficacy of this unique intervention. The Strava Sun (SS) program will obtain user data and deliver 
+ecologically-valid sun safety advice by utilizing Strava’s open-source Applications Programming Interface 
+(API) and location-based advice algorithms developed earlier for a sun safety mobile app, sunZapp, funded by 
+the NCI.17 Sun safety messages provided through SS will also be derived from sun safety messages from our Go 
+Sun Smart (GSS) program for individuals engaged in outdoor recreation.18 Both the algorithms from sunZapp 
+and the GSS messages improved sun safety practices of adults in general and while on vacation in randomized 
+trials (see Boxes 1 and 2) and provide the scientific premise for developing SS. Based on the Extended 
+Parallel Processing Model19 of persuasive communication, Diffusion of Innovation Theory20 (DIT), and Social 
+Cognitive Theory (SCT),21 we hypothesize that SS will increase sun protection by elevating perceived risk, 
+self-efficacy, and response efficacy and promoting prevention skills acquisition.21 The specific aims are to: 
+1. Gather formative data from focus groups of outdoor exercisers, both Strava users and non-users, on
+interest in receiving personalized, location-based sun protection advice and willingness to use sun
+protection advice sent through the Strava mobile app before and during physical activity.
+2. Develop a machine learning algorithm to predict future time of day and duration of outdoor physical
+activity from activities logged on Strava through its API from users who consent to data access.
+3. Modify the algorithms in sunZapp and social media messages from GSS to create a prototype of the SS
+intervention that delivers location-based, tailored sun safety advice to Strava users through Strava
+comments, which can be accessed through the Strava website and mobile app, and emails.
+4. Test with Strava users the acceptability of the SS prototype and sun safety messages, ways of interacting
+with it, and barriers/willingness to allowing access. 
+The R21 research is significant and innovative. A sun protection interface for the Strava platform will 
+allow us to identify a large population of Americans at high risk for skin cancer who routinely engage in 
+physical activity, often outdoors with high-risk sun exposure, and reach them with sun safety advice they 
+may not seek on their own to motivate them to practice sun safety during outdoor activities. Dissemination of 
+evidence-based sun safety messages through this widely-used “social network for athletes” is innovative. It 
+will help to meet the goals set by both NCI and the U.S. Surgeon General to prevent skin cancer among 
+physically-active Americans to reverse the one cancer currently increased by physical activity. 
+The project will be led by Principal Investigators, Dr. David Buller and Ms. Julia Berteletti at Klein Buendel, 
+Inc. (KB). Co-Investigators at Colorado State U., Dr. Kimberly Henry (project statistician) and Dr. Chuck 
+Anderson (machine learning expert) will create the predictive algorithms, assisted by a machine learning 
+graduate student. Dr. Sherry Pagoto, project consultant, at U. of Connecticut will provide expertise on physical 
+activity promotion and interventions delivered via social media. Mr. Scott Camichael, recent software engineer 
+at Strava, will also serve as a project consultant and advise on delivering the sun protection intervention 
+through Strava. Media developers at KB will produce the API database and program. 
+3A. SIGNIFICANCE 
+3A.1. The Skin Cancer Problem  
+The research is significant because it will develop a new mHealth strategy to reduce skin cancer. In 2019, 5.4 
+million cases of keratinocyte cancers (basal and squamous cell)4 and 96,480 cases of melanoma will occur. 
+Melanoma has doubled over the last 3 decades22 and will cause 7,230 deaths this year23 (nearly as many deaths 
+as due to drunk driving24). Exposure to solar ultraviolet radiation (UV) is a primary cause,25-34 both lifetime UV 
+exposure25-28,35 and intermittent, severe exposure (i.e., sunburn).15-21 The U.S. Surgeon General issued a Call to 
+Action to Prevent Skin Cancer,16 citing its high prevalence4 and annual cost ($4.8 bil. for non-melanoma skin 
+cancer; $3.3 bil. for melanoma36). Its recurrence,37-39 and treatment disfigurement40-43 also prioritizes 
+prevention. Primary prevention of skin cancer relies on reducing UV exposure by limiting time in the sun when 
+UV is high (e.g., at midday; at lower latitudes; near summer solstice) and using shade, protective clothing, and 
+sunscreen. But, people inconsistently take precautions,16 so efforts are needed to promote sun protection.44-46 
+3A.2. Correlation between Physical Activity and Skin Cancer 
+The research is significant because it seeks to improve sun protection among individuals engaged in physical 
+activity, a beneficial health behavior that is also related to unprotected sun exposure and risk for skin cancer. 
+Meeting guidelines for physical activity provides numerous positive health effects;47-51 however, melanoma has 
+a positive risk association with physical activity.11 Physical activity is associated with sunburn,7,8,52-54 skin cancer 
+risk behaviors,9 melanoma in both genders,11,55 and keratinocyte skin cancers, chiefly in men.56,57 It was 
+estimated that sunburn is twice as likely to occur in physically-active than inactive people52,53 and is linked to 
+aerobic activity (e.g., running and cycling).5,53 Cardiorespiratory fitness is related to an increased risk of 
+melanoma55 especially in high-UV locations, suggesting sun exposure plays a role.11 In one study, persons who 
+were more physically active were less concerned about sun exposure.58 Together, the evidence implies that the 
+behavioral phenotype of exercisers leads to increased UV exposure, elevating risk for developing skin cancer. 
+Promoting sun safety to exercisers must not discourage physical activity. It should be ecologically-valid by 
+considering the person’s age, environment, activity type, and other sociocultural factors.17,59 For example, we 
+should promote sun protection as a personal comfort and safety issue; bundle it with factors like injuries 
+(sunbu
+... [truncated]

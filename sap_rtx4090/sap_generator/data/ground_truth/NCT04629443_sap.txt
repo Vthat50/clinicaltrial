@@ -1,0 +1,2807 @@
+ S 64315 
+CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+Document title 
+STATISTICAL ANALYSIS PLAN 
+ 
+ 
+ 
+Study official title  
+Phase I/II, international, multicentre, open-label, non-
+randomised, non-comparative study evaluating the safety, 
+tolerability and clinical activity of intravenously 
+administered S64315, a selective Mcl-1 inhibitor, in 
+combination with azacitidine in patients with 
+acute myeloid leukaemia (AML) 
+ 
+ 
+Test drug code 
+S64315 
+ 
+ 
+Indication 
+Acute Myeloid Leukaemia (AML) 
+ 
+ 
+Development phase 
+Phase I/II 
+ 
+ 
+Protocol code 
+CL1-64315-004 
+ 
+ 
+EudraCT Number 
+2019-004896-38 
+ 
+ 
+Universal Trial Number 
+Not applicable 
+ 
+ 
+Sponsor 
+I.R.I.S. 
+ 
+ 
+Date of the document 
+25th September 2023 
+ 
+ 
+Version of the document 
+V1.0 
+ 
+ 
+ 
+CONFIDENTIAL 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+3/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  3/55 
+ 
+Follow up of versions 
+Version Release date 
+(dd/mm/yyyy) Key modifications 
+Impact 
+0.1 
+20/02/2023 
+Creation 
+No impact 
+0.2 
+07/03/2023 
+Implementation of sponsor’s 
+comments 
+No impact 
+0.3 
+13/04/2023 
+Implementation of sponsor’s 
+comments 
+No impact 
+0.4 
+26/04/2023 
+Implementation of sponsor’s 
+comments 
+No impact 
+1.0 
+25/09/2023 
+Finalization of version 1 with 
+implementation of sponsor’s 
+comments 
+No impact 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+5/57
+ S 64315 
+CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  4/55 
+ 
+Table of contents 
+1. INTRODUCTION ............................................................................................................. 11 
+1.1. Study objectives .............................................................................................................. 11 
+1.2. Study endpoints ............................................................................................................... 12 
+1.3. Study design .................................................................................................................... 12 
+1.3.1. Dose administration schedule and escalation ............................................................... 12 
+1.3.2. Study plan ..................................................................................................................... 14 
+1.3.3. Type of randomisation .................................................................................................. 17 
+1.4. Determination of sample size ......................................................................................... 17 
+2. ANALYSIS SETS AND SUBGROUPS ........................................................................... 17 
+2.1. Analysis sets and subgroups ........................................................................................... 17 
+3. STATISTICAL METHODS ............................................................................................. 18 
+3.1. General considerations .................................................................................................... 18 
+3.2. Disposition and baseline characteristics ......................................................................... 18 
+3.2.1. Disposition of patients .................................................................................................. 18 
+3.2.2. Protocol deviations ....................................................................................................... 19 
+3.2.3. Analysis sets and subgroups ......................................................................................... 19 
+3.2.4. Demographic data and other baseline characteristics ................................................... 19 
+3.2.4.1. 
+Demographic data .................................................................................................... 19 
+3.2.4.2. 
+Pregnancy test .......................................................................................................... 19 
+3.2.4.3. 
+Disease history ......................................................................................................... 19 
+3.2.4.4. 
+Previous therapies .................................................................................................... 20 
+3.2.4.5. 
+Signs and symptoms related to AML ...................................................................... 21 
+3.2.4.6. 
+Clinical laboratory baseline evaluation ................................................................... 21 
+3.2.4.7. 
+Initial disease assessments ....................................................................................... 21 
+3.2.4.8. 
+Medical and surgical history not related to AML .................................................... 21 
+3.2.4.9. 
+Vital signs and clinical examination at baseline ...................................................... 21 
+3.2.4.10. Centralised ECG at baseline .................................................................................... 22 
+3.2.4.11. LVEF at baseline ..................................................................................................... 22 
+3.2.4.12. Chest X-Ray ............................................................................................................. 22 
+3.2.4.13. TLS prevention ........................................................................................................ 22 
+3.2.5. Treatments of patients .................................................................................................. 22 
+3.2.5.1. 
+Extent of treatment exposure and treatment compliance ......................................... 22 
+3.2.5.2. 
+Concomitant treatments ........................................................................................... 24 
+3.2.6. Other observations related to patient follow-up ........................................................... 24 
+3.3. Efficacy analysis ............................................................................................................. 24 
+3.4. Safety endpoints .............................................................................................................. 24 
+3.4.1. Dose limiting toxicity ................................................................................................... 25 
+3.4.2. Adverse events.............................................................................................................. 25 
+3.4.3. Death............................................................................................................................. 25 
+3.4.4. Clinical laboratory evaluation ...................................................................................... 25 
+3.4.5. Vital signs and clinical examination............................................................................. 28 
+3.4.6. Centralised ECG ........................................................................................................... 28 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+6/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  5/55 
+ 
+3.4.7. LVEF ............................................................................................................................ 28 
+3.5. Exploratory analysis ....................................................................................................... 29 
+3.6. Interim analysis ............................................................................................................... 29 
+4. APPENDICES .................................................................................................................... 29 
+4.1. General analytic definitions ............................................................................................ 29 
+4.1.1. Expressions ................................................................................................................... 29 
+4.1.2. First and last IMP intakes dates .................................................................................... 30 
+4.1.3. Value prior to treatment / under treatment ................................................................... 31 
+4.1.4. General duration derivation and conversion ................................................................. 31 
+4.1.5. Analysable value .......................................................................................................... 31 
+4.1.6. Management of other dates .......................................................................................... 32 
+4.2. Specific analytic definitions and data handling conventions .......................................... 33 
+4.2.1. Study patients: Disposition, baseline characteristics and follow-up ............................ 33 
+4.2.1.1. 
+Disposition of patients ............................................................................................. 33 
+4.2.1.2. 
+Protocol deviations .................................................................................................. 33 
+4.2.1.3. 
+Demographic data and other baseline characteristics .............................................. 33 
+4.2.1.3.1. Demographic data .................................................................................................. 33 
+4.2.1.3.2. History of AML ..................................................................................................... 33 
+4.2.1.3.3. Medical history and surgical or medical procedures history other than AML ...... 34 
+4.2.1.3.4. Signs and symptoms related to AML or prior therapies received for studied 
+disease ................................................................................................................... 34 
+4.2.1.3.5. Previous therapies for AML .................................................................................. 34 
+4.2.1.3.6. Initial disease assessment ...................................................................................... 35 
+4.2.1.4. 
+TLS prevention ........................................................................................................ 36 
+4.2.1.5. 
+Extent of exposure and treatment compliance ......................................................... 36 
+4.2.1.6. 
+Concomitant treatments ........................................................................................... 41 
+4.2.1.7. 
+Other observations related to patient follow-up ...................................................... 45 
+4.2.2. Efficacy......................................................................................................................... 45 
+4.2.3. Safety ............................................................................................................................ 45 
+4.2.3.1. 
+Dose Limiting Toxicity (DLT) ................................................................................ 45 
+4.2.3.2. 
+Adverse events ......................................................................................................... 46 
+4.2.3.3. 
+Death ........................................................................................................................ 49 
+4.2.3.4. 
+Clinical laboratory evaluation .................................................................................. 49 
+4.2.3.5. 
+Vital signs, clinical examination and other observations related to safety .............. 52 
+4.2.3.5.1. Vital signs and clinical examination ..................................................................... 52 
+4.2.3.5.2. Electrocardiogram ................................................................................................. 53 
+4.2.3.5.3. LVEF ..................................................................................................................... 54 
+4.2.4. Biomarkers ................................................................................................................... 54 
+5. REFERENCES .................................................................................................................. 55 
+ 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+7/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+® I.R.I.S. – 25th September 2023 - Confidential 
+ 6/55 
+List of tables 
+Table (1.3) 1 - Provisional dose levels of S64315 ................................................................... 13
+Table (2.1) 1 - Minimum number of S64315 and azacitidine doses to meet minimum 
+exposure until the end of cycle 1 .............................................................................................. 18
+Table (3.4.4) 1 – Gradable parameters ..................................................................................... 26
+Table (3.4.4) 2 – Non Gradable parameters ............................................................................. 27
+Table (4.1.2) 1 - Substitution rules of IMP intake dates .......................................................... 30
+Table (4.1.3) 1 - Time frame .................................................................................................... 31
+Table (4.1.5) 1 - Definition of analysable value ...................................................................... 31
+Table (4.1.6) 1 - Substitution rules of death date ..................................................................... 32
+Table (4.1.6) 2 - Substitution rules of dates if no specific management is defined ................. 32
+Table (4.1.6) 3 - Substitution rules of dates and times if no specific management is 
+defined ...................................................................................................................................... 32
+Table (4.2.1.6) 1 - Substitution rules of concomitant treatments intake dates ......................... 42
+Table (4.2.1.6) 2 - Substitution rules of further anti-leukemic therapy intake dates ............... 44
+Table (4.2.3.1) 1 –Toxicity criteria .......................................................................................... 45
+Table (4.2.3.2) 1 – Emergence of adverse events in case of missing severity/grade (if 
+any) ........................................................................................................................................... 48
+Table (4.2.3.2) 2 – Substitution rules of AE dates ................................................................... 48
+Table (4.2.3.2) 3 - Substitution rules of recovery date ............................................................. 49
+Table (4.2) 4 - Definition of CTCAE grade - Version 5.0 - Gradable parameters  ................. 50
+List of figures 
+Figure (1.3.2) 1 - Study plan for S64315 administration schedule in combination with 
+azacitidine (dose escalation phase I part – Arm A) .................................................................. 16
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+8/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  7/55 
+ 
+List of abbreviations 
+%: Percent 
+ADME : Absorption Distribution Metabolism Excretion 
+AE : Adverse Event 
+ALP : ALkaline Phosphatase 
+ALT : ALanine aminoTransferase 
+AML : Acute Myeloid Leukaemia 
+aPTT : activated Partial Thromboplastin Time 
+AST : ASpartate aminoTransferase 
+ATC: Anatomical Therapeutic Chemical 
+AZA : Azacitidine 
+Bcl-2 : B-cell lymphoma 2 protein 
+BLRM : Bayesian Logistic Regression Model 
+BM : Bone Marrow 
+BNP : Brain Natriuretic Peptide 
+bpm : beats per minute (heart rate unit) 
+BR : Best Response 
+C : Cycle 
+CLcr : Creatinine CLearance 
+CPK : Creatine Phosphokinase 
+CPK-MB : Creatine PhosphoKinase Myocardial Band 
+CR : Complete Remission 
+CRi : Complete Remission with incomplete haematologic recovery 
+CSR : Clinical Study Report 
+Cx : Cycle x 
+D : Day 
+DBP : Diastolic Blood Pressure 
+DI : Dose Intensity 
+DLT : Dose Limiting Toxicity 
+DLTES : Dose-Limiting Toxicity Evaluable Set 
+DNA : Deoxyribonucleic Acid 
+e.g. : Exempli gratia (for example) 
+ECG : ElectroCardioGram 
+ECOG : Eastern Cooperative Oncology Group 
+eCRF : Electronic Case Report Form 
+EMA : European Medicines Agency 
+EoC : End of Cohort 
+EoT : End of Trial 
+EWOC : Escalation With Overdose Control 
+FAB: French-American-British 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+9/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  8/55 
+ 
+FU : Follow-Up 
+G/L : Giga (109) per litre 
+GGT : Gamma-Glutamyl Transferase (Gamma-Glutamyl Transpeptidase) 
+HbcAb : B virus core antibody 
+HbsAb : B virus surface antibody  
+HbsAg : Hepatitis markers B virus surface antigen  
+HBV : Hepatitis B Virus 
+HCV : Hepatitis C Virus 
+HDL : High-Density Lipoprotein 
+HEV : Hepatits E Virus 
+HMA : HypoMethylating Agents 
+HR : Heart Rate 
+i.e. : id est (that is) 
+ICF : Informed Consent Form 
+ICH : International Conference on Harmonisation 
+IME : Independent MedicalExam 
+IMP : Investigational Medicinal Product: a pharmaceutical form of an 
+active ingredient or placebo being tested or used as a reference 
+in a clinical trial i.e. S64315 and azacitidine 
+INR : International Normalized Ratio 
+I.R.I.S. : Institut de Recherches Internationales Servier 
+IS : Included Set 
+IU : International Unit 
+IV : IntraVenous (route) 
+kg : Kilogram 
+LDH : Lactate DeHydrogenase 
+LDL : Low-Density Lipoprotein 
+LID : Lead-In Dose 
+LLN : Lower Limit Normal of reference range 
+LVEF : Left Ventricular Ejection Fraction 
+Max: Maximum 
+MCL1 : HGNC Approved Gene Symbol for Myeloid Cell Leukaemia 
+Sequence 1 
+Mcl-1 : Induced myeloid leukaemia cell differentiation protein 
+MDS : MyeloDysplastic Syndrome 
+MDRD_GFR : Modification of Diet in Renal Disease Glomerular Filtration Rate 
+MedDRA : Medical Dictionary for Regulatory Activities 
+mg : Milligram 
+min : Minimum 
+mL : Millilitre 
+MLFS : Morphologic Leukaemia-Free State 
+mmHg : Millimetres of mercury 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+10/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  9/55 
+ 
+MPN : myeloproliferative neoplasms  
+MRD : Minimal (measurable) Residual Disease 
+msec: Milliseconds 
+MTD : Maximum Tolerated Dose 
+N : Number 
+NA : Not Applicable 
+NAE : Number of Adverse Events 
+NCI-CTCAE: National Cancer Institute Common Terminology Criteria for Adverse Events  
+NPD: Number of Protocol Deviations 
+PB : Periferal Blood 
+PCR : Polymerase chain reaction 
+PD : PharmacoDynamics 
+PDI : Planned Dose Intensity 
+PG : PharmacoGenomics 
+PK : PharmacoKinetics 
+PR : Partial response 
+PT : Preferred Term 
+PV : PharmacoVigilance 
+QTc : QT interval corrected for heart rate 
+QTcF : QTc interval corrected with Fridericia’s formula 
+QW : Once Weekly 
+Q1 : First Quartile 
+Q3 : Third Quartile 
+RBC : Red Blood Cells 
+RDI : Relative Dose Intensity 
+RNA : Ribonucleic acid 
+RP2D : Recommended Phase II Dose 
+SAE : Serious Adverse Event 
+SAP : Statistical Analysis Plan  
+SBP : Systolic Blood Pressure 
+SC SubCutaneous (route) 
+SD : Standard Deviation 
+SI : Standard International  
+SOC : System Organ Class 
+SS : Safety Set 
+TEAE : Treatment Emergent Adverse Event 
+TLG : Tables, Listings and Graphs 
+TLS : Tumour Lysis Syndrome 
+TPN : Total parenteral nutrition 
+TSH : Thyroid Stimulating Hormone 
+ULN : Upper Limit Normal of reference range 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+11/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  10/55 
+ 
+WBC : White Blood Cells 
+WHO : World Health Organization 
+WHODD : World Health Organization, Drug Dictionary 
+WV : Withdrawal Visit 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+12/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  11/55 
+ 
+1. INTRODUCTION 
+This Statistical Analysis Plan (SAP) details the planned analyses to be performed, in accordance 
+with the main characteristics of the study protocol V5.0 dated 14th of October 2022. 
+The shells for Tables, Listings and Graphs (TLG) are described in a separate document. 
+ 
+The study data will be analysed and reported in the Primary abbreviated Clinical Study Report 
+(CSR) once the study is terminated (at the end-of-study, defined as the date of the last follow-
+up of the last patient, including a phone contact, or the date of the last contact attempt if the last 
+patient is declared lost to follow-up). A statistical data review will be conducted prior to 
+database lock. A limited number of outputs will be produced for the purpose of reviewing the 
+data prior to authorizing the database lock. 
+The final analysis for the abbreviated CSR will be performed (and so the database locked) as 
+soon as all safety data are available, and all the mandatory steps required for database lock have 
+been performed. 
+Of note, this SAP does not cover the pharmacokinetic and pharmacodynamic profiling data 
+analyses described in the study protocol. These analyses are covered in separate analysis plans 
+written by I.R.I.S. Clinical Pharmacokinetics and Technologie Servier, respectively.  
+Given the abbreviated nature of the CSR, this SAP will cover the disposition, demographics 
+and baseline characteristics of the study sample, the extent of exposure and treatment 
+compliance to the investigational medicinal products (IMP)s, and the safety profile of the IMPs. 
+Efficacy of IMPs and other observations related to patient follow-up will not be analysed. 
+1.1. Study objectives 
+The primary objective of the study is to determine the safety profile (including dose-limiting 
+toxicity (DLT) and maximum tolerated dose (MTD)) and tolerability of S64315 in 
+combination with azacitidine in patients with AML. 
+The secondary objectives (not addressed by this SAP) are: 
+- 
+To determine the pharmacokinetics (PK) profile of S64315 and azacitidine administered in 
+combination, and potential metabolites. 
+- 
+To evaluate anti-leukemic activity of S64315 in combination with azacitidine. 
+The exploratory objectives of the study (not addressed by this SAP) are: 
+- 
+To assess the minimal (measurable) residual disease (MRD) and clonal evolution after 
+treatment with the combination of S64315 with azacitidine. 
+- 
+To evaluate the pharmacodynamic (PD) profile of S64315 in combination with azacitidine 
+in relation to: 
+➢ The biological activity (target engagement). 
+➢ The relationship between the expression level of B-cell lymphoma 2 protein (Bcl-2) 
+family members (in blood, and bone marrow samples) and the anti-leukemic activity. 
+➢ The relationship between the anti-leukemic activity, karyotypes and AML associated 
+genes mutations or dysregulations. 
+- 
+To explore PK/PD relationship for safety and efficacy. 
+- 
+To explore relationship between the deoxyribonucleic acid (DNA) polymorphism for 
+proteins involved in the absorption distribution metabolism excretion (ADME) and the 
+variability of PK parameters. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+13/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  12/55 
+ 
+1.2. Study endpoints 
+The endpoints for the primary objective are: 
+- 
+The incidence of DLT(s) starting from the lead-in dose (LID) period to the end of each cycle 
+of treatment of S64315 in combination with azacitidine. 
+- 
+The incidence and severity of adverse events (AEs) and serious adverse events (SAEs) 
+according to the National Cancer Institute Common Terminology Criteria for Adverse 
+Events (NCI-CTCAE) version 5.0. 
+- 
+The recording of any change or addition of a new concomitant treatment. 
+- 
+The laboratory tests: haematology with differential, blood biochemistry, thyroid function, 
+blood coagulation, urinary analysis, hepatitis markers, Tumour Lysis Syndrome (TLS) 
+monitoring, cardiac markers follow up. 
+- 
+The complete physical examination, Eastern Cooperative Oncology Group (ECOG) 
+performance status and vital signs measurements. 
+- 
+The electrocardiogram (ECG) parameters and cardiac function assessment. 
+- 
+The left ventricular ejection fraction (LVEF). 
+- 
+The dose interruptions, reductions and dose intensity. 
+1.3. Study design 
+The study CL1-64315-004 is an international, multicentre, non-randomised, non-comparative, 
+open label, phase I/II study of S64315 and azacitidine administered in combination, conducted 
+in patients with AML. 
+This study was originally designed in two phases: Phase I for dose escalation and Phase II for 
+dose expansion. Furthermore, the dose escalation phase I part was further planned to have 2 
+arms: Arm A evaluating the combination of S64315 with azacitidine (see Figure (1.3.2) 1), and 
+Arm B evaluating the triplet regimen of S64315 with azacitidine and a Bcl-2 inhibitor. 
+However, Phase I - Arm B and Phase II for dose expansion will not be conducted. 
+1.3.1. 
+Dose administration schedule and escalation 
+The initial schedule (see Figure (1.3.2) 1) will consist of a lead-in period followed by 28-day 
+cycles when S64315 will be administered in combination with azacitidine. S64315 will be 
+administered via intravenous (IV) infusion over at least 2 hours once every week, azacitidine 
+will be administered via subcutaneous (SC) injection once daily for 7 consecutive days. 
+The schedule will be as follows: 
+- 
+A 2-week LID period with S64315 fixed LID1 of 25 mg on day -13 (D-13) and S64315 
+fixed LID2 of 50 mg on D-6, followed by 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+14/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  13/55 
+ 
+- 
+28-day cycles (Cx) of combination treatment period with S64315 administered on CxD2, 
+CxD9, CxD16 and CxD23, and 75 mg/m² of azacitidine administered daily for 7 days from 
+CxD1 to CxD7 followed by a rest period of 21 days. 
+On days of concomitant administration of S64315 and azacitidine (CxD2), azacitidine should 
+be administered 2 hours (±10 min) prior to S64315. The starting dose of S64315 after the lead-
+in period will be 50 mg. A panel of doses (see Table (1.3) 1 from 25 mg (-1) and up to 250 mg 
+could be explored according to the dose escalation process of the Bayesian Logistic Regression 
+Model (BLRM).  
+During the dose escalation phase, at each new dose level, the IMPs will be firstly administered 
+to one patient. If no medically important or life-threatening toxicity occurs during a 1 week 
+observation period, the subsequent patients will be allowed to start treatment without further 
+delays between subsequent patients. The dose increase between two dose levels will be guided 
+by the observed toxicities. 
+An adaptive BLRM with overdose control (EWOC) will be used to guide the dose escalation 
+of S64315 in combination with azacitidine. The dose escalation will only concern S64315. The 
+purpose of the dose escalation phase I part is to determine the safety profile, the MTD, the DLTs 
+and the recommended Phase II Dose (RP2D) in patients with relapsed/refractory AML. All 
+available data on DLTs (assessed from the LID period and up to the end of cycle 1) will be used 
+for updating the model. Before making a decision regarding dose escalation, the minimum 
+number of patients required from a cohort must have been treated with one cycle of the 
+combination and be fully evaluable for treatment-related toxicities according to the minimum 
+requirements for inclusion in the Dose-Limiting Toxicity Evaluable Set (DLTES). If a patient 
+is not eligible for inclusion in the DLTES, this patient must be replaced.  
+A maximum of 6 DLT-evaluable patients may be initially enrolled at a new dose level, and a 
+minimum of 3 DLT-evaluable patients must be treated at a given dose level in order to begin 
+treatment of patients at a new, higher dose level. To better characterize the safety, tolerability, 
+PK, PD, or preliminary clinical activity of S64315 in combination with azacitidine, more than 
+6 DLT-evaluable patients may be treated in a cohort. If the starting dose of the combination is 
+not well tolerated, a dose level -1 will be considered. Intermediate doses may be tested, if 
+needed. A minimum of 6 DLT evaluable patients must have been evaluated at the dose 
+considered to be the MTD, and before treating patients with this dose in the Phase II part of the 
+study. 
+Table (1.3) 1 - Provisional dose levels of S64315 
+ 
+Dose level      
+     Proposed dose* 
+ Increment from previous dose 
+  
+   -1** 
+25 mg 
+-50% 
+  
+1 
+50 mg 
+Starting dose 
+  
+2 
+100 mg 
+100% 
+  
+3 
+200 mg 
+100% 
+  
+4 
+250 mg 
+25% 
+  
+*It is possible for additional and/or intermediate dose levels to be added during the course of the study  Cohorts can be added at any dose 
+level below the MTD in order to better understand safety, PK or PD  
+**No dose reduction below dose level -1 is permitted for this study  
+ 
+Before testing a new dose level during the dose escalation phase, an end of cohort (EoC) 
+meeting between the Sponsor (Centre for Therapeutic Innovation Oncology, Medical Safety 
+Leader, Methodology Department and Clinical Pharmacokinetics department), the coordinator 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+15/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  14/55 
+ 
+and the investigators will take place to discuss the toxicities in terms of DLTs, safety data, the 
+PK and available PD, and the preliminary efficacy data observed in all patients. 
+Of note, the dose escalation part was stopped by a joint decision from Servier and Novartis by 
+taking into account the model estimations and a global assessment of the safety, PK, PD and 
+preliminary activity data. No intra-patient dose escalation and no expansion part will be 
+conducted for this study.  
+1.3.2. 
+Study plan 
+The study start is defined as the date of the first visit of the first patient, corresponding to 
+informed consent form (ICF) signature. It will be divided into the following periods for each 
+patient of Arm A: 
+- Screening visit 
+The screening eligibility criteria will be checked after the patient informed consent is obtained. 
+- Inclusion period 
+The inclusion and exclusion criteria will be checked. The inclusion period can last up to 15 
+days before starting the LID period. The patient is included when he/she has met all the 
+inclusion criteria. 
+- S64315 lead-in dose period 
+The lead-in dose period will last 2 weeks. S64315 LID1 will be administered on D-13 at 25 
+mg and LID2 on D-6 at 50 mg. LID1 and LID2 doses will be fixed all along the study. 
+- Combination treatment period 
+A treatment cycle will consist of 28 days for patients treated with S64315 in combination with 
+azacitidine during the dose escalation phase I part: 
+- 
+Weekly schedule for S64315 on CxD2, CxD9, CxD16 and CxD23. 
+- 
+Daily schedule for azacitidine from CxD1 to CxD7 followed by a 21-day rest period. 
+The planned duration of combination treatment is until disease progression, unacceptable 
+toxicity, treatment failure (defined as failure to achieve complete remission (CR), complete 
+remission with incomplete haematologic recovery (Cri), partial response (PR), or morphologic 
+leukaemia-free state (MLFS) after at least 6 cycles of study treatment) or patient/physician 
+decision. In case of myelosuppression within the context of non-active AML, a 4-week 
+interruption of administration of one or both IMP(s) will be allowed for bone marrow recovery 
+at the investigator’s discretion after discussion and approval from the Sponsor. If the patient is 
+benefiting from the study treatment according to the investigator’s judgement and if it is in the 
+patient’s best interest to continue the combination of S64315 with azacitidine, the patient may 
+remain on study treatment. In case the patient becomes eligible for transplant, patient’s 
+treatment discontinuation should be left at the investigator’s decision. 
+- Withdrawal visit (WV):  
+Up to 28 days after the last dose of IMP 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+16/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  15/55 
+ 
+- Post-withdrawal follow-up 
+After the withdrawal visit, a contact or telephone call will be done for the patients: 
+- 
+Every 3 months (±15 days) from the WV and up to 6 months, except in case of consent 
+withdrawal for the dose escalation phase I part. 
+- End of Trial (EoT) 
+The EoT is defined as the date of the last follow-up of the last patient (including a phone 
+contact), or the date of the last contact attempt if the last patient is declared lost to follow-up. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+17/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  16/55 
+ 
+Figure (1.3.2) 1 - Study plan for S64315 administration schedule in combination with azacitidine (dose escalation phase I part – Arm A) 
+ 
+ 
+  
+S64315 infusion on D-13, D-6, CxD2, CxD9, CxD16, CxD23 
+AZA: azacitidine 
+Azacitidine administration from CxD1 to CxD7 
+D: day 
+PK: pharmacokinetic measurements 
+FU: post-withdrawal follow-up 
+PD: pharmacodynamics measurements 
+LID: Lead-in dose 
+PG: optional pharmacogenomics measurements 
+QW: Once Weekly 
+WV: withdrawal visit 
+W: week 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________
+________________________________
+_________________________________________________________
+__________________________
+______________________________
+_________________________________________________________
+18/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  17/55 
+ 
+1.3.3. 
+Type of randomisation 
+The assignment of a patient to a particular cohort will be coordinated by the Sponsor. No 
+randomisation will be performed in this study. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.4. Determination of sample size 
+No formal statistical power calculations to determine sample size were performed for this 
+study. Overall, a maximum of 180 patients will be enrolled in the dose escalation phase I part 
+of Arm A (up to 30 patients) followed by sub-arms A1and A2 (50 per sub-arms, up to 150 
+patients overall). However, due to the stop of the dose escalation phase, the expansion part to 
+sub-arms A1 and A2 will not be conducted. 
+2. ANALYSIS SETS AND SUBGROUPS 
+2.1. Analysis sets and subgroups 
+- Screened Set: 
+All patients who signed the ICF, whether they are included or not at the end of the screening 
+period. 
+- Included Set (IS): 
+All patients who have signed the ICF, whose eligibility was confirmed at the end of the 
+screening period, and who were included in the dose escalation phase I part of the study. 
+- Safety Set (SS): 
+All patients who have signed the ICF and who received at least one dose of IMP (S64315 or 
+azacitidine) during dose escalation phase I part of the study. It will be used for all safety 
+analyses. 
+For the safety analysis, patients will be analysed according to the treatment combination and 
+dose level received at C1D1 (for azacitidine) and C1D2 (for S64315). Patients who only 
+received LID will be analysed according to the dose of S64315 planned to be administered. 
+- Evaluable Set (DLTES): 
+All patients from the SS who are evaluable for DLT according to the DLT assessment at the 
+end of cycle 1. A patient is not considered evaluable for DLT if he/she: 
+- 
+Permanently discontinued treatment before C1D28 for reasons other than DLT. 
+- 
+Did not undergo a DLT assessment at the end of Cycle 1. 
+- 
+Did not receive the minimum exposure criteria i.e., minimum number of doses according 
+to the dose administration schedule of both IMPs prescribed from study entry to DLTs 
+assessment visit (end of Cycle 1 D28), unless treatment was stopped for a DLT (see 
+Table (2.1) 1). 
+- 
+If a patient received more than the assigned IMP doses from study entry to DLT occurrence 
+during the DLT assessment period, non-evaluability criteria will be reassessed by Sponsor 
+and investigator (Table (2.1) 1). 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+19/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  18/55 
+ 
+Table (2.1) 1 - Minimum number of S64315 and azacitidine doses to meet minimum exposure until the end 
+of cycle 1 
+Schedule description 
+Minimum of doses of 
+S64315/azacitidine 
+S64315 during the 2-week LID period (LID1 on D-13 and LID2 on 
+D-6) 
+2 out of 2 
+S64315 (D2, D9, D16 and D23 in 28-day cycle) 
+3 out of 4 
+azacitidine (D1 to D7 in 28-day cycle) 
+5 out of 7 
+3. STATISTICAL METHODS 
+3.1. General considerations 
+Descriptive statistics depending on the nature of the criteria and the number of patients by dose 
+level combinations: 
+- For qualitative data, number of observed values, number and percentage of patients 
+per class will be presented. Unless otherwise specified in the TLG, no class "Missing" 
+is considered. 
+- For quantitative data, number of observed values, mean, standard deviation (SD), 
+minimum (min) and maximum (max), median, first (Q1) and third (Q3) quartiles. 
+For Event: 
+- Number of patients (or cycles) having experienced the event (n). 
+- Number of events that occurred (for AE analyses only) (NAE). 
+- Number of patients (or cycles) at risk for the event (N). 
+- Global incidence rate (%), 
+o calculated as the ratio between the number of patients (or cycles) having 
+experienced the event (n) and the number of patients (or cycles) at risk at the 
+beginning of the study (N). 
+Globally, mean, standard deviation and the percentage will be submitted only to the dose level 
+combinations with sufficient number of patients. 
+3.2. Disposition and baseline characteristics 
+Description of disposition of patients (status, protocol deviations and analysis set), treatment 
+duration and extent of exposure, as well as other baseline characteristics will be performed by 
+dose level combination and overall. 
+Calculation rules for general definitions (such as value prior to treatment, under treatment, 
+analysable value, IMP infusion date,…) are provided in Appendix 4.1. 
+Specific definitions on disposition of patients, baseline characteristics and patient follow-up are 
+provided in Appendix 4.2. 
+3.2.1. 
+Disposition of patients 
+Disposition of patients will be described overall for the Screened Set. Number of patients 
+screened, included and not included, with relative reasons, will be presented. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+20/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+® I.R.I.S. – 25th September 2023 - Confidential 
+ 19/55 
+Disposition of patients at the time of inclusion will also be described overall and by planned 
+treatment dose for the IS. Number of patients included, with relative conformity to protocol, 
+and withdrawn, with relative reasons, will be presented. 
+Furthermore, disposition of patients for the IS will also be described after inclusion, separately 
+for LID period and for each cycle. Number of patients ongoing at the given LID period or cycle, 
+and withdrawn, with relative reasons, will be presented. 
+3.2.2. 
+Protocol deviations 
+Protocol deviations before or at inclusion, as well as after inclusion, will be described in the 
+IS, overall and by category of deviations (based on International Conference on 
+Harmonisation (ICH) E3 guideline and ICH E3 Q&A). Number of protocol deviations 
+(NPD), number and percentage of patients with at least one protocol deviation will be 
+presented. 
+3.2.3. 
+Analysis sets and subgroups 
+The number of patients in each analysis set (studied analysis set and reference analysis set), and 
+reasons for exclusion will be described. 
+Listings of patients with their membership, or not, of each analysis set and of excluded patients 
+with reasons for exclusion will be provided. 
+3.2.4. 
+Demographic data and other baseline characteristics 
+3.2.4.1. 
+Demographic data 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for variables measured on a continuous scale, for patients of the IS: 
+-
+Age.
+The frequency distribution (n, %) will be provided for patients of the IS by dose level 
+combination and overall for variables measured on a nominal scale for the following classes: 
+-
+Age ([18-65[ years, [65-85[ years, ≥ 85 years).
+-
+Gender (Female, Male).
+-
+Race (Caucasian/White, Black/African American, American Indian/Alaska Native,
+Asian, Native Hawaiian/Other Pacific Islander, Other).
+-
+Ethnicity (Hispanic or Latino, Not Hispanic or Latino).
+3.2.4.2. 
+Pregnancy test 
+The frequency distribution (n, %) will be provided for female patients of the IS by dose level 
+combination and overall for variables measured on a nominal scale for the following cases: 
+-
+Pregnancy test (Yes, No).
+-
+Positive pregnancy test (Yes, No).
+-
+Patient childbearing potential (Yes, No).
+3.2.4.3. 
+Disease history 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for variables measured on a continuous scale for: 
+-
+Disease duration (years).
+-
+Treatment-free interval since previous AML treatment line (days).
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+21/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  20/55 
+ 
+- 
+Treatment-free interval since previous (MyeloDysplastic Syndrome) MDS treatment 
+line (days). 
+The frequency distribution (n, %) will be provided in patients of the IS by dose level 
+combination and overall for variables measured on a nominal/ordinal scale according to the 
+following classes: 
+- 
+Disease duration (≤ 1 years, ]1-2 years], ]2-4 years] , > 4 years). 
+- 
+Treatment-free interval since previous AML treatment line (≤ 30 days, ]30-60 days], > 
+60 days). 
+- 
+Treatment-free interval since previous MDS treatment line (≤ 30 days, ]30-60 days], > 
+60 days). 
+- 
+Patient with at least one progression during or after a previous treatment line for AML 
+(Yes, No). 
+- 
+Subtype of AML: 
+• AML with recurrent genetic abnormalities. 
+• AML with myelodysplasia-related changes. 
+• Therapy-related myeloid neoplasms. 
+• AML, not otherwise specified. 
+• Myeloid sarcoma. 
+• Myeloid proliferations related to Down syndrome. 
+- 
+Disease status (In relapse, Refractory to previous treatment, Treatment-naïve for AML). 
+- 
+Type of AML (De novo, Secondary). 
+- 
+FAB: French-American-British (FAB) classification. 
+- 
+Cytogenetics risk category (Favorable, Intermediate, Intermediate I, Intermediate II, 
+Adverse, Not assessable). 
+- 
+Red blood cell transfusion dependent (Yes, No). 
+- 
+Platelets transfusion dependent (Yes, No). 
+- 
+Presence of myelodysplasia. 
+- 
+Gene Mutation research at diagnosis (No, Yes). 
+- 
+List of genes tested (No, Yes). 
+- 
+Presence of gene mutation (Absent, Present). 
+ 
+A listing of key demographic and disease characteristics will also be presented. 
+3.2.4.4. 
+Previous therapies 
+Previous therapies for AML will be summarized for patients in the IS. The following categorical 
+variables will be described by frequency distribution (n, %): 
+- 
+Number of patients with at least one previous surgery, one previous radiotherapy, one 
+previous drug treatment and one previous transplant. 
+- 
+Number of patients by combination of previous therapies (drug treatment + 
+radiotherapy, drug treatment + transplant, drug treatment + surgery, radiotherapy + 
+transplant, radiotherapy + surgery, transplant + surgery, drug treatment + radiotherapy 
++ transplant, surgery + radiotherapy + transplant, drug treatment + surgery + 
+radiotherapy, drug treatment + surgery + transplant, drug treatment + surgery + 
+radiotherapy + transplant). 
+- 
+Number of patients by type of previous transplant (autologous stem cell, allogenic stem 
+cell). 
+- 
+Number of treatment lines by class (0, 1, 2, 3, 4-7, >7). 
+- 
+Number of relapses (0, 1, 2, 3, 4-7, >7). 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+22/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  21/55 
+ 
+- 
+Number of patients who received some specific treatments lines. 
+- 
+Previous therapies by pharmacological class. 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for variables measured on a continuous scale including: 
+- 
+Number of treatments lines. 
+- 
+Number of relapses. 
+3.2.4.5. 
+Signs and symptoms related to AML 
+The number and percentage of patients with signs and symptoms at baseline will also be 
+summarized by System Organ Class (SOC) and Preferred Term (PT) in patients of IS. 
+3.2.4.6. 
+Clinical laboratory baseline evaluation 
+Laboratory analysis as described in Section 3.4.4 will be analysed in patients of the IS by dose 
+level combination and overall. 
+For Hepatitis markers B virus surface antigen (HbsAg), B virus surface antibody 
+(HbsAb), B virus core antibody (HbcAb), hepatitis C virus (HCV) RNA-PCR, hepatits E 
+virus (HEV) RNA-PCR: Descriptive statistics at baseline by classes (negative, positive).  
+Hepatitis B virus (HBV)-DNA tests: if HbsAg or HbcAb positive at baseline. 
+ 
+3.2.4.7. 
+Initial disease assessments 
+The frequency distribution (n, %) will be provided in patients of the IS by dose level 
+combination and overall. The following categorical variables will be described by frequency 
+distribution (n, %): 
+- 
+BM blasts (%)  
+- 
+BM Auer rods 
+- 
+Presence of Myelodysplasia 
+- 
+Neutrophils 
+- 
+Platelets 
+- 
+PB Blasts (%) 
+- 
+Platelets transfusion dependent 
+- 
+Red blood cells transfusion dependent 
+3.2.4.8. 
+Medical and surgical history not related to AML 
+Medical and surgical history other than for the AML will be summarized by SOC and PT 
+according to the Medical Dictionary for Regulatory Activities (MedDRA) dictionary in patients 
+of the IS. 
+3.2.4.9. 
+Vital signs and clinical examination at baseline 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for variables measured on a continuous scale including: 
+- 
+Weight (kg). 
+- 
+Height (cm). 
+- 
+Supine systolic blood pressure (SBP). 
+- 
+Supine diastolic blood pressure (DBP). 
+- 
+Supine heart rate (HR). 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+23/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  22/55 
+ 
+The frequency distribution (n, %) will be provided in patients of the IS by dose level 
+combination and overall for variables measured on a nominal scale according to the following 
+classes: 
+- 
+ECOG (0, 1, 2, 3, 4). 
+- 
+Supine SBP (< 90 mmHg , [90-140 mmHg[ , ≥ 140 mmHg). 
+- 
+Supine DBP(< 60 mmHg , [60-90 mmHg[ , ≥ 90 mmHg). 
+- 
+Supine HR (< 60 bpm , [60-100 bpm[ , ≥ 100 bpm). 
+3.2.4.10. Centralised ECG at baseline 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for variables measured on a continuous scale including QT interval (uncorrected) and 
+Fridericia QT interval corrected for heart rate (QTcF). 
+The frequency distribution (n, %) will be provided in patients of the IS by dose level 
+combination and overall for variables measured on a nominal scale according to the following 
+classes: 
+- 
+Presence of ECG abnormalities (Yes, No). 
+- 
+Presence of clinically significant ECG abnormalities (Yes, No). 
+- 
+QT interval (uncorrected and Fridericia corrected) in classes (≤ 450 ms, ]450-480] ms, 
+]480-500] ms and > 500 ms).  
+3.2.4.11. LVEF at baseline 
+Descriptive summary statistics (n, mean, SD, median, min, max, median, Q1, Q3) will be 
+provided for LVEF. The frequency distribution (n, %) will also be provided in patients of the 
+IS by dose level combination and overall, according to the following classes: 
+- 
+LVEF (< 50%, [50-70%], >70%). 
+3.2.4.12. Chest X-Ray 
+The frequency distribution (n, %) will be provided in patients of the IS by dose level 
+combination and overall for Chest X-Ray, according to the following classes: 
+- 
+Chest X-Ray performed (Yes, No). 
+3.2.4.13. TLS prevention 
+All concomitant treatments for TLS prevention taken at inclusion and before the treatment 
+period will be described for each dose level combination and overall in the SS, by Anatomical 
+Therapeutic Chemical (ATC) code into 4 levels (Pharmacological class, Pharmacological sub-
+class, therapeutic class, Preferred name). TLS risk category, type of hydration performed and 
+anti-hyperuricaemic administration will also be presented. 
+3.2.5. 
+Treatments of patients 
+3.2.5.1. 
+Extent of treatment exposure and treatment compliance 
+Details concerning definition on extent of exposure, treatment compliance are provided in 
+Appendix 4.2.1.5. 
+For S64315 and azacitidine separately the frequency distribution (n, %) or descriptive summary 
+statistics (n, mean, SD, median, min, max, median, Q1, Q3) as applicable will be provided in 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+24/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  23/55 
+ 
+patients of the SS by planned dose level combination and overall for variables measured on a 
+nominal scale according to the following classes: 
+• Extent of exposure*: 
+- 
+The global treatment duration (combined measure for S64315/azacitidine): 
+summary statistics. 
+- 
+Treatment duration (weeks) overall and by treatment period (LID/Combination 
+treatment). 
+- 
+Treatment duration (weeks) during combination treatment period (i.e., excluding 
+LID) (< 4 weeks, [4-12[ weeks, [12-24[ weeks, [24-36[ weeks, [36-48] weeks, >48 
+weeks). 
+- 
+LID duration (]0-1] week, ]1-2] weeks and > 2 weeks). 
+- 
+Number of cycles (1 cycle, 2 cycles, 3-6 cycles, 7-10 cycles, > 10 cycles) during the 
+combined treatment period. 
+- 
+Number of patients by cycle (LID, Cycle 1, Cycle 2, etc). 
+• Treatment compliance*: 
+- 
+Cumulative dose (mg) for S64315/ Cumulative dose (mg/m2) for azacitidine overall, 
+by cycle (including LID), and for combination treatment. 
+- 
+Dose intensity (DI) (mg/week) for S64315/ DI (mg/m2/day) for azacitidine overall, 
+by cycle (including LID), and for combination treatment. 
+- 
+Relative Dose Intensity (RDI) (%) for S64315/azacitidine overall, by cycle 
+(including LID), and for combination treatment. 
+- 
+RDI for S64315(< 35%, [35-65[%, [65-100[%, ≥ 100%) overall, by cycle, and per 
+treatment period (LID/Combination treatment). 
+- 
+RDI for azacitidine (< 62%, [62-85[%, [85-100[%, ≥ 100%) overall, by cycle, and 
+per treatment period (Combination treatment).  
+- 
+Treatment interruption (Yes/No) during treatment period (including LID). 
+- 
+Reason of treatment interruption (Medical reason, Non-medical reason, Missing). 
+- 
+LIDLIDNumber of cycles with at least one treatment interruption for S64315 during 
+treatment period (including LID).  
+- 
+Number of cycles with at least one treatment interruption for azacitidine during 
+treatment period.  
+- 
+Cycle delayed (Yes/No) during treatment period (including LID). 
+- 
+Reason for cycle delayed (Medical reason, Non-medical reason, Missing). 
+- 
+Number of cycles delayed during treatment period (including LID). 
+- 
+Number of cycles delayed (1, 2, > 2) during treatment period (including LID). 
+• Specifically for S64315, the summary of treatment compliance will also will include: 
+- 
+Dose modified (Yes/No) during treatment period (including LID). 
+- 
+Number of dose modifications during treatment period (including LID). 
+- 
+Number of dose modifications (1, 2, > 2) during treatment period (including LID). 
+- 
+Time to first dose modification (days) during treatment period (including LID). 
+- 
+Partial dose administered (Yes/No) during treatment period (including LID). 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+25/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  24/55 
+ 
+- 
+Number of cycles with partial dose for S64315 during treatment period (including 
+LID).  
+- 
+Number of cycles with partial dose for S64315 (1, 2, > 2) during treatment period 
+(including LID).  
+• Specifically for azacitidine, the summary of extent of exposure will include: 
+- 
+Average number of days dosed per cycle with planned dose level for azacitidine 
+overall. 
+- 
+Average number of days dosed overall.  
+- 
+Number of azacitidine interruption days. 
+* Applicable for both S64315 and azacitidine if not specified. 
+3.2.5.2. 
+Concomitant treatments 
+Details concerning definition on concomitant treatments are provided in Appendix 4.2.1.6. 
+All concomitant treatments taken during the study period will be described for each 
+administered dose level combination, and overall, in the SS, by ATC code into 4 levels 
+(pharmacological class, pharmacological sub-class, therapeutic class and preferred name) and 
+into 1 level (pharmacological class only). Concomitant treatments only during the study 
+period are described because we will have an abbreviated CSR for the CL1-64315-004. 
+3.2.6. 
+Other observations related to patient follow-up 
+We will have an abbreviated CSR for the CL1-64315-004, therefore, follow-up analysis is not 
+applicable. 
+3.3. Efficacy analysis 
+We will have an abbreviated CSR for the CL1-64315-004, therefore, efficacy analysis is not 
+applicable. 
+3.4. Safety endpoints 
+All safety analyses will be performed in the SS (resp. DLTES for DLT analysis) by treatment 
+dose level combination and overall. The treatment period is defined from first IMP intake up to 
+last IMP intake date + (*) days. 
+(*) 30 days for AE and death analysis, 28 days for clinical laboratory evaluation, vital signs and 
+clinical examination, centralized ECG and LVEF analysis.  
+Qualitative data will be presented in number and percentage of patients per class, while 
+quantitative data will be presented in mean, SD, min and max, median, Q1 and Q3. 
+Calculation rules for expressions of safety endpoints, as well as general definitions (such as 
+value prior to treatment / under treatment, analysable value, first and last IMP intake dates…), 
+are provided in Appendix 4.1. 
+Calculation rules for safety endpoints and other specific definitions are provided in Appendix 
+4.2. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+26/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  25/55 
+ 
+3.4.1. 
+Dose limiting toxicity 
+Number and percentage of patients with at least one DLT before the end of the first cycle, type 
+of DLT and listing of PTs, verbatim and worst grade of AE declared as DLT will be provided 
+in the DLTES. 
+Listing of patients with at least one DLT, type of DLT and PTs, verbatim will also be provided 
+in the DLTES. 
+3.4.2. 
+Adverse events 
+Number of events, number and percentage of patients reporting at least one event, presented by 
+primary SOC and PT (depending on the analysis), will be provided for SAEs over the study 
+period and for treatment emergent adverse events (TEAEs). 
+TEAE will be described according to the seriousness, the worst grade, the severity, the 
+relationship, the action taken regarding the IMP(s), the requirement of added therapy and the 
+outcome. 
+Of note, the seriousness and the relationship with the IMPs (S64315 and/or azacitidine) of the 
+adverse event are based on the investigator’s opinion, but it includes also the sponsor decision 
+to upgrade the seriousness and/or the relation to IMP(s) (the causal relationship will not be 
+upgraded for EudraCT analyses). 
+The National Cancer Institute Common Terminology Criteria for Adverse Events Common 
+Terminology Criteria for Adverse Events (NCI-CTCAE) classification version 5.0 will be used 
+to classify all adverse events. 
+3.4.3. 
+Death 
+Number and percentage of deaths will be described on each period (during the treatment and 
+follow-up period / during the treatment period / during the follow-up period). Reason of death 
+on each period will be provided in terms of qualitative data. During treatment period, reason 
+will be presented by SOC and PT, whereas during the follow-up period it will be presented in 
+terms of either progressive disease or other reason. 
+3.4.4. 
+Clinical laboratory evaluation 
+Descriptive statistics on quantitative value and value by grade at baseline and worst grade on 
+treatment according to the grade at baseline will be provided for gradable parameters (see 
+Table (3.4.4) 1). 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+27/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  26/55 
+ 
+Table (3.4.4) 1 – Gradable parameters 
+Parameter 
+Worst Highest 
+Worst lowest Gradable at 
+baseline* 
+Blood 
+biochemistry 
+Alanine 
+aminotransferase 
+(ALT) 
+High ALT 
+NA   
+No 
+Albumin 
+NA  
+Low albumin 
+Yes 
+Alkaline 
+phosphatase 
+(ALP) 
+High ALP 
+NA   
+No 
+Amylase 
+High amylase 
+NA 
+Yes 
+Aspartate 
+aminotransferase 
+(AST) 
+High AST 
+NA   
+No 
+Bilirubin (total) 
+High total 
+bilirubin  
+NA   
+No 
+Cholesterol (total) High cholesterol NA   
+Yes 
+Creatine 
+phosphokinase 
+(CPK) 
+High CPK 
+NA   
+Yes 
+Gamma-glutamyl 
+transferase 
+(gamma-glutamyl 
+transpeptidase) 
+(GGT) 
+High GGT 
+NA   
+No 
+Creatinine 
+(serum) 
+High serum 
+creatinine 
+NA  
+ Yes 
+Glucose 
+NA 
+Hypoglycemi
+a 
+Yes 
+Lypase 
+High lipase 
+NA 
+Yes 
+Magnesium 
+Hypermagnesem
+ia 
+Hypomagnes
+emia 
+Yes 
+Potassium 
+Hyperkalemia 
+Hypokalemia 
+Yes 
+Sodium 
+Hypernatremia 
+Hyponatremi
+a 
+Yes 
+Triglycerides 
+High 
+triglycerides 
+NA  
+Yes 
+Ionized calcium 
+High ionized 
+calcium 
+Low ionized 
+calcium 
+Yes 
+Blood 
+haematology 
+Haemoglobin 
+High 
+haemoglobin 
+Anemia 
+Yes for Low /  
+No for High 
+Lymphocytes 
+NA 
+Low 
+lymphocytes 
+Yes 
+Neutrophils 
+NA   
+Low 
+neutrophils 
+Yes 
+ 
+White blood cells 
+(WBC) 
+NA 
+Low WBC 
+Yes 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+28/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  27/55 
+ 
+Platelets 
+NA   
+Low 
+platelets   
+Yes 
+Blood 
+coagulation 
+Activated partial 
+thromboplastin 
+time (aPTT) 
+High aPTT 
+NA   
+Yes 
+ 
+Descriptive statistics on quantitative value and value by reference ranges at baseline and worst 
+value on treatment according to baseline, with respect to the lower-limit notmal (LLN) and the 
+upper-limit normal (ULN) or by classes (<LLN / [LLN-ULN] / >ULN or normal / mild / 
+moderate / severe for creatinine clearance) will be provided for non-gradable parameters (see 
+Table (3.4.4) 2) and for parameters gradable post-baseline but non-gradable at baseline, in 
+which case only baseline values will be presented. 
+ 
+Table (3.4.4) 2 – Non Gradable parameters 
+Parameter 
+Worst Highest 
+Worst lowest 
+Blood 
+biochemistry 
+Bicarbonates 
+NA 
+Low bicarbonates 
+Uric acid 
+High uric acid 
+NA 
+Calcium (total) 
+Hypercalcemia 
+Hypocalcemia 
+Creatinine 
+clearance 
+(approximated 
+by 
+the 
+Modification of Diet in Renal 
+Disease Glomerular Filtration 
+Rate (MDRD_GFR)) 
+NA 
+Low creatinine 
+clearance 
+(Normal/mild/ 
+moderate/severe) 
+Direct bilirubin 
+High direct 
+bilirubin 
+NA   
+High-density lipoprotein (HDL) High HDL 
+NA   
+Lactate dehydrogenase (LDH) 
+High LDH 
+NA   
+Low-density lipoprotein (LDL) 
+High LDL 
+NA   
+Phosphorus 
+NA 
+Hypophosphatemi
+a 
+Troponin I 
+High troponin I 
+NA   
+Troponin T 
+High troponin T 
+NA   
+ 
+ 
+ 
+Urea 
+High urea 
+NA   
+Urea nitrogen (blood) (BUN) 
+High BUN  
+NA   
+Blood 
+haematology 
+Basophils 
+NA   
+Low basophils 
+Eosinophils 
+High eosinophils 
+NA   
+Haematocrit 
+High haematocrit 
+Low haematocrit  
+Monocytes 
+High monocytes 
+NA   
+Red Blood Cell (RBC) Count 
+High RBC 
+Low RBC 
+Lymphocytes 
+High lymphocytes 
+NA 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+29/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  28/55 
+ 
+White Blood Cell (WBC) Count High WBC 
+NA 
+Thyroid 
+function 
+T3 free 
+High T3 free 
+Low T3 free 
+T4 free 
+High T4 free 
+LowT4 free 
+Thyroid Stimulating Hormone 
+(TSH) 
+High TSH 
+Low TSH 
+Cardiac 
+markers 
+Creatine 
+PhosphoKinase 
+Myocardial Band (CPK-MB) 
+activity 
+High CPK-MB 
+activity 
+NA   
+CPK-MB mass 
+High CPK-MB 
+mass 
+NA   
+Brain Natriuretic Peptide (BNP) High BNP 
+NA   
+Blood 
+coagulation 
+International normalized ratio 
+(INR) 
+High INR 
+NA 
+ 
+For urinalysis parameters haematuria, glycosuria, proteinuria, ketonuria: Descriptive 
+statistics at baseline and worst value on treatment period, by classes (negative, trace, positive). 
+ 
+3.4.5. 
+Vital signs and clinical examination 
+Vital signs and clinical examination will be described, in terms of quantitative value and value 
+by classes at baseline, worst (highest and/or lowest) value under treatment, and absolute and 
+change (and relative change for weight as well) from baseline to worst (highest and/or lowest) 
+value under treatment for: 
+- 
+SBP (<90, [90-140[ and ≥ 140 mmHg). 
+- 
+DBP (<60, [60-90[, ≥ 90 mmHg). 
+- 
+HR (<60, [60-100[ and ≥ 100 bpm). 
+- 
+ECOG status (0, 1, 2, 3, 4, 5). 
+- 
+Weight (relative baseline change measured as <-10%, ≥ -10%). 
+3.4.6. 
+Centralised ECG 
+QT interval (uncorrected and corrected Fridericia) during the treatment period will be described 
+in terms of: 
+- 
+Maximum absolute prolongation. 
+- 
+Maximum change from baseline. 
+Values and changes from baseline of corrected QT interval will be described in classes, 
+considering thresholds defined in ICH E14: 
+- 
+Values: ≤ 450, ]450-480], ]480-500] and > 500. 
+- 
+Changes: ≤ 30, ]30-60] and > 60. 
+Emergent ECG and emergent clinically significant ECG abnormality during treatment period 
+will be described. 
+3.4.7. 
+LVEF 
+LVEF will be described, in terms of quantitative value: 
+- 
+At baseline. 
+- 
+Worst (lowest) post-baseline value under treatment. 
+- 
+Change from baseline to worst (lowest) post-baseline value under treatment. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+30/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  29/55 
+ 
+Moreover, values and change from baseline of LVEF will be described in classes: 
+- 
+Values:<40 / [40-50[ / ≥ 50%. 
+- 
+Change and relative change: ≤ -10% / > -10%. 
+The worst (lowest) value under treatment will also be described by grade according to NCI-
+CTCAE version 5.0 (Grade 0 / Grade 2/ Grade 3 / Grade 4). 
+3.5. Exploratory analysis 
+All exploratory biomarker analysis results will be presented in a separate report. 
+3.6. Interim analysis 
+N.A. 
+ 
+4. APPENDICES 
+4.1. General analytic definitions 
+Definitions below correspond to calculation rules for expressions defined in Section 3.2, 3.3, 
+3.4 as well as definition of value prior to treatment / under treatment, analysable value, first and 
+last IMP intake dates and other general definitions. 
+4.1.1. 
+Expressions 
+Reliable value 
+For biological and coagulation samplings: 
+Identified with flag BIOFG (“Non analysable value”) different from 1 and non-missing 
+result. 
+For other panels: 
+Non-missing result. 
+Value at baseline is defined as the last reliable (i.e. last non-missing) value prior to treatment. 
+Note: In case of patient included but not treated (i.e. patients with treatment duration equal to 
+0): value at baseline is defined as the last analysable value prior to the LID (i.e. "Visit<C000"). 
+Baseline value of cycle n is defined as the last reliable (i.e. last non-missing) value prior to first 
+study treatment intake of cycle n. 
+Value at the Cycle n Day n is defined as the first reliable (i.e. first non-missing) value at the 
+visit. 
+Post-baseline value is defined as available value after the first IMP intake or, in case of missing 
+first intake, after the date visit superior (>) to last inclusion visit (A000). 
+End post-baseline value is defined as the last reliable post-baseline value of the criteria of 
+interest during the treatment period. 
+Worst post-baseline value is defined as the worst reliable post-baseline value of the criteria of 
+interest during the treatment period. 
+Lowest/highest post-baseline value is defined as the lowest/highest value during the treatment 
+period. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+31/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+® I.R.I.S. – 25th September 2023 - Confidential 
+ 33/55 
+4.2. Specific analytic definitions and data handling conventions 
+4.2.1. 
+Study patients: Disposition, baseline characteristics and follow-up 
+4.2.1.1. 
+Disposition of patients 
+All withdrawal reasons occurred in the study will be taken into account. 
+4.2.1.2. 
+Protocol deviations 
+For the description of protocol deviations, the 6 following categories are considered 
+in accordance with ICH E3 guideline and ICH E3 Q&A: 
+- Selection/inclusion criteria not fulfilled. 
+- Patient having withdrawal criteria but not withdrawn. 
+- Incorrect treatment or dose received. 
+- Forbidden concomitant treatment. 
+- Endpoint assessment possibly affected. 
+- Safety possibly affected. 
+4.2.1.3. 
+Demographic data and other baseline characteristics 
+4.2.1.3.1. 
+Demographic data 
+Age (years) is calculated in the ClinTrial database as: 
+(Date of inclusion – Date of birth )/365.25. 
+The result is truncated and not rounded. If the day and/or month of inclusion date and/or birth 
+date is/are missing, the calculation is done by using the year. 
+4.2.1.3.2. 
+History of AML 
+Disease duration 
+Disease duration (years) is calculated as: 
+(Inclusion visit date – Date of the first diagnosis)/365.25. 
+Treatment free interval 
+Treatment-free interval since previous AML treatment line (days) and Treatment-free interval 
+since previous MDS treatment line (days) are defined as: 
+(Date of first IMP intake – Date of end of the last prior drug therapy). 
+Of note, in case of partial or incomplete dates: 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+35/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  35/55 
+ 
+The existence of a previous transplant (Yes/No) is defined from the presence, or not of 
+previous transplant date at inclusion date. 
+The existence of a previous surgery (Yes/No) is defined from the presence or not of a verbatim 
+for the previous surgery at inclusion visit. 
+The number of treatment lines is calculated as the sum of all previous treatment lines 
+received, since diagnosis date of the studied disease (regardless the type of therapy). 
+The number of relapses is calculated as the sum of all previous lines with CR (including CR 
+MRD-, CR, CRi and Haematologic relapse responses) as best response received, since 
+diagnosis date of the studied disease (regardless the type of therapy). 
+The specific treatment lines described with the corresponding code lists are the following: 
+- 3427.1 Cytarabine 20221(WHODDB3). 
+- 3601.2 Treatments containing fludarabine 20221 (WHODDB3). 
+- 3428.2 Anthracyclines and related substances 20221(WHODDB3). 
+- 4273.0 Hypomethylating agents (HMAs) for CL164315004 study 20221 (WHODDB3). 
+- 3430.1 Azacitidine 20221(WHODDB3). 
+- 3422.1 Decitabine 20221(WHODDB3). 
+- 3429.1 Lenalidomide 20221(WHODDB3). 
+- 3594.2 Investigational drugs 20221(WHODDB3). 
+- Stem cell transplant and bone marrow transplant (no code list associated – To refer to 
+previous transplant section allograft or autograft) 
+- 1869.0 Systemic and local treatment containing glucocorticoids DDB320221. 
+- 1728.2 Treatments containing an alkylating agent DDB320221. 
+- 3600.2 Treatments containing cyclophosphamide 20221(WHODDB3). 
+- 3602.0 Treatments containing antimetabolites agents DDB320221. 
+- 3609.0 Treatments containing protein and tyrosine kinase inhibitors DDB320221. 
+- 3605.1 Treatments containing etoposide 20221(WHODDB3). 
+- 3914.0 Granulocyte colony stimulating factor 20221(WHODDB3). 
+- 4131.1 Treatments containing enasidenib 20221(WHODDB3). 
+- Gemtuzumab 
+ozogamicin 
+(Mylotarg®) 
+(drug 
+code: 
+15959801001, 
+version 
+WHODDB32022.1) 
+- Ivosidenib (Tibsovo®) (drug code : 09165501001, version WHODDB32022.1) 
+No substitution of missing or incomplete previous drug treatments are applied. 
+4.2.1.3.6. 
+Initial disease assessment 
+PB blasts in blood expressed in SI unit (G/L) in “blood haematology” form will be converted 
+to % unit by dividing by the corresponding WBC value. 
+Information concerning platelets transfusion-independence prior to LID1 and red blood cells 
+transfusion-independence prior to LID1 (i.e. before the first IMP intake) will be retrieved from 
+the “History of the Acute Myeloid Leukaemia” e-CRF form. The patients having received a 
+transfusion prior to LiD1 will be considered as transfusion-dependent. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+37/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  36/55 
+ 
+4.2.1.4. 
+TLS prevention 
+TLS prevention treatment lines (anti-hyperuricemic therapy) are referenced in the code list 
+n°3399.0 WHOODB3 20221. 
+4.2.1.5. 
+Extent of exposure and treatment compliance 
+Global treatment duration 
+Global treatment duration (weeks) is defined as (min [max (last intake date of the last cycle 
+azacitidine + 21 days, last intake date of S64315 + 6 days), death date, withdrawal date] - first 
+IMP intake + 1)/7. 
+Treatment duration for S64315 including LID period (QW) 
+Treatment duration (days) for S64315 is defined as [(min (last infusion date + 6 days, death 
+date, withdrawal date) - first S64315 infusion date) +1]. 
+Treatment duration (weeks) for S64315 is defined as [(min (last infusion date + 6 days, death 
+date, withdrawal date) - first S64315 infusion date) +1] /7. 
+Treatment duration for S64315 excluding LID period (QW) 
+Treatment duration (days) for S64315 is defined as [(min (last infusion date + 6 days, death 
+date, withdrawal date) - first S64315 infusion date of cycle 1) +1]. 
+Treatment duration (weeks) for S64315 is defined as [(min (last infusion date + 6 days, death 
+date, withdrawal date) - first S64315 infusion date of cycle 1) +1] /7. 
+Treatment duration for azacitidine  
+Treatment duration (days) for azacitidine is defined as [min (last intake date of the last cycle + 
+21 days,  death date, withdrawal date) - first azacitidine intake + 1]. 
+Treatment duration (weeks) for azacitidine is defined as [min (last intake date of the last cycle 
++ 21 days,  death date, withdrawal date) - first azacitidine intake + 1]/7. 
+S64315 treatment duration in LID period: 
+S64315 treatment duration in LID period LID(days) is defined as [min (first S64315 infusion 
+date of cycle 1-1, death date, withdrawal date) – first S64315 infusion date of LID1]+1. 
+Note: In case of missing first S64315 at cycle 1, S64315 treatment duration in LID period is 
+defined as [min(last S64315 infusion date in LID +6, death date, withdrawal date) -  first S64315 
+infusion date of LID]+1. LIDLID 
+LID period duration (weeks): LID period duration (days) / 7. 
+Cycle duration for S64315 
+Duration of cycle i (weeks) for S64315 is defined as [first IMP intake of cycle (i+1) – first IMP 
+intake of cycle i] /7. 
+Note: The duration of the last cycle for S64315 will be estimated to be 4 weeks for the 
+calculation of dose intensity and relative dose intensity at the last cycle. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+38/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  38/55 
+ 
+The dose intensity (mg/ week) for S64315 per cycle is defined as the cumulative dose (mg) 
+received during the cycle divided by the cycle duration in weeks. 
+𝐷𝐼 (𝑚𝑔
+𝑤𝑘) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔) 𝑟𝑒𝑐𝑒𝑖𝑣𝑒𝑑 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖
+𝐷𝑢𝑟𝑎𝑡𝑖𝑜𝑛 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑤𝑒𝑒𝑘𝑠)
+. 
+The duration of the last cycle will be estimated to be (*) weeks. 
+(*): 4 weeks for regimen QW, 2 week for LID. 
+Relative dose intensity (RDI) for S64315 
+The RDI (%) for S64315 per patient measures the percentage of the total trial dose planned that 
+was really administered. It is defined as the ratio of the dose intensity (mg/week) to the initial 
+planned dose intensity (mg/week)  
+𝑅𝐷𝐼 (%) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 
+𝐷𝐼 (𝑚𝑔/𝑤𝑘)
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦 (𝑚𝑔/𝑤𝑘) ∗100. 
+The RDI (%) for S64315 per cycle is defined as the ratio of the dose intensity (mg/week) at 
+cycle i (including LID cycles) to the planned dose intensity (mg/week). 
+𝑅𝐷𝐼 (%) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 
+𝐷𝐼 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑚𝑔/𝑤𝑘)
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑚𝑔/𝑤𝑘) ∗100. 
+Treatment interrupted for S64315 
+A treatment interruption is defined according to the S64315 infusion e-CRF page (Did the 
+patient receive the IMP infusion (Yes/No)). 
+Number of cycles with at least one treatment interruption for S64315 experienced by a 
+patient over the treatment period will be calculated.  
+Cycle delay for S64315 
+A cycle delay is defined according to the S64315 infusion e-CRF page (infusion postponed 
+(Yes/No) at D2 of the cycle i or of LID2). Moreover, a delay of LID2 will be also considered 
+if the duration of the LID1 is higher than 7 days, while a delay of cycle i will be also considered 
+if the duration of the cycle i-1 is higher than (*). In case of missing cycle delay reason, reason 
+of cycle delay will be considered as unknown. The delay in days will be derived, based on the 
+dates of administration. 
+Delay (days) of cycle i = (first IMP intake of cycle i) – (first IMP intake of cycle i-1 + x days). 
+(*): 30 days for regimen QW (theoretical cycle duration + 2 days for potential technical or 
+logistical difficulty). In the delay duration formulae above x=30. 
+(*) x=16 days if Cycle i-1 is the LID period.  
+Number of cycles delayed for S64315 experienced by a patient over the treatment period will 
+be calculated among patients experiencing a cycle delay. 
+Dose modification for S64315 
+A dose modification is defined according to the S64315 infusion e-CRF page (Has the dose 
+been modified since the last infusion (Yes/No), with a dose level different from the dose level 
+at previous infusion). 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+40/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  39/55 
+ 
+Number of dose modifications for S64315 experienced by a patient over the treatment period 
+will be calculated among patients experiencing a dose modification. 
+Time to first dose modification for S64315 will be calculated among patients experiencing a 
+dose modification from the first study drug intake until the first dose modification. 
+Partial dose administered for S64315 
+A partial dose administered is defined according to the S64315 infusion e-CRF page (Was full 
+dose administered ? (Yes/No)) 
+Number of cycles with partial dose experienced by a patient over the treatment period will be 
+calculated among patients. 
+Number of days dosed for azacitidine  
+The number of days dosed for azacitidine is defined as the total number of days with azacitidine 
+intake (overall and by cycle).  
+Average number of days dosed per cycle for azacitidine  
+The average number of days dosed per cycle for azacitidine is defined as the total number of 
+days dosed for azacitidine divided by the number of cycles according to the period of interest 
+(i.e. for overall period: number total of cycles / for each cycle: 1): 
+𝐴𝑣𝑒𝑟𝑎𝑔𝑒 𝑑𝑎𝑦𝑠 𝑑𝑜𝑠𝑒𝑑 𝑝𝑒𝑟 𝑐𝑦𝑐𝑙𝑒  = 𝑇𝑜𝑡𝑎𝑙 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑑𝑎𝑦𝑠 𝑑𝑜𝑠𝑒𝑑
+𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒𝑠
+. 
+Number of days dosed with planned dose level for azacitidine 
+The number of days dosed with planned dose level for azacitidine is defined as the total number 
+of days with azacitidine intake corresponding to the planned dose level of 75 mg/m2 (the actual 
+dose administered is equal to 75mg/m2 or within the interval 75 ±7.5 mg/m2). 
+Average number of days dosed per cycle with planned dose level for azacitidine  
+The average number of days dosed with planned dose level for azacitidine per cycle is defined 
+as the total number of days dosed with planned dose level for azacitidine divided by the number 
+of cycles according to the period of interest (i.e. for overall period: number total of cycles / for 
+each cycle: 1): 
+𝐴𝑣𝑒𝑟𝑎𝑔𝑒 𝑑𝑎𝑦𝑠 𝑑𝑜𝑠𝑒𝑑 𝑤𝑖𝑡ℎ 𝑝𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑙𝑒𝑣𝑒𝑙 𝑝𝑒𝑟 𝑐𝑦𝑐𝑙𝑒
+= 𝑇𝑜𝑡𝑎𝑙 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑑𝑎𝑦𝑠 𝑑𝑜𝑠𝑒𝑑 𝑤𝑖𝑡ℎ 𝑝𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑙𝑒𝑣𝑒𝑙
+𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒𝑠
+. 
+ 
+Real administrated dose of azacitidine will be recorded directly from azacitidine injection e-
+CRF page (Administered dose (mg)). 
+Planned dose intensity (PDI) for azacitidine:  
+Planned dose intensity (day): 75 mg/m2/day (fixed). 
+Planned dose intensity (cycle or overall): (75 mg/m2/day (fixed) * 7) / 28. 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+41/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  40/55 
+ 
+Cumulative dose for azacitidine 
+The cumulative dose (mg/m²) for azacitidine per patient during a time period (during the 
+treatment period or per cycle) is the sum of the total dose levels that the patient received between 
+the first and last treatment intake according to the compliance. 
+𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²) = 
+∑
+(𝑅𝑒𝑎𝑙 𝐴𝑑𝑚𝑖𝑛𝑖𝑠𝑡𝑟𝑎𝑡𝑒𝑑 𝑑𝑜𝑠𝑒 (𝑚𝑔)
+𝐵𝑆𝐴 (𝑚2)
+)
+𝑡𝑖𝑚𝑒𝑝𝑒𝑟𝑖𝑜𝑑
+. 
+Dose intensity (DI) for azacitidine 
+The dose intensity (mg/m²/day) for azacitidine per patient is defined as the cumulative dose 
+(mg/m²) received during the treatment period divided by the overall treatment duration of 
+azacitidine. 
+𝐷𝐼 (𝑚𝑔/𝑚²
+𝑑𝑎𝑦) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 
+𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²)
+𝑂𝑣𝑒𝑟𝑎𝑙𝑙 𝑡𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡 𝑑𝑢𝑟𝑎𝑡𝑖𝑜𝑛 𝑜𝑓 𝑎𝑧𝑎𝑐𝑖𝑡𝑖𝑑𝑖𝑛𝑒 . 
+The dose intensity (mg/ day) for azacitidine per cycle is defined as the cumulative dose (mg) 
+received during the cycle divided by the cycle duration of azacitidine. 
+𝐷𝐼 (𝑚𝑔/𝑚²
+𝑑𝑎𝑦) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²) 𝑟𝑒𝑐𝑒𝑖𝑣𝑒𝑑 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖
+𝐶𝑦𝑐𝑙𝑒 𝑖 𝑑𝑢𝑟𝑎𝑡𝑖𝑜𝑛 𝑜𝑓 𝑎𝑧𝑎𝑐𝑖𝑡𝑖𝑑𝑖𝑛𝑒 
+. 
+Relative dose intensity (RDI) for azacitidine 
+The relative dose intensity (%) for azacitidine per patient measures the percentage of the total 
+trial dose planned that was really administered. It is defined as the ratio of the dose intensity 
+(mg/m²/day) to the initial planned dose intensity (mg/m²/day). 
+𝑅𝐷𝐼 (%) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 
+𝐷𝐼 (𝑚𝑔/𝑚²/𝑑𝑎𝑦)
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦 (𝑚𝑔/𝑚²/𝑑𝑎𝑦) ∗100. 
+The relative dose intensity (%) for azacitidine per cycle is defined as the ratio of the dose 
+intensity (mg/m²/day) at cycle i to the planned dose intensity (mg/m²/day). 
+𝑅𝐷𝐼 (%) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 
+𝐷𝐼 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑚𝑔/𝑚²/𝑑𝑎𝑦)
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑚𝑔/𝑚²/𝑑𝑎𝑦) ∗100. 
+Treatment interruption for azacitidine 
+A treatment interruption is defined according to the azacitidine injection e-CRF page (Did the 
+patient receive at least one azacitidine injection (Yes/No)). 
+Number of cycles with at least one treatment interruption for azacitidine experienced by a 
+patient over the treatment period will be calculated.  
+Number of azacitidine interruption days experienced by a patient over the treatment period 
+will be calculated among patients experiencing a treatment interruption. 
+The number of azacitidine interruption days is the number of days on which azacitidine was 
+scheduled to be administered but was not actually administered.  
+Cycle delay for azacitidine 
+A cycle delay is defined according to the azacitidine injection e-CRF page (Was the injection 
+day postponed (Yes/No) at D1 of the cycle). Moreover, a cycle delay of cycle i will be also 
+considered if the duration of the cycle i-1 is higher than (*). In case of missing cycle delay 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+42/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  41/55 
+ 
+reason, reason of cycle delay will be considered as unknown. The delay in days will be derived, 
+based on the dates of administration. 
+For i>1, Delay (days) of cycle i = (first IMP intake of cycle i) – (first IMP intake of cycle i-1 + 
+x days) 
+(*):  30 days for regular cycle (theoretical cycle duration + 2 days for potential technical or 
+logistical difficulty). In the delay duration formulae above x=30. 
+Number of cycles delayed for azacitidine experienced by a patient over the treatment period 
+will be calculated among patients experiencing a cycle delay. 
+4.2.1.6. 
+Concomitant treatments 
+The anatomical therapeutic chemical classification (ATC code = 5 digits) is composed of 4 
+levels: 
+- The first (1 digit) represents the anatomo-physiological class. 
+- The second (2 digits) represents the pharmacological class. 
+- The third (1 digit) represents the pharmacological sub-class. 
+- The last (1 digit) represents the therapeutic class. 
+The existence of a concomitant treatment (Yes/No) is defined from the presence, or not, of 
+an ATC classification and/or preferred name. 
+The periods considered for the analysis are: 
+During the study period, for which the concomitant treatment: 
+- 
+LIDstart date ≥ LIDinclusion date 
+- 
+start date < inclusion date LIDand stop date ≥ LIDinclusion date or missing 
+At inclusion and before the treatment period, for which the concomitant treatment for tumour 
+lysis syndrome prevention: 
+- 
+start date < first S64315 infusion date (during the LID period) , or 
+- 
+start date <= inclusion date and stop date >= inclusion date or is missing 
+ 
+The following rules for substitution of missing or incomplete start and stop dates are so that 
+the concomitance period is maximised: 
+ 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+43/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  43/55 
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The following rules for substitution of totally or partially missing start and stop dates are used 
+for concomitant treatments (only further anti-leukemic therapy): 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+45/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  45/55 
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4.2.1.7. 
+Other observations related to patient follow-up 
+N.A. 
+4.2.2. 
+Efficacy 
+N.A. 
+4.2.3. 
+Safety 
+4.2.3.1. 
+Dose Limiting Toxicity (DLT) 
+A DLT is defined as: 
+• A clinically significant adverse event graded according to the NCI-CTCAE version 5.0, 
+observed following the administration of the test drugs. 
+• Assessed as unrelated to disease progression, intercurrent illness, or concomitant 
+Medications. 
+• At least possibly related to the test drug(s) by the investigator and meeting any of the 
+criteria included in Table (4.2.3.1) 1. 
+DLT will be reported based on investigator, using the ‘Dose limiting toxicity (DLT)’ / ‘Adverse 
+event’ e-CRF page, and not recalculated. 
+ 
+Table (4.2.3.1) 1 –Toxicity criteria 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+47/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  46/55 
+ 
+ 
+4.2.3.2. 
+Adverse events 
+Each medical concept of adverse events coded according to the internal "multiple medical 
+concept" process is taken into account as a single adverse event in the statistical analysis. 
+The modalities of the adverse event (onset and end dates, severity, seriousness, action taken, 
+additional therapy, relationship, outcome...) replicated by default to each medical concept are 
+also taken into account in the statistical analyses. 
+Emergent adverse events on treatment are defined as all adverse events: 
+- which occur between the first IMP intake date (included) and the last IMP intake date "+ (*) 
+days", 
+or 
+- which was present before the first IMP intake date and which worsen (in terms of severity) 
+or become serious according to the investigator opinion between the first IMP intake date 
+(included) and the last IMP intake date "+ (*) days". 
+(*): 30 days for regimen QW. 
+Note: Adverse events occurring or worsening or becoming serious on the day of the first IMP 
+intake (if any) is considered as emergent. 
+Serious adverse events are defined as all adverse events upgraded by the sponsor during the 
+independent medical exam (IME) or PharmacoVigilance (PV) process (upgrade of seriousness) 
+or considered as "serious" from investigator assessment. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+48/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  47/55 
+ 
+Serious adverse events from investigator assessment are defined as all adverse events fulfilling 
+at least one of the following seriousness criteria for immediate notification: death, 
+hospitalisation, or prolongation of hospitalisation, medically important, life-threatening, 
+disability/incapacity or congenital anomaly. 
+A fatal adverse event corresponds to an adverse event with “Fatal” as outcome. 
+Adverse events related to S64315 correspond to adverse events with relationship forced by 
+the sponsor during the PV process (upgrade of relationship for adverse events assessed as 
+serious according to investigator or sponsor opinion) or considered as "related" from 
+investigator assessment. In other cases, the adverse events are considered as "not related to 
+S64315". 
+Adverse events related to azacitidine correspond to adverse events with relationship 
+considered as "related" from investigator assessment. In other cases, the adverse events are 
+considered as "not related to azacitidine". 
+Adverse events related to S64315 and azacitidine from investigator assessment correspond 
+to adverse events associated with the answer "Related" to the "Is this event related to S64315" 
+question and “Related” to the “Is this event related to azacitidine” question. 
+The following information will be taken into account: 
+- For the analyses where the severity of the adverse event is considered, the worst severity 
+from the day of emergence and during the studied period (i.e. between the first IMP intake 
+date (included) and the last IMP intake date "(*) days" (included)) will be taken into account. 
+- The number of patients by worst grade: for each patient, SOC and PT, we analyse the worst 
+grade of events. 
+- The number of events by worst grade: for each patient, SOC and PT, we analyse the worst 
+grade of each event. The percentage will be calculated as the number of events of the PT 
+concerned at grade X divided by the total number of events of the PT concerned. 
+- For the analyses where the action taken regarding the IMP (S64315 and/or azacitidine) and 
+the additional therapy requirement are considered, all the actions taken, and additional 
+therapy requirements recorded from the day of emergence and on the studied period will be 
+taken into account. 
+However, in case of an episode of an emergent adverse event leading to studied treatment 
+withdrawal reported after the last IMP intake date "+ (*) days", the adverse event will be 
+considered as leading to studied treatment withdrawal during the studied period. 
+- Seriousness is judged by event: if one episode is serious (whatever the time it occurs), the 
+whole event will be considered as serious. 
+- A severe adverse event corresponds to an adverse event with NCI-CTCAE version 5.0 grade 
+3, 4 or 5. 
+- Any grade corresponds to an adverse event with NCI-CTCAE version 5.0 grade 1, 2, 3, 4 or 
+5. 
+- All multicoded events will be taken into account in the analyses. 
+- For the analysis of recovered emergent adverse event during / after treatment period, a TEAE 
+is considered as recovered “during treatment period” (“after end of treatment period”, 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+49/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  50/55 
+ 
+For the parameters which are gradable according to CTCAE v5.0, the grades will be derived 
+using the local laboratory reference limits in analysis datasets. 
+Table (4.2) 4 - Definition of CTCAE grade - Version 5.0 - Gradable parameters  
+Parameter 
+Grade 1 
+Grade 2 
+Grade 3 
+Grade 4 
+Sodium (mmol/l) – 
+Hypernatremia 
+]ULN;150] 
+]150;155] 
+]155;160] 
+>160 
+Sodium (mmol/l) - 
+Hyponatremia 
+[130;LLN[ 
+- 
+[120;130[ 
+< 120 
+Potassium (mmol/l) 
+– Hyperkalemia 
+]ULN;5.5] 
+]5.5;6] 
+]6;7] 
+> 7 
+Potassium (mmol/l) 
+– Hypokalemia 
+ 
+[3.0;LLN[ 
+[2.5;3.0[ 
+< 2.5 
+Amylase (IU/L) - 
+High 
+>ULN – 1.5 x ULN 
+>1.5 x ULN – 2 x 
+ULN 
+>2 x ULN – 5 x 
+ULN 
+> 5 x ULN 
+Triacylglycerol 
+Lipase (IU/L) - High  
+>ULN – 1.5 x ULN 
+>1.5 x ULN – 2 x 
+ULN 
+>2 x ULN – 5 x 
+ULN 
+> 5 x ULN 
+Ionized calcium 
+(mmol/l) - High 
+]ULN;1.5] 
+]1.5;1.6] 
+]1.6;1.8] 
+> 1.8 
+Ionized calcium 
+(mmol/l) - Low 
+[1.0;LLN[ 
+[0.9;1.0[ 
+[0.8;0.9[ 
+< 0.8 
+Magnesium 
+(mmol/l) - 
+Hypermagnesemia 
+]ULN;1.23] 
+- 
+]1.23;3.30] 
+> 3.30 
+Magnesium 
+(mmol/l) - 
+Hypomagnesemia 
+[0.5;LLN[ 
+[0.4;0.5[ 
+[0.3;0.4[ 
+< 0.3 
+Albumin (g/l) - Low 
+[30; LLN[ 
+[20; 30[ 
+< 20 
+- 
+Glucose (mmol/l) - 
+Hypoglycemia 
+[3.0;LLN[ 
+[2.2;3.0[ 
+[1.7;2.2[ 
+< 1.7 
+Total cholesterol 
+(mmol/l) - High 
+]ULN;7.75] 
+]7.75;10.34] 
+]10.34;12.92] 
+> 12.92 
+Triglycerides 
+(mmol/l) - High 
+[1.71;3.42] 
+]3.42;5.7] 
+]5.7;11.4] 
+> 11.4 
+Serum creatinine 
+increased (umol/L) 
+>ULN – 1.5 x ULN >1.5 x baseline – 3.0 
+x baseline (if 
+baseline available) 
+OR 
+>1.5 x ULN – 3.0 x 
+ULN 
+>3.0 x baseline (if 
+baseline available) 
+OR 
+>3.0 x ULN – 6.0 x 
+ULN 
+>6.0 x ULN 
+Total bilirubin 
+increased (umol/L) 
+>ULN – 1.5 x ULN 
+if baseline is normal 
+[≤ULN]; 
+1.0 x baseline – 1.5 
+x baseline if baseline 
+is abnormal [>ULN] 
+>1.5 x ULN – 3.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>1.5 x baseline – 3.0 
+x baseline if baseline 
+is abnormal [>ULN] 
+>3.0 x ULN – 10.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>3.0 – 10.0 x 
+baseline if baseline 
+is abnormal [>ULN] 
+>10.0 x ULN if 
+baseline is normal 
+[≤ULN]; 
+>10.0 x baseline if 
+baseline is abnormal 
+[>ULN] 
+CPK (IU/l) - high 
+>ULN – 2.5 x ULN 
+>2.5 x ULN – 5 x 
+ULN 
+>5 x ULN – 10 x 
+ULN 
+> 10 x ULN 
+Haemoglobin (g/dl) 
+increased 
+> ULN and increase 
+from baseline ]0 ;2] 
+(g/dl) 
+> ULN and increase 
+from baseline ]2 ;4] 
+(g/dl) 
+> ULN and increase 
+from baseline > 4 
+(g/dl) 
+- 
+Haemoglobin (g/dl) - 
+Anemia 
+[10;LLN[ 
+[8;10[ 
+< 8 
+- 
+White Blood Cells 
+(g/l) - Low 
+[3.0;LLN[ 
+[2.0;3.0[ 
+[1.0;2.0[ 
+< 1.0 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+52/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  51/55 
+ 
+Parameter 
+Grade 1 
+Grade 2 
+Grade 3 
+Grade 4 
+Neutrophils (g/l) - 
+Low 
+[1.5;LLN[ 
+[1.0;1.5[ 
+[0.5;1.0[ 
+<0.5 
+Lymphocytes (g/L) - 
+Low 
+[0.8;LLN[ 
+[0.5;0.8[ 
+[0.2;0.5[ 
+<0.2 
+Platelets (g/L) - Low 
+[75;LLN[ 
+[50;75[ 
+[25;50[ 
+<25 
+aPTT (sec) - High 
+>ULN – 1.5 x ULN 
+>1.5 x ULN – 2.5 x 
+ULN 
+>2.5 x ULN 
+- 
+ALT increased 
+(IU/L) 
+>ULN – 3.0 x ULN 
+if baseline is normal 
+[≤ULN]; 
+1.5 x baseline – 3.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>3.0 x ULN – 5.0 x 
+ULN if baseline is 
+normal[≤ULN]; 
+>3.0 x baseline – 5.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>5.0 x ULN – 20.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>5.0 x baseline – 
+20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+>20.0 x ULN if 
+baseline is normal 
+[≤ULN]; 
+>20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+ALP increased 
+(IU/L) 
+>ULN – 2.5 x ULN 
+if baseline is normal 
+[≤ULN]; 2.0 x 
+baseline – 2.5 x 
+baseline if baseline 
+is abnormal [ > 
+ULN] 
+>2.5 x ULN – 5.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+2.5 x baseline – 5.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>5.0 x ULN – 20.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>5.0 x baseline – 
+20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+>20.0 x ULN if 
+baseline is normal 
+[≤ULN]; 
+>20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+AST increased 
+(IU/L) 
+ 
+>ULN – 3.0 x ULN 
+if baseline is normal 
+[≤ULN]; 
+1.5 x baseline – 3.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>3.0 x ULN – 5.0 x 
+ULN if baseline is 
+normal [≤ULN]l; 
+>3.0 x baseline – 5.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>5.0 x ULN – 20.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>5.0 x baseline – 
+20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+>20.0 x ULN if 
+baseline is normal 
+[≤ULN]; 
+>20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+GGT increased 
+(IU/L) 
+>ULN – 2.5 x ULN 
+if baseline is 
+normal[≤ULN]; 
+2.0 x baseline – 2.5 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>2.5 x ULN – 5.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>2.5 x baseline – 5.0 
+x baseline if baseline 
+is abnormal [ > 
+ULN] 
+>5.0 x ULN – 20.0 x 
+ULN if baseline is 
+normal [≤ULN]; 
+>5.0 x baseline – 
+20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+>20.0 x ULN if 
+baseline is normal 
+[≤ULN]; 
+>20.0 x baseline if 
+baseline is abnormal 
+[ > ULN] 
+ 
+Any grade corresponds to a laboratory value with NCI-CTCAE version 5.0 grade 0, 1, 2, 3 or 
+4. 
+A grade 0 corresponds to a laboratory value within limit or reference range. 
+The LOWEST value for a patient is defined as the lowest absolute laboratory value during the 
+treatment period. 
+A lowest value for a cycle is defined as the lowest laboratory value in that cycle. 
+The time to lowest value is defined from the date of the first IMP intake to the sampling date 
+of the lowest value. 
+The time to lowest value in a cycle is defined from the first date of IMP intake in that cycle to 
+the sampling date of the lowest value. 
+The HIGHEST value for a patient is defined as the highest laboratory value during the 
+treatment period. 
+A highest value for a cycle is defined as the highest laboratory value in that cycle. 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+53/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  52/55 
+ 
+The time to highest value is defined from the date of the first IMP intake to the sampling date 
+of the highest value. 
+Urinary results 
+The category positive includes results ‘+’, ‘++’ ‘+++’, and ‘++++’. 
+The category negative corresponds to ‘Absent’ class. 
+Creatinine clearance 
+Creatinine clearance will be approximated by MDRD_GFR. This will be calculate as: 
+MDRD_GFR (mL/min/1.73m2) = 175 x (serum creatinine in mg/dL)-1 154 x age-0 203 x 0.742 (if 
+female) x 1.212 (if black race). 
+Serum creatinine conversion: 
+Serum creatinine (mg/mL) = Serum creatinine (µmol/L)/88.4. 
+MDRD_GFR will be categorised in 4 categories: 
+- Normal renal function (MDRD_GFR >90 mL/min/1.73m2). 
+- Mild renal impairment (MDRD_GFR 60-90 mL/min/1.73m2). 
+- Moderate renal impairment (MDRD_GFR 30-59 mL/min/1.73m2). 
+- Severe (MDRD_GFR <30mL/mn/1.73m2). 
+Worst value 
+Worst value will be analysed as follow: 
+▪ 
+For the urinalysis parameters, the worst class will correspond to ‘Positive’ class, then 
+‘Trace’ and finally ‘Negative’ will be considered as normal class. 
+▪ 
+For creatinine clearance, the worst class will correspond to “severe” category, then 
+“moderate”, then “mild” and finally “normal”. 
+▪ 
+Baseline and post baseline worst grade for High and Low: 
+o Low: If the result is below lower normal range limit, low =grade (for gradable 
+parameter) or result (for non-gradable parameter), Else low=0. 
+o High: If the result is above upper normal range limit, high =grade (for gradable 
+parameter) or result (for non-gradable parameter), Else high =0. 
+4.2.3.5. 
+Vital signs, clinical examination and other observations related to safety 
+4.2.3.5.1. 
+Vital signs and clinical examination 
+Worst value 
+For ECOG, SBP, DBP and HR, the worst (highest) value will be derived. 
+For Weight, SBP, DBP and HR, the worst (lowest) value will be derived. 
+ 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+54/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  54/55 
+ 
+Triplicates Baseline 
+ 
+Record 
+on 
+treatment 
+Emergence 
+Abnormality 
+ECG 
+Emergence 
+Significant 
+Abnormality 
+ECG 
+All ECG within normal 
+limit 
+and 
+Abnormality no 
+significant 
+Yes 
+No 
+All ECG within normal 
+limit 
+and 
+Abnormality 
+significant 
+Yes 
+Yes 
+At least one line 
+“Abnormality no 
+significant “ and no line 
+“Abnormality 
+significant” 
+and 
+Abnormality 
+significant 
+No 
+Yes 
+No baseline 
+or 
+No post baseline Missing 
+Missing 
+If triplicate baseline is not missing and records on 
+treatment are not missing and the combination is not 
+covered by the previous cases. 
+No 
+No 
+Maximum absolute prolongation during treatment period = max (Absolute prolongation 
+during treatment period). 
+Maximum change from baseline = Maximum absolute prolongation - Absolute prolongation 
+at baseline. 
+4.2.3.5.3. 
+LVEF 
+For this parameter, the worst value will correspond to the lowest measure. 
+Analysis by grade according NCI-CTCAE version 5.0: 
+Grade 0: other cases. 
+Grade 2: LVEF [40 – 50%] or Change [-20; -10%]. 
+Grade 3: LVEF [20 – 40%[ or Change < -20%]. 
+Grade 4: LVEF < 20%. 
+4.2.4. 
+Biomarkers 
+N/A. 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+56/57
+S 64315 
+ CL1-64315-004 – Statistical Analysis Plan – Final V1.0 
+ 
+® I.R.I.S. – 25th September 2023 - Confidential 
+  55/55 
+ 
+5. REFERENCES 
+Guidelines 
+ 
+CTCAE (Common Terminology Criteria for Adverse Events) v5.0 
+ 
+Guideline on Missing Data in Confirmatory Clinical Trials – Adopted by CHMP, June 2010, issued as 
+EMA/CPMP/EWP/1776/99 Rev. 1. 
+ 
+Guideline 
+EMA 
+“Guideline 
+on 
+evaluation 
+of 
+anticancer 
+medicinal 
+products 
+in 
+man” 
+- 
+EMA/CHMP/205/95/Rev.4-December 2012. 
+ 
+ 
+ 
+ 
+ 
+ 
+ICH E14 – The Clinical Evaluation of QT/QTc Interval Prolongation and Proarrhythmic Potential for Non-
+Antiarrhythmic drugs – Adopted by CHMP, May 2005, issued as CHMP/ICH/2/04. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ICH E3 Q&A - Structure and Content of Clinical Study Reports - Questions & Answers (R1) - July 2012, issued 
+as EMA/CHMP/ICH/435606/2012. 
+ 
+ 
+ 
+ 
+ 
+ 
+ICH E3 - Structure and Content of Clinical Study Reports – Adopted by CPMP, December 1995, issued as 
+CPMP/ICH/137/95/step 5. 
+ 
+ 
+ 
+ 
+ 
+ 
+ICH E9: Statistical Principles for Clinical Trials Final version – March 1998. 
+Points to consider 
+ 
+Points to Consider on Adjustment for Baseline Covariates – Adopted by CPMP, May 2003, issued as 
+CPMP/EWP/2863/99. 
+ 
+Points to Consider on Multiplicity Issues in Clinical Trials – Adopted by CPMP, September 2002, issued as 
+CPMP/EWP/908/99. 
+Bibliography 
+ 
+Döhner H, Estey E, Grimwade D, Amadori S, Appelbaum FR. et al. Diagnosis and management of AML in 
+adults: 2017 ELN recommendations from an international expert panel. Blood, 2017;129 (4): 424-447. 
+ 
+S64315
+CL1-64315-004
+© I.R.I.S. - Clinical Study Report - Confidential
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+57/57

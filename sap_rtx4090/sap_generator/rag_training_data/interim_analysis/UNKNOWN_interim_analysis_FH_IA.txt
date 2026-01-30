@@ -1,0 +1,169 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: UNKNOWN
+Section: INTERIM_ANALYSIS
+Features: immunotherapy, interim_analysis, non_proportional_hazards, fleming_harrington, methodology
+Quality Tier: 1 (Specialized)
+
+---
+
+and γ prior to any data collection.
+Prior speciﬁcation of (ρ, γ) is always advisable for the trial integrity, although some authors (see
+e.g., [5]) note that the value of (ρ, γ) can be modiﬁed at the interim analysis without type-I error
+rate inﬂation. At the end of the trial, we are interested in estimating the hazard ratio across the
+entire study, which is obtained through the standard Cox model [6]. Note however that there will
+be a disconnect between the hazard ratio (i.e., the standard Cox model) and the weighted log-rank
+test. To obtain an estimate based on the Cox model that corresponds to the weighted log-rank test
+see [7].
+In this article we focus on the use of the weighted log-rank test in conﬁrmatory trials with
+delayed eﬀects. Other areas of use may include treatment switching, which is sometimes present
+in conﬁrmatory trials and also induces non-proportional hazards (see [8]). However, it is out the
+3
+scope of this article to evaluate the performance of the weighted log-rank test under the presence
+of treatment switching and further research on this matter would be necessary.
+2.2
+Sample size derivation for the weighted log-rank test
+We introduce the optimal sample size derivation proposed by [3]. Assume that we recruit patients
+during time T at a certain rate in a conﬁrmatory trial where we aim to compare survival time be-
+tween two groups (j = 1, 2): a control group, with a constant hazard over time, and an experimental
+group, with a hazard that changes over time. The ﬁnal analysis is performed at time T + τ after
+the ﬁrst patient is enrolled. The study period [0, T + τ] is partitioned into M subintervals of equal
+length {t0 = 0, t1, t2, . . . , tM = T + τ}. Let hj(ti) be the hazard function for group j at time ti and
+Nj(ti) be the expected number of patients at risk for group j at time ti, where i = 0, . . . , M −1.
+[9] showed that the weighted log-rank statistic is normally distributed with unit variance and
+approximate expectation of
+E =
+PM−1
+i=0 Diri
+
+φiθi
+1+φiθi −
+φi
+1+φi
+
+qPM−1
+i=0 Dir2
+i
+φi
+(1+φi)2
+,
+(4)
+where
+θi = h2(ti)
+h1(ti),
+φi = N2(ti)
+N1(ti),
+Di = (h1(ti)N1(ti) + h2(ti)N2(ti)),
+Nj(t0) = nwj,
+Nj(ti+1) = Nj(ti)
+
+1 −hj(ti) −
+
+1
+T + τ −ti
+
+I{ti>τ}
+
+,
+(5)
+wj represents the allocation ratio for group j, and ri corresponds to the Fleming-Harrington’s Gρ,γ
+class of weights where ri = (S(ti))ρ(1 −S(ti))γ and S(ti) represents the pooled survival function.
+Even though it was originally proposed by [10], [3] uses S(ti) = w1S1(ti) + w2S2(ti) as a substitute
+for the pooled survival function, where Sj(ti) represents the survival function of group j at time ti.
+However, as stated by [3], equation (4) can be equivalently expressed as
+E = n
+1
+2E∗= n
+1
+2
+
+
+PM−1
+i=0 D∗
+i ri
+
+φiθi
+1+φiθi −
+φi
+1+φi
+
+qPM−1
+i=0 D∗
+i r2
+i
+φi
+(1+φi)2
+
+,
+(6)
+where
+D∗
+i = (h1(ti)N ∗
+1(ti) + h2(ti)N ∗
+2(ti)),
+N ∗
+j (t0) = wj,
+N ∗
+j (ti+1) = N ∗
+j (ti)
+
+1 −hj(ti) −
+
+1
+T + τ −ti
+
+I{ti>τ}
+
+,
+(7)
+Assuming that the weighted log-rank statistic is normally distributed with mean n
+1
+2E∗and unit
+variance, then for a power equal to 1 −β and one-sided signiﬁcance level α we have
+n
+1
+2E∗ = zα + zβ,
+(8)
+where zα and zβ correspond to the α-th and β-th percentile of the standard normal distribution
+respectively. The required sample size is calculated as
+4
+n =
+zα + zβ
+E∗
+2
+,
+(9)
+and the total expected number of events is equal to n × PM−1
+i=0 Di.
+2.3
+Test statistic
+We aim to test the null hypothesis, H0 : h1
+h2 = 1, against the alternative, H1 : h1
+h2 < 1. In the context
+of group sequential designs, since we are only interested in early eﬃcacy testing we make use of the
+well known classical group sequential design methodology (see [11]) and make use of the O’Brien
+and Fleming rejection boundaries. In the context of adaptive group sequential designs, we make
+use of the independent increment property of the inverse normal method, which is an eﬃcient way
+of incorporating data of patients who where censored at interim analysis while ensuring type-I error
+rate control (see [12]). The test statistic is deﬁned as
+Z∗= ξ1Φ−1(1 −p1) + ξ2Φ−1(1 −p2),
+(10)
+where p1 and p2 denote the separate stage p-values from stages 1 and 2, Φ−1 denotes the inverse
+of the standard normal distribution, and ξ1 and ξ2 are pre-speciﬁed weights such that ξ2
+1 =
+n1
+n1+n2,
+ξ2
+2 =
+n2
+n1+n2 and where n1 and n2 represent the number of events observed in each stage. The null
+hypothesis will be rejected at level α if Z∗> Φ−1(1 −α).
+However, the inverse normal method is in general not valid when doing sample size re-assessment
+if the adaptations depend on endpoints such OS or PFS (see [13]). We use the approach proposed
+by [14] where, in equation (10), the ﬁrst stage p-value is deﬁned by the cohort of patients included
+before the interim analysis and is calculated only at the end of the trial. This allows the inclusion
+of all the events, but it prohibits early stopping for eﬃcacy. See [15] for a detailed review of the
+existing methods on this matter.
+3
+Group sequential and adaptive group sequential designs
+In this section we aim to brieﬂy describe how group sequential and adaptive group sequential designs
+work. For a detailed deﬁnition and explanation of this methodolo

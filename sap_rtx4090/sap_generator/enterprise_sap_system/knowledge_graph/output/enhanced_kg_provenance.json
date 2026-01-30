@@ -1,0 +1,144 @@
+{
+  "document": "doc:f9e6ed12",
+  "filename": "NCT01853878_protocol.txt",
+  "extraction_time": "2026-01-09T17:02:48.168370",
+  "facts": [
+    {
+      "type": "endpoint",
+      "name": "Time to Occurrence of Any Recurrence of Disease",
+      "endpoint_type": "primary",
+      "definition": "Time to occurrence of any recurrence of disease was expressed in terms of rate: Person-year rate in each group = number of patients reporting at least one recurrence of disease (n)/ sum of follow-up period expressed in years",
+      "confidence": 0.95,
+      "source_quote": "PRIMARY: Time to Occurrence of Any Recurrence of Disease",
+      "section": "PRIMARY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "population",
+      "name": "Study Population",
+      "description": "Patients with radically resected NSCLC of pathological stage IA-T1b, IB, II or IIIA with PRAME expression",
+      "confidence": 0.9,
+      "source_quote": "The patient has radically resected NSCLC * The NSCLC is of pathological stage IA-T1b, IB, II or IIIA NSCLC The surgical technique for resection of the patient's tumor is anatomical, involving at least a segmentectomy The patient's tumor shows expression of PRAME.",
+      "section": "ELIGIBILITY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "population",
+      "name": "Sample Size",
+      "description": "Total enrollment of 137 patients",
+      "confidence": 1.0,
+      "source_quote": "Enrollment: 137",
+      "section": "Study Header",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "population",
+      "name": "Age Criterion",
+      "description": "Patients \u2265 18 years of age at the time of first consent",
+      "confidence": 0.95,
+      "source_quote": "The patient is \u2265 18 years of age at the time of first consent.",
+      "section": "ELIGIBILITY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "population",
+      "name": "Performance Status Criterion",
+      "description": "Eastern Co-operative Oncology Group (ECOG) performance status of 0, 1 or 2 at the time of randomization",
+      "confidence": 0.95,
+      "source_quote": "Eastern Co-operative Oncology Group (ECOG) performance status of 0, 1 or 2 at the time of randomization",
+      "section": "ELIGIBILITY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "method",
+      "name": "Person-Year Rate Calculation",
+      "description": "Rate calculation methodology for primary endpoint",
+      "confidence": 0.85,
+      "source_quote": "Person-year rate in each group = number of patients reporting at least one recurrence of disease (n)/ sum of follow-up period expressed in years (T[year)])",
+      "section": "PRIMARY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "method",
+      "name": "Descriptive Analysis",
+      "description": "All clinical and safety data collected in the study were analysed descriptively due to premature termination",
+      "confidence": 0.95,
+      "source_quote": "All clinical and safety data collected in the study were analysed descriptively.",
+      "section": "SUMMARY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "stratification",
+      "name": "PRAME Expression",
+      "description": "Tumor must show expression of PRAME protein",
+      "confidence": 0.9,
+      "source_quote": "The patient's tumor shows expression of PRAME.",
+      "section": "ELIGIBILITY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "stratification",
+      "name": "Disease Stage",
+      "description": "Pathological stage IA-T1b, IB, II or IIIA NSCLC",
+      "confidence": 0.95,
+      "source_quote": "The NSCLC is of pathological stage IA-T1b, IB, II or IIIA NSCLC",
+      "section": "ELIGIBILITY",
+      "source_doc": "doc:f9e6ed12"
+    },
+    {
+      "type": "endpoint",
+      "name": "Study Follow-up Period",
+      "endpoint_type": "temporal",
+      "definition": "Follow-up from Week 1 to Week 112 with median follow-up time of 10.3 months",
+      "confidence": 0.9,
+      "source_quote": "Time: During the entire study (From Week 1 to Week 112) ... The median follow-up time was 10.3 m",
+      "section": "PRIMARY",
+      "source_doc": "doc:f9e6ed12"
+    }
+  ],
+  "kg_context": [
+    {
+      "trial_id": "NCT01853878",
+      "endpoint": "Time to Occurrence of Any Recurrence of Disease",
+      "fact": "NCT01853878 analyzed Time to Occurrence of Any Recurrence of Disease"
+    }
+  ],
+  "power_calculation": {
+    "method": "provided_enrollment",
+    "sample_size": 137,
+    "power": 0.8,
+    "events": null,
+    "assumptions": {
+      "alpha": 0.05,
+      "power": 0.8,
+      "enrollment": 137,
+      "hazard_ratio": null,
+      "response_rate_null": null,
+      "response_rate_alt": null
+    }
+  },
+  "regulatory_standards": {
+    "MedDRA": "26.1",
+    "CTCAE": "5.0",
+    "WHO_Drug": "March 2024",
+    "phase_detected": "Phase 3",
+    "therapeutic_area": "oncology",
+    "teae_table_types": 13
+  },
+  "rag_examples": [
+    "NCT03558139",
+    "NCT04253171",
+    "NCT03226275"
+  ],
+  "verification": {
+    "passed": true,
+    "score": 1.0,
+    "errors": [],
+    "warnings": [
+      "Power (80%) not explicitly stated",
+      "Potentially hallucinated numbers: ['2016']. Verify these appear in source protocol."
+    ]
+  },
+  "regeneration_count": 0,
+  "model": "claude-sonnet-4-20250514"
+}

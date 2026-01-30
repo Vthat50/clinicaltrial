@@ -1,0 +1,606 @@
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 1 of 18
+PFIZER CONFIDENTIAL
+Protocol C4671013
+COVID-19: A PHASE 1, OPEN-LABEL, 3-TREATMENT, 
+6-SEQUENCE, 3-PERIOD CROSSOVER STUDY TO ESTIMATE 
+THE EFFECT OF PF-07321332/RITONAVIR AND RITONAVIR 
+ON THE PHARMACOKINETICS OF MIDAZOLAM IN
+HEALTHY PARTICIPANTS
+Statistical Analysis Plan
+(SAP)
+Version:
+1.0
+SAP Author: 
+                      
+Date:    
+30-AUG-2021
+PPD
+PPD
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 2 of 18
+PFIZER CONFIDENTIAL
+Revision History
+Version
+Date
+Author(s)
+Summary of Changes/Comments
+Version 1.0
+August 30, 2021
+Not Applicable
+NOTE: Italicized text within this document has been taken verbatim from the Protocol.
+PPD
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 3 of 18
+PFIZER CONFIDENTIAL
+TABLE OF CONTENTS
+LIST OF TABLES.....................................................................................................................5
+LIST OF FIGURES ...................................................................................................................5
+APPENDICES ...........................................................................................................................5
+1. AMENDMENTS FROM PREVIOUS VERSION(S) ...........................................................6
+2. INTRODUCTION .................................................................................................................6
+2.1. Study Design .............................................................................................................6
+2.2. Study Objectives .......................................................................................................7
+2.2.1. Primary Objective.........................................................................................7
+2.2.2. Secondary Objectives ...................................................................................7
+3. INTERIM ANALYSES, FINAL ANALYSES AND UNBLINDING..................................8
+4. HYPOTHESES AND DECISION RULES...........................................................................8
+4.1. Statistical Hypotheses ...............................................................................................8
+4.2. Statistical Decision Rules..........................................................................................8
+5. ANALYSIS SETS .................................................................................................................8
+5.1. Pharmacokinetic (PK) Analysis Set ..........................................................................8
+5.1.1. Concentration Analysis Set...........................................................................8
+5.1.2. Parameter Analysis Set.................................................................................8
+5.2. Pharmacodynamic Analysis Set................................................................................8
+5.3. Safety Analysis Set....................................................................................................8
+5.4. Other Analysis Sets ...................................................................................................8
+5.5. Treatment Misallocations..........................................................................................9
+5.6. Protocol Deviations...................................................................................................9
+5.6.1. Deviations Assessed Prior to Randomization...............................................9
+5.6.2. Deviations Assessed Post-Randomization....................................................9
+6. ENDPOINTS AND COVARIATES .....................................................................................9
+6.1. Efficacy Endpoint(s) .................................................................................................9
+6.2. Safety Endpoints .......................................................................................................9
+6.2.1. Adverse Events ...........................................................................................10
+6.2.2. Laboratory Safety Tests..............................................................................10
+CCI
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 4 of 18
+PFIZER CONFIDENTIAL
+6.2.3. Vital Signs Data..........................................................................................10
+6.2.4. ECG Results................................................................................................11
+6.2.5. Other Safety Data .......................................................................................11
+6.3. Other Endpoints.......................................................................................................11
+6.3.1. PK Endpoints..............................................................................................11
+6.3.2. PD Endpoints..............................................................................................12
+6.4. Covariates................................................................................................................12
+7. HANDLING OF MISSING VALUES ................................................................................12
+7.1. Concentrations Below the Limit of Quantification.................................................12
+7.2. Deviations, Missing Concentrations and Anomalous Values .................................12
+7.3. Pharmacokinetic Parameters ...................................................................................12
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES ..........................13
+8.1. Statistical Methods ..................................................................................................13
+8.2. Statistical Analyses .................................................................................................13
+8.3. Safety Analysis........................................................................................................14
+8.3.1. Treatment and Disposition of Participants .................................................15
+8.3.2. Demographic and Clinical Examination Data............................................15
+8.3.3. Discontinuation(s).......................................................................................15
+8.3.4. Adverse Events ...........................................................................................15
+8.3.5. Laboratory Data..........................................................................................15
+8.3.6. Vital Signs Data..........................................................................................15
+8.3.7. ECG Data....................................................................................................15
+8.3.8. Other Safety Data .......................................................................................16
+8.3.9. Concomitant Treatments.............................................................................16
+8.3.10. COVID-19 Assessment Data....................................................................16
+8.3.11. Screening and Other Special Purpose Data ..............................................16
+9. REFERENCES ....................................................................................................................17
+10. APPENDICES ...................................................................................................................18
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 5 of 18
+PFIZER CONFIDENTIAL
+LIST OF TABLES
+Table 1.
+Treatment Sequences..................................................................................7
+Table 2.
+PK Parameters to be Summarized Descriptively by Treatment ...............13
+Table 3.
+E14 QTcF Categorical Thresholds ...........................................................16
+LIST OF FIGURES
+None
+APPENDICES
+Appendix 1. SAS CODE FOR ANALYSES...........................................................................18
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 6 of 18
+PFIZER CONFIDENTIAL
+1. AMENDMENTS FROM PREVIOUS VERSION(S) 
+None.
+2. INTRODUCTION
+PF-07321332 is a potent and selective inhibitor of the SARS-CoV-2 3CL protease that is
+currently being developed as an oral treatment of COVID-19. Ritonavir is a strong CYP3A4
+inhibitor being used to inhibit the metabolism of PF-07321332 in order to increase plasma
+concentrations of PF-07321332 to values that are anticipated to be efficacious.
+The purpose of the study is to evaluate the effect of PF-07321332/ritonavir and ritonavir on
+the PK of midazolam, a CYP3A4 substrate, in healthy participants. Results from this study
+will provide guidance for dosing recommendations with concomitant medications during
+Phase 3 development and further establish the safety margins of PF-07321332/ritonavir.
+2.1. Study Design
+This is a Phase 1, open-label, 3-treatment, 6-sequence, 3-period crossover study to estimate
+the effect of steady-state PF-07321332/ritonavir and ritonavir on the PK of midazolam in
+healthy adult participants. The study will consist of 3 treatments: single oral dose of 2 mg
+midazolam alone (Treatment A), multiple oral doses of 300 mg PF-07321332/100 mg
+ritonavir in combination with a single oral dose of 2 mg midazolam (Treatment B), and
+multiple oral doses of 100 mg ritonavir in combination with a single oral dose of 2 mg
+midazolam (Treatment C). The treatment will consist of 6 treatment sequences shown in the
+table below, with each participant receiving all 3 treatments, according to the assigned
+sequence over 3 periods.
+A total of approximately 12 healthy male and/or female participants will be enrolled into the
+study to ensure at least 10 participants will complete the study. Participants who
+discontinued from the study for non-safety reasons may be replaced at the sponsor’s
+discretion in collaboration with the investigator.
+Each enrolled participant will participate in 3 study periods to receive 3 different treatments:
+
+Treatment A: Single oral dose of 2 mg midazolam, followed by serial PK sampling 
+and 2-day washout (Treatment A period duration: Day 1 to Day 3)
+
+Treatment B: 300 mg PF-07321332/100 mg ritonavir administered orally, q12h for 
+9 doses: Day 1 morning to Day 5 morning. On Day 5, participants will receive a 
+single oral dose of 2 mg midazolam administered with the Day 5 morning dose of 
+PF-07321332/ritonavir, followed by serial PK sampling and a 7-day washout 
+(Treatment B period duration: Day 1 to Day 12).
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 7 of 18
+PFIZER CONFIDENTIAL
+•
+Treatment C: 100 mg ritonavir administered orally, q12h for 9 doses: Day 1 morning 
+to Day 5 morning. On Day 5, participants will receive a single oral dose of 2 mg 
+midazolam administered with the Day 5 morning dose of ritonavir, followed by serial 
+PK sampling and a 7-day washout (Treatment C period duration: Day 1 to Day 12).
+Participants will be randomly assigned to 1 of 6 sequences as in Table 1.
+Table 1.
+Treatment Sequences 
+Sequence
+Period 1
+Period 2
+Period 3
+1 (2 participants)
+Treatment A
+Treatment B
+Treatment C
+2 (2 participants)
+Treatment C
+Treatment A
+Treatment B
+3 (2 participants)
+Treatment B
+Treatment C
+Treatment A
+4 (2 participants)
+Treatment C
+Treatment B
+Treatment A
+5 (2 participants)
+Treatment B
+Treatment A
+Treatment C
+6 (2 participants)
+Treatment A
+Treatment C
+Treatment B
+Participants will be discharged on Period 3, following completion of all assessments.
+The total planned duration of participation, from the Screening visit to the last Follow-up 
+phone call, is approximately 13 weeks.
+2.2. Study Objectives
+2.2.1. Primary Objective
+•
+To estimate the effect of PF-07321332/ritonavir on the PK of midazolam.
+2.2.2. Secondary Objectives
+•
+To evaluate the safety and tolerability of PF-07321332/ritonavir in healthy 
+participants in the absence and presence of midazolam.
+•
+To estimate the effect of ritonavir on the PK of midazolam.
+•
+To evaluate the effects of PF-07321332/ritonavir and ritonavir on additional PK 
+parameters of midazolam in healthy participants.
+ 
+CCI
+CCI
+CCI
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 8 of 18
+PFIZER CONFIDENTIAL
+ 
+ 
+4. HYPOTHESES AND DECISION RULES
+4.1. Statistical Hypotheses
+There are no statistical hypotheses.
+4.2. Statistical Decision Rules
+There are no statistical decision rules.
+5. ANALYSIS SETS
+5.1. Pharmacokinetic (PK) Analysis Set
+5.1.1. Concentration Analysis Set
+The PK concentration population is defined as all participants randomized and treated who 
+have at least 1 concentration in at least 1 treatment period.  
+5.1.2. Parameter Analysis Set
+The PK parameter analysis population is defined as all participants randomized and treated 
+who have at least 1 of the PK parameters of primary interest in at least 1 treatment period.
+Should vomiting occur after co-administration of midazolam with PF-07321332/ritonavir, 
+the resulting PK parameters from that participant from the corresponding period may be
+excluded.
+5.2. Pharmacodynamic Analysis Set
+None.
+5.3. Safety Analysis Set
+All participants randomly assigned to study intervention and who take at least 1 dose of 
+study intervention. Participants will be analyzed according to the product they actually 
+received.
+5.4. Other Analysis Sets
+None.
+CCI
+CCI
+CCI
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 9 of 18
+PFIZER CONFIDENTIAL
+5.5. Treatment Misallocations 
+All analyses will be performed on an “as-treated” basis and will not include data from 
+participants who are randomized but not treated.
+If a participant takes a treatment that is not consistent with the treatment they are randomized 
+to, for example takes a treatment out of sequence or takes the same treatment twice, then they 
+will be reported under the treatment that they actually receive for all safety, and PK analyses,
+where applicable.
+5.6. Protocol Deviations
+Participants who experience events that may affect their PK profile (eg lack of compliance 
+with dosing) may be excluded from the PK analysis.  At the discretion of the 
+pharmacokineticist a concentration value may also be excluded if the deviation in sampling 
+time is of sufficient concern or if the concentration is anomalous for any other reason.
+A full list of protocol deviations will be compiled and reviewed to identify major and minor 
+deviations prior to database closure.
+5.6.1. Deviations Assessed Prior to Randomization
+At Screening, the investigator will assess participants against the inclusion and exclusion 
+criteria as set out in Sections 5.1 and 5.2 of the protocol.
+5.6.2. Deviations Assessed Post-Randomization
+A full list of protocol deviations for the study report will be compiled prior to database 
+closure.  Any significant deviation from the protocol will be reviewed prior to database 
+closure and a decision taken regarding evaluation for each analysis population.
+6. ENDPOINTS AND COVARIATES
+6.1. Efficacy Endpoint(s)
+None.
+6.2. Safety Endpoints
+The following data are considered in standard safety summaries (see protocol for collection 
+days and list of parameters):
+
+adverse events,
+
+laboratory data,
+
+vital signs,
+
+ECG results.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 10 of 18
+PFIZER CONFIDENTIAL
+6.2.1. Adverse Events
+An adverse event will be considered a Treatment-Emergent Adverse Event (TEAE) if the 
+event started during the effective duration of treatment.  All events that start on or after the 
+first dosing day and time/ start time, if collected, but before the last dose plus the lag time 
+(28 days) will be flagged as TEAEs.  The algorithm will not consider any events that started 
+prior to the first dose date.  Any events occurring following start of treatment or increasing in 
+severity will be counted as treatment emergent.
+Events that occur in a non-treatment period (for example, Washout or Follow-up) will be 
+counted as treatment emergent and attributed to the previous treatment taken.
+6.2.2. Laboratory Safety Tests
+Safety laboratory tests will be performed as described in the protocol.
+To determine if there are any clinically significant laboratory abnormalities, the 
+haematological, clinical chemistry (serum) and urinalysis safety tests will be assessed against 
+the criteria specified in the sponsor reporting standards.  The assessment will take into 
+account whether each participant’s baseline test result is within or outside the laboratory 
+reference range for the particular laboratory parameter.
+Baseline is defined as the last planned predose measurement taken in each study period.
+6.2.3. Vital Signs Data
+Supine measurements will be taken at times detailed in the Schedule of Activities given in 
+the protocol.
+Baseline is the last predose recording in each study period.
+The following vital signs endpoints will be determined:
+
+The minimum systolic and diastolic blood pressures and the minimum and maximum 
+pulse rates over all measurements taken postdose.
+
+The maximum increase and maximum decrease from baseline over all measurements 
+taken postdose for systolic and diastolic blood pressures.
+The maximum increase from baseline will be calculated by firstly subtracting the baseline 
+value from each postdose measurement to give the change from baseline.  The maximum of 
+these values will then be selected, except in the case where a participant does not show an 
+increase.  In such an instance, the minimum decrease should be taken.
+Similarly, the maximum decrease from baseline will be determined by selecting the 
+minimum value of the changes from baseline.  In cases where a participant does not show a 
+decrease, the minimum increase should be taken.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 11 of 18
+PFIZER CONFIDENTIAL
+6.2.4. ECG Results
+QT interval, QTc, PR, RR, QRS and heart rate will be recorded at each assessment time 
+indicated in the Schedule of Activities given in the protocol.
+If not supplied, QTcF will be derived using Fridericia’s heart rate correction formula:
+QTcF = QT / (RR)1/3
+where RR = 60/HR (if not provided)
+The average of the triplicate measurements will be calculated prior to analyzing the data.  
+Baseline will be defined as the average of the triplicate predose recordings in each study 
+period. 
+The maximum absolute value (postdose) and the maximum increase from baseline for QTcF, 
+PR and QRS, over all measurements taken postdose, will be determined.
+The maximum increase from baseline will be calculated by first subtracting the baseline 
+value from each postdose measurement to give the change from baseline.  The maximum of 
+these values will then be selected, except in the case where a participant does not show an 
+increase.  In such an instance, the minimum decrease should be taken.
+6.2.5. Other Safety Data
+Additional safety data will be collected as described in the protocol and will be listed if 
+collected in the sponsor’s database.
+6.3. Other Endpoints
+6.3.1. PK Endpoints
+Blood samples will be taken according to the Schedule of Activities given in the protocol for 
+PK analysis of midazolam following single dose administration with and without
+PF-07321332/ritonavir or midazolam+ritonavir (as data permit).
+The following PK parameters will be calculated for midazolam following single dose 
+administration with and without PF-07321332/ritonavir or midazolam+ritonavir will be 
+derived (if possible) from the concentration-time data using standard noncompartmental 
+methods:
+PK Parameter
+Analysis Scale
+Midazolam
+PF-07321332
+AUCinf*
+ln
+A, D
+D
+AUClast
+ln
+A, D
+NA
+AUClast
+ln
+A, D
+D
+Cmax
+ln
+A, D
+D
+Tmax
+R
+D
+D
+t1/2*
+R
+D
+D
+CL/F*
+ln
+D
+D
+CCI
+CCI
+CCI
+CCI
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 12 of 18
+PFIZER CONFIDENTIAL
+Vz/F*
+ln
+D
+D
+Key:
+A=analyzed using statistical model, D=displayed with descriptive statistics,
+ln=natural-log transformed, NA=not applicable, R=raw (untransformed), *=if data 
+permits
+6.3.2. PD Endpoints
+None.
+6.4. Covariates
+None.
+7. HANDLING OF MISSING VALUES
+For the analysis of safety endpoints, the sponsor data standard rules for imputation will be 
+applied.
+7.1. Concentrations Below the Limit of Quantification
+In all data presentations (except listings), concentrations below the limit of quantification 
+(BLQ) will be set to zero.  (In listings BLQ values will be reported as “<LLQ”, where LLQ 
+will be replaced with the value for the lower limit of quantification). 
+7.2. Deviations, Missing Concentrations and Anomalous Values
+In summary tables and plots of median profiles, statistics will be calculated having set 
+concentrations to missing if 1 of the following cases is true:
+1. A concentration has been collected as ND (ie, not done) or NS (ie, no sample),
+2. A deviation in sampling time is of sufficient concern or a concentration has been 
+flagged anomalous by the pharmacokineticist.
+Note that summary statistics will not be presented at a particular time point if more than
+50% of the data are missing.
+7.3. Pharmacokinetic Parameters
+Actual PK sampling times will be used in the derivation of PK parameters.
+If a PK parameter cannot be derived from a participant’s concentration data, the parameter 
+will be coded as NC (ie, not calculated). (Note that NC values will not be generated beyond 
+the day that a participant discontinues). 
+In summary tables, statistics will be calculated by setting NC values to missing; and statistics 
+will be presented for a particular treatment with ≥3 evaluable measurements.  For statistical 
+analyses (ie, analysis of variance), PK parameters coded as NC will also be set to missing; 
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 13 of 18
+PFIZER CONFIDENTIAL
+and analyses will not be performed for a particular parameter if more than 50% of the data 
+are NC.
+If an individual participant has a known biased estimate of a PK parameter (due for example 
+to an unexpected event such as vomiting before all the compound is adequately absorbed in 
+the body), this will be footnoted in summary tables and will not be included in the calculation 
+of summary statistics or statistical analyses.
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES
+8.1. Statistical Methods
+The interactive effect on PK parameters will be determined by constructing 90% confidence 
+intervals around the estimated difference between the Test and Reference treatments using a 
+mixed effects model based on natural log transformed data.  The mixed effects model will be 
+implemented using SAS Proc Mixed, with REML estimation method and Kenward-Roger 
+degrees of freedom algorithm.
+8.2. Statistical Analyses
+Natural log transformed AUCinf (if data permit), AUClast and Cmax of midazolam will be 
+analyzed using a mixed effect model with sequence, period and treatment as fixed effects and 
+participant within sequence as a random effect. Estimates of the adjusted mean differences
+(Test-Reference) and corresponding 90% confidence intervals will be obtained from the
+model. The adjusted mean differences and 90% confidence intervals for the differences will
+be exponentiated to provide estimates of the ratio of adjusted geometric means
+(Test/Reference) and 90% confidence intervals for the ratios. Midazolam alone is the
+Reference treatment whilst midazolam + PF-07321332/ritonavir and midazolam + ritonavir
+are the Test treatments.
+Residuals from the model will be examined for normality and the presence of outliers via 
+visual inspection of plots of residuals vs predicted values and normal probability plots of 
+residuals but these will not be included in the clinical study report.  If there are major 
+deviations from normality or outliers then the effect of these on the conclusions will be 
+investigated through alternative transformations and/or analyses excluding outliers.  
+Justification for any alternative to the planned analysis will be given in the report of the 
+study.
+Table 2.
+PK Parameters to be Summarized Descriptively by Treatment
+Parameter
+Summary Statistics
+AUCinf, 
+AUClast, Cmax
+N, arithmetic mean, median, cv%, standard deviation, minimum, 
+maximum, geometric mean and geometric cv%.
+Tmax
+N, median, minimum, maximum.
+t1/2, CL/F, 
+Vz/F
+N, arithmetic mean, median, cv%, standard deviation, minimum, 
+maximum.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 14 of 18
+PFIZER CONFIDENTIAL
+Box and whisker plots for individual participant parameters (AUCinf, AUClast and Cmax) will 
+be presented by treatment and overlaid with geometric means.
+Supporting data from the estimation of t½ and AUCinf will be listed by analyte and treatment: 
+terminal phase rate constant (kel); goodness of fit statistic from the log-linear regression (r2); 
+the percent of AUCinf based on extrapolation (AUCextrap%); and the first, last, and number of 
+time points used in the estimation of kel.  This data may be included in the clinical study 
+report.
+Presentations for midazolam and PF-07321332 concentrations will include:
+
+A listing of all concentrations sorted by participant ID, period and nominal time 
+postdose.  The concentration listing will also include the actual times.  Deviations 
+from the nominal time will be given in a separate listing.
+
+A summary of concentrations by treatment and nominal time postdose, where the set 
+of statistics will include n, mean, median, standard deviation, coefficient of variation 
+(cv), minimum, maximum and the number of concentrations above the lower limit of 
+quantification.
+
+Median concentrations time plots (on both linear and semi-log scales) against 
+nominal time postdose by treatment (all treatments on the same plot per scale, based 
+on the summary of concentrations by treatment and time postdose).
+
+Mean concentrations time plots (on both linear and semi-log scales) against nominal 
+time postdose by treatment (all treatments on the same plot per scale, based on the 
+summary of concentrations by treatment and time postdose).
+
+Individual concentration time plots by treatment (on both linear and semi-log scales) 
+against actual time postdose (there will be separate spaghetti plots for each treatment 
+per scale).
+
+Individual concentration time plots by participant (on both linear and semi-log scales) 
+against actual time postdose [there will be separate plots for each participant
+(containing all treatments) per scale].
+For summary statistics, median and mean plots by sampling time, the nominal PK sampling 
+time will be used, for individual participant plots by time, the actual PK sampling time will 
+be used.
+8.3. Safety Analysis
+A set of summary tables split by treatment will be produced to evaluate any potential risk 
+associated with the safety and toleration of administering midazolam following single dose 
+administration with and without PF-07321332/ritonavir or ritonavir.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 15 of 18
+PFIZER CONFIDENTIAL
+8.3.1. Treatment and Disposition of Participants
+Participant evaluation groups will show end of study participant disposition and will show 
+which participants were analyzed for pharmacokinetics, as well as for safety (adverse events 
+and laboratory data).  Frequency counts will be supplied for participant discontinuation(s) by 
+treatment.
+Data will be reported in accordance with the sponsor reporting standards.
+8.3.2. Demographic and Clinical Examination Data
+A break down of demographic data will be provided for age, race, weight, body mass index, 
+and height.  Each will be summarized by sex at birth and ‘All Participants’ in accordance 
+with the sponsor reporting standards.
+8.3.3. Discontinuation(s)
+Participant discontinuations, temporary discontinuations or dose reductions due to adverse 
+events will be detailed and summarized by treatment.
+Data will be reported in accordance with the sponsor reporting standards.
+8.3.4. Adverse Events
+Adverse events will be reported in accordance with the sponsor reporting standards by 
+treatment.
+8.3.5. Laboratory Data
+Laboratory data will be listed and summarized by treatment in accordance with the sponsor 
+reporting standards.  Baseline is as defined in Section 6.2.2.
+8.3.6. Vital Signs Data
+Vital Signs data will be summarized and listed in accordance with the sponsor reporting
+standards.
+8.3.7. ECG Data
+Baseline and changes from baseline in PR, QT, QRS, heart rate and QTcF will be 
+summarized by treatment and time postdose.  Baseline is as defined in Section 6.2.4.
+ECG endpoints and changes from baseline (QTcF, PR, QRS), over all measurements taken 
+postdose, will also be summarized descriptively by treatment using categories as defined in 
+the Criteria for Safety Values of Potential Clinical Concern appendix of the protocol and for 
+QTc values corresponding to ICH E141 thresholds below.  Numbers and percentages of 
+participants meeting the categorical criteria will be provided and individual values listed in 
+the study report.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 16 of 18
+PFIZER CONFIDENTIAL
+Table 3.
+E14 QTcF Categorical Thresholds
+Parameter
+Criterion
+QTcF (msec)
+450≤ value <480
+480≤ value <500
+≥500
+QTcF (msec) increase from 
+baseline
+30≤ change <60
+change ≥60
+These data will be listed in accordance with the sponsor reporting standards.
+8.3.8. Other Safety Data
+None.
+8.3.9. Concomitant Treatments
+All concomitant medication(s) as well as non-drug treatment(s) will be provided in the 
+listings.
+8.3.10. COVID-19 Assessment Data
+Participants will be tested for SARS-COVID-19 infection by RT-PCR prior to being admitted 
+to the clinic for confinement and a subsequent COVID-19 test will be performed after 4 days 
+(ie, upon completion of 4 x 24 hours in house), or if they develop COVID-19 like symptoms. 
+Additional testing may be required by local regulations or by the Principal Investigator.
+These data will be listed in accordance with the sponsor reporting standards.
+8.3.11. Screening and Other Special Purpose Data
+Prior medication(s) and non-drug treatment(s), serum FSH concentrations, urine drug screen, 
+serum or urine B-hCG for all females of childbearing potential, TSH and Free T4, Prep D1, 
+HIV, HBsAg, HBsAb, HBcAb, and HCVAb will be obtained at Screening.
+If these data are brought in-house, then they will be listed.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 17 of 18
+PFIZER CONFIDENTIAL
+9. REFERENCES
+1.
+ICH E14 - The clinical evaluation of QT/QTc interval prolongation and proarrhythmic 
+potential for non-antiarrhythmic drugs. CHMP/ICH/2/04.
+Protocol C4671013 (PF-07321332) Statistical Analysis Plan
+Page 18 of 18
+PFIZER CONFIDENTIAL
+10. APPENDICES
+Appendix 1. SAS CODE FOR ANALYSES
+An example of the PROC MIXED code is provided below:
+proc mixed data=tab.pk;
+class seq period trt participant;
+model l&var=seq period trt/ ddfm=KR;
+random participant(seq) /participant=participant(seq);
+lsmeans trt;
+estimate 'B vs A' trt -1  1  0/cl alpha=0.1;
+            estimate 'C vs A' trt -1  0  1/cl alpha=0.1;
+ods 'Estimates' out=est&var;
+ods 'lsmeans' out=ls&var;
+ods 'covparms' out=cov&var;
+ods 'tests3' out=tst&var;
+run;
+/* Letter assignments for treatments (trt) within the estimate statement above are as follows;
+A = Midazolam alone (Reference);
+B = Midazolam + PF-07321332/ritonavir (Test)
+C = Midazolam + ritonavir (test) */;

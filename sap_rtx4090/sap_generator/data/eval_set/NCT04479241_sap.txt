@@ -1,0 +1,1159 @@
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 1 23 June  2022   
+STATISTICAL ANALYSIS PLAN 
+ 
+ 
+Study Title:  A Phase 2, Open -label, Single -arm Study Evaluating the 
+Efficacy, Safety and Tolerability of Oncolytic Polio/Rhinovirus 
+Recombinant ( lerapolturev)  and the Immune  Checkpoint 
+Inhibitor Pembrolizumab in the Treatment of Patients with 
+Recurrent Glioblastoma  
+  
+Phase:  II 
+  
+Protocol No.:  LUMINOS -101  
+  
+Protocol Date (s): Version 4.0: 26 May 2021 
+  
+  
+  
+  
+Analysis Plan Version and 
+Date : Version 1.0 : 23 June  2022  
+  
+Prepared By:  Dominique McDaniel , MS 
+PharPoint Research, Inc.  
+5003 S. Miami B lvd. 
+Suite 100  
+Durham, NC 27703  
+ 
+  
+Prepared For:  Istari Oncology Inc.  
+430  Davis Drive , Suite 560  
+Morrisville , NC 27560  
+ 
+ 
+ 
+CONFIDENTIAL AND PROPRIETARY INFORMATION
+
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 2 23 June  2022  STATISTICAL ANALYSIS PLAN REVIEW AND APPROVAL  
+ 
+This Statistical Analysis Plan  has been prepared in accordance with team reviewers’ specifications.   
+ 
+Prepared by:  
+ 
+ 
+Dominique McDaniel , MS 
+Biostatistician  III 
+PharPoint Research, Inc.   Date  
+ 
+Review:  
+ 
+ 
+   
+Amy Flynt , PhD 
+Executive Director , Biostatistics  and Statistical Programming  
+PharPoint Research, Inc.   Date  
+ 
+  
+   
+W. Garrett Nichols, MD, MS  
+Chief Medical Officer ,  
+Istari Oncology Inc.   Date  
+Jun 23, 2022
+Chief Medical Officer
+Jun-23-2022 | 19:08 EDT
+Jun-28-2022 | 10:33 EDT
+
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 3 23 June  2022  TABLE OF CONTENTS  
+STATISTICAL ANALYSIS PLAN REVIEW AND APPROVAL  .............................................. 2 
+1. INTRODUCTION  .................................................................................................................... 5 
+1.1. STUDY OVERVIEW  .............................................................................................................. 5 
+1.2. SCHEDULE OF EVENTS  ..................................................................................................... 6 
+1.3. GLOSSARY OF ABBREVIATIONS  .................................................................................... 9 
+2. OBJECTIVES  ........................................................................................................................ 11 
+3. GENERAL STATISTICAL CONSIDERATIONS  ............................................................. 11 
+3.1. SAMPLE SIZE AND POWER  ............................................................................................ 11 
+3.2. HANDLING OF DATA ........................................................................................................ 11 
+3.2.1.  Strata and Covariates  ....................................................................................................... 11 
+3.2.2.  Multiple Testing and Comparisons  ................................................................................. 11 
+3.2.3.  Missing Data and Outliers  ................................................................................................ 11 
+3.2.4.  Presentations by Study Visit  ............................................................................................ 12 
+3.2.5.  Presentations by Worst Case  ........................................................................................... 13 
+3.2.6.  Definitions and Terminology ............................................................................................ 13 
+3.3. TIMING OF ANALYSES  ..................................................................................................... 17 
+4. ANALYSIS POPULATIONS  ................................................................................................ 17 
+4.1. EFFICACY ANALYSIS SET  ............................................................................................... 17 
+4.2. SAFETY ANALYSIS SET  ................................................................................................... 17 
+4.3. SCREENING ANALYSIS SET  ........................................................................................... 17 
+5. STATISTICAL METHODS  .................................................................................................. 17 
+5.1. PARTICIPANT DISPOSITION, DEMOGRAPHIC AND BASELINE 
+CHARACTERISTICS  .......................................................................................................... 18 
+5.2. DISEASE CHARACTERISTICS  ........................................................................................ 18 
+5.3. CONCOMITANT MEDICATIONS  .................................................................................... 18 
+5.4. BRAIN SURGERY, RADIOTHERAPY AND SYSTEMIC THERAPY ......................... 19 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 4 23 June  2022  5.5. TISSUE BIOMARKERS  ...................................................................................................... 20 
+5.6. EXPOSURE  ........................................................................................................................... 20 
+5.7. EFFICACY  ............................................................................................................................ 20 
+5.7.1.  Primary Efficacy Endpoints  ............................................................................................. 20 
+5.7.2.  Secondary Efficacy Endpoints  ......................................................................................... 21 
+5.8. SAFETY  ................................................................................................................................. 21 
+5.8.1.  Adverse Events  .................................................................................................................. 22 
+5.8.2.  Clinical Laboratory Assessments  .................................................................................... 22 
+5.8.3.  Vital Signs  .......................................................................................................................... 23 
+5.8.4.  KPS  ..................................................................................................................................... 23 
+5.8.5.  NANO  ................................................................................................................................. 23 
+6. CHANGES IN THE PLANNED ANALYSES  ..................................................................... 23 
+7. REVISION HISTORY  ........................................................................................................... 24 
+8. REFERENCES  ....................................................................................................................... 24 
+9. PROGRAMMING CONVENTIONS  ................................................................................... 25 
+10. PROPOSED TABLES, LISTINGS, AND FIGURES  ......................................................... 27 
+SUMMARY TABLES  .................................................................................................................... 27 
+SUMMARY FIGURES  .................................................................................................................. 28 
+DATA LISTINGS  ........................................................................................................................... 28 
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 5 23 June  2022  1. INTRODUCTION  
+This document describes the statistical methods and data presentations to be used in the planned 
+data summary and analysis of data from Protocol LUMINOS -101.  Background information is 
+provided for the overall study design and objectives.  The reader is refe rred to the study protocol 
+and case report f orms (CRFs) for details of study conduct and data collection.  
+1.1. STUDY OVERVIEW  
+This is an open- label, single -arm, non- randomized study characterizing the efficacy, safety, and 
+tolerability of l erapolturev delivered via intratumoral infusion followed by pembrolizumab in 
+patients with recurrent g lioblastoma ( rGBM ). Approximately 30 eligible participants, 18 years of 
+age or older, are planned to be  enrolled and treated with lerapolturev  and at least one dose of 
+pembrolizumab in this study. The maximum planned duration of follow -up in this study is up to 24 
+months (104 weeks), and consists of the following treatments:  
+• Single l erapolturev infusion on Day 0  
+o Note: retreatment with l erapolturev is allowed for qualifying participants who 
+progress ≥ 6 months from initial lerapolturev infusion  
+• Pembrolizumab (200 mg intravenous ( IV) infusion) initiated 14 days after l erapolturev  
+infusion (up to 28 days, if necessary), given every  3 weeks, through Week 104 (23.5 
+months of treatment) or until immune -related AE ( irAE ) meeting criteria for dose 
+interruption/discontinuation or confirmed progression (must consider clinical and 
+radiographic assessments)   
+The study will occur in the following periods : 
+• Screening Period 1: Between 1 and 6 weeks prior to catheter placement   
+• Screening Period 2: Within 7 days  prior to  catheter placement  
+• Catheter Placement and Biopsy (if required) Period: Day 0  
+• Lerapolturev Infusion Period/Baseline: Single lerapolturev  infusion on Day 0 or Day 1 
+(unless extension granted by Sponsor)  
+• Post-lerapolturev  Infusion, Pembrolizumab T reatment and Follow -up Period: 
+pembrolizumab starting at Week 2 (up to Week 4, max) and every 3 weeks thereafter, to a 
+maximum of Week 104 (approximately 23.5 months maximum pembrolizumab treatment duration)  
+The study may be adapted or expanded in one or more larger cohorts of participants, in 
+consultation with the  Data and Safety Monitoring Board ( DSMB ), based on interim review and 
+considering the totality of the study data.
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 6 23 June  2022  1.2. SCHEDULE OF EVENTS  
+Table 1 :  Schedule of Assessment s 
+Description  Screening1  Treatment and Follow -Up Periods18  
+Screen. 
+Period 1  Screen 
+Period 2  Catheter/ 
+lerapolture
+v2 Post-lerapolturev  infusion, pembrolizumab treatment and Follow -Up (± 7 days)3 
+Week  Within 6 
+weeks of  
+catheter 
+placement  Within 1 
+week 
+relative to 
+catheter 
+placement   1 2 U 
+(3-4)5 5 or 
++3 
+weeks 8 or 
++3 w eeks 11; + every  
+3 weeks to 
+week104 
+max.  Follow -Up End of Study  
+visit 
+Day  -42 to 8  -7 to 1  0 
+(+1 day)  1 14 (28) 35 or 
++21 56 or 
++21 +21 up to 
+max 730  From 
+discontinuation 
+of 
+pembrolizumab  Anytime for 
+permanent 
+discontinuation  
+Visit  1 2 3 4 5 U 6 7 ≥ 8 ≥ 8 
+General Evaluations       
+Informed Consent  X           
+Medical History  X X X         
+Physical Exam6,7   X  X X X X X X  X 
+Neurologic Exam7   X  X X X X X X  X 
+NANO assessment7   X  X X X X X X  X 
+KPS7   X  X X X X X X  X 
+PRO4   X  X   X  X   
+Adverse Events     Continuous (including AE due to non -SOC screening procedures)   
+Concomitant 
+Medications     Continuous (throughout the duration of the study)   
+Lab Evaluations       
+PV booster vaccine  X           
+CBC w/diff  X X X X X X X X X  X 
+CMP  X X  X X X X X X  X 
+Pancreatitis labs 
+(amylase, lipase)    X  X X X X X X   
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 7 23 June  2022  Description  Screening1  Treatment and Follow -Up Periods18  
+Screen. 
+Period 1  Screen 
+Period 2  Catheter/ 
+lerapolture
+v2 Post-lerapolturev  infusion, pembrolizumab treatment and Follow -Up (± 7 days)3 
+Week  Within 6 
+weeks of  
+catheter 
+placement  Within 1 
+week 
+relative to 
+catheter 
+placement   1 2 U 
+(3-4)5 5 or 
++3 
+weeks 8 or 
++3 w eeks 11; + every  
+3 weeks to 
+week104 
+max.  Follow -Up End of Study  
+visit 
+Day  -42 to 8  -7 to 1  0 
+(+1 day)  1 14 (28) 35 or 
++21 56 or 
++21 +21 up to 
+max 730  From 
+discontinuation 
+of 
+pembrolizumab  Anytime for 
+permanent 
+discontinuation  
+Visit  1 2 3 4 5 U 6 7 ≥ 8 ≥ 8 
+PT, aPTT   X     X X    
+Pregnancy Test8    X         
+Thyroid Panel9   X   X   X X   
+ATT IgG10  X           
+LSQ11  X X   X  X     
+Whole blood, 
+research analyses12 X X   X  X  X  X 
+Disease Evaluations             
+MRI13  X    (X) X X X X X X 
+CT Scan14    X         
+Biopsy/Tumor 
+research analyses15   X         
+Unscheduled 
+biopsy/tumor tissue 
+collection16   Continuous  
+ORR/DOR/OS    Continuous  
+Treatment(s)             
+Lerapolturev17   X         
+Pembrolizumab18     X X X X X   
+Abbreviations: AE: adverse event; aPTT : activated partial thromboplastin time; ATT IgG: anti- tetanus toxoid immunoglobulin G; CBC with diff: Complete 
+Blood Count with differential; CMP: Comprehensive Metabolic Panel; CT: computed tomography; DOR: duration of response; KPS: Karnofsky 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 8 23 June  2022  performanc e status; LSQ: lymphocyte s ubset quantitation; MRI: Magnetic Resonance Imaging; NANO: Neurologic Assessment in Neuro -Oncology; PRO: 
+patient- reported outcome; PT: prothrombin time; PV: poliovirus; SOC: standard of care; U: Unscheduled  
+1 At Screening Period 1, lab evaluations will occur first, followed by patients receiving their single PV booster vaccine.  
+2  Catheter placement and lerapolturev  infusion (+1 day window or extension as approved by Sponsor). Lerapolturev infusion occurs only  following confirmation of GBM 
+at time of catheter placement or within 6 weeks of visit 3. If diagnosis of GBM is not confirmed/patient not infused, patient is a screen failure. Platelet count should be 
+confirmed prior to catheter placement as well as at t ime of catheter removal and should remain consistent with inclusion criteria 11. Should the platelet count be less than 
+125 x 10 9/L on the day of catheter removal, a platelet transfusion should be administered and platelet count confirmed to be greater t han 125 x 10 9/L prior to catheter 
+removal.  
+3  Following Visit 4, all tests and procedures have a ±7-day window except for dose -limiting toxicity ( DLT ) assessment period for first 3 to 6 participants  (21 days ± 3 
+days) post -first pembrolizumab infusion).  
+4  Questionnaires in support of PROs to occur at visits 2, 4, 6, 8 and then every 9- 12 weeks per scheduled imaging visit follow -up.  
+5  Unscheduled (U): Visit occurs between visits 5 and 6 only if first dose of pembrolizumab is delayed from planned adminis tration at visit 5. If first pembrolizumab 
+infusion is delayed, the schedule of assessments shifts accordingly so the next visit occurs 3 weeks after the date of first pembrolizumab administration.  
+6  Includes height, weight, body surface area, vital sign s (blood pressure, heart rate, respiratory rate, temperature).  
+7  Physical exam, neurologic exam with NANO and KPS daily after lerapolturev  infusion until day of discharge from hospital.  
+8  Individuals of childbearing potential, pregnancy test (urine or serum) within 48 h of catheter placement. Repeat every 6 months or any time pregnancy suspected.  
+9  Thyroid panel (at a minimum: TSH and free T4; may include free and total T3) should occur every 6 weeks while participant is receiving pembrolizumab.  
+10 If undetectable anti -tetanus toxoid immunoglobulin G (ATT IgG) at screen, then Tdap booster vaccine > 1 week prior to biopsy/catheter placement.  
+11  LSQ analysis should include the following (both %, and ABS): CD3 T, CD4 T,  CD8 T, CD19 B, CD56 NK cells. LSQ should be collected at visit 1 (pre -boost), visit 2 
+(post -boost), and before pembrolizumab doses at visits 5 and 6.  
+12  Collection of whole blood for biomarker analyses where indicated. Collected at visit 1 (pre -boost) a nd visit 2 (post -boost), before pembrolizumab doses at visits 5, 6, 8, 
+and at End of Study visit for progression.  
+13  MRI with and without contrast. Screening MRI conducted within 14 days prior to catheter placement. If neurologic deficit pres ents at visit 5 and pembrolizumab dose is 
+held to days 15 to 28, MRI should be conducted and precede pembrolizumab administration. After week 11, MRI to occur every 9-12 weeks or more frequently, at the 
+discretion of the treating physician.  
+14  CT occurs before infusi on to confirm placement criteria and after catheter is removed, post -infusion, to confirm no bleeding.  
+15  If possible, up to 3 additional core biopsies will be obtained for biomarker testing (if not available from archival tissue o btained within 6 weeks) .  
+16  Results from an unscheduled or unplanned biopsy and/or surgical resection should be recorded in the eCRF, and remaining tissue may be requested for analysis.  
+17  Lerapolturev retreatment may be allowed for confirmed progression ≥ 6 months post -initial lerapolturev  infusion with Sponsor/designee approval.  
+18  All visit assessments should be conducted before pembrolizumab administration. Pembrolizumab should be administered every 3 w eeks ± 1 week through week 104, 
+with the first dose at day 14 but up to day 28, if required. If pembrolizumab is permanently discontinued, then safety laboratory evaluations that are not SOC are  no 
+longer required 30 days after the date of pembrolizumab discontinuation.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 9 23 June 2022  1.3. GLOSSARY OF ABBREVIATIO NS 
+Abbreviation  Definition  
+AE Adverse Event  
+AESI  Adverse Event of Special Interest  
+ALP  Alkaline Phosphatase  
+ALT  Alanine Aminotransferase  
+aPTT  Activated Partial Thromboplastin Time  
+AST  Aspartate Aminotransferase  
+ATC  Anatomical Therapeutic Classification  
+ATT  Anti-tetanus toxoid   
+CBC  Complete Blood Count  
+CE  Cerebral Edema  
+CI Confidence Interval  
+CMP  Comprehensive Metabolic Panel  
+CNS  Central Nervous System  
+CR Complete Response  
+CRF  Case Report Form  
+CT  Computed Tomography  
+CTCAE  Common Terminology Criteria for Adverse Events  
+DCR  Disease Control Rate  
+DLT  Dose Limiting Toxicity  
+DOR  Duration of Response  
+DSMB  Data and Safety Monitoring Board  
+EC  Exclusion Criteria  
+EGFR  Epidermal Growth Factor Receptor  
+EGFRvIII  Epidermal Growth Factor Receptor (variant III)  
+FLAIR  Fluid -Attenuated Inversion Recovery  
+GBM  Glioblastoma  
+GTR  Gross Total Resection  
+h  hour  
+IC  Inclusion Criteria  
+ICE Intercurrent Events  
+ICF  Informed Consent Form  
+ICH International Conference on Harmonization  
+IgG  Immunoglobulin G  
+irAE  Immune -related Adverse Event  
+iRANO  Immunotherapy Response Assessment in Neuro -Oncology  
+IV  Intravenous  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 10 23 June 2022  kg  Kilogram  
+KPS Karnofsky Performance Status  
+LS  Landmark Survival   
+LSQ  Lymphocyte Subset Quantitation  
+MedDRA  Medical Dictionary for Regulatory Activities  
+MRI  Magnetic Resonance Imaging  
+n Participant s 
+NANO  The Neurologic Assessment in Neuro -Oncology scale  
+ORR  Objective Radiographic Response/Objective Response Rate  
+OS Overall Survival  
+PD Progressive Disease  
+PP Per-Protocol  
+PR Partial Response  
+PRO  Patient -reported Outcome  
+PT Preferred Term  
+PTE  Peritumoral Edema  
+PV Poliovirus  
+RDI Relative Dose Intensity  
+rGBM  Recurrent Glioblastoma  
+SAE  Serious Adverse Event  
+SAF Safety  Analysis Set  
+SD Stable Disease  
+SOC  Standard of Care  
+TEAE  Treatment -Emergent Adverse Event  
+TESAE  Treatment -Emergent Serious Adverse Events  
+TERT  Telomerase Reverse Transcriptase  
+ULN  Upper Limit Normal  
+VEGF  Vascular Endothelial Growth Factor  
+WHO  World Health Organization  
+WHO -DD WHO Data Dictionary  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 11 23 June 2022  2. OBJECTIVES  
+Objective  Endpoint  
+Primary  
+• Anti-tumor activity   • Objective response rate (ORR)  
+• Duration of response (DOR)  
+• Safety/tolerability  • The frequency and severity of treatment -
+emergent adverse events (TEAE s) via 
+Common Terminology Criteria for 
+Adverse Events (CTCAE) v 5.0 for 
+participants receiving lerapolturev and at 
+least one dose of pembrolizumab  
+Secondary  
+• Anti-tumor activity  • Disease Control Rate (DCR)  
+• Survival   • Overall Survival (OS)  
+• Landmark Survival  (LS) 
+ 
+3. GENERAL STATISTICAL CO NSIDERATIONS  
+3.1. SAMPLE SIZE AND POWER  
+In an analysis of the ongoing Phase 1 study of l erapolturev in rGBM, an ORR of 11% was 
+demonstrated (7/61 participants achieved a complete response ( CR) or partial response ( PR); data 
+on file, Istari). With 30 participants planned to be treated in this study, there is a greater than 75% 
+power to demonstrate a 20% or greater improvement in ORR (ORR > 31%, two- sided P  < 0.05).  
+3.2. HANDLING OF DATA 
+3.2.1.  Strata and Covariates  
+All analyses will be conducted without using strata.  
+ 
+3.2.2.  Multiple Testing and Comparisons   
+All analyses will be conducted without adjustments for multiple comparisons.  
+ 
+3.2.3.  Missing Data  and Outliers  
+Every effort will be made to obtain required data at each scheduled evaluation from all participant s 
+who have been enrolled . In situations where it is not possible to obtain all data, it may be necessary 
+to impute  missing data. These situations are described below. Unless otherwise specified, all other 
+missing data will  not be imputed.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 12 23 June 2022  3.2.3.1.  Missing Severity or Relationship for Adverse Events 
+Adverse events  (AE s) with missing severity will have the severity imputed as “Grade 3” for the AE 
+tabulations. A Es with missing relationship to study drug will have the relationship imputed as 
+‘Definite’ for the AE tabulations if the AE started on or after catheter placement.  
+ 
+3.2.3.2.  Imputation of Incomplete Dates  
+An incomplete date occurs when the exact date an event occurred or ended cannot be obtained from 
+a participant . The database contains data fields for month, day, and year. A date is incomplete if at 
+least one of these three fields is not known. For many of the planned analys es, a complete date is 
+necessary to determine if the event should be included in the analysis (i.e., if the event is treatment -
+emergent) or to establish the duration of an event. In such cases, incomplete dates will be imputed.  
+ For the purposes of handling partially reported start and stop dates for an event the following 
+algorithm  will be applied:  
+1) For onset date:  
+a) If only the day part of the onset date is missing and occurs in the same month and year as the date of dose of study drug, the date of dose of study drug will be used as the onset date. 
+Otherwise, the first day of the month will be used to complete the onset date . 
+b) If the day and month parts of the onset date are missing and occur in the same year as the dose of study drug, the date of the dose of study drug will be used as the onset date. 
+Otherwise, January 1st will be used to complete the onset date.  
+c) If the onset date is completely missing, the date of the dose of study drug will be used as 
+the onset date.  
+2) For end date:  
+a) If only the day part of the end date is missing, the last day of the month will be used to 
+complete the end date.  
+b) If the day and month parts of the end date are missing, December 31st will be used to complete the end date.  
+c) If the end date is completely missing , the maxim um of the participant’s  end of  study date 
+or date of last contact  will be used as the end date.  
+If any imputed start date causes the start date to occur after the end date, the end date will be used 
+for the imputation of the start date. If any imputed end date causes the end date to occur prior to the 
+start date of the event, the start date of the event will be used for the imputation of the end date.  
+ 
+3.2.4.  Presentations by Study Visit  
+When data are collected serially over time, individual data presentations may include by- study visit 
+displays. By -study visit displays will only be summarized up to Week 104. Visits will be presented  
+according to the nominal visit as obtained from the e CRF. If multiple observations are collected at 
+a scheduled visit,  the closes t observation to the target day will be chosen. If two observations have 
+equal distance from the target day but one is earlier and the other is later than the target day, the 
+earlier observation will be chosen. Unscheduled assessments will be included in the listings.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 13 23 June 2022  3.2.5.  Presentations by Worst  Case  
+When data are collected serially over time, individual data presentations may include “worst case 
+on study” displays.  In those situations, both scheduled and unscheduled assessments up to 104  
+weeks will be included.   
+ 
+3.2.6.  Definitions and Terminology  
+Age 
+Age is age at informed consent and is as captured on the e CRF.  
+ Baseline Value  
+For purposes of analysis, the baseline value is defined as the last non- missing value obtained prior 
+to calendar day of lerapolturev infusion . 
+ 
+Day 1 (Baseline)  
+Day 1 is the earliest day that  study drug is initiated. Note that this is a change from the protocol 
+where the first day of study drug administration was designated as Day 0.  
+ 
+Study Day  
+Study Day is defined relative to Baseline  (Day 1) . Thus, the study day of an event is calculated as:  
+ 
+Study Day = event date – date of Day 1  (+ 1, if event date ≥ date of Day 1).  
+ 
+Study Visit  
+Study Visit is the nominal visit as recorded on the e CRF.    
+ Change from Baseline   
+Change from baseline for a given endpoint is defined as t he Study Day X value minus the Baseline 
+Value.  
+ 
+Days on Study  
+Days on study is the number of days from Day 1 to the date of study completion as recorded on the End of  Study eCRF page.  
+ 
+Adverse Event  
+An AE is an untoward or medical occurrence associated with the use of study treatment (drug, biologic, or device) in clinical investigation participants, which does not necessarily have a causal 
+relationship with the study treatment. An AE can therefore be any unfavorable and unintended 
+symptom, sign, disease or condition, or test abnormality (although diagnosis should always be 
+reported as the AE if known) regardless of the relationship to study treatment. AEs that do not meet 
+the definition for a  serious AE ( SAE ) are considered non -serious AEs.  
+ Treatment -emergent  Adverse Event  (TEAE)  
+A TEAE will be an AE that occurred during the study on or after catheter placement . Additionally, 
+it is assumed that an AE  which was r eported to have started on Day 1 without an associated onset 
+time occurred on or after catheter placement . 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 14 23 June 2022   
+Adverse Event of Special Interest  (AESI)  
+AESIs for lerapolturev are  defined as  cerebral spinal fluid leakage, aseptic meningitis, cerebral 
+edema (CE) , peritumoral edema  (PTE) . 
+ 
+irAE 
+An AE of immunologic etiology associated with pembrolizumab  
+ 
+Dose limiting toxicity (DLT)  
+DLTs are defined per protocol as any of the following events related to lerapolturev:  
+1) ≥ Grade 3 neurologic events related to PTE or CE within the first 3 weeks of the first 
+pembrolizumab administration that:  
+a) Do not resolve to ≤ Grade 1 with the management practices outlined herein (≤ 4mg/dexamethasone or 7.5 mg/kg bevacizumab) within 3 weeks of initiating such 
+treatments,  
+and/or  
+b) Require surgical debulking of the PVS RIPO infused tumor within 3 weeks of the first 
+pembrolizumab administration  
+2) Any of the following SAEs:  
+a) Treatment -related death  
+b) Treatment -related life -threatening event  
+c) A medically significant condition (defined as an event that compromises patient safety o r 
+may require medical or surgical intervention to prevent one of the outcomes above).  
+d) Requires inpatient hospitalization or prolongation of existing hospitalization  
+e) Results in persistent or significant incapacity or substantial disruption to conduct normal  
+life functions  
+3) Any Grade 4 non- hematologic toxicity  
+4) Any Grade 3 non- laboratory -based toxicity that is not reversible to its pre -PVSRIPO treatment 
+baseline within 2 weeks of onset with the following exceptions:  
+a) Grade 3 fatigue lasting ≤ 3 days or Grade 3 f atigue in a participant with Grade 1 fatigue at 
+baseline  
+b) Grade 3 diarrhea, nausea, or vomiting without use of anti -emetics or anti- diarrheals per 
+standard of care  
+c) Grade 3 adrenal insufficiency due to suboptimal steroid replacement therapy  
+d) Grade 3 rash without use of corticosteroids or anti -inflammatory agents per standard of 
+care 
+5) Grade 3 or Grade 4 non- hematological laboratory values only if meets one of the serious 
+criteria outlined in 1 above or  
+a) the abnormality persists for > 1 week  
+b) The abnormality result s in a drug- induced liver injury  
+Note: Treatment -emergent, non- clinically significant laboratory abnormalities that are treatable 
+with routine measures, or reversible (≤ 1 week of onset) laboratory abnormalities in and of 
+themselves (including liver function tests, uric acid, etc.), are not considered DLT s. 
+Exceptions (these laboratory values are DLT):  
+• Grade 4 thrombocytopenia of any duration  
+• Grade 3 thrombocytopenia associated with bleeding requiring a platelet transfusion 
+6) Febrile neutropenia meeting  following criteria:  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 15 23 June 2022  a) Grade 3: ANC < 1000/μl with a single temperature of > 38.3° C (101° F) or a sustained 
+temperature of ≥ 38° C (100.4° F) for ≥ 1 hour  
+b) Grade 4: ANC < 1000/μl with a single temperature of > 38.3° C (101° F) or a sustained 
+temperature of ≥ 38° C (100.4°F) for ≥ 1 h, with life -threatening consequences and urgent 
+intervention indicated  
+ Concomitant Medications  
+Concomitant medications are those medications taken on or after catheter placement .  This 
+definition include s medications started prior to catheter placement  but continuing concomitantly 
+with lerapolturev . 
+ 
+Prior Medications  
+Prior medications are defined as medications taken or therapies received by participant s prior to 
+catheter placement.  
+ 
+Immunotherapy Response Assessment in Neuro -Oncology (iRANO ): 
+Note :  While a modified version of iRANO  is described  in Section 8.4.6.1, Table 3 of the protocol, 
+the definitions below , and used in th e efficacy  analys es, were based on iRANO without the 
+modifications described in the protocol.  
+ 
+iRANO are guidelines that incorporate criteria previously defined by the RANO working 
+committee to define CR, PR, SD, and progressive disease ( PD) for participants with malignant 
+glioma, low -grade glioma, and brain meta stases. The key component of iRANO is specific 
+additional guidance for the determination of PD among neuro- oncology participant s undergoing 
+immunotherapy. iRANO guidelines require c onfirmation of progression on follow -up imaging 3 
+months after initial radiographic progression i f: 
+1.  No new or significantly worsened neurologic deficits not due to co- morbid event or concurrent 
+medication AND  
+2. ≤ 6 months from initiation of immunotherapy  
+If follow -up imaging confirms progression, the date of actual progression should be backdated  to 
+the date of initial radiographic progression . Appearance of new lesions solely does not define PD  ≤ 
+6 months from initiation of immunotherapy. The lesions are added to the total lesion areas for 
+follow -up assessments.  
+ 
+Complete Response (CR)  
+CR is defined as:  
+• Disappearance  of all enhancing disease for ≥ 4 weeks AND  
+• No greater than physiologic steroids AND 
+• No new lesions AND 
+• Stable/improved T2/FLAIR A ND 
+• Stable  improved clinically  
+ 
+Partial Response (PR)  
+PR is defined by:  
+• ≥ 50% decrease in the sum of biperpendicular diameters of enhancing disease for ≥ 4 weeks 
+AND  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 16 23 June 2022  • No new lesions AND 
+• Stable/improved T2/FLAIR AND  
+• Stable/improved steroids AND  
+• Stable/improved clinically  
+ 
+Stable Disease (SD)  
+SD is defined by:  
+• Does not qualify for CR, PR, or PD AND 
+• No new lesions AND 
+• Stable/improved T2/FLAIR AND  
+• Stable/improved steroids AND  
+• Stable/improved clinically  
+ 
+Progressive Disease (PD)  which must be confirm ed as described below  
+Initial PD  by RANO is defined by:  
+• ≥ 25% increase in the sum of biperpendicular diameters of enhancing disease OR  
+• New lesions OR  
+• Significant worsened T2/FLAIR  OR 
+• Significant clinical decline  
+ 
+Confirmation of progression on follow -up imaging 3 months after initial radiographic progression 
+is required in the following situations  
+• No new or significantly worsening  neurologic deficits not due to co -morbid event or 
+concurrent medication AND  
+• ≤ 6 months from initiation of immunotherapy  
+ 
+If follow -up imaging confirms progression, the date of actual progression should be backdated to 
+the date of initial radiographic progression.  Also note that the appearance of new lesion solely does not define progressive disease if they oc cur ≤ 6 months from initiation of immunotherapy.  
+Rather the lesions are added to the total lesion areas for follow -up assessments.  
+ Objective Response Rate (ORR)  
+ORR is defined as the proportion of participant s achieving CR or PR  based on iRANO criteria . 
+ 
+Duration of Response (DOR)  
+DOR is defined as time from  objective response ( CR or PR per iRANO criteria)  until confirmed 
+PD or death ; censoring at the date of the last imaging without confirmed PD  prior to the date the 
+subject is considered off study. 
+ 
+Disease Control Rate (DCR)  
+DCR is defined as the proportion of participant s achieving CR, PR, or SD  for ≥ 6 months  (all per 
+iRANO criteria) . 
+ 
+Overall Survival (OS)  
+OS is defined as time from first lerapolturev  infusion to death from any cause, or last follow -up if 
+participant is alive.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 17 23 June 2022  Landmark Survival  (LS)  
+LS is defined as the proportion of participants alive at ≥ 6 and ≥  12 months from time of first 
+lerapolturev  infusion. This will be calculated as survival  rate from the OS  curve a t 6 and 12 
+months .  
+ 
+Treatment Period  
+Treatment period is defined as the period from catheter placement to Week 104.  
+ 
+3.3. TIMING OF ANALYSES  
+The final analysis will be completed after the last participant  completes or discontinues the study 
+and the resulting clinical database has been cleaned, quality checked, and locked.  
+ 
+4. ANALYSIS POPULATIONS  
+Data analyses will be based on the  efficacy , safety  (SAF ) and screening analysis sets.  
+ 
+4.1. EFFICACY ANALYSIS SET  
+The primary efficacy  analysis set includes all participant s who received  at least one dose of 
+lerapolturev  and ≥ 1 dose of pembrolizumab.  This will be the primary population used for the 
+efficacy analyses.   Analyses using the efficacy set  will be conducted based on the treatment  
+received . 
+ 
+4.2. SAFETY ANALYSIS SET  
+ 
+The SAF  includes all enrolled participants who had an infusion catheter placed . This will be the 
+primary population used for the safety analyses.  Participants in the SAF set will be analyzed based 
+on the treatment received.  
+ 
+4.3. SCREENING ANALYSIS SET  
+A screening analysis set will include all participant s who signed the ICF and include screen failures 
+who failed up until catheter pl acement  (e.g., considered a screen failure if biopsy at time of catheter 
+placement does not confirm rGBM). This will be the primary population for the disposition tables and listings. Participants in the screening set will be analyzed based on the treatmen t assigned.  
+ 
+5. STATISTICAL METHODS  
+Descriptive statistical methods will be used to summarize the data from this study . Unless stated 
+otherwise, the term “descriptive statistics” refers to number of participant s (n), mean, median, 
+standard deviation, minimum and maximum for continuous data and frequencies and per centages 
+for categorical data.  Survival endpoints  will be anal yzed with Kaplan -Meier method and 
+summarized with median, twenty- fifth and seventy- fifth percentiles, and 95% confidence intervals 
+(CI), if applicable.  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 18 23 June 2022  All data collected during the study will be included in data listings. Unless otherwise noted, the 
+data will be sorted first by treatment, participant , and then by date within each participant  number. 
+All summary tables  and figures  will be presented by summarizing the overall  population.  
+ Analyses will be implemented using SAS® 9.4 or higher (SAS Institute, Cary, North Carolina, 
+USA). The International Conference on Harmonization (ICH) numbering convention, i.e. , ICH -E3, 
+will be used for all tables and listings. Upon completion, all SAS ® programs will be validated by 
+an independent programmer withi n the staff of the third- party vendor doing the primary analysis. 
+The validation process will be used to confirm that statistically valid methods have been 
+implemented and that all data transformations and calculations are accurate. Checks will be made 
+to ensure accuracy, consistency with this plan, consistency within tables, and consistency between 
+tables and corresponding data listings. All  documents will be verified by the lead statistician to 
+ensure accuracy and consistency of analyses.  
+ 
+5.1. PARTICIPANT  DIS POSITION, DEMOGRAPHIC AND BASELINE 
+CHARACTERISTICS  
+Participant  disposition will be presented for the screening analysis set. A summary table will be 
+generated  for the overall  population. The number of participant s who were screened, screen 
+failures, and t he reason for screen failure will be summarized. Additionally, the number of 
+participant s in each analysis population will be summarized. The end of treatment status  including 
+reason s for treatment discontinuation,  as well as end of study status  including reasons for study 
+discontinuation reason  will be provided. Similarly, the death  status and primary reason for death 
+will be presented.  The number of days on study will  also be summarized.  Participant disposition 
+including analysis population, end of treatment  status and  reason, end of study status and reason, 
+and death status (including date of death)  and reason will be listed.  
+ Demographic data and baseline characteristics including age at informed consent , gender, race, 
+ethnicity , Karnofsky performance status (KPS) at baseline , and baselin e height , and weight  will be 
+summarized using descriptive statistics.  Frequency of KPS scores < 70, 70, 80, 90, and 100 will be 
+summarized for the  safety  population set . Demographic data and baseline characteristics will be 
+listed.  
+5.2. DISEASE CHARACTERISTICS  
+Disease characteristics including  GBM type,  disease status, description (Unifocal or Multifocal) , 
+lesion site  and side , surgical pathology diagnosis , histologic grade , and the number of prio r 
+progressions  will be summarized using the safety  set. Disease characteristics will also be listed.  
+ 
+5.3. CONCOMITANT MEDICATIONS  
+All medication verbatim terms collected will be coded to Anatomical Therapeutic Classification 
+(ATC) and preferred term ( PT) using the World Health Organization ( WHO) Data Dictionary ( DD) 
+Version Sep2020.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 19 23 June 2022  Concomitant medications , including bevacizumab and dexamethasone,  will be summarized by 
+presenting the number and percentage of participant s by PT and ATC , using the safety  set. 
+Participant s taking the same medication multiple times will only be counted once for that PT or 
+ATC. Each summary will be ordered by descending order of incidence of ATC class and PT within 
+each ATC class.  
+ 
+The number of participant s who receive bevacizumab will be tabulated along with the number of 
+doses administered , and dose levels received . Cumulative actual dose will be summar ized. A 
+participant’s bevacizumab administration record will be included if it occurred after catheter 
+placement and prior to the participant’s Week 104 , start date of subsequent anticancer therapy, or 
+end of study/last contact date  -- whichever occurs first.  If a participant has bevacizumab listed as a 
+post-study systemic monotherapy record, these data will be included in the analysis if the start and 
+stop dates occur prior to any other type of subsequent anticancer therapy (eg, lomust ine, 
+pembrolizumab, irinotecan, nivolumab, carboplatin, etc.).  
+ 
+The number of participants who receive dexamethasone will be tabulated. The days on 
+dexamethasone, cumulative actual dose, and average daily dose will also be summarized. Exposure 
+will only be  calculated from catheter placement to Week 104, start date of subsequent anticancer 
+therapy, or until the participant’s end of study/last contact date  -- whichever occurs first.  
+ 5.4. BRAIN SURGERY, RADIOTHERAPY AND SYSTEMIC THERAPY 
+Brain surgery data will be listed. The number and percentage of participant s with prior brain 
+surgery will be summarized; data to be included in the summary are type of procedure , histologic 
+diagnosis, Central Nervous System ( CNS ) site, and CNS side.  
+ 
+The prior and subsequent radiot herapy will be listed.  The number and percentage of participant s 
+with prior radiotherapy will be summarized; data to be included in the summary are CNS site , 
+radiation therapy type , and total dose delivered . If a participant  experiences more than one prior  
+radiotherapy, the worst -case will be used for numerical summaries and all cases will be presented 
+for categorical summaries. A participant  will only be included in a single category once.  
+ All verbatim terms collected for both prior and subsequent systemi c therapy will be coded to ATC 
+and PT using the WHO -DD Version Sep20 20. 
+ 
+The prior  and subsequent  systemic therapy  will be listed. The prior systemic therapy data  will be 
+summarized by presenting the number and percentage of participant s by PT and ATC  and total 
+number of cycles . Participant s taking the same medication multiple times will only be counted once 
+for that PT or ATC. Each summary will be ordered by desce nding order of incidence of ATC class 
+and PT within each ATC class. Additionally, the total number of cycles will be summarized. If a participant  experiences more than one prior systemic therapy, the worst -case will be used for 
+numerical summaries and all cases will be presented for categorical summaries. A participant  will 
+only be included in a single category once.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 20 23 June 2022  5.5. TISSUE BIOMARKERS  
+Tissue biomarker and core biopsy data will be listed. The following information will be 
+summarized:  
+• EGFR IHC  
+• EGFRvIII IHC  
+• MGMT IHC  
+• MGMT promoter methylation  
+• IDH1 R132H  
+• IDH1 molecular diagnostics  
+• IDH1 mutation type  
+• IDH2 molecular diagnostics  
+• IDH2 mutation type  
+• TERT molecular diagnostics  
+• TERT mutation type  
+• PVR IHC  
+ 
+5.6. EXPOSURE  
+The number of participant s who received s tudy drug (l erapolturev and pembrolizumab)  and 
+cumulative actual dose received will be summarized.  The number of cycles of  pembrolizu mab 
+administered  will be summarized  using 0 cycles, 1 -5 cycles, > 5 cycles .  The relative dose intensity 
+(RDI) of pembrolizumab will be summarized using the percentage of drug a participant received compared to the planned amount of drug received, such that if the RDI is 100% the participant 
+received all  the planned doses.  To calculate the RDI is (actual cumulative dose / planned 
+cumulative dose) * 100.  
+ 
+5.7. EFFICACY  
+5.7.1.  Primary Efficacy Endpoint s 
+The primary efficacy endpoints are ORR  and DOR.    
+ 
+5.7.1.1.  Statement of Estimand  
+The population for the trial  is defined through appropriate inclusion/exclusion criteria (IC/EC) to 
+reflect the targeted participant  population for approval. The analysis population is based on the 
+efficacy analysis set . 
+ 
+The treatment  of interest is l erapolturev  + pembrolizumab . 
+ The variable  of interest for ORR is the binary response value for a participant . For  DOR , the 
+variables of interest are the time from first response to confirmed progression/death/censoring .  
+ The ability to evaluate treatment effect using the variables may be impacted by intercurrent 
+events (ICEs) . Death and use of additional cancer treatments  may all impact the interpretation of 
+treatment effect.  For ORR, a composite strategy will be used to a ddress intercurrent events (ICEs) 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 21 23 June 2022  of potential death  and start of additional cancer treatments, meaning occurrence of any of these 
+events prior to a participant  achieving CR or PR will mean the participant  is considered a non -
+responder . DOR will use a composite strategy as well, treating death as an event that ends 
+response, and the start of additional cancer treatments  medications will be censored under the 
+strategy .  
+ 
+The population level summary measures are the ORR , and the  Kaplan Meier  (KM)  estimate d 
+median DOR , and associated CI  for treatment.  
+ 
+5.7.1.2.  Primary Efficacy Analysis 
+All efficacy endpoints for participant s receiving l erapolturev  and ≥ 1 dose of pembrolizumab will 
+be summarized for the overall  population.  
+The number of participant s in each category of best overall response (CR, PR, SD, PD ), and ORR  
+will be summarized.  ORR along with their associated exact  95% two-sided confidence intervals 
+(CIs) using Clopper Pearson method will be computed . 
+ 
+The number of participant s with disease progression or death and the number of censored 
+participant s will be summarized. DOR will be summarized using Kaplan- Meier method s, and the 
+descriptive statistics of median, 25% and 75% percentiles along with their 95% CIs will be 
+calculated.  The Kaplan -Meier survival curve will also be plotted.   
+ Supportive data listings will also be provided.  
+ 
+5.7.2.  Secondary Efficacy  Endpoints  
+The s econdary efficacy endpoints  for the study are : 
+• DCR 
+• OS (including median OS and LS)  
+ 
+5.7.2.1.  Secondary Efficacy Analysis  
+OS, including LS rates  at ≥6 and ≥12 months  will be summarized using Kaplan- Meier method  to 
+estimate the median, 25% and 75% percentiles along with their 95% CIs.  
+ 
+In addition to the quartile summary from Kaplan- Meier method, Kaplan -Meier estimates will be 
+provided for the survival rates at 6 and 12  months  along with the 95% CIs  for O S. 
+ 
+Analysis of DCR  will be conducted in a similar manner  to ORR  in Section 5.7.1.2.  
+ 
+5.8. SAFETY  
+Values for all safety variables will be listed by participant  and visit  (as applicable) . Safety 
+summaries by visit will use scheduled visits up to Week 104.  
+ 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 22 23 June 2022  5.8.1.  Adverse Events  
+AEs will be mapped to a Medical Dictionary for Regulatory Activities (MedDRA) version 2 3.1 by 
+system organ class and PT. If a participant  experiences multiple events that map to a single PT, the 
+greatest severity and strongest assessment of relation to a study drug  will be assigned to the PT for 
+the appropriate summaries. AE severity  will be assessed according to the CTCAE versio n 5. If 
+CTCAE grading does not exist for an AE, the severity of the AE will be graded as mild (1), 
+moderate (2), severe (3), life -threatening (4), or fatal (5).  
+ The number of participant s for the following groups will be summarized by overall : 
+• Any TEAE 
+• Any TEAE related to a study drug or catheter  with sub bullets  for TEAEs related to 
+catheter placement, lerapolturev or  pembrolizumab  
+• Any TESAE 
+• Any TESAE related to a study drug or catheter  with  sub bullets  for TE SAEs related to 
+catheter placement, ler apolturev or  pembrolizumab  
+• Any DLTs  
+• Any AESIs for lerapolturev  
+• Any irAEs for pembrolizumab  
+• Any TEAEs leading to discontinuation of study treatment   
+• Any TEAE with grade ≥ 3 
+• Any TEAE with grade ≥ 3  related to study drug or catheter  with sub  bullets for TEAEs  
+with grade ≥ 3  related to catheter placement, lerapolturev or pembrolizumab  
+• Any Grade 5 TEAEs  
+• Any Grade 5 TEAEs related to study drug or catheter with sub bullets for Grade 5 TEAEs 
+related to catheter placement, lerapolturev or pembrolizumab  
+ 
+The occ urrence of TEAEs  and TEAEs related to study drug or catheter will be summarized by PT, 
+system organ class, and severity. All AE s reported will be listed for individual participant s showing 
+both verbatim and PT. All AEs that occurred prior to catheter placement  will be excluded from the 
+tables but will be included in the listings.  
+ Missing onset dates will be imputed as previously outlined in Section 3.2.3.2  as required to 
+determine TEAEs . 
+5.8.2.  Clinical Laboratory Assessments  
+AEs for clinical labs will be characterized according to CTCAE version 5 (when possible ) and shift 
+in grade from baseline to the worst post -baseline value will be summarized. Both scheduled and 
+unscheduled assessments will be used to identify the worst post -baseline values.  
+ 
+The following categories of abnormal hepatic laboratory values will be evaluated for any  
+occurrence among all post baseline assessments.  
+• Alanine Aminotransferase (ALT ) and/or Aspartate Aminotransferas e (AST) > 3 x upper 
+limit normal ( ULN), Alkaline Phosphatase (A LP) < 2 x ULN, and Total Bilirubin  ≥ 2 x 
+ULN 
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 23 23 June 2022  • AST > 3,  5, 8, 10, and 20 x ULN, and 5 x ULN for more than 5 we eks 
+• ALT > 3,  5, 8, 10, and 20 x ULN , and 5 x ULN for more than 5 weeks  
+• Total Bilirubin >  1.5 or ≥ 2 x ULN 
+ 
+Listings of all laboratory data with normal reference ranges, and CTCAE grades (when possible) 
+will be provided.  
+ 
+5.8.3.  Vital Signs  
+For vital sign parameters (systolic blood pressure, diastolic blood pressure, heart rate, respiratory 
+rate, body temperature, and weight) the observed values and change from baseline will be 
+summarized using descriptive statistics at each visit.  The maximum post -baseline  values and the 
+change from baseline  by visit  will also be summarized.  
+ 
+A listing of all vital sign data will be provided.  
+ 
+5.8.4.  KPS  
+The observed values and the change from baseline in the K PS will be summarized using 
+descriptive statistics at each visit.  The m aximum post -baseline values and the change from baseline 
+by visit  will also be summarized.  
+ 
+A listing of KPS data will be generated.  
+ 
+5.8.5.  NANO  
+The number of participants and percentage in each category of the Neurologic Assessment in 
+Neuro -Oncology (NANO) scale score.  
+ A listing of  NANO data will be generated.  
+ 
+6. CHANGES IN THE PLANNED ANALYSES  
+1. Day 0 is the earliest day that study drug is initiated but will be designated as Day 1 based on 
+implementation standard s for the analysis.  
+2. Central imaging review was not completed; therefore, results from this will not be presented.  
+3. The following analyses will not be completed:  
+a. Durable radiographic response (DRR)  
+b. Duration of disease control (DDC)  
+c. Progression- free survival (PFS)  
+d. Analysis of Per -Protocol population  
+e. Analyses based on participant strata (prior anti -VEGF agents, prior chemotherapy use)  
+f. Analyses on the efficacy set and PP set for the following subgroups:  baseline NANO 
+score, KPS, prior bevacizumab and chemother apy or other treatment use/failure, extent of 
+surgery at diagnosis, MGMT promoter methylation status and/or other tumor genetic 
+factors at diagnosis and baseline, lesion cross -sectional area at baseline, number of prior 
+progressions, age, gender.  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 24 23 June 2022  g. Landmark survival at month 24  
+h. Exploratory analyses including analysis of efficacy based on modified iRANO criteria in 
+Section 8.4.6.1, Table 3 of the protocol, identification of biomarkers of anti -tumor response 
+to lerapolturev following by pembrolizumab or assessm ent of patient reported outcomes  
+4. The entire anticipated sample size of patients was not enrolled .  
+  
+7. REVISION HISTORY  
+Date  Revision  Rationale  
+23 June 2022  NA Original Document  
+   
+8. REFERENCES  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 25 23 June 2022  9. PROGRAMMING CONVENTIONS  
+• Page orientation, margins, and fonts : Summary tables, listings, and figures will appear in 
+landscape orientation.  There should be a minimum of a 1.0” boundary on the left and right 
+edges. The top and bottom margins are 1.0” for tables and listings but may vary for figures. 
+Output shoul d be printed in Courier New with a point size of 8.  Titles may be printed using a 
+larger font (e.g., Arial point size 10).  
+• Identification of analysis population: Every summary table and figure should clearly specify 
+the analysis population being summarize d.  Listings will be prepared for all participant s. 
+• Group headers:  In the summary tables, the group headers will identify the summary  group and 
+the sample size for the indicated analysis population.  Of note, the header’s sample size does 
+not necessarily e qual the number of participant s summarized  within any given summary 
+module; some participant s in the analysis population may have missing values and thus may 
+not be summarized.  
+• Suppression of percentages corresponding to null categories:  When count data ar e presented as 
+category frequencies and corresponding percentages, the percent should be suppressed when the count is zero to draw attention to the non- zero counts.  
+• Presentation of sample sizes:  Summary modules should indicate, in one way or another, the 
+number of participant s contributing to the summary statistics presented in any given summary 
+module.  As mentioned above, this may be less than the number of participants in the analysis 
+populati on due to missing data . 
+• In the quantitative modules describing continuous variables (and thus presenting sample 
+size, means, and standard deviations), the sample size should be the number of non-
+missing observations .  The number of missing observations, if  any, will be noted.  
+• For categorical variables that are presented in frequency tables, the module should present 
+the total count in addition to the count in each category.  Percentages should be calculated using this total as the denominator, and the perce ntage corresponding to the sum itself (that 
+is, 100%) should be presented to  indicate clearly to a reviewer the method of calculation.   
+The number of missing observations, if any, will be noted.  
+• Sorting:  Listings will be sorted participant  number and date,  if applicable.  If a listing is sorted 
+in a different manner, a footnote will indicate as such.  
+• General formatting rules:  Rounding for all variables will occur only as the last step, 
+immediately prior to presentation in listings, tables, and figures.  No intermediate rounding will be performed on derived variables.  The standard rounding practice of rounding numbers 
+ending i n 0-4 down and numbers ending in 5- 9 up will be employed.   
+• Numerical Values: The presentation of numerical values will adhere to the following 
+guidelines:  
+• Raw measurements will be reported to the number of significant digits as captured 
+electronically or  on the CRFs.   
+• Standard deviations will be reported to one decimal place beyond the number of decimal 
+places the original parameter is presented.  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 26 23 June 2022  • Means will be reported to the same number of significant digits as the parameter.  
+• Calculated percentages wil l be reported with no decimals.  
+• Dates will be formatted as DDMMMYYYY.  Partial dates will be presented on data listings as 
+recorded on CRFs.  
+• Time will be presented according to the 24 -hour clock (HH :MM).  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 27 23 June 2022  10. PROPOSED  TABLES, LISTINGS, AND FIGURES  
+ 
+Summary Tabl es 
+Accountability and Baseline Characteristics  
+14.1.1.1  Participant  Disposition, Screening Set  
+14.1.2.1  Demographics and Baseline Characteristics, Safety  Set 
+14.1.3.1  Disease Characteristics, Safety  Set 
+14.1.3.2  Summary of Prior Anti -Cancer Therapy , Safety  Set 
+14.1.3.3  Summary of Tissue Biomarkers, Safety  Set 
+14.1.4.1  Concomitant Medications , Safety  Set 
+14.1.4.2  Bevacizumab Administration, Safety  Set 
+14.1.4.3  Dexamethasone Use , Safety  Set  
+14.1.5.1  Summary of Study Drug Exposure , Safety Set  
+ 
+Efficacy  
+14.2.1.1  Summary of Best Overall Tumor Response and Duration of Response  by iRANO 
+Criteria , Efficacy Set  
+14.2.2.1  Summary of Overall  Survival , Efficacy Set  
+ 
+Safety  
+14.3.1.1  Overall Summary of Treatment- Emergent Adverse Events , Safety Set  
+14.3.1.2  Treatment -Emergent Adverse Events by System Organ Class, Preferred  
+  Term, and Greatest Severity , Safety Set  
+14.3.1.3  Treatment -Emergent Adverse Events by Preferred Term  in Descending Frequency, 
+Safety Set  
+14.3.1.4  Treatment -Emergent Adverse Events Related to Study Drug or Catheter  by System 
+Organ Class, Preferred Term, and Greatest Severity, Safety Set  
+14.3.1.5       Treatment -Emergent Adverse Events Related to Study Drug or Catheter  by 
+Preferred Term  in Descending Frequency, Safety Set  
+14.3.1.6  Treatment -Emergent Serious Adverse Events by System Organ Class, Preferred 
+Term and Greatest Severity, Safety Set  
+14.3.1.7  Treatment -Emergent Serious Adverse Events Related to Study Drug or Catheter  by 
+System Organ Class , Preferred Term, and Greatest Severity, Safety Set  
+14.3.1.8  Treatment -Emergent Dose Limiting Toxicities  by System Organ Class, Preferred 
+Term and Greatest Severity, Safety Set  
+14.3.1.9  Treatment -Emergent Adverse Events of Special Interest  for Lerapolturev  by 
+System Organ Class , Preferred Term, and Greatest Severity, Safety Set  
+14.3.1.10  Treatment -Emergent irAEs for Pembrolizumab by System Organ Class,  Preferred 
+Term, and Greatest Severity, Safety Set  
+14.3.1.11  Treatment -Emergent Adverse Events Leading to Discontinuation of Study 
+Treatment by System Organ Class , Preferred Term, and Greatest Severity, Safety 
+Set 
+14.3.4.1  Summary of Grade Shifts in Laboratory Abnormalities – Hematology, Safety Set  
+14.3.4.2  Summary of Grade Shifts in Laboratory Abnormalities – Chemistry , Pancreatic 
+and Thyroid, Safety Set  
+
+Istari Oncology Inc.  LUMINOS -101 
+Statistical Analysis Plan  Version 1.0  
+ 
+ 
+CONFIDENTIAL  Page 28 23 June 2022  14.3.4.3  Number of Participant s with at Least One ALT, AST, or Total Bilirubin Above 
+Upper Limit of the Normal Range Post -Baseline, Safety Set  
+14.3.4.4  Summary of Vital Signs by Visit, Safety Set  
+14.3.4.5  Summary of Karnofsky Performance Status by Visit, Safety Set  
+14.3.4.6  Summary of Neurologic Assessment in Neuro -Oncology Score by Visit, Safety Set  
+Summary Figures  
+Efficacy  
+14.2.1.2  Overall Survival – Kaplan Meier Curve, Safety Set  
+14.2.2.2  Duration of Response – Kaplan Meier Curve, Safety Set  
+Data Listings  
+16.2.1.1  Participant Enrollment  
+16.2.1.2  Participant Disposition  
+16.2.3.1  Analysis Sets  
+16.2.4.1  Demographics and Baseline Characteristics  
+16.2.4.2  Medical History  
+16.2.4.3  Disease Status  
+16.2.4.4  Prior Progressions  
+16.2.4.5.1   Brain Surger y 
+16.2.4.6.1  Prior Radiation Therapy  
+16.2.4.6.2  Post-Study Radiation Therapy 
+16.2.4.7.1  Prior Systemic Therapy  
+16.2.4.7.2  Post-Study Systemic Therapy  
+16.2.4.8.1  Prior and Concomitant Medications  
+16.2.4.9.1  Tissue Biomarkers / Disease History  
+16.2.5.1.1  Catheter Placement  
+16.2.5.1.2  Lerapolturev Infusion  
+16.2.5.1.3  Pembrolizumab  Infusion  
+16.2.6.1  Lesion Description & Assessment  
+16.2.6.2  Lesion Response  
+16.2.6.3  Follow -Up 
+16.2.7.1  Adverse Events  
+16.2.8.1  Laboratory Values – Hematology  
+16.2.8.2  Laboratory Values – Chemistry  
+16.2.8.3  Laboratory Values – Coagulation  
+16.2.8.4  Pregnancy Test  
+16.2.8.5  COVID -19 Impact  
+16.2.9.1  Vital Signs  
+16.2.10.1  Neurologic Assessment in Neuro -Oncology  
+ 
+ 

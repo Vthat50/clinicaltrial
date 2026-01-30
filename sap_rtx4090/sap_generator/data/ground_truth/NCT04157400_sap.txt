@@ -1,0 +1,678 @@
+PROTOCOL TITLE: 
+Neuromodulation of motor and sensory spinal pathways in patients undergoing epidural spinal cord stimulation. 
+ 
+ 
+PRINCIPLE INVESTIGATOR: 
+Nathan C. Rowland, MD, PhD 
+ 
+ 
+CO-INVESTIGATORS: 
+Taylor Mayberry 
+Mark Bowden, PT, PhD 
+ 
+ 
+ 
+ 
+1.0 Objectives/Specific Aims 
+An estimated 300,000 individuals in the United States have spinal cord injury (SCI) leading to chronic sensory 
+and motor dysfunction and in many cases subsequent loss of ambulation and independence.1 In addition to its 
+substantial negative impact on quality of life, loss of independence is associated with an economic burden on 
+SCI patients estimated between $1.5 – 2.3 million cumulatively over their lifetimes.1,2 While physical rehabilitation 
+for SCI has remained relatively unchanged in the past 20 years, the field of neuromodulation for SCI has evolved 
+rapidly within the past decade. For instance, the addition of an implantable epidural spinal stimulator device has 
+shown that, in tandem with locomotor training, low frequency tonic stimulation (LFTS) facilitates activation of 
+lower extremities during volitional contracture attempts along with increased contralateral and synergistic motor 
+output through stand/step events.3,4,5 This paradigm has led to recovery of ambulation in several SCI patients, 
+generating widespread optimism in the SCI research community. However, mapping of activation thresholds for 
+individual nerve roots using these methods is not clinically scalable. We propose to utilize multiple independent 
+current control (MICC) and complex waveform configurations available on the Boston Scientific Spectra 
+WaveWriter™ (BSW) implantable pulse generator (IPG) to investigate whether individual nerve root activation 
+threshold mapping can be achieved on a temporal scale suitable for clinical utility in patients with SCI. 
+ 
+The spinal cord relies on input from the motor cortex and surrounding extremities to initiate specific muscle 
+recruitment, and recent evidence suggests that preservation of temporally specific proprioceptive information via 
+dorsal column primary afferent fibers is critical for regaining ambulation following SCI.6,15 Current advancements 
+in stimulator technology allow multiple program MICC delivery to be distinct from one another in both spatial 
+targeting and waveform parameter. Additionally, new stimulator devices may alleviate the attenuating effect on 
+primary afferent impulses using high frequency burst stimulation (HFBS), significantly reducing quantity of 
+primary afferent recruitment needed for muscle activation.6,15 Our lab specializes in electrophysiological 
+recordings in patients undergoing spinal cord stimulator implantation for chronic pain. In this proposal, we will 
+apply these techniques to patients with incomplete SCI as well as a control population with chronic pain. Analysis 
+of effects associated with spinal neuromodulation yielding changes in kinematics, proprioception, and/or module 
+classification will be investigated.16,17 Our plan includes the following specific aims:  
+ 
+Aim 1. Determine the ability of BSW to isolate nerve root activation intraoperatively using MICC and 
+customized HFBS patterns. Question: Will utilization of MICC and HFBS waveform patterns allow accurate 
+rostral/caudal and medial/lateral paddle placement? In this aim, both patient groups undergoing SCS paddle and 
+IPG implantation under general anesthesia will have subcutaneous needle electrodes placed for EMG 
+identification of contacts and stimulation amplitudes eliciting equivalent bilateral, proximal and distal muscle 
+activity. We hypothesize that MICC and HFBS will facilitate guidance for proper paddle placement with lower 
+current amplitude and with a higher degree of muscle specificity when compared to traditional LFTS. 
+ 
+Aim 2. Determine the effect of MICC and HFBS on proprioceptive afferent signaling with stimulation 
+configurations targeting muscle groups relevant to functional task. Question: Does MICC/HFBS, when 
+compared to traditional LFTS, allow for increased spatial limb awareness during passive motion? In this aim, 
+postoperative patients will undergo isokinetic passive proprioceptive testing during spinal cord stimulation with 
+optimal HFBS and LFTS parameters targeting musculature surrounding the knee and ankle. We hypothesize 
+that subjects will have increased awareness of limbs in space through passive movement during optimal HFBS 
+compared to optimal LFTS parameters. 
+ 
+Aim 3. Determine the effect of MICC and HFBS on co-activations of lower extremity musculature through 
+gait. Question: Does MICC/HFBS, when compared to LFTS, differentially effect muscle synergy patterns 
+responsible for the underlying biomechanical aspects of ambulation? In this aim, subjects from SA1 and SA2 will 
+perform treadmill walking while undergoing MICC/HFBS and LFTS. Subjects will be monitored with surface EMG 
+and 3-D kinematic tracking software to quantify any changes in walking performance. We hypothesize that 
+subjects will have decreased EMG module complexity through gait while experiencing optimal LFTS when 
+compared to optimal HFBS. 
+ 
+ 
+ 
+Commented [RN1]: This is actually not what we’re 
+doing 
+Commented [RN2]: reword 
+2.0 Background 
+ 
+Significance 
+The incidence rates of spinal cord injury (SCI) in the United States are currently estimated at 54 cases per million 
+or 17,000 new cases of SCI per year.1 The major causes of spinal cord injury are motor vehicle crashes and falls, 
+representing 35% and 31% of new cases, respectively. Incidence of falls leading to SCI rises significantly with 
+age resulting in 57% of cases at 60 years of age and older.9 The last half century has seen a steady increase in 
+mean age at onset of injury – 37.1 years in 2005 and 42 years of age as of 2018.1,10 With an estimated lifetime 
+economic burden of $1.5 - $2.3 million coupled with low rates of patients returning to employment (approximately 
+12% at one-year post injury) additional study is warranted in attempts to increase independence and shorten the 
+recovery time of the SCI population.1,2  
+ 
+Physical interventions for this population base has greatly centered around the concept of traditional gait training, 
+which utilizes leg bracing and upper extremity load bearing to facilitate upright movements to compensate for 
+compromised muscle activity below the level of injury. More successfully, activity-based therapy, which emerged 
+in the early 2000’s, focuses on activation of musculature below the level of injury while avoiding compensatory 
+strategies in attempts to return the patient to neurological norms.12 Harkema et al 2011 demonstrated significant 
+improvement in one of three traditional outcome measures (Berg Balance Scale, 6 Minute Walk Test, 10 Meter 
+Walk Test) in 88% of subjects with incomplete injury using activity-based therapy. 13 The rate of recovery in the 
+SCI population is stratified according to the American Spinal Injury Association Impairment Scale (AIS). Seventy-
+eight percent of patients having incomplete injury evaluated as AIS C at onset of injury increase at least one AIS 
+level within the first year of injury after appropriate physical therapy.11 
+ 
+Several groups have begun exploring whether addition of spinal cord neuromodulation to activity-based therapy 
+can facilitate standing, walking, and other functionally relevant tasks. In 2009 Harkema et al implanted a 16-
+electrode array stimulator epidurally in a chronic complete SCI patient.3 Tonic stimulation ranging from 5-60 Hz 
+(frequency), 210 to 450 s (pulse width) and amplitude ranging from 0.1 to 8.0 V was found to elicit lower 
+extremity musculature activity causing co-activation during standing, rhythmic activation during stepping, and 
+mechanically appropriate activation of agonist lower extremity muscles during weight shift in a subject with 
+otherwise quiescent muscle activity.3 Building on the foundation of tonic stimulation, Gill et al introduced multiple 
+independent current control (MICC) which allows for different stimulation parameters to be delivered in tandem, 
+innervating spatially distinct regions of the spinal cord. The sequential programs supported bilateral tasks while 
+stimulating at constant frequency, 20-50 Hz, suggesting that complex charge delivery via MICC can enable 
+independent modulation of spinal motor neuron pools. Other recent findings by Angeli et al, 2018 incorporated 
+the novelty of stimulation configuration mapping (SCM). SCM is the process of using local field (adjacent anode 
+and cathode) and wide field (non-adjacent anode and cathode) electrode configurations incorporating various 
+amplitudes and frequencies in attempts to produce more robust and rhythmical activation patterns of specific 
+muscle groups.14 After performing SCM for four motor complete SCI subjects, the group utilized the customized 
+programs to deliver tonic stimulation at fixed frequency and varying amplitudes during activity-based therapy. 
+Using this method, two of the four participants were able to gain over-ground ambulation without manual 
+facilitation after 278 LT sessions and 81 LT sessions, respectively.14 The effect of adding epidural spinal 
+waveform stimulation in addition to MICC has not been investigated in the SCI population. 
+ 
+The ability to program customized waveform stimulation patterns may help to address another important factor 
+(in addition to nerve root selection) in facilitating recovery of standing and walking: preservation of proprioception. 
+The amount of compromised afferent information during traditional spinal cord stimulation via LFTS is dependent 
+upon the quantity of dorsal column primary afferents recruited and is proportional to increases in current and 
+pulse width with both leading to increased fiber recruitment.6-7 Traditional stimulation parameters (15Hz-100Hz, 
+210s–450s, 4.5mA–9.0mA) were found to cause detriment to interneuron modulation of inhibitory/excitatory 
+interneurons from antidromic collision when amplitudes are high enough to innervate their homonymous motor 
+neuron pool to activation threshold. However, high frequency burst stimulation (HFBS) at 600Hz was found to 
+illicit motor neuron activation with a 39.8% reduction in current amplitude and 15% recruitment of modeled 
+homonymous afferents, as opposed to 45% recruitment utilizing LFTS to elicit similar motor neuron activation.6 
+ 
+The need for task-specific functional evaluation of SCI patients is of paramount concern to both clinicians and 
+researchers. Using an analysis technique known as non-negative matrix factorization (NNMF), previous research 
+in human locomotion has uncovered the existence of muscle synergy patterns that are activated during task-
+specific functions and may be characterized into modules.16 Bowden et al investigated the capacity of NNMF to 
+accurately reflect walking capacity in six walking assessments against the Fugl-Meyer Assessment (FMA). The 
+FMA is a common clinical outcome instrument assessing motor function in neurologically impaired individuals.19 
+The 17-item assessment for lower extremity function was designed to assess complex muscle activation needed 
+for functional tasks. NNMF was found to be highly correlative to all six walking outcomes, while FMA correlated 
+to two of six, indicating that NNMF may be superior to FMA for analysis of lower extremity functionality during a 
+given functional task.17  Furthermore, module complexity through task-specific function was found to be 
+negatively impacted by dorsal root deafferentation suggesting that the investigative technique may serve as a 
+qualitative outcome measure and an indicator of proprioceptive retention.15  
+ 
+3.0 Intervention to be studied 
+ 
+Overview 
+This study will perform the following research-specific procedures: 
+1) Epidural spinal cord stimulation (SCS) 
+2) Proprioception testing 
+3) Body weight support and treadmill (BWST) testing 
+ 
+Definitions and nomenclature 
+Spinal cord stimulation (SCS) will be performed using a 32-electrode paddle 
+array (Boston Scientific, Marlborough, MA) (Figure 1) implanted in the dorsal 
+epidural space along the thoracolumbar region of the spinal cord. The array 
+will be powered by a multiple independent current-controlled (MICC) 
+implantable pulse generator (IPG) connected to the paddle via leads 
+tunneled to the site of IPG placement per standard of care procedures for 
+SCS implantation. Intraoperative subcutaneous needle placement for motor 
+evoked potential (MEP), somatosensory evoked potential (SSEP) and 
+electromyography (EMG) is a standard of care intraoperative adjunct used 
+for SCS paddle placement) and will be delivered by a <find out name of 
+machine> (Cadwell, Kennewick, WA). MUSC’s locomotion rehabilitation 
+laboratory – located at the College of Health Professions Building C - houses 
+a Biodex (Biodex Medical Systems, Shirley, NY) Pro System 4 
+isokinetic/isometric dynamometer. The Biodex will standardize application 
+of passive isokinetic knee flexion/extension trials to each blinded subject 
+for proprioceptive investigations. Finally, describe system in gait lab <here 
+you just need to say what each thing is used for> 
+ 
+So and so will be referred to as TTDPM throughout the rest of this document 
+ 
+Device use 
+The epidural stimulator paddle (Boston Scientific, Marlborough, MA, model 4x8 CoverEdge™ 32) and IPG 
+(Boston Scientific, Marlborough, MA, model Spectra WaveWriter™) are FDA-approved, commercially available 
+devices designed to treat chronic pain of the back and lower extremities and will be used for their intended 
+purpose – electrical stimulation of dorsal column fibers to mitigate pain perception. 
+ 
+4.0 Inclusion and Exclusion Criteria / Study Population. 
+Only patients considered an acceptable surgical candidate for SCS will be eligible for recruitment into this study.  
+ 
+For patients with chronic pain, all diagnostic procedures will have taken place prior to recruitment as part of the 
+routine diagnosis and care of patients with chronic pain. It is standard of care to require failure of conservative 
+therapy, e.g., physical therapy and/or epidural steroid injections, and SCS temporary trial by a board-certified 
+pain management specialist in addition to neuropsychological testing by a board-certified neuropsychologist prior 
+to being considered for permanent SCS implantation. No patient will receive an MRI scan in order to be included 
+in this study, and patients who did not have an MRI as part of their clinical assessment will not be eligible for this 
+study.  
+Figure 1: Boston Scientific CoverEdge™ 32 
+Surgical Lead (left) and fluoroscopic image of 
+the stimulator array after implantation along 
+the dorsal epidural space (right). 
+ 
+For patients with incomplete SCI, a medical history review and AIS classification evaluation will have already 
+been performed by a board-certified physical medicine and rehabilitation physician or licensed physical therapist 
+prior to undergoing the same diagnostic workup for SCS. 
+ 
+All preoperative evaluations described above constitute standard of care for both populations. Patient eligibility 
+for this study will be based on the following inclusion/exclusion criteria: 
+ 
+Inclusion Criteria 
+- 
+Patients consented and scheduled for SCS surgery with the PI 
+- 
+Age 18-80 
+ 
+Exclusion Criteria 
+- 
+Patients unable to actively participate in the consent process physically and/or cognitively 
+- 
+Patient with SCI and AIS A or B classification 
+- 
+Prior history of spinal neoplasm, infection, arteriovenous malformation and/or radiation to the spine  
+ 
+The rationale for these criteria are as follows: patients with prior history of tumor, infection, arteriovenous 
+malformation and/or radiation of the tissues surrounding the epidural space may result in formation of scar tissue 
+which directly alters the resistance of the tissue to passing electrical current, potentially confounding study data. 
+Patients with AIS classification of B or higher may be motor/sensory complete and unable to participate in the 
+study protocol.  
+ 
+5.0 Number of Subjects 
+We propose to study 5 individuals with intractable lower back and/or leg pain and comorbid incomplete spinal 
+cord injury, with an additional 5 subjects having only intractable lower back or leg pain to serve as our control 
+group. A prior study conducted by Formento et al, 2018 using SCS and proprioceptive testing found a standard 
+error and 95% confidence interval using successful and unsuccessful trial attempts using the Clopper-Pearson 
+interval method among 4 subjects, with a found P < 0.05 among LFTS parameters and no stimulation, with a 
+minimum of 10 trials per stimulation setting.6 Based on this, we expect that our small population will exhibit similar 
+variance, thus justifying our subject size. The subject sample size is in direct comparison to sample sizes of 
+previous proof of concept studies regarding SCS for SCI.3-6  
+ 
+6.0 Setting 
+The data pertaining to Aim 1 for this study will be recorded in the operating room at MUSC. Data collected during 
+Aims 2 and 3 will be recorded in the Locomotor Rehabilitation Laboratory and the Locomotor Energetics and 
+Assessment Laboratory respectively, which are both located in the College of Health Professions Building C at 
+MUSC. Coded and identifiable data will be stored electronically on a secure server in separate folders. Signed 
+consent forms will be located in a locked cabinet in a locked laboratory in the Clinical Sciences Building at MUSC.  
+ 
+7.0 Recruitment Methods 
+As with all protocols in our lab, an eligibility screening checklist will be used prior to completing the informed 
+consent process. The screening will not require access to PHI and will be allowed under a waiver of signed 
+consent for the prescreening. The screening checklist will contain only the inclusion and exclusion criteria for the 
+study. The purpose of the screening is to ensure that patients meet ALL inclusion and exclusion criteria for the 
+study prior to executing the informed consent. This screening is extremely important and necessary as it may 
+highlight information not available in the patient’s electronic medical record, particularly if there are criteria not 
+addressed by a patient’s MUSC provider, for example, a patient treated at MUSC for chest pain that does not 
+have prior spinal radiation listed on their problem list in Epic. Finally, this checklist has been used successfully 
+in other IRB-approved protocols in our laboratory and is a standard part of our informed consent workflow.  
+This process will work in the following manner: During a preoperative clinic visit with the PI, an IRB-approved 
+study member will ask the patient if they would like to learn more about the study. If so, the IRB-approved study 
+member will complete the screening checklist then sign and date the form. If the subject meets all inclusion and 
+exclusion criteria, the IRB-approved study member will review the protocol and consent form with the patient and 
+then leave the room in order to give the patient sufficient time to read the consent form. 
+Commented [NR3]: Still needs work 
+Careful attention will be placed on good communication. It will be emphasized that participation in the study is 
+not necessary for the standard of care surgery. It will also be emphasized that the patient can withdraw from the 
+study at any time prior to the surgery.  
+8.0 Consent Process 
+Once the patient has been given an opportunity to review the consent form in detail, the IRB-approved study 
+member will re-enter the room and go over the sections of the consent with the participant. They will answer any 
+questions the patient may have. The voluntary nature of the study will again be emphasized. It will also be 
+emphasized that the patient may exercise their right to take the consent form home to discuss with family and 
+friends prior to signing. For patients that provide consent to the research study during their clinic visit, a copy of 
+the signed and dated consent form will be provided to them before leaving the clinic. The IRB-approved study 
+member will also review the HIPAA authorization form prior to the patient signing the form. The patient will be 
+given a copy of this form. Original forms will be placed in a locked cabinet in a locked laboratory in the Clinical 
+Sciences Building at MUSC. On the morning of surgery, IRB-approved study personnel will once again review 
+the study procedures and study consent document – emphasizing the voluntary nature of the study and the 
+ability of the patient to withdraw at any time. Patients who did not sign the consent and HIPAA authorization 
+forms during their clinic visit and who still wish to participate in the study will be able to sign the forms on the 
+morning of surgery, at which time a copy of the signed and dated forms will be provided to them. If not already 
+signed by the PI, the PI will review and sign off on all checklists in order to provide continual oversight and 
+supervision of our laboratory’s established protocol workflows.  
+ 
+Patients will be informed during the consent process that information about them (including identifiable private 
+information) may have all of their identifiers removed and used for future research studies or distributed to other 
+researchers for future research without additional informed consent from them. For a summary of the steps 
+detailing our recruitment and informed consent workflow, please see our uploaded documents:  
+1) NR_Pro00089881_workflow_informed_consent_v01.pdf 
+2) NR_Pro00089881_checklist_informed_consent_v01.docx 
+3) NR_Pro00089881_checklist_screening_v01.docx. 
+ 
+9.0 Study Design / Methods 
+ 
+Step 1: Insertion of 4x8 stimulator paddle and intraoperative motor and sensory mapping 
+Subjects will first be placed under general anesthesia for the procedure. Next, after positioning the subject on 
+the operating room table, subdermal MEP, SSEP and EMG needle electrodes will be placed throughout the body 
+by a board-certified neurophysiologist and as determined by standard of care guidelines. Once the paddle is 
+placed epidurally, the terminals of the paddle will be connected to an electrophysiological recording device for 
+signal amplification and filtering. Standard MEP and SSEP protocols will be performed to assist with paddle 
+placement as per standard of care while signals from the paddle are recorded. After the IPG has been implanted,. 
+both low-frequency tonic stimulation (LFTS) and high-frequency burst stimulation (HFBS) patterns will be 
+activated while recording EMG signals. All subdermal electrodes will be removed prior to waking the subject. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Step 2: Stimulation configuration mapping in the supine position 
+Following a 30-day recovery period from surgical placement of the paddle and IPG, subjects will undergo 
+stimulation configuration mapping (SCM) in the <what location> in order to uncover electrode and parameter 
+configurations that elicit more robust activation of targeted musculature. <this will take place in; do they need to 
+be reimbursed for this?> For this testing, we place surface EMG pads on subjects’ skin overlying muscles of 
+interest. Using the Boston Scientific external stimulator interface, we will compare muscle activation using LFTS 
+and HFBS patterns by systematically testing each individual contact. Subjects will be seated comfortably in <?>. 
+ 
+Step 3: Stimulation configuration mapping during walking 
+Utilizing the <which laboratory?>, subjects will be outfitted with a ZeroG dynamic body weight support system 
+<manufacturer, city> The ZeroG system ensures subject safety while allowing the research team to modulate 
+the percentage of body weight supported by the subject. Subjects will perform walking tasks on a customized 
+treadmill (Woodway split-belt treadmill with integrated therapist seating) that allows study staff experienced in 
+locomotor training techniques to provide functional cues as necessary for task. All subjects will undergo 
+continuous monitoring via EMG and 3-D kinematic tracking. As in step 2, LFTS and HFBS patterns will be 
+compared by systematically testing each individual contact on the paddle while investigating for changes in 
+stepping speed, pattern and EMG moduling complexity. 
+ 
+Step 4: Investigation of proprioceptive signaling during stimulation 
+ 
+All of the following shall take place after stimulation configuration mapping (SCM) has been completed. In order 
+to better understand the effect HFBS has on orthodromic proprioceptive information, our research team plans to 
+investigate the noticed change in knee joint angle and direction of movement reported by the subject in a 
+Threshold to Detect Passive Movement (TTDPM) test. The TTDPM protocol will begin with the subject sitting in 
+the Biodex testing seat, with the non-tested leg hanging freely and the tested leg strapped to the rotating arm of 
+the dynamometer at the lower shank. It is important to note that the subject will be blinded as to the mode and 
+intensity of stimulation: HFBS, LFTS, no stim. Furthermore, in order to shield the subject from witnessing 
+initiation, direction and approximate distance traveled of the shank the subject will be asked to wear a blindfold 
+Figure 3: Example of a subject 
+undergoing proprioception 
+testing of right lower extremity 
+via TTDPM.22  
+and headphones playing a soft background noise (Figure 3). LFTS and HFBS parameters used throughout the 
+TTDPM will be found when conducting the supine portion of the SCM, considering the TTDPM protocol does not 
+dynamically load the lower extremities (See Step 2). Stimulation parameters that elicit the strongest responses 
+with greater muscle isolation will be used to calculate the 0.8, and 1.5 times motor threshold amplitudes. 
+Electrode configurations will be chosen by hotspots from supine mapping that elicited the most robust 
+flexor/extensor muscles surrounding the knee for the entirety of the test. The TTDPM will consist of 35 trials of 
+each amplitude stage for each independent mode of EES with an equivalent number of No Stim trials randomly 
+substituted. Upon starting of a new trial the subject will experience a tap on the 
+shoulder to signal initiation, without confirmation of the previous trial’s outcome. The 
+Biodex will pause initiating movement of the shank for an investigator determined 
+amount of time between 1s-30s as to further decrease any confounding anticipation 
+from the subject. Testing will involve equal randomized events of flexion/extension 
+that will have limits of 15 ROM for either direction, and an angular velocity of 1/s. 
+The subject will be asked to report any perceived change in knee angle, and which 
+direction the shank is travelling. Reported movements will be marked within the data 
+collection program of the Biodex for x of movement before reporting, with reported 
+direction noted as well. The subject has control of a kill-switch that immediately halts 
+movement of the rotating arm, which is to be activated once the subject perceives 
+movement OR if the subject begins to feel any pain or discomfort throughout the 
+task. The subject will not be informed as to whether their report was correct or 
+incorrect for previous trials. Our research team anticipates data collection to last no longer than 3 hours per 
+subject. The research team plans to use a repeated measures two-way ANOVA with epidural stimulation type 
+and current amplitude of above and below muscle activation threshold to investigate effects on proprioception 
+retention. Post hoc comparisons will be run using a Turkey adjustment. Furthermore, the research team can also 
+us a paired t-test for stimulator off vs stimulator off for ~ 45 minutes, possibly revealing any information of carry 
+over effect from either mode of stimulation which could be of paramount importance for future studies involving 
+SCS for SCI.  
+ 
+Step 5: Investigation of muscle synergies facilitating gait during stimulation 
+ 
+For EMG module analysis, muscle activity will be recorded bilaterally via surface EMG from the medial 
+gastrocnemius, soleus, tibialis anterior, rectus femoris, vastus medialis, biceps femoris, semimembranosus and 
+gluteus medius. First, subjects will walk across a gait mat (GaitRite, CIR Systems, Inc.) to measure self-selected 
+overground walking speed and other spatiotemporal gait parameters. Subjects will then be permitted to practice 
+treadmill walking until they feel comfortable. To optimize capture of steady state data on the treadmill, each 
+subject will walk for approximately 10 sec prior to the 30 sec of data collection (40 sec per trial). This will allow 
+capture of at least 10 consecutive steady state gait cycles (depending on cadence) per each amplitude selection 
+for each stimulation delivery technique, which will be defined by parameters found during walking SCM. Subjects 
+will participate in walking trials while experiencing both below and above motor threshold current amplitudes, in 
+separate trials, as discovered during walking SCM. We will allow as much rest as needed between trials, but not 
+less than 2 minutes. For all trials, subjects will wear their own low-heeled shoes. A safety harness (Robertson 
+Mountaineering) mounted to the laboratory ceiling will be worn by the participant to protect them in the event of 
+loss of balance. Through EMG capture and high/low bandpass filtering to extinguish biologic artifact and 
+equipment artifact respectively, segments of EMG that were recorded through functional task can be analyzed 
+with an algorithm that yields hierarchal complexities indicative of proper muscle synergy’s.16-18 The research team 
+will use previously outlined methodology to define modules through non-negative matrix factorization, where 
+analysis will be applied to consecutive gait cycles.19 The research team plans to use a two-way repeated 
+measures ANOVA model in order to investigate the varying differences in stimulation type, self-selected walking 
+speed vs fastest comfortable walking speed and EMG module complexity. A Post hoc comparison will be made 
+using a Turkey adjustment. 
+ 
+10.0 
+Data Management 
+Once a potential participant is asked if they would like to learn more about the study, they will be assigned a 
+participant ID. Participant IDs will be assigned consecutively. We will maintain a database that accurately reflects 
+all the patients that were approached about the study and the results of eligibility evaluation (screen failure vs 
+enrolled). For enrolled subjects, the specific types of data that will be collected include: 1) analog local field 
+Commented [NR4]: I would try to pare this down 
+significantly, like just the scm and that’s it or try to 
+combine to make it seem like less 
+potentials from the SCS, MEP, SSEP and EMG electrodes, 2) digital and analog output signals from the <Jess’s 
+device>, 3) videography data, and 4) any available imaging data (dicom files). <what about data from the other 
+devices: digital kinematic data from 3-D tracking system software these are probably accelerometer position data 
+with timestamps> Raw data will remain on our lab-owned data acquisition machines with encrypted hard drives 
+and stored behind a locked door when not directly supervised. Data will be copied from all lab-owned data 
+acquisition machines and/or hospital-owned data servers to a password protected network server accessible 
+from our lab under the IRB protocol number and participant ID. This will constitute the master copy of all data for 
+the lab and will consist of separately stored coded and identifiable folders. The purpose of keeping a copy of the 
+raw data is in case the server in our lab is interrupted and it is necessary to reconstruct the data. Portions of data 
+will be copied to end-user devices (e.g., desktop, laptop, etc) for data analysis, however only the portion needed 
+for analysis will be copied. Any end-user device such as a laptop that physically leaves the lab will be encrypted 
+(while desktop machines used for analysis that do not leave the lab and are stored in a locked laboratory will not 
+be encrypted). All data on data acquisition and end-user devices will be deleted at the conclusion of the study. 
+A linking database associating the participant ID and patient identifiers will be maintained on MUSC Box, 
+separately from the research data. Patient identifiers to be collected include first and last name, gender, date of 
+birth, medical record number, and telephone numbers. Telephone and medical record numbers are required for 
+the 7-day phone call. Findings from the phone call will be stored in the linking database. Additionally we will 
+collect information pertaining to disease severity for each subject, including year of diagnosis and any available 
+rating scale scores. These measures will assist in correlating our physiological data with severity of disease for 
+each subject. Videography data will be stored in the identifiable folder on the password protected network server. 
+The purpose of this data is to correlate movement dynamics with physiology data. Finally, we will save imaging 
+data on a password protected network server in order to analyze and correlate with our physiological data. Only 
+IRB-approved personnel will have access to the linking database. Consent forms will be stored in a locked 
+cabinet in a locked laboratory in the Clinical Sciences Building at MUSC. For a summary of the steps detailing 
+our 
+data 
+management 
+workflow, 
+please 
+see 
+our 
+uploaded 
+documents: 
+NR_Pro00089881_workflow_data_management_v01.pdf. I think here you should put the followup checklist 
+ 
+ 
+11.0 
+Provisions to Monitor the Data to Ensure the Safety of Subjects 
+ 
+Data and Safety Monitoring Plan 
+The proposed research involves use of a neural stimulation device and warrants oversight by a Data Safety 
+Monitoring Board (DSMB). The primary purpose of the DSMB is to ensure the safety of participants and the 
+validity and integrity of data collected during the study. The overall framework involves biannual review of the 
+enrollment, safety and adverse event data, and quality control data by the DSMB throughout the period of the 
+proposed research. 
+ 
+DSMB composition 
+The DSMB will be appointed by the PI and will be composed of individuals who are not on the study team and 
+have the following qualifications: (1) a board-certified Physical Medicine and Rehabilitation Physician that 
+specializes in spinal cord injury, and regularly treats patients with chronic SCI, (2) a biostatistician with expertise 
+in design and analysis of clinical trials and (3) a clinical electrophysiologist with expertise in electrical 
+neuromodulation and intraoperative monitoring. These three individuals bring substantial expertise adequate to 
+monitor data and safety for the proposed research. 
+ 
+DSMB responsibilities 
+The responsibilities of the DSMB are as follows. Prior to any enrollment, the DSMB will review the study design, 
+protocol, recruitment/enrollment plan, statistical analysis plan, and data and safety monitoring plan. Once 
+enrollment begins, the DSMB will convene every 6 months to review the enrollment data, the safety and adverse 
+event data and quality control data (see below for detailed data description). The DSMB will review the 
+aggregated summary data as well as the individual participants’ data (de-identified). The DSMB may provide 
+recommendations for any safety concerns. The DSMB may recommend stopping the study early if the protocol 
+has significant safety concerns. The DSMB will review the results and document their reviews in writing. In 
+summary, the stopping rules are if the study has unanticipated safety concerns. The DSMB will also be able to 
+make recommendations for appropriate action to maintain a reasonable safety profile for the study. The PI will 
+provide a report for the IRB to review that summarizes oversight activities, DSMB recommendations and any 
+concerns regarding participant safety. 
+ 
+Safety reporting to the DSMB 
+Subjects may report safety issues with the study directly to the PI, any member of the PI’s clinical and/or 
+research teams, the MUSC Family Care Liaison, the IRB and/or ORI Director. In the absence of any such 
+reports, the PI will systematically attempt to uncover any safety issues experienced by a subject during the one 
+week follow-up phone call and/or 30-day chart review. Any of the following will be reported to the DSMB if 
+noted by the subject during the one week follow-up phone call: severe lower back or leg pain unresponsive to 
+pain medication, repeated falls/imbalance, excessive bleeding from wounds, lower back irritation or bleeding 
+around the site of paddle or IPG implant and/or return to the hospital. Any of the following will be reported to 
+the DSMB if noted during the 30-day chart review: return to hospital, evaluation by another provider for findings 
+related to spinal cord stimulation surgery, imaging, lab values and/or other reports indicating complications 
+from spinal cord stimulation surgery. All the above-mentioned issues are outside of what would be reasonably 
+expected for a normal postoperative course following spinal cord stimulation surgery. In accordance with 
+HRPP Section 4.7, all the above-mentioned issues constitute adverse events and will be submitted to the 
+DSMB for review (at 6 month intervals) in addition to being recorded in the adverse events log. Events that are 
+unexpected, related or possibly related to a subject’s participation in the research and suggests that the 
+research places subjects or others at greater risk of harm than was previously known or recognized constitute 
+Unanticipated Problems Involving Risks to Subjects or Others (UPIRSOs) and must be reported directly to the 
+IRB (in addition to the DSMB). Finally, all deaths will be reported to the IRB within 24 hours of learning of the 
+death, unless the death is expected (e.g., due to disease progression). 
+ 
+For a summary of our documentation and compliance procedures, please see “ “ 
+ 
+12.0 
+Withdrawal of Subjects 
+Subjects may be withdrawn from the study without their consent, including stopping participation for safety 
+reasons. For example, if at any point during the protocol it becomes evident that continuing with the study would 
+present risk in excess of that outlined in this document, data collection for that subject may be terminated. 
+However, any data collected during research events before the incident may still be used in analysis. At any 
+time, subjects may also express desire to withdraw from the study. We will instruct the patients that, to withdraw 
+from the study, all they need to do is to contact one of the members of the study team and express the desire to 
+be excluded from the study. 
+ 
+13.0 
+Risks to Subjects 
+All procedures follow current standard of care guidelines. Research staff will follow up with each participant by 
+phone within a week of the surgical procedure to make sure the participants are not having any problems. 
+Nevertheless, this study still poses certain risks as outlined in the following sections: 
+ 
+Subdermal placement of MEP, SSEP and EMG electrodes 
+<get this language from Jess> 
+ 
+ 
+What about the passive movement? Dynamometer? 
+ 
+Overground and Treadmill Walking  
+Subjects will be asked to walk on a Gaitrite mat on the ground at self-selected walking speeds, and on a treadmill 
+at self-selected walking speeds with each scenario having the patient in an upper thoracic safety harness which 
+is tethered to the ceiling for fall protection. The risk to subjects through these tasks do not exceed risks involved 
+with general physical therapy settings and may result in mild muscle fatigue or discomfort that generally subsides 
+within a few days. Subjects will be given ample rest time and may have additional rest time at any point 
+throughout data collection periods. Furthermore, subjects will be assisted during large movements or during 
+potential transfers across different surfaces. Despite the aforementioned safety measures, there still exists a risk 
+of loss of balance, fall and potential injury. 
+Deleted: followup
+Deleted: followup
+Commented [NR5]: Taylor will need to edit these 
+documents 
+Photography and videography 
+Patients will be videotaped during performance of the configuration mapping, TTDPM and EMG moduling 
+protocols. We will also photograph and/or videotape any other aspect of the subject’s research participation that 
+will help us correlate the patient’s condition with the EMG and kinematic data. The videos and photos we record 
+can include the full face, upper body, arms, and legs. Photography and videography carry a risk of loss of privacy. 
+Photos and videos will be stored on a secure server. Only approved study personnel will have access to these 
+files. 
+Loss of Confidentiality 
+Additional risks include loss of confidentiality. To mitigate this risk, a linking database associating the participant 
+ID and patient identifiers will be maintained separately from the research data on a password protected server 
+and only IRB-approved personnel will have access to the linking database. 
+ 
+14.0 
+Potential Benefit to Subjects or Others 
+This research is not expected to provide direct benefit to individual subjects, though it may lead to improvements 
+in care for patients suffering from chronic pain and SCI in the future. A successful study outcome may contribute 
+to this improvement and may be used in future subjects undergoing similar procedures. 
+ 
+15.0 
+Sharing of Results with Subjects 
+Due to the extensive amount of time needed for data processing, it will not be possible to disclose individual 
+study results to subjects or their healthcare providers. Incidental findings and other results of diagnostic tests 
+associated with routine care of subjects will be shared with the subject and their physician by phone, writing 
+and/or electronic medical record communication by the PI. 
+ 
+16.0 
+Drugs or Devices 
+The SCS paddle and IPG (FDA-approved, packaged as a single-implant sterile device, designed and marketed 
+for permanent implant in the epidural space in contact with the dura of the dorsal spinal cord) will be provided at 
+the time of surgery by Boston Scientific. 
+ 
+17.0 
+References 
+ 
+1. Spinal Cord Injury (SCI) Facts and Figures at a Glance 2016 SCI Data Sheet Non-Hispanic White Non-
+Hispanic Black Hispanic Origin. (2016). Retrieved from https://www.nscisc.uab.edu/Public/Facts 
+2016.pdf 
+2. Krause, J. S., Saladin, L. K., & Adkins, R. H. (2009). IOS Press Disparities in subjective 
+well-being, participation, and health after spinal cord injury: A 6-year longitudinal study. 
+NeuroRehabilitation, 24, 47–56. https://doi.org/10.3233/NRE-2009-0453 
+3. Harkema, S., Hodes, J., Angeli, C., Chen, Y., Ferreira, C., Willhite, A. B., … Grossman, R. G. (2011). 
+Articles Eff ect of epidural stimulation of the lumbosacral spinal cord on voluntary movement, standing, 
+and assisted stepping after motor complete paraplegia: a case study. The Lancet, 377, 1938–1947. 
+https://doi.org/10.1016/S0140 
+4. Gill, M. L., Grahn, P. J., Calvert, J. S., Linde, M. B., Lavrov, I. A., Strommen, J. A., … Zhao, K. D. (2018). 
+Neuromodulation of lumbosacral spinal networks enables independent stepping after complete 
+paraplegia. Nature Medicine. https://doi.org/10.1038/s41591-018-0175-7 
+5. Wagner, F. B., Mignardot, J. B., Le Goff-Mignardot, C. G., Demesmaeker, R., Komi, S., Capogrosso, M., 
+… Courtine, G. (2018). Targeted neurotechnology restores walking in humans with spinal cord injury. 
+Nature. https://doi.org/10.1038/s41586-018-0649-2 
+6. Formento, E., Minassian, K., Wagner, F., Baptiste Mignardot, J., Le Goff-Mignardot, C. G., Rowald, A., 
+… Courtine, G. (n.d.). Electrical spinal cord stimulation must preserve proprioception to enable 
+locomotion in humans with spinal cord injury. https://doi.org/10.1038/s41593-018-0262-6 
+Commented [NR6]: reformat 
+7. Miller, J. P., Eldabe, S., Buchser, E., Johanek, L. M., Guan, Y., & Linderoth, B. (n.d.). Parameters of 
+Spinal 
+Cord 
+Stimulation 
+and 
+Their 
+Role 
+in 
+Electrical 
+Charge 
+Delivery: 
+A 
+Review. 
+https://doi.org/10.1111/ner.12438 
+8. Routson, R. L., Clark, D. J., Bowden, M. G., Kautz, S. A., & Neptune, R. R. (2013). The influence of 
+locomotor rehabilitation on module quality and post-stroke hemiparetic walking performance. Gait & 
+Posture, 38, 511–517. https://doi.org/10.1016/j.gaitpost.2013.01.020 
+9. Pickett, G. E., Campos-Benitez, M., Keller, J. L., & Duggal, N. (2006). Epidemiology of traumatic spinal 
+cord injury in Canada. Spine. https://doi.org/10.1097/01.brs.0000207258.80129.03 
+10. Devivo, M. J., & Chen, Y. (2011). Trends in new injuries, prevalent cases, and aging with spinal cord 
+injury. 
+Archives 
+of 
+Physical 
+Medicine 
+and 
+Rehabilitation, 
+92(3), 
+332–338. 
+https://doi.org/10.1016/j.apmr.2010.08.031 
+11. Fehlings, M. G., Shaffrey, C. I., Wilson, J. R., Grossman, R. G., Toups, E. G., Guest, J. D., … Harrop, J. 
+S. (2018). Natural History, Predictors of Outcome, and Effects of Treatment in Thoracic Spinal Cord 
+Injury: A Multi-Center Cohort Study from the North American Clinical Trials Network. Journal of 
+Neurotrauma, 35(21), 2554–2560. https://doi.org/10.1089/neu.2017.5535 
+12. Behrman, A. L., & Harkema, S. J. (2007). Physical Rehabilitation as an Agent for Recovery After Spinal 
+Cord Injury. Physical Medicine and Rehabilitation Clinics of North America, 18(2), 183–202. 
+https://doi.org/10.1016/j.pmr.2007.02.002 
+13. Harkema, S. J., Schmidt-Read, M., Lorenz, D. J., Edgerton, V. R., & Behrman, A. L. (2012). Balance and 
+ambulation improvements in individuals with chronic incomplete spinal cord injury using locomotor 
+trainingbased rehabilitation. Archives of Physical Medicine and Rehabilitation, 93(9), 1508–1517. 
+https://doi.org/10.1016/j.apmr.2011.01.024 
+14. Angeli, C. A., Boakye, M., Morton, R. A., Vogt, J., Benton, K., Chen, Y., … Harkema, S. J. (2018). 
+Recovery of Over-Ground Walking after Chronic Motor Complete Spinal Cord Injury. New England 
+Journal of Medicine. https://doi.org/10.1056/NEJMoa1803588 
+ 
+15. Cheung, V. C. K. (2005). Central and Sensory Contributions to the Activation and Organization of Muscle 
+Synergies 
+during 
+Natural 
+Motor 
+Behaviors. 
+Journal 
+of 
+Neuroscience. 
+https://doi.org/10.1523/jneurosci.4904-04.2005 
+ 
+16. Neptune, R. R., Clark, D. J., & Kautz, S. A. (2009). Modular control of human walking: A simulation study. 
+Journal of Biomechanics, 42(9), 1282–1287. https://doi.org/10.1016/j.jbiomech.2009.03.009 
+ 
+17. Bowden, M. G., Clark, D. J., & Kautz, S. A. (2010). Evaluation of abnormal synergy patterns poststroke: 
+Relationship of the fugl-meyer assessment to hemiparetic locomotion. Neurorehabilitation and Neural 
+Repair. https://doi.org/10.1177/1545968309343215 
+ 
+18. Merkle, L. A., Layne, C. S., Bloomberg, J. J., & Zhang, J. J. (1998). Using factor analysis to identify 
+neuromuscular 
+synergies 
+during 
+treadmill 
+walking. 
+Journal 
+of 
+Neuroscience 
+Methods. 
+https://doi.org/10.1016/S0165-0270(98)00054-5 
+ 
+19. Clark, D. J., Ting, L. H., Zajac, F. E., Neptune, R. R., & Kautz, S. A. (2010). Merging of Healthy Motor 
+Modules Predicts Reduced Locomotor Performance and Muscle Coordination Complexity Post-Stroke. 
+J Neurophysiol, 103, 844–857. https://doi.org/10.1152/jn.00825.2009 
+ 
+20. Boston Scientific. (n.d.). SCS Lead Portfolio. Retrieved July 06, 2019, from 
+https://www.bostonscientific.com/content/gwc/en-US/products/spinal-cord-stimulator-
+systems/scs_lead_portfolio.html 
+ 
+21. Boston Scientific. (2019). Spectra Wavewriter Spinal Cord Stimulator System, Information for 
+Prescribers[Brochure]. Author. Retrieved July 06, 2019, from 
+https://www.bostonscientific.com/content/dam/Manuals/us/current-rev-en/92256650-
+01_Spectra_WaveWriter™_SCS_System_en-US_s.pdf 
+ 
+22. Nagai, T., Sell, T. C., House, A. J., Abt, J. P., & Lephart, S. M. (2013). Knee proprioception and 
+strength and landing kinematics during a single-leg stop-jump task. Journal of Athletic Training, 48(1), 
+31–38. https://doi.org/10.4085/1062-6050-48.1.14 
+ 
+23.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

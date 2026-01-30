@@ -1,0 +1,80 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT02763579
+Section: METHODS
+Features: pro_qol, immunotherapy, interim_analysis, consistency_bridging, non_proportional_hazards, interim_analysis
+Quality Tier: 1 (Specialized)
+
+---
+
+ell proliferation have the potential to attenuate 
+atezolizumab-mediated anti-tumor immune activity, premedication with corticosteroids should 
+be minimized to the extent that is clinically feasible.
+Statistical Methods
+All analyses will be restricted to the patients enrolled in the global enrollment phase only (
+ 
+), unless otherwise noted. The analysis populations used 
+in this section, such as the ITT (i.e., all randomized patients) and the PD-L1selected
+populations will not 
+, unless otherwise noted.
+The analyses of PFS and OS will be performed on all randomized patients (ITT), with patients 
+grouped according to the treatment assigned at randomization, regardless of whether they 
+receive any assigned study drug.  ORR will be analyzed using all randomized patients who 
+have measurable disease at baseline.  DOR will be assessed in patients who have an objective 
+response.  TTD analyses will be conducted on all patients with a non-missing baseline PRO 
+assessment.  Change from baseline analysis on PROs will be performed using patients who 
+have both a non-missing baseline assessment and at least one post-baseline assessment with 
+patients grouped according to the treatment assigned at randomization.
+AtezolizumabF. Hoffmann-La Roche Ltd
+23/Protocol GO30081, Version 7
+Primary Analysis
+To adjust for multiplicity due to having two co-primary endpoints, a group sequential Holm’s 
+procedure will be implemented: initially the hypothesis test for PFS will be conducted at a 
+two-sided alpha of 0.005 and OS will be tested at a two-sided alpha of 0.045.  Once a null 
+hypothesis is rejected, the test mass predefined for that endpoint becomes available and can be 
+recycled to the other unrejected test.
+The null and alternative hypotheses regarding PFS or OS in the ITT population can be phrased 
+in terms of the PFS or OS survival functions SA(t) and SB(t) for Arm A 
+(atezolizumabcarboplatin etoposide) and Arm B (placebocarboplatinetoposide), 
+respectively:
+H0: SA(t) SB(t) versus H1: SA(t) ≠SB(t)
+One of the co-primary efficacy endpoints is PFS as assessed by the investigator using 
+RECIST v1.1.  PFS is defined as the time between the date of randomization and the date of 
+first documented disease progression or death, whichever occurs first.  Patients who have not 
+experienced disease progression or death at the time of analysis will be censored at the time of 
+the last tumor assessment.  Patients with no post-baseline tumor assessment will be censored 
+at the date of randomization plus 1 day.
+The stratified log-rank test, will be used as the primary analysis to compare PFS between the 
+two treatment arms.  The results from the unstratified log-rank will also be provided. 
+The Kaplan-Meier approach will be used to estimate median PFS for each treatment arm.  The 
+Brookmeyer-Crowley methodology will be used to construct the 95% CI for the median PFS for 
+each treatment arm.  Cox proportional-hazards models will be used to estimate the stratified 
+HR and its 95% CI.  The unstratified HR will also be presented.
+OS, the other co-primary efficacy endpoint, is defined as the time from the date of 
+randomization to the date of death from any cause.  Patients who are alive at the time of the 
+analysis data cutoff will be censored at the last date they were known to be alive.  Patients with 
+no post-baseline information will be censored at the date of randomization plus 1 day. Methods 
+for OS analyses are similar to those described for the PFS endpoint.
+Determination of Sample Size  
+Approximately 400 patients will be randomized into the global enrollment phase of this study to 
+the atezolizumab carboplatin etoposide arm and the placebo carboplatin etoposide arm in 
+a 1:1 ratio.
+There are two co-primary efficacy endpoints: PFS and OS. To control the overall two-sided 
+Type I error rate at 0.05, the two-sided significance levels of 0.005 and 0.045 are allocated to 
+the primary comparisons for PFS and OS, respectively.
+The following sample size calculation applies to the global enrollment phase, 
+ 
+unless otherwise noted.
+The sample size of the study is determined by the analysis of OS. To detect an improvement of 
+HR 0.68 in OS using a log-rank test, approximately 306 deaths in the ITT population will be 
+required to achieve 91% power at a two-sided significance level of 0.045. One OS interim 
+analysis will be performed when approximately 240 OS events in the ITT population are 
+observed, which by estimation will occur at approximately 25 months after the first patient is 
+randomized. 
+The primary analysis of PFS is planned to be conducted at the time of the OS interim analysis, 
+and is estimated to be when approximately 295 PFS events in the ITT population have occurred, 
+which is expected at approximately 25 months after the first patient is randomized. This 
+provides 99% power to detect an improvement of HR 0.55 in PFS at a two-sided significance 
+level of 0.005. There will be no interim analysis for PFS.
+By a group sequential Holm procedure, if the primary analysis of PFS is significant, then the 
+two-sided 0.005 alpha will be recycled to OS. Otherwise, iIf the OS analysis at either interim or 
+final is significant, the alloca

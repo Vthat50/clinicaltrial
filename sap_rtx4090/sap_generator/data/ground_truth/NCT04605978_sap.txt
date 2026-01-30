@@ -1,0 +1,3299 @@
+S95011 
+CL2-95011-001 
+© I.R.I.S. - Clinical Study Report - 
+ 
+16.1.9. Documentation of statistical methods 
+Hardware and software tools 
+Statistical analysis plan 
+1/60
+CCI
+Statistical analyses were performed using SAS®/PC Software version 9.4.  
+Coding was performed using Medical Dictionary for Regulatory Activities for the medical 
+events and World Health Drug Dictionary for the treatments. 
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+S95011
+CL2-95011-001
+© I.R.I.S. - Clinical Study Report - 
+2/60
+CCI
+Signature Page for VV-TMF-116033 v2.0
+Signature Page for VV-TMF-116033 v2.0
+Reason for signing: Approved
+Role: Biostatistics - CentEX MVD
+Date of signature: 02-Mar-2023 11:20:07
+GMT+0000
+Reason for signing: Approved
+Role: CTI
+Date of signature: 02-Mar-2023 12:56:59
+GMT+0000
+Reason for signing: Approved
+Role: Biostatistics - CentEX MVD
+Date of signature: 02-Mar-2023 13:08:39
+GMT+0000
+CL2-95011-001 -   Statistical Analysis Plan | VV-TMF-116033 | 2.0
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+S95011
+CL2-95011-001
+© I.R.I.S. - Clinical Study Report - 
+3/60
+PPD
+PPD
+PPD
+CCI
+Document title 
+STATISTICAL ANALYSIS PLAN (SAP) 
+Full title 
+A phase IIa efficacy and safety trial with intravenous 
+S95011 in primary Sjögren’s Syndrome patients. 
+An 
+international, 
+multicentre, 
+randomised, 
+double-
+blind,placebo-controlled study. 
+Short title 
+Efficacy and safety of S95011 in primary Sjögren’s 
+Syndrome patients. 
+Acronym 
+Not applicable 
+Test drug code 
+S95011 
+Test drug name(s) 
+Not applicable 
+Indication 
+Primary Sjögren’s Syndrome 
+Development phase 
+Phase II 
+Sponsor  
+INSTITUT DE RECHERCHES INTERNATIONALES 
+SERVIER (I.R.I.S.) 
+EudraCT Number 
+2020-001526-59 
+Investigational New Drug 
+Application Number 
+147638 
+Date of the document 
+02 Mars 2023 
+Version of the document 
+Version 2.0 
+Author of the document 
+Audrey D’ABRIGEON (Biostatistician – I.R.I.S.) 
+ 
+CL2-95011-001 -   Statistical Analysis Plan | VV-TMF-116033 | 2.0
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+S95011
+CL2-95011-001
+© I.R.I.S. - Clinical Study Report - 
+4/60
+CCI
+CCI
+Table of contents 
+Table of contents ........................................................................................................................ 2
+List of tables ............................................................................................................................... 5
+List of figures ............................................................................................................................. 6
+List of abbreviations ................................................................................................................... 7
+1. INTRODUCTION ............................................................................................................... 9
+1.1. Study objectives and endpoints......................................................................................... 9
+1.1.1. Objectives ....................................................................................................................... 9
+1.1.2. Endpoints ...................................................................................................................... 10
+1.1.3. Study design ................................................................................................................. 11
+1.1.4. Study plan ..................................................................................................................... 11
+1.1.5. Type of randomization ................................................................................................. 12
+1.2. Determination of sample size ......................................................................................... 12
+2. ANALYSIS SETS / TREATMENT GROUPS ................................................................ 14
+2.1. Analysis sets ................................................................................................................... 14
+2.2. Treatment groups ............................................................................................................ 14
+3. GENERAL STATISTICAL CONSIDERATIONS ........................................................ 15
+3.1. Descriptive statistics ....................................................................................................... 15
+3.2. General definitions .......................................................................................................... 15
+4. STATISTICAL ANALYSES ............................................................................................ 17
+4.1. Study participant ............................................................................................................. 17
+4.1.1. Disposition .................................................................................................................... 17
+4.1.2. Protocol deviations ....................................................................................................... 17
+4.1.3. Demographic data and baseline characteristics ............................................................ 17
+4.2. Treatments of patients ..................................................................................................... 18
+4.2.1. Extent of exposure and treatment compliance .............................................................. 18
+4.2.2. Concomitant treatments ................................................................................................ 18
+4.3. Efficacy analyses ............................................................................................................ 18
+4.3.1. Primary efficacy estimand ............................................................................................ 18
+4.3.1.1.
+Primary analysis ....................................................................................................... 19
+4.3.1.2.
+Sensitivity analyses .................................................................................................. 20
+4.3.1.3.
+Supplementary analyses ........................................................................................... 22
+4.3.1.4.
+Subgroup analysis .................................................................................................... 22
+4.3.2. Secondary efficacy estimand ........................................................................................ 23
+4.3.3. Additional estimands based on ESSDAI and ESSPRI ................................................. 23
+4.3.4. Additional estimand based on STAR ........................................................................... 24
+4.3.5. Additional estimand based on CRESS ......................................................................... 25
+4.3.6. Additional estimands based on other efficacy endpoints ............................................. 26
+4.3.7. Descriptive analyses ..................................................................................................... 27
+4.4. Safety analysis ................................................................................................................ 27
+4.4.1. Adverse events.............................................................................................................. 28
+CL2-95011-001 -   Statistical Analysis Plan | VV-TMF-116033 | 2.0
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+S95011
+CL2-95011-001
+© I.R.I.S. - Clinical Study Report - 
+5/60
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) - 
+2/57
+CCI
+CCI
+4.4.2. Clinical laboratory evaluation ...................................................................................... 29
+4.4.2.1. 
+Blood samplings for haematology, biochemistry and coagulation .......................... 29
+4.4.2.2. 
+Others laboratory parameters ................................................................................... 29
+4.4.3. Vital signs, clinical examination and other observations related to safety ................... 29
+4.4.3.1. 
+Vital signs and clinical examination ........................................................................ 29
+4.5. Antibody analysis ........................................................................................................... 30
+4.5.1. Auto-antibody analysis ................................................................................................. 30
+4.5.2. Anti-Drug Antibody analysis ....................................................................................... 30
+4.6. Exploratory analysis ....................................................................................................... 30
+4.7. Biomarkers analysis ........................................................................................................ 30
+4.7.1. Biomarker endpoints: Interleukin 7 cytokine (IL7), cytokines and other proteins 
+involved in pSS physiopathology ................................................................................. 30
+4.7.1.1. 
+Qualitative analysis .................................................................................................. 30
+4.7.1.2. 
+Quantitative analysis ................................................................................................ 31
+4.7.1.2.1. Values out of limits of detection ........................................................................... 31
+4.7.1.2.2. Description of biomarkers concentrations by arm ................................................ 31
+4.7.2. Biomarker endpoints: Immune panel (C3 and C4 complement fractions, CH50 
+(or CH100), quantitative immunoglobulins, protein electrophoresis and 
+immunofixation) ........................................................................................................... 31
+4.7.2.1. 
+Description of biomarkers concentrations by arm ................................................... 31
+4.7.3. Biomarker endpoints: β2 microglobulin ....................................................................... 31
+4.7.3.1. 
+Description of biomarkers concentrations by arm ................................................... 32
+4.8. Pharmacokinetic analysis and PK/PD analysis ............................................................... 32
+5. INTERIM ANALYSIS ...................................................................................................... 33
+6. CHANGES TO PROTOCOL-PLANNED ANALYSES ................................................ 34
+7. APPENDICES .................................................................................................................... 36
+7.1. General analytic definitions ............................................................................................ 36
+7.1.1. Value prior to treatment / under treatment ................................................................... 36
+7.1.2. First and last IMP intake dates ..................................................................................... 37
+7.1.3. Other dates .................................................................................................................... 37
+7.2. Specific analytic definitions and data handling conventions .......................................... 38
+7.2.1. Study participants ......................................................................................................... 38
+7.2.1.1. 
+Demographic data and other baseline characteristics .............................................. 38
+7.2.1.1.1. Demographic data .................................................................................................. 38
+7.2.1.1.2. History of the Sjögren’s disease ............................................................................ 38
+7.2.1.1.3. Relevant medical and surgical history other than the PSS symptoms .................. 38
+7.2.1.1.4. Previous treatments ............................................................................................... 38
+7.2.1.2.
+Extent of exposure and treatment compliance ......................................................... 39
+7.2.1.3.
+Concomitant treatments ........................................................................................... 40
+7.2.2. Efficacy......................................................................................................................... 41
+7.2.2.1.
+Intercurrent Event (IE) ............................................................................................. 41
+7.2.2.2.
+ESSDAI total score .................................................................................................. 42
+7.2.2.3.
+ESSPRI total score ................................................................................................... 42
+7.2.2.4.
+STAR score .............................................................................................................. 43
+7.2.2.5.
+CRESS score ............................................................................................................ 44
+7.2.2.6.
+MFI total score ......................................................................................................... 45
+CL2-95011-001 -   Statistical Analysis Plan | VV-TMF-116033 | 2.0
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+S95011
+CL2-95011-001
+© I.R.I.S. - Clinical Study Report - 
+6/60
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) - 
+3/57
+CCICCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+4/57
+7.2.2.7. 
+SF36 physical and mental scores............................................................................. 45 
+7.2.2.8. 
+Schirmer test ............................................................................................................ 46 
+7.2.2.9. 
+OSS.......................................................................................................................... 46 
+7.2.2.10. Sialometry under unstimulated and stimulated conditions...................................... 46 
+7.2.3. Safety............................................................................................................................ 46 
+7.2.3.1. 
+Adverse events......................................................................................................... 46 
+7.2.3.2. 
+Clinical laboratory evaluation.................................................................................. 49 
+7.2.3.3. 
+Vital signs and clinical examination........................................................................ 50 
+7.3. Statistical methods details............................................................................................... 51 
+7.3.1. General Linear Model................................................................................................... 51 
+7.3.2. Logistic Model.............................................................................................................. 52 
+7.3.3. Imputation step for main analysis on primary endpoint............................................... 53 
+7.3.4. Imputation step for sensitivity analysis on primary endpoint ...................................... 54 
+8. REFERENCES .................................................................................................................. 57 
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+7/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+5/57
+List of tables
+Table (7.1.1) 1 - Definition of value prior to treatment ........................................................... 36 
+Table (7.1.1) 2 - Definition of value under treatment .............................................................. 36 
+Table (7.1.3) 1 - Substitution rules of dates if no specific management is defined ................. 37 
+Table (7.1.3) 2 - Substitution rules of dates and times if no specific management is 
+defined...................................................................................................................................... 37 
+Table (7.2.1.1.4) 1 - Substitution rules of previous treatments stop date................................. 39 
+Table (7.2.1.3) 1 - Substitution rules of concomitant treatments intake dates......................... 41 
+Table (7.2.3.1) 1 - Adverse events - Rules in case of missing intensity .................................. 48 
+Table (7.2.3.1) 2 - Substitution rules of AE dates.................................................................... 48 
+Table (7.2.3.1) 3 - Substitution rules of recovery date............................................................. 49 
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+8/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+6/57
+List of figures
+Figure (1.1.4) 1 - Study plan .................................................................................................... 12 
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+9/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+7/57
+List of abbreviations
+Ab
+Antibody
+ADA
+Anti-Drug Antibody
+AE
+Adverse Event
+ANA
+Anti-Nuclear Antibodies
+Anti-SSA (Ro)
+Anti-Sjögren’s Syndrome related antigen A Antibodies
+ASSE
+Selection visit
+BMI
+Body Mass Index
+b.p.m
+beats per minute (heart rate unit)
+CD127
+interleukin-7 receptor-α
+CI
+Confidence Interval
+cm
+Centimetre
+CPMP
+Committee for Proprietary Medicinal Products
+CRO
+Contract Research Organisation
+CSR
+Clinical Study Report
+D
+Day
+DAP
+Data Analysis Plan
+DBP
+Diastolic blood pressure
+e-CRF
+Electronic Case Report Form
+ECG
+Electrocardiogram
+e.g.
+Exempli gratia (for example)
+ERIN
+Event Requiring Immediate Notification
+ESSDAI
+EULAR Sjögren’s Syndrome Disease Activity Index
+ESSPRI
+EULAR Sjögren’s Syndrome Patient Reported Index
+ESR
+Erythrocyte Sedimentation Rate
+EULAR
+European League against Rheumatism
+FU
+Follow-up (period)
+GCP
+Good Clinical Practice
+ICF
+Information Consent Form
+ICH
+International Conference on Harmonisation
+i.e.
+id est (that is)
+IE
+Intercurrent Event
+IL-7
+Interleukin 7
+IL-7Rα
+Αlpha chain of the Interleukin 7 (IL-7) Receptor (=CD127)
+IMP
+Investigational Medicinal Product (S95011/Placebo)
+I.R.I.S.
+Institut de Recherches Internationales Servier
+IV
+Intravenous
+IWRS
+Interactive Web Response System
+kg
+kilogram
+L
+Litre
+LLN
+Lower Limit of Normal laboratory reference range
+LLOD
+Lower Limit Of Detection
+LLOQ
+Lower Limit Of Quantification
+LLS
+Lower Limit used to define potentially clinically Significant 
+abnormal values
+MAR
+Missing At Random
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+10/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+8/57
+MFI
+Multidimensional Fatigue Inventory
+mg
+milligram
+min
+minute
+mL
+Millilitre
+mm
+Millimetre
+mmHG
+Millimetre of mercury
+MNAR
+Missing Not At Random
+NRS
+Numerical Rating Scale
+NSAID
+Non-steroidal anti-inflammatory drugs
+OSS
+Ocular Staining Score
+PBMCs
+Peripheral Blood Mononuclear Cells
+PD
+Pharmacodynamics
+PK
+Pharmacokinetics
+PGA
+Patient’s global assessment
+PhGA
+Physician’s global assessment
+PSS
+Primary Sjögren’s Syndrome
+QoL
+Quality Of Life
+RF
+Rheumatoid Factor
+RNA
+RiboNucleic Acid
+RO
+Receptor Occupancy
+RS
+Randomised Set
+SAE
+Serious Adverse Event
+SAP
+Statistical Analysis Plan
+SBP
+Systolic Blood Pressure
+SF-36
+Short Form Health Survey
+SSA
+Sjögren’s syndrome A
+STAR
+Sjogren’s Tool for Assessing Response
+TEAE
+Treatment Emergent Adverse Event
+TLG
+Tables Listings and Graphs
+TU
+Therapeutic Units
+ULN
+Upper Limit of Normal laboratory reference range 
+ULS
+Upper Limit used to define potentially clinically Significant 
+abnormal values
+ULOD
+Upper Limit Of Detection
+W
+Week
+WHO
+World Health Organization
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+11/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+9/57
+1.
+INTRODUCTION
+This Statistical Analysis Plan deals with the main analysis of the study (ASSE-W013 period) 
+and the follow-up period (ASSE-W028) and details the planned analyses to be performed, in 
+accordance with the main characteristics of the amended study protocol version 4.0 dated from 
+24/03/2022.
+The templates for Tables, Listings and Graphs (TLG) are described in a separate document.
+The main analysis of the study concerns the ASSE-W013 period and will be performed as soon 
+as all efficacy and safety data of the ASSE-W013 period are available and the mandatory steps 
+required for study unblinding have been performed. The descriptive analysis including data 
+after W013 will be performed subsequently when all data are available.
+Of note, this SAP does not cover analyses of data associated to some exploratory objectives and 
+the pharmacokinetics and pharmacodynamics data analyses described in the study protocol. 
+1.1.
+Study objectives and endpoints
+1.1.1.
+Objectives
+The purpose of this trial is to assess the efficacy and safety of multiple intravenous infusions of 
+750 mg of S95011 versus placebo as well as tolerability, pharmacokinetics and 
+pharmacodynamics in patients with primary Sjögren’s syndrome (pSS). The results of this first 
+study in patients with primary Sjogren’s syndrome will be informative for further development 
+in treatment of pSS.
+The primary objective of the study is to assess the effect of multiple intravenous infusions of 
+750 mg of S95011 compared to placebo after 13 weeks of treatment in reducing disease activity 
+using European League against Rheumatism (EULAR) Sjögren Syndrome Disease Activity 
+Index (ESSDAI).
+The secondary objectives are:
+- To evaluate efficacy of multiple intravenous (IV) infusions of 750 mg of S95011 compared 
+to placebo after 13 weeks of treatment on:
+y Patient’s symptoms using EULAR Sjögren Syndrome patient reported Index (ESSPRI).
+y Disease activity using Sjogren’s Tool for Assessing Response (STAR).
+y Disease activity using Composite of Relevant Endpoints for Sjögren's Syndrome 
+(CRESS).
+y Fatigue using the Multidimensional Fatigue Inventory (MFI).
+y Quality of life (QoL) using Short Form Health Survey (SF-36).
+y Physician’s global assessment (PhGA) of the disease activity using a 0 to 10 numerical 
+rating scale (NRS).
+y Patient’s global assessment (PGA) of the disease activity using a 0 to 10 numerical rating 
+scale (NRS).
+y Tear gland function using the Schirmer test.
+y Tear gland function using Ocular Staining Score (OSS).
+y Salivary gland function measured by sialometry under unstimulated and stimulated 
+conditions.
+- To assess the safety and tolerability of multiple intravenous infusions of S95011.
+- To assess the pharmacokinetics (PK) of S95011 in serum.
+- To assess pharmacodynamics [receptor occupancy (RO)] of S95011 in blood.
+- To determine the incidence of anti-drug antibodies (ADA) formation.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+12/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+10/57
+The exploratory objectives of the study are:
+- To explore the potential effect of S95011 on lymphocytes subsets in particular T cell subsets.
+- To explore the potential effect of S95011 on some proteins involved in pSS physiopathology 
+like Interleukin 7 (IL-7), cytokines and specific proteins in blood.
+- To explore the potential effect of S95011 on immune panel, β2 microglobulin, and on the 
+auto-antibody panel: Anti-Sjögren’s Syndrome related antigen A (anti-SSA (Ro)) 
+antibodies, anti-nuclear antibodies (ANA) and rheumatoid factor (RF).
+- To explore drug exposure and perform exploratory histology and exploratory biomarkers 
+assessments on minor salivary glands tissue by performing lip biopsies (optional).
+- To set a biocollection to explore further the potential impact of S95011 on Peripheral Blood 
+Mononuclear Cells (PBMC), extracted RiboNucleic Acid (RNA) and blood according to the 
+advancement of the knowledge on the drug and the disease (optional sampling) (not covered 
+by the SAP).
+1.1.2.
+Endpoints
+The primary efficacy endpoint is the change from baseline in ESSDAI total score to W013.
+The secondary efficacy endpoints are:
+- ESSDAI score by domain and total score at each visit (value & change).
+- ESSPRI score by symptom and total score at each visit (value & change).
+- Proportion of patients with ≥ 3 points, ≥ 5 points, ≥ 7 points of improvement from baseline 
+in ESSDAI at each visit.
+- Proportion of patients with ≥ 1 point, ≥ 2 points, ≥ 3 points of improvement from baseline 
+in ESSPRI at each visit.
+- Proportion of patients with ≥ 3 points of improvement in ESSDAI and with ≥ 1 point of 
+improvement in ESSPRI from baseline at each visit.
+- Proportion of patients with a STAR total score ≥5 at each visit (value).
+- Proportion of patients with a CRESS total score ≥3 at each visit (value).
+- Fatigue (MFI) by domain, quality of life (SF-36) for mental and physical domains, physician 
+and patient’s global assessment of the disease activity (NRS) at each visit (value and 
+change).
+- Tear gland function: Schirmer’s test and in OSS on the most affected eye and for the mean 
+of both eyes at each visit (value and change).
+- Salivary gland function: unstimulated and stimulated salivary flow rate at each visit (value 
+and change).
+The other secondary endpoints are:
+- Safety: The safety and tolerability assessed by incidence of adverse events (AEs), change 
+over time in safety parameters (vital signs, biological laboratory) and incidence of abnormal 
+safety parameters throughout the study.
+- Pharmacokinetics: Pharmacokinetics of S95011 in serum samples:
+y Pre-dose (before the start of the IMP infusion) at W000, W002, W004, W007, and W010.
+y Right after the end of the IMP infusion and in the [1-3h] interval after the end of the IMP 
+infusion at W000 and W010.
+y Between W011 and W012, and at W013, W016, W019 and W028.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+13/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+11/57
+- Pharmacodynamics: Receptor Occupancy (RO) of S95011 in blood samples:
+y Pre-dose (before the start of the infusion) at W000, W002, W004, W007 and W010.
+y Right after the end of the infusion of the IMP at W000 and W010.
+y At W013, W019, W028.
+- Incidence of ADA in serum samples:
+y Pre-dose (before the start of the infusion) at W000, W002, W004, W007 and W010.
+y At W013, W019, W028.
+The exploratory endpoints are:
+- In blood:
+y Lymphocytes subsets (PBMC) assessed at W000, W004, W007, W013.
+y IL-7 and some cytokines measured at W000, W002, W004, W007, W010, W013, W019, 
+W028.
+y Other specific proteins involved in the pSS physiopathology will be measured at W000, 
+W004, W013.
+y Cytokine release panel at W000 and W002.
+y Immune panel at ASSE (Selection visit), W000, W004, W013.
+y Auto antibody-panel at ASSE, W013.
+y β2 microglobulin at W000, W004, W013.
+- In salivary glands:
+y Lip biopsy for salivary gland collection (S95011 concentration, exploratory histology and 
+exploratory biomarkers assessments) (optional biopsy at W013).
+1.1.3.
+Study design
+The study CL2-95011-001 is a phase IIa, international, multicentre, randomised (2:1), double-
+blind, placebo-controlled study with two parallel groups (S95011 750 mg and placebo).
+1.1.4.
+Study plan
+The study is divided into the following periods:
+- Screening period without study treatment: from selection visit (ASSE within 28 days 
+prior to W000) to inclusion visit (W000), after signing the ICF, in order to check eligibility 
+of patients.
+- Randomised and double-blind treatment period: from W000 to W013 (study drug 
+administration at W000, W002, W004, W007, W010) with two-parallel groups (750 mg of 
+S95011 and matching placebo), with stratification by baseline intake of oral corticosteroids 
+(yes/no) and baseline intake of antimalarial (e.g. chloroquine, hydroxychloroquine, 
+quinacrine) (yes/no).
+- Safety follow up period without study treatment: 15 weeks with one visit at W019 and 
+one at W028. This follow-up period will allow sufficient time for monitoring safety until 
+5 half-lives of S95011. In addition, it is anticipated that more than 97% of patients have RO 
+< 95% at W028 (meaning that almost no pharmacological effect of the product is expected).
+The expected duration of patient participation will be 32 weeks maximum.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+14/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+12/57
+Study treatments are supplied as follows:
+- During the screening period (from ASSE to W000), no treatment will be dispensed.
+- From the day after inclusion until the day of W013 visit, patients take one (1) IV infusion 
+of 750 mg of S95011 or matching placebo every two weeks (q2w) for the first month (W000, 
+W002, W004) and then every 3 weeks (q3w) until W010 (W007, W010). S95011/matching 
+placebo will be provided to the site in 2 mL extractable volume vials containing 100 mg of 
+S95011/matching placebo
+(50 mg/mL) concentrate for solution for intravenous 
+administration. As treatment is dispensed during a double-blind period, the appearance and 
+form of S95011 vials and placebo vials as well as the solutions to be administered will be 
+similar: a colourless to slightly yellow, clear to slightly opalescent aqueous solution.
+- From the day after W013 visit until the day of W028 visit, follow-up period.
+The study plan is shown in Figure (1.1.4) 1.
+Figure (1.1.4) 1 - Study plan
+1.1.5.
+Type of randomization
+The treatment randomization and allocation are centralized using an Interactive Web Response 
+System (IWRS) procedure. The treatment (S95011 750 mg or placebo) is assigned at inclusion 
+visit by a non-balanced 2:1 ratio, non-adaptive randomization with stratification by baseline 
+intake of oral corticosteroids (yes/no) and baseline intake of antimalarials (e.g.: chloroquine, 
+hydroxychloroquine, quinacrine) (yes/no).
+1.2.
+Determination of sample size
+The following efficacy criteria are defined:
+- A statistically significant reduction in ESSDAI at W013 in the S95011 group compared to 
+placebo, at the one-sided 10% significance level.
+- An estimated mean reduction in ESSDAI in the S95011 group to be 3 points or greater than 
+placebo. The decrease of 3 points was chosen because it is considered as clinically minimal 
+relevant decrease (Seror et al, 2016).
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+15/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+13/57
+Targeted sample size
+With 45 patients in the primary analysis of the primary estimand (30 in the S95011 group and
+15 in the placebo group), the study would have around 5% chance of having a false-positive
+result, i.e., of meeting both the efficacy criteria when the true difference between S95011 and
+placebo is zero. Additionally, the chances of meeting both the efficacy criteria remain below
+14% for true differences between S95011 and placebo of less than 1 point.
+The study would have approximately 70% chance of meeting both the efficacy criteria, when
+the true difference between S95011 and placebo is 4 points. In case the true difference between 
+S95011 and placebo is only 3 points, the study would have approximately 50% chance of 
+meeting both the efficacy criteria. These calculations assume that the primary efficacy endpoint, 
+change from baseline in ESSDAI, follows a normal distribution with a standard deviation of 6. 
+This estimate of the standard deviation is based on some clinical studies (Fisher et al, 2020,
+UCB5857, RO5459072) in patients with primary Sjögren’s syndrome in which the observed 
+standard deviation ranged from around 4 to 6.
+Blinded standard deviation reassessment
+The similar operational characteristics (false-positive and right-positive rates) are obtained with 
+20 patients in S95011 group and 10 patients in placebo group under assumption of an overall 
+standard deviation of primary efficacy endpoint of 5. So only if the recruitment is much longer 
+than expected, when 30 patients will have completed the 13-week treatment period, the overall 
+standard deviation of the primary endpoint on non-comparative data could be calculated. If the 
+value is less or equal to 5, the sponsor could stop the patient recruitment, considering that the 
+number of patients is sufficient to meet both efficacy criteria. This potential adaptation has very 
+little or no impact on the probability of having a false-positive result (Kieser, 2003).
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+16/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+14/57
+2.
+ANALYSIS SETS / TREATMENT GROUPS
+2.1.
+Analysis sets 
+- Randomised Set (RS):
+All included patients to whom a therapeutic unit (TU) was randomly assigned using IWRS.
+- Safety Set (SS):
+All patients having taken at least one dose of IMP.
+- Biomarker Set (BMKS): 
+All patients of the RS having at least one available result for any biomarker.
+2.2.
+Treatment groups
+Treatment groups considered will be S95011 (750 mg) and placebo.
+They will correspond to treatment received at inclusion visit.
+In the unlikely event of a patient receiving an incorrect Therapeutic Unit (TU) at a particular 
+post-W000 visit on the 13-week double-blind treatment period, which would result in a switch 
+of treatment group, the patient will be considered in the treatment group corresponding to their 
+TU(s) received until the switch. Their data recorded from the switch will be managed according 
+to the considered estimand. All safety data and IMP administration data of the patients with a 
+switch of treatment group will be listed separately.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+17/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+15/57
+3.
+GENERAL STATISTICAL CONSIDERATIONS
+3.1.
+Descriptive statistics
+Descriptive statistics will be provided by treatment group, and all treatment groups pooled (for 
+analyses on disposition of patients, baseline characteristics and patient follow-up, and on 
+adverse events).
+For qualitative data, number of observed values, number and percentage of patients per class 
+will be presented. Unless otherwise specified in the TLG, no class "Missing" is considered.
+For quantitative data, number of observed values, mean, standard deviation, median, first and 
+third quartiles, minimum and maximum will be presented.
+For event data, number of patients having experienced the event (n) and number of events that 
+occurred (for AE analyses only) (NAE) will be presented.
+3.2.
+General definitions
+Patients having taken at least one dose of IMP correspond to patients with at least one date 
+of first and/or last IMP intake complete or partially complete.
+Analysable value will be defined as any non-missing value, except for:
+- Laboratory parameters:
+y A laboratory value is considered as analysable if non-missing and not flagged in the 
+ClinTrial database as "not analysable".
+y Vital signs value is considered as analysable if collected under appropriate circumstances 
+(corresponds to the item of the source database).
+Baseline value will be defined as the last analysable value prior to the first IMP intake. In case 
+of patient included and/or randomised but not having taken at least one dosage of IMP: value 
+at baseline is defined as the last analysable value prior or equal to date of inclusion visit.
+Considered periods are:
+- ASSE-W013 period.
+- ASSE-W028 period.
+Last post-baseline value under treatment of the period will be defined as the last post-
+baseline analysable value under treatment during the considered period.
+Change from baseline to post-baseline visit is calculated as: Value at the post-baseline visit -
+Value at baseline.
+Change from baseline to post-baseline visit under treatment is calculated as: Value at the 
+post-baseline visit under treatment - Value at baseline.
+Change from baseline to last post-baseline value under treatment is calculated as: Last post-
+baseline value under treatment - Value at baseline.
+For safety endpoints (except adverse events), the following definition will be applied:
+- High emergent abnormal value under treatment according to the laboratory reference
+ranges is defined as value ≤ ULN (Upper Limit of Normal laboratory reference range) or 
+missing at the baseline of the treatment period and > ULN under treatment.
+- Low emergent abnormal value under treatment according to the laboratory reference
+ranges is defined as value ≥ LLN (Lower Limit of Normal laboratory reference range) or 
+missing at baseline of the treatment period and < LLN under treatment.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+18/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+16/57
+- High emergent abnormal value under treatment according to the cut-offs for PCSA
+values is defined as value ≤ ULS (Upper Limit used to define potentially clinically 
+Significant abnormal values) or missing at baseline of the treatment period and > ULS under 
+treatment.
+- Low emergent abnormal value under treatment according to the cut-offs for PCSA
+values is defined as value ≥ LLS (Lower Limit used to define potentially clinically 
+Significant abnormal values) or missing at baseline of the treatment period and < LLS under 
+treatment.
+Other calculation rules for general definitions (such as value prior to treatment / under 
+treatment, first and last IMP intake dates…), are provided in Appendix 7.1.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+19/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+17/57
+4.
+STATISTICAL ANALYSES
+Specific definitions and calculation rules are provided in Appendix 7.2
+4.1.
+Study participant
+4.1.1.
+Disposition 
+The size of each analysis set, and reasons for exclusion will be described. 
+Disposition of patients, including reasons for withdrawal, will be summarized during the study, 
+overall and by visit, in the RS. 
+4.1.2.
+Protocol deviations
+Protocol deviations before or at inclusion, as well as after inclusion, will be described in the RS
+for each considered period.
+For the description of important protocol deviations, the 6 following categories are considered 
+in accordance with ICH E3 guideline and ICH E3 Q&A:
+- Selection/inclusion criteria not fulfilled.
+- Patient having withdrawal criteria but not withdrawn.
+- Incorrect treatment or dose received.
+- Forbidden concomitant treatment.
+- Endpoint assessment possibly affected.
+- Safety possibly affected.
+4.1.3.
+Demographic data and baseline characteristics
+Demographic characteristics and other baseline characteristics will be summarized as follows,
+by treatment group and overall, in the RS:
+- Demographic characteristics:
+y Age (years).
+y Sex: male / female.
+y Race: White / American Indian or Alaska Native / Asian / Black or African American /
+Native Hawaiian or other Pacific Islander / Other.
+y Ethnicity: Hispanic or Latino / not Hispanic or Latino.
+y Life habits:
+ Smoking (excluding e-cigarette): Never / Has stopped smoking / Current smoker.
+ E-cigarette: Yes / No.
+ Alcohol: No / Has stopped drinking / Currently drinking.
+ Caffeine: Yes / No.
+- Baseline characteristics:
+y History of the primary Sjögren’s syndrome:
+ Disease duration (years) and by class: ≤7 years / > 7 years.
+ Specific treatment for pSS for which a stratification was done at baseline Nothing /
+Oral corticosteroid / Antimalarial / Oral corticosteroid and antimalarial.
+y Relevant medical and surgical history other than the PSS symptoms (by SOC and PT).
+y Specific previous treatment (by ATC code and preferred name).
+y Non-specific previous treatment (by ATC code and preferred name).
+y ESSDAI total score overall and in severity classes: Mild < 5 / Moderate [5 – 14[ / Severe
+≥14.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+20/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+18/57
+y ESSDAI by domain: Constitutional / Lymphadenopathy and lymphoma / Glandular /
+Articular / Cutaneous / Pulmonary / Renal / Muscular / PNS / CNS / Haematological / 
+Biological.
+y ESSPRI total score overall and in classes: < 5 / ≥5.
+y ESSPRI by symptom: Dryness / Fatigue / Pain.
+y SF-36 physical and mental scores.
+y MFI by domain: General fatigue / Physical fatigue / Reduced activity / Reduced 
+motivation / Mental fatigue.
+y NRS: PhGA score and PGA total score.
+y Schirmer test for the most affected eye and mean of both eyes.
+y OSS for the most affected eye and mean of both eyes.
+y Sialometry (stimulated and unstimulated salivary flow score).
+y Weight (kg).
+y Body temperature (°C).
+y BMI (kg/m2) and by class: < 18.5, [18.5-25[, [25-30[, ≥ 30.
+y SBP (mmHg).
+y DBP (mmHg).
+y HR (b.p.m).
+4.2.
+Treatments of patients
+4.2.1.
+Extent of exposure and treatment compliance
+Number and percentage of patients by total number of infusions and time between two IMP 
+administrations by visit will be described by treatment group in the RS and SS (if different).
+4.2.2.
+Concomitant treatments
+All specific (resp. non-specific) concomitant treatments taken at inclusion, during the W000-
+W013 period, and after the last IMP intake will be described in the RS and the SS (if different),
+by ATC code and preferred name and by treatment group.
+4.3.
+Efficacy analyses
+Calculation rules for efficacy endpoints and other specific definitions are provided in 
+Appendix 7.2.2.
+4.3.1.
+Primary efficacy estimand
+The primary estimand of interest is the effect of the treatments on the clinical disease activity 
+in all patients assuming non-occurrence of intercurrent events (IE). The motivation for this 
+choice is to assess at this proof-of-concept stage the full efficacy potential, that is, the 
+pharmacologic effect of the S95011 if all patients adhere to it (without any intercurrent events).
+The attributes of the primary estimand are defined as follow:
+- Treatment: S95011 or placebo.
+- Population: RS.
+- Variable: change in ESSDAI total score from baseline to W013 (primary efficacy endpoint).
+- Summary measure: difference in means between treatments.
+- Intercurrent events (IE):
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+y IE2: Increase or initiation of authorized medication for pSS.
+y IE3: Study drug discontinuation for AE related to study drug.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+21/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+19/57
+y IE4: Study drug discontinuation for other reasons (non-medical reason, AE not 
+related…).
+y IE5: Switch of treatment group (error of dispensation).
+y IE6: Decrease or stop of authorized medication for pSS.
+The rate of IEs is assumed to be below 10%. They will be handled by a hypothetical strategy to 
+estimate what the outcome would have been at the designated time point if no IE would have 
+occurred through that time point, considering that patients with IE would have efficacy
+outcomes as patients, in their treatment group, who continue their treatment without IE.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.
+4.3.1.1.
+Primary analysis
+Primary analysis will be done on RS.
+Definition: the primary efficacy endpoint is defined as the change from baseline to W013 in 
+ESSDAI total score. The ESSDAI total score is calculated as the weighted sum of 12 items of 
+the scale in ClinTrial database.
+Primary analysis: to assess the efficacy of S95011 (750 mg) as compared to Placebo on change 
+from baseline to W013 in ESSDAI total score after a 13-weeks treatment, using a General 
+Linear Model including the fixed, categorical effect of treatment and randomisation 
+stratification factors (rando_factor) as well as the continuous fixed covariate of baseline value.
+The randomisation stratification factors are baseline intake of oral corticosteroids (yes/no) and 
+baseline intake of antimalarial (yes/no)
+GENERAL LINEAR MODEL: change = baseline rando_factors treatment
+[1]
+The assumptions underlying the model, as for instance, the normality and homoscedasticity of
+residuals and detection of outliers will be checked. The assumptions of normality and 
+homoscedasticity of residuals will be investigated using some graphs and descriptive statistics. 
+The detection of outliers will be done using graphics.
+If the model is not running due to too few patients in the stratas, the model mentioned above 
+will be modified. Thus, the two stratification factors in the model will be replaced by the 
+following composite factor: baseline intake of oral corticosteroids or antimalarial or both 
+(yes/no). If the model is still not running with the stratification factor in two classes, then the
+stratification factor will not be considered.
+Statistical hypotheses:
+Let ߤ଴and ߤଵbe the population means of the change from baseline in ESSDAI total score at 
+W013 (primary endpoint) under placebo and S95011, respectively. 
+The statistical hypotheses that will be tested are:
+ܪ଴ǣߤ଴൒ߤଵ(S95011 is not superior to placebo)
+versus
+ܪଵǣߤ଴൏ߤଵ(S95011 is superior to placebo)
+The type I error of the statistical tests will be set at 10% for unilateral situation, which is 
+consistent with the objective of demonstrating the superiority versus placebo.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+22/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+20/57
+Missing data/intercurrent events handling: the primary analysis for the primary estimand will 
+be conducted using only data obtained prior to IEs. Observed post IE values will not be used in 
+the primary analysis. Post IE values will be imputed according to the MAR assumption 
+(multiple imputation by treatment group). This is aligned with the primary estimand and the 
+hypothetical strategy. Missing data not linked to intercurrent events will be imputed according 
+to the MAR assumption with a multiple imputation by treatment group. The imputation method 
+is detailed below and in Appendix 7.3.1. A patient with all visits missing or only baseline
+missing will not be considered in the analysis.
+Multiple imputation inference involves 3 consecutive phases.
+1/ Imputation step:
+A total of 100 imputed complete data sets will be generated.
+The imputation step for missing data as well as data considered as missing for the primary 
+analysis due to the strategy used to handle intercurrent event will be the same and applied to 
+data with a monotone pattern. For all patients, the regression method (adjusted on 
+randomisation stratification factors, baseline and considering all longitudinal data of planned 
+visits) will be used separately for each treatment arm to impute missing data (i.e. based on 
+patient completers under corresponding treatment arm) under MAR approach.
+It is of note that for missing data with an arbitrary missing pattern, the first imputation step 
+might be preceded by one MI approach based on MCMC method using baseline and all 
+longitudinal data by treatment groups.
+If the regression method for imputation is not running due to too few patients in the stratas, the 
+model mentioned above will be modified. Thus, the two stratification factors in the model will 
+be replaced by the following composite factor: baseline intake of oral corticosteroids or 
+antimalarial or both (yes/no). If the model is still not running with the stratification factor in 
+two classes, then the stratification factor will not be considered.
+2/ Analysis step:
+The same model as [1] (described above) will be applied to each of the 100 imputed datasets.
+3/ Combination step:
+Statistical inferences will be generated by combining results from the 100 analyses using 
+Rubin’s formulae. The multiple imputation estimator of the difference between S95011 and 
+placebo is the average of the individual 100 estimators. The variance of the estimator is the 
+combination of the between- and within-imputation variability (Carpenter and Kenward, 2007).
+Multiplicity handling: there is no multiplicity issue.
+Statistical elements: Finally, the following elements will be provided in a summary table:
+- Estimate (standard error) of the difference between adjusted treatment arm means.
+- Two-sided 80% CI of the estimate.
+- Two-sided 95% CI of the estimate.
+- One-sided p-value.
+4.3.1.2.
+Sensitivity analyses
+Sensitivity analysis will be done on RS.
+Sensitivity analysis: the same analysis as the primary analysis will be performed using model 
+[1] except the fact the missing data/ intercurrent event handling will be different.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+23/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+21/57
+Missing data/intercurrent events handling: in order to assess the sensitivity to the missing at 
+random (MAR) assumption, values post the following IEs:
+- IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+- IE2: Increase or initiation of authorized medication for pSS.
+- IE3: Study drug discontinuation for AE related to study drug.
+will not be taken into account and will be imputed according to the missing not at random
+(MNAR) assumption. 
+The other IEs and missing data will be handled as in the primary analysis. The imputation 
+method is detailed below and in Appendix 7.3.2. A patient with all visits missing or only
+baseline missing will not be considered in the analysis.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.Multiple imputation inference involves 3 consecutive phases.
+1/ Imputation step:
+A total of 100 imputed complete data sets will be generated.
+The imputation step for missing data with a monotone pattern will be:
+- For all data following study drug discontinuation for major worsening of primary Sjögren’s 
+syndrome (IE1), the values of outcome will be imputed using a reference based multiple 
+imputation (“jump to placebo” approach) for S95011 group and using multiple imputation
+(MAR) for the placebo group. This approach assumes that patients from S95011 mean’s 
+response distribution is that of the placebo group patients (Carpenter et al, 2013). The 
+imputed value will reflect the fact that these IEs are considered a bad outcome (worst case 
+scenario). 
+- For all data following increase or initiation of authorized medication for pSS (IE2) or study 
+drug discontinuation for AE related to study drug (IE3), the values of outcome will be 
+imputed using a reference based multiple imputation (“copy increments in placebo” 
+approach) for S95011 group and using multiple imputation (MAR) for the placebo group. 
+This approach assumes that patients from S95011 will exhibit an evolution of the disease 
+similar to patients in the placebo group but starting from the benefit already obtained 
+(Carpenter et al, 2013). The imputed value will reflect the fact that these IEs are considered 
+a moderately bad outcome.
+- For all data following another type of IE or missing data due to other reason, imputation will 
+be done as in the primary analysis.
+It is of note that for missing data with an arbitrary missing pattern, the first imputation step 
+might be preceded by one MI approach based on MCMC method using baseline and all 
+longitudinal data by treatment groups. If a patient has missing data before an intercurrent event, 
+all data of this patient will be imputed using the method according to the intercurrent event.
+2/ Analysis step:
+The same model as [1] (described above) will be applied to each of the 100 imputed datasets.
+3/ Combination step:
+Statistical inferences will be generated by combining results from the 100 analyses using 
+Rubin’s formulae. The multiple imputation estimator of the difference between S95011 and 
+placebo is the average of the individual 100 estimators. The variance of the estimator is the 
+combination of the between- and within-imputation variability (Carpenter and Kenward, 2007).
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+24/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+22/57
+Multiplicity handling: there is no multiplicity issue.
+Statistical elements: Finally, the following elements will be provided in a summary table:
+- Estimate (standard error) of the difference between adjusted treatment arm means.
+- Two-sided 80% CI of the estimate.
+- Two-sided 95% CI of the estimate.
+- One-sided p-value.
+4.3.1.3.
+Supplementary analyses
+Supplementary analysis will be done on RS.
+Definition: the efficacy endpoint is defined as the proportion of responders in ESSDAI total 
+score at W013.
+Supplementary analysis: to assess the efficacy of S95011 (750 mg) as compared to Placebo on 
+proportion of responders in ESSDAI after a 13-weeks treatment. Responders in ESSDAI at 
+W013 defined as patients having improvement from baseline in ESSDAI total score of at least:
+- 3 points
+- 5 points
+- 7 points
+will be analysed separately using a logistic regression model including the fixed, categorical
+effect of treatment and randomization stratification factors (rando_factor) as well as the
+continuous fixed covariate of baseline value.
+LOGISTIC REGRESSION MODEL: responder = baseline rando_factors treatment
+[2]
+The assumptions underlying the model, as for instance, independence of errors, linearity in the 
+logit for continuous variables, absence of multicollinearity, and lack of strongly influential 
+outliers will be checked.
+If the model is not running due to too few patients in the stratas, the model mentioned above 
+will be modified. Thus, the two stratification factors in the model will be replaced by the 
+following composite factor: baseline intake of oral corticosteroids or antimalarial or both 
+(yes/no). If the model is still not running with the stratification factor in two classes, then the 
+stratification factor will not be considered.
+Missing data/intercurrent events handling: the handling of IEs and missing data will be the 
+same as the primary and sensitivity analysis. Thus, imputation will be done on the change and 
+then the imputed change values will be turned into responder/non-responder.
+Multiplicity handling: there is no multiplicity issue.
+Statistical elements: Finally, the following elements will be provided in a summary table:
+- Estimate (standard error) of the difference between adjusted treatment arm proportions.
+- Two-sided 80% CI of the estimate.
+- Two-sided 95% CI of the estimate.
+- One-sided p-value.
+4.3.1.4.
+Subgroup analysis
+Not applicable.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+25/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+23/57
+4.3.2.
+Secondary efficacy estimand
+The secondary estimand of interest is the effect of the treatments on symptoms reported by the 
+patients in all patients assuming non-occurrence of IEs. The motivation for this choice is the 
+same as the primary estimand.
+Compared to the primary estimand, only the variable attribute is different and is defined as the 
+change in ESSPRI total score from baseline to W013 (secondary efficacy endpoints). The 
+ESSPRI total score is derived as the mean of 3 items. The other attributes, main and sensitivity 
+analyses are the same as for the primary estimand. 
+In the same line as for the primary estimand, the supplementary analyses will be performed on 
+the responders ESSPRI at W013 defined as patients having improvement from baseline in 
+ESSPRI total score of at least:
+- 1 point
+- 2 points
+- 3 points
+using the same model as for responders ESSDAI.
+4.3.3.
+Additional estimands based on ESSDAI and ESSPRI 
+Treatment policy estimands
+Treatment policy estimands are defined in order to assess the treatment effect on the clinical 
+disease activity (ESSDAI total score) and also on the symptoms reported by the patients 
+(ESSPRI total score) regardless of whether or not the IE occurs.
+The attributes of the additional estimands are defined as follow:
+-
+Treatment: S95011 or placebo.
+-
+Population: RS.
+-
+Variable 1: change in ESSDAI total score from baseline to W013.
+-
+Variable 2: change in ESSPRI total score from baseline to W013.
+-
+Summary measure: difference in means between treatments.
+-
+Intercurrent events: The occurrence of IEs (see list in primary estimand) is irrelevant in 
+defining the treatment effect of interest. All observed values will be used regardless of 
+occurrence of an IE.
+Missing data not due to IE will be handled according to the MAR assumption as in the primary 
+analysis.
+Main analysis is the same as for the primary estimand. Supplementary analysis will be 
+performed as for the primary estimand but considering the responders in ESSDAI at W013 
+defined as patients having improvement from baseline in ESSDAI total score of at least:
+- 3 points
+as well as on the responders in ESSPRI at W013 defined as patients having improvement from 
+baseline in ESSPRI total score of at least:
+- 1 point
+using the same model as for responders ESSDAI for the primary estimand (Section 4.3.1.3).
+Other estimand
+This estimand of interest is the effect of the treatments on the composite response to treatment 
+taking into account a double dimension - clinical disease activity from ESSDAI and symptoms 
+reported by the patients from ESSPRI - in all patients assuming non-occurrence of IEs. The 
+motivation for this choice is the same as the primary estimand.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+26/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+24/57
+The attributes of this estimand are defined as follows:
+- Treatment: S95011 or placebo.
+- Population: all randomised patients (RS).
+- Variable: Number of responders defined as patients with ≥ 3 points of improvement in 
+ESSDAI and with ≥ 1 point of improvement in ESSPRI from baseline at W013.
+- Summary measure: difference in proportion between treatments.
+- Intercurrent events (IE):
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+y IE2: Increase or initiation of authorized medication for pSS.
+y IE3: Study drug discontinuation for AE related to study drug.
+y IE4: Study drug discontinuation for other reasons (non-medical reason, AE not 
+related…).
+y IE5: Switch of treatment group (error of dispensation).
+y IE6: Decrease or stop of authorized medication for pSS.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.S95011 will be compared to placebo on the responders in the RS 
+using a logistic regression model including the fixed, categorical effect of treatment and 
+randomization stratification factors (rando_factor) as well as the continuous fixed covariate of 
+baseline value of each score.
+LOGISTIC REGRESSION MODEL: 
+responder = baseline_ESSDAI baseline_ESSPRI rando_factors treatment
+[3]
+The assumptions underlying the model, as for instance, independence of errors, linearity in the 
+logit for continuous variables, absence of multicollinearity, and lack of strongly influential 
+outliers will be checked.
+If the model is not running due to too few patients in the stratas, the model mentioned above 
+will be modified. Thus, the two stratification factors in the model will be replaced by the 
+following composite factor: baseline intake of oral corticosteroids or antimalarial or both 
+(yes/no). If the model is still not running with the stratification factor in two classes, then the 
+stratification factor will not be considered.
+The handling of IEs and missing data will be the same as the primary analysis of the primary 
+estimand for continuous ESSDAI and ESSPRI respectively. Then, imputed change will be 
+turned into responder/non responder separately for each score (ESSDAI 3 points and ESSPRI 
+1 point). Finally, the response to the composite endpoint will be derived. Sensitivity and 
+supplementary analyses are not planned for this estimand.
+4.3.4.
+Additional estimand based on STAR
+This estimand aims at evaluating the effect of the treatments on Sjogren’s Tool for Assessing 
+Response (STAR): a composite score, in all patients assuming non-occurrence of IEs. The 
+motivation for this choice is the same as the primary estimand.
+The attributes of these estimands are defined as follows:
+- Treatment: S95011 or placebo.
+- Population: RS.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+27/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+25/57
+- Variable 1: proportion of responders in STAR score at W013 defined as patients with a 
+STAR score ≥5.
+- Summary measure: difference in proportion between treatments.
+- Intercurrent events (IE):
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+y IE2: Increase or initiation of authorized medication for pSS.
+y IE3: Study drug discontinuation for AE related to study drug.
+y IE4: Study drug discontinuation for other reasons (non-medical reason, AE not 
+related…).
+y IE5: Switch of treatment group (error of dispensation).
+y IE6: Decrease or stop of authorized medication for pSS.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.S95011 will be compared to placebo on the responders in the RS 
+using a logistic regression model including the fixed, categorical effect of treatment and 
+randomization stratification factors (rando_factor). 
+LOGISTIC REGRESSION MODEL: 
+responder = rando_factors treatment
+[4]
+The assumptions underlying the model, as for instance, independence of errors, linearity in the 
+logit for continuous variables, absence of multicollinearity, and lack of strongly influential 
+outliers will be checked.
+If the model is not running due to too few patients in the stratas, the model mentioned above 
+will be modified. Thus, the two stratification factors in the model will be replaced by the 
+following composite factor: baseline intake of oral corticosteroids or antimalarial or both 
+(yes/no). If the model is still not running with the stratification factor in two classes, then the 
+stratification factor will not be considered.
+The handling of IEs and missing data will be in the same line as the primary analysis of the 
+primary estimand, but imputation will be done directly on the response variable. Sensitivity and 
+supplementary analyses are not planned for this estimand.
+4.3.5.
+Additional estimand based on CRESS
+This estimand aims at evaluating the effect of the treatments on the Composite of Relevant 
+Endpoints in Sjögren’s Syndrome (CRESS): a composite score, in all patients assuming non-
+occurrence of IEs. The motivation for this choice is the same as the primary estimand.
+The attributes of these estimands are defined as follows:
+- Treatment: S95011 or placebo.
+- Population: RS.
+- Variable 1: proportion of responders in CRESS at W013 defined as patients with a response 
+on ≥3 of the 5 items.
+- Summary measure: difference in proportion between treatments.
+- Intercurrent events (IE):
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+y IE2: Increase or initiation of authorized medication for pSS.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+28/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+26/57
+y IE3: Study drug discontinuation for AE related to study drug.
+y IE4: Study drug discontinuation for other reasons (non-medical reason, AE not 
+related…).
+y IE5: Switch of treatment group (error of dispensation).
+y IE6: Decrease or stop of authorized medication for pSS.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.S95011 will be compared to placebo on the responders in the RS 
+using a logistic regression model including the fixed, categorical effect of treatment and 
+randomization stratification factors (rando_factor). 
+LOGISTIC REGRESSION MODEL: 
+responder = rando_factors treatment
+[4]
+The assumptions underlying the model, as for instance, independence of errors, linearity in the 
+logit for continuous variables, absence of multicollinearity, and lack of strongly influential 
+outliers will be checked.
+If the model is not running due to too few patients in the stratas, the model mentioned above 
+will be modified. Thus, the two stratification factors in the model will be replaced by the 
+following composite factor: baseline intake of oral corticosteroids or antimalarial or both 
+(yes/no). If the model is still not running with the stratification factor in two classes, then the 
+stratification factor will not be considered.
+The handling of IEs and missing data will be in the same line as the primary analysis of the 
+primary estimand, but imputation will be done directly on the response variable. Sensitivity and 
+supplementary analyses are not planned for this estimand.
+4.3.6.
+Additional estimands based on other efficacy endpoints 
+These estimands of interest are the effect of the treatments on global assessments of the disease 
+activity reported by the physician (PhGA) and by the patient (PGA), and tear and salivary 
+glands function (Schirmer test, OSS and salivary test), in all patients assuming non-occurrence 
+of IEs. The motivation for this choice is the same as the primary estimand.
+The attributes of these estimands are defined as follows:
+- Treatment: S95011 or placebo.
+- Population: RS.
+- Variable 1: change in PhGA score from baseline to W013.
+- Variable 2: change in PGA total score from baseline to W013.
+- Variable 3: change in Schirmer test from baseline to W013 (on the most affected eye and 
+mean of both eyes).
+- Variable 4: change in OSS from baseline to W013(on the most affected eye and mean of 
+both eyes).
+- Variable 5: change in unstimulated salivary flow score from baseline to W013.
+- Summary measure: difference in means between treatments.
+- Intercurrent events (IE):
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+y IE2: Increase or initiation of authorized medication for pSS.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+29/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+27/57
+y IE3: Study drug discontinuation for AE related to study drug.
+y IE4: Study drug discontinuation for other reasons (non-medical reason, AE not 
+related…).
+y IE5: Switch of treatment group (error of dispensation).
+y IE6: Decrease or stop of authorized medication for pSS.
+Note: In case a patient is concerned by several IEs, the first event will be considered. If several 
+IE occurred the same day, IE will be considered to be more conservative in the following order: 
+IE1; IE2; IE3; IE4; IE5, IE6.Main analyses are the same as for the primary estimand. Sensitivity 
+and supplementary analyses are not planned for these estimands. 
+4.3.7.
+Descriptive analyses 
+For all efficacy endpoints, descriptive statistics will be provided at each visit, by treatment 
+group and also for some efficacy endpoints (ESSDAI (total score, each domain, and responders 
+(3,5, 7 points)), ESSPRI (total score, each symptom, and responders (1,2,3 points)), Schirmer 
+test, unstimulated salivary flow), by treatment group according to the disease severity at 
+baseline and background therapy in RS, on the W000-W013 period.
+The ESSDAI score by domain and ESSPRI score by symptom will also be described at each 
+visit and by treatment group (value and change).
+The SF-36 score by domain and MFI score by domain will also be described at each visit and 
+by treatment group (value and change).
+The STAR and CRESS scores will be described by domain at W013 and by treatment group
+The clinESSDAI total score will be described at each visit and by treatment group (value and 
+change).
+IGG will be described at each visit and by treatment group (value and change). 
+For ESSDAI, the number and percentage of patients changing disease severity class between 
+two timepoints (between W000 and W004, between W004 and W013 and between W000 and 
+W013) will be described: No change / From mild to moderate / From mild to severe / From 
+moderate to severe / From severe to moderate / From severe to mild / Form moderate to mild.
+In the same way, for Schirmer test, the number and percentage of patients changing class 
+between two timepoints (between W000 and W013) will be described: No change / From 
+normal to grey zone / From normal to dry / From grey zone to dry / From dry to grey zone /
+From dry to normal / Form grey zone to normal.
+The ESSPRI score will be described in a contingency table comparing classes modalities (score 
+< 5 vs score ≥5) at baseline with the same classes’ modalities at W013 thus allowing to 
+determine number and percentage of patients moving from one modality to another between 
+baseline and W013.
+4.4.
+Safety analysis
+All safety analyses will be performed by treatment group in the Safety Set, on the ASSE-W013 
+and ASSE-W028 periods.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+30/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+28/57
+4.4.1.
+Adverse events
+Definition:
+- Treatment Emergent Adverse Events (TEAE) on the ASSE-W013 period are defined as 
+all adverse events:
+y Which occur between the infusion start date/time of the first IMP intake (included) and 
+the date of W013 visit (included) or the last IMP intake date + 21 days (included) if the 
+W013 visit has not been done
+or
+y Which occur before the infusion start date/time of the first IMP intake and which worsen 
+(in terms of intensity) or become serious according to the investigator opinion between 
+the infusion start date/time of the first IMP intake (included) and the date of W013 visit 
+(included) or the last IMP intake date + 21 days (included) if the W013 visit has not been 
+done.
+Of note, in case of multiple information of the same event before the first IMP intake 
+date, the information nearest to the first IMP intake date is taken into account.
+- Treatment Emergent Adverse Events (TEAE) on the ASSE-W028 period are defined as 
+all adverse events:
+y Which occur between the infusion start date/time of the first IMP intake (included) and 
+the last IMP intake date + 85 days (included),
+or
+y Which occur before the infusion start date/time of the first IMP intake and which worsen 
+(in terms of intensity) or become serious according to the investigator opinion between 
+the infusion start date/time of the first IMP intake date (included) and the last IMP intake 
+date + 85 days (included).
+Of note, in case of multiple information of the same event before the first IMP intake 
+date, the information nearest to the first IMP intake date is taken into account.
+Analysis:
+Number of events, number and percentage of patients reporting at least one event, presented by 
+primary system organ class, and/or preferred term (depending on the analysis), will be provided 
+for:
+- Serious adverse events (SAE) over the analysed period according to the investigator or 
+sponsor opinion.
+- Adverse events of special interest.
+- Treatment Emergent Adverse Event (TEAE).
+- TEAE leading to IMP withdrawal.
+- TEAE requiring new treatment or increase of on-going treatment.
+- TEAE requiring surgical or medical procedure.
+- TEAE related to IMP.
+- TEAE related to Pss.
+- Serious TEAE.
+- Serious TEAE related to IMP.
+- TEAE of Grade 3-4 intensity.
+- Non serious TEAE over the corresponding treatment period.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+31/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+29/57
+TEAE will be described according to the seriousness, the intensity, the relationship with the 
+IMP, the action taken regarding the IMP, the requirement of added therapy and the outcome.
+TEAE will also be described by time to onset according to the following classes: [0-4], ]4,13] 
+and > 13
+4.4.2.
+Clinical laboratory evaluation
+4.4.2.1.
+Blood samplings for haematology, biochemistry and coagulation
+For each laboratory parameter, the following analyses will be performed:
+- Descriptive statistics on value at baseline, on value at each post-baseline visit under 
+treatment, on last post-baseline value under treatment and on change from baseline to last 
+post-baseline value under treatment. These analyses will be performed on both periods 
+(ASSE-W013 and ASSE-W028) only for haematology parameters and on ASSE-W028 for 
+other parameters.
+- Number and percentage of patients with at least one high/low emergent abnormal value 
+under treatment, according to the laboratory reference ranges and to the cut-offs for PCSA 
+values.
+- Laboratory parameters classified (number and percentage of patients in each class) according 
+to these reference ranges and cut-offs and using shift tables from baseline to the worst (high 
+and/or low) values under treatment.
+Moreover, listings of patients with out-of-range or PCSA analysable values emergent under 
+treatment and of non-analysable values excluded from analyses will be provided.
+4.4.2.2.
+Others laboratory parameters
+For urinary biochemistry and cryoglobulins parameters, descriptive statistics on value at 
+baseline, at each post-baseline visit under treatment and last post-baseline value under treatment 
+will be performed.
+4.4.3.
+Vital signs, clinical examination and other observations related to safety
+4.4.3.1.
+Vital signs and clinical examination
+Definition:
+The following vital signs and clinical examination will be analysed:
+- Weight (kg).
+- BMI (kg/m²).
+- Body temperature (°C).
+- SBP (mmHg) before IMP infusion (and 2h after IMP infusion for W000 and W002).
+- DBP (mmHg) before IMP infusion (and 2h after IMP infusion for W000 and W002).
+- HR (b.p.m) before IMP infusion (and 2h after IMP infusion for W000 and W002).
+Analysis:
+Vital signs and clinical examination will be described, in terms of value at baseline, value at 
+each post-baseline visit under treatment as well as in terms of change from baseline to each post 
+baseline visit under treatment.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+32/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+30/57
+4.5.
+Antibody analysis
+4.5.1.
+Auto-antibody analysis
+Anti-Nuclear Antibodies (ANA) will be described in a contingency table comparing ANA 
+modalities at baseline with ANA modalities at W013 thus allowing to determine number and 
+percentage of patients moving from one modality to another between baseline and W013.
+In a same way, Anti-Sjögren’s Syndrome A Antibodies (Anti-SSA), subtype Anti-SSA RO52 
+and subtype Anti-SSA RO60 as well as Anti-Sjögren’s Syndrome B Antibodies (Anti-SSB)
+will be described in a contingency table comparing Positive/Negative modalities at baseline
+with Positive/Negative modalities at W013.
+Rheumatoid Factor (RF) will be described as value at baseline and W013 and change from 
+baseline to W013.
+4.5.2.
+Anti-Drug Antibody analysis
+Number and percentage of patients having respectively positive or negative Anti-Drug 
+Antibodies (ADA) will be described by treatment group at each visit on the W000-W028 
+period.
+4.6.
+Exploratory analysis
+Not applicable.
+4.7.
+Biomarkers analysis
+4.7.1.
+Biomarker endpoints: Interleukin 7 cytokine (IL7), cytokines and other proteins 
+involved in pSS physiopathology
+Interleukin 7 cytokine is evaluated at W000, W002, W004, W007, W010 W013, W019 and 
+W028 by MSD Simplex. Pro-inflammatory panel (IL10, TNF-a, IFNg, IL2, IL6, IL8, IL4, IL1b,
+IL12p70 & IL13) is evaluated at W000, W002, W004 and W013 by MSD full multiplex. The
+cytokine panel (GM-CSF, IL1a, IL5, IL16, IL12/IL23p40, IL15, IL17A, TNF-b, VEGF) is 
+evaluated at W000, W004 and W013 by MSD Multiplex. The chemokine panel (IP10 and 
+MCP-1) is evaluated at W000, W004 and W013 by MSD multiplex. CXCL9, CXCL11 and 
+CXCL13 is evaluated at W000, W004 and W013 by Quantikine ELISA kit.
+In case of premature withdrawal, an evaluation is planned at this time-point and the evaluation 
+will not be described in the following analysis. 
+Biomarker results will be described for patients of the Biomarker Set (BMKS). 
+For descriptive statistics, marker will be expressed in terms of concentration at baseline and at 
+each post baseline visit and relative change from baseline to post baseline visit.
+4.7.1.1.
+Qualitative analysis
+Values of the marker will be expressed in class, according to the limits of quantification (Below 
+Lower Limit, In Range, Above Upper Limit). The percentage of values of the marker in each 
+class will be described overall.
+If the out-of-range percentage (Below Lower Limit or Above Upper Limit) is above 30% then 
+the quantitative analysis will not be performed. In this case, a more detailed qualitative analysis 
+by treatment group and / or visit could be provided.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+33/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+31/57
+4.7.1.2.
+Quantitative analysis
+4.7.1.2.1.
+Values out of limits of detection
+For quantitative description of concentration of these biomarkers, missing values with a result 
+flag not equal to “In ranges” will be substituted as follows:
+Value
+Substitued by
+Missing and below 
+quantification limit 
+(based on the result flag)
+LLOQ/ξʹ
+Missing and above 
+quantification limit 
+(based on the result flag)
+ULOQ
+If the lower (respectively upper) limit of quantification is missing, then it is replaced by the 
+lower (respectively upper) limit of detection in the substitution rules. Change from baseline and 
+percentage of reduction from baseline to post-baseline time point will be calculated using 
+imputed values at the visits.
+4.7.1.2.2.
+Description of biomarkers concentrations by arm
+For each treatment group (S95011 and placebo), descriptive statistics of biomarker 
+concentration will be provided (in terms of value at each visit and relative change from baseline 
+to each post-baseline visit) using descriptive tables.
+4.7.2.
+Biomarker endpoints: Immune panel (C3 and C4 complement fractions, CH50 
+(or CH100), quantitative immunoglobulins, protein electrophoresis and 
+immunofixation)
+Immune panel is evaluated at W000, W004 and W013 in blood. In case of premature 
+withdrawal, an evaluation is planned at this time-point and the evaluation will not be described 
+in the following analysis. 
+Biomarker results will be described for patients of the Biomarker Set (BMKS).
+For descriptive statistics, marker will be expressed in terms of concentration at baseline and at 
+each post baseline visit and relative change from baseline to post baseline visit.
+4.7.2.1.
+Description of biomarkers concentrations by arm
+For each treatment group (S95011 and placebo), descriptive statistics of biomarker 
+concentration will be provided (in terms of value at each visit and relative change from baseline 
+to each post-baseline visit) using descriptive tables.
+4.7.3.
+Biomarker endpoints: β2 microglobulin
+β2 microglobulin is evaluated at W000, W004 and W013 in blood. In case of premature 
+withdrawal, an evaluation is planned at this time-point and the evaluation will not be described 
+in the following analysis. 
+Biomarker results will be described for patients of the Biomarker Set (BMKS).
+For descriptive statistics, marker will be expressed in terms of concentration at baseline and at 
+each post baseline visit and relative change from baseline to post baseline visit.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+34/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+32/57
+4.7.3.1.
+Description of biomarkers concentrations by arm
+For each treatment group (S95011 and placebo), descriptive statistics of biomarker 
+concentration will be provided (in terms of value at each visit and relative change from baseline 
+to each post-baseline visit) using descriptive tables.
+4.8.
+Pharmacokinetic analysis and PK/PD analysis
+Serum concentrations of S95011 will be analysed by a population modelling approach, 
+described in a separated Data Analysis Plan (DAP), in order to assess the pharmacokinetics of 
+the drug and to investigate potential sources of variability through a covariate analysis. This 
+analysis will provide pharmacokinetic parameters and their associated variability in patients 
+and will be the object of a separate report.
+Exploratory assessment of the relationship between exposure and pharmacodynamics (as safety 
+and efficacy including biomarkers, efficacy and/or safety endpoints) will be performed and if 
+applicable, population pharmacokinetic pharmacodynamic (PK/PD) models will be developed 
+and a DAP will be set up and reported separately. Mechanistic model-based approaches (such 
+as physiologically based pharmacokinetic (PBPK) modelling, quantitative systems 
+pharmacology (QSP) modelling, etc.) may be used to better describe the PK and/or PK/PD of 
+S 95011. Those models would be the object of separate reports and a dedicated DAP would be 
+set for PBPK models.  
+All the above-mentioned analyses may require pooling data from CL2-95011-001 study with 
+data from other clinical trials or from literature. 
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+35/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+33/57
+5.
+INTERIM ANALYSIS
+Except for the blinded standard deviation reassessment, no interim analysis is planned. 
+Moreover, the blinded standard deviation reassessment was not performed as the recruitment 
+was not much longer than expected.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+36/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+34/57
+6.
+CHANGES TO PROTOCOL-PLANNED ANALYSES
+The definition of the Randomised Set has been modified as the set of all included patients to 
+whom a therapeutic unit (TU) was randomly assigned using IWRS. Indeed, a patient non 
+included has been randomised by mistake. According to the ICH E9 addendum, the population 
+has to be defined according to the clinical question of interest. So, it has been judged relevant 
+to define the analysis population as above. 
+The definition of treatment groups has been modified as the treatment received at inclusion visit 
+for all analysis sets. Indeed, a patient has been randomised to one treatment but received the 
+other one at inclusion (forced allocation). Thus, this patient has continued taking treatment 
+received instead of randomised treatment for the following dispensations and it has been judged 
+relevant to define the treatment groups as above. 
+As a patient received an incorrect Therapeutic Unit (TU) at a post-W000 visit on the 13-week 
+double-blind treatment period, this patient has potentially switched treatment group. Thus, it 
+has been decided to complete the definition of treatment groups by precising that in such cases,
+the patient will be considered in the treatment group corresponding to their TU(s) received until 
+the switch. The switch being considered as an intercurrent event, data recorded from the switch 
+will be managed according to the considered estimand.
+Since the final version of the protocol, a new score for assessment of Sjögren has been 
+constructed. It has been considered relevant to add this new score (STAR) in the statistical 
+analyses. Thus, a new objective and associated secondary analyses have been added in this 
+SAP.
+In the same line, the CRESS score (a score similar to STAR) has been considered relevant to
+evaluate the efficacy of S95011. Thus, a new objective and associated secondary analyses have 
+been added in this SAP for this score.
+As descriptive statistics has been considered sufficient to evaluate the efficacy of S95011 on
+the MFI, SF-36 and stimulated salivary flow, the estimands and associated inferential analyses
+has been deleted.
+The BMK set has been added to the list of analysis sets in order to perform Biomarker 
+exploratory analyses.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+37/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+35/57
+Regarding the estimand framework, some changes has been made between the protocol and the 
+SAP on intercurrent events. Indeed, “study drug discontinuation for major worsening of 
+primary Sjögren’s syndrome or AE related to study drug” has been split into two independent 
+IEs as “study drug discontinuation for major worsening of primary Sjögren’s syndrome” (IE1) 
+is considered more impacting than “Study drug discontinuation for AE related to study drug”
+(IE3). Thus, for sensitivity analyses, it is has been decided to handle data post the IE1 using a 
+reference based multiple imputation (“jump to placebo” approach) while data post the IE3 are 
+considered moderately bad outcome and will be handled using a reference based multiple 
+imputation (“copy increment in reference” approach). In the same line, intercurrent event 
+“change or initiation of unauthorised medication” from the protocol has been split into 
+“Increase or initiation of authorized medication for pSS”(IE2) and “Decrease or stop of 
+authorized medication for pSS” (IE6) (the unauthorized part being necessarily linked to 
+discontinuation for major worsening this part is already handled by IE1). Here again, IE2 having 
+more impact than IE6, post IE data will be handled using different method (respectively 
+reference based multiple imputation “copy increment in reference” and MAR approaches) for 
+sensitivity analyses. Finally, IE5 “Switch of treatment group (error of dispensation)” has been 
+added to handle the case of the patient having a treatment switch discussed above (MAR 
+approach).
+For all efficacy analyses, it has been specified that if the regression or the imputation model 
+does not run due to too few patients in the stratas, the four classes randomisation stratification 
+factor will be replaced by a 2 classes composite factor: baseline intake of oral corticosteroids 
+or antimalarial or both (yes/no). If the model is still not running, then the stratification factor 
+will not be considered.
+Finally, for the treatment policy efficacy analysis, it has been considered sufficient to consider 
+only responders in ESSDAI defined as patients with an improvement of at least 3 points and 
+responders in ESSPRI defined as patients with an improvement of at least 1 point. 
+The salivary gland tissue will not be described because of the very small number of available 
+biopsies collected at W013.
+Due to very low number of viable cells collected at each time point, no statistical analysis will 
+be performed on PBMCs (cell subsets).
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+38/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+36/57
+7.
+APPENDICES
+7.1.
+General analytic definitions
+Definitions below correspond to calculation rules for expressions defined in Section 4 as well 
+as definition of value prior to treatment / under treatment, first and last IMP intake dates and 
+other general definitions.
+7.1.1.
+Value prior to treatment / under treatment
+Table (7.1.1) 1 - Definition of value prior to treatment
+General definition
+For assessments without time collected
+Corresponding assessment date ≤date of the first IMP intake + X1sup days
+X1sup = 0
+For assessments with time collected
+Corresponding assessment date/time ≤infusion start date/time of the first IMP 
+intake + X1sup days
+Specific definition
+For ESSDAI, ClinESSDAI and PhGA
+Corresponding assessment date = date of visit at W000 ≤ date of the first IMP 
+intake + X1sup days
+For ESSPRI, MFI, PGA, SF-36
+Corresponding assessment date = date of visit at W000 ≤ date of the first IMP 
+intake + X1sup days
+Table (7.1.1) 2 - Definition of value under treatment
+General definition 
+For assessments without time collected
+On W000-W013 Period if W013 visit done
+Date of first IMP intake + X1sup(*) days ≤Corresponding assessment date d
+Date of W013 visit+ X2sup days
+X2sup = 0
+On W000-W013 Period if W013 visit not done
+Date of first IMP intake + X1sup(*) days ≤Corresponding assessment date d
+Date of last IMP intake on the W000-W013 period + X2sup days
+X2sup = 21
+On W000-W028 Period
+Date of first IMP intake + X1sup(*) days ≤Corresponding assessment date d
+Date of last IMP intake on the W000-W028 period + X2sup days
+X2sup = 85
+For assessments with time collected
+On W000-W013 Period if W013 visit done
+Infusion start date/time of the first IMP intake + X1sup(*) days ≤Corresponding 
+assessment date/time d Date of W013 visit + X2sup days
+X2sup = 0
+On W000-W013 Period if W013 visit not done
+Infusion start date/time of the first IMP intake + X1sup(*) days ≤Corresponding 
+assessment date/time d Date of last IMP intake on the W000-W013 period + 
+X2sup days
+X2sup = 21
+On W000-W028 Period
+Infusion start date/time of the first IMP intake + X1sup(*) days ≤Corresponding 
+assessment date/time d Date of last IMP intake on the W000-W028 period + 
+X2sup days
+X2sup = 85
+(*) cf. definition of value prior to treatment.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+39/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+37/57
+7.1.2.
+First and last IMP intake dates
+Because all IMP intake dates are complete, no substitution will be defined.
+7.1.3.
+Other dates
+If no specific management of dates is defined, missing information is substituted as defined 
+below: 
+Table (7.1.3) 1 - Substitution rules of dates if no specific management is defined
+Date to substitute
+Substituted date 
+Date
+../mmm/yyyy
+01/mmm/yyyy
+../…/yyyy
+01/JAN/yyyy
+../.../….
+No substitution
+Note:
+../mmm/yyyy = missing day
+../.../ yyyy = missing day and month
+../.../.... = missing date
+For assessments with time also collected and useful for the analysis, substitution rules are as 
+follows:
+Table (7.1.3) 2 - Substitution rules of dates and times if no specific management is defined
+Date and time to substitute
+Substituted date and time
+Date
+dd/mmm/yyyy hh-…
+dd/mmm/yyyy hh:00
+dd/mmm/yyyy …-…
+dd/mmm/yyyy 00:00
+../mmm/yyyy …-…
+01/mmm/yyyy 00:00
+../…/yyyy …-…
+01/JAN/yyyy 00:00
+../.../…. …-…
+No substitution
+Note:
+hh-… = missing minutes
+…-… = missing time
+../mmm/yyyy = missing day
+../.../ yyyy = missing day and month
+../.../.... = missing date
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+40/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+38/57
+7.2.
+Specific analytic definitions and data handling conventions
+7.2.1.
+Study participants
+7.2.1.1.
+Demographic data and other baseline characteristics
+7.2.1.1.1.
+Demographic data
+Age (years) is calculated in the ClinTrial database as:
+Year of selection visit (ASSE) – Year of birth
+7.2.1.1.2.
+History of the Sjögren’s disease
+The duration of the disease (years) is defined as:
+(Date of selection visit (ASSE) – Date of diagnosis) / 12.
+The result is rounded to the nearest integer. 
+7.2.1.1.3.
+Relevant medical and surgical history other than the PSS symptoms 
+The existence of a history (Yes/No) is defined from the presence, or not, of a Primary system 
+organ class and/or Preferred term.
+7.2.1.1.4.
+Previous treatments
+Previous treatments are all treatments received and stopped within 12 months before screening 
+visit (including vaccinations). All vaccinations deemed necessary by the investigator for the 
+patient should be up to date before inclusion. Therefore, the corresponding last vaccinations 
+and last boosters will be considered and reported as previous treatment (even if administered 
+more than 12 months prior to the screening visit).
+The anatomical therapeutic chemical classification (ATC code = 5 digits) is composed of 
+4 levels:
+- The first (1 digit) represents the anatomo-physiological class.
+- The second (2 digits) represents the pharmacological class.
+- The third (1 digit) represents the pharmacological sub-class.
+- The last (1 digit) represents the therapeutic class.
+Previous treatment is defined as any treatment with associated stop date strictly inferior to the 
+first IMP intake date.
+Note: In case of patient included and/or randomised but not treated, previous treatment is 
+defined as any treatment with associated stop date strictly inferior to date of inclusion visit.
+Only treatment with an Anatomical therapeutic chemical classification and/or a Preferred name 
+is considered.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+41/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+39/57
+The rules for substitution of missing or incomplete previous treatments stop dates are as 
+follows:
+Table (7.2.1.1.4) 1 - Substitution rules of previous treatments stop date
+Date to substitute
+Substituted date
+Stop date
+../mmm/yyyy
+If patient died same month and year then
+Date of death
+Else
+Last day of the month/mmm/yyyy
+../…/yyyy
+If patient died same year then
+Date of death
+Else
+31/DEC/yyyy
+../.../….
+If patient died then
+Date of death
+Else
+No substitution
+(i.e., treatment considered as still ongoing)
+Note:
+../mm/yyyy = missing day
+../.../ yyyy = missing day and month
+../.../.... = missing date
+The lists of the considered ATC codes for specific previous treatments to Sjögren disease are 
+the excel files:
+- 2602.0 Systemic and local treatments containing corticosteroids DDB320221.
+- 4306.0 Treatments containing antimalarial DDB320221.
+- 4302.0 Treatments containing methotrexate DDB320221.
+- 3700.2 Non-steroids antinflammatory drugs (NSAIDS) DDB320221.
+- 4309.0 Treatments containing cevimeline and pilocarpine DDB320221.
+- 4324.0 Ocular topics for S95011 DDB320221.
+- 4382.1 Drugs known to induce dry mouth and dry eyes DDB320221.
+- 1728.2 Treatments containing an alkylating agents DDB320211.
+- 3432.1 Treatments containing rituximab or other B cell depleting agents DDB320221.
+- 4299.0 Treatments containing Abatacept DDB320221.
+- 4300.0 Treatments containing Belimumab DDB320221.
+- 4303.0 Treatments containing Tumor Necrosis Factor (TNF) inhibitor DDB320221
+- 4305.0 Treatments containing tocilizumab DDB320221
+- 4308.0 Treatments containing specific immunosuppressants for 95011 DDB320221.
+- 4618.0 Treatments containing Janus Kinase associated inhibitors DDB320221.
+Other ATC codes in the ClinTrial database are for non-specific previous treatments.
+7.2.1.2.
+Extent of exposure and treatment compliance
+Number of infusions per patient is defined as:
+Number of visits (among W000, W002, W004, W007, W010) with non-missing IMP intake 
+date and the question “Did the patient receive the IMP infusion?” = Yes
+Time between two IMP administrations (i and i+1) is derived as (days):
+By visit i+1: Infusion stop date of the IMP intake at the visit i+1 – infusion stop date of the IMP 
+intake at the visit i.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+42/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+40/57
+7.2.1.3.
+Concomitant treatments
+The anatomical therapeutic chemical classification (ATC code = 5 digits) is composed of 
+4 levels:
+- The first (1 digit) represents the anatomo-physiological class.
+- The second (2 digits) represents the pharmacological class.
+- The third (1 digit) represents the pharmacological sub-class.
+- The last (1 digit) represents the therapeutic class.
+The existence of a concomitant treatment (Yes/No) is defined from the presence, or not, of
+an Anatomical therapeutic chemical classification and/or Preferred name.
+The periods considered for the analysis are:
+- At inclusion for which treatments with start date ≤ inclusion date and stop date ≥ inclusion 
+date or missing are taken into account.
+- During the W000-W013 treatment period for which treatments:
+y With start date ≥ first IMP intake date and < last IMP intake date, or
+y With start date ≤ first IMP intake date and stop date ≥ first IMP intake date or missing
+are taken into account.
+- After the last IMP intake for which treatments with start date > last IMP intake date are taken 
+into account
+Concomitant treatments could be considered in one or several of the possible analysis periods.
+The lists of the considered ATC codes for specific concomitant treatments to Sjögren disease 
+are the excel files:
+- 2602.0 Systemic and local treatments containing corticosteroids DDB320221.
+- 4306.0 Treatments containing antimalarial DDB320221.
+- 4302.0 Treatments containing methotrexate DDB320221.
+- 3700.2 Non-steroids antinflammatory drugs (NSAIDS) DDB320221.
+- 4309.0 Treatments containing cevimeline and pilocarpine DDB320221.
+- 4324.0 Ocular topics for S95011 DDB320221.
+- 4382.1 Drugs known to induce dry mouth and dry eyes DDB320221.
+Other ATC codes in the ClinTrial database are for non-specific concomitant treatments.
+The following rules for substitution of missing or incomplete start and stop dates are so that 
+the concomitance period is maximised:
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+43/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+41/57
+Table (7.2.1.3) 1 - Substitution rules of concomitant treatments intake dates
+Date to substitute
+Substituted date
+Start date
+../mmm/yyyy
+01/mmm/yyyy
+../…/yyyy
+01/JAN/yyyy
+../.../….
+If stop date is non-missing and inferior to selection date then:
+Stop date
+Else:
+Selection date
+Stop date
+../mmm/yyyy
+If patient died same month and year then
+Date of death
+Else
+Last day of the month/mmm/yyyy
+../…/yyyy
+If patient died same year then
+Date of death
+Else
+31/DEC/yyyy
+../.../….
+If patient died then
+Date of death
+Else
+No substitution
+(i.e., treatment considered as still ongoing)
+Note:
+../mm/yyyy = missing day
+../.../ yyyy = missing day and month
+../.../.... = missing date
+7.2.2.
+Efficacy
+7.2.2.1.
+Intercurrent Event (IE) 
+IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+IE2: Increase or initiation of authorized medication for pSS.
+IE3: Study drug discontinuation for AE related to study drug.
+IE4: Study drug discontinuation for other reasons (non-medical reason, AE not related…).
+IE5: Switch of treatment group (error of dispensation).
+IE6: Decrease or stop of authorized medication for pSS.
+For all efficacy endpoints, a flag for each intercurrent event (IE) will be created to identify the 
+values collected post-IE vs the values before or on the IE date. As a reminder, the IE date is the 
+date of the start of IE.
+One global IE flag will be derived to determine which IE occurs first. In case a patient is 
+concerned by several IEs, the first event will be considered. If several IE occurred the same 
+day, IE will be considered to be more conservative in the following order: IE1; IE2; IE3; IE4; 
+IE5, IE6.
+Study drug discontinuation for major worsening of primary Sjögren’s syndrome (IE1) is 
+defined as follow:
+- AE related to pSS leading to study drug discontinuation.
+Increase or initiation of authorized medication (IE2) is defined as follows:
+- Any increase or initiation of a new dose of corticosteroids (oral prednisone or equivalent)
+within 4 weeks prior to W013 visit.
+- Any intramuscular, IV, or intra-articular corticosteroids within 4 weeks prior to W013 visit.
+- Any increase or initiation of new dose of topical corticosteroids within 2 weeks prior to 
+W013 visit.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+44/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+42/57
+- Any increase
+or initiation of new dose of antimalarials
+(e.g.
+chloroquine, 
+hydroxychloroquine, quinacrine) after randomisation (W000).
+- Any increase or initiation of new dose of methotrexate after randomisation (W000).
+- Any change in route of administration of methotrexate within 4 weeks prior to W013 visit.
+- Any increase
+or initiation of
+new dose of regularly scheduled Non-steroidal 
+anti-inflammatory drugs (NSAIDs) within 2 weeks prior to W013 visit.
+- Any increase or initiation of new doses of cevimeline or oral pilocarpine within 2 weeks 
+prior to W013 visit.
+- Any increase or initiation of new doses of Ocular topics (excluding artificial tears, gels, 
+lubricants, antibiotherapy) within 90 days prior to W013 visit.
+- Required regular use of medications known to cause dry mouth/eyes as a regular and major 
+side effect, and which have not been on a stable dose for at least 30 days prior to W013.
+Study drug discontinuation for AE related to study drug (IE3) is defined as follow:
+- AE related to IMP leading to study drug discontinuation.
+Study drug discontinuation for other reasons (non-medical reason, AE not related…) (IE4) is 
+defined as follow:
+- Patients who did not receive IMP infusion neither at this visit nor at the following ones 
+without any AE related to pSS or related to IMP leading to study drug discontinuation.
+Decrease or stop of authorized medication for pSS (IE6) is defined using the same time 
+windows and definitions as IE2.
+The lists of the considered ATC codes for IE2 are the excel files:
+- 2602.0 Systemic and local treatments containing corticosteroids DDB320221.
+- 4306.0 Treatments containing antimalarial DDB320221.
+- 4302.0 Treatments containing methotrexate DDB320221.
+- 3700.2 Non-steroids antinflammatory drugs (NSAIDS) DDB320221.
+- 4309.0 Treatments containing cevimeline and pilocarpine DDB320221.
+- 4324.0 Ocular topics for S95011 DDB320221.
+- 4382.1 Drugs known to induce dry mouth and dry eyes DDB320221.
+7.2.2.2.
+ESSDAI total score
+ESSDAI total score is calculated in the ClinTrial database as the weighted sum of the
+12 domains (one decimal will be kept). The maximum theoretical score is 123. If one item is 
+missing, then the total score is not calculated.
+7.2.2.3.
+ESSPRI total score
+The ESSPRI total score is derived as the mean of the 3 items (one decimal will be kept). If one 
+item is missing, then the total score is not calculated. The maximum theoretical score is 10 
+(mean score of the 3 subscores).
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+45/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+43/57
+7.2.2.4.
+STAR score
+The STAR score (Sjogren’s Tool for Assessing Response) is a composite responder index in 
+primary Sjögren’s syndrome (pSS). This score will not be computed in the ClinTrial database
+and will have to be derived. The STAR score should be calculated as follows:
+- Systemic activity (/3points):
+y 3 points if decrease of at least 3 points in clinESSDAI from baseline.
+y 0 points otherwise.
+- Patient reported outcome (/3points):
+y 3 points if decrease of at least 1 point or at least 15% in ESSPRI from baseline.
+y 0 points otherwise.
+- Lachrymal gland function (/1point):
+y If abnormal Schirmer’s test score at baseline (i.e. < 5 mm).
+ 1point if increase of at least 5mm from baseline (ont mean of both eyes).
+ 0 point otherwise.
+y If normal Schirmer’s test score at baseline:
+ 1point if no change to abnormal value (on mean of both eyes).
+ 0 point otherwise.
+Or
+y If abnormal OSS score at baseline (i.e. ≥3):
+ 1point if decrease of at least 2 points from baseline (onh mean of both eyes).
+ 0 point otherwise.
+y If normal OSS test score at baseline:
+ 1point if no change to abnormal value (on mean of both eyes).
+ 0 point otherwise.
+- Salivary gland function (/1point):
+y If unstimulated salivary flow score is > 0 at baseline:
+ 1 point if increase of at least 25% from baseline.
+ 0 point otherwise.
+y If unstimulated salivary flow score is equal to 0 at baseline:
+ 1 point if any increase from baseline.
+ 0 point otherwise.
+- Biological (/1point):
+y 1 point if decrease of at least 10% of serum IgG level or decrease of at least 25% of RF 
+level.
+y 0 point otherwise.
+For the Lachrymal gland function domain, if the amelioration criterion is met for at least one 
+of the two scores (Schirmer or OSS) on the mean of the two eyes then patient get 1 point for 
+this domain. The STAR score is then the sum of the 5 previously mentioned domains. Finally, 
+a patient is a candidate STAR responder if his STAR score is ≥5.
+ClinESSDAI is defined as a sub score of the ESSDAI score taking into account all ESSDAI 
+domains except the Biological one and considering new weights. The new weights for 
+calculation of clin ESSDAI are: 4 for Constitutional domain, 4 for Lymphadenopathy domain,
+2 for Glandular domain, 3 for Articular domain, 3 for Cutaneous domain, 6 for Pulmonary 
+domain, 6 for Renal domain, 7 for Muscular domain, 5 for PNS domain, 5 for CNS domain, 
+and 2 for Haematological domain.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+46/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+44/57
+If one domain cannot be calculated, then the STAR score will not be calculated. However, for 
+the definition of responder:
+- If the sum of the non-missing items ≥ 5, then the patient will be considered as responder.
+- If the sum of the non-missing items + maximal potential sum of the missing items < 5 then 
+the patient will be considered as non-responder.
+7.2.2.5.
+CRESS score
+The CRESS score (Composite of Relevant Endpoints in Sjögren’s Syndrome) is a composite 
+responder index in primary Sjögren’s syndrome (pSS). This score will not be computed in the 
+ClinTrial database and will have to be derived.
+The CRESS score should be calculated as follows:
+- Systemic activity (/1points):
+y 1 points if clinESSDAI score at visit is < 5.
+y 0 points otherwise.
+- Patient reported outcome (/1points):
+y 1 points if decrease of at least 1 point or at least 15% in ESSPRI from baseline.
+y 0 points otherwise.
+- Tear gland function (/1point):
+y If abnormal Schirmer’s test score at baseline (i.e. < 5 mm):
+ 1point if increase of at least 5mm from baseline (on mean of both eyes).
+ 0 point otherwise.
+y If normal Schirmer’s test score at baseline:
+ 1point if no change to abnormal value (onon the mean of both eyes).
+ 0 point otherwise.
+Or
+y If abnormal OSS score at baseline (i.e. ≥3):
+ 1point if decrease of at least 2 points from baseline (on mean of both eyes).
+ 0 point otherwise.
+y If normal OSS test score at baseline:
+ 1point if no change to abnormal value (on mean of both eyes).
+ 0 point otherwise.
+- Salivary gland function (/1point):
+y If unstimulated salivary flow score is > 0 at baseline.
+ 1 point if increase of at least 25% from baseline.
+ 0 point otherwise
+y If unstimulated salivary flow score is equal to 0 at baseline:
+ 1 point if any increase from baseline.
+ 0 point otherwise.
+- Serological (/1point):
+y 1 point if decrease of at least 10% of serum IgG level or decrease of at least 25% of RF 
+level.
+y 0 point otherwise.
+For the Tear gland function domain, the patient is responder if the amelioration criterion is met 
+for at least one of the two scores (Schirmer or OSS) on the mean of the two eyes. The CRESS
+score is then the sum of the 5 previously mentioned domains. Finally, a patient is a candidate 
+CRESS responder if his CRESS score is ≥3.
+ClinESSDAI is defined in the previous section.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+47/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+45/57
+If one domain cannot be calculated, then the CRESS score will not be calculated. However, for 
+the definition of responder:
+- If the sum of the non-missing items ≥ 3, then the patient will be considered as responder.
+- If the sum of the non-missing items + maximal potential sum of the missing items < 3 then 
+the patient will be considered as non-responder.
+7.2.2.6.
+MFI total score
+The MFI (Multidimensional Fatigue Inventory) is a self-report measure designed to evaluate 
+five dimensions of fatigue: general fatigue, physical fatigue, reduced motivation, reduced 
+activity, and mental fatigue. 
+The MFI is a 20-item scale ranging from 1 to 5 to indicate how aptly certain statements 
+regarding fatigue represent the individual experiences. For each of the 5 scales (general fatigue, 
+physical fatigue, reduced activity, reduced motivation, and mental fatigue) a total score is 
+calculated by summation of the scores of the individual items. Scores can range from the 
+minimum of 4 to the maximum of 20. Higher total scores correspond with more acute level of 
+fatigue.
+Each of the 5 dimensions will be described but the total score will not be considered as not
+recommended.
+Before calculating total scores of each of the 5 scales, one need to be careful about some items 
+that have to be recoded. Indeed, as written above, higher total score of a specific domain
+correspond with more acute level of fatigue. Nevertheless, some items are coded reversely. For 
+example, item 2 “Physically, I feel only able to do a little” is scored 1 for “yes, that is true” and 
+5 for “No that is not true”. Thus, for this item, a higher score is associated to a less acute level 
+of fatigue. This is the case for items 2, 5, 9, 10, 13, 14, 16, 17, 18 and 19. For those 10 items, 
+sores will be recoded as follows: 1=5, 2=4, 3=3, 4=2, 5=1.
+Once the 10 reverse items have been recoded, the 5 scales total scores can be calculated as 
+follows:
+- General Fatigue is the sum of the patient’s score on items 1, 5, 12 and 16.
+- Physical Fatigue is the sum of the patient’s score on items 2, 8, 14 and 20.
+- Reduced activity is the sum of the patient’s score on items 3, 6, 10 and 17.
+- Reduced Motivation is the sum of the patient’s score on items 4, 9, 15 and 18.
+- Mental Fatigue is the sum of the patient’s score on items 7, 11, 13 and 19.
+7.2.2.7.
+SF36 physical and mental scores
+The SF-36 physical score corresponds to the SF-36 physical component summary and the SF-36 
+mental score corresponds to the SF-36 mental component summary which are calculated 
+according to the user’s manual for the SF-36v2 health survey – third edition, using a dedicated 
+software and transferred in the ClinTrial database.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+48/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+46/57
+7.2.2.8.
+Schirmer test
+The Schirmer test determines whether the eye produces enough tears to stay moist. This test 
+results in a measure of the moisture on paper strips previously applied on eyes for five minutes.
+The results of the Schirmer test will be directly available in ClinTrial. The mean score of both 
+eyes will be derived as the mean of right eye and left eye. The score will be evaluated on the 
+mean of both eyes but also the most affected eye which means on the eye with the smallest 
+score at baseline. If both eyes have the same Schirmer score at baseline, the right eye will be 
+evaluated by default.
+7.2.2.9.
+OSS
+The Ocular Staining Score (OSS) uses lissamine green dye to grade the conjunctiva and 
+fluorescein dye to grade the cornea. Total ocular staining scores of 0 to 12 per eye assess the 
+range of severity of keratoconjunctivitis sicca.
+The total OSS for each eye is the summation of the fluorescein score for the cornea and the 
+lissamine green scores for the nasal and temporal bulbar conjunctiva. The maximum possible 
+score for each eye is 12. The mean score of both eyes will be derived as the mean of right eye 
+and left eye. The score will be evaluated on the mean of both eyes but also the most affected 
+eye which means on the eye with the highest score at baseline. If both eyes have the same OSS 
+score at baseline, the right eye will be evaluated by default.
+7.2.2.10. Sialometry under unstimulated and stimulated conditions
+The results of the sialometry tests will be available in ClinTrial and the flow rate of saliva 
+automatically calculated as Volume (mL)/minute.
+7.2.3.
+Safety
+7.2.3.1.
+Adverse events
+Each medical concept of adverse event coded according to the internal "multiple medical 
+concept" process is taken into account as a single adverse event in the statistical analysis. The 
+modalities of the adverse event (onset and end dates, intensity, seriousness, action taken, 
+additional therapy, relationship, outcome...) replicated by default to each medical concept are 
+also taken into account in the statistical analyses.
+Treatment Emergent Adverse Events (TEAE) are defined in Section 4.4.1.
+Serious adverse events are defined as all adverse events upgraded by the sponsor during the 
+IME or PharmacoVigilance (PV) process (upgrade of seriousness) or considered as "serious" 
+from investigator assessment.
+Serious adverse events from investigator assessment are defined as all adverse events fulfilling 
+at least one of the following seriousness criteria for immediate notification at any time (before, 
+during or after IMP intake): death, hospitalisation or prolongation of hospitalisation, medically 
+important, life-threatening, disability/incapacity or congenital anomaly.
+Severe adverse events are defined as adverse events of grade 3, 4 or 5.
+A fatal adverse event corresponds to an adverse event with "Fatal" outcome.
+Adverse events of special interest (AEOSI) are adverse events of scientific and medical 
+interest or concern regarding the IMP for which recording rules, special documentation with 
+detailed information such as hospital records is required. It may be a serious or non-serious AE 
+that may require further investigation in order to characterize and understand.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+49/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+47/57
+AEOSI include:
+- Allergic reaction grade 3 or higher according to CTCAE/v5.0 grading (Note: Humans
+administered foreign proteins are at risk of developing allergic reactions, including
+anaphylaxis).
+- Cytokine release syndrome: No cytokine release has been observed in FIH study (IFNγ, 
+IL12p70, IL4, IL5, IL6, IL8, TNFα, however, given the risk of cytokine release syndrome 
+observed in certain therapeutic monoclonal antibodies, this event will be systematically 
+collected and closely monitored in patients treated with S95011). In case of suspicion of 
+cytokine release syndrome, a blood sample for cytokines assay will be performed and 
+analysed locally.
+- Infections grade 3 or higher according to CTCAE/v5.0 grading (Note: IL 7 receptor
+inhibition may induce immunomodulation, so patients should be monitored clinically for
+manifestations of infectious disease, and, if necessary, appropriately treated [e.g. with
+antibiotics]).
+- Lymphopenia < 500x106/L (grade 3 or higher according to CTCAE v5.0 Criteria)
+The lists of the considered ATC codes for AEOSI are the excel files:
+- 3736.0 PRE Infusion related reaction M251.
+- 3847.0 Lymphopenia M250.
+- 4314.0 Bacterial, viral, fungal, parasitic infections for 95011 M250.
+- 4639.0 Cytokine release syndrome M250.
+Adverse events related to IMP correspond to adverse events with relationship with IMP 
+forced by the sponsor during the PV process (upgrade of relationship at least for adverse events 
+assessed as serious according to investigator or sponsor opinion) or considered as "related" from 
+investigator assessment. 
+The following information will be taken into account:
+- For the analyses where the intensity of the adverse event is considered, the worst intensity 
+from the day of emergence to the end of the studied period will be taken into account.
+- For the analyses where the action taken regarding the IMP is considered, all the actions taken 
+recorded from the day of emergence to the end of the studied period will be taken into 
+account.
+- For the analysis of recovered emergent adverse events during, an EAE is considered as 
+recovered "during treatment period" if the associated outcome is "recovered" or "recovered 
+with sequelae" and occurs between the first IMP intake date and the last IMP intake date.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+50/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+48/57
+The following rules are applied in case of missing intensity to define emergent adverse events:
+Table (7.2.3.1) 1 - Adverse events - Rules in case of missing intensity
+Intensity
+Worsening of intensity
+Nearest before the first IMP 
+intake date
+During studied period*
+Missing
+Missing
+
+Yes
+Missing
+Grade 1
+
+No
+Missing
+Grade 2
+
+Yes
+Missing
+Grade 3
+
+Yes
+Missing
+Grade 4
+
+Yes
+Missing
+Grade 5
+
+Yes
+Grade 1
+Missing
+
+Yes
+Grade 2
+Missing
+
+Yes
+Grade 3
+Missing
+
+Yes
+Grade 4
+Missing
+
+Yes
+Grade 5
+Missing
+
+No
+* Studied period – cf Section 4.4.1
+The rules for substitution of missing or incomplete onset date, dates of modification of intensity, 
+dates of action taken and/or dates of the six seriousness criteria are as follows:
+Table (7.2.3.1) 2 - Substitution rules of AE dates
+Date to substitute
+Substituted date
+dd/mmm/yyyyhh: .. 
+If same date and same hour as IMP intake date then: 
+-
+First intake date and time + 1 min 
+Else:
+hh:00 
+dd/mmm/yyyy …-…
+If same date as IMP intake date then:
+-
+First IMP intake date and time + 1 min
+Else:
+-
+dd/mmm/yyyy 00:00
+../mmm/yyyy..:..
+If same month and year as IMP intake date then:
+First IMP intake date and time + 1 min
+Else:
+01/mmm/yyyy 00:00
+../…/yyyy ..:..
+If same year as IMP intake date then:
+First IMP intake date + 1 min
+Else:
+01/JAN/yyyy 00:00
+../.../….
+First IMP intake date and time + 1 min
+Note:
+../mm/yyyy = missing day
+../.../ yyyy = missing day and month
+../.../.... = missing date
+dd/mmm/yyyyhh: .. = missing minutes
+dd/mmm/yyyy.. : .. = missing time
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+51/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+49/57
+The rules for substitution of missing or incomplete recovery dates, in case of AE outcome 
+"recovered" or "recovered with sequelae" are as follows:
+Table (7.2.3.1) 3 - Substitution rules of recovery date
+Date to substitute
+Substituted date
+../mmm/yyyy
+If same month and year than date of AE last 
+information* then:
+Date of AE last information
+Else:
+Last day of the month /mmm/yyyy
+../…/yyyy
+If same year than date of AE last information* then:
+Date of AE last information
+Else:
+31/DEC/yyyy
+../.../….
+Date of AE last information*
+* Date of AE last information is defined as the maximum between onset date, dates of modification of intensity, action taken and dates of 
+the six seriousness criteria for this adverse event.
+Note:
+../mmm/yyyy = missing day,
+../.../ yyyy = missing day and month,
+../.../.... = missing date.
+7.2.3.2.
+Clinical laboratory evaluation
+Management of samplings
+The following rules will be applied to define the visit associated to the sampling which is used 
+in the analysis by visit (considering the date and the nature of the sampling): 
+- Each scheduled sampling is associated to the nearest visit where a sampling is expected 
+according to the protocol (W000, W002, W004, W007, W010, W013, W019 and W028).
+- Retests with a sampling date between two scheduled samplings n and n+1 are reported at the 
+same report visit as the sampling n.
+Note: The previous rules do not apply to unscheduled samplings (these latter are not taken into 
+account in the analysis by visit).
+Management of multiple samples
+- For the description of the values at each planned post-baseline visit, only the first analysable 
+one measured under treatment at the visit is taken into account.
+- Otherwise, each post-baseline value (test, re-test, planned, unplanned) measured under 
+treatment is taken into account for other analyses.
+Management of values out of quantifiable limit
+- For the quantitative analyses, values "less (resp. greater) than quantifiable limit" will be 
+substituted by the quantifiable limit.
+- For the qualitative analyses, the quantifiable limits will be used for classification according 
+to the laboratory reference range and the cut-offs for PCSA values.
+Management of reference ranges and cut-offs for PCSA values 
+In case of aberrant values of reference ranges as compared to PCS ranges, it will be managed 
+as follows: 
+- If ULN > ULS (resp. LLN < LLS) then ULN value (resp. LLN value) will be imputed with 
+ULS value (resp. LLS value). 
+- If ULN < LLS, then ULN value will be imputed with ULS value. 
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+52/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+50/57
+- If LLN > ULS, then LLN value will be imputed with LLS value. 
+- If ULN < LLN, then ULN value will be imputed with ULS value and LLN value will be 
+imputed with LLS value. 
+- If ULN is missing, then ULN value will be imputed with ULS value. 
+- If LLN is missing, then LLN value will be imputed with LLS value.
+For the qualitative analysis:
+- If the limits of normal laboratory reference ranges (i.e. LLN and ULN) are optional (i.e.
+present in the database but not clinically relevant), they will not be taken into account and 
+will be considered as missing. 
+Same approach regarding the limits used to define PCSA values (i.e. LLS and ULS) when 
+optional.
+So:
+y Only ULN and ULS will be considered as clinically relevant for Alanine 
+Aminotransferase, Alkaline phosphatase, Amylase, Aspartate Aminotransferase, 
+Basophils, Basophils/Leucocytes, Bilirubin, C reactive Protein, Cholesterol, Creatine 
+Kinase, Direct Bilirubin, Eosinophils, Eosinophils/Leukocytes, Gamma Glutamyl 
+Transferase, Indirect Bilirubin, Lactate dehydrogenase, Triglycerides.
+y Only LLN, ULN and ULS will be considered as clinically relevant for Creatinine,
+Monocytes, Monocytes/Leukocytes, Protein, Triacylglycerol Lipase, Uric acid.
+y Only LLN and ULN will be considered as clinically relevant for Activated partial 
+thromboplastin time, Albumin (%) in total protein, Erythrocyte Sedimentation Rate, 
+Prothrombin time, Urea.
+y Only ULN will be considered as clinically relevant for Rheumatoid Factor.
+y All limits (LLS, LLN, ULN and ULS) will be considered as clinically relevant for other 
+parameters.
+y Note: For Glucose parameter, whatever the condition (fasting or not), the laboratory 
+reference ranges and PCSA values of Glucose in fasting condition will be considered.
+- For parameters with mandatory limits of normal laboratory reference ranges, in the situation 
+where these limits are outside the limits used to define PCSA values, the normal laboratory 
+reference limits will be substituted by the corresponding PCSA limits 
+- Each non missing value will be classified taking into account clinically relevant 
+(reference/PCS) limit (i.e. the value will only be compared to the clinically relevant limit(s) 
+and will be considered as normal if not out of this (those) limit(s)).
+7.2.3.3.
+Vital signs and clinical examination
+The Body Mass Index is calculated at a visit in the ClinTrial database as:
+BMI (kg/m²) = Weight (kg) / (Height (cm) x 0.01)².
+using the height measured at ASSE visit and the weight recorded at the corresponding visit. 
+The result is rounded to one decimal place.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+53/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+51/57
+7.3.
+Statistical methods details
+7.3.1.
+General Linear Model
+A model that will be used for this study is the General Linear Model studying treatment effect 
+with baseline and randomisation stratification factors (baseline intake of oral corticosteroids 
+(yes/no) and baseline intake of antimalarial (yes/no)) variable as covariates. The randomisation 
+stratification factors will be considered in a unique variable with four modalities (“Nothing”, 
+“oral corticosteroids”, “antimalarial” and “oral corticosteroids and antimalarial”):
+Yijk = J Xijk + ai + bj + Hijk
+Where:
+- Yijk is the continuous response from the kth patient, in strata j, that received treatment i.
+- Xijk is the baseline value of the analysed variable for the kth patient, in strata j, that received 
+treatment i.
+- J denotes the common slope of the baseline covariate.
+- ai denotes the intercept of the ith treatment.
+- bj denotes the fixed effect of strata j.
+- Hijk ~ iid N(0, VH2) denotes the experimental unit error associated with the kth patient, in strata
+j, that received treatment i.
+The model can also be written in matrix notation as:
+Y = XE + H
+Where:
+- Y is the vector of observations.
+- X is the design matrix of the fixed effects and baseline factors.
+- E is the unknown vector of the fixed effects and baseline factors.
+- H is the unobserved vector of independent and identically distributed random errors, such as 
+,R)
+0
+N(
+~
+ε
+where R = 
+2
+ε
+σ In.
+The restricted maximum likelihood (REML) approach for estimation of variance will be 
+considered.
+Estimate:
+The estimate βˆ of E is given by:
+ߚመൌሺܺ′ܺሻିଵܺ′ܻ
+ܸܽݎሺߚመሻൌሺܺ′ܴ෠ିଵܺሻିଵൌܥመ
+Confidence interval and p-value:
+The Sum of Squares using a Least-Squares-means contrast is used for computing the Sum of 
+Squares under H0: Lβ = 0 (where LE denotes a linear estimable combination of the fixed 
+effects).
+The 95% confidence interval of βˆ is given by: 
+ܮߚመേݐఔෝǡ଴Ǥଽ଻ହ᩸ඥܮܥመܮ′
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+54/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+52/57
+Where:
+-
+νˆ denotes the approximate degrees of freedom by the residual degrees of freedom, ݊െ
+ݎܽ݊݇ሺܺሻ, where ݊is the number of observations.
+-
+975
+.
+0
+,
+νˆt
+is the 0.975th quantile of the t-distribution with νˆ degrees of freedom.
+The Least-Squares approach provides estimates of the linear parameters that are unbiased and 
+have minimum variance among linear estimators.
+The treatment effect is estimated by the difference of the Least-Squares-means of each studied 
+treatment group.
+Validation of hypothesis: 
+For the validation of the model used, the following points will be studied:
+a) Normality and homoscedasticity of residuals
+The assumptions of normality and homoscedasticity of residuals will be investigated on the 
+model using some graphs and descriptive statistics.
+b) Detection of outliers
+The detection will be done using graphics.
+7.3.2.
+Logistic Model
+Another model that will be used for this study for the responder analysis is the Logistic Model 
+studying treatment effect with baseline and randomisation stratification factors (baseline intake 
+of oral corticosteroids (yes/no) and baseline intake of antimalarial (yes/no)) variable as 
+covariates. The randomisation stratification factors will be considered in a unique variable with 
+four modalities (“Nothing”, “oral corticosteroids”, “antimalarial” and “oral corticosteroids and 
+antimalarial”).
+Logistic regression is one of the generalized linear models with a logit link to model a binary 
+dependent variable. Under logit setting, we can model our response as below:
+݈݋݃
+ܧሾܲሺܻൌͳሻሿ
+ͳ െܧሾܲሺܻൌͳሻሿൌߚ଴൅ߚଵכ ܫ௧௥௘௔௧௠௘௡௧൅ߚଶכ ܺଶ൅ߚଷכ ܺଷ൅ߚସכ ܺସ
+Let ܮ௣and ܮ்be the linear predictor for placebo and treatment, respectively
+ܮ்ൌߚ଴൅ߚଵ൅ߚ்ଶכ ܺଶ൅ߚ்ଷכ ܺଷ൅ߚ்ସכ ܺସ
+ܮ௣ൌߚ଴൅ߚ௣ଶכ ܺଶ൅ߚ௣ଷכ ܺଷ൅ߚ௣ସכ ܺସ
+Estimate:
+The difference between two rates can be considered as a function of ߚ:
+ܧሾܲሺܻൌͳȁሻሿെܧሾܲሺܻൌͳȁሻሿൌ݄ሺߚሻൌ
+ͳ
+ͳ ൅ሺെܮ்ሻെ
+ͳ
+ͳ ൅ሺെܮ௉ሻ
+So the difference in percentages of responders between Treatment and Placebo will be given 
+by:
+݂݂݀݅Ψሺܶെܲሻൌ
+ሺܮ்ሻ
+ͳ ൅ሺܮ்ሻെ
+ሺܮ௉ሻ
+ͳ ൅ሺܮ௉ሻ
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+55/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+53/57
+Then the standard error for rate difference can be derived by Delta method.
+ξ݊൫ߚመെߚ൯׽ ܰሺͲǡ ȭሻ
+The delta method will be applied using the NLMIXED procedure of SAS on the results from 
+the GENMOD procedure (Ke, 2022).
+ods output AdditionalEstimates=output_nlmixed;
+proc nlmixed data=data_analyse alpha=risk_alpha;
+p = logistic(Intercept + b1*(class=1) + b2*(class=2) + b3*(class=3) + b4*baseline +
+b5*(treatment=1));
+model response ~ binary(p);
+by _Imputation_;
+estimate 'T-P' logistic(Intercept + 0.25*b1 + 0.25*b2 + 0.25*b3 + 12.146*b4 + b5) -
+logistic(Intercept + 0.25*b1 + 0.25*b2 + 0.25*b3 + 12.146*b4);
+run;
+The values in green above are an example and will be replaced by coefficients extracted from 
+proc genmod.
+7.3.3.
+Imputation step for main analysis on primary endpoint
+We will implement a standard multiple imputation method for handling missing data due to any 
+kind of IE as well as missing data for other reasons.
+Standard multiple imputation: this method (Rubin, 1987) replaces each missing value with a 
+set of plausible values that represent the uncertainty about the right value to impute. Each value 
+is a Bayesian drawn from the conditional distribution of the missing observation given the 
+observed data, made in such a way that the set of imputation properly represents the information 
+about the missing value that is contained in the observed data for the chosen model.
+The multiply imputed data sets are then analysed by using standard procedures for complete 
+data and combining the results from these analyses, based on the change from baseline.
+Multiple imputation inference involves 3 consecutives phases (phase 1: imputation step, phase 
+2: analysis step and phase 3: combination step).
+Phase 1: Imputation step
+To guarantee the reproduction of results, the seed will be fixed at 95011.
+Step 1:
+First, data collected post IE should be considered as missing (use flag derived in ADAM). In 
+case of patient with several events (IE1=”Y” and IE2=”Y”…), the first one will be considered 
+and all the values after (strictly) will be considered as missing. All intermittent missing data 
+(i.e. with an arbitrary missing pattern) will be first imputed using a MI approach based on 
+MCMC method using baseline and all longitudinal data by treatment groups, in case the initial 
+dataset has not a strict monotone missing pattern.
+A total of 100 imputed partially completed datasets will be generated. This dataset will serve as 
+a basis for Step 2 (DATA_BASIS). For the following step, the entry dataset will be sorted by
+imputation, by treatment and by USUBJID.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+56/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+54/57
+Step 2:
+In this sequence, remaining missing data of DATA_BASIS will be imputed. For all patients with 
+missing data with or without an IE:
+- To impute those missing data, all data (DATA_BASIS) will be considered in order to benefit 
+of all data available at each visit. 
+- A regression method will be used to perform the imputation, using in this order: 
+randomisation stratification factors, baseline, visit i-1, visit i in the model. Of note, for 
+imputing data of visit i, data up to visit i-1 are to be considered for the imputation, even if 
+the data of visit i-1 already results of an imputation (this is taken into account in PROC MI 
+with the order of the variables put in the VAR statement).
+Phase 2: Imputation step
+The planned model will be applied to each of the 100 imputed datasets obtained at the previous 
+step (DATA_COMPLETE). For each imputed dataset i (i=1,2…,m), the estimate of the 
+difference between groups and the associated standard error will be stored.
+Phase 3: Combination step
+Statistical inferences will be generated by combining results from the 100 analyses using 
+Rubin’s formulae. The multiple imputation estimator of the difference between S95011 and 
+Placebo is the average of the individual 100 estimators.
+7.3.4.
+Imputation step for sensitivity analysis on primary endpoint
+We will implement a hybrid approach using jump to placebo approach, copy increments in 
+placebo approach and standard multiple imputation depending if:
+- Case a: one of the following IE occurs:
+y IE1: Study drug discontinuation for major worsening of primary Sjögren’s syndrome.
+- Case b: the following IE occurs:
+y IE2: Increase or initiation of authorized medication for pSS.
+y IE3: Study drug discontinuation for AE related to study drug.
+- Case c: data is missing due to another type of IE (IE4, IE5, IE6) or for other reasons.
+Standard multiple imputation: this method (Rubin, 1987) replaces each missing value with a 
+set of plausible values that represent the uncertainty about the right value to impute. Each value 
+is a Bayesian drawn from the conditional distribution of the missing observation given the 
+observed data, made in such a way that the set of imputation properly represents the information
+about the missing value that is contained in the observed data for the chosen model.
+Copy increments in placebo: this method (Carpenter et al, 2013) involves imputing the 
+missing values in the treatment arm under MNAR by a patient’s mean profile similar to the 
+mean profile in the control arm but starting from the benefit already obtained. On the other 
+hand, the missing values in the control arm will be imputed under MAR.
+Jump to placebo: this method (Carpenter et al, 2013) involves imputing the missing values in 
+the treatment arm under MNAR by a patient’s mean profile similar to the mean profile in the 
+control arm, thus losing the potential effect of the under-treatment period. On the other hand,
+the missing values in the control arm will be imputed under MAR
+The multiply imputed data sets are then analysed by using standard procedures for complete 
+data and combining the results from these analyses, based on the change from baseline.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+57/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+55/57
+Multiple imputation inference involves 3 consecutives phases (phase 1: imputation step, phase 
+2: analysis step and phase 3: combination step).
+Phase 1: Imputation step 
+To guarantee the reproduction of results, the seed will be fixed at 95011. 
+Step 1: 
+First, data collected post IE should be considered as missing (use flag derived in ADAM). In 
+case of patient with several events (IE1=”Y” and IE2=”Y”…), the first one will be considered 
+and all the values after (strictly) will be considered as missing. 
+Thanks to Part1a and Part1b macros, all intermittent missing data (i.e. with an arbitrary missing 
+pattern) will be first imputed using a MI approach based on MCMC method by treatment 
+groups, in case the initial dataset has not a strict monotone missing pattern. 
+A total of 100 imputed partially completed datasets will be generated. This dataset will serve as 
+a basis for the following. 
+Step 2: 
+In this sequence, remaining missing data of DATA_BASIS will be imputed. The nature of the 
+IE has to be considered as the imputation rules will be different. The macro Part2a and Part2b 
+of five macro will be used here. The methodV statement (i.e. a variable indicating for each 
+record which imputation method should be used) will be used in Part2a macro. This variable 
+would have been derived in the dataset. Then depending in IE and associated method the 
+following will occur inside the macro:
+- Step 2a: for all missing data due to IE written in case a:
+For this specified IE (IE1), imputation will be done according to jump to placebo approach. 
+All data (DATA_BASIS) will be considered to benefit of all data available at each visit. Steps 
+for imputation are the following: 
+y For patients in treatment arm: use jump to placebo approach with non-missing data from 
+the placebo arm to impute missing data post-IE1 in the treated arm (use SAS macro “five 
+macros”).
+y For patients in control arm: impute the missing values for each imputation separately 
+under the assumption of MAR, taking into account the baseline and value at previous and 
+current visits in this order from DATA_BASIS.
+y Keep only the imputed rows in the table (patients with IEFNUM=1).
+- Step 2b: for all missing data due to IE written in case b: 
+For those two specified IEs (IE2 and IE3), imputation will be done according to copy 
+increments in placebo approach. All data (DATA_BASIS) will be considered to benefit of all 
+data available at each visit. Steps for imputation are the following: 
+y For patients in treatment arm: use copy increments in placebo approach with non-missing 
+data from the placebo arm to impute missing data post-IE2/IE3 in the treated arm (use 
+SAS macro “five macros”).
+y For patients in control arm: impute the missing values for each imputation separately 
+under the assumption of MAR, taking into account the baseline and value at previous and 
+current visits in this order from DATA_BASIS.
+y Keep only the imputed rows in the table (patients with IEFNUM=2 or 3).
+- Step 2c: for all patients with missing data as mentioned in case c 
+y To impute those missing data, all data (DATA_BASIS) will be considered in order to 
+benefit of all data available at each visit. However, at the end, only imputed data from 
+this step will be considered.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+58/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+56/57
+y A regression method will be used to perform the imputation, using in this order: baseline, 
+treatment, visit i-1, visit i in the model. Of note, for imputing data of visit i, data up to 
+visit i-1 are to be considered for the imputation, even if the data of visit i-1 already results 
+of an imputation (this is taken into account in PROC MI with the order of the variables 
+put in the VAR statement).
+Step 3:  
+Finally, the macro returns a complete data set with all patients with imputed data from Step2a, 
+from Step2b, from Step2c and all Completers patients from Step1 (DATA_COMPLETE).  
+Phase 2: Analysis step  
+The planned model will be applied to each of the 100 imputed datasets obtained at the previous 
+step (DATA_COMPLETE). For each imputed dataset i (i=1,2…,m), the estimate of the 
+difference between groups and the associated standard error will be stored. This will be done 
+with the Part3 macro. 
+Phase 3: Combination step  
+Thanks to Part3 macro, Statistical inferences will be generated by combining results from the 
+100 analyses using Rubin’s formulae. The multiple imputation estimator of the difference 
+between S95011 and Placebo is the average of the individual 100 estimators.
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+59/60
+CCI
+CCI
+© I.R.I.S. - CL2-95011-001 - Statistical Analysis Plan (Version 2.0) -
+ 
+57/57
+8.
+REFERENCES
+Guidelines
+ICH E3 - Structure and Content of Clinical Study Reports – Adopted by CPMP, December 1995, issued as 
+CPMP/ICH/137/95/step 5
+ICH E3 Q&A - Structure and Content of Clinical Study Reports - Questions & Answers (R1) - July 2012, issued 
+as EMA/CHMP/ICH/435606/2012
+ICH E9 - Statistical Principles for Clinical Trials - Adopted by CPMP, March 1998, issued as 
+CPMP/ICH/363/96/step 5 
+ICH E9 (R1) – Addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical 
+principles for clinical trials – Adopted by the Regulatory Members of the ICH Assembly step 4, November 2020.
+Bibliography
+Carpenter JR, Roger JH, Kenward MG. Analysis of longitudinal trials with protocol deviation: A framework for 
+relevant, accessible assumptions, and inference via multiple imputation. Journal of Biopharmaceutical Statistics. 
+2013; 23:1352–1371 [PE0156317]
+Fisher B.A.; Szanto A; Ng W.F.; Bombardieri M., Rush J.S.; Gergely P, 2020. Assessment of the anti-CD40 
+antibody iscalimab in patients with primary Sjögren’s syndrome: a multicentre, randomised, doubleblind, placebo-
+controlled, proof-of-concept study, published online January23,2020 the Lancet [PE0156622]
+Kieser M, Friede T. Simple procedures for blinded sample size adjustment that do not affect the type I error rate. 
+Stat Med. 2003; 22(23):3571-3581. [PE0079853]
+Ke J, Chao K and Evans C. Estimating Differences in Probabilities (Marginal Effects) with Confidence Interval. 
+PharmaSUG 2022 - Paper SA - 003
+RO5459072, EudraCT number 2015-004476-30
+Rubin, D.B. (1987) Multiple Imputation for Nonresponse in Surveys. John Wiley & Sons Inc., New York.
+Seror R, Bootsma H, Saraux A, et al. Defining disease activity states and clinically meaningful improvement in 
+primary Sjögren's syndrome with EULAR primary Sjögren's syndrome disease activity (ESSDAI) and patient-
+reported indexes (ESSPRI). Ann Rheum Dis 2016; 75:382–389 [PE0156616]
+UCB5857, EudraCT number 2014-004523-51
+&/6WDWLVWLFDO$QDO\VLV3ODQ_9970)_
+S95011
+CL2-95011-001
+________________________________________________________
+__________________________________________________________________
+_________________________________________________________
+__________________________________________________________
+_____________________________________________________________
+_________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+60/60
+CCI
+CCI

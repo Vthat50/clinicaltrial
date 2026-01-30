@@ -1,0 +1,548 @@
+# =============================================================================
+# STUDY TYPE DEFAULTS - TIER 3: CONFIGURABLE BY STUDY TYPE
+# =============================================================================
+# These are sensible defaults based on study type that can be overridden
+# by protocol-specific specifications when extracted.
+#
+# Study types: biosimilar, immuno_oncology, targeted_therapy, chemotherapy,
+#              adjuvant, neoadjuvant, maintenance, single_arm
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# BIOSIMILAR ONCOLOGY STUDIES
+# -----------------------------------------------------------------------------
+
+biosimilar:
+  description: "Biosimilar oncology studies with equivalence/non-inferiority designs"
+
+  # Dual population requirement - CRITICAL for biosimilars
+  population_requirements:
+    dual_population_required: true
+    dual_population_text: |
+      Equivalence must be demonstrated in BOTH the Intent-to-Treat (ITT)
+      and Per-Protocol (PP) populations. The study will be considered
+      successful only if the equivalence margins are met in both populations.
+    primary_population: "ITT"
+    co_primary_population: "PP"
+    rationale: |
+      Per FDA and EMA biosimilar guidance, demonstration of equivalence
+      in both ITT and PP populations is required to establish biosimilarity.
+      The ITT analysis preserves randomization; the PP analysis evaluates
+      the effect in subjects who adhered to the protocol.
+
+  # PK population - required for PK equivalence
+  pk_requirements:
+    pk_population_required: true
+    pk_population_definition: |
+      The PK Population includes all subjects in the Safety Population who:
+      - Received at least one dose of study drug
+      - Have at least one evaluable PK sample at the pre-specified timepoints
+      - Have no major protocol deviations affecting PK assessment
+    pk_sampling_windows:
+      pre_dose: "Within 30 minutes before infusion start"
+      end_of_infusion: "Within 15 minutes after infusion end"
+      timepoints: "Per protocol-specified PK sampling schedule"
+    pk_equivalence_criteria: |
+      Equivalence of PK parameters (Cmax, AUC0-inf, AUC0-tau) will be
+      concluded if the 90% confidence intervals for the geometric mean
+      ratios (Test/Reference) are contained within 80.00% to 125.00%.
+
+  # Immunogenicity population
+  immunogenicity:
+    population_definition: |
+      The Immunogenicity Population includes all subjects in the Safety
+      Population who have at least one post-baseline ADA sample.
+    ada_testing_strategy: "tiered"
+    tiers:
+      - "Screening assay (binding antibodies)"
+      - "Confirmatory assay (drug-specific)"
+      - "Neutralizing antibody assay (if confirmed positive)"
+
+  # Default endpoints
+  endpoints:
+    primary:
+      typical: "ORR by IRC at Week 24"
+      assessment: "IRC (BICR)"
+      equivalence_margin: "±15% absolute difference"
+    secondary:
+      - "PFS"
+      - "OS"
+      - "DOR"
+      - "PK parameters (Cmax, AUC)"
+      - "Immunogenicity (ADA incidence)"
+
+  # ICE handling for biosimilars
+  ice_defaults:
+    treatment_discontinuation:
+      strategy: "treatment_policy"
+      text: "Treatment discontinuation handled using treatment policy strategy"
+    dose_modification:
+      strategy: "treatment_policy"
+      text: "Dose modifications allowed per protocol; analyzed as treatment policy"
+
+  # Sensitivity analyses
+  sensitivity_analyses:
+    - name: "Per-Protocol Population"
+      description: "Primary analysis repeated in PP population (co-primary for biosimilars)"
+      required: true
+    - name: "Evaluable Population"
+      description: "Subjects with evaluable response assessment"
+      required: false
+    - name: "Investigator Assessment"
+      description: "Response by local investigator (sensitivity to IRC)"
+      required: true
+    - name: "Alternative Response Criteria"
+      description: "Using Lugano/Cheson criteria if lymphoma"
+      required: false
+    - name: "Missing Response as Non-Response"
+      description: "All missing responses imputed as non-responders"
+      required: true
+
+  # Subgroup analyses
+  subgroup_analyses:
+    required:
+      - "Prior lines of therapy (0-1 vs ≥2)"
+      - "Geographic region"
+      - "ECOG performance status (0 vs 1)"
+    optional:
+      - "Age (<65 vs ≥65)"
+      - "Sex"
+      - "Tumor histology"
+
+# -----------------------------------------------------------------------------
+# IMMUNO-ONCOLOGY STUDIES
+# -----------------------------------------------------------------------------
+
+immuno_oncology:
+  description: "Checkpoint inhibitor and immunotherapy studies"
+
+  # Population requirements
+  population_requirements:
+    dual_population_required: false
+    primary_population: "ITT"
+    sensitivity_population: "PP"
+    biomarker_populations:
+      - name: "PD-L1 Positive"
+        definition: "TPS ≥1% or CPS ≥1 (as protocol specifies)"
+      - name: "PD-L1 High"
+        definition: "TPS ≥50% or CPS ≥10 (as protocol specifies)"
+      - name: "MSI-H/dMMR"
+        definition: "Microsatellite instability-high or mismatch repair deficient"
+
+  # Typical endpoints
+  endpoints:
+    primary:
+      typical: "OS or PFS"
+      assessment: "IRC for PFS, death records for OS"
+    secondary:
+      - "PFS (if OS is primary)"
+      - "OS (if PFS is primary)"
+      - "ORR"
+      - "DOR"
+      - "PFS2"
+    exploratory:
+      - "Time to response"
+      - "Landmark survival rates"
+      - "Health-related quality of life"
+
+  # ICE handling - critical for IO due to delayed effects
+  ice_defaults:
+    treatment_discontinuation:
+      strategy: "treatment_policy"
+      text: |
+        Treatment discontinuation due to adverse events or disease progression
+        handled using treatment policy strategy. Outcomes assessed regardless
+        of whether treatment was discontinued.
+    subsequent_therapy:
+      strategy: "treatment_policy"
+      primary_text: |
+        Initiation of subsequent anticancer therapy handled using treatment
+        policy strategy for primary analysis. PFS/OS assessed regardless of
+        subsequent therapy.
+      sensitivity_text: |
+        Sensitivity analysis will censor at initiation of subsequent therapy
+        (hypothetical strategy).
+    death_before_progression:
+      strategy: "composite"
+      text: |
+        Death from any cause before documented disease progression is included
+        as a PFS event (composite strategy).
+    treatment_crossover:
+      strategy: "treatment_policy"
+      primary_text: |
+        Crossover from control to experimental arm (if permitted) handled
+        using treatment policy strategy for primary ITT analysis.
+      sensitivity_methods:
+        - "RPSFT (Rank-Preserving Structural Failure Time)"
+        - "IPE (Iterative Parameter Estimation)"
+        - "Two-stage method"
+
+  # Sensitivity analyses - comprehensive for IO
+  sensitivity_analyses:
+    time_to_event:
+      - name: "Per-Protocol Population"
+        description: "Primary analysis repeated in PP population"
+        required: true
+      - name: "Unstratified Analysis"
+        description: "Log-rank test and Cox model without stratification factors"
+        required: true
+      - name: "Per-Protocol Censoring"
+        description: "Censor at date of major protocol deviation"
+        required: false
+      - name: "Alternative PFS Definition"
+        description: "PFS based on IRC only (excluding clinical progression)"
+        required: false
+      - name: "RPSFT Adjustment for Crossover"
+        description: "Rank-preserving structural failure time model"
+        required_if: "crossover_permitted"
+      - name: "Tipping Point Analysis"
+        description: "Sensitivity to missing data assumptions"
+        required: true
+      - name: "Landmark Analysis"
+        description: "Survival rates at 12, 24, 36 months"
+        required: true
+      - name: "RMST Analysis"
+        description: "Restricted mean survival time if PH assumption violated"
+        required_if: "non_proportional_hazards_expected"
+      - name: "Fleming-Harrington Weighted Analysis"
+        description: "G(rho=0, gamma=1) to give more weight to late differences"
+        required_if: "delayed_treatment_effect_expected"
+      - name: "Max-Combo Test"
+        description: "Maximum of unweighted and weighted log-rank statistics"
+        required_if: "delayed_treatment_effect_expected"
+    binary:
+      - name: "Per-Protocol Population"
+        description: "ORR in PP population"
+        required: true
+      - name: "Non-Responder Imputation"
+        description: "Missing responses imputed as non-responders"
+        required: true
+      - name: "Investigator Assessment"
+        description: "ORR by local investigator"
+        required: true
+
+  # Subgroup analyses
+  subgroup_analyses:
+    required:
+      - "PD-L1 status (negative vs low vs high)"
+      - "Tumor histology"
+      - "ECOG performance status"
+      - "Geographic region"
+      - "Prior lines of therapy"
+    optional:
+      - "Age (<65 vs ≥65)"
+      - "Sex"
+      - "Smoking status (lung cancer)"
+      - "Liver metastases (yes/no)"
+      - "Brain metastases (yes/no)"
+
+  # Non-proportional hazards handling
+  non_proportional_hazards:
+    expected: true
+    rationale: |
+      Immunotherapy often shows delayed treatment effects with initial
+      curve overlap followed by late separation. Standard log-rank may
+      underestimate treatment effect.
+    primary_analysis: "Stratified log-rank (standard)"
+    sensitivity_methods:
+      - "Fleming-Harrington G(0,1) - weighted log-rank"
+      - "RMST at 24/36 months"
+      - "Milestone analysis (survival rates at landmarks)"
+      - "Max-Combo test"
+
+# -----------------------------------------------------------------------------
+# TARGETED THERAPY STUDIES
+# -----------------------------------------------------------------------------
+
+targeted_therapy:
+  description: "Molecularly targeted therapy (TKIs, mAbs, ADCs)"
+
+  # Population requirements
+  population_requirements:
+    dual_population_required: false
+    primary_population: "ITT"
+    sensitivity_population: "PP"
+    biomarker_populations:
+      required: true
+      definition: |
+        Biomarker-positive population defined per protocol-specified
+        biomarker criteria (e.g., EGFR mutation, ALK rearrangement,
+        HER2 overexpression, BRCA mutation).
+
+  # Typical endpoints
+  endpoints:
+    primary:
+      typical: "PFS or ORR"
+      assessment: "IRC (BICR)"
+    secondary:
+      - "OS"
+      - "DOR"
+      - "DCR (Disease Control Rate)"
+      - "Time to Response"
+
+  # ICE handling
+  ice_defaults:
+    treatment_discontinuation:
+      strategy: "treatment_policy"
+    subsequent_therapy:
+      strategy: "treatment_policy"
+    death_before_progression:
+      strategy: "composite"
+
+  # Sensitivity analyses
+  sensitivity_analyses:
+    - name: "Per-Protocol Population"
+      required: true
+    - name: "Biomarker-Positive Population"
+      required: true
+    - name: "Unstratified Analysis"
+      required: true
+    - name: "Investigator Assessment"
+      required: true
+
+# -----------------------------------------------------------------------------
+# ADJUVANT STUDIES
+# -----------------------------------------------------------------------------
+
+adjuvant:
+  description: "Post-surgical adjuvant therapy studies"
+
+  # Population requirements
+  population_requirements:
+    primary_population: "ITT"
+    key_populations:
+      - name: "ITT Population"
+        definition: "All randomized subjects"
+      - name: "Per-Protocol Population"
+        definition: "Subjects without major protocol deviations"
+      - name: "Evaluable Population"
+        definition: "Subjects who completed planned adjuvant therapy"
+
+  # Period definitions
+  period_definitions:
+    adjuvant_treatment:
+      start: "First dose of adjuvant therapy"
+      end: "Completion of planned adjuvant therapy or discontinuation"
+    surveillance:
+      start: "After adjuvant treatment completion"
+      end: "Study completion or event"
+
+  # Typical endpoints
+  endpoints:
+    primary:
+      typical: "DFS (Disease-Free Survival) or iDFS (Invasive DFS)"
+      definition: |
+        Time from randomization to first occurrence of:
+        - Local/regional recurrence
+        - Distant metastasis
+        - Death from any cause
+        - Second primary malignancy (for iDFS)
+    secondary:
+      - "OS"
+      - "DRFS (Distant Recurrence-Free Survival)"
+      - "LRRFS (Locoregional Recurrence-Free Survival)"
+
+  # Censoring
+  censoring:
+    dfs_events:
+      - "Local recurrence"
+      - "Regional recurrence"
+      - "Distant metastasis"
+      - "Death from any cause"
+    censoring_rules:
+      - "Alive without recurrence at data cutoff → censor at last assessment"
+      - "Lost to follow-up → censor at last contact"
+
+  # Sensitivity analyses
+  sensitivity_analyses:
+    - name: "Per-Protocol Population"
+      required: true
+    - name: "Excluding Second Primary Cancers"
+      description: "DFS excluding second primary malignancies as events"
+      required: true
+    - name: "Distant Recurrence-Free Survival"
+      description: "Excluding local/regional recurrence"
+      required: false
+
+# -----------------------------------------------------------------------------
+# MAINTENANCE STUDIES
+# -----------------------------------------------------------------------------
+
+maintenance:
+  description: "Maintenance therapy following induction"
+
+  # Period definitions - CRITICAL
+  period_definitions:
+    induction:
+      description: "Initial treatment phase"
+      typical_duration: "4-6 cycles or 12-24 weeks"
+      end_criterion: "Completion of planned induction or disease progression"
+
+    maintenance:
+      description: "Continuation therapy in responders/controlled disease"
+      start_criterion: "controlled_disease_at_induction_end"
+      end_criterion: "Disease progression or unacceptable toxicity"
+
+  # Controlled disease definition - CRITICAL GAP FIX
+  controlled_disease_definition:
+    default: |
+      Controlled disease is defined as achieving CR, PR, or SD at the
+      end-of-induction assessment (Week XX or Cycle X Day 1 assessment).
+    criteria:
+      - "Complete Response (CR)"
+      - "Partial Response (PR)"
+      - "Stable Disease (SD)"
+    assessment_timing: "End of induction (prior to maintenance randomization)"
+    population_name: "Maintenance Population"
+
+  # Population flow
+  population_flow:
+    enrolled: "Subjects enrolled in induction"
+    completed_induction: "Subjects completing induction without progression"
+    controlled_disease: "Subjects with CR/PR/SD at end of induction"
+    randomized_maintenance: "Subjects randomized to maintenance"
+
+  # Typical endpoints
+  endpoints:
+    primary:
+      typical: "PFS from maintenance randomization"
+      alternatives:
+        - "PFS from initial randomization"
+        - "PFS2 (time to second progression)"
+    secondary:
+      - "OS"
+      - "Duration of response"
+      - "Time to subsequent therapy"
+
+  # Safety by period
+  safety_by_period: true
+  safety_periods:
+    - "Induction period"
+    - "Maintenance period"
+    - "Follow-up period"
+
+# -----------------------------------------------------------------------------
+# SINGLE-ARM STUDIES
+# -----------------------------------------------------------------------------
+
+single_arm:
+  description: "Single-arm studies (typically Phase 2)"
+
+  # Population requirements
+  population_requirements:
+    primary_population: "ITT or Evaluable"
+    evaluable_definition: |
+      Subjects with at least one post-baseline tumor assessment
+      and no major protocol deviations affecting efficacy evaluation.
+
+  # Typical endpoints
+  endpoints:
+    primary:
+      typical: "ORR (Objective Response Rate)"
+      assessment: "IRC (BICR)"
+      hypothesis: "One-sample binomial test against historical control"
+    secondary:
+      - "DOR"
+      - "PFS"
+      - "OS"
+      - "Clinical benefit rate"
+
+  # Statistical methods
+  statistical_methods:
+    primary:
+      method: "Exact binomial test (Clopper-Pearson)"
+      confidence_interval: "95% exact CI"
+      historical_control: "Protocol-specified null hypothesis rate"
+    sample_size:
+      method: "Simon two-stage or single-stage exact design"
+
+  # Sensitivity analyses
+  sensitivity_analyses:
+    - name: "ITT Population"
+      description: "All treated subjects (missing = non-responder)"
+      required: true
+    - name: "Evaluable Population"
+      description: "Subjects with evaluable response"
+      required: true
+    - name: "Investigator Assessment"
+      description: "Response by local investigator"
+      required: true
+
+# -----------------------------------------------------------------------------
+# COMMON COVARIATE SPECIFICATIONS
+# -----------------------------------------------------------------------------
+# Default covariates by study type - can be overridden by protocol extraction
+
+default_covariates:
+  description: "Default model covariates by study type"
+
+  all_studies:
+    stratification_factors: "Include randomization stratification factors"
+    standard:
+      - "Treatment group"
+      - "Stratification factors (as used in randomization)"
+
+  biosimilar:
+    primary_analysis:
+      - "Treatment group"
+      - "Stratification factors"
+    additional:
+      - "Baseline tumor burden"
+      - "Geographic region"
+
+  immuno_oncology:
+    cox_model:
+      - "Treatment group"
+      - "PD-L1 status"
+      - "ECOG performance status"
+      - "Histology (if stratification factor)"
+      - "Geographic region (if stratification factor)"
+    note: "Stratification factors used in both log-rank test AND Cox model"
+
+  targeted_therapy:
+    cox_model:
+      - "Treatment group"
+      - "Biomarker status"
+      - "ECOG performance status"
+      - "Prior lines of therapy"
+
+  adjuvant:
+    cox_model:
+      - "Treatment group"
+      - "Nodal status"
+      - "Tumor stage"
+      - "Grade"
+      - "Receptor status (breast cancer)"
+
+# -----------------------------------------------------------------------------
+# INTERIM ANALYSIS DEFAULTS
+# -----------------------------------------------------------------------------
+
+interim_analysis:
+  description: "Default interim analysis configurations"
+
+  efficacy:
+    typical_timing:
+      - "50% of expected events (for survival endpoints)"
+      - "50% of subjects completed primary assessment (for response)"
+    boundary_method: "Lan-DeMets alpha spending with O'Brien-Fleming"
+    futility: "Non-binding futility boundaries"
+
+  safety:
+    dsmb_review: "Unblinded safety data reviewed by independent DSMB"
+    frequency: "After 25%, 50%, 75% of subjects enrolled or events"
+
+  calendar_milestones:
+    one_year_report:
+      description: "Analysis performed approximately 1 year after LPI"
+      data_cutoff: "12 months after last patient enrolled"
+    regulatory_submission:
+      description: "Analysis to support regulatory submission"
+      data_cutoff: "When target events reached"
+
+  timeline_specification:
+    required_elements:
+      - "Trigger criterion (event count or calendar time)"
+      - "Expected calendar date (approximate)"
+      - "Data cutoff definition"
+      - "Alpha spending at each analysis"

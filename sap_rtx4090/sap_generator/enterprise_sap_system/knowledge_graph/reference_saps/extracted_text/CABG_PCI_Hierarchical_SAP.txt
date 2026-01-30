@@ -1,0 +1,2103 @@
+
+--- Page 1 ---
+Confidential and Proprietary 
+Nothing herein is to be disclosed without the expressed written consent of  
+Abbott Vascular 
+ 
+ 
+ 
+ 
+ 
+Protocol 10-389 
+ 
+ 
+ 
+ 
+EXCEL Clinical Trial 
+ 
+Evaluation of XIENCE versus Coronary Artery Bypass Surgery  
+for Effectiveness of Left Main Revascularization 
+ 
+ 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan  
+(Part I: Methodology) 
+Version 6.0 
+January, 26 2016 
+ 
+ 
+ 
+ 
+Melissa Nichols 
+Aurora Breazna 
+ 
+
+
+--- Page 2 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 2 of 40 
+TABLE OF CONTENTS 
+1 
+ACRONYMS AND ABBREVIATIONS ............................................................................. 4 
+2 
+SYNOPSIS OF STUDY DESIGN AND PROCEDURES ................................................. 6 
+2.1 
+PURPOSE OF THE STATISTICAL ANALYSIS PLAN .............................................................. 6 
+2.2 
+OBJECTIVE OF THE STUDY ............................................................................................... 6 
+2.3 
+DESIGN OF THE STUDY ..................................................................................................... 6 
+2.3.1 
+Primary Endpoint .................................................................................................... 9 
+2.3.2 
+Major Secondary Endpoints .................................................................................. 10 
+2.3.3 
+Other Secondary Endpoints .................................................................................. 11 
+2.3.4 
+Quality of Life....................................................................................................... 13 
+2.4 
+ANALYSIS POPULATIONS ............................................................................................... 13 
+2.4.1 
+Intent-to-Treat Population ..................................................................................... 13 
+2.4.2 
+Per-Protocol Population ........................................................................................ 13 
+2.4.3 
+As-Treated Population .......................................................................................... 13 
+2.5 
+SAMPLE SIZE CALCULATIONS ........................................................................................ 14 
+2.5.1 
+Primary Endpoint .................................................................................................. 14 
+2.5.2 
+Major Powered Secondary Endpoints: .................................................................. 15 
+2.6 
+JUSTIFICATION OF DELTA ............................................................................................... 16 
+2.7 
+STUDY SUCCESS............................................................................................................. 16 
+2.8 
+RANDOMIZATION AND BLINDING ................................................................................... 17 
+3 
+ANALYSIS CONSIDERATIONS ..................................................................................... 18 
+3.1 
+GENERAL STATISTICAL METHODS ...................................................................... 18 
+3.2 
+ANALYSIS OF THE PRIMARY ENDPOINT .......................................................................... 18 
+3.3 
+ANALYSIS OF THE POWERED SECONDARY ENDPOINTS .................................................. 19 
+3.4 
+ANALYSIS OF THE SECONDARY ENDPOINTS (NOT POWERED) ........................................ 20 
+3.4.1 
+Continuous Variables ............................................................................................ 20 
+3.4.2 
+Categorical Variables ............................................................................................ 21 
+3.4.3 
+Time to Event Variables ....................................................................................... 22 
+3.4.4 
+Hypothesis Testing................................................................................................ 23 
+3.5 
+SUBGROUPS FOR ANALYSIS ........................................................................................... 24 
+3.6 
+EXPLORATORY ANALYSIS .............................................................................................. 26 
+3.6.1 
+Exploratory Composite Endpoint Analysis .......................................................... 26 
+3.6.1.1 
+Weighted Composite Endpoint ......................................................................... 26 
+3.6.1.2 
+The Win Ratio ................................................................................................... 26 
+3.6.1.3 Covariate Adjusted Analysis................................................................................. 27 
+3.6.1.4 Other Exploratory Analyses .................................................................................. 29 
+3.7 
+FOLLOW-UP TIME POINTS .............................................................................................. 29 
+3.8 
+HANDLING OF MISSING DATA ........................................................................................ 29 
+3.9 
+ASSESSMENT OF DATA POOLABILITY ............................................................................ 29 
+3.9.1 
+Multiple Center Effect .......................................................................................... 29 
+3.9.2 
+Multiple Region Effect ......................................................................................... 29 
+3.9.3 
+Multiple Study Stent Effect .................................................................................. 30 
+3.10 
+MULTIPLICITY ISSUES .................................................................................................... 30 
+
+
+--- Page 3 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 3 of 40 
+3.11 
+INTERIM ANALYSIS ........................................................................................................ 32 
+3.12 
+DOCUMENTATION AND OTHER CONSIDERATIONS .......................................................... 32 
+4 
+VARIABLES FOR ANALYSIS......................................................................................... 33 
+4.1 
+ENROLLMENT AND SUBJECT DISPOSITION ..................................................................... 33 
+4.2 
+DEMOGRAPHICS, SUBJECT CHARACTERISTICS, AND PROCEDURE INFORMATION ........... 33 
+4.2.1 
+Demographics ....................................................................................................... 33 
+4.2.2 
+Risk Factors .......................................................................................................... 33 
+4.2.3 
+Cardiac History ..................................................................................................... 33 
+4.2.4 
+Physical Measurements ......................................................................................... 34 
+4.2.5 
+Disease State/Severity ........................................................................................... 34 
+4.2.6 
+Laboratory Tests ................................................................................................... 34 
+4.2.7 
+Procedure/Device Information .............................................................................. 34 
+4.2.7.1 
+Procedure/Device Information for PCI arm only .............................................. 35 
+4.2.7.2 
+Procedure Information for CABG arm only ..................................................... 35 
+4.2.7.3 
+Device Malfunction .......................................................................................... 35 
+4.2.8 
+Protocol Medications ............................................................................................ 35 
+4.2.9 
+Angina Status ........................................................................................................ 36 
+4.3 
+MORPHOLOGY AND QUANTITATIVE CORONARY ANGIOGRAPHY ................................... 36 
+4.3.1 
+SYNTAX Score .................................................................................................... 36 
+4.3.2 
+Morphology........................................................................................................... 36 
+4.3.3 
+Quantitative Coronary Angiography..................................................................... 36 
+4.4 
+SAFETY ANALYSIS ......................................................................................................... 37 
+5 
+CHANGES FROM PROTOCOL ...................................................................................... 38 
+6 
+REFERENCES .................................................................................................................... 39 
+7 
+APPENDICES ..................................................................................................................... 40 
+APPENDIX A: PLANNED ANALYSES FOR IFU .......................................................................... 40 
+ 
+
+
+--- Page 4 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 4 of 40 
+1 ACRONYMS AND ABBREVIATIONS  
+Acronym/Abbreviation 
+Definition 
+ACEF 
+Age, Creatinine, and Left Ventricle Ejection Fraction 
+AE 
+Adverse Event 
+ARC 
+Academic Research Consortium 
+CABG 
+Coronary Artery Bypass Graft 
+CASS 
+Coronary Artery Surgery Study 
+Cm 
+Centimeter 
+CEC 
+Clinical Events Committee 
+CI 
+Confidence Interval 
+CKD 
+Chronic Kidney Disease 
+CTO 
+Chronic Total Occlusion 
+DS 
+Diameter Stenosis 
+EU 
+European Union 
+FFR 
+Fractional flow reserve 
+GPIIb/IIIa  
+Glycoprotein IIb/IIIa inhibitors 
+HR 
+Hazard Ratio 
+IFU 
+Instructions for Use 
+ITT 
+Intent-To-Treat 
+IVUS 
+Intravascular Ultrasound 
+Kg 
+Kilogram 
+LVEF 
+Left Ventricular Ejection Fraction 
+MACE 
+Major Adverse Cardiac Events  
+MI 
+Myocardial Infarction 
+m 
+Meter  
+mm 
+Millimeter 
+mmHg 
+Millimeter of mercury 
+MLA 
+Minimum Lumen Area 
+MLD 
+Minimum Lumen Diameter 
+NCSS/PASS 
+Number Cruncher Statistical System/Power Analysis and Sample Size software 
+OUS 
+Outside United States 
+PCI 
+Percutaneous Coronary Intervention 
+PP 
+Per-Protocol 
+QCA 
+Quantitative Coronary Angiography 
+RCA 
+Right Coronary Artery 
+
+
+--- Page 5 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 5 of 40 
+Acronym/Abbreviation 
+Definition 
+RCT 
+Randomized Controlled Trial 
+RVD 
+Reference Vessel Diameter 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+SAS 
+Statistical Analysis Software 
+SE 
+Standard Error 
+STS 
+Surgical Thoracic Society 
+TIMI 
+Thrombolysis In Myocardial Infarction 
+TLR 
+Target Lesion Revascularization  
+TVR 
+Target Vessel Revascularization (TLR and TVR, non-target lesion) 
+ULMCA 
+Unprotected Left Main Coronary Artery 
+US 
+United States 
+XIENCE PRIME EECS 
+XIENCE PRIME Everolimus Eluting Coronary Stent 
+XIENCE V EECS 
+XIENCE V Everolimus Eluting Coronary Stent 
+
+
+--- Page 6 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 6 of 40 
+2 SYNOPSIS OF STUDY DESIGN AND PROCEDURES  
+2.1 
+PURPOSE OF THE STATISTICAL ANALYSIS PLAN 
+This statistical analysis plan (SAP) is intended to provide a detailed and comprehensive 
+description of the planned methodology and analysis to be used for the randomized component 
+of Protocol 10-389, the EXCEL clinical study. This plan is based on Version 9.0 of the study 
+protocol.   
+2.2 
+OBJECTIVE OF THE STUDY 
+The objective of the study is to establish the safety and efficacy of the commercially approved 
+XIENCE Family Stent System (inclusive of XIENCE PRIME, XIENCE V, XIENCE Xpedition 
+and XIENCE PRO [for use outside the U.S. [OUS] only]) in subjects with unprotected left main 
+coronary artery (ULMCA) disease (either isolated to the left main trunk or associated with 
+disease in  other coronary arteries) by demonstrating that compared to coronary artery bypass 
+graft surgery, treatment of the left main stenosis ± other significant coronary lesions with the 
+XIENCE stent will result in non-inferior or superior rates of the composite measure of all-cause 
+death, myocardial infarction or stroke at the anticipated median follow-up of three years.   
+2.3 
+DESIGN OF THE STUDY 
+The randomized control portion of this study (that will be referred to as RCT) is a prospective, 
+unblinded, randomized multicenter trial of approximately 1,900 subjects enrolled at 
+approximately 165 US and OUS centers. Following diagnostic angiography demonstrating 
+significant ULMCA disease and consensus of the local Heart Team (qualified participating 
+interventional cardiologist and cardiac surgeon) that the subject meets the study entry criteria, 
+subjects will be consented and randomized 1:1 to: a) PCI using XIENCE (N=950), or b) CABG 
+(N=950). Follow-up for all randomized subjects will continue for five years with a potential for 
+additional follow-up to 10 years. The primary endpoint will be assessed at least 2-years after the 
+last subject is randomized, with a median follow-up duration in all subjects of at least 3 years.  
+All randomized subjects will have a follow-up telephone contact or office visit at 30 days, 180 
+days, and 1, 2, 3, 4 and 5 years following the index procedure. In addition, to minimize bias in 
+the assessment of the primary endpoint, at the time the last randomized subject reaches the 2-
+year follow-up duration (730 + 28 = 758 days), an additional adverse event (AE) check will be 
+performed in order for data up to 3 years (365 days*3=1095 days) from the date of 
+randomization to be collected equally in both arms. 
+The AE check will commence the day after the 2-year follow-up duration of the last subject 
+enrolled (i.e. 758 days), and will be completed prior to the database snapshot. At this time, 
+
+
+--- Page 7 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 7 of 40 
+subjects with either of the following conditions should be contacted by each clinical site by 
+phone or office visit to collect AE information: 
+•   Subjects who have not yet completed the 3-year visit, unless the most recent follow-up was 
+completed within 28 days of the AE check initiation; or 
+•   Subjects who have completed a 3-year visit before day 1067 after randomization (i.e. >28 
+days prior to exactly 3 years [1095 days]). 
+ 
+For subjects who have completed any follow-up visit at ≥ (1095 – 28= 1067) days, the AE check 
+is not required. 
+An additional group of approximately 1000 consecutive subjects who are not eligible for 
+randomization or for other reasons are not randomized will be consented for the Universal 
+Registry. All patients with left main disease without prior CABG in whom the visual estimated 
+diameter stenosis is greater than or equal to 50% will be eligible for the enrollment into EXCEL 
+registry. These subjects will be consented for a Universal Registry, and followed until the time of 
+initial treatment per standard of care with either PCI, CABG or medical therapy.   
+Approximately 100 consecutive subjects from the Universal Registry with a ≥ 50% and <70% 
+visually estimated angiographic diameter stenosis who otherwise meet all enrollment criteria, but 
+without significant ischemia by noninvasive testing consistent with significant ULMCA disease, 
+and in whom IVUS shows a MLA >6.0 mm2 and/or have an  FFR >0.80, will not be randomized 
+but will be analyzed separately as intermediate lesion subjects, and followed until the time of 
+initial treatment per standard of care with either PCI, CABG or medical therapy.  
+For PCI the study device is: 
+XIENCE V EECS Product Sizes 
+Diameter→ 
+Length ↓ 
+2.25 mm 
+2.5 mm 
+2.75 mm 
+3.0 mm 
+3.5 mm 
+4.0 mm 
+8 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+12 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+15 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+18 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+23 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+28 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+XIENCE PRIME EECS Product Sizes 
+Diameter → 
+Length ↓ 
+2.25 mm 
+2.5 mm 
+2.75 mm 
+3.0 mm 
+3.5 mm 
+4.0 mm 
+8 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+12 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+
+
+--- Page 8 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 8 of 40 
+Diameter → 
+Length ↓ 
+2.25 mm 
+2.5 mm 
+2.75 mm 
+3.0 mm 
+3.5 mm 
+4.0 mm 
+15 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+18 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+23 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+28 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+33 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+38 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+ 
+XIENCE Xpedition Product Sizes 
+Diameter → 
+Length ↓ 
+2.25 mm 
+2.5 mm 
+2.75 mm 
+3.0 mm 
+3.25 mm 
+3.5 mm 
+4.0 mm 
+8 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+12 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+15 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+18 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+23 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+28 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+33 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+X 
+38 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+XIENCE PRO Product Sizes 
+Diameter → 
+Length ↓ 
+2.25 mm 
+2.5 mm 
+2.75 mm 
+3.0 mm 
+3.5 mm 
+4.0 mm 
+8 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+12 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+15 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+18 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+23 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+28 mm 
+X 
+X 
+X 
+X 
+X 
+X 
+33 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+38 mm 
+n/a 
+X 
+X 
+X 
+X 
+X 
+ 
+
+
+--- Page 14 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 14 of 40 
+2.5 
+SAMPLE SIZE CALCULATIONS 
+Calculations were performed to determine the minimum sample size required for this study in 
+order to provide approximately 80% power for demonstrating non-inferiority of the primary 
+endpoint. The assumed true event rates used in the calculations of all powered endpoints were 
+estimated based on the SYNTAX2 trial and on results from previous studies of the XIENCE V® 
+stent. All powered non-inferiority endpoints will be analyzed using the Com-Nougue approach1, 
+using Kaplan-Meier estimates calculated from time from randomization. 
+2.5.1 
+Primary Endpoint 
+The primary endpoint of all cause death, MI or stroke (mRS≥1 and increase by ≥1 from baseline)  
+occurring up to 3 years post randomization will be evaluated using the difference in Kaplan-
+Meier failure rates in the intent-to-treat population.  For the primary endpoint, sample size 
+calculations for the Com-Nougue approach1, which utilizes the difference in Kaplan-Meier 
+failure rate estimates, were derived using simulations. The Com-Nougue approach was very 
+similar to that calculated using the asymptotic approach (difference ≤0.5%). Therefore, the 
+asymptotic test was used to approximate the power for the Com-Nougue approach using PASS 
+2008 (NCSS, LLC. Kaysville, Utah) 3. 
+The hypothesis test is designed to show non-inferiority of PCI to CABG for the primary endpoint 
+via the Z statistic, which is a normal approximation to the Binomial, with a one-sided alpha of 
+0.025.  The null (H0) and alternative (HA) hypotheses are: 
+H0:  FPCI-PE(T)  - FCABG-PE(T) ≥ PE 
+HA:  FPCI-PE(T)  - FCABG-PE(T) < PE. 
+FPCI-PE and FCABG-PE are the Kaplan-Meier estimates of failure rate of the primary endpoint at 3 
+years in the PCI and CABG arms, respectively.  PE is the non-inferiority margin for the primary 
+endpoint. 
+The sample size calculation is based on the following assumptions: 
+ primary endpoint event rate is 11% in each treatment arm at 3 years (using 3-year 
+event rates from the SYNTAX trial, the most contemporary reference dataset) 
+ minimum time to follow-up is 2 years 
+ median time to follow-up is approximately 3 years 
+ 8% lost to follow-up at 3 years 
+ non-inferiority margin PE = 4.2%  
+ one-sided alpha = 0.025 
+ accrual time of 29 months. 
+A sample size of 1,900 subjects (950 per arm) will provide approximately 80% power to 
+
+
+--- Page 15 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 15 of 40 
+demonstrate non-inferiority of PCI to CABG.   
+If non-inferiority is met, superiority testing will be performed with a one-sided alpha of 0.025.  
+The null (H0) and alternative (HA) hypotheses for the superiority test are: 
+H0:  FPCI-PE(T)  - FCABG-PE(T) ≥ 0 
+HA:  FPCI-PE(T)  - FCABG-PE(T) < 0. 
+Using a one-sided alpha of 0.025, assuming 8% lost to follow-up at 3 years, the trial will have 
+approximately 80% power to demonstrate superiority with a difference of 3.84% of PCI to 
+CABG (e.g. 7.16% in the PCI arm vs. 11% in the CABG arm). 
+2.5.2 
+Major Powered Secondary Endpoints:   
+The first major powered secondary endpoint is defined as the composite of all cause death, MI, 
+or stroke (mRS≥1 and increase by ≥1 from baseline) occurring up to 30 days post randomization.  
+It will be evaluated using the difference in Kaplan-Meier rates tested using the Com-Nougue 
+approach1 which is similar to the normal approximation to the binomial. The null (H0) and 
+alternative (HA) hypotheses for non-inferiority of this major secondary endpoint is: 
+ 
+H0:  FPCI-PE30(T)  - FCABG-PE30(T) ≥ PE30 
+HA:  FPCI-PE30(T)  - FCABG-PE30(T) < PE30. 
+. 
+ 
+FPCI-PE30(T)  - FCABG-PE30(T) is the difference in Kaplan-Meier rates at 30 days between PCI and 
+CABG arms and  PE30is the non-inferiority margin for this powered secondary endpoint. 
+ 
+The power calculation is based on the following assumptions: 
+ composite event rate is 3% in each treatment arm at 30 days 
+ non-inferiority margin PE30= 2%  
+ one-sided alpha = 0.05 
+ 
+A sample size of 1,900 subjects (950 per arm) will provide approximately 80% power to 
+demonstrate non-inferiority of PCI to CABG.   
+ 
+The second major powered secondary endpoint is defined as the composite of all cause death, 
+MI, stroke, or unplanned revascularization for ischemia occurring by 3 years post randomization. 
+This composite will be evaluated using the difference in Kaplan-Meier failure rates at 3 years 
+between CABG and PCI in all 3 patient populations. The hypothesis is designed to show non-
+inferiority of PCI to CABG with a one-sided alpha of 0.05.  The null (H0) and alternative (HA) 
+hypotheses for non-inferiority of this powered secondary endpoint are: 
+ 
+H0:  FCOMP-PCI(T) – FCOMP-CABG(T)  ≥ COMP 
+HA:  FCOMP-PCI(T) – FCOMP-CABG(T) < COMP. 
+ 
+
+
+--- Page 16 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 16 of 40 
+FCOMP-PCI(T) – FCOMP-CABG(T) is the difference in failure rates at 3 years between CABG and PCI 
+and COMP is the non-inferiority margin for this powered secondary endpoint. 
+ 
+The power calculation is based on the following assumptions: 
+ composite event rate is 22% in each treatment arm at 3 years  
+ minimum time to follow-up is 2 years 
+ median time to follow-up is approximately 3 years 
+ 8% lost to follow-up at 3 years 
+ non-inferiority margin COMP = 8.4% 
+ one-sided alpha = 0.05  
+ accrual time of 29 months 
+ 
+A sample size of 1,900 subjects (950 per arm) will provide approximately 99% power to 
+demonstrate non-inferiority of PCI to CABG using the Z statistic from the Com-Nougue 
+approach1, which is similar to the normal approximation to the Binomial.  
+2.6 
+JUSTIFICATION OF DELTA 
+The non-inferiority margin of 4.2% for the primary endpoint is for the difference between the 
+cumulative event rates at 3 years. For the PCI arm to pass the non-inferiority test for the primary 
+endpoint of the composite of death, MI and stroke at 3 years, the maximum allowable event rate 
+would be approximately 12.1%. Compared to the 11% event rate of the CABG arm, the average 
+difference per year is approximately 0.4%. The criteria for an acceptable non-inferiority delta 
+was carefully considered by the principal investigators, executive committee, PCI and surgical 
+committees and country leaders of this protocol, representing more than 100 physicians not 
+related to the study sponsor, 50% of whom are interventional cardiologists and 50% of whom are 
+cardiac surgeons. A non-inferiority margin of 4.2% for the primary endpoint in this protocol has 
+been agreed upon by this balanced study leadership to represent clinical therapeutic 
+interchangeability between PCI and CABG, given the substantially lower peri-procedural 
+morbidity of PCI, the likelihood for fewer strokes with PCI, especially in the first 30 days to 1 
+year (which in most cases is a clinically more important endpoint than MI, although the trial will 
+not be powered to demonstrate a reduction in stroke), and the likely higher rate of subsequent 
+unplanned revascularization for PCI. 
+2.7 
+STUDY SUCCESS 
+Study success is defined as passing the non-inferiority test of PCI to CABG on the primary 
+endpoint of all cause death, MI or stroke (mRS≥1 and increase by ≥1 from baseline) at 3 years. 
+Detail of the test is specified in sections 2.5.1. 
+
+
+--- Page 17 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 17 of 40 
+2.8 
+RANDOMIZATION AND BLINDING 
+Approximately 1,900 subjects will be enrolled in a 1:1 ratio to either PCI with the XIENCE stent 
+or CABG treatment. Randomization will be stratified by the presence vs. absence of medically 
+treated diabetes, SYNTAX (4) score <23 vs. ≥23, and study center. A centralized randomization 
+service will be used.  
+Randomization will be performed after informed consent has been obtained and all eligibility 
+criteria have been confirmed. Once randomized, the subject is considered registered in the trial 
+and analyzed as part of ITT population. Once randomization is completed and a treatment is 
+assigned, crossover is not permitted.  
+This is an unblinded clinical study.  
+
+
+--- Page 19 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 19 of 40 
+ 
+Code for Cox model where Proportion Hazard Assumption is Not violated: 
+ods output ParameterEstimates=Out1; 
+ 
+ 
+ 
+ 
+Proc phreg data = DATAXX ; 
+ 
+ 
+ 
+ 
+   model Timevar*Eventvar (0) = Group  / rl; 
+ 
+ 
+ 
+ 
+run;  
+ 
+Summary tables for time to event endpoints will include failure rates (Kaplan-Meier 
+estimates), unadjusted hazard ratios, confidence interval for the hazard ratio, and a p-
+value.   
+ 
+Code for Logistic Regression used when Proportional Hazard Assumption is violated: 
+proc logistic data= DATAXX descending; 
+   class Group; 
+   model Event (event=1) =TimeVar  Group / rl; 
+run; 
+Where Event = all first events from randomization or procedure date to 1095 days 
+           Timevar = Days from Randomization or procedure date to last data point     
+                 available for patient while on study. If the patient did not drop 
+out prior to the analysis time point then this will be set to the 
+analysis time point. 
+ 
+ 
+The odds ratio, 95% confidence interval of the odds ratio and p-value will be presented 
+from this logistic model 
+ 
+3.3 
+Analysis of the Powered Secondary Endpoints  
+ The first powered secondary endpoints, the KM estimate of the composite rate of all-
+cause mortality, MI or stroke (mRS≥1 and increase by ≥1 from baseline) from 
+randomization to 30 days post randomization, will be analyzed in a similar fashion as 
+the primary analysis of the primary endpoint  described in Section 3.2 above.  The key 
+differences are that a 1-sided alpha is set at 0.05 and only non-inferiority will be tested 
+at a margin of 2%. 
+ 
+ The second powered secondary endpoint is the KM estimate of the composite rate of all 
+cause mortality, MI, stroke (mRS≥1 and increase by ≥1 from baseline) or unplanned 
+revascularization at 3 years.  The same analysis will be performed as  described for the 
+primary anaylsis of the primary endpoint except the non-inferiority margin = 8.4% 
+
+
+--- Page 20 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 20 of 40 
+3.4 
+Analysis of the Secondary Endpoints (Not powered) 
+All non-powered secondary endpoints will use a 2-sided alpha of 0.05.   
+3.4.1 
+Continuous Variables 
+For continuous variables (e.g., age, percent diameter stenosis, and lesion length), results within 
+treatment arm will be summarized with the numbers of observations, means, medians, standard 
+deviations,  25th and 75th percentiles, minimums, and maximums per the table mockups. 
+Differences between the treatment arms, where specified, will be summarized with the 
+differences of the two means, 95% confidence intervals for the difference between the means, 
+and p-values based on a t-test. The distributions within each group will be tested for normality 
+using the Shapiro-Wilks test and if normality cannot be assumed then a Wilcoxon rank-sum test 
+and 95% confidence interval of the median will be presented. The confidence interval for the 
+difference of two means will be calculated under the assumption of unequal variances.  
+Formulas for calculation of the confidence intervals for the continuous variables are given 
+below: 
+ 
+1. 100(1-α)% Confidence Interval For The Difference of Two Means Under The Assumption of 
+Unequal Variances Between The Two Groups5 
+ 
+  
+ 
+With the degrees of freedom for the approximate t statistic is determined by Satterthwaite’s 
+formula3 as follows: 
+ 
+ 
+ 
+where:  
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+SED
+t
+x
+x
+2
+2
+1
+
+
+
+
+
+1
+1
+2
+2
+2
+1
+2
+1
+2
+2
+1
+
+
+
+
+
+n
+w
+n
+w
+w
+w
+df
+2 
+group
+for 
+mean 
+ 
+sample
+1 
+group
+for 
+mean 
+ 
+sample
+2
+1
+
+
+x
+x
+2 
+group
+for 
+deviation 
+ 
+standard
+ 
+sample
+1 
+group
+for 
+deviation 
+ 
+standard
+ 
+sample
+s
+2
+1
+
+
+s
+2 
+group
+for 
+ 
+size
+ 
+sample
+ 
+ 
+n
+1 
+group
+for 
+ 
+size
+ 
+sample
+ 
+ 
+n
+2
+1
+
+
+2
+2
+2
+1
+2
+1
+ 
+ 
+SED
+n
+s
+n
+s
+
+
+
+
+--- Page 21 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 21 of 40 
+ 
+  
+ 
+3.4.2 
+Categorical Variables 
+For categorical variables such as gender, in-hospital event rates, and angina status, results within 
+treatment arm will be summarized with subject counts and percentages. Differences between the 
+two treatment arms, where specified, will be summarized with the difference in percentages, the 
+asymptotic 95% confidence interval for the difference of two percentages, and a p-value based 
+on a chi-squared test. If 20% or more of the expected cell frequencies are less than 5 then a 
+Fisher’s Exact test will be used to test for differences in proportions.  
+For the determination of event rates in-hospital, the number of all subjects in the patient patient 
+population will be used as the denominator.  For variables ascertained at follow-up such as 
+angina status, the denominator will be only those subjects who had follow-up performed at that 
+time point.  Unless otherwise noted, subjects with missing data are excluded from the 
+denominator. 
+For  secondary analyses of any type of death event  for which  event rates will be calculated, the 
+denominator will include only subjects who have either had the event, died prior to the event 
+time of interest, or had sufficient follow-up to be declared eligible for the endpoint.  Sufficient 
+follow-up implies that the subject had a follow-up visit past the lower limit of the window for the 
+analysis time point (-7 days for the 30 day endpoint, and -30 days for yearly endpoints).  
+Formulas for calculating confidence intervals for the categorical variables are given below. 
+Please note that in using these formulas, it is assumed that the data are independent and 
+binomially distributed. For the confidence interval for the difference of two proportions, it is also 
+assumed that the two samples are independent, the samples sizes for the two groups are large 
+( 20 per group), the expected event and non-event counts for both groups are at least 5, and the 
+distribution is asymptotically normal.    
+ 
+1
+2
+1
+1
+n
+s
+w 
+2
+2
+2
+2
+n
+s
+w 
+
+
+--- Page 22 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 22 of 40 
+ 
+1. 100(1-α)% Confidence Interval For The Difference Of Two Proportions6 
+ 
+Lower Confidence Limit = 
+ 
+ 
+Upper Confidence Limit = 
+ 
+ 
+where:  
+ 
+ 
+3.4.3 
+Time to Event Variables 
+Survival analysis techniques will be used to analyze the time-to-event variables that occur at or 
+after 30 days of follow-up. All of these analyses will be performed with time defined from date 
+of randomization and from date of procedure.  Subjects without events will be censored at their 
+last known event-free time point. If this event-free time point occurs after the analysis time point, 
+the days to event variable will be set equal to the analysis time point so that the patient will be 
+included in the analysis (e.g. if the last data point was collected at 3 years and 1 week post 
+randomization, for the 3 year analysis, this patient is censored at exactly 3 years [1095 days]).  
+For patients who did not have an event or early withdrawal and have not yet completed the 3 
+year visit, they will be censored at the time of their last follow-up.  Time to first event curves 
+will be constructed using Kaplan-Meier estimates.  
+For time to event variables such as MI, stroke and and revascularization, at all post discharge 
+results will be summarized with Kaplan-Meier estimates of event rates. For time to event 
+variables such as death and composite endpoints including death, deaths will be included for 
+patients who dropped out early, but had a known death date, prior to study day 1095, from the 
+national death registry.  
+For time to event analyses, hazard ratios, confidence interval for the hazard ratios, and p-values 
+may also be presented from a Cox proportional hazards model. 
+Formulas are given below. Please note that in using these formulas, it is assumed that the data 
+are independent observations.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+1
+2
+2
+2
+1
+1
+1
+2
+2
+1
+1
+1
+2
+1
+ˆ
+ˆ
+ˆ
+ˆ
+ˆ
+ˆ
+n
+n
+n
+q
+p
+n
+q
+p
+Z
+p
+p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+1
+2
+2
+2
+1
+1
+1
+2
+2
+1
+1
+1
+2
+1
+ˆ
+ˆ
+ˆ
+ˆ
+ˆ
+ˆ
+n
+n
+n
+q
+p
+n
+q
+p
+Z
+p
+p
+
+statistic
+-
+ Z
+alpha/2)
+-
+(1
+ 
+the
+2 
+group
+for 
+ 
+size
+ 
+sample
+1 
+group
+for 
+ 
+size
+ 
+sample
+ˆ
+1
+ˆ
+ˆ
+1
+ˆ
+2 
+group
+for 
+ 
+proportion
+ 
+sample
+ˆ
+1 
+group
+for 
+ 
+proportion
+ 
+sample
+ˆ
+2
+2
+1
+2
+2
+1
+1
+2
+1
+
+
+
+
+
+
+
+
+
+
+Z
+n
+n
+p
+q
+p
+q
+p
+p
+
+
+--- Page 23 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 23 of 40 
+The Kaplan-Meier product-limit estimator is defined as follows:  
+   
+ 
+The variance of S(T) is estimated by Greenwood’s formula where 
+  
+ 
+ 
+The Kaplan-Meier failure rate estimator and it’s variance are defined as  
+ 
+ 
+ 
+ 
+ 
+ 
+100(1-α)% Confidence Interval for the hazard ratio 
+ 
+Cox proportional hazards regression will be used to obtain the confidence interval for the hazard 
+ratio.  The phreg procedure in SAS will be used to obtain the Wald confidence limits. An 
+example of the code is as follows: 
+ 
+  ods output ParameterEstimates=Out1; 
+   proc phreg data=InFile; 
+        model TimeVar*Eventvar (0)= Group / rl; 
+   run;  
+3.4.4 
+Hypothesis Testing 
+Formal non-inferiority and superiority tests are planned for the primary and powered secondary 
+endpoints. These endpoints are Kaplan-Meier failure rate estimates (higher rate is worse).  
+All non-inferiority tests will be one-sided. The null and alternative hypotheses will be of the 
+following form (assuming showing A non-inferior to B): 
+ 
+ 
+H0:  Endpoint A – Endpoint B   ≥  
+ 
+ 
+HA:  Endpoint A – Endpoint B   <  
+For one-sided superiority test, the null and alternative hypotheses will be of the form (assuming 
+showing A superior to B): 
+ 
+ 
+H0:  Endpoint A – Endpoint B   ≥  
+ 
+ 
+HA:  Endpoint A – Endpoint B   <  
+For two-sided superiority test, the null and alternative hypotheses will be of the form 
+
+
+
+
+
+
+
+
+
+
+
+
+T.
+T
+ 
+if
+1
+T
+T
+ 
+if
+1
+)
+(ˆ
+min
+min
+T
+T
+A
+i
+i
+i
+r
+d
+T
+S
+
+
+
+
+
+
+
+
+
+T
+Ti
+A
+2)
+(ˆ
+)
+(ˆ
+ˆ
+i
+i
+i
+i
+d
+r
+r
+d
+T
+S
+T
+S
+V
+)
+(ˆ
+1
+)
+(ˆ
+T
+S
+T
+F
+
+
+
+
+
+)
+(ˆ
+ˆ
+)
+(ˆ
+ˆ
+T
+S
+V
+T
+F
+V
+
+
+
+--- Page 26 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 26 of 40 
+ Syntax Score II (SSII); developed by Farooq et al.7  ≥ Median, < Median; and by tertiles 
+ ACEF score = age (years)/ejection fraction (%) (+1 if serum creatinine value is >2 
+mg/dL) , then categorized as < or ≥ median 
+ 
+3.6 
+EXPLORATORY ANALYSIS 
+3.6.1 
+Exploratory Composite Endpoint Analysis 
+3.6.1.1 
+Weighted Composite Endpoint 
+Exploratory analysis comparing PCI and CABG on the weighted composite endpoint of all cause 
+death, MI or stroke (mRS≥1 and increase by ≥1 from baseline) occurring up to 3 years post 
+randomization will be performed. The weighting algorithm will be based on that developed for 
+death, MI, and stroke by Tong et al.8. 
+The 3 year Kaplan Meier event rates will be calculated for columns 2 and 3 below as well as the 
+difference between the two.  The relative weights are from the Tong reference.  The normalized 
+relative weight is calculated as follows: 
+ 
+Normalized Relative Weight = (Relative Weight for event/Relative Weight Sum) x Number of 
+different types of events 
+Adjusted Difference = Difference x Normalized Relative Weight 
+Event 
+KM 
+estimate in 
+CABG by 3 
+years 
+KM 
+estimate in 
+PCI by 3 
+years 
+Difference 
+(PCI- 
+CABG) 
+Relative 
+Weight 
+from Tong 
+et al 
+Normalized 
+Relative 
+Weight 
+from Tong 
+et al 
+Adjusted 
+Difference 
+Death 
+ 
+ 
+ 
+0.23 
+1.25 
+ 
+Stroke  
+ 
+ 
+ 
+0.18 
+0.98 
+ 
+MI 
+ 
+ 
+ 
+0.14 
+0.76 
+ 
+Composite 
+ 
+ 
+ 
+0.55 
+ 
+ 
+The adjusted difference will then be placed into the formula for the Z statistic in Section 2.3.1 
+and pvalues and 95% confidence intervals will be displayed from this. 
+3.6.1.2 
+The Win Ratio 
+Exploratory analysis of comparing PCI and CABG using the win ratio calculated by Pocock et al 
+method8 with the the unmatched approach7 will be performed.  The outcomes used in calculating 
+the win ratio ordered by their clinical importance (from high to low) will be all-cause death 
+(high), stroke (mRS≥1 and increase by ≥1 from baseline) and MI (low).  Here are the steps 
+needed to follow for this calculation: 
+
+
+--- Page 27 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 27 of 40 
+Let Nn= total patients on PCI 
+Let Ns= total patients on CABG 
+Compare the timing of death, stroke and MI for each patient on PCI to each patient on 
+CABG (Nn x Ns comparisons) for the shortest time duration that exists between each pair 
+of patients. 
+Classify each patient into one of 7 categories: 
+(a) PCI patient died prior to CABG patient 
+(b) CABG patient died prior to PCI patient 
+(c) PCI patient had stroke prior to CABG patient 
+(d) CABG patient had stroke prior to PCI patient 
+(e) PCI patient had MI prior to CABG patient 
+(f) CABG patient had MI prior to PCI patient 
+(g) None of the above 
+Since groups b, d and f are in favor of PCI, Nb + Nd + Nf = Nwin 
+Since groups a, c and e are not in favor of PCI, Na + Nc + Ne = Nloss 
+Win Ratio (Rw) =Nwin/Nloss 
+ 
+A p-value will be calculated for the Finkelstein-Schoenfeld test 10, as well as a 95 % CI interval 
+will be calculated using bootstrapping methods11. 
+ 
+3.6.1.3 Covariate Adjusted Analysis  
+A multivariable Cox model (or logistic regression if the proportional hazards assumption is not 
+met) will be performed, adjusting for baseline variables historically known to be prognostically 
+important in order to identify independent correlates for the outcomes of interest, as follows 
+(number of variables selected to avoid model over-fitting; i.e. ~1 variable for every 10 events 
+based on the anticipated rates): 
+Outomce = All-cause death/MI/stroke  up to 30 day: 
+ age, gender, diabetes, LVEF, SYNTAX score groups (core lab), randomization arm 
+(forced in) 
+Outcome= All-cause death/MI/stroke up to 3-year: 
+ age, gender, diabetes, hypertension, hyperlipidemia, prior MI, current smoking, prior 
+cerebrovascular disease, prior PAD, prior heart failure, prior COPD, presentation in ACS 
+vs stable CAD, baseline anemia, baseline creatinine clearance, LVEF, SYNTAX score 
+groups (core lab), randomization arm (forced in) 
+Outcome= All-cause death/MI/stroke/unplanned revascularization up to 3-year: 
+ same as all all-cause death/MI/stroke 
+Continuous data such as age will be entered as continuous except as otherwise noted. 
+For Syntax score groups:  <23, 23-32, >32, two dummy variables will need to be created: 
+
+
+--- Page 28 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 28 of 40 
+If Syntax score < 23 then Syntax23=1; 
+Else if Syntax ne . then Syntax23 = 0; 
+If Syntax score > 32 then Syntax32=1; 
+Else if Syntax ne . then Syntax32 = 0; 
+Add both of the above dummy variables to the model in place of the 3 way Syntax I score. 
+ 
+Appropriate methods may be used to impute missing baseline values.  
+1).  Test the proportional hazard assumption: 
+The proportional hazard assumption will first be tested by plotting the log-negative-log survival 
+curves vs the log of survival time for each level of treatment group against each covariate one at 
+a time.  
+Code to Test Proportional Hazard Assumption: 
+proc lifetest data=DATAXX plot=(lls) noprint; 
+  time Timevar*Eventvar(0); 
+  strata Covariate; 
+run; 
+2).  If it is determined that the proportional hazard assumption is NOT violated then a Cox 
+regression model will be performed with a stepwise option. 
+Code for Cox model where Proportion Hazard Assumption is Not violated: 
+Proc phreg data=infile; 
+                 Model timevar*Eventvar(0)=group baselinevars ;  
+ 
+Run; 
+      
+  
+Summary tables from this model will include failure rates (Kaplan-Meier estimates), adjusted 
+hazard ratios, confidence interval for the hazard ratio, and a p-value.   
+ 
+3).  If it is determined that the proportional hazard assumption is violated then a Logistic 
+regression model will be performed adjusting for time on study with a stepwise option. 
+Code for Logistic Regression used when Proportional Hazard Assumption is violated: 
+proc logistic data= DATAXX descending; 
+    class Group; 
+    model Event (event=1) =TimeVar  Group baselinevars/ rl; 
+run; 
+ 
+Where Event = all first events from randomization or procedure date to 1095 or   
+                               30 days (dependent on outcome) 
+Timevar = Days from Randomization or procedure date to last data point    
+available for patient while on study. If the patient did not drop 
+out prior to the analysis time point then this will be set to the 
+analysis time point. 
+ 
+
+
+--- Page 31 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 31 of 40 
+ 
+•If passed non‐inferiority, 
+PROCEED to Step 2
+•If failed non‐inferiority, 
+STOP
+Step 1: Family 1. Primary Endpoint: 
+Death/MI/Stroke at 3 Years
+PCI non‐inferior to CABG 
+(one‐sided alpha of 0.025)
+•If passed non‐inferiority, 
+PROCEED to Step 3
+•If failed non‐inferiority, 
+STOP
+Step 2: Family 2. Major Secondary Endpoint 1: 
+Death/MI/Stroke at 30 Days
+PCI non‐inferior to CABG
+(one‐sided alpha of 0.05) 
+Step 3: (Simultaneous Testing of 3‐1 and 3‐2)
+3‐1. Family 1. Primary Endpoint: 
+Death/MI/Stroke at 3 Years
+PCI superior to CABG 
+(one‐sided alpha of 0.025)
+3‐2. Family 3. Major Secondary Endpoint 2:
+Death/MI/Stroke/Revascularization at 3 Years
+PCI non‐inferior to CABG
+(one‐sided alpha of 0.05) 
+
+
+--- Page 32 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 32 of 40 
+For hypothesis test(s) of each of the major powered secondary endpoints, the type I error is  a 1-
+sided alpha of 0.05.    If any hypothesis testing fails in steps 1 and 2, no further testing for the 
+following step will be performed for labeling purposes. However they will still be tested for 
+research and publication purposes. For example, if PCI failed to show non-inferiority to CABG 
+for the major power secondary endpoint of Death/MI/Stroke at 30 Days (step 2), then the 
+hypothesis in step 3 will not be tested for labeling purposes, but may be tested for exploratory 
+reasons. Caution must be exercised when interpreting p-values displayed for analyses other than 
+those performed for the primary and key powered secondary endpoints, as the study was not 
+powered to detect differences on any of those other variables. The resulting p-values, whether or 
+not less-than 0.05, may be a result simply due to chance, and are displayed for hypothesis-
+generating purposes only. 
+3.11 
+INTERIM ANALYSIS 
+No formal interim analyses are planned for this study. As such, no formal statistical rule for early 
+termination of the trial is defined. Interim study reports with descriptive analysis may be 
+produced for regulatory or reimbursement purposes. 
+3.12 
+DOCUMENTATION AND OTHER CONSIDERATIONS 
+All analyses will be performed using SAS for Windows, version 9.15, 12 or higher.  
+
+
+--- Page 33 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 33 of 40 
+4 VARIABLES FOR ANALYSIS 
+This section describes the additional variables to be presented. In general, all analyses will be 
+summarized overall and by treatment group, unless otherwise noted in the text below or in the 
+table mockups. 
+4.1 
+ENROLLMENT AND SUBJECT DISPOSITION 
+The count of subjects enrolled at each study site will be summarized. Subjects terminating from 
+the study by 30, 180 days, and 1, 2, 3, 4 and 5 years, and the reason for early termination, will be 
+summarized with subject counts and percentages. 
+4.2 
+DEMOGRAPHICS, SUBJECT CHARACTERISTICS, AND PROCEDURE INFORMATION 
+Demographic, baseline subject characteristic, and procedure information data will be 
+summarized overall, by treatment group, and for the difference between treatment groups using 
+descriptive statistics, as per the table mockups. The data will be summarized for each analysis 
+population to show the balance between the treatment arms in support of the various endpoint 
+analyses. The variables for analysis are given in each section below. 
+4.2.1 
+Demographics 
+ Age (in years) 
+ Gender at Birth 
+4.2.2 
+Risk Factors 
+The presence of the following risk factors:  
+ Current Tobacco Use 
+ All Diabetes Mellitus 
+ Non-Diabetes Mellitus 
+ Diabetes Mellitus Requiring Medication 
+ Diabetes Mellitus Requiring Insulin 
+ Non-medically Treated Diabetics 
+ Hypertension Requiring Medication 
+ Hypercholesterolemia Requiring Medication 
+4.2.3 
+Cardiac History 
+The presence of the following cardiac histories and classification of the disease: 
+ Prior MI 
+ MI within 2 Months 
+ History of Angina (stable angina, unstable angina) 
+ All Prior Cardiac Interventions 
+o Prior PCI 
+
+
+--- Page 34 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 34 of 40 
+o Prior CABG 
+ Prior Cardiac Intervention of Left Main 
+4.2.4 
+Physical Measurements 
+ Height (cm) 
+ Weight (kg) 
+ Body Mass Index (BMI) (kg/m2) 
+ Systolic Blood Pressure (mmHg) 
+ Diastolic Blood Pressure (mmHg) 
+4.2.5 
+Disease State/Severity 
+ SYNTAX Score 
+ SYNTAX Score II 
+ Clinical SYNTAX Score 
+ ACEF Score 
+ LVEF 
+ Chronic obstructive lung disease 
+ Peripheral vascular disease 
+ Prior stroke 
+ Modified Rankin Scale (mRS) for stroke 
+ Number of Diseased Vessels  
+ Number with ≥2 Diseased Vessels 
+ Number with ≥3 Diseased Vessels 
+ Number of Vessel Treated 
+ Number with ≥3 vessels Treated 
+ Number with ≥2 vessels Treated 
+ Distal left main bifurcation involvement 
+ Chronic total occlusion present 
+ 
+4.2.6 
+Laboratory Tests 
+ HgbA1c  
+ hsCRP 
+ BNP 
+ Hgb 
+ WBC 
+ Platelets 
+ CK-MB 
+ Serum Creatinine 
+4.2.7 
+Procedure/Device Information   
+Procedure and device information will be summarized for the two treatment arms separately.  No 
+comparisons will be made. 
+
+
+--- Page 35 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 35 of 40 
+4.2.7.1 
+Procedure/Device Information for PCI arm only 
+The following device information will be presented in a listing by-subject: 
+ GPIIb/IIIa Inhibitor Usage During Procedure 
+ Antiplatelet Usage During Procedure 
+ Maximum Balloon Pressure Used Over the Entire Procedure (pre-dilatation, stent 
+deployment, post-dilatation) 
+ Total Number of Stents Placed  
+ Total Length of All Stents Placed (mm) 
+ IVUS and/or FFR guidance 
+ distal left main vs. left main ostial/body 
+ treatment strategies for the distal left main bifurcation 
+ chronic total occlusions 
+ bifurcation lesions 
+The following device information data will be summarized on a by-stent basis: 
+ Diameter of Stents Used (mm) 
+ Length of Stents Used (mm) 
+4.2.7.2 
+Procedure Information for CABG arm only 
+The following device information will be summarized in a listing by-subject: 
+ Total Number of grafts placed 
+ On pump vs. Off pump 
+ Single vs. bilateral ITA vs. multiple arterial graft use 
+ Endoscopic versus open saphenous vein harvest technique 
+ Epi-aortic ultrasound and/or TEE 
+ Prophylactic and management strategies for atrial fibrillation 
+ Carotid Screening 
+4.2.7.3 
+Device Malfunction  
+Device malfunctions and their outcomes will be listed for the PCI arm only, using subject counts. 
+ Device Malfunction 
+ Outcome of Malfunction 
+4.2.8 
+Protocol Medications 
+Antiplatelet use at discharge, 30 days, 180 days, and 1, 2, 3, 4 and 5 years summarized as: 
+ Number of Subjects on Clopidogrel/Ticlopidine/Prasugrel/Ticagrelor  
+ Duration (days) on Clopidogrel/Ticlopidine/Prasugrel/Ticagrelor 
+ Number of Subjects on Aspirin 
+ Duration (days) on Aspirin  
+ Number of Subjects on Dual Antiplatelet Therapy (both aspirin and 
+Clopidogrel/Ticlopidine/Prasugrel/Ticagrelor) 
+ Duration (days) on Dual Antiplatelet Therapy 
+
+
+--- Page 36 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 36 of 40 
+ 
+4.2.9 
+Angina Status 
+ Angina Status and classification at discharge, 30 days, 180 days, 6 months, and 1, 2, 3, 4 
+and 5 years   
+4.3 
+MORPHOLOGY AND QUANTITATIVE CORONARY ANGIOGRAPHY  
+Lesion morphology and quantitative coronary angiography (QCA) data at the target lesion(s) will 
+be summarized overall, by treatment group, and for the difference between treatment groups 
+using descriptive statistics, as per the table mockups. The variables to be summarized are listed 
+in the sections below. 
+4.3.1 
+SYNTAX Score 
+ SYNTAX score at baseline. 
+4.3.2 
+Morphology  
+Pre-procedure (all subjects): 
+ Target Lesion Vessel (CASS Site Location) 
+ Thrombus 
+ Aneurysm 
+ Calcification  
+ Eccentric Lesion 
+ Lesion Angulation > 45 
+ American College of Cardiology/American Heart Association (ACC/AHA) Lesion Class 
+Post-procedure (PCI arm only): 
+ Thrombus 
+ Aneurysm 
+ Dissection 
+4.3.3 
+Quantitative Coronary Angiography  
+Note that for the variables listed below, the reference vessel diameter (RVD) will be calculated 
+using the user-defined method and percent diameter stenosis will be calculated using the 
+interpolated method. 
+Pre-procedure (all subjects): 
+ Reference Vessel Diameter (RVD, in mm) 
+ Lesion Length (mm)  
+ Minimal Lumen Diameter (MLD, in mm) 
+ Percent Diameter Stenosis (%DS) 
+Post-procedure (PCI arm only): 
+
+
+--- Page 39 ---
+EXCEL Clinical Trial 
+ 
+ 
+ 
+ 
+ 
+   
+                                     Confidential 
+Protocol 10-389 
+Statistical Analysis Plan 
+Version 6.0 January 26, 2015 
+                                                                                       Page 39 of 40 
+6 REFERENCES 
+(1) Com-Nougue C, Rodary C, Patte C, How to establish equivalence when data are 
+censored: a randomized trial of treatments for B non-Hodgkin lymphoma. Statist. Med. 
+1993. 12, 1353–1364. 
+(2) Morice MC, Serruys PW, Kappetein AP, et al. Outcomes in patients with Institute, Cary, 
+NC, 2005. De novo left main disease treated with either percutaneous coronary 
+intervention using paclitaxel-eluting stents or coronary artery bypass graft treatment in 
+the Synergy Between Percutaneous Coronary Intervention  With  TAXUS  and  Cardiac  
+Surgery  (SYNTAX)  Trial.  Circulation.  2010; 121:2645-2653. 
+(3) Hintze J. NCSS and PASS. Number Cruncher Statistical Systems. Kaysville, Utah. 2005. 
+(4) Sianos, Georgios et al., The SYNTAX Score: an angiographic tool grading the 
+complexity of coronary artery disease. EuroInterv.2005;1:219-227. 
+(5) SAS/STAT User’s Guide, Version 9.1, SAS Publishing, 2004. 
+(6) Stokes ME, Davis CS, Koch GG. Categorical Data Analysis Using The SAS System.  
+SAS Institute, Inc. Cary, NC, 2000.  
+(7) Farooq V, et al., Anatomical and clinical characteristics to guide decision making 
+between coronary artery bypass surgery and percutaneous coronary intervention for 
+individual patients: development and validation of SYNTAX score II. Lancet. 2013. 381, 
+639-50. 
+(8) Pocock SJ, et al., The win ratio: a new approach to the analysis of composite endpoints in 
+clinical trials based on clinical priorities. European Heart Journal, 2012. 33, 176-182. 
+(9) Tong BC, et al., Weighting Composite Endpoints in Clinical Trials: Essential Evidence 
+for the Heart Team. Ann Thorac Surg, 2012. 94, 1908-1913. 
+(10) Finkelstein D.M. and Schoenfeld D.A., Combining mortality and longitudinal measures 
+in  clinical trials. Statistics in Medicine, 1999; 18(11): 1341-1354.    
+(11) Carpenter J, Bithell J. Bootstrap confidence intervals: when, which, what? A practical 
+guide for medical statisticians. Statistics in Medicine. 2000;19(9):1141-64. 
+(12) Dmitrienko, A. et al., Analysis of Clinical Trials Using SAS: A Practical Guide, SAS  
+  
+  
+ 
+   
+ 

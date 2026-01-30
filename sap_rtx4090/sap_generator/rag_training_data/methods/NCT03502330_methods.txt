@@ -1,0 +1,247 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT03502330
+Section: METHODS
+Features: consistency_bridging, immunotherapy, immunotherapy
+Quality Tier: 1 (Specialized)
+
+---
+
+
+Immunoreceptor tyrosine inhibitory motif 
+ITSM 
+Immunoreceptor tyrosine-based switch motif 
+IU 
+International unit 
+IV 
+Intravenous 
+IXRS 
+Integrated voice and web response system 
+kg 
+Kilogram 
+KM 
+Kaplan-Meier 
+LAG-3 
+Lymphocyte-activate gene 3 
+LDH 
+Lactate dehydrogenase 
+LFT 
+Liver function test 
+LOQ 
+Limit of quantitation 
+MABEL 
+Minimum anticipated biological effect level 
+mCRPC 
+Metastatic castration-resistant prostate cancer 
+MDSC 
+Myeloid-derived suppressor cell 
+mg 
+Milligram 
+min 
+Minute 
+µL 
+Microliter 
+mL 
+Milliliter 
+MLR 
+Mixed lymphocyte reaction 
+µM 
+Micrometer 
+mM 
+Millimolar 
+mm3 
+Cubic millimeters 
+mmHg 
+Millimeters of mercury 
+MRI 
+Magnetic resonance imaging 
+ 
+CA025-007 
+Version 10 
+ 21 Mar -2022 
+Confidential 
+Page 24 of 135 
+ 
+ 
+ 
+ 
+ 
+MSD 
+Meso Scale Discovery 
+MTD 
+Maximum tolerated dose 
+N 
+Number of patients or observations 
+NCI 
+National Cancer Institute 
+ng 
+Nanogram 
+NOAEL 
+No-observable-adverse-effect level 
+NSCLC 
+Non-small cell lung cancer 
+NYHA 
+New York Heart Association 
+NSAID 
+Non-steroidal, anti-inflammatory drug 
+ORR 
+Objective response rate 
+OS 
+Overall survival 
+PBMC 
+Peripheral blood mononuclear cell 
+PD 
+Pharmacodynamics 
+PD-1 
+Programmed cell death 1 
+PDAC 
+Pancreatic ductal adenocarcinoma 
+PD-L1 
+Programmed death ligand 1 
+PD-L2 
+Programmed death ligand 2 
+PFS 
+Progression-free survival 
+PK 
+Pharmacokinetics 
+PO 
+Per os; by mouth 
+PPK 
+Population pharmacokinetics 
+PR 
+Partial response 
+PT 
+Prothrombin time 
+PTT (aPTT) 
+Partial thromboplastin time 
+PVC 
+Polyvinyl chloride 
+q2w 
+Every two weeks 
+PVNS 
+Pigmented villonodular synovitis 
+qPCR 
+Quantitative real-time polymerase chain reaction 
+qRT-PCR 
+Quantitative reverse-transcription polymerase chain reaction 
+QTcF 
+Fridericia’s correction formula for QT interval 
+RA 
+Rheumatoid arthritis 
+RBC 
+Red blood cell 
+ 
+CA025-007 
+Version 10 
+ 21 Mar -2022 
+Confidential 
+Page 25 of 135 
+ 
+ 
+ 
+ 
+ 
+RCC 
+Renal cell carcinoma 
+RD 
+Recommended Dose 
+RECIST v1.1 
+Response Evaluation Criteria in Solid Tumors, version 1.1 
+RNA 
+Ribonucleic acid 
+SAE 
+Serious adverse event 
+SAP 
+Statistical analysis plan 
+SCCHN 
+Squamous-cell carcinoma of the head and neck 
+SD 
+Stable disease 
+SkTnI 
+Skeletal troponin 
+SOP 
+Standard operating procedure 
+Src 
+Sarcoma homology protein 
+T3 
+Triiodothyronine 
+T4 
+Thyroxine 
+TAM 
+Tumor-associated macrophage 
+TB 
+Tuberculosis 
+TCR 
+T-cell receptor 
+TIL 
+Tumor-infiltrating lymphocyte 
+Tmax 
+Time of maximum observed concentration 
+TNF 
+Tumor necrosis factor 
+Trap5b 
+Tartrate resistant acid phosphatases 5b 
+ULN 
+Upper limit of normal 
+USP 
+United States Pharmacopeia 
+Vss 
+Volume of distribution at steady state 
+Vz 
+Volume of distribution of terminal phase (if IV and if multi-exponential decline) 
+WBC 
+White blood cell 
+WHO 
+World Health Organization 
+WOCBP 
+Women of childbearing potential 
+ 
+CA025-007 
+Version 10 
+ 21 Mar -2022 
+Confidential 
+Page 26 of 135 
+ 
+ 
+ 
+ 
+1. 
+Introduction and Study Rationale 
+1.1 
+Introduction 
+Immunotherapies including PD-1/PD-L1 inhibitors have become effective standard therapies in 
+several advanced cancers. Objective response rates (ORR) for advanced melanoma patients 
+treated with dual (ipilimumab and nivolumab) or single agent (nivolumab) immune checkpoint 
+inhibitors have reached up to 57.6% and 43.7%, respectively [1-4]. However, not all patients 
+respond and after 2 years of monotherapy, approximately half of the responders have progressed. 
+Similarly, in advanced non-small cell lung cancer (NSCLC) patients with greater than 50% tumor 
+PD-L1 positivity, pembrolizumab is used in the front-line setting with a 44.8% response rate [5]. 
+Nivolumab and atezolizumab are also approved for NSCLC patients who have progressed on 
+platinum-based chemotherapy and who are not candidates for EGFR or ALK inhibitors [6, 7]. 
+Additionally, nivolumab is approved in second-line treatment of advanced renal cell carcinoma 
+(RCC) with a 25% ORR [8]. In the absence of targetable driver mutations, limited treatment 
+options exist for next-line therapy in patients who do not initially respond to or who develop 
+acquired resistance to PD-1 inhibitors. New combinatorial therapeutic strategies are needed to 
+overcome this resistance. 
+ 
+Proposed mechanisms for resistance to anti-PD-1/PD-L1 therapy include lack of or inactivation of 
+T cells, T cell exhaustion, loss of antigen presentation, or expression of other immunosuppressive 
+molecules. Tumor-associated macrophages (TAMs) comprise up to 30% of innate immune cells 
+in the tumor microenvironment [9] and can serve as both negative (M1) and positive (M2) 
+regulators 
+of 
+tumor 
+growth. M2 
+macrophages 
+are 
+anti-inflammatory 
+and 
+secrete 
+immunosuppressive growth factors that negatively impact cytotoxic T-cell capabilities [10-13] and 
+promote tumorigenesis, invasion, and metastasis [14, 15]. We hypothesize that manipulation of 
+the innate immune system by targeting macrophage activity will assist in reversing local immune 
+suppression and overcome resistance to PD-1/PD-L1 inhibition. 
+ 
+1.2 
+Rationale for Combination of APX005M with nivolumab and cabiralizumab 
+Immunotherapies including CSF1R inhibitors (CSF1Ri) and CD40 agonists (CD40α) target innate 
+im

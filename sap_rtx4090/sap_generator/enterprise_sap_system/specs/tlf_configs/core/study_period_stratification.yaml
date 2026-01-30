@@ -1,0 +1,284 @@
+# =============================================================================
+# UNIVERSAL STUDY PERIOD STRATIFICATION
+# =============================================================================
+# This module defines how tables should be multiplied by study periods.
+# When a study has distinct treatment phases, safety/efficacy tables
+# often need to be produced for EACH period PLUS an overall summary.
+#
+# USAGE: Reference the appropriate period_config in your study config.
+# The shell generator will automatically create period-specific tables.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PERIOD CONFIGURATIONS BY STUDY TYPE
+# -----------------------------------------------------------------------------
+
+period_configurations:
+
+  # ---------------------------------------------------------------------------
+  # SINGLE PERIOD (Default - No Stratification)
+  # ---------------------------------------------------------------------------
+  single_period:
+    description: "Studies with single continuous treatment phase"
+    applicable_study_types:
+      - "continuous"
+      - "single_arm"
+      - "dose_escalation"
+    periods:
+      - id: "whole_study"
+        name: "Whole Study Period"
+        abbreviation: "Overall"
+        definition: "First dose to last dose + follow-up window"
+        is_primary: true
+    safety_tables_by_period: false
+    efficacy_tables_by_period: false
+    exposure_tables_by_period: false
+    laboratory_tables_by_period: false
+
+  # ---------------------------------------------------------------------------
+  # INDUCTION + MAINTENANCE (Common in Oncology)
+  # ---------------------------------------------------------------------------
+  induction_maintenance:
+    description: "Studies with distinct induction and maintenance phases"
+    applicable_study_types:
+      - "induction_maintenance"
+      - "biosimilar"
+      - "immuno_oncology"
+    periods:
+      - id: "whole_study"
+        name: "Whole Study Period"
+        abbreviation: "Overall"
+        definition: "From first dose of any study treatment to end of follow-up"
+        is_primary: false
+        include_in_summary: true
+      - id: "induction"
+        name: "Induction Study Period"
+        abbreviation: "Induction"
+        definition: "From first dose to completion of induction phase or early discontinuation"
+        is_primary: true
+        typical_duration: "4-6 cycles"
+        include_in_summary: true
+      - id: "maintenance"
+        name: "Maintenance Study Period"
+        abbreviation: "Maintenance"
+        definition: "From first maintenance dose to last maintenance dose"
+        is_primary: false
+        typical_duration: "Until progression"
+        include_in_summary: true
+      - id: "follow_up"
+        name: "Follow-up Period"
+        abbreviation: "Follow-up"
+        definition: "From last dose of study treatment to end of follow-up"
+        is_primary: false
+        typical_duration: "28-90 days post-treatment"
+        include_in_summary: true
+    safety_tables_by_period: true
+    efficacy_tables_by_period: true  # Primary efficacy often in Induction only
+    exposure_tables_by_period: true
+    laboratory_tables_by_period: true
+
+    # Which tables get multiplied
+    period_stratified_tables:
+      - "TEAE Overview"
+      - "TEAEs by SOC and PT"
+      - "AESIs"
+      - "SAEs"
+      - "Laboratory Actual and Change"
+      - "Treatment Exposure"
+      - "Vital Signs"
+
+    # Which tables stay as single (whole study) only
+    whole_study_only_tables:
+      - "Demographics"
+      - "Disease Characteristics"
+      - "Medical History"
+      - "Prior/Concomitant Medications"
+
+  # ---------------------------------------------------------------------------
+  # ADJUVANT (Post-Surgery Treatment)
+  # ---------------------------------------------------------------------------
+  adjuvant:
+    description: "Post-surgical adjuvant therapy studies"
+    applicable_study_types:
+      - "adjuvant"
+    periods:
+      - id: "whole_study"
+        name: "Whole Study Period"
+        abbreviation: "Overall"
+        definition: "From randomization to end of study"
+        is_primary: true
+      - id: "on_treatment"
+        name: "On-Treatment Period"
+        abbreviation: "On-Trt"
+        definition: "From first dose to 30 days after last dose"
+        is_primary: false
+      - id: "post_treatment"
+        name: "Post-Treatment Follow-up"
+        abbreviation: "Post-Trt"
+        definition: "From 31 days after last dose to end of follow-up"
+        is_primary: false
+    safety_tables_by_period: true
+    efficacy_tables_by_period: false  # DFS/RFS measured over whole period
+    exposure_tables_by_period: false
+    laboratory_tables_by_period: false
+
+  # ---------------------------------------------------------------------------
+  # NEOADJUVANT + ADJUVANT (Perioperative)
+  # ---------------------------------------------------------------------------
+  perioperative:
+    description: "Neoadjuvant → Surgery → Adjuvant treatment"
+    applicable_study_types:
+      - "neoadjuvant"
+      - "perioperative"
+    periods:
+      - id: "whole_study"
+        name: "Whole Study Period"
+        abbreviation: "Overall"
+        is_primary: false
+      - id: "neoadjuvant"
+        name: "Neoadjuvant Period"
+        abbreviation: "Neo"
+        definition: "From first dose to day of surgery"
+        is_primary: true  # pCR measured here
+      - id: "surgery"
+        name: "Surgery Period"
+        abbreviation: "Surgery"
+        definition: "Day of surgery ± 7 days"
+        is_primary: false
+      - id: "adjuvant"
+        name: "Adjuvant Period"
+        abbreviation: "Adj"
+        definition: "From first post-surgical dose to end of adjuvant treatment"
+        is_primary: false
+    safety_tables_by_period: true
+    efficacy_tables_by_period: true
+    exposure_tables_by_period: true
+    laboratory_tables_by_period: true
+
+  # ---------------------------------------------------------------------------
+  # CROSSOVER DESIGN
+  # ---------------------------------------------------------------------------
+  crossover:
+    description: "Studies with crossover after progression or fixed period"
+    applicable_study_types:
+      - "crossover"
+    periods:
+      - id: "pre_crossover"
+        name: "Pre-Crossover Period"
+        abbreviation: "Pre-CO"
+        definition: "From randomization to crossover or end of study"
+        is_primary: true
+      - id: "post_crossover"
+        name: "Post-Crossover Period"
+        abbreviation: "Post-CO"
+        definition: "From crossover to end of study"
+        is_primary: false
+        note: "Applies only to subjects who crossed over"
+    safety_tables_by_period: true
+    efficacy_tables_by_period: true
+    exposure_tables_by_period: true
+    laboratory_tables_by_period: false
+
+# -----------------------------------------------------------------------------
+# PERIOD DEFINITION RULES (for protocol parsing)
+# -----------------------------------------------------------------------------
+
+period_detection_rules:
+  induction:
+    keywords:
+      - "induction"
+      - "induction phase"
+      - "induction period"
+      - "loading phase"
+      - "initial treatment"
+    end_criteria:
+      - "completion of induction"
+      - "cycle [4-8] day 1"
+      - "week [12-24]"
+
+  maintenance:
+    keywords:
+      - "maintenance"
+      - "maintenance phase"
+      - "continuation phase"
+      - "long-term treatment"
+    start_criteria:
+      - "after induction"
+      - "following response"
+      - "upon completion of induction"
+    end_criteria:
+      - "disease progression"
+      - "unacceptable toxicity"
+      - "withdrawal"
+
+  follow_up:
+    keywords:
+      - "follow-up"
+      - "follow up"
+      - "safety follow-up"
+      - "post-treatment"
+      - "off-treatment"
+    typical_durations:
+      - "28 days"
+      - "30 days"
+      - "90 days"
+      - "12 months"
+
+# -----------------------------------------------------------------------------
+# TABLE NAMING CONVENTIONS BY PERIOD
+# -----------------------------------------------------------------------------
+
+period_table_naming:
+  # How to modify table titles when generating period-specific versions
+  title_templates:
+    whole_study: "{base_title}"
+    induction: "{base_title} During Induction Study Period"
+    maintenance: "{base_title} During Maintenance Study Period"
+    follow_up: "{base_title} During Follow-up Period"
+    neoadjuvant: "{base_title} During Neoadjuvant Period"
+    adjuvant: "{base_title} During Adjuvant Period"
+    on_treatment: "{base_title} During On-Treatment Period"
+    post_treatment: "{base_title} During Post-Treatment Follow-up"
+    pre_crossover: "{base_title} Before Crossover"
+    post_crossover: "{base_title} After Crossover"
+
+  # Table numbering adjustment
+  numbering_suffix:
+    whole_study: ""
+    induction: "a"
+    maintenance: "b"
+    follow_up: "c"
+    # Example: Table 14.3.1 becomes 14.3.1, 14.3.1a, 14.3.1b, 14.3.1c
+
+# -----------------------------------------------------------------------------
+# FILTER CONDITIONS BY PERIOD
+# -----------------------------------------------------------------------------
+
+period_filter_conditions:
+  # ADaM dataset filter logic for each period
+
+  whole_study:
+    description: "All post-baseline data"
+    adae_filter: "TRTEMFL = 'Y'"
+    adlb_filter: "ABLFL != 'Y' and ADT > TRTSDT"
+    advs_filter: "ABLFL != 'Y' and ADT > TRTSDT"
+
+  induction:
+    description: "Events/data during induction phase"
+    adae_filter: "TRTEMFL = 'Y' and APHASE = 'INDUCTION'"
+    adlb_filter: "APHASE = 'INDUCTION'"
+    advs_filter: "APHASE = 'INDUCTION'"
+    # Note: APHASE variable must be derived in ADaM datasets
+
+  maintenance:
+    description: "Events/data during maintenance phase"
+    adae_filter: "TRTEMFL = 'Y' and APHASE = 'MAINTENANCE'"
+    adlb_filter: "APHASE = 'MAINTENANCE'"
+    advs_filter: "APHASE = 'MAINTENANCE'"
+
+  follow_up:
+    description: "Events/data during follow-up"
+    adae_filter: "TRTEMFL = 'Y' and APHASE = 'FOLLOW-UP'"
+    adlb_filter: "APHASE = 'FOLLOW-UP'"
+    advs_filter: "APHASE = 'FOLLOW-UP'"
+    note: "TEAE definition may differ (30 vs 90 days) - check protocol"

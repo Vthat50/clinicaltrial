@@ -1,0 +1,161 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT03377023
+Section: INTERIM_ANALYSIS
+Features: pro_qol, consistency_bridging, immunotherapy, interim_analysis, immunotherapy
+Quality Tier: 1 (Specialized)
+
+---
+
+study 
+91 
+Clinical Study Protocol 
+Drug Substance: Nivolumab, Ipilimumab and Nintedanib MCC #: 19406 
+Version: 8 
+Date: 12 January 2024 
+ 
+ 
+ 
+ 
+The study design evaluates futility in the 1st stage (interim analysis) and efficacy in the 2nd 
+stage. The first stage will enroll 20 patients. If it passes a threshold (a certain number of 
+patients with response), the 2nd stage will enroll another 20 patients. If the total number of 
+patients with response is above another threshold, we consider the treatment is promising. 
+The thresholds and statistical sensitivity analysis for power and type I error are evaluated 
+and determined by Bayesian posterior probability and predictive probability which are used 
+to estimate response rate with a non-informative beta prior, beta(1,1). Since first CT (to 
+determine ORR) is schedule for 6 weeks post first dose (minimum follow-up) and we 
+anticipate 2-3 patients per month, we expect the 1st interim analysis will be conducted in one 
+year from study start up. 
+We consider that the treatment arm is not worse than the historical control if the posterior 
+probability of response rate greater than a least favorable response rate, p0 (e.g., 30%), is 
+higher than 0.95 (i.e., prob(rate of response>p0 |data)>0.95) ). This definition helps 
+determine the threshold for the total number of patients with response for efficacy and the 
+predictive probability. We evaluate various early stopping rules by exploring different cutoff 
+of the predictive probability, d. This leads to a wide range of early stopping rules from 
+aggressive to conservative rules (Table 20-21). Results indicate the aggressive stopping rule 
+with d=0.2 gives a higher probability to terminate the trial earlier (58-60%) while remaining 
+reasonable power (81-85%) and type I error (5-6%) in two cohorts (immunotherapy naïve 
+and immunotherapy treated previously). For this reason, the aggressive stopping rule is used 
+to evaluate futility and efficacy in both cohorts. 
+Here are brief comments of the Bayesian approach and Simon two-stage design: 
+These stopping rules are comparable to Simon mini-max two-stage design with 5% type I 
+error and 80% power for a total sample size of 39. In fact, our experiences indicate the 
+aggressive setting gives the same stopping rule. Thus we consider Simon two-stage design 
+could be a special case of the Bayesian approach. 
+The Bayesian approach gives investigators more freedom to determine number of patients 
+in interim analysis and total sample size. In our case of 50% vs. 30% response rate, the 
+Simon mini-max two-stage design requires 39 patients (with 19 in the 1st stage) while the 
+Simon optimal two-stage design requires 46 patients (with 15 in the 1st stage) for 5% type I 
+error and 80% power. These numbers may not be convenient. In contrast, given a total of 
+n=40 with the first 20 patients for the interim analysis, the Bayesian approach is able to 
+develop a similar stopping rule with comparable power and type I error. 
+The Bayesian approach provides a higher resolution of sensitivity analysis in terms of 
+probability of early termination, type I error, and power, by exploring the cutoff of predictive 
+probability, d, and other potential parameters, such as θ in prob (objective response rate> 
+p0 |data)> θ and prior beta distribution. Such comprehensive sensitivity analysis allows 
+investigators to better determine an appropriate stopping rule for trials. 
+The Bayesian approach uses predictive probability to evaluate the future success given at 
+interim stage. If the chance is little, it may not be considered as ethically sound to continue 
+the trial. In contrast, group sequential trials uses interim p-values for optimizing operating 
+characteristics. As a result, the stopping rule may allow trials with very low probabilities of 
+success to continue. (For details, Saville et. al. highlights the strength of Bayesian predictive 
+probabilities for interim monitoring. Ref: Saville BR, Connor JT, Ayers GD, et al: The utility 
+of Bayesian predictive probabilities for interim monitoring of clinical trials. (Clin Trials 11:485- 
+493, 2014). 
+ 
+Table 20: Summary of various early stopping rules for the immunotherapy naïve cohort 
+Early 
+stopping rule 
+True objective response rate 
+Probability of early stopping 
+Power/ 
+Type I error 
+Aggressive 
+0.20 
+0.91 
+<0.01 
+92 
+Clinical Study Protocol 
+Drug Substance: Nivolumab, Ipilimumab and Nintedanib MCC #: 19406 
+Version: 8 
+Date: 12 January 2024 
+ 
+ 
+(d=20%) 
+0.30 
+0.60 
+0.06 
+93 
+Clinical Study Protocol 
+Drug Substance: Nivolumab, Ipilimumab and Nintedanib MCC #: 19406 
+Version: 8 
+Date: 12 January 2024 
+ 
+ 
+ 
+0.40 
+0.25 
+0.41 
+0.50 
+0.06 
+0.85 
+Moderate 
+(d=5%) 
+0.20 
+0.80 
+<0.01 
+0.30 
+0.43 
+0.06 
+0.40 
+0.12 
+0.44 
+0.50 
+0.02 
+0.85 
+Conservative 
+(d=1%) 
+0.20 
+0.62 
+<0.01 
+0.30 
+0.24 
+0.07 
+0.40 
+0.05 
+0.43 
+0.50 
+<0.01 
+0.87 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 21: Summary of various early stopping rules for the immunotherapy treated previously 
+cohort 
+Early stopping rule 
+True response rate 
+Probability of early stopping 
+Power/ 
+Type I error 
+Aggressive 
+(d=20%) 
+0.02 
+0.94 
+<0.01 
+0.07 
+0.58 
+0.05 
+0.17 
+0.12 
+0.67 
+0.20 
+0.07 
+0.81 
+Moderate 
+to 
+Conservative 

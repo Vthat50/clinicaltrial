@@ -1,0 +1,1647 @@
+STATISTICAL ANALYSIS PLAN 
+Protocol Number: URO-901-3006 
+Protocol Title: A Phase 3 Open -Label Extension Study to Evaluate the Long- Term 
+Safety and Efficacy of Vibegron in Men with Overactive Bladder 
+(OAB) Symptoms on Pharmacological Therapy for Benign Prostatic Hyperplasia (BPH)
+ 
+Protocol Version and 
+Date: Version 1.0; 22-MAY-2019 
+Investigational 
+Product: Vibegron (URO-901, RVT-901, MK-4618, KRP-114V)  
+Indication OAB symptoms for men with BPH 
+Development Phase: Phase 3 
+US IND Number: 106410 
+EudraCT Number: 2018-003136-72 
+Sponsor: Urovant Sciences, GmbH  
+Gotthardstrasse 3  
+CH-6300 Zug  
+Switzerland  
+Telephone +41 (42) 2155999  
+SAP Version 
+Effective Date  v1.0 
+31-Jul-2023
+SAP Author , MS 
+Sr. Principal Biostatistician/Director, Ur
+ovant Sciences, Inc. 
+                                                           NCT Number: NCT04 103450   
+     This NCT number has b een applied to the document for purposes of posting  on Clinicaltrials.gov
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+3 
+ TABLE OF CONTENTS 
+TABLE OF CONTENTS .................................................................................................................3  
+SAP VERSION HISTORY..............................................................................................................8  
+1. INTRODUCTION ........................................................................................................9  
+1.1. Study Objectives and Endpoints ...................................................................................9  
+1.1.1.  Primary Objective .........................................................................................................9  
+1.1.2.  Secondary Efficacy Objectives ...................................................................................10  
+1.1.3.  Exploratory Efficacy Objectives .................................................................................10  
+1.1.4.  Exploratory Quality of Life (QoL) Objectives ...........................................................11  
+1.2. Study Design ...............................................................................................................13  
+1.2.1.  Overall Study Design ..................................................................................................13  
+1.2.2.  Randomization and Blinding ......................................................................................14  
+1.2.3.  Statistical Hypotheses .................................................................................................14  
+1.2.4.  Sample Size Justification ............................................................................................14  
+2. PLANNED ANALYSES ............................................................................................14  
+2.1. Interim Analysis ..........................................................................................................14  
+2.2. Final Analysis .............................................................................................................15  
+3. ANALYSIS POPULATION ......................................................................................15  
+3.1. Analysis Sets ...............................................................................................................15  
+3.1.1.  All Subjects Extension ................................................................................................15  
+3.1.2.  Safety Analysis Set Extension ....................................................................................15  
+3.1.3.  Full Analysis Set Extension ........................................................................................16  
+3.1.4.  Per-Protocol Populations ............................................................................................16  
+3.2. Violations and Deviation ............................................................................................16  
+4. GENERAL STATISTICAL CONSIDERATIONS ....................................................17  
+4.1. General Principles for Data Analysis .........................................................................17  
+4.1.1.  Multicenter Study .......................................................................................................17  
+4.2. General Data Handling Conventions ..........................................................................17  
+4.2.1.  Study Treatment Description ......................................................................................17  
+4.2.2.  Reporting Conventions ...............................................................................................18  
+4.2.3.  Premature Withdrawal and Missing Data ...................................................................19  
+4.2.4.  Assessment Windows .................................................................................................20  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+4 
+ 4.2.4.1.  Study Reporting Periods .............................................................................................20  
+4.2.4.2.  Analysis Visit Windows .............................................................................................21  
+4.3. Data Definitions and Deviations .................................................................................24  
+4.3.1.  Bladder Diary Endpoints ............................................................................................24  
+4.3.1.1.  Secondary Efficacy Endpoints (Bladder Diary) .........................................................24  
+4.3.1.2.  Exploratory Efficacy Endpoints (Bladder Diary) .......................................................25  
+4.3.2.  Patient Reported Questionnaire Endpoints .................................................................25  
+4.3.2.1.  International Prostate Symptom Score .......................................................................25  
+4.3.3.  Study Day and Duration .............................................................................................29  
+4.3.4.  Baseline and Change from Baseline ...........................................................................29  
+5. DEMOGRAPHICS, OTHER BASELINE CHARACTERISTICS, PROCEDURES AND MEDICATION ......................................................................30
+ 
+5.1. Subject Disposition and Withdrawals .........................................................................30  
+5.2. Demographic and Baseline  Characteristics ................................................................30  
+5.3. Other Baseline Characteristics ....................................................................................31  
+5.4. Medical History and Concomitant Disease ................................................................31  
+5.5. Prior and Concomitant Procedures .............................................................................32  
+5.6. Prior and Concomitant Medication .............................................................................32  
+5.6.1.  Prior Medication .........................................................................................................32  
+5.6.2.  Concomitant Medication ............................................................................................33  
+6. EFFICACY ANALYSIS ............................................................................................33  
+6.1. Secondary Efficacy Analysis ......................................................................................33  
+6.1.1.  Bladder Diary Endpoints ............................................................................................35  
+6.1.2.  IPSS Endpoint .............................................................................................................35  
+6.2. Exploratory Endpoints ................................................................................................35  
+6.2.1.  Efficacy and IPSS Endpoints ......................................................................................35  
+6.2.2.  Other Quality of Life Endpoints .................................................................................36  
+6.2.2.3.  Patient Global Impression Scores ...............................................................................36  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+5 
+   
+7. SAFETY ANALYSIS ................................................................................................38  
+7.1. Extent of Exposure .....................................................................................................38  
+7.2. Treatment Compliance ................................................................................................39  
+7.3. Adverse Events ...........................................................................................................39  
+7.4. Laboratory Evaluations ...............................................................................................42  
+7.5. Vital Sign Assessments...............................................................................................43  
+7.6. Physical Examination .................................................................................................43  
+7.7. Post-Void Residual (PVR) Urine Volume ..................................................................43  
+7.8. IPSS Total Score .........................................................................................................43  
+8. COVID-19 CONSIDERATIONS ...............................................................................44  
+9. CHANGE FROM ANALYSIS PLANNED IN PROTOCOL....................................44  
+9.1. Secondary Efficacy .....................................................................................................44  
+9.2. Exploratory Endpoints ................................................................................................44  
+9.3. COVID-19 Considerations .........................................................................................44  
+9.4. Physical Examination .................................................................................................44  
+10. REFERENCES ...........................................................................................................44  
+11. APPENDIX.................................................................................................................45  
+11.1.  Table of Contents for Data Display Specifications ....................................................45  
+11.1.1.  Output Tables ..............................................................................................................45  
+11.1.2.  Output Figures ............................................................................................................52  
+11.1.3.  Output Listings ...........................................................................................................54  
+  
+  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+6 
+  
+ LIST OF ABBREVIATIONS  
+Abbreviation Term 
+5-ARI 5α-reductase inhibitor 
+ADaM analysis data model 
+AE adverse event 
+AESI adverse events of special interest 
+BMI body mass index 
+BP blood pressure 
+BPH benign prostatic hyperplasia 
+CFB change from baseline 
+CI confidence interval 
+CRF case report form 
+DBP diastolic blood pressure 
+DSMB data safety monitoring board 
+eCRF electronic case report form 
+FAS full analysis set 
+FAS-EXT full analysis set extension 
+FAS-EXT-I full analysis set extension for incontinence 
+IPSS International Prostate Symptom Score 
+IWRS interactive web response system 
+LS least squares 
+MAR missing at random 
+MedDRA Medical Dictionary for Regulatory Activities 
+MMRM mixed model for repeated measures 
+OAB overactive bladder 
+  
+PGI patient global impression 
+PPS per-protocol set 
+PT preferred term 
+PRO patient reported outcome 
+PVR post-void residual 
+QoL quality of life 
+REML restricted (or residual) maximum likelihood 
+SAE serious adverse event 
+SAF-EXT safety set extension 
+SAP statistical analysis plan 
+SBP systolic blood pressure 
+SD standard deviation 
+SDTM study data tabulation model 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+7 
+ Abbreviation Term 
+SE standard error 
+SOC system organ class 
+TEAE treatment emergent adverse event 
+TLF table, listing, figure 
+UUI urge urinary incontinence 
+VAS visual analog scale 
+VV volume voided 
+WHO World Health Organization  
+β3-AR beta-3 adrenergic receptor 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+8 
+ SAP VERSION HISTORY 
+Version Date Description of Changes 
+1.0 << Date >> Original Document 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+9 
+ 1. INTRODUCTION 
+This Statistical Analysis Plan (SAP) provides a description of the statistical methodology to be 
+implemented for the analyses of data from Study URO-901-3006 Protocol Version 1.0. Any 
+deviations from this analysis plan will be substantiated by statistical rationale and will be 
+documented in the final clinical study report.  
+1.1. Study Objectives and Endpoints 
+Assessments in Study URO-901-3006 are referenced to  the initial Baseline (Visit 3) from Study 
+URO-901-3005. Change from baseline (CFB) stud y endpoints for safety parameters for study 
+URO-901-3006 are relative to the most recent asse ssment prior to starting vibegron. CFB study 
+endpoints for efficacy in Study URO-901-3006 ar e relative to Study URO-901-3005 baseline. At 
+the Week 52 visit, CFB comprises 52 weeks of vibegron exposure for subjects randomized to 
+vibegron in Study URO-901-3005 and 28 weeks of vibegron exposure for subjects randomized to 
+placebo. 
+With respect to study endpoints, “per day” refers to a “Diary Day”, which is defined as the time 
+between when the subject gets up for the day each morning and the time the subject gets up for the 
+day the next morning as recorded in the subj ect bladder diary (approximately a 24-hour period). 
+1.1.1. Primary Objective  
+Primary Objective  Endpoints 
+To demonstrate the long-term 
+safety of vibegron 75 mg in men 
+with BPH with symptoms of OAB x Adverse Events (AEs) 
+x Clinical laboratory assessments 
+x Vital sign assessments 
+x Post-void residual (PVR) urine volume 
+x International Prostate Symptom Score (IPSS) Total 
+Score 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+10 
+ 1.1.2. Secondary Efficacy Objectives  
+Secondary Efficacy Objectives  Endpoints 
+To demonstrate the long -term 
+efficacy of vibegron 75 mg in men with BPH with symptoms of OABx CFB to Week 52 in the average number of micturition episodes per day 
+x
+ CFB to Week 52 in the average number of urgency 
+episodes (urgency: need to urinate immediately) 
+per day 
+x CFB to Week 52 in the average number of nocturia 
+episodes per night 
+x CFB to Week 52 in the average number of urge 
+urinary incontinence episodes per day in subj ects 
+with incontinence at Study URO-901-3005 baseline 
+x
+ CFB to Week 52 in the IPSS Storage score (1-week recall) 
+x
+ CFB to Week 52 in the average volume voided per 
+micturition 
+1.1.3. Exploratory Efficacy Objectives  
+Exploratory Efficacy Objectives  Endpoints 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+11 
+ 1.1.4. Exploratory Quality of Life (QoL) Objectives  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+12 
+ Exploratory QoL Objectives  Endpoints 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+13 
+ 1.2. Study Design 
+1.2.1. Overall Study Design 
+This is an international Phase 3, open-label 28-week extension study to evaluate the safety and 
+efficacy of vibegron 75 mg in men with symptoms of OAB on stable doses of pharmacological 
+therapy for BPH. This study is an extension for subjects who have completed the Phase 3, double-blind, randomized, 24-week Study URO-901-3005. 
+Approximately 300 men with symptoms of OAB on stable doses of pharmacological therapy for 
+BPH who completed 24 weeks in Study URO-901- 3005 and continue to qualify for this study 
+may be permitted to enroll in this extension study, from approximately 60 study sites. 
+During this extension study, subjects who had been randomized in Study URO-901-3005 to 
+receive vibegron 75 mg will continue their same treatment once daily for an additional 28 weeks, 
+and subjects who had been randomized in Study URO-901-3005 to the placebo group will 
+receive study treatment of vibegron 75 mg once daily for 28 weeks during the extension. Thus, 
+through participation in both the URO-901-3005 and URO-901-3006 (extension) studies, subjects originally randomized to vibegron will re ceive 52 weeks total of vibegron treatment, and 
+subjects originally randomized to placebo will receive 28 weeks total of vibegron treatment. 
+Study visits will be named to reflect cont inuation from Study URO-901-3005, with the first 
+study visit of this extension study occurring at Week 24. Following enrollment in this extension 
+study, subjects will return to the clinic for visits at Week 28, Week 36, and Week 52 (all relative 
+to Day 1 of Study URO-901-3005). A telephone contact will occur at Week 44 to review 
+AEs/serious AEs (SAEs) a nd concomitant medications. 
+This study consists of a 28-week open-label Treatment Period. Unscheduled Visit(s) may be 
+arranged as needed. 
+A Data Safety Monitoring Board (DSMB) will be retained to assess, on an ongoing basis, all 
+safety aspects of this study. This will be an ex ternal independent DSMB th at monitors the safety 
+for both Study URO-901-3005 and Study URO-901-3006. The detailed activities including 
+meeting plans will be described and documented in the DSMB Charter. A separate statistical analysis plan will be prepared for the DSMB. 
+The study schema is shown in Figure 1.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+14 
+ Figure 1: Study Schema 
+ 
+1.2.2. Randomization and Blinding 
+No additional randomization will be applied for this study, and all subjects will receive open-
+label treatment with vibegron 75 mg QD during the study treatment period. 
+1.2.3. Statistical Hypotheses 
+There are no formal statistical hypotheses for this trial. 
+1.2.4. Sample Size Justification 
+Approximately 300 subjects rolling over from Study URO-901-3005, in addition to other long-
+term safety data with vibegron, is sufficient to  characterize the long-term safety profile of 
+vibegron 75 mg once daily in men with symptoms of OAB on stable doses of pharmacological 
+therapy for BPH. With the assumption of approximately 33% dropout, 100 subjects will be 
+expected to complete the study for the duration of 1-year on vibegron. 
+2. PLANNED ANALYSES  
+2.1. Interim Analysis  
+No interim analysis is planned for this study. 
+ 
+An Independent DSMB  will be utilized in the study to ensure objective medical and/or statistical 
+review of safety issues in order to protect the ethical and safety interests of subjects and to protect the scientific validity of the study. An external statistician will provide the required summaries to the DSMB. Further details of the DS MB review are described in the charter and 
+separate DSMB SAP.  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+15 
+ 2.2. Final Analysis  
+Analysis of data in study URO-901-3006 include s baseline assessments and post-vibegron-
+exposure safety and efficacy data collected in study URO-901-3005 and depends on double-blind 
+randomized treatment assignments from URO-901-3005. No treatment assignments from URO-
+901-3005 will be unblinded within study URO-901-3006 until after study URO-901-3005 has been formally unblinded.    
+eClinical Solutions, LLC will perform the production and quality control of all tables, figures 
+and listings on behalf of  Urovant Sciences, Inc. 
+Statistical programming will start after data have been collected and are available in the database. Blinded dry-runs using dummy treatment codes for study URO-901-3005 will be 
+performed prior to database lock to ensure programming displays and algorithms are developed 
+as planned.   
+The planned final analysis will be performed once the clinical database lock has taken place on 
+both URO-901-3005 and URO-901-3006 and treatment codes for URO-901-3005 have been unblinded. 
+3. ANALYSIS POPULATION  
+3.1. Analysis Sets 
+3.1.1. All Subjects Extension 
+The All Subjects Extension consists of all subjects who signed the informed consent form (ICF) for URO-901-3006 and have screening data entered into the database. This population is used primarily for subject accounting purposes and will generally not be used for summary or analysis. 
+3.1.2. Safety Analysis Set Extension 
+The Safety Analysis Set Extension (SAF-Ext) will serve as the primary population for the 
+analysis of safety data in this trial. 
+The SAF-Ext consists of all randomized subjects in Study URO-901-3005 who 
+a) have completed the 24-week treatment pe riod in the Study URO-901-3005, and   
+b) enrolled into the extension Study URO-901-3006 and received at least one dose of 
+vibegron in this study. 
+Safety endpoints will be descrip tively summarized for the entire Safety Analysis Set Extension.  
+No imputation will be performed for missing safety  data. Baseline will be  established as the last 
+observation prior to the first dose of vibegron. All safety data collected on or after the first exposure to vibegron within the combined experience of the patient on URO-901-3005 and 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+16 
+ URO-901-3006 will be included in the safety analysis for URO-901-3006, and all analyses by 
+visit will index visits from the first dose of vibegron on either study; subjects who received 
+placebo in study URO-901-3005 will only c ontribute safety data up to Week 28.  
+3.1.3. Full Analysis Set Extension  
+The Full Analysis Set Extension (FAS-Ext) popu lation will serve as the primary population for 
+the analysis of efficacy data in this trial. Since the endpoints related to incontinence only apply to subjects who meet the definition of incontinence at trial entry, it is necessary to have a separate FAS definition with an additional criterion to define the primary analysis population for 
+incontinence endpoints. Model-based estimates will  be additionally restricted to only include 
+subjects who were randomized to vibegron in the parent study. 
+The following FAS populations are defined in the study: 
+x Full Analysis Set Extension (FAS-Ext): All OAB subjects who took at least one dose of 
+vibegron in the extension study and have at least one evaluable change from URO-901-
+3005 baseline micturition measurement in this study. 
+x Full Analysis Set Extension fo r Incontinence (FAS-Ext-I):  All OAB subjects who took 
+at least one dose of vibegron in the extension study, were included in the FAS-I 
+population in the URO-901-3005 study, and have at least one evaluable change from baseline (i.e., Study URO-901- 3005 baseline) urge urinary incontinence measurement in 
+this study.  
+ 
+Subjects will be included in one of two vibegron treatment groups based on the original 
+randomization from the parent study (URO-901-3005): 28 weeks Vibegron 75 mg, 52 weeks 
+Vibegron 75 mg. Efficacy endpoints will be descriptively summarized by treatment group. 
+3.1.4. Per-Protocol Populations  
+The Per-Protocol Extension (PP-Ext) populatio n and Per-Protocol Extension population for 
+Incontinence (PPS-Ext-I) exclude patients from the FAS-Ext and FAS-Ext-I respectively due to 
+important deviations from either protocol that may substantially affect the results of the efficacy 
+endpoints (i.e., Major PDs associated with effic acy). Subjects assigned placebo in URO-901-
+3005 will only consider protocol deviations from URO-901-3006 and inclusion/exclusion protocol deviations from study URO-901-3005. Th e final determination of protocol violations, 
+and thereby the composition of the Per-Protocol populations will be made prior to database lock 
+and will be documented. A supportive analysis using the Per Protocol populations will be 
+performed for the 6 secondary efficacy endpoint s as defined in Section 1.1.2 (i.e., CFB in 
+micturition, urgency, nocturia, and urge urinary incontinence episodes; IPSS Storage score; and volume voided per micturition). 
+Efficacy endpoints will be descriptively summarized by treatment group (i.e. 28 weeks Vibegron 
+75 mg, 52 weeks Vibegron 75 mg). 
+3.2. Violations and Deviation  
+ 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+17 
+ Major protocol deviations are considered to have  major impact on subject safety, efficacy or the 
+validity of the study data.  
+ 
+Exclusion from per-protocol analysis is noted for each protocol deviation in the Protocol 
+Deviation specifications. Patients with major prot ocol deviations that may impact efficacy results 
+will be excluded from the PPS-Ext and PPS-Ext-I . Efficacy protocol deviations may include, but 
+are not limited to the following:   
+x Subjects who do not meet the inclusion criteria 
+x Subjects who meet any of the exclusion criteria 
+x Concomitant use of prohibited medications  
+x Other (e.g., IP compliance<70%) 
+ Subjects excluded from the per protocol anal ysis in URO-901-3005 will also be excluded from 
+per protocol analysis in URO-901-3006, with the exception of on-study protocol deviations in the placebo arm as noted in section 3.1.4.  The final list of major protocol deviations w ill be finalized and doc umented before database 
+lock. All major protocol deviations related to efficacy will be discussed and finalized prior to database lock. Only major protocol deviations wi ll be summarized and listed in the Clinical 
+Study Report (CSR).  
+4. GENERAL STATISTICAL CONSIDERATIONS 
+4.1. General Principles for Data Analysis  
+4.1.1. Multicenter Study  
+In the parent study the stratified permuted bl ock randomization is not done within centers. The 
+analyses will be conducted by pooling data from all study centers and will not include study 
+center as a covariate in the statistical modeling. 
+4.2. General Data Handling Conventions 
+4.2.1. Study Treatment Description 
+Treatment groups based on the randomized treatment in the parent study will be displayed as shown in the following table: 
+Table 1:   Study Treatment Description 
+Data Displays for Reporting 
+Description Sections Included Order in TLF 
+52 weeks Vibegron 75mg  Demographic and baseline data, 
+Efficacy , Safety 1 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+18 
+ 28 weeks Vibegron 75mg Demographic and baseline data, 
+Efficacy  (descriptive tables only), 
+Safety  2 
+Overall Vibegron 75 mg  Demographic and baseline data, 
+Safety  3 
+4.2.2. Reporting Conventions 
+General rules 
+In general, all collected safety data and any derive d efficacy and PRO data will be presented in 
+subject data listings for all enrolled subjects. This includes all data collected on the parent study, 
+URO-901-3005, relevant to the definition of ba seline and all data collected on URO-901-3005 
+after the first dose of vibegron, excluding asse ssments not repeated during 3006 (orthostatic vital 
+signs, ECGs, urodynamics, and prostate volume measurement). Listings will be ordered by 
+treatment group, subject number, and assessm ent week or event date. The treatment group 
+presented in listings will be based on the actual treatment assignment in study URO-901-3005 
+(placebo as 28 Weeks Vibegron 75mg, vibegron 75mg as 52 weeks Vibegron 75mg), unless otherwise noted. 
+Summary tables will be provided for all subjec ts who sign informed consent for study URO-901-
+3006. Unless otherwise specified; all demographic a nd baseline data and safety data will be 
+presented by treatment group and overall. Unless ot herwise specified; all efficacy data will be 
+presented by treatment group. In general, conti nuous variables will be summarized to indicate 
+the population sample size (N), number of subjects with available data (n), arithmetic mean, SD, 
+median, minimum, Q1, Q3 and maximum values. Categorical variables will be summarized by the population size (N), number of subjects with  available data (n), number of subjects in each 
+category, and the percentage of subjects in each category. Unless otherwise noted, the denominator to determine the percentage of subj ects in each category will be based on the 
+number of subjects with available data (n) in the analysis set of interest. Select ordinal data may be summarized using both descriptive statistics and counts and percentages of subjects in each 
+category, as appropriate.  
+The data analyses will be conducted using the SAS
+® System (SAS Institute Inc., Cary, NC) 
+version 9.4 or above. The eClinical Solutions stan dard operating procedures will be followed for 
+the validation of all SAS programs and outputs. 
+Formats 
+Numeric data will be reported at the precision collected on the eCRF.  The reported precision 
+from non eCRF sources may be adjusted to a clinically interpretable number of decimal places. 
+Unscheduled Visits 
+Unscheduled visits will be assigned to a study visit using the all-inclusive windows defined in 
+Section 4.2.4.  However, data summaries for non-d iary data will only report visits that are 
+planned assessment time points for each parameter, according to the Time and Events table. All 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+19 
+ visits for bladder diary data will be fully derive d as described in section 4.2.4.2.  Assessments at 
+unscheduled visits will be included for “any time On -treatment” endpoints and in data listings. 
+4.2.3. Premature Withdrawal and Missing Data  
+All data collected in the study databas e after the subject’s cessation of study  treatment should be 
+included in summary and analysis as defined by an alysis rules. Data of subjects who are not treated 
+with vibegron on either Study URO-901- 3005 or URO-901-3006 will only be listed.  
+If any missing data are present in diary data for  any reasons, no explicit  missing data imputation 
+will be performed for the analysis of change from baseline since a mixed model for repeated 
+measures (MMRM) will be applied to change from baseline analysis.    
+Missing items from the subject reported outcomes (PROs) will not be imputed. Some scores may 
+still be calculated from the non-missing questi ons; handling rules are detailed for each individual 
+PRO within the appropriate subsection of 4.3.2.  In general, missing safety data will not be im puted and only observed values will be analyzed.  
+ If the relationship of an AE record (“Relations hip to investigational product” on AE CRF) is 
+missing this AE will be considered “Probably Related” to the study treatment. If the AE intensity is missing every effort should be made to acquire the information from the investigator. “Severe” will be assigned to a missing intensity for reporting purposes.  Dates of AEs and medications reported under th e URO-901-3005 protocol (including all start 
+dates of events and medications initially report ed in URO-901-3005 and end dates of events and 
+medications that were not ongoing at the time of URO-901-3006 entry) will follow the date imputation rules from the URO-901-3005 SAP; dates will not be re-imputed. 
+ 
+The general imputation rules of partial missin g date and time for both AE and medication is 
+detailed below:  Dates missing the day of the year will adhere to the following conventions:  
+x The missing day of onset date will be set to: 
+ The day of first active treatment with vibegron in URO-901-3006, if the onset YYYY-MM is the same as YYYY-MM of the first active treatment 
+ First day of the month that the event occurred otherwise.  
+x The missing day of end date will be set to: 
+ The death date, if the end date YYYY-MM is  the same as the YYYY-MM of the death 
+date  
+ The end of study participation, if the end date YYYY-MM is the same as the YYYY-MM of the end of study participation date 
+ The last day of the month of the occurrence otherwise. 
+ 
+Dates missing both the day and month of the year will adhere to the following conventions: 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+20 
+ x Missing onset date will be set to: 
+ January 1 of the year of the onset, if the ons et YYYY is after the YYYY of the first 
+active treatment 
+ The date of the first active treatment in  URO-901-3006, if the onset YYYY is the same 
+as the YYYY of the first active treatment  
+x The missing end date will be set to: 
+ The death date, if the end date YYYY is the same as the YYYY of the death date 
+ The end of study participation, if the end da te YYYY is the same as the YYYY of the 
+end of study participation date 
+ December 31 of the year of occurrence otherwise. 
+4.2.4. Assessment Windows 
+4.2.4.1. Study Reporting Periods 
+Based on study design and variables under consideration, study time periods are defined as below.  
+   Table 2:   Definition of Study Reporting Periods 
+Analysis 
+description Analyzing 
+Study Period Start Date  End Date 
+General Pre Treatment 
+(Day -49 – 
+Day 1/Week 24) Date of informed 
+consent  Prior to the date of first dose 
+of vibegron on either study URO
+-901-3005 or URO -
+901-3006  
+Treatment (Day 
+1/Week 24  – 
+Week 52)   Date of first dose of 
+vibegron  on either study 
+URO -901-3005 or 
+URO-901-3006  Date of last dose of 
+vibegron on URO -901- 3006 
++ 5 or EOS, whichever is 
+earlier 
+Adverse 
+events  Prior 
+(Summarized as Medical History) Start date ≥ date of 
+informed consent  on 
+URO -901-3005 and < 
+date of first dose of 
+vibegron in either study. No restriction 
+ Treatment 
+Emergent 
+(TEAE)  Start date (AE begins or 
+worsens in severity)  ≥ 
+date of first dose of 
+vibegron * and ≤  date of 
+last dose of vibegron + 5 
+days or EOS visit, 
+whichever is earlier. No restriction 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+21 
+ Analysis 
+description Analyzing 
+Study Period Start Date  End Date 
+Prior or Concomitant Medication/ Procedure  Prior medication/ procedure
+ Start date < date of first vibegron dose
+  End date < date of first vibegron dos
+e OR 
+medication not marked as ‘ongoing’
+ on study URO -
+901-3005 and subject 
+received placebo on study URO-901-3005 
+ Concomitant medi
+cation/ 
+procedure  Start date ≥ date of first 
+dose of vibegron and ≤  
+date of last vibegron dose + 
+5 days or EOS 
+visit, whichever is earlier.  
+  Start date < date of first  vibegron
+ dose, but 
+ongoing during vibegron
+ treatment 
+period End date ≥ date of first 
+vibegron dose OR 
+medication marked as 
+‘ongoing’ on study URO -
+901-3005. 
+First and last dose of vibegron refer to the first and last dose across both study URO-901-
+3005 and URO -901-3006, for subjects who were treated with at least one dose of vibegron 
+in study URO -901-3006. 
+EOS: End of study is defined as the date when the subject has completed one of the 
+following: completes Week 52 Safety Follow- up, discontinued from the study, or is lost to 
+follow -up. 
+*AEs with a start date equal to the date of fi rst dose of vibegron will be considered treatment-
+emergent unless the relatedness to study drug is marked ‘Not applicable’.  
+Overlapping period: Medication  start date <= period start date < medication end date, 
+medica tion start date < period end date <=medication end date, or period start date <= 
+medication start or end date < period end date, then the medication is considered overlapping 
+with the period.       
+4.2.4.2. Analysis Visit Windows  
+ 
+Analysis visit windows for both diary and non-diary efficacy data are shown in Table 3. All 
+observations will be given an analysis visit, assigned based on relative study day from the first blinded treatment in study URO-901-3005. If multiple repeats of the same assessment are observed within an analysis window, unless the measure was intended to be averaged over replicates, the record closest to the nominal time (earlier in case of a tie) will be used for by-visit summaries. If fewer than three of the diary da ys are within the analysis window, only the data 
+within the window will be used to calculate visit-level averages.   
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+22 
+              Table 3: Efficacy Analysis Visit Window Slotting 
+Analysis 
+window label Non-diary data Diary data 
+Nominal 
+visit Nominal 
+day Visit Window Nominal 
+visita Nominal 
+day Window 
+           
+Baseline       Visit 3 1 NAb Run-in -1 [-7c, -1] 
+Week 1 Visit 4 8 [2, 11]    
+Week 2 Visit 5 15 [12, 22] Visit 4 15 [7,18] 
+Week 4 Visit 6 29 [23, 42] Visit 5 29 [19, 39] 
+Week 8  Visit 7 57 [43, 70] Visit 6 57 [47, 67] 
+Week 12  Visit 8  85 [71, 98] Visit 7 85 [68, 102] 
+Week 16 Visit 9 113 [99, 126] Visit 8 113 [103, 123] 
+Week 20 Visit 10 141 [127, 154] Visit 9 141 [131, 151] 
+Week 24 Visit 11 169 [155, 182b] Visit 10 169 [159, 179] 
+Week 28 Visit 12 197 [183d, 224] Visit 11 197 [187, 207] 
+Week 36 Visit 13 253 [225, 308] Visit 12 253 [243, 263] 
+Week 52 Visit 14 365 > Day 309 Visit 13 365 [345, 385] 
+a Nominal visit for diary data is the visit where the diary was dispensed. 
+b Must have occurred prior to the first dose administered in study URO-901-3006. 
+c If randomization was delayed for any reason, diaries completed within 7 days prior to the baseline visit will still 
+be considered within the analysis window.  
+d Must have occurred on or after the first dose administered in study URO-901-3006. 
+ 
+For all non-diary safety data including safety laboratory, vital signs, and PVR volume to be 
+summarized by visit, data records will be slotted to one of the protocol-specified visits using the 
+following algorithm: 
+ 
+1. Determine relative study day and last dose day: 
+      Relative study day will be derived as described in Section 4.3.3. 
+      Note that the date of first double-blind  dose on URO-901-3005 is Day 1 and the day 
+before the date of double-blind  first dose is Day -1. There is no Study Day 0. 
+ 
+2. For non-early withdrawal records, if a nominal visit number for a scheduled visit was assigned, then it will be used to summariz e the record after checking to make sure that 
+visit numbers match with therapy phases: 
+x Check that all records entered as a pre-tre atment visit for study URO-901-3005 occur 
+on or before the day of the first dose of double-blind treatment (i.e. day d1).  Any 
+record with day > 1 should be re-slotted to an on-treatment visit using the relative day 
+window below. 
+x Check that all records slotted to an on-treatment visit for study URO-901-3005 and all records for study URO-901-3006 are on or after the day of the first dose of double-blind treatment.  If they are not, the visit should be moved to pre-treatment.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+23 
+ 3. Any early withdrawal record (regardless of the visit number assigned), any unscheduled 
+visit record at any time, any repeat visit re cord, or any record for which the visit number 
+was missing or the visit number was not for a scheduled visit, should be slotted or re-
+slotted to a visit using the window below.  
+ 
+             Table 4: Analysis Visit Window Slotting 
+Analysis 
+window label URO-901-3005 Randomized Arm 
+Vibegron Placebo 
+Nominal 
+visit Nominal 
+day Visit Window Nominal 
+visit Nominal 
+day Visit 
+Window 
+           
+Baseline             Visit 3 1 NAa Visit 3 1 [1,182b] 
+Week 1 Visit 4 8 [2, 11] NA NA NA 
+Week 2 Visit 5 15 [12, 22] NA NA NA 
+Week 4 Visit 6 29 [23, 42] Visit 12 197 [183c,224] 
+Week 8  Visit 7 57 [43, 70] NA NA NA 
+Week 12  Visit 8  85 [71, 98] Visit 13 253 [225,308] 
+Week 16 Visit 9 113 [99, 126] NA NA NA 
+Week 20 Visit 10 141 [127, 154] NA NA NA 
+Week 24 Visit 11 169 [155, 182a] NA NA NA 
+Week 28 Visit 12 197 [183b, 224] Visit 14 365 > Day 309 
+Week 36 Visit 13 253 [225, 308] NA NA NA 
+Week 52 Visit 14 365 > Day 309 NA NA NA 
+a Must have occurred prior to the first dose administered in study URO-901-3005. 
+b Must have occurred prior to the date of first dose administered in study URO-901-3006. 
+c Must have occurred on or after the date of first dose administered in study URO-901-3006.  
+Note : The cut-off days to define the window for slotting through Week 20 are aligned 
+with study URO-901-3005.    
+For parameters which were not scheduled to be collected at all visits, the all-inclusive 
+visit intervals defined for all visits (i.e., the window defined above) will still be used to 
+slot records. If a value is slotted to a visi t unscheduled for a parameter, it will not be 
+summarized (and not be included in the efficacy datasets) but will be included in data listings.  
+4. If after all records have been slotted or re-slotted, there are multiple valid records within a 
+visit, use the record following the rules below: 
+x If there are multiple values for an endpoint in one window, the visit closest to the 
+nominal day will be selected for by-visit displays. If the visits are equidistant from the nominal day, then the earlier visit will be selected. All values will be stored in analysis datasets.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+24 
+ 4.3. Data Definitions and Deviations 
+4.3.1. Bladder Diary Endpoints 
+The bladder diary records what time subjects woke up for the day, what time they went to bed, 
+and asks the subjects to record every time they had a urination event. For each event, subjects 
+recorded the time, if they had a need to urinate im mediately, if they urinated in the toilet, if they 
+had accidental urine leakage, and if they had leakage what the main reason was for the leakage 
+(urge or other) for 3 days and volume voided pe r micturition (over one 24-hour period) prior to 
+each study visit. If fewer than three days were collected within the diary window, the average of 
+the days within window will be used. If more than three days were collected within the diary window, the average of the three closest days to the nominal timepoint will be used. 
+The following efficacy parameters will be derive d based on the Diary data for baseline, Weeks 2, 
+4, 8, 12, 16, 20, 24, 28, 36, and 52.  
+4.3.1.1. Secondary Efficacy Endpoints (Bladder Diary) 
+ 
+Although these endpoints are automatically derived in eCRF Day 3 Bladder Diary page, the final statistical analysis will use the value derive d by the biometrics team based on the algorithm 
+described below. 
+CFB in average daily number of mi cturition episodes to Week 52 
+The number of micturition episodes will be define d as the number of times a subject has voided 
+in the toilet as indicated on the Bladder Diary.  Average number of micturition episodes per day 
+at each study visit will be calculated as the to tal number of micturition records within the diary 
+analysis visit windows described in  Table 3 divided by non-missing diary days (diary days with 
+at least one void reported).   CFB in average daily number of urgency episodes to Week 52 
+The number of urgency episodes will be defined as the number of times a patient has checked 
+that he had “ need to urinate immediately ” micturition in the toilet or “urge” accident leakage as 
+indicated on the Bladder Diary.  Average daily nu mber of urgency episodes at each study visit 
+will be calculated as the total number of urgenc y episodes within the diary analysis visit 
+windows divided by non-missing diary days.  CFB in average nightly number of nocturia episodes to Week 52 
+Average nightly number of nocturia episodes will be calculated in the same manner as average 
+daily number of micturition episodes but only include episodes occurring during sleep (all episodes occurring after the time reported that a subject went to bed on the same diary day and 
+prior to the time a subject reported getting up for the day on the subsequent diary day). If no subsequent time of awakening was filled out, all records after the time a subject went to bed on the day will be used. 
+CFB in average daily number of urge urinary incontinence (UUI) episodes to Week 52 for 
+subjects with UI at study URO-901-3005 baseline 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+25 
+ The number of UUI episodes will be defined as the number of times a subject has checked 
+that they had "urge" as the main reason for accident leakage regardless of whether “other” is 
+checked in addition to “urge” . Average UUI episodes per day at each study visit will be 
+calculated in the same manner as described above for the micturition endpoint. The UUI 
+endpoint will be analyzed in the FAS-Ext-I and PPS-Ext-I population. 
+CFB in average volume voided per micturition to Week 52 
+The total volume voided will be the sum of all urinary volumes collected regardless of whether 
+patients checked “Urinated in Toilet”  or not. Average volume voided per micturition at each 
+study visit will be calculated as the total volume voided divided by the total number of 
+micturition episodes during non-missing diary days. 
+4.3.1.2. Exploratory Efficacy Endpoints (Bladder Diary) 
+4.3.2. Patient Re
+ported Questionnaire Endpoints 
+4.3.2.1. International Prostate Symptom Score 
+The International Prostate Symptom Score (IPSS) is based on the responses to 7 questions 
+concerning urinary symptoms and 1 question conc erning quality of life. Each question concerning 
+urinary symptoms allows the subject to choose 1 out  of 6 answers indicating increasing severity of 
+the particular symptom. The responses are assigned  points from 0 to 5. The total score can therefore 
+range from 0 to 35 (asymptomatic to very symptomatic).  
+The questions refer to the following urinary symptoms: 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+26 
+ Questions  Symptom  
+1  Incomplete emptying  
+2  Frequency  
+3  Intermittency  
+4  Urgency  
+5  Weak Stream  
+6  Straining  
+7  Nocturia  
+Question 8 refers to the subject’s perceived quality of life  (QoL). The answers to the single question 
+to assess the quality of life this question range from 0: “delighted”  to 6: “terrible”.  
+The IPSS questions reference storage symptoms (frequency, urgency and nocturia scores) and 
+voiding symptoms (incomplete empty, intermittency, weak stream and straining) [1]. The 
+following parameters will be derived:  
+CFB in IPSS storage score to Week 52 (secondary efficacy) 
+The IPSS storage score will be derived as th e sum of the IPSS storage questions (sum of 
+frequency, urgency and nocturia scores) for each  visit. If any of these questions are not 
+answered, the IPSS storage score will not be calculated. 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+28 
+ 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+29 
+ Function Domain Questions Direction of Domain Scores 
+4.3.3. Study Day and Duration  
+Study day is relative to the start date of the double-blind treatment on the parent study URO-901-
+3005. This is used to describe the relative time of an event or assessment that happened during 
+the study. The first day of the study is defined as  the day a patient first receives either vibegron 
+or placebo in the double-blind treatment period. This is expected to be the same day as the 
+randomization as Day 1.  There is no study Day 0 defined in the study.  
+x For event or assessment that occurred on or after the first dose of double-blind treatment 
+date:   
+           Study day = Date of event or examination – date of first study treatment + 1 
+x For event or assessment that occurred prior to the first dose of double-blind treatment date:              Study day = Date of event or examination – date of first study treatment 
+Treatment day will be defined in the same manner  relative to the date of first dose of vibegron. 
+Similarly, a duration between any two dates (such as AE duration) expressed in days will be 
+calculated using the following conventions: 
+x Duration = Later date – earlier date + 1 
+4.3.4. Baseline and Change from Baseline 
+In general, the last recorded value on or prior to the date of randomization in the parent study 
+URO-901-3005 will serve as the baseline measurement for efficacy endpoints while the last 
+recorded value prior to first double-blind dose of study treatment will serve as the baseline 
+measurement for safety endpoints.  The mean of multiple values will be used as baseline for the 
+following situations:  
+x If multiple measurements are scheduled on the same baseline day (i.e., blood pressure) 
+x If multiple measurements are collected on th e same baseline day without the time or 
+“repeat” status to differentiate the records  
+For efficacy endpoints derived from the Bladder Di ary, the baseline will be the average value 
+over the diary days in the baseline anal ysis visit window on study URO-901-3005.   
+Change from baseline will be calculated as th e post-baseline value minu s the baseline value. 
+Percentage change from baseline will be calculate d as the change from baseline divided by the   
+baseline value, multiplied by 100. If either the baseline or post-baseline value is missing, then 
+change from baseline and percentage change  from baseline will be set to missing. 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+30 
+ 5. Demographics, Other Baseline Characteristics, Procedures And 
+Medication 
+5.1. Subject Disposition and Withdrawals 
+Subject disposition will be summarized by tr eatment group and overall for the consented and 
+treated subjects. The summary table will present  the frequency and percentage of subjects in 
+each of the analysis sets, treatment on URO-901-3006, and those who discontinued the study 
+prematurely along with the primary reasons for discontinuation.  
+For the summary of the treated subjects, the follow ing additional categories will be presented as 
+well; discontinued treatment with study drug (a nd reason), completed study, and withdrawn from 
+study (and reason). 
+The frequency and percentage of subjects with at least one major Protocol Deviation (PD), major 
+PD by classification and reasons/category for PD will be summarized by planned overall 
+treatment duration and overall for the FAS-Ext. Inclusion in each of the analysis sets (SAF-Ext, 
+FAS-Ext, FAS-Ext-I, PPS-Ext, PPS-Ext-I), and any reasons for exclusion will be summarized by planned overall treatment durati on for the Treated Set.  
+Eligibility criteria, screening failures (including date and primary reason for failure), and informed consent (protocol version, informed consent version date and date signed) will be listed 
+for all patients screened. 
+A summary of treated subjects by country a nd investigator will be provided. Randomization 
+details will also be listed, including the date of randomization, randomization number and 
+randomization strata. 
+5.2. Demographic and Baseline Characteristics 
+All demographic and baseline characteristic da ta will be summarized by planned overall 
+treatment duration and overall using descriptiv e statistics for all subjects for each of the 
+following analysis sets: SAF-Ext, FAS-Ext, FAS-Ext-I, PPS-Ext and PPS-Ext-I.  
+The summary table will include Ethnicity and Race, Region (US and non-US), Prior 
+Anticholinergic Use (Yes/No), Prior Beta-3 agoni st Use (Yes/No), Diabetes Mellitus (Yes/No), 
+Baseline Hypertension (Yes/No), Pre- existing Hypertension (Yes/No), Age category 1 (<55, ≥55 
+to <65, ≥65 to <75, ≥75 years), Age  category 2 (<65, ≥65 years), Age category 3 (<65, ≥65 to 
+<85 years, ≥85 years) , baseline average micturition episodes per day ( ≤ 12 vs > 12),  Alpha 
+blocker use with or without 5-ARI (with vs without), Urinary Incontinence (yes or no), total 
+IPSS score, alpha blocker (tamsulosin, doxazosin, alfuzosin, other), and 5-ARI (finasteride, 
+dutasteride, other).  
+Prior Anticholinergic Use and Prior Beta-3 ag onist Use will be calculated from all prior 
+medications documented on the Prior and Concomitant Medications electronic case report form 
+(eCRF).  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+31 
+ Baseline Hypertension will be defined as baseline systolic blood pressure (SBP) ≥140  mmHg or 
+baseline diastolic blood pressure (DBP) ≥90 mmHg, regardless of medical history.  
+Pre-existing hypertension will be defined as having a medical history of hypertension or Baseline hypertension (baseline SBP ≥140 mmHg or baseline DBP ≥90 mmHg).  
+The following list of 
+preferred terms will be used to search for medical history of hypertension:  
+x Accelerated hypertension  
+x Diastolic hypertension 
+x Essential hypertension 
+x Hypertension 
+x Hypertensive crisis 
+x Hypertensive emergency 
+x Hypertensive heart disease 
+x Malignant hypertension 
+x Malignant hypertensive heart disease 
+x Secondary hypertension 
+x Supine hypertension 
+x Systolic hypertension  
+Age (years), height (cm), weight (kg), BMI captured at Screening on study URO-901-3005, and 
+baseline IPSS total score will be summarized as a continuous variable. 
+Unless otherwise stated, percentage s will be calculated out of the number of patients in the given 
+analysis set. 
+All demographic data will be listed. 
+5.3. Other Baseline Characteristics 
+The data from the 3-day bladder diary during run-in period on study URO-901-3005 (reviewed at 
+Visit 3 Baseline visit) prior to first dose of double-blind medication will be used as baseline for 
+each subject. This includes average daily number of micturition episodes, average daily number of urgency episodes, average number of nocturia episodes per night, average daily number of 
+urge urinary incontinence episodes, and average volume voided per micturition. In addition, the baseline IPSS storage score will be presented. These will be summarized by treatment group and overall using descriptive statistics for continuous  data for all subjects in FAS-Ext, FAS-Ext-I, 
+PPS-Ext and PPS-Ext-I analysis sets. 
+5.4. Medical History and Concomitant Disease 
+Descriptions of medical history findings will be  coded using Medical Dictionary for Regulatory 
+Activities (MedDRA) version 23.0 or higher. 
+Medical history will include all events entered on the medical history form in URO-901-3005 as 
+well as any AEs with the end date prior to the first date of active treatment on either URO-901-
+3005 or URO-901-3006.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+32 
+ A disease or illness reported as medical history without a start date will be included in medical 
+history without a date assigned. Medical history will  be sorted by descending overall frequency, 
+by system organ class (SOC) and preferred term (PT) in the summary table. Medical history data 
+listings will be sorted by treatment, subjec t number, start date, SOC and PT. The SAF-Ext will 
+be the analysis set for medical history data.  
+5.5. Prior and Concomitant Procedures 
+Prior and concomitant procedures will be c oded using Medical Dictionary for Regulatory 
+Activities (MedDRA) version 23.0 or higher. 
+Prior procedures are defined as procedures with a start date prior to the first dose of vibegron on 
+study URO-901-3005 or URO-901-3006. Concomitant proc edures will be defined as procedures 
+started on or after the first dose of vibegron but pri or to the last dose + 5 days, or started prior to 
+the first dose of vibegron and were ongoing during the study. Post procedures are defined as any procedure initiated after last dose of vibegron + 5 days (See Table 2). Partial procedure start 
+dates will be imputed as detailed in 4.2.3. 
+All procedures will be listed for the SAF-Ex t population, sorted by treatment, subject number, 
+start date, SOC and PT, with indicators  of prior and concomitant status. 
+5.6. Prior and Concomitant Medication  
+Prior and concomitant medications will be c oded using the World Health Organization (WHO) 
+Drug B3-Sept Format, 2020 vers ion or later. Except for Prior OAB medication, the number and 
+percentage of subjects taking prior medications and concomitant medications will be 
+summarized overall by ATC (Anatomical Therapeu tic Chemical) Levels 2 and 4 for all subjects 
+in the SAF-Ext. Prior OAB medications will be summarized by ATC Levels 2, 4 and Preferred 
+Term in the SAF-Ext. Prior medications, OAB medication and concomitant medications will be 
+listed for all subjects in the SAF-Ext. 
+5.6.1. Prior Medication 
+Prior medications are defined as those medications  taken prior to the first dose of vibegron on 
+study URO-901-3005 or URO-901-3006. The prior non -OAB and prior OAB medications will 
+be summarized separately.  
+The following criterion will be used for selecting prior OAB medication: 
+ 
+ 
+  
+ 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+33 
+ Table 7. OAB Medication Selection 
+Class  Variable 
+Selected Selection  
+Anticholinergi
+cs  Preferred 
+Term  darifenacin,  
+fesoterodine,  
+festoterodine fumarate hyoscyamine, oxybutynin,  
+oxybutynin hydrochloride,  
+propantheline,  
+solifenacin,  
+solifenacin succinate,  
+tolterodine,  
+tolterodine l -tartrate,  
+trospium,  
+trospium chloride  
+Beta-3 
+adrenergic 
+agonists  Preferred 
+Term  mirabegron,  
+vibegron  
+Combination medications will be identified if the preferred term contains a term from the 
+selection.  
+5.6.2. Concomitant Medication 
+Concomitant medications are defined as medicati ons that were started on or after the first dose of 
+vibegron on study URO-901-3005 or URO-901-3006 but prior to the last dose of vibegron + 5 days or started prior to the first dose of vibegron and were ongoing or ended after the first dose of vibegron. Partial medicati on start dates will be imputed as detailed in 4.2.3 .  
+Non-OAB and OAB concomitant medications will be summarized separately. 
+6. EFFICACY ANALYSIS 
+Subjects were asked to fill out a Bladder Diary for 3 consecutive days prior to the Run-in visit, 
+Baseline visit, Weeks 2, 4, 8, 12, 16, 20, 24, 28, 36, and 52.  
+In general, the FAS-Ext will be used for all an alyses of non-incontinence efficacy endpoints. The 
+FAS-Ext-I will be used for all incontinence efficacy endpoints; these are the endpoints related to 
+UUI episodes and total incontinence episodes.  
+6.1. Secondary Efficacy Analysis 
+The secondary efficacy analysis will be done on the FAS-Ext or FAS-Ext-I population, repeated in a supportive analysis on the PP-Ext or PP-Ext-I population, respectively. Descriptive 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+34 
+ summaries for observed and CFB for each effica cy endpoint will be provided by visit and 
+treatment group. 
+For the assessment of change from baseline to Week 52 for endpoints with repeated-measures 
+over time, a mixed model for repeated measures (MMRM) analysis incorporating on-treatment 
+values at all time points for the subjects in the 52-week treatment group will be used. The model takes into account correlation within the same subject over time by using all available data on the subjects within the same covariate set. With the assumption of missing at random (MAR), this approach will provide unbiased estimates of treatment effects.   
+The MMRM model will include terms for visit, baseline value, alpha blocker use with or without 
+5-ARI (with vs. without), baseline urinary incont inence (yes vs. no) [for the FAS-Ext and PP-Ext 
+analyses only], region (US vs. non-US), and any other parameter-specific covariates noted in 
+sections 6.1.1 and 6.1.2.  The Kenward-Roger adjustment will be used with restricted (or 
+residual) maximum likelihood (REML) to make statistical inference.  An unstructured covariance matrix will be used to model the correlation among repeated measurements. If the 
+unstructured covariance model fails to converge with the default Newton-Raphson algorithm, the Fisher scoring algorithm will be used to provide  initial values of the covariance parameters.  In 
+the rare event that none of the above methods yield convergence, the following structures will be investigated:  heterogeneous Toeplitz, Toeplitz , heterogeneous First-Order Autoregressive [AR 
+(1)], heterogeneous compound symmetry (HCS), and compound symmetry (CS).  The covariance structure converging to the best fit, as determined by Akaike’s information criterion (AIC), will be used. 
+Estimates of least square means (LSMEANS), standa rd errors, and 95% confidence intervals will 
+be presented at each time point. The esti mated LSMEANS (Standard Error (SE)) of CFB over 
+time from the model will be plotted. 
+An example of the SAS code for the base procedure is given below: 
+    proc mixed data = datain method = reml; 
+  class AVISITN USUBJID ARI UI REGION; 
+  model CHG = AVISITN ARI UI REGION BASE 
+        / ddfm=KR solution chisq ; 
+  repeated AVISITN / subject=USUBJID type=UN r rcorr ; 
+  lsmeans AVISITN / cl alpha =0.05; 
+    run; 
+ 
+Where AVISITN is the visit number, USUBJID is th e unique subject identifier, ARI indicates if 
+the subject used alpha blocker with or without 5-ARI at baseline (with or without), UI indicates 
+baseline urinary incontinence (yes  or no), REGION indicates if the subject is in the United States 
+or in the non-US countries and BASE indicates baseline value. The default Newton-Raphson algorithm is employed for type = UN. 
+The normality assumptions for the primary analysis  model will be assessed by inspection of the 
+residuals from the model and normal probability plots. If assumptions of normality are not met, 
+additional supportive analysis of the data will be performed in order to assess the robustness of 
+the conclusions drawn from the model. 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+35 
+ 6.1.1. Bladder Diary Endpoints  
+Refer to parameter derivations from Bladder Diary data in Section 4.3.1. Scheduled post-
+treatment visits for bladder diary endpoints include Weeks 2, 4, 8, 12, 16, 24, 28, 36, and 52.  
+CFB to Week 52 in average daily number of micturition episodes 
+This analysis will be done on the FAS-Ext set and repeated on the PP-Ext set, with no additional 
+covariates. 
+CFB to Week 52 in average daily number of urgency episodes 
+This analysis will be done on the FAS-Ext set and repeated on the PP-Ext set, with an additional 
+categorical covariate of average number of micturition episodes per day ( ≤ 12 vs. > 12).  
+CFB to Week 52 in the average nightly number of nocturia episodes 
+This analysis will be done on the FAS-Ext set and repeated on the PP-Ext set, with no additional covariates. 
+CFB to Week 52 in the average daily number of  UUI episodes for subjects with baseline 
+incontinence in study URO-901-3005  
+This analysis will be done on the FAS-Ext-I set and repeated on the PP-Ext-I set, with no 
+additional covariates. 
+CFB to Week 52 in the average volume voided per micturition 
+This analysis will be done on the FAS-Ext and PP-Ext sets, with no additional covariates. 
+6.1.2. IPSS Endpoint  
+Refer to endpoint definitions in section 4.3.2.1. Sche duled visits for the IPSS include Weeks 4, 8, 
+12, 24, 36, and 52. 
+CFB to Week 52 in the IPSS s torage score (1-week recall) 
+This analysis will be done on the FAS-Ext set and repeated on the PP-Ext set, with no additional 
+covariates. 
+6.2. Exploratory Endpoints 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+36 
+ 6.2.2. Other  Quality of Li
+fe Endpoints 
+The FAS-Ext will be the analysis population for the PRO data unless stated otherwise. 
+6.2.2.1. CFB in  Scores 
+6.2.2.3. Patient Global Impression Scores 
+The questionnaire is assessed at baseline, Week s 4, 12, 24, and 52 for the 52-week treatment 
+group, and baseline and Week 28 (Week 52 relati ve to the start of URO-901-3005) for the 28-
+week treatment group. The Patient Global Impressi on (PGI) questions are designed to assess a 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+37 
+ subject’s overall impression of OAB in 5 categories:  
+  
+Each of the responses to the PGI questions will be  assigned a numerical value starting from 1. A 
+higher score represents a worse outcome in each category. 
+Table 8: PGI Scoring 
+PGI Category Score 
+ 1 = None 
+2 = Mild  
+3 = Moderate  
+4 = Sever e 
+ 1 = Complete control 
+2 = A lot of control  
+3 = Some control 
+4 = Only a little control  
+5 = No control  
+1 = Never 
+2 = Rarely  
+3 = Sometimes  
+4 = Often  
+5 = Very often  
+ 1 = Much better 
+2 = Moderately better  
+3 = A little better  
+4 = No change  
+5 = A little worse  
+6 = Moderately worse 
+7 = Much worse  
+ 
+The questions PGI-Control, PG I-Frequency and PGI-Leakage are ordinal 
+assessments going from lower impact of disease to highest impact of disease with score with 
+scores ranging from 1 to 4 for  and 1 of 5 for  
+ These questions will be summarized  descriptively as numerical variables of score 
+and change from baseline by treatment group and visit. Additionally, these questions will be 
+analyzed as categorical variables with count and percent for each category by treatment group and visit.  The  question is asked relative to ba seline. The score will only be summarized 
+as a categorical variable with count and percent fo r each category by treatment group and visit. 
+ The FAS-Ext will be the analysis set for all categories except for The FAS-Ext-I 
+will be the analysis set for the  analysis. 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+38 
+ 7. SAFETY ANALYSIS 
+The SAF-Ext will be used for all safety analys es. Safety will be assessed based on extent of 
+exposure and compliance, AE reports, clinical lab oratory data, physical examinations, vital signs, 
+post-void residual volume, and total IPSS score. 
+No inferential statistical testing is planned on th e safety data, all data will be summarized and 
+listed only. 
+7.1. Extent of Exposure 
+The duration of exposure with vibegron over  studies URO-901-3005 and URO-901-3006 will be 
+expressed as the time in days from the first dose of vibegron as recorded on the Study Drug 
+Administration CRF page through to last treatment day (inclusive) as recorded on the End of 
+Treatment CRF page, excluding any days where it is recorded that an interruption has occurred 
+on the AE CRF page. If no last treatment date is  recorded, it will be imputed as the minimum of 
+the date of the last visit on study 3006 and th e date when last dispensed study treatment was 
+scheduled to be exhausted (last dispensation date + number of doses dispensed). 
+Interruptions to dosing can be due to delays in resupply (measured by gaps in the study drug log) 
+or interruptions due to AE. Interruptions due to AE  that overlap partially or completely will be 
+listed separately but not double-counted for summing interruption days. 
+Gaps in the study drug log will be determined by comparing the dispensation date of a record to 
+the previous dispensation date (where up to four bottles may have been dispensed). The gap is 
+measured from the study day of previous dispensation + number of pills dispensed + number of 
+days of AE interruption within the period. 
+Interruption in days = date interruption started – date interruption stopped + 1  
+This is given by the following formula: 
+Duration (days) = date of last vibegron dose – date of first vibegron dose – 
+                              interruption days + 1 
+Duration of exposure will be summarized by treatment group and overall for the SAF-Ext set 
+using summary statistics for continuous variables. A listing will present the treatment start and 
+end date together with date(s) of interruption and the overall duration of exposure. 
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+39 
+ 7.2. Treatment Compliance 
+Study treatment compliance (%) will be calculate d as the actual number of vibegron doses taken 
+divided by the expected number of vibegron dos es, multiplied by 100 and summarized by 
+treatment duration. 
+These numbers will be calculated as the sum of the number of tablets indicated as taken by the 
+subject on each dispensation record. Where no trea tment bottle is returned, and thus the actual 
+number of doses taken is unknown, it will be assu med that the subject took medication as directed 
+until another bottle was dispensed, their supply wa s exhausted, or end of treatment was noted. This 
+is calculated as (minimum of [next dispensation date – dispensation date + 1], [doses dispensed] 
+and [EOT date – dispensation date + 1]).. Imputed values will be clearly noted in the listing.  
+The expected number of vibegron doses is the same as the calculated duration of exposure detailed 
+in section 7.1. 
+Treatment Compliance will be summariz ed for the SAF-Ext and FAS-Ext population. 
+Additionally, the number and percentage of subjec ts within each planned treatment duration with 
+compliance in the following categories will be provided: <80%, 80 – 120%, and >120%. All data 
+will be listed. 
+7.3. Adverse Events 
+AEs will be coded using Me dDRA version 23.0 or higher. 
+All reported AEs (whether treatment emerg ent or not) on both study URO-901-3005 and URO-
+901-3006 will be included in by-subject AE listings  on the Safety Set Extension. Sorting will be 
+by country, site, subject, date of event, SOC, PT  and then verbatim description. An additional 
+overall AE listing will be presented for subject s that were enrolled but not dosed with vibegron 
+on URO-901-3006. 
+An AE will be considered treatment emergent (TEAE)  if it begins or worsens in severity after the 
+first dose of vibegron on study URO-901-3005 or URO-901-3006 through 5 days after the last 
+dose of vibegron. Partial AE start d ates will be imputed as detailed in Section 4.2.3. 
+Summary tables will be based on TEAEs. The incidence of TEAEs will be presented using counts and percentages of subjects with TEAEs and tabulated by SOC and PT. SOC will be 
+sorted in descending frequency and PT within SOC will be sorted by descending frequency 
+based on the incidence across subjects overall. If a subject has multiple occurrences (start and 
+stop) of an event associated with a specific SOC or PT within a SOC, a subject will only be counted once in the incidence count for the SOC or PT within SOC respectively. 
+An overall summary table of AEs will be presented detailing the number and percentage of 
+subjects, and number of events for the following categories: 
+x At least one TEAE; 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+40 
+ x At least one Treatment-Related TEAE; 
+x At least one Grade ≥ 3 TEAE  (Mild = Grade 1, Moderate = Grade 2, Severe of 
+Medically Significant = Grade 3, Life-Threatening = Grade 4, Death = Grade 5) 
+x At least one Grade ≥ 3 Treatment -Related TEAE; 
+x At least one Serious TEAE; 
+x At least one Serious Treatment-Related TEAE; 
+x At least one TEAE leading to Discontinuation from Study Medication; 
+x At least one TEAE of Special Interest; 
+x At least one Treatment-Related TEAE of Special Interest 
+Where not otherwise noted, all the following summaries are presented by PT:  
+x All TEAEs (by SOC and PT); 
+x Treatment-Related TEAEs (i.e., possibly or probably related); 
+x TEAEs occurring in 2% or more of the population; 
+x All TEAEs by SOC, PT, and maximum severity (where the maximum intensity per 
+patient will be counted at each level of summarization);  
+x TEAES with Grade ≥ 3; 
+x Treatment-Related TE AES with Grade ≥ 3; 
+x Serious TEAEs; 
+x Treatment-Related Serious TEAEs; 
+x Fatal TEAEs; 
+x TEAEs leading to Discontinuation from Study Treatment; 
+x TEAE of Special Interest (by prot ocol-defined AESI category); 
+x Treatment-Related TEAE of Special Interest  (by protocol-defined AESI category); 
+x Non-fatal TEAEs; 
+x Hypertension TEAEs by Pre-existing Hypertension (Yes vs No) and Baseline 
+Hypertension (Yes vs. No). Hypertension TEAEs will be selected as any TEAE with a 
+preferred term of Hypertension.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+41 
+ In addition, a summary of all TEAEs by PT occurring in at least 2% of subjects will be created 
+and ordered by descendi ng overall frequency. 
+Adverse events of special interest for this study include:  
+x Adverse events consistent with urinary retention 
+x Adverse events suggestive of cystitis or urinary tract infection (UTI)  
+x Potential major cardiac and cerebrovascular events, including death (or any event with 
+fatal outcome), myocardial infarction, cerebrovascular accident, hospitalization for 
+unstable angina or chest pain, hospitalization for heart failure requiring hospitalization, and coronary revascularization/angioplasty/stent  
+x Adverse events consistent with hypertension (see protocol section 8.4.6) 
+x Adverse events consistent with orthostatic hypotension as confirmed by orthostatic vital signs  
+x Elevated serum aspartate aminotransferase ( AST) or alanine aminotransferase (ALT) lab 
+value requiring that study drug be temporarily withheld or permanently discontinued  
+x Neoplasms 
+Treatment listings will include the planned treat ment duration, start and stop dates/times of the 
+AE, study day (relative to start of double-bl ind treatment on URO-901-3005) and treatment day 
+(relative to the day of first dose of vibegron). A treatment related AE is defined as an AE for which the investigator classifies the AE as be ing “Probably Related” or “Possibly Related” to 
+study treatment on the Adverse Event CRF. Missin g relationship and severity (intensity) will be 
+imputed per Section 4.2.3. 
+ 
+The following additional listings will be provided: 
+x Listing of Deaths 
+x Listing of Serious TEAEs 
+x Listing of Treatment-Emergent AESIs 
+x Listing of TEAEs Leading to Withdrawal or Interruption of Study Treatment 
+x Listing of all AEs with a flag for TEAEs and onset (Prior = prior to first dose of vibegron 
+or Treatment = on or after first dose of vibegron.) 
+x Listing of all medical history including pre-tr eatment adverse events with coded preferred 
+terms in the hypertension AE search list: 
+ Accelerated hypertension 
+ Diastolic hypertension 
+ Essential hypertension 
+ Hypertension 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+42 
+  Hypertensive crisis 
+ Hypertensive emergency 
+ Hypertensive heart disease 
+ Malignant hypertension 
+ Malignant hypertensive heart disease 
+ Secondary hypertension 
+ Supine hypertension 
+ Systolic hypertension. 
+7.4. Laboratory Evaluations 
+All continuous laboratory parameters will be summarized descriptively by absolute value at each visit together with the corresponding changes from  baseline. All parameters will be summarized 
+in SI units. 
+The number and percentage of subjects with laboratory measurements outside of the central 
+laboratory normal range will also be summarized by  visit. Shift tables from  baseline to maximum 
+post-baseline value, to minimum post-baseline value, last post-ba seline value, and at each post-
+baseline visit will be provided for hematology and chemistry parameters to display low, normal, 
+high, and missing values by treatment group in a 3-by-3 contingency table. Denominators for 
+percentages will be the number of subjects with non-missing data at the specific assessment and 
+baseline. 
+ALT/AST and Total Bilirubin will be displayed as  eDISH plots. Maximum post-baseline total 
+bilirubin will be presented (<2 and ≥2 x ULN) and plotted against maximum post -baseline ALT 
+(<3, ≥3 - <5, ≥5 -<10, and ≥10 x ULN), e xpressed as multiples of ULN. This will be repeated to 
+show maximum post-baseline total bilirubin against maximum post-baseline AST. Data for subjects with ALT or AST ≥3 x ULN, and bilirubin ≥2 x ULN will be presented, which 
+will include all visits for this subset of subjec ts. A line plot of liver biochemistry test results 
+(including ALP, ALT, AST, total bilirubin, and GG T) over time will also be presented for this 
+subset of patients. 
+A sample for the urinalysis and urine culture will be sent to the central laboratory only if the 
+urine dipstick performed at the site tests positive for the presence of leukocytes, nitrites, or blood 
+cells. Central urinalysis data will be provided only in the listing. 
+Any data outside the central laboratory normal refe rence ranges will be explicitly noted on the 
+listings that are produced.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+43 
+ 7.5. Vital Sign Assessments 
+Vital sign data including blood pressure, pulse rate, respiration rate, body temperature and 
+weight will be collected at all study visits except for the Week 1, Week 16, and 44 telephone 
+visits. Height will be measured at Screening only. Blood pressure will be measured in triplicate 
+at each visit. The average of triplicates will be used for summary.  For subjects in URO-901-
+3005 Study Part 1 at any visits with orthostatic blood pressure measurements: blood pressure (in 
+triplicate) and pulse rate taken pre-dose in sittin g position are equivalent to all other pre-dose 
+vital sign values and will be used. Ort hostatic and standing blood pressure measurements 
+collected during Part 1 of URO-901-3005 will not be included in any summaries on URO-901-
+3006. 
+For all parameters, absolute values and change fr om baseline will be presented for scheduled 
+visits using descriptive statistics for continuous variables. In addition, the maximum post-
+baseline change from baseline value and change from baseline to the end of treatment will be 
+summarized for each of the vital signs. 
+To further investigate changes in  SBP/DBP/pulse rate from baseline, the following tables will be 
+prepared:  
+x Counts and percent of subjects in each group with at least a 5/10/15 CFB at 2 
+consecutive post-baseline visits and at Week 52 will be produced for all subjects, by pre-
+existing hypertension category (Yes/No) and by pre-existing hypertension category 
+(Yes/No).  
+x Maximum post-baseline CFB (including 95% CI of Mean) 
+The line plot of mean (SE) of change from baseline in blood pressure and pulse rate over time will be prepared. A by-subject listing, sorted by subject identifier, will be presented including all vital sign results (scheduled or unscheduled).  
+7.6. Physical Examination 
+Brief physical examination data will be collected at Screening, Baseline, Week 12, 24, and 52. A listing of all physical exam results for subject s with at least one abnormal result will be 
+produced.  
+7.7. Post-Void Residual (PVR) Urine Volume 
+PVR urine volume data will be summarized at Baseline and every visit. The summary will 
+comprise a continuous summary at each visit, in cluding change from baseline, and a categorical 
+summary of PVR at the following categories: <100 mL, ≥ 100 and < 200 mL,  ≥ 200 and < 350 
+mL, and ≥ 350 mL. All PVR data will be listed. 
+7.8. IPSS Total Score 
+IPSS total score at Screening, Day 1, Weeks 4, 8, 12, 24, 36, and 52 for the 52-week treatment group and baseline, Week 12 and Week 28 for the 28-week treatment group will be summarized 
+by treatment group and visit, including change from baseline.  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+44 
+ 8. COVID-19 CONSIDERATIONS 
+This study was conducted during the COVID-19 gl obal pandemic. During the time period of the 
+pandemic, it is anticipated that changes in study visit schedules, missed visits, or patient 
+discontinuations may lead to missing information (e.g., for protocol-specified procedures). In 
+accordance with FDA guidance on statistical considerations for clinical trials during the COVID-
+19 public health emergency [3], it is important to capture specific information in the case report 
+form that explains the basis of the missing data, including the relationship to COVID-19 for 
+missing protocol-specified information (e.g., from missed study visits or study discontinuations 
+due to COVID-19).  
+The proportion of subjects with COVID-19 impact on visits will be summarized by treatment 
+group overall and by visit. The reasons (e.g. subject acquired COVID-19, subject unable to travel 
+due to COVID-19, investigative site closure due to  COVID-19, etc.) will also be summarized. In 
+addition, subjects who discontinued treatment due  to COVID-19 will be summarized with the 
+COVID-19 reason for discontinuation. A listi ng of subjects who had COVID-19 information 
+collected will be generated which will document the date of contact, the reason for the telephone 
+follow-up, the visit that was missed, and if any doses were missed due to IP availability. 
+9. CHANGE FROM ANALYSIS PLANNED IN PROTOCOL 
+9.1. Secondary Efficacy 
+CFB in average IPSS Storage score has been changed to CFB in IPSS Storage score. 
+9.2. Exploratory Endpoints 
+CFB at all URO-901-3005 or URO-901-3006 protocol-s pecified timepoints apart from  
+have been added for all s econdary efficacy endpoints. 
+9.3. COVID-19 Considerations 
+The COVID-19 global pandemic began during the conduct of the study. The recommended 
+impact analysis was therefore added to the SAP, as the operational change of increased visit windows had been communicated via study memo with no protocol amendment. 
+9.4. Physical Examination 
+Physical examination was removed from primary objectives; any clinically significant finding is reported by the investigator as an adverse event an d is summarized with adverse events. Physical 
+examination results will be only listed. 
+10. REFERENCES 
+ [1] Jiang YH, Lin VC, Liao CH, Kuo HC. International Prostatic Symptom Score-
+voiding/storage subscore ratio in association with total prostatic volume and maximum flow rate is diagnostic of bladder outlet-related lower urinary tract dysfunction in men with lower urinary tract symptoms. PLoS One. 2013;8(3):e59176.  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+45 
+ [2]  crosswalk value set https://euroqol.org/eq-5d-instruments/
+about/valuation-standard-value-sets/crosswalk-index-value-calculator/ 
+[3] Statistical Considerations for Clinical Trials During the COVID-19 Public Health Emergency 
+https://www.fda.gov/regulatory-information/search-fda-guidance-documents/statistical-
+considerations-clinical-trials-during-covid-19- public-health-emergency-guidance-industry  
+11. APPENDIX 
+11.1. Table of Contents for Data Display Specifications 
+11.1.1. Output Tables 
+Table 9: List of Output Tables  
+Title  Population 
+ Programming notes 
+Study Population  
+14.1.1.1 Subject Disposition  Screened Include t wo sections: 
+screened, treated  
+14.1.1.2 Enrollment  by Country and Investigator SAF-Ext  
+14.1.2.1 Major Protocol Deviations  FAS-Ext  
+14.1.2.2 Reasons for Exclusion from Analysis Sets  SAF-Ext  
+14.1.3.1 Subject Demographic and Ba seline Characteristics SAF-Ext  
+14.1.3.2 Subject Demographic and Ba seline Characteristics FAS-Ext  
+14.1.3.3 Subject Demographic and Ba seline Characteristics FAS-Ext-I  
+14.1.3.4 Subject Demographic and Ba seline Characteristics PPS-Ext  
+14.1.3.5 Subject Demographic and Ba seline Characteristics PPS-Ext-I  
+14.1.3.8 Other Baseline Characteristics  FAS-Ext  
+14.1.3.9 Other Baseline Characteristics  FAS-Ext-I  
+14.1.3.10 Other Baseline Characteristics  PPS-Ext  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+46 
+ Title  Population 
+ Programming notes 
+14.1.3.11 Other Baseline Characteristics PPS-Ext-I  
+14.1.4  Medical History  SAF-Ext  
+14.1.5.1 Prior Non -Overactive- Bladder (OAB) Medication SAF-Ext  
+14.1.5.2 Prior Overactive Bladder (OAB) Medication  SAF-Ext  
+14.1.6.1 Non-OAB Concomitant Medication  SAF-Ext  
+14.1.6.2 OAB Concomitant Medication  SAF-Ext  
+14.1.7.1 COVID -19 Impact SAF-Ext  
+Efficacy Endpoints  
+Secondary Efficacy  Endpoints   
+14.2.1.1 Average Daily Number of Micturition Episodes  FAS-Ext Descriptive statistics, 
+include CFB  
+14.2.1.2 Change from Baseline in Daily Average Number 
+of Micturition Episodes  (MMRM) FAS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.1. 3 Change from Baseline in Daily Average Number 
+of Micturition Episodes  (MMRM) PPS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.2.1 Average Daily Number of Urgency Episodes  FAS-Ext Descriptive statistics, 
+include CFB  
+14.2.2.2 Change from Baseline in Average Daily Number 
+of Urgency Episodes  (MMRM) FAS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.2. 3 Change from Baseline in Average Daily Number 
+of Urgency Episodes (MMRM)  PPS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.3.1 Average Number of Nocturia Episodes per Day FAS-Ext Descriptive statistics, 
+include CFB  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+47 
+ Title  Population 
+ Programming notes 
+14.2.3.2 Change from Baseline in Average  Number of 
+Nocturia Episodes per Day (MMRM)  FAS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.3.3 Change from Baseline in Average Number of 
+Nocturia Episodes per Day (MMRM)  PPS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.4.1 Average Daily Number of Urge Urinary 
+incontinence Episodes  FAS-Ext-I Descriptive statistics, 
+include CFB  
+14.2.4.2 Change from Baseline in Average Daily Number 
+of Urge Urinary incontinence Episodes (MMRM) FAS-Ext-I Include all intervals, 
+but present Week 52 
+first 
+14.2.4.3 Change from Baseline in Average Daily Number 
+of Urge Urinary incontinence Episodes (MMRM) PPS-Ext-I Include all intervals, 
+but present Week 52 first
+ 
+14.2.5.1 International Prostate Symptom Score (IPSS) 
+Storage Score  FAS-Ext Descriptive statistics, 
+include CFB  
+14.2.5.2 Change from Baseline in International Prostate 
+Symptom Score (IPSS) Storage Score (MMRM) FAS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.5.3 Change from Baseline in International Prostate 
+Symptom Score (IPSS) Storage Score (MMRM) PPS-Ext Include all intervals, 
+but present Week 52 first
+ 
+14.2.6.1 Average Volume Voided per Micturition  FAS-Ext Descriptive statistics, 
+include CFB  
+14.2.6.2 Change from Baseline in Average Volume Voided 
+per Micturition (MMRM)  FAS-Ext Include all intervals, 
+but present Week 52 
+first 
+14.2.6.3 Change from Baseline in Average Volume Voided 
+per Micturition (MMRM)  PPS-Ext Include all intervals, 
+but present Week 52 first
+ 
+Other Efficacy and PROs Endpoints    
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+50 
+ Title  Population 
+ Programming notes 
+14.3.2.4 Treatment -Emergent Adverse Events by Preferred 
+Term and Maximum Intensity  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.5 Treatment Emergent Adverse Events with Grade ≥ 
+3 by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.6 Treatment -Related Emergent Adverse Events with 
+Grade ≥ 3 by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.7 Treatment -Emergent Adverse Events occurring in 
+≥ 2% subjects by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.8 Serious Treatment Emergent Adverse Events by 
+Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.9 Treatment -Related Serious Treatment Emergent 
+Adverse Events by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.10 Treatment Emergent Adverse Events Leading to 
+Discontinuation from Study Treatment by 
+Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.11  Fatal TEAEs by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.12 Treatment Emergent Adverse Events of Special 
+Interest by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.13 Treatment -Related Treatment Emergent Adverse 
+Events of Special Interest by Preferred Term  SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.14 Non-Fatal Treatment- Emergent Adverse Events by 
+Prefer red Term SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.15 Hypertension Treatment Emergent Adverse Events 
+by Preferred Term, and Pre -Existing Hypertension SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.16 Hypertension Treatment Emergent Adverse Events 
+by Preferred Term, and Baseline Hypertension SAF-Ext Descending frequency 
+of preferred term  
+14.3.2.17 Listing of Deaths  SAF-Ext  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+51 
+ Title  Population 
+ Programming notes 
+14.3.2.18 Listing of Treatment Emergent Serious Adverse 
+Events  SAF-Ext  
+14.3.2.19 Listing of Treatment Emergent Adverse Events 
+Leading to Withdrawal or Interruption of Study Treatment
+ SAF-Ext  
+14.3.2.20 Listing of TEAEs of Special Interest  SAF-Ext  
+Safety Labs    
+14.3.3.1 Hematology Laboratory Parameters  SAF-Ext Include observed and 
+CFB  
+14.3.3.2 Clinical Chemistry Laboratory Parameters SAF-Ext Include observed and 
+CFB  
+14.3.3.3 Urinalysis Laboratory Parameters  SAF-Ext Include observed and 
+CFB  
+14.3.3.4 Summary of Other Laboratory Parameters  SAF-Ext  
+14.3.3.5 Abnormal Classification of Hematology 
+Laboratory Parameters  SAF-Ext  
+14.3.3.6 Abnormal Classification of Clinical Chemistry 
+Laboratory Parameters  SAF-Ext  
+14.3.3.7 Abnormal Classification of Urinalysis Laboratory 
+Parameters  SAF-Ext  
+14.3.3.8 Abnormal Classification Summary of Other 
+Laboratory Parameters  SAF-Ext  
+14.3.3.9 Shift Table of L/N/H Classification for 
+Hematology Laboratory Parameters  SAF-Ext  
+14.3.3.10 Shift Table of L/N/H Cla ssification for Chemistry 
+Laboratory Parameters  SAF-Ext  
+14.3.3.11 Maximum Post -baseline ALT and AST vs. 
+Maximum Post -baseline Bilirubin SAF-Ext  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+52 
+ Title  Population 
+ Programming notes 
+14.3.3.12 Listing of Subjects who Potentially Met Hy’s Law  SAF-Ext  
+14.3.3.13 Summary of Liver Function Laboratory Findings SAF-Ext  
+Vital Signs    
+14.3.4.1 Vital Sign Parameters  SAF-Ext Include all observed 
+and CFB  
+14.3.4.2 Vital Sign Parameter Change from Baseline Shifts 
+at 3 Consecutive Visits  SAF-Ext SBP, DBP and PR 
+14.3.4.3 Vital Sign Parameter Change from Baseline Shifts 
+at Week 52 SAF-Ext SBP, DBP and PR 
+14.3.4.4 Vital Sign Parameter Maximum  Post- Baseline 
+Change from Baseline  SAF-Ext SBP, DBP and PR 
+Other    
+14.3. 5.1 Post-Void Residual Volume SAF-Ext  
+14.3. 6.1 Total IPSS score  SAF-Ext  
+14.3. 7.1 Physical Examination Shift from Baseline  SAF-Ext  
+ 
+11.1.2. Output Figures 
+Table 10: List of Output Figures 
+Title  Population    Programming notes 
+Efficacy Endpoints    
+14.2.1.1 Plot of LS Means (SE) of Change from Baseline in 
+Average Daily Number of Micturition Episodes (MMRM)
+ FAS-Ext Including all visits 
+14.2.2.1 Plot of LS Means (SE) of Change from Baseline in 
+Average Daily Number of Urgency Episodes (MMRM)
+ FAS-Ext Including all visits 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+53 
+ Title  Population    Programming notes 
+14.2.3.1 Plot of LS Means (SE) of Change from Baseline in 
+Average Number of Nocturia Episodes per Day (MMRM)
+ FAS-Ext Including all visits 
+14.2.4.1 Plot of LS Means (SE) of Change from Baseline in 
+Average Number of Urge Urinary incontinence Episodes per Day (MMRM)
+ FAS-Ext-I Including all visits 
+14.2.5.1 Plot of LS Means (SE) of Change from Baseline in 
+International Prostate Symptom Score (IPSS) Storage 
+Score (MMRM)  FAS-Ext Including all visits 
+14.2.6.1 Plot of LS Means (SE) of Change from Baseline in 
+Volume Voided per Micturition (MMRM)  FAS-Ext Including all visits 
+Safety Endpoints    
+14.3.3.1 Scatter Plot of Maximum ALT Post -Baseline versus 
+Maximum Total Bilirubin Expressed as Multiples of 
+ULN  SAF-Ext  
+14.3.3.2 Scatter Plot of Maximum AST Post -Baseline versus 
+Maximum Total Bilirubin Expressed as Multiples of 
+ULN  SAF-Ext  
+14.3.3.3 Line Plot of Liver Chemistry Test Results over Time 
+for Subjects with Elevated ALT or  AST, and Elevated 
+Total Bilirubin at Any Time  SAF-Ext Only produce for 
+subjects who 
+potentially met Hy’s law
+ 
+14.3.4.1 Line Plot of Mean (SE) in CFB of Systolic Blood 
+Pressure  SAF-Ext X-axis starts from 
+baseline visit  
+14.3.4.2 Line Plot of Mean (SE) in  CFB of Diastolic Blood 
+Pressure  SAF-Ext X-axis starts from 
+baseline visit  
+14.3.4.3 Line Plot of Mean (SE) in CFB of Pulse Rate  SAF-Ext X-axis starts from 
+baseline visit  
+14.3.5.1 Line Plot of Mean (SE) Post -Void Residual Urine 
+Volume  SAF-Ext X-axis sta rts from 
+baseline visit, separate 
+lines for treatment groups
+ 
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+54 
+ Title  Population    Programming notes 
+14.3.6.1 Line Plot of Mean (SE) IPSS Total Scores  SAF-Ext X-axis starts from 
+baseline visit, separate 
+lines for treatment 
+groups  
+ 
+11.1.3. Output Listings 
+Table 11: List of Output Listings 
+Title Population Programming notes 
+Disposition and Demographics    
+16.2.1.1 Subject Disposition – Screen Failures Screened  
+16.2.1.2 Eligibility Criteria-Inclusion/Exclusion Criteria – 
+Screen Failures Screened  
+16.2.1.3 Subject Disposition SAF-Ext  
+16.2.1.4 Protocol Deviation FAS-Ext  
+16.2.1.5 Exclusion from Analysis Sets SAF-Ext  
+16.2.1.6 Demographic and Baseli ne Characteristics SAF-Ext  
+16.2.1.7 Medical History  SAF-Ext  
+16.2.1.8 Procedures SAF-Ext  
+16.2.1.9 Prior Non-OAB Medications SAF-Ext Separate from prior 
+OAB medication listing. 
+16.2.1.10 Concomitant Medications SAF-Ext  
+16.2.1.11 Prior OAB Medication  SAF-Ext  
+16.2.1.12 Treatment Administration SAF-Ext  
+16.2.1.13 Study Drug Accountability SAF-Ext  
+16.2.1.14 Study Drug Compliance SAF-Ext  
+16.2.1.15 COVID-19 Impact SAF-Ext  
+Efficacy    
+16.2.2.1 Derived Average Bladder Diary Parameters  FAS-Ext  
+16.2.2.2 Derived Responder Parameters from Bladder Diary FAS-Ext  
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+55 
+ Title Population Programming notes 
+16.2.2.3 Derived Parameters from International Prostate Symptom Score (IPSS) Data FAS-Ext  
+16.2.2.4 FAS-Ext  
+16.2.2.5 FAS-Ext  
+16.2.2.6 Global Impression Data FAS-Ext  
+16.2.2.7 FAS-Ext  
+  
+
+
+Urovant Sciences 
+Statistical Analysis Plan – URO-901-3006 V1.0 31-Jul-2023 
+56 
+ Safety    
+16.2.3.1  All Adverse Events SAF-Ext  
+16.2.3.2 All Adverse Events Prior to Treatment Screened  
+16.2.3.3 All Adverse Events During Treatment SAF-Ext  
+16.2.3.4 Hematology Laboratory Parameters SAF-Ext  
+16.2.3.5 Clinical Chemistry Laboratory Parameters SAF-Ext  
+16.2.3.6 Urinalysis Laboratory Parameters SAF-Ext  
+16.2.3.7 Other Laboratory Parameters SAF-Ext  
+16.2.3.8 Vital Signs SAF-Ext  
+16.2.3.8  Physical Examination SAF-Ext  
+16.2.3.9 Post-Void Residual (PVR) Volume  SAF-Ext  
+ 

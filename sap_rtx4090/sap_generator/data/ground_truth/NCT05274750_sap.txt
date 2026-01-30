@@ -1,0 +1,2367 @@
+Statistical Analysis Plan
+Study ID:  217095
+Official Title of Study: A randomised, double-blind, parallel group 
+Phase III study to assess the efficacy and safety of 100 mg SC 
+depemokimab in patients with chronic rhinosinusitis with nasal 
+polyps (CRSwNP) – ANCHOR-1 (depemokimAb iN CHrOnic 
+Rhinosinusitis)
+Date of Document: 15-Jul-2024
+CONFIDENTIAL 
+The GlaxoSmithKline group of companies 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 1 of 46 
+Information Type: 
+Statistical Analysis Plan (SAP) 
+TITLE PAGE 
+Protocol Title:  
+A randomised, double-blind, parallel group Phase III study to 
+assess the efficacy and safety of 100 mg SC depemokimab in 
+patients with chronic rhinosinusitis with nasal polyps 
+(CRSwNP) – ANCHOR-1 (depemokimAb 
+iN CHrOnic Rhinosinusitis) 
+Study Number: 
+217095 
+Compound Number 
+or Name: 
+GSK3511294 (Depemokimab) 
+Abbreviated Title: 
+Efficacy and safety of subcutaneous depemokimab in patients 
+with chronic rhinosinusitis with nasal polyps 
+Acronym: 
+ANCHOR-1 
+Sponsor Name: GlaxoSmithKline Research & Development Limited  
+Regulatory Agency Identifier Number(s):  
+Registry 
+ID 
+IND 
+146742 
+EudraCT 
+2021-005037-16 
+Copyright 2024 the GlaxoSmithKline group of companies. All rights reserved.  
+Unauthorized copying or use of this information is prohibited. 
+ 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 2 of 46 
+TABLE OF CONTENTS 
+PAGE 
+TITLE PAGE ................................................................................................................... 1 
+VERSION HISTORY ....................................................................................................... 6 
+1. 
+INTRODUCTION ...................................................................................................... 9 
+1.1. 
+Objectives, Estimands and Endpoints ........................................................... 9 
+1.1.1. 
+Objectives and Endpoints .............................................................. 9 
+1.1.2. 
+Primary Estimands ....................................................................... 11 
+1.1.3. 
+Secondary Estimands .................................................................. 12 
+1.2. 
+Study Design .............................................................................................. 13 
+2. 
+STATISTICAL HYPOTHESES ............................................................................... 14 
+2.1. 
+Multiplicity Adjustment ................................................................................ 14 
+3. 
+ANALYSIS SETS ................................................................................................... 16 
+4. 
+STATISTICAL ANALYSES ..................................................................................... 17 
+4.1. 
+General Considerations .............................................................................. 17 
+4.1.1. 
+General Methodology .................................................................. 17 
+4.1.2. 
+Baseline Definition ....................................................................... 18 
+4.1.3. 
+Multicenter Studies ...................................................................... 18 
+4.2. 
+Primary Endpoints Analyses ....................................................................... 18 
+4.2.1. 
+Definition of endpoints ................................................................. 18 
+4.2.2. 
+Main analytical approach ............................................................. 19 
+4.2.3. 
+Sensitivity analyses ..................................................................... 20 
+4.3. 
+Secondary Endpoints Analyses .................................................................. 22 
+4.3.1. 
+Definition of endpoints ................................................................. 22 
+4.3.2. 
+Main analytical approach ............................................................. 23 
+4.4. 
+Other Endpoints Analyses .......................................................................... 24 
+4.4.1. 
+Definition of endpoints ................................................................. 24 
+4.4.2. 
+Main analytical approach ............................................................. 26 
+4.5. 
+Safety Analyses .......................................................................................... 27 
+4.5.1. 
+Extent of Exposure ...................................................................... 28 
+4.5.2. 
+Adverse Events............................................................................ 28 
+4.5.2.1. 
+Adverse Events of Special Interest ............................. 28 
+4.5.3. 
+Additional Safety Assessments .................................................... 29 
+4.5.3.1. 
+Laboratory Data .......................................................... 29 
+4.5.3.2. 
+Vital Signs .................................................................. 29 
+4.5.3.3. 
+ECG ........................................................................... 29 
+4.5.3.4. 
+Immunogenicity Analysis ............................................ 30 
+4.6. 
+Clinical Pharmacology Data Analyses ......................................................... 31 
+4.6.1. 
+Pharmacokinetic Analyses ........................................................... 31 
+4.6.2. 
+Pharmacodynamic (PD) Analyses - Blood Eosinophils ................ 31 
+4.7. 
+IL-5 Analyses .............................................................................................. 32 
+4.8. 
+Analyses to Support Regional Submission .................................................. 32 
+4.9. 
+Risk Benefit Analysis .................................................................................. 33 
+4.10. 
+Other Analyses ........................................................................................... 33 
+4.10.1. 
+Subgroup analyses ...................................................................... 33 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 3 of 46 
+4.10.1.1. Co-Primary and Pharmacodynamic Endpoint 
+Subgroup Analyses .................................................... 34 
+4.10.1.2. Safety Subgroups ....................................................... 34 
+4.11. 
+Interim Analyses ......................................................................................... 35 
+4.12. 
+Changes to Protocol Defined Analyses ....................................................... 35 
+5. 
+SAMPLE SIZE DETERMINATION ......................................................................... 35 
+6. 
+SUPPORTING DOCUMENTATION ....................................................................... 36 
+6.1. 
+Appendix 1 Study Population Analyses ....................................................... 36 
+6.1.1. 
+Participant Disposition ................................................................. 36 
+6.1.2. 
+Demographic and Baseline Characteristics .................................. 37 
+6.1.3. 
+Protocol Deviations ...................................................................... 37 
+6.1.4. 
+Prior and Concomitant Medications ............................................. 37 
+6.2. 
+Appendix 2 Electronic Clinical Outcome Assessment (eCOA) 
+Compliance ................................................................................................. 38 
+6.2.1. 
+Study-Level (Overall) Compliance ............................................... 38 
+6.2.2. 
+Endpoint-Level Compliance ......................................................... 39 
+6.3. 
+Appendix 3 Data Derivations Rule .............................................................. 40 
+6.3.1. 
+Criteria for Potential Clinical Importance ...................................... 40 
+6.3.1.1. 
+Laboratory Values ...................................................... 40 
+6.3.2. 
+Study Period ................................................................................ 40 
+6.3.3. 
+Study Day and Reference Dates .................................................. 41 
+6.3.4. 
+Assessment Window ................................................................... 41 
+6.3.4.1. 
+Visit Based Assessments ........................................... 41 
+6.3.4.2. 
+Daily Diary .................................................................. 41 
+6.3.5. 
+Multiple measurements at One Analysis Time Point .................... 42 
+6.3.6. 
+Handling of Partial Dates ............................................................. 43 
+6.3.7. 
+Early PK Access Key Activities .................................................... 45 
+6.3.8. 
+Trademarks ................................................................................. 45 
+7. 
+REFERENCES ....................................................................................................... 46 
+ 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 4 of 46 
+LIST OF TABLES 
+PAGE 
+Table 1 
+Subgroups of Interest ............................................................................. 33 
+Table 2 
+Daily Diary Assessment Windows .......................................................... 42 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 5 of 46 
+LIST OF FIGURES 
+PAGE 
+Figure 1 
+Conceptualization of Statistical Testing Strategy Across Studies 
+ANCHOR-1 and ANCHOR-2 .................................................................. 15 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 6 of 46 
+VERSION HISTORY 
+SAP 
+Version 
+Approval 
+Date 
+Protocol 
+Version 
+(Date) on 
+which SAP 
+is Based 
+Change 
+Rationale 
+SAP 
+04-March-
+2022 
+Amendment 
+1 
+Approval 
+Date: 09-
+FEB-2022 
+Not Applicable 
+Original version 
+Amendment 
+01 
+15 Jul 
+2024 
+Amendment 
+5 
+Approval 
+Date: 26-
+JUN-2024 
+1. Sections 1.1, 
+4.3, 4.4: 
+Removed text 
+related to 
+asthma 
+endpoints. 
+2. Section 1.1: 
+SNOT-22 
+responder 
+definition 
+updated to 
+“>=8.9” instead 
+of “>8.9” 
+3. Section 1.1: 
+Estimand 
+strategy 
+updated to 
+handle ICE of 
+initiation of 
+medications 
+that may 
+modulate 
+disease course 
+of CRSwNP 
+under 
+composite 
+strategy 
+Previously 
+defined primary 
+estimand 
+becomes a 
+1. To align with 
+change in 
+endpoint 
+hierarchy 
+moving 
+asthma related 
+endpoints to 
+pooled 
+(217095 and 
+218079) 
+analysis. 
+2. Section 1.1: 
+SNOT-22 
+responder 
+definition 
+updated to 
+“>=8.9” 
+instead of 
+“>8.9” 
+3. To align with 
+FDA 
+guidelines on 
+developing 
+drugs for 
+treatment of 
+CRSwNP 
+4. To reflect 
+change in 
+endpoint 
+hierarchy 
+related to 
+nasal surgery 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 7 of 46 
+SAP 
+Version 
+Approval 
+Date 
+Protocol 
+Version 
+(Date) on 
+which SAP 
+is Based 
+Change 
+Rationale 
+supplementary 
+estimand 
+4. Section 2.1: 
+Updated text in 
+multiplicity 
+adjustment 
+strategy. 
+5. Section 3: 
+Changed name 
+of modified 
+Intent-To-Treat 
+(mITT) analysis 
+set to Full 
+Analysis Set 
+(FAS), and 
+definition 
+changed to 
+remove site 
+255388. 
+Updated text 
+related to PK 
+analysis set. 
+Updated text 
+related to safety 
+population and 
+added FAS-
+China, FAS-
+Japan, Safety-
+China, Safety-
+Japan, 
+Screened-
+China, FAS-
+Modified, and 
+Safety-
+Modified 
+analysis sets. 
+Section 4.1.1: 
+added text 
+related to China 
+and Japan FAS 
+endpoint based 
+on regulatory 
+feedback. 
+5. Name of 
+mITT analysis 
+set changed to 
+FAS to align 
+across the 
+depemokimab 
+program. Site 
+removed in 
+FAS definition 
+due to 
+potential GCP 
+breach. Safety 
+analysis set 
+definition 
+clarified so 
+that analysis 
+by actual 
+treatment 
+received does 
+not apply to 
+completers 
+only. China 
+and Japan are 
+added to this 
+reporting plan.  
+6. To match with 
+countries from 
+which 
+participants 
+have been 
+recruited. 
+7. Updated to 
+match 
+requirements. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 8 of 46 
+SAP 
+Version 
+Approval 
+Date 
+Protocol 
+Version 
+(Date) on 
+which SAP 
+is Based 
+Change 
+Rationale 
+and Safety 
+analysis sets. 
+6. Section 4.1.3: 
+Updated list of 
+countries. 
+7. Sections 4.2.1, 
+6.2.4.2: 
+Updated text 
+related to VRS 
+missing data. 
+8. Section 4.4.2: 
+Removed 28-
+point SNOT-22 
+responder 
+endpoint from 
+list of endpoints 
+applying to 
+model 
+9. Section 5: Text 
+related to 
+sample size 
+determination 
+updated 
+8. Only a 
+summary will 
+be provided 
+for this 
+endpoint 
+9. To incorporate 
+information 
+regarding 
+change to 
+surgery 
+endpoint for 
+pooled 
+(217095 and 
+218079) 
+analysis. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 9 of 46 
+1. 
+INTRODUCTION 
+The purpose of this SAP is to describe the planned analyses to be included in the clinical 
+study report (CSR) for Study 217095 (ANCHOR-1). Details of the planned final analyses 
+are provided. 
+The pre-specified pooled analysis across studies 217095 (this study: ANCHOR-1) and 
+218079 (replicate study: ANCHOR-2) is described in a separate analysis plan. 
+1.1. 
+Objectives, Estimands and Endpoints 
+1.1.1. 
+Objectives and Endpoints 
+Objectives 
+Endpoints 
+Primary 
+ 
+To evaluate the efficacy of 
+depemokimab 100mg SC + SoC 
+compared to placebo + SoC at Week 52 
+in participants with a diagnosis of 
+CRSwNP  
+Co-primary endpoints:  
+a) Change from baseline in total endoscopic NP 
+score at Week 52 (centrally read) 
+b) Change from baseline in mean nasal obstruction 
+score (verbal response scale [VRS]) from 
+Week 49 through to Week 52 
+Secondary 
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC at Week 52 
+in terms of symptom scores for 
+rhinorrhoea (runny nose) and loss of 
+smell  
+• Change from baseline in mean symptom score 
+for rhinorrhoea (runny nose) (VRS) from 
+Week 49 through to Week 52 
+• Change from baseline in mean symptom score 
+for loss of smell (VRS) from Week 49 through to 
+Week 52 
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC at Week 52 
+in terms of the Lund Mackay CT score 
+• Change from baseline in Lund Mackay CT score 
+at Week 52 
+To evaluate the impact on quality of life 
+of depemokimab 100 mg SC + SoC 
+compared to placebo + SoC at Week 52 
+in patients with a diagnosis of CRSwNP  
+• Change from baseline in SNOT-22 total score at 
+Week 52 
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC prior to 
+Week 26 in participants with a diagnosis 
+of CRSwNP 
+• Change from baseline in mean nasal obstruction 
+score (VRS) from Week 21 through to Week 24 
+• Change from baseline in total endoscopic NP 
+score at Week 26 
+Other  
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC on 
+individual NP symptoms 
+• Change from baseline in mean overall symptom 
+(VAS) score from Week 49 through to Week 52 
+• Achieving a one point or greater decrease from 
+baseline in NP Score at Week 52 without first 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 10 of 46 
+Objectives 
+Endpoints 
+having nasal surgery (actual) or disease-
+modulating medication for CRSwNP 
+• Change from baseline in mean individual 
+symptom (VRS) score for facial pain from 
+Week 49 through to Week 52 
+• Change from baseline in mean individual 
+symptom (VRS) score for mucus in throat from 
+Week 49 through to Week 52 
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC on 
+composite symptom endpoints 
+• Change from baseline in the mean nasal polyps 
+symptoms composite score (combining VRS 
+scores for nasal obstruction, rhinorrhoea (runny 
+nose), loss of smell, and mucus in throat) from 
+Week 49 through to Week 52 
+• Change from baseline in mean CRS symptoms 
+and facial pain composite score (combining VRS 
+scores for nasal obstruction, rhinorrhoea (runny 
+nose), loss of smell, and facial pain) from 
+Week 49 through to Week 52 
+• Achieving a meaningful decrease from baseline 
+in their mean individual symptoms VRS and 
+composite VRS from Week 49 through to 
+Week 52 without first having nasal surgery 
+(actual) or disease-modulating medication for 
+CRSwNP.  
+To evaluate the efficacy of 
+depemokimab 100 mg SC + SoC 
+compared to placebo + SoC on health-
+related quality of life  
+ 
+• Achieving an 8.9 point or greater decrease from 
+baseline in SNOT-22 total score at Week 52 
+without first having nasal surgery (actual) or 
+disease-modulating medication for CRSwNP 
+• Achieving a 28 point or greater decrease from 
+baseline in SNOT-22 total score at Week 52 
+without first having nasal surgery (actual) or 
+disease-modulating medication for CRSwNP 
+• Change from baseline in SF-36 Mental 
+Component Summary (MCS) score, Physical 
+Component Summary (PCS) score and eight 
+domains at Week 52 
+• Change from baseline in WPAI-GH scores at 
+Week 52 
+Safety 
+ 
+To evaluate the safety and tolerability of 
+depemokimab 100 mg SC + SoC every 
+26 weeks, compared to placebo + SoC 
+in patients with a diagnosis of CRSwNP 
+• Incidence of AEs/ Serious adverse events 
+(SAEs)  
+• Change from baseline in vital signs (heart rate, 
+systolic and diastolic blood pressure, body 
+temperature) at discrete timepoints during the 
+52-week period 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 11 of 46 
+Objectives 
+Endpoints 
+• Change from baseline in ECG values at discrete 
+timepoints during the 52-week period  
+• Change from baseline in laboratory parameters 
+(including haematological and clinical chemistry 
+parameters) and hepatobiliary laboratory 
+abnormalities at discrete timepoints during the 
+52-week period 
+• Incidence of immunogenicity as measured by the 
+presence of ADA and neutralising antibodies 
+(NAb) to depemokimab 
+Pharmacokinetics and Pharmacodynamics 
+To evaluate the pharmacokinetics and 
+pharmacodynamics of depemokimab 
+100 mg SC + SoC in participants with a 
+diagnosis of CRSwNP 
+• Depemokimab plasma concentration at 
+measured timepoints during the 52-week period 
+• Ratio to baseline in absolute blood eosinophil 
+count at measured timepoints during the 52-
+week period. 
+1.1.2. 
+Primary Estimands 
+The primary estimands are defined as follows: 
+Treatment Comparison: depemokimab 100 mg SC + SoC compared to placebo + SoC  
+Population: Participants with a diagnosis of CRSwNP  
+Co-primary variables/endpoints:  
+• 
+Change from baseline in total endoscopic NP score at Week 52 (centrally read) 
+• 
+Change from baseline in mean nasal obstruction score (verbal response scale [VRS]) 
+from Week 49 through to Week 52 
+Summary measure: Difference in means between treatment groups - depemokimab 100 
+mg SC + SoC versus placebo + SoC 
+Main Intercurrent events (ICE) anticipated: 
+• 
+Surgery, which includes any procedure involving instruments resulting in incision 
+and removal of tissue from the nasal cavity (e.g. polypectomy and endoscopic sinus 
+surgery (ESS)) – to be handled using a composite strategy by incorporating 
+occurrence of the event into the definition of the endpoint.  Specifically, participants 
+who undergo surgery will be assigned the worst possible value of the relevant score 
+for all assessments following surgery i.e. the worst value that it is possible to select 
+on the given scale).  
+• 
+Premature discontinuation of study treatment – to be handled using a treatment 
+policy strategy 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 12 of 46 
+• 
+Initiation of a medication that may modulate the disease course of CRSwNP by 
+reduction of blood eosinophils or type II inflammation to be handled using a 
+composite strategy by incorporating the occurrence of the event into the definition of 
+the endpoint. Medications that may modulate the disease course to be selected either 
+based on published evidence or mechanism of action, and to include the initiation of 
+some biologics, chronic SCS and INCS. Specifically, participants who start a 
+medication that may modulate the disease course of CRSwNP will be assigned the 
+worst possible value of the relevant score for all assessments following the start of 
+the medication (i.e., the worst value that is possible to select on the given scale).   
+o All other changes in background medication or start of a prohibited medication – 
+to be handled using a treatment policy strategy 
+• 
+COVID-19 related events – to be handled using a treatment policy strategy 
+• 
+Course(s) of systemic corticosteroid (CS) for any reason – to be handled using a 
+treatment policy strategy 
+Supplementary estimand strategy for co-primary endpoints: In addition, the 
+intercurrent event for all changes in background medication or initiation of a medication 
+that may modulate the disease course of CRSwNP to be handled under the treatment 
+policy strategy will be considered as a supplementary estimand to the primary estimand. 
+1.1.3. 
+Secondary Estimands 
+The secondary estimands are defined as follows: 
+Treatment Comparison: As for primary estimand 
+Population: As for primary estimand 
+Variables/endpoints:  
+• 
+Change from baseline in mean symptom score for rhinorrhoea (runny nose) (VRS) 
+from Week 49 through to Week 52 
+• 
+Change from baseline in mean symptom score for loss of smell (VRS) from Week 49 
+through to Week 52 
+• 
+Change from baseline in Lund Mackay CT score at Week 52 
+• 
+Change from baseline in SNOT-22 total score at Week 52 
+• 
+Change from baseline in mean nasal obstruction score (VRS) from Week 21 through 
+to Week 24 
+• 
+Change from baseline in total endoscopic NP score at Week 26 
+Summary measure: As for primary estimand 
+Main Intercurrent events (ICE) anticipated: As for primary estimand 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 13 of 46 
+1.2. 
+Study Design 
+Overview of Study Design and Key Features 
+ 
+Design 
+Features 
+• Phase 3 
+• Randomized 
+• Double-blind 
+• Placebo-controlled 
+• Parallel group 
+• Multi-centre 
+• 4-week run-in period followed by a 52-week treatment period 
+• Adult participants (≥ 18 years of age) with CRSwNP. 
+Study 
+Intervention 
+• All participants will be on SoC for CRSwNP throughout the study. 
+• At visit 2, participants will be randomized in a 1:1 ratio to one of: 
+o Depemokimab 100 mg SC  
+o Placebo 
+• Two doses of study intervention will be administered in the clinic by SC 
+injection. The first at randomization (Visit 2) and the second at 26 weeks 
+(Visit 9). 
+• The randomization will be stratified based on occurrence of previous 
+surgery for nasal polyps and country. 
+• Approximately 250 participants will be randomized (125 per arm) 
+Interim 
+Analysis 
+• No interim analyses of efficacy data are planned. 
+• IDMC review of safety data is planned. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 14 of 46 
+2. 
+STATISTICAL HYPOTHESES  
+The study is designed to test the inequality of depemokimab 100 mg SC vs. placebo (both 
+in addition to SoC) in both co-primary endpoints of total endoscopic NP score at Week 
+52 and mean nasal obstruction VRS symptom score from Week 49 through to Week 52.  
+Each co-primary endpoint will be tested at the two-sided 5% alpha level, both tests are 
+required to be significant to achieve the primary objective of this study.  
+Demonstration of efficacy for each of these tests will be based on a hypothesis testing 
+approach, whereby the null hypothesis is that there is no difference between treatment 
+groups for the endpoint of interest and the alternative hypothesis is that there is a 
+difference between treatment groups. 
+2.1. 
+Multiplicity Adjustment 
+The hypotheses to be tested are structured as shown in Figure 1. The co-primary 
+endpoints will be tested first and if these comparisons are both significant at the 2-sided 
+5% level, testing will continue for the secondary endpoints within the study according to 
+the testing procedure detailed in Figure 1. Testing of secondary endpoints will be carried 
+out in a hierarchical manner, dependent on statistical significance having been achieved 
+for the previous endpoint in the hierarchy. Other pairwise comparisons will be performed 
+but are not part of the multiple testing strategy. Analyses of other efficacy measures are 
+nested under the secondary efficacy measures and no multiplicity adjustment is planned 
+for these other efficacy endpoints. The analyses for these other efficacy endpoints and 
+some of the earlier time points for some of the co-primary and secondary endpoints are 
+not adjusted for multiplicity and so nominal significance will be evaluated in a 
+descriptive manner with these analyses using a 5% reference level. 
+A pre-specified pooled analysis of data from the ANCHOR-1 and ANCHOR-2 studies is 
+planned for the secondary endpoints of time to first nasal surgery (actual or entry on 
+waiting list) or disease-modulating medication for CRSwNP, time to first nasal surgery 
+(actual) or disease-modulating medication for CRSwNP, proportion of participants 
+requiring at least 1 course of systemic corticosteroids or disease-modulating medication 
+for CRSwNP or nasal surgery (actual), and change from baseline in ACQ-5 score in 
+participants with an ACQ score of >0.75 at baseline. This pooled analysis will be carried 
+out after statistical significance is achieved for both co-primary endpoints within both 
+studies. The closed-testing manner for the pre-specified pooled hierarchy is described 
+further in the pooled SAP. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 15 of 46 
+Figure 1 
+Conceptualization of Statistical Testing Strategy Across Studies 
+ANCHOR-1 and ANCHOR-2 
+ 
+Note: Endpoint names in Figure 1 are abbreviated. Refer to Section 1.1 for full nomenclature of endpoints. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 16 of 46 
+3. 
+ANALYSIS SETS 
+Analysis Set 
+Definition / Criteria 
+Analyses 
+Evaluated 
+Screened  
+All participants screened and for whom a record exists 
+on the study database 
+• Study 
+population 
+Screened-China 
+All participants screened and for whom a record exists 
+on the study database from China 
+• Study 
+population 
+Screened-Japan 
+All participants screened and for whom a record exists 
+on the study database from Japan 
+• Study 
+population 
+Enrolled 
+All participants who entered the study 
+NOTE:  screening failures (who never passed 
+screening even if rescreened) and participants 
+screened but never enrolled into the study (Met 
+eligibility but not needed) are excluded from the 
+Enrolled Analysis Set as they did not enter the study. 
+• Study 
+population 
+Randomized 
+All randomized participants 
+• Study 
+population 
+Full Analysis Set 
+(FAS) 
+All randomized participants who take at least 1 dose 
+of study treatment excluding participants from site 
+255388.  Participants will be analyzed according to 
+the treatment they are allocated at randomization. 
+• Study 
+population 
+• Efficacy 
+FAS-China 
+All participants in the FAS population who are enrolled 
+from China 
+• Study 
+population 
+• Efficacy 
+FAS-Japan 
+All participants in the FAS population who are enrolled 
+from Japan and are of Japanese heritage only 
+• Study 
+population 
+• Efficacy 
+FAS-Modified 
+All participants in the FAS population plus randomized 
+participants from site 255388 who receive at least one 
+dose of study treatment. 
+• Study 
+population 
+• Efficacy  
+Safety 
+All randomized participants who take at least 1 dose 
+of study treatment excluding participants from site 
+255388.  Participants will be analyzed according to 
+the treatment they are allocated at randomization, 
+unless the participant receives a different treatment to 
+randomized active treatment at all protocol-defined 
+administrations at which study medication was 
+received, in which case the participant will be 
+analyzed according to the actual treatment they 
+received. 
+• Safety 
+Safety-China 
+All participants in the Safety population who are 
+enrolled from China 
+• Safety 
+Safety-Japan 
+All participants in the Safety population who are 
+enrolled from Japan and are of Japanese heritage 
+only 
+• Safety 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 17 of 46 
+Analysis Set 
+Definition / Criteria 
+Analyses 
+Evaluated 
+Safety-Modified 
+All participants in the Safety population plus 
+randomized participants from site 255388 who receive 
+at least 1 dose of study treatment. Participants will be 
+analyzed according to the treatment they are 
+allocated at randomization, unless the participant 
+receives a different treatment to randomized active 
+treatment at all protocol-defined administrations at 
+which study medication was received, in which case 
+the participant will be analyzed according to the actual 
+treatment they received. 
+• Safety 
+PK 
+All participants in the FAS population for whom at 
+least one pharmacokinetic sample was obtained, 
+analyzed and was measurable, including imputed 
+values that were below the limit of quantification. 
+Participants will be analyzed according to the 
+treatment they received. 
+• PK 
+PK-China 
+All participants in the PK population who are enrolled 
+from China 
+• PK 
+Note: The Japan Ministry of Health, Labour and Welfare (MHLW) confirmed GCP violations in several studies involving 
+Medipharma, a Japanese Site Management Organisation (SMO). Medipharma provided site management 
+services to site 255388 in ANCHOR-1. 
+4. 
+STATISTICAL ANALYSES 
+4.1. 
+General Considerations 
+4.1.1. 
+General Methodology 
+Unless otherwise stated, the Safety Analysis Set will be used for safety displays and the 
+Full Analysis Set (FAS) will be used for all other displays. FAS-Modified and Safety-
+Modified analysis sets will be used for a selected number of displays as sensitivity 
+analyses. FAS-China, FAS-Japan, Safety-China and Safety-Japan will be used for China 
+and Japan specific outputs respectively. The Programming Specification document will 
+provide more details.  
+Unless otherwise stated, all intercurrent events for primary, secondary, or other endpoints 
+will be handled under the primary estimand strategy. 
+This SAP specifies the analytical approaches for the global submission requirements, 
+unless otherwise specified. Further analytical considerations may be made for the 
+regional displays (i.e. model convergence considerations) where appropriate.  
+The randomization is stratified based on occurrence of previous surgery for nasal polyps 
+and unless otherwise stated, this variable will be included as a covariate in the statistical 
+models. In the case of an incorrect stratification at the time of randomization, the actual 
+stratum will be used rather than the randomized stratum. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 18 of 46 
+Confidence intervals will use 95% confidence levels unless otherwise specified.  
+Unless otherwise specified, continuous data will be summarized using descriptive 
+statistics: n, mean, standard deviation (std), median, minimum and maximum. 
+Categorical data will be summarized as the number and percentage of participants in each 
+category. 
+4.1.2. 
+Baseline Definition 
+For all visit-based endpoints, including the co-primary endpoint of endoscopic NP score, 
+baseline will be defined as the latest non-missing measurement collected prior to the first 
+dose of study treatment. This will generally be from the Day 1 (Visit 2) assessment but 
+may be from an unscheduled or screening assessment. In the case a visit-based 
+assessment was collected after the first dose of study treatment, but still on the day of the 
+randomization visit on Day 1 (Visit 2), then that assessment may be used.   
+For daily efficacy endpoints collected in the eDiary, baseline will be the average score 
+from the 28 calendar days up to and including the date of randomization. This means the 
+average will be based on the non-missing data from Day -27 to Day 1 inclusive. There 
+must be a minimum of 4 non-missing values from Day -6 to Day 1 inclusive in order to 
+derive the baseline, otherwise it will be set to missing. 
+Unless otherwise stated, if baseline data is missing no derivation will be performed and 
+baseline will be set to missing. 
+4.1.3. 
+Multicenter Studies 
+For the purposes of covariate adjustment in the statistical analysis, countries will be 
+grouped into the following 3 regions: Europe (EU); United States (US); Rest of World 
+(RoW). The countries that form these regions will include: 
+• 
+Europe (EU): Belgium; Germany; United Kingdom; France; Netherlands; Spain 
+• 
+United States (US): United States 
+• 
+Rest of World (RoW): Canada; Argentina; China; Japan 
+If there are insufficient subjects in each region for the statistical procedures to converge 
+satisfactorily, the combining of regions will be considered. 
+4.2. 
+Primary Endpoints Analyses 
+4.2.1. 
+Definition of endpoints 
+The co-primary endpoints are: 
+a) Change from baseline in total endoscopic NP score at Week 52 (centrally read) 
+b) Change from baseline in mean nasal obstruction score (verbal response scale [VRS]) 
+from Week 49 through to Week 52 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 19 of 46 
+The total endoscopic NP score is assessed in the clinic at visits 2, 5, 7, 9, 11, 13, 15 and 
+16, or early withdrawal visit (weeks 0, 12, 20, 26, 32, 40, 48 and 52). The score is then 
+graded by independent reviewers at a central lab who are blinded to treatment. The total 
+score is reported as the sum of the right and left nostril scores and ranges from 0 to 8, 
+with higher scores indicating greater disease severity. Non-missing scores must be 
+available for both sides for the combined score to be calculated; otherwise the score will 
+be set to a value of 9 to indicate a missing or unreadable value.  
+The nasal obstruction VRS score will be collected daily in the morning via the eDiary. 
+Each day the participant will indicate the severity of their symptoms giving a score 
+ranging from 0 to 3, with the 4 options indicating no symptoms, mild symptoms, 
+moderate symptoms, and severe symptoms. The daily data will be collapsed into thirteen 
+4-week time periods, with the value for each time period based on the average of the non-
+missing days covered by that time period as described in Section 6.3.4.2. For each 4-
+week time period the average will only be derived if there are non-missing values for at 
+least 4 days out of 7 in at least 3 out of 4 weeks, with at least 15 minimum values, 
+otherwise it will be set to missing. 
+As described in Section 1.1.2, under the primary estimand, the intercurrent events of (i) 
+surgery and (ii) initiation of a disease-modulating medication for CRSwNP, will be 
+handled using a composite strategy by incorporating occurrence of the event into the 
+definition of the endpoint.  Specifically, participants who experience the intercurrent 
+event will be assigned the worst possible value of the relevant score for all assessments 
+following the intercurrent event (i.e. the worst value that it is possible to select on the 
+given scale). This means that a participant who experiences the intercurrent event will be 
+assigned a total endoscopic NP score of 8 for every scheduled clinic visit after the date of 
+the first intercurrent event (regardless of whether the visit occurred) and a nasal 
+obstruction VRS score of 3 for every day after the date of the first intercurrent event. All 
+other intercurrent events described under the primary estimand strategy in Section 1.1.2 
+will be handled using a treatment policy strategy.  
+The study is designed to continue collecting data for participants who have prematurely 
+discontinued from randomized treatment and off-treatment data collected for these 
+participants will be included in the analysis. Missing data will be assumed to be missing 
+at random (MAR). Summary statistics will be produced for each visit/4-week time-period 
+by treatment group for the co-primary endpoints. 
+4.2.2. 
+Main analytical approach 
+Model Specification 
+• Statistical analyses will be performed using a Mixed Models Repeated Measures (MMRM) 
+model with covariates of treatment group, baseline score, log(e) baseline blood eosinophil 
+count, region, previous surgery for nasal polyps, visit and interaction terms for visit by 
+baseline score and visit by treatment group.   
+Model Checking & Diagnostics 
+• The Kenward-Roger (KR) method [Kenward, 1997] for approximating the denominator 
+degrees of freedom and correcting for bias in the estimated variance-covariance of the fixed 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 20 of 46 
+effects will be used in the analyses. This will be achieved by specifying the DDFM=KR 
+option in the MODEL statement within PROC MIXED. 
+• For mixed model repeated measures (MMRM) models, an unstructured covariance structure 
+for the R matrix will be used by specifying ‘TYPE=UN’ in the REPEATED statement. 
+o In the event that the model fails to converge, model simplification methods will be 
+considered (e.g., adjusting covariate structure, streamlining timepoints) 
+• Appropriate graphs will be reviewed as part of the model checking process to ensure that 
+distributional assumptions hold. These will include a normal probability plot of the residuals 
+and a plot of the residuals versus the fitted values (checking the normality assumption and 
+constant variance assumption of the model, respectively). 
+ 
+Model Results Presentation 
+• For each visit / time-period, the adjusted mean change from baseline with corresponding 
+standard error for each treatment group will be presented. The estimated treatment 
+difference will be presented together with 95% confidence interval (CI) for the difference and 
+p-value for the inequality comparison. 
+• The adjusted mean change from baseline for each treatment, with corresponding 95% CIs 
+will also be presented graphically across the visits / time-periods. 
+• A cumulative distribution function (CDF) plot will also be provided for the change from 
+baseline by treatment group 
+Additional Analysis 
+• The same primary endpoint analysis will be performed using FAS-Modified analysis set 
+• The same analyses will be performed with the intercurrent event strategy described under 
+the supplementary estimand.  
+4.2.3. 
+Sensitivity analyses 
+Missing data sensitivity analyses using multiple imputation (MI) methods will be 
+conducted for each of the co-primary endpoints to investigate the impact of missing data 
+and to examine the robustness of the analyses of the primary endpoints to departures from 
+the assumption that missing data are MAR. These analyses will use the same intercurrent 
+event strategy as outlined for the primary estimand in Section 1.1.2. The MI methods are 
+based on pattern-mixture models described by Carpenter [Carpenter, 2013]. The pattern-
+mixture model approach to sensitivity analysis models the distribution of a response as 
+the mixture of a distribution of the observed responses and a distribution of the missing 
+responses.  
+Sensitivity Analysis 1 
+For the first sensitivity analysis, participants with missing data at Week 52 who had taken 
+their Week 26 dose of interventional product (and are therefore considered on-treatment 
+at Week 52) will have missing data imputed under the assumption of MAR.  Participants 
+with missing data at Week 52 who had not taken their Week 26 dose of interventional 
+product (and are therefore considered off-treatment at Week 52) will have their monotone 
+missing data (i.e. after their final non-missing time point) imputed using a jump to 
+reference (J2R) approach.  Implementation of the J2R method assumes that for 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 21 of 46 
+participants in the experimental treatment group (Depemokimab) with missing data, their 
+imputed mean response is that of the reference treatment group (Placebo). 
+Multivariate normal models will be fitted using a Markov Chain Monte Carlo (MCMC) 
+approach. The covariates will be the same as for the primary analysis. The independent 
+samples drawn from the posterior distributions for the mean and variance-covariance 
+matrix provide input into the imputation model. For each participant with missing data, 
+these sampled values of the parameters for mean vectors and the variance-covariance 
+matrices specify a joint distribution for their observed and unobserved outcome data. 
+Under the J2R approach, the mean estimate is constructed using the estimated beta 
+associated with the reference treatment, as well as the participant’s other covariates. 
+For each participant with missing data, this joint pattern-specific distribution can be used 
+to construct the conditional distribution of their missing data given their observed data. 
+The missing data is sampled once from this distribution to create a single dataset for each 
+imputation. Together these form a series of complete imputed datasets for each of the 
+primary endpoints (with imputed data under either MAR or J2R).  
+Each imputation dataset will be analyzed using the same methodology as for the primary 
+analysis and the results from each analysis of each sample will then be combined using 
+Rubin’s method [Rubin, 1987] as implemented in PROC MIANALYZE in SAS. 
+Results presentation will be the same for the co-primary analyses described in Section 
+4.2.2 for the EOS visit / time period. Additionally, for each of the co-primary endpoints, 
+for the EOS visit / time-period only, a forest plot will be produced to present the 
+estimated treatment differences and 95% CIs for the primary estimand using FAS, the 
+supplementary estimand using FAS, the primary estimand using FAS-Modified, and the 
+J2R approach.  
+Sensitivity Analysis 2 
+An additional tipping point sensitivity analysis will explore the impact of missing data by 
+using differing assumptions regarding the endoscopic NP score at Week 52 and the nasal 
+obstruction VRS at Weeks 49-52 in subjects who withdraw from the study. Subjects who 
+withdrew from study early will have missing data imputed for the period of time between 
+withdrawal from the study to the Week 52 visit / Week 49 – 52 time period based on a 
+range of values for the mean NP score / mean nasal obstruction VRS following study 
+withdrawal. Assumptions about missing values on the treatment arm and placebo arm 
+will vary independently, and will include scenarios where participants with missing data 
+in the active arm have worse outcomes than participants with missing data in the placebo 
+arm. This analysis will allow for determination of ‘tipping point(s)’ of the values for 
+missing data that would cause a change in the statistical significance of the result of the 
+treatment comparison.  
+As a first step, participants with missing data will have missing data imputed under the 
+assumption of MAR. For each treatment group, the imputed values will vary separately 
+by a value of delta, where delta represents a change in endoscopic NP score / mean nasal 
+obstruction VRS over a 4-week interval. The deltas investigated will cover a range that is 
+plausible for the respective endpoint under the MAR assumption. For NP score, the deltas 
+evaluated will range from -8 to 8 by 0.5 increments. For nasal obstruction VRS, the deltas 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 22 of 46 
+evaluated will range from -1.5 to 1.5 in 0.25 increments. The final range and increment of 
+deltas will be investigated on final data and may be adjusted to ensure it supports a 
+meaningful tipping point range. 
+The tipping point multiple imputation method will be based on pattern mixture models 
+[Keene, 2014]. Each imputation dataset will be analyzed using the same methodology as 
+for the primary analysis and the results from each analysis of each sample will then be 
+combined using Rubin’s method [Rubin, 1987] as implemented in PROC MIANALYZE 
+in SAS.  
+A table of p-values for each treatment comparison made across the range of imputed 
+values (deltas) for each respective endpoint will be presented. Graphics depicting 
+treatment difference and non-significant vs. significant surfaces will be produced for the 
+range of imputed values (deltas) for each respective endpoint.  
+The seeds for all planned MI sensitivity analyses will be ‘217095’. 
+4.3. 
+Secondary Endpoints Analyses 
+4.3.1. 
+Definition of endpoints 
+The secondary endpoints are: 
+• 
+Change from baseline in mean symptom score for rhinorrhoea (runny nose) VRS 
+from Week 49 through to Week 52 
+• 
+Change from baseline in mean symptom score for loss of smell VRS from Week 49 
+through to Week 52 
+• 
+Change from baseline in Lund Mackay (LMK) CT score at Week 52 
+• 
+Change from baseline in SNOT-22 total score at Week 52 
+• 
+Change from baseline in mean nasal obstruction score VRS from Week 21 through 
+to Week 24 
+• 
+Change from baseline in total endoscopic NP score at Week 26 
+The VRS endpoints collected daily in the morning via the eDiary will be handled in the 
+same way as the co-primary VRS endpoint, with daily data being collapsed into 4-week 
+time periods as described in Section 6.3.4.2. A CDF plot will also be provided for the 
+change from baseline by treatment group for the endpoints: (1) Change from baseline in 
+mean symptom score for rhinorrhoea (runny nose) VRS from Week 49 through to Week 
+52 and (2) Change from baseline in mean symptom score for loss of smell VRS from 
+Week 49 through to Week 52. 
+A computed tomography (CT) scan is performed at Visit 16 (Week 52) and all image 
+recordings of CT scans will be sent to an independent reviewer for centralized blinded 
+data assessment. The central reading for LMK scoring will be used for analysis. The 
+LMK CT scoring system is based on localization with points given for degree of 
+opacification: 0 = normal, 1 = partial opacification, 2 = total opacification.  These points 
+are applied to the maxillary, anterior ethmoid, posterior ethmoid, sphenoid, frontal sinus 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 23 of 46 
+on each side.  The osteomeatal complex (OC) is graded as 0 = not occluded, or 2 = 
+occluded deriving a maximum score of 12 per side. The combined score will range from 
+0-24 with higher scores indicating greater disease severity. Non-missing scores must be 
+available for all portions on both sides for the combined score to be calculated; otherwise 
+the score will be set to a value of 9 to indicate a missing or unreadable value. 
+SNOT-22 is a 22-item questionnaire that will be completed at each of the scheduled 
+clinic visits using the eDiary. Participants will be asked to rate the severity of their 
+condition on each of the 22 items over the previous 2 weeks using a 6-point rating scale 
+of 0-5 including: 0 = Not present/no problem; 1 = Very mild problem; 2 = Mild or slight 
+problem; 3 = Moderate problem; 4 = Severe problem; 5 = Problem as “bad as it can be”.  
+The total score range for the SNOT-22 is 0-110, where higher scores indicate greater 
+disease impact. All questions must be answered to generate an overall score; if any 
+individual questions are missing then the overall score will be missing. 
+4.3.2. 
+Main analytical approach 
+Change from baseline in LMK CT score at Week 52 will be analyzed as described below. 
+All other secondary endpoints will be analyzed in the same way as the co-primary 
+endpoints. Summary statistics will be produced for each visit/4-week time-period by 
+treatment group for each secondary endpoint. The same secondary endpoints analyses 
+will be performed using the FAS-Modified analysis set as an additional analysis. 
+Model Specification 
+• Statistical analyses for the change from baseline in Lund Mackay CT score at Week 52 will 
+be performed using an analysis of covariance (ANCOVA) model with covariates of treatment 
+group, baseline score, log(e) baseline blood eosinophil count, region and previous surgery 
+for nasal polyps. 
+ 
+Model Checking & Diagnostics 
+• The Kenward-Roger (KR) method [Kenward, 1997] for approximating the denominator 
+degrees of freedom and correcting for bias in the estimated variance-covariance of the fixed 
+effects will be used in the analyses. This will be achieved by specifying the DDFM=KR 
+option in the MODEL statement within PROC MIXED. 
+• Appropriate graphs will be reviewed as part of the model checking process to ensure that 
+distributional assumptions hold. These will include a normal probability plot of the residuals 
+and a plot of the residuals versus the fitted values (checking the normality assumption and 
+constant variance assumption of the model, respectively). 
+Model Results Presentation 
+• The adjusted mean change from baseline with corresponding standard error for each 
+treatment group will be presented. The estimated treatment difference will be presented 
+together with 95% confidence interval (CI) for the difference and p-value for the inequality 
+comparison. 
+For the co-primary endpoints and the secondary endpoints for the EOS visit/time-period 
+only, a forest plot will be produced to present the estimated treatment differences and 
+95% CIs. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 24 of 46 
+4.4. 
+Other Endpoints Analyses 
+4.4.1. 
+Definition of endpoints 
+The other endpoints are: 
+• 
+Change from baseline in mean overall symptom VAS) score from Week 49 through 
+to Week 52 
+• 
+Achieving a one point or greater decrease from baseline in NP Score at Week 52 
+without first having nasal surgery (actual) or disease-modulating medication for 
+CRSwNP 
+• 
+Change from baseline in mean individual symptom (VRS) score for facial pain from 
+Week 49 through to Week 52 
+• 
+Change from baseline in mean individual symptom (VRS) score for mucus in throat 
+from Week 49 through to Week 52 
+• 
+Change from baseline in the mean nasal polyps symptoms composite score 
+(combining VRS scores for nasal obstruction, rhinorrhoea (runny nose), loss of 
+smell, and mucus in throat) from Week 49 through to Week 52 
+• 
+Change from baseline in mean CRS symptoms and facial pain composite score 
+(combining VRS scores for nasal obstruction, rhinorrhoea (runny nose), loss of 
+smell, and facial pain) from Week 49 through to Week 52 
+• 
+Achieving a meaningful decrease from baseline in their mean individual symptoms 
+VRS and composite VRS from Week 49 through to Week 52 without first having 
+nasal surgery (actual) or disease-modulating medication for CRSwNP.  
+o Further details on meaningful decrease for each individual symptom VRS and 
+composite VRS are described in Section 4.4.2 
+• 
+Achieving an 8.9-point or greater decrease from baseline in SNOT-22 total score at 
+Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Achieving a 28-point or greater decrease from baseline in SNOT-22 total score at 
+Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Change from baseline in SF-36 Mental Component Summary (MCS) score, Physical 
+Component Summary (PCS) score and eight domains at Week 52 
+• 
+Change from baseline in WPAI-GH scores at Week 52 
+The overall visual analogue scale (VAS) symptoms score will be collected daily in the 
+morning via the eDiary. Participants will be asked to rate their overall symptoms at their 
+worst over the previous 24 hours. A scale from 0 (None) to 100 (As bad as you can 
+imagine) will be used. The final VAS scores that are reported will be derived from the 
+electronically captured score by dividing each score by 10 and will range between 0 and 
+10. This endpoint will be handled in the same way as the co-primary VRS endpoint, with 
+daily data being collapsed into 4-week time periods as described in Section 6.3.4.2. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 25 of 46 
+A nasal obstruction VAS score will also be collected daily in the morning via the eDiary 
+at key time-periods during the study. The data from this endpoint will be collapsed into 
+the expected time periods as described in Section 6.3.4.2. 
+The VRS composite scores will be derived for each day by taking the mean of the 
+individual VRS scores for that day. All of the individual VRS scores contributing to a 
+composite score must be non-missing in order to derive the mean.  
+All VRS endpoints will be handled in the same way as the co-primary VRS endpoint, 
+with daily data being collapsed into 4-week time periods as described in Section 6.3.4.2.  
+The short-form-36 (SF-36) questionnaire consists of 36 self-administered questions that 
+cover 8 health domains: physical functioning (PF), role physical (RP), bodily pain (BP), 
+and general health (GH), vitality (VT), role emotional (RE), social functioning (SF), and 
+mental health (MH) with a recall of 4 weeks. Certified scoring of the SF-36 survey will 
+be performed using OPTUM ™ software. The 8 domain scores are provided by the 
+software. Scale scores range from 0 to 100 where higher scores indicate better quality of 
+life. 
+The work productivity and activity impairment (WPAI) questionnaire is an instrument to 
+measure impairment in paid and unpaid work and daily activities. Six questions will be 
+collected at each visit including employment status, hours missed from work due to 
+health problems and due to other reasons, hours actually worked, and how much health 
+problems affected productivity and activity. 
+The following measures will be derived from the 6 WPAI-GH questions ranging from 0 
+(no impairment) to 100 (full impairment): 
+Derived Outcomes Derivation 
+Derived Outcomes Derivation 
+Work time missed due to health (%)  
+100 * Q2 / (Q2+Q4) 
+Impairment while working due to health (%)  
+10 * Q5 
+Overall work impairment due to health (%)  
+100* Q2 / (Q2 + Q4) + [(1 - (Q2 / (Q2+Q4))) x 
+(Q5 / 10)] 
+Activity impairment due to health (%)  
+10 * Q6 
+Note (each question with a recall of 7 days): 
+Q1 = Currently Employed 
+Q2 = Time (hours) missed from work due to health problems during the past seven days 
+Q3 = Time (hours) missed from work due to other reasons during the past seven days 
+Q4 = Time (hours) actually worked during the past seven days 
+Q5 = Productivity affected by health problems while working during the past seven days 
+Q6 = Ability to do regular daily activities affected by health problems during the past seven days 
+Participants not currently employed will only answer Q6. Participants who answer 0 to Q4 will not answer Q5. 
+If any of the responses used to derive a score are missing or if a participant is not currently employed then the relevant 
+score (work time missed, impairment while working, overall work impairment) will be set to missing. 
+For those who missed work and did not actually work in the past seven days, the percent overall work impairment due 
+to health will be equal to the percent work time missed due to health. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 26 of 46 
+For SF-36 and WPAI-GH, the intercurrent event of surgery and initiation of a disease-
+modulating medication for CRSwNP will be handled under the composite strategy by 
+assigning participants their worst observed score prior to the event. All other intercurrent 
+events described under the primary estimand strategy in Section 1.1.2 will be handled 
+using a treatment policy strategy. 
+For all responder endpoints, participants who undergo nasal surgery or initiate a disease-
+modulating medication for CRSwNP will be included in the analysis as non-responders 
+for all time points following the event, whichever occurred first. For participants with 
+missing baseline data, a responder status will not be derived. Participants with missing 
+data at a particular post-baseline visit / timepoint will be treated as non-responders for 
+that visit/ timepoint. All other intercurrent events described under the primary estimand 
+strategy in Section 1.1.2 will be handled using a treatment policy strategy. 
+4.4.2. 
+Main analytical approach 
+Summary statistics by visit will be provided for the SF-36 and WPAI-GH endpoints. 
+Summary of responder status by visit will be provided for the 28-point SNOT-22 
+responder endpoint. 
+Summary statistics for change from baseline at the key time-periods when it was 
+collected will be provided for overall VAS score. 
+The change from baseline endpoints related to VAS and VRS scores will be analyzed in 
+the same way as the co-primary endpoints. 
+For the endpoint, achieving a meaningful decrease from baseline in their mean individual 
+symptoms VRS and composite VRS from Week 49 through to Week 52 without first 
+having nasal surgery (actual) or initiation of a disease-modulating medication for 
+CRSwNP, the clinically meaningful VRS cut-points for mean individual symptoms VRS 
+and composite VRS are as follows: 
+• 
+Achieving a 1-point or greater decrease from baseline in nasal obstruction VRS total 
+score at Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Achieving a 1-point or greater decrease from baseline in rhinorrhoea VRS total score 
+at Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Achieving a 0.9-point or greater decrease from baseline in loss of smell VRS total 
+score at Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Achieving a 0.8-point or greater decrease from baseline in facial pain VRS total 
+score at Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 27 of 46 
+• 
+Achieving a 1-point or greater decrease from baseline in mucous in throat VRS total 
+score at Week 52 without first having nasal surgery (actual) or disease-modulating 
+medication for CRSwNP 
+• 
+Achieving a 0.8-point or greater decrease from baseline in composite nasal polyps 
+symptoms VRS total score at Week 52 without first having nasal surgery (actual) or 
+disease-modulating medication for CRSwNP 
+• 
+Achieving a 0.8-point or greater decrease from baseline in composite CRS symptoms 
+and facial pain VRS total score at Week 52 without first having nasal surgery 
+(actual) or disease-modulating medication for CRSwNP 
+The remaining other endpoints will be analyzed as described below: 
+Endpoints 
+• Achieving a one point or greater decrease from baseline in NP Score at Week 52 without 
+first having nasal surgery (actual) or disease-modulating medication for CRSwNP. 
+• Achieving a meaningful decrease from baseline in their mean individual symptoms VRS and 
+composite VRS from Week 49 through to Week 52 without first having nasal surgery (actual) 
+or disease-modulating medication for CRSwNP. 
+• Achieving an 8.9 point or greater decrease from baseline in SNOT-22 total score at Week 52 
+without first having nasal surgery (actual) or disease-modulating medication for CRSwNP. 
+Model Specification 
+• The conditional treatment effect for the responder analysis endpoints will be estimated using 
+a generalized linear mixed model with a logit link function and covariates of treatment group, 
+baseline score, log(e) baseline blood eosinophil count, region, previous surgery for nasal 
+polyps, visit and interaction terms for visit by baseline score and visit by treatment. 
+ 
+Model Checking & Diagnostics 
+• Pearson residuals will be plotted by using PLOTS=PEARSONPANEL option for the model 
+statement in SAS. 
+Model Results Presentation 
+• For each scheduled visit / time-period the following will be presented: 
+o The number and percentage of responders and non-responders for each 
+treatment, together with the odds ratio, 95% CI and p-value will be presented for 
+the NP responder endpoint, and nasal obstruction, loss of smell, and 
+rhinorrhoea VRS responder endpoints only 
+o Other individual symptom VRS and composite VRS responder endpoints (facial 
+pain, mucous in throat, composite nasal polyps symptoms, composite CRS 
+symptoms and facial pain) will be summarized only 
+4.5. 
+Safety Analyses 
+The safety analyses will be based on the Safety Analysis Set, unless otherwise specified. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 28 of 46 
+4.5.1. 
+Extent of Exposure 
+Two doses of study treatment will be administered during study treatment period: the first 
+at randomization Visit 2 (Week 0) and the second at Visit 10 (Week 26). Each dose is 
+viewed as providing therapeutic coverage for 26 weeks (182 days). The number of 
+treatments administered, and the number of days exposure will be summarized 
+descriptively and listed. Total subject-year exposure will also be presented. 
+Number of days of exposure to study treatment will be calculated as follow:  
+Duration of Exposure in Days = (Date of Final Dose) – (Date of First Dose) + 182 
+days (regardless of study withdrawal or death) 
+Subject years exposure is calculated as follow: 
+Subject Years Exposure = ((Date of Final Dose) – (Date of First Dose) + 
+182)/365.25 
+4.5.2. 
+Adverse Events 
+Adverse events analyses including the analysis of adverse events (AEs), Serious AEs 
+(SAEs) and other significant AEs will be based on GSK Core Data Standards. Adverse 
+events will be coded using the standard Medical Dictionary for Regulatory Affairs 
+(MedDRA dictionary). The details of the planned displays are provided in the 
+Programming Specifications document. 
+For the standard AE tables, the number and percentage of participants with AEs will be 
+summarized for each treatment group by system organ class (SOC) and preferred term 
+(PT). The ordering of the SOCs and the PTs within the SOCs will both be in descending 
+order of total incidence. A SOC will not be presented when the overall incidence for any 
+AE within the particular system is zero. If the total incidence for any two or more AEs is 
+equal, the events will be presented in alphabetical order. 
+An overview summary of AEs, including counts and percentages of participants with any 
+AE, AEs related to study intervention, AEs leading to permanent discontinuation of study 
+intervention or withdrawal from study, SAEs, SAEs related to study intervention, fatal 
+SAEs, and fatal SAEs related to study intervention will be produced.  
+A study intervention-related AE is defined as an AE for which the investigator classifies 
+the possible relationship to study intervention as “Yes”. A worst-case scenario approach 
+will be taken to handle missing relatedness data, i.e. the summary table will include 
+events with the relationship to study intervention as ‘Yes’ or missing. 
+4.5.2.1. 
+Adverse Events of Special Interest 
+Adverse events of special interest (AESI) include: 
+• 
+Allergic reactions including anaphylaxis 
+Note: these events will be assessed by the investigator as to whether they meet the 
+diagnostic criteria for anaphylaxis as outlined by the 2006 Joint National Institute of 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 29 of 46 
+Allergy and Infectious Disease (NIAID)/Food Allergy and Anaphylaxis Network 
+(FAAN) Second Symposium on Anaphylaxis [Sampson, 2006]. 
+• 
+Type III hypersensitivity (immune complex disease/vasculitis) reactions 
+• 
+Local injection site reactions 
+• 
+QTc prolongation: AESI of QTc prolongation will be summarized as detailed in 
+Section 4.5.3.3. 
+A summary table showing the number and percent of subjects with each type of AESI 
+(excluding QTc prolongation) broken down by preferred term will be created. An 
+additional table will also display the relative risk and risk difference and their 95% CIs 
+between and depemokimab and placebo. 
+For each type of AESI (excluding QTc prolongation) a profile summary table will be 
+produced containing information including, but not limited to, the number of occurrences 
+of the event, event characteristics, time to onset, intensity, outcome and action taken. 
+4.5.3. 
+Additional Safety Assessments 
+4.5.3.1. 
+Laboratory Data 
+Summaries of laboratory data including chemistry and haematology parameters, and liver 
+function test data will be based on GSK Core Data Standards and unless otherwise 
+specified will include on-treatment and post-treatment data. Change from baseline values 
+for clinical chemistry and haematology will be summarized in separate tables using 
+descriptive statistics. 
+A scatter plot of maximum post-baseline ALT vs maximum post-baseline total bilirubin 
+will be produced. In addition, if any liver stopping or liver monitoring events occur 
+during the study, summaries of liver monitoring/stopping event reporting and 
+hepatobiliary laboratory abnormalities will be produced. 
+4.5.3.2. 
+Vital Signs 
+Systolic blood pressure, diastolic blood pressure, pulse rate and body temperature 
+including change from baseline will be summarized at all visits and listed. 
+4.5.3.3. 
+ECG 
+Change from baseline (for post-baseline timepoints) values for all ECG measurements 
+and intervals will be summarized by visit. ECG results will also be listed.  
+Individual maximum QTc(F) values will also be summarized to show the number of 
+subjects with maximum values (msec) that increased to the following categories: ≤450, 
+450 < to ≤480, 480< to ≤500, 500< to ≤530 and >530. QT uncorrected values will be 
+summarized to show the number of subjects with maximum values in the following 
+categories: <600 and ≥600. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 30 of 46 
+Additionally, individual maximum changes from baseline in QTc(F) values will be 
+summarized to show the number of subjects with maximum changes (msec) in the 
+categories: ≤ 30, > 30 to ≤ 60 and > 60. 
+All ECG values for participants with protocol defined QT stopping criteria will be listed. 
+Additional analyses related to ECG will be presented in a separate analysis plan as part of 
+the Integrated Summary of Safety.  
+4.5.3.4. 
+Immunogenicity Analysis 
+For the immunogenicity assessment, two types of anti-drug antibody (ADA) assays will 
+be performed, a binding antibody assay and a neutralizing antibody assay (NAb).  
+For the binding assay, there will be a three-tiered analysis: screening, confirmation and 
+titration. The screening assay produces a result of positive or negative relative to a 
+screening cut point. Positive samples continue with the confirmation assay, which also 
+produces a result of positive or negative relative to a confirmation cut point. For positive 
+confirmation samples, a titer value will also be obtained to quantify the degree of binding 
+in a titration assay, and the sample will be tested with the neutralizing assay, which also 
+reports results as positive or negative. A sample that is positive in the confirmation assay 
+is considered positive for anti-depemokimab antibodies. 
+All participants’ baseline immunogenicity samples will be analyzed. Post-baseline 
+immunogenicity samples will only be analyzed for participants receiving depemokimab 
+100 mg SC.  
+The following descriptive summaries will be presented for depemokimab 100 mg SC 
+group by visit using the Safety Analysis Set: 
+• 
+Summary of binding antibody assay results: it will summarize the binding antibody 
+confirmatory assay results at each visit. Summary will include categories for 
+negative and positive results, sub categories for transient positive and persistent 
+positive (see note below), and available titer values (min, median and max). It will 
+also summarize the highest post-baseline binding antibody confirmatory assay result 
+obtained. 
+• 
+Summary of binding antibody results for participants without positive result prior to 
+dosing: it will summarize the binding antibody confirmatory assay results at each 
+visit. Summary will include categories for negative and positive results, sub 
+categories for transient positive and persistent positive (see note below), and 
+available titer values (min, median and max). It will also summarize the highest post-
+baseline binding antibody confirmatory assay result obtained. 
+• 
+Summary of neutralizing antibody assay results: it will summarize the neutralizing 
+antibody assay results for participants with a positive binding antibody confirmatory 
+assay results. Neutralizing antibody assay results will be categorized as positive or 
+negative. It will also summarize the highest postbaseline neutralizing antibody assay 
+result obtained. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 31 of 46 
+• 
+Summary of AE by highest post-baseline binding antibody confirmatory assay result  
+The following descriptive summaries will be presented for the placebo group using FAS: 
+• 
+Summary of binding antibody assay results for all baseline visit results. Summary 
+will include categories for negative and positive results, and available titer value 
+(min, median and max). 
+• 
+Summary of neutralizing antibody assay results for all baseline visit results. 
+Summary will include categories for negative and positive results.  
+Note: Visits will include pre-dose baseline visit and all post-baseline visits where 
+immunogenicity assessments were performed. The binding antibody confirmatory assay 
+results are categorized as negative or positive. The positive results will have two sub 
+categories: transient positive (defined as a single confirmatory positive immunogenic 
+response that does not occur at the final study assessment) or persistent positive (defined 
+as a confirmatory positive immunogenic response for at least 2 consecutive assessments 
+or a single result at the final study assessment). For the summary of highest post baseline 
+binding antibody confirmatory assay result and neutralizing antibody assay result, 
+subjects with both positive and negative results will be identified in the positive category. 
+If a subject had titer results that fall into multiple titer result categories, they will be 
+included in the highest category. 
+4.6. 
+Clinical Pharmacology Data Analyses 
+4.6.1. 
+Pharmacokinetic Analyses 
+Depemokimab plasma concentration samples are collected at discrete timepoints during 
+the 52-week treatment period. Depemokimab plasma concentration will be summarized 
+by visit (Depemokimab + SoC arm only) using the PK Analysis Set. 
+For the PK summaries, any premature discontinuation of study treatment will be handled 
+using while on-treatment strategy where data will be included in the summary while a 
+participant was on-treatment. Other intercurrent events such as NP surgery, all changes in 
+background medication or start of a prohibited medication, COVID-19 related events and 
+courses of systemic CS to be handled under the treatment policy strategy. 
+The PK data from this study will be included in a meta-analysis of the PK and PKPD data 
+across all depemokimab studies available at the time of the analysis. Details of meta-
+analysis will be in a separate CPMS analysis plan. 
+4.6.2. 
+Pharmacodynamic (PD) Analyses - Blood Eosinophils 
+Blood eosinophil counts will be loge-transformed. Non-detectable blood eosinophil 
+values of 0 GI/L, or results below the limit of quantification will be imputed with a value 
+of 0.005 GI/L prior to log transformation. PD analyses will be analyzed using FAS. 
+Ratio to baseline during W52 will be analyzed using a MMRM analysis. Model 
+specification, model checking, and diagnostics are the same as described for co-primary 
+endpoints statistical analyses, see Section 4.2.2. Analysis will include data from all visits 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 32 of 46 
+that blood eosinophils data is collected. The LS Geometric Mean (SE Logs) blood 
+eosinophil, the LS Geometric Mean ratio to baseline (SE Logs) blood eosinophil in each 
+treatment group and the treatment ratio of LS Geometric Mean ratio to baseline (95% CI) 
+for depemokimab versus placebo will be presented in a table. The LS Geometric Mean 
+and 95% CI of ratio to baseline blood eosinophil will also be presented graphically. 
+Absolute and ratio to baseline blood eosinophil counts will be summarized by treatment 
+group and visit. Only results from the central laboratory will be included in the summary, 
+however all data will be listed. 
+For the PD endpoint, the intercurrent event of initiation of a disease-modulating 
+medication for CRSwNP will be handled under the hypothetical strategy, where PD data 
+will be set to missing after the intercurrent event happened. Any premature 
+discontinuation of study treatment will be handled using while on-treatment strategy 
+where data will be included in the summary while a participant was on-treatment. Other 
+intercurrent events such as NP surgery, all other changes in background medication or 
+start of a prohibited medication (other than disease-modulating medications for 
+CRSwNP), COVID-19 related events and courses of systemic CS to be handled under the 
+treatment policy strategy. 
+The PK and eosinophils data from this study will be included in a meta-analysis of the 
+PKPD data across all depemokimab studies available at the time of the analysis. Details 
+of meta-analysis will be in a separate CPMS analysis plan. 
+4.7. 
+IL-5 Analyses 
+The IL-5 data from this study will be analyzed in the future and is not planned for 
+reporting of the CSR. 
+4.8. 
+Analyses to Support Regional Submission 
+Since the study will be used to support China and Japan regulatory submissions, a subset 
+of study population, safety and efficacy analyses will be repeated using Safety-China and 
+Safety-Japan analysis sets for safety analyses and FAS-China and FAS-Japan for study 
+population and efficacy analyses. The Programming Specifications document will 
+provide further details. 
+The China and Japan subpopulation analyses will employ the same model as the overall 
+population analyses. For MMRM analyses, if the model cannot converge from what was 
+originally defined (including repeated visits and covariates in the model), those will be 
+adjusted to ensure model convergence and obtain stable estimations. Alternatively, no 
+analyses will be performed, and only descriptive summaries will be produced. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 33 of 46 
+4.9. 
+Risk Benefit Analysis 
+A forest plot will be produced to display efficacy and safety data from analyses in 
+adjacent panels using FAS and Safety Analysis Set respectively. The efficacy results will 
+include co-primary endpoints. The efficacy results will be obtained from analyses 
+described in Section 4.2. The AE results will be obtained from the analyses as described 
+in Section 4.5.2.1 for the following categories of AEs: 
+• 
+On treatment SAE 
+• 
+Systemic reactions 
+o Allergic (Type 1 hypersensitivity reactions) 
+- Anaphylaxis 
+Other systemic reactions 
+• 
+Type III hypersensitivity/vasculitis 
+• 
+Local injection site reactions 
+4.10. 
+Other Analyses 
+4.10.1. 
+Subgroup analyses 
+This section details the subgroups of interest within this study.  
+Table 1 
+Subgroups of Interest  
+Subgroup 
+Category  
+Age 1 
+12-17, 18-64, 65  
+Age 2 
+12-17, 18-64, 65-74, 75  
+Age 3  
+18-39, 40-64, 65  
+Sex  
+Male, Female  
+Race 1   
+American Indian or Alaska Native, Asian, Black or African 
+American, Native Hawaiian or Other Pacific Islander, White   
+Region 1 
+Europe (Belgium; Germany; United Kingdom; France; 
+Netherlands; Spain), United States (US), Rest of the World 
+(RoW) (Canada; Argentina; China; Japan) 
+Region 2 
+Asia, Non-Asia 
+Number of Previous NP Surgeries   0, 1, 2, >2 
+Baseline Eosinophil Category  
+<0.30 GI/L, >=0.30 GI/L  
+Participant with Asthma   
+Yes, No  
+Subgroup analyses should be interpreted with caution, especially when low numbers are 
+observed in subgroups. If any subgroup category contains <20 participants, then the 
+subgroup categories may be refined, if appropriate. Alternatively, no analyses will be 
+performed, and only descriptive summaries will be produced for the subgroup.  
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 34 of 46 
+4.10.1.1. 
+Co-Primary and Pharmacodynamic Endpoint Subgroup Analyses 
+Subgroup analyses will be performed for the co-primary endpoints and the 
+pharmacodynamic endpoint: 
+• 
+Change from baseline in total endoscopic NP score at Week 52 (centrally read) 
+• 
+Change from baseline in mean nasal obstruction score (verbal response scale [VRS]) 
+from Week 49 through to Week 52 
+• 
+Ratio to baseline in absolute blood eosinophil count at measured timepoints during 
+the 52-week period. 
+The subgroup analyses will be conducted by the following subgroups: Age 3, Sex, 
+Region 1, Number of Previous NP Surgeries, Baseline Eosinophil Category, and 
+Participant with Asthma. 
+The subgroup analyses will be analyzed in the same way as the co-primary endpoint 
+analyses described in Section 4.2.2; however, it will be adjusted for additional covariates. 
+The additional covariate terms include: subgroup, subgroup by treatment, and subgroup 
+by visit by treatment. The subgroup by treatment interaction term will be tested at the 
+10% significance level. When a subgroup assesses the same or a similar parameter as one 
+of the covariates already in the model (e.g. region subgroup similar to baseline region 
+covariate), the covariate will be removed from the model. 
+In the event the subgroup analysis model fails to converge, model simplification methods 
+may be addressed (i.e. adjusting covariate structure, streamlining time points, combining 
+subgroups, running model separately for each subgroup level).   
+The following will be presented for each endpoint: 
+• 
+For each visit / time-period, the adjusted mean change from baseline (or ratio to 
+baseline where applicable) with corresponding standard error for each treatment 
+group will be presented. The estimated treatment difference will be presented 
+together with 95% CI for the difference.  
+• 
+For the end-of-study (EOS) visit / time-period only, a forest plot will be produced to 
+present estimated treatment differences and 95% CIs including all subgroups. The 
+subgroup by treatment interaction p-value will also be presented.  
+4.10.1.2. 
+Safety Subgroups 
+The summary of exposure to study medication will be summarized by the following 
+subgroups: Age 1 and Sex, Race 1, and Region 2. 
+The summary of overview of all on-treatment AEs will be summarized by the Region 2 
+subgroup. 
+The summary table of on-treatment AEs by SOC and PT will be summarized by the 
+following subgroups: Age 1, Age 2, Sex, Race 1, Region 1, and Region 2.  
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 35 of 46 
+For the subgroups related to age, if there are no subjects within a particular age category 
+(i.e. 12-17), then that age category will not be displayed.  
+4.11. 
+Interim Analyses 
+No interim analyses of efficacy data are planned. 
+An independent data monitoring committee (IDMC) periodically reviewed unblinded 
+safety data from this study and ANCHOR-2. 
+4.12. 
+Changes to Protocol Defined Analyses 
+There were no changes or deviations to the originally planned statistical analysis 
+specified in the protocol.  
+5. 
+SAMPLE SIZE DETERMINATION 
+The sample size for this study is based on the co-primary efficacy endpoints of total 
+endoscopic nasal polyps score at Week 52 and mean nasal obstruction VRS symptoms 
+score from Week 49 through to Week 52, and a pre-specified pooled analysis of data 
+from study ANCHOR-1 (this study) and ANCHOR-2 for the key secondary endpoint of 
+time to first nasal surgery (actual or entry on waiting list) ) or disease-modulating 
+medication for CRSwNP.   
+Approximately 250 participants were planned to be randomized in this study in a ratio of 
+1:1 giving 125 randomized participants per arm. This sample size allows for up to 5% of 
+randomized participants to be non-evaluable, providing a minimum of 118 evaluable 
+participants per arm in the analyses of primary and secondary endpoints. 
+For the co-primary efficacy endpoint of total endoscopic nasal polyps score at Week 52, 
+the study has >99% power assuming a true population difference of -1.10 between 
+depemokimab and placebo. This assumes a standard deviation of 1.665 with significance 
+declared at the two-sided 5% significance level. The smallest observed effect which is 
+predicted to result in a statistically significant difference between depemokimab 100 mg 
+SC + SoC and placebo + SoC is a treatment difference of –0.42. 
+For the co-primary efficacy endpoint of mean nasal obstruction VRS score during Weeks 
+49-52, the study has >99% power assuming a true population difference of -0.70 between 
+depemokimab and placebo. This assumes a standard deviation of 0.84 with significance 
+declared at the two-sided 5% significance level. The smallest observed effect which is 
+predicted to result in a statistically significant difference between depemokimab 100 mg 
+SC + SoC and placebo + SoC is a treatment difference of –0.21. 
+The overall power for both co-primary endpoints is >99%. 
+The planned number of patients recruited within this study is not sufficient to adequately 
+assess whether depemokimab significantly reduces the risk of nasal surgery compared to 
+placebo.  A pre-specified pooled analysis of data from this study (ANCHOR-1) and 
+ANCHOR-2 is planned for the endpoint of time to requiring first nasal surgery (actual or 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 36 of 46 
+entry on waiting list) or disease-modulating medication for CRSwNP. The proportion of 
+participants in the pooled placebo group expected to require surgery or disease-
+modulating medication for CRSwNP is 23%. Assuming a true population hazard ratio of 
+0.38 (62% reduction in risk of required surgery) this pooled analysis has >90% power to 
+observe statistical significance at the 2-sided 4.75% level.  In the pooled analysis, the 
+smallest observed effect which is predicted to result in a statistically significant 
+difference between depemokimab 100 mg SC + SoC and placebo + SoC is a hazard ratio 
+of 0.64 (36% reduction in risk of surgery). 
+The overall power for both co-primary endpoints and the pre-specified pooled analysis of 
+time to requiring first nasal surgery (actual or entry on waiting list) or disease-modulating 
+medication for CRSwNP using data from this study (ANCHOR-1) and ANCHOR-2 is 
+>90%. 
+6. 
+SUPPORTING DOCUMENTATION 
+6.1. 
+Appendix 1 Study Population Analyses 
+The study population analyses will be based on the FAS, unless otherwise specified.   
+Study population analyses including analyses of participant’s disposition, protocol 
+deviations, demographic and baseline characteristics, prior and concomitant medications, 
+and study treatment compliance will be based on GSK Core Data Standards.   
+6.1.1. 
+Participant Disposition 
+Summary tables showing the reasons for screen failure and run-in failure will be provided 
+using the Screened Analysis set. 
+A summary of participant status and reason for study withdrawal will be provided. This 
+display will show the number and percentage of participants who completed the study 
+and who withdrew from the study, including the primary reason for study withdrawal. A 
+participant is considered to have completed the study if they complete the Week 52 visit.   
+A summary of study treatment status will be provided. This display will show the number 
+and percentage of participants who have completed the scheduled study treatment or have 
+discontinued study treatment prematurely and a summary of the primary reason for 
+discontinuation of study treatment.  
+A summary of the number of participants in each of the analysis sets describe in Section 
+3, along with the number of participants randomized will be provided using the Screened 
+Analysis Set. 
+The number of participants randomized to each strata and number of participants with 
+each actual strata (in cases of incorrect strata allocation) will also be summarized. 
+The number of participants enrolled by region, country and center will be summarized. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 37 of 46 
+6.1.2. 
+Demographic and Baseline Characteristics 
+The demographic characteristics (e.g., sex, age, ethnicity, race, region, height, weight and 
+derived BMI) will be summarized by descriptive statistics.  An additional summary of 
+age ranges using the EMA clinical trial results disclosure requirement categories will be 
+produced and is based on the Enrolled Analysis Set. If the summary of demographics 
+meets the criteria for de-identification, as described in the relevant procedural document, 
+a de-identified version should be produced. 
+Summaries of disease history and characteristics will be provided. Tables will include 
+duration of chronic rhinosinusitis, duration of nasal polyps, history of nasal polyps 
+surgery prior to screening, history of systemic corticosteroid use for nasal polyps, 
+baseline blood eosinophils count, total Immunoglobulin E (IgE), intranasal corticosteroid 
+(INCS) use at baseline, and aspirin-exacerbated respiratory disease (AERD) at baseline. 
+Summary statistics for the baseline values of efficacy and safety endpoints will be 
+included in the efficacy and safety summary tables for those endpoints respectively. 
+Additionally, a summary table for the baseline efficacy for the co-primary and secondary 
+endpoints within the hierarchy will be summarized by treatment group and overall. 
+Additionally, asthma status, asthma exacerbation history in the 12 months prior to 
+screening, ACQ-5 score at baseline, and tobacco history will also be summarized. 
+Medical conditions collected at screening will be summarized for current and past 
+conditions separately. 
+6.1.3. 
+Protocol Deviations 
+Important protocol deviations will be summarized. 
+Protocol deviations will be tracked by the study team throughout the conduct of the 
+study. These protocol deviations will be reviewed to identify those considered as 
+important as follows: 
+• 
+Data will be reviewed prior to unblinding and freezing the database to ensure all 
+important deviations (where possible without knowing the study intervention details) 
+are captured and categorized in the protocol deviations dataset.  
+• 
+This dataset will be the basis for the summaries of important protocol deviations. 
+6.1.4. 
+Prior and Concomitant Medications 
+Concomitant medications (CM) will be coded using the WHO Drug dictionaries. 
+Summaries of the number and percentage of participants taking concomitant medications 
+will be displayed by ingredient only (not by ATC classification). These summaries will 
+include single-ingredient medications and will present multi-ingredient medications 
+according to the combination of the component ingredients. Separate summaries will be 
+produced for those medications taken pre-, during, and post-treatment. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 38 of 46 
+Pre-Treatment: CM Start Date < Study Treatment Start Date 
+On-Treatment (During): If CM Start Date < Study Treatment Start Date and CM Stop 
+Date >= Study Treatment Start Date 
+Or 
+If Study Treatment Start Date < CM Start Date < Last Dose of Study Treatment Date + 
+182 days 
+Post-Treatment: If CM Start Date < Last Dose of Study Treatment Date + 182 days 
+6.2. 
+Appendix 2 Electronic Clinical Outcome Assessment 
+(eCOA) Compliance 
+The compliance of eCOA data (e.g., assessments collected via electronic patient diary 
+cards) will be derived at the study-level (overall) and at the endpoint-level across all 
+participants and by treatment group.  
+An eCOA will be considered complete if there is no missing data within the assessment. 
+6.2.1. 
+Study-Level (Overall) Compliance 
+The study-level (overall) compliance for all eCOA assessments collected in the study will 
+be assessed for all participants at all time-points between baseline through to the date of 
+the participant’s study completion or withdrawal. If an eCOA is only assessed for a 
+certain sub-population, the compliance for only that sub-population will be included in 
+the compliance calculation (i.e. ACQ-5 only administered in participants with asthma). 
+The list of eCOA assessments that comprise the study-level (overall) compliance include 
+all eCOA assessments collected within the study: VRS, VAS, Nasal Obstruction VAS, 
+SNOT-22, PGIS, PGIC, ACQ-5, SF-36, and WPAI-GH. 
+The analyses related to the ACQ-5 endpoint are described in the pooled SAP, but are 
+included in the compliance metrics for completeness. 
+The target overall compliance for the study is 70%. 
+Overall eCOA compliance (across all eCOAs and all participants) for the study is 
+calculated as:  
+𝑇𝑜𝑡𝑎𝑙 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑜𝑚𝑝𝑙𝑒𝑡𝑒 𝑒𝐶𝑂𝐴𝑠 𝑎𝑐𝑟𝑜𝑠𝑠 𝑎𝑙𝑙 𝑝𝑎𝑟𝑡𝑖𝑐𝑖𝑝𝑎𝑛𝑡𝑠
+𝑇𝑜𝑡𝑎𝑙 𝑒𝑥𝑝𝑒𝑐𝑡𝑒𝑑 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑜𝑚𝑝𝑙𝑒𝑡𝑒 𝑒𝐶𝑂𝐴𝑠 𝑎𝑐𝑟𝑜𝑠𝑠 𝑎𝑙𝑙 𝑝𝑎𝑟𝑡𝑖𝑐𝑖𝑝𝑎𝑛𝑡𝑠 × 100 
+𝐸𝑥𝑝𝑒𝑐𝑡𝑒𝑑 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑜𝑚𝑝𝑙𝑒𝑡𝑒 𝑒𝐶𝑂𝐴𝑠
+= ∑∑𝑑𝑎𝑡𝑎 𝑝𝑜𝑖𝑛𝑡𝑠 𝑒𝑥𝑝𝑒𝑐𝑡𝑒𝑑 𝑓𝑜𝑟 𝑒𝐶𝑂𝐴𝑗(𝑝𝑎𝑟𝑡𝑖𝑐𝑖𝑝𝑎𝑛𝑡 𝑖)
+𝑐
+𝑗=1
+𝑛
+𝑖=1
+ 
+where c represents the total number of eCOAs collected and n represents the total number 
+of participants.   
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 39 of 46 
+For daily diary data this means every day is a data point in the denominator. For visit-
+based endpoints, each visit is a data point in the denominator. The study-level (overall) 
+compliance metric will be summarized by treatment group and total across treatment 
+groups.  
+A supplemental overall compliance metric will also be calculated for the study. The 
+supplemental calculation will be based on an interval-based definition for daily diary data 
+that is defined within Section 6.3.4.2 for a four-week interval result to be non-missing in 
+the analysis. The number of data points in the denominator for the interval-based 
+definition becomes the number of four-week time periods that are assessed, including the 
+baseline assessment. Participants are considered compliant for the daily diary endpoints if 
+the appropriate number of non-missing values for each interval per the criteria described 
+in Section 6.3.4.2. The denominator for the visit-based endpoints will remain the same. 
+For visit-based endpoints, participants are considered compliant if they complete the 
+assessment at that visit. This calculation will only include the eCOA endpoints in the 
+multiplicity hierarchy: VRS, SNOT-22, and ACQ-5.  
+Both the study-level compliance and the supplemental overall compliance will be 
+summarized at the participant level by pre-defined ranges for compliance (<40%, 40-
+<60%, 60-<80% >=80%). These will be summarized by treatment group and total across 
+treatment groups. 
+6.2.2. 
+Endpoint-Level Compliance 
+The daily eCOA assessments will be assigned a single four-weekly analysis time point as 
+detailed within Section 6.3.4.2.  Participants are considered compliant if the appropriate 
+number of non-missing values for each interval per the criteria described in Section 
+6.3.4.2.  
+All visit-based eCOA assessments will be assigned analysis time points as detailed within 
+Section 6.3.4.1. Participants are considered compliant if they complete the assessment at 
+that visit.  
+The compliance for all eCOA endpoints in the multiplicity hierarchy (VRS, SNOT-22, 
+ACQ-5) will be reported for each analysis time point by treatment group and total across 
+treatment groups.  
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 40 of 46 
+6.3. 
+Appendix 3 Data Derivations Rule 
+6.3.1. 
+Criteria for Potential Clinical Importance 
+6.3.1.1. 
+Laboratory Values 
+Haematology 
+Laboratory Parameter 
+ 
+Units 
+Category Clinical Concern Range 
+Low Flag (< x) 
+High Flag (>x) 
+Haematocrit   
+Ratio of 
+1 
+12+ years 0.201 
+0.599 
+Haemoglobin  
+G/L 
+ 
+12+ years 71 
+199 
+Platelet Count  
+x109/L 
+1+ years 
+31 
+1499 
+While Blood Cell Count 
+(WBC) 
+x109/L 
+12+ years 1.1 
+ 
+ 
+Clinical Chemistry 
+Laboratory Parameter 
+Units 
+Category Clinical Concern Range 
+Low Flag (< x) 
+High Flag (>x) 
+Calcium 
+mmol/L 
+3+ years 
+1.50 
+3.24 
+Creatinine 
+IU/L 
+12+ years  
+>5 x ULN 
+Glucose 
+mmol/L 
+1+ years 
+2.2 
+27.8 
+Potassium 
+mEq/L 
+3+ years 
+2.8 
+6.5 
+Magnesium 
+mmol/L 
+6+years 
+0.3 
+2.5 
+Phosphorus 
+mmol/L 
+3+years 
+0.32 
+  
+Sodium 
+mEq/L 
+0+ years 
+120 
+160 
+ALT 
+U/L 
+12+ years  
+>239 
+Creatine Phosphokinase 
+IU/L 
+12+years 
+  
+>5xULN 
+ 
+Liver Function 
+Laboratory Parameter 
+ 
+Units 
+Category Clinical Concern Range 
+High Flag (>x) 
+ALT/SGPT  
+U/L 
+High 
+ 3 x ULN 
+AST/SGOT  
+U/L 
+High 
+ 3 x ULN 
+AlkPhos  
+U/L 
+High 
+ 3 x ULN 
+T Bilirubin  
+µmol/L 
+High 
+1.5 x ULN 
+6.3.2. 
+Study Period 
+Assessments and events will be classified according to the time of occurrence relative to 
+the study intervention period.  
+Pre-treatment is defined as time prior to the first dose of study intervention. 
+Assessment/Event Date ≤ Study Treatment Start Date 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 41 of 46 
+On-treatment is defined as time from first dose to last date plus 182 days. 
+Study Treatment Start Date < Assessment/Event Date ≤ Date of Last Dose of Study 
+Treatment + 182 days  
+Post-treatment is defined as any time post on-intervention window, i.e. > last dose date 
+plus 182 days. 
+Assessment/Event Date > Date of Last Dose of Study Treatment + 182 days 
+Assessments collected on the date of randomization, for which there is no time of 
+assessment will be considered pre-intervention. 
+Assessments will be considered on-treatment if the assessment start date is missing. 
+6.3.3. 
+Study Day and Reference Dates 
+The safety reference date is the study intervention start date and will be used to calculate 
+study day for safety measures.  
+The efficacy reference date is the date of randomization and will be used to calculate 
+study day for efficacy measures and baseline characteristics, as well as efficacy durations.  
+The study day is calculated as below: 
+• 
+Assessment Date = Missing              → Study Day = Missing  
+• 
+Assessment Date < Reference Date → Study Day = Assessment Date – Ref Date 
+• 
+Assessment Data ≥ Reference Date → Study Day = Assessment Date – Ref Date + 1     
+6.3.4. 
+Assessment Window  
+6.3.4.1. 
+Visit Based Assessments 
+No assessment windows are defined for visit based assessments. Nominal visits will be 
+used for all reporting and analysis. Further details on the mapping of unscheduled visits 
+are provided in the Programming Specifications document. 
+6.3.4.2. 
+Daily Diary 
+Participants are to complete a daily diary assessment each morning. Table 2 below 
+displays which daily diary records are included for each analysis time period. Any 
+daily diary data collected post the 52-week time period will not be included in the 
+Weeks 49-52 analysis of diary data. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 42 of 46 
+Table 2 
+Daily Diary Assessment Windows 
+Analysis for AM Measures 
+ 
+Analysis Time Period 
+Beginning Timepoint 
+(Day) 
+Ending 
+Timepoint 
+(Day) 
+-27 
+1 
+Baseline 
+2 
+29 
+Weeks 1 – 4 
+30 
+57 
+Weeks 5 – 8 
+58 
+85 
+Weeks 9 – 12 
+86 
+113 
+Week 13 – 16 
+114 
+141 
+Weeks 17 – 20 
+142 
+169 
+Weeks 21 – 24 
+170 
+197 
+Weeks 25 – 28 
+198 
+225 
+Weeks 29 – 32 
+226 
+253 
+Weeks 33 – 36 
+254 
+281 
+Weeks 37 – 40 
+282 
+309 
+Weeks 41 – 44 
+310 
+337 
+Weeks 45 – 48 
+338 
+365 
+Weeks 49 – 52 
+Note: There is no Day 0 in CDISC reporting. Days -27 to -1 are immediately pre-randomization and Day 1 is the day of 
+randomization (Visit 2). For the baseline time period, all values from Day -27 to Day 1 will be included in the 
+baseline average; however,  there must be a minimum of 4 non-missing values from Day -6 to Day 1 inclusive in 
+order to derive the baseline, otherwise it will be set to missing.  
+Note: For each 4-week post-baseline time period the average will only be derived if there are non-missing values for at 
+least 4 days out of 7 in at least 3 out of 4 weeks, with at least 15 minimum values, otherwise it will be set to 
+missing. 
+6.3.5. 
+Multiple measurements at One Analysis Time Point 
+Unless otherwise specified, if there are multiple measurements reported under the same 
+nominal visit and planned time, the value of the first assessment will be used in any 
+derivation of summary statistics, all individual measurements will be presented in any 
+data listings. 
+Participants having both High and Low values for Normal Ranges at any post-baseline 
+visit for safety parameters will be counted in both the High and Low categories of “Any 
+visit post-baseline” row of related summary tables. This will also be applicable to 
+relevant Potential Clinical Importance summary tables. 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 43 of 46 
+6.3.6. 
+Handling of Partial Dates 
+Element 
+Reporting Detail 
+General 
+• Partial dates will be displayed as captured in participant listing 
+displays.   
+• However, where necessary, display macros may impute dates as 
+temporary variables for sorting data in listings only. In addition, partial 
+dates may be imputed for ‘slotting’ data to study phases or for 
+specific analysis purposes as outlined below. 
+• Imputed partial dates will not be used to derive study day, time to 
+onset or duration (e.g., time to onset or duration of adverse events), 
+or elapsed time variables (e.g., time since diagnosis). In addition, 
+imputed dates are not used for deriving the last contact date in 
+overall survival analysis dataset. 
+Adverse Events 
+• Partial dates for AE recorded in the CRF will be imputed using the 
+following conventions: 
+Missing start 
+day 
+If study intervention start date is missing (i.e. 
+participant did not start study intervention), then set 
+start date = 1st of month. 
+Else if study intervention start date is not missing: 
+o If month and year of start date = month and 
+year of study intervention start date, then 
+▪ If stop date contains a full date and 
+stop date is earlier than study 
+intervention start date, then set start 
+date= 1st of month. 
+▪ Else set start date = study intervention 
+start date. 
+Else set start date = 1st of month. 
+Missing start 
+day and month 
+If study intervention start date is missing (i.e. 
+participant did not start study intervention), then set 
+start date = January 1. 
+Else if study intervention start date is not missing: 
+o If year of start date = year of study 
+intervention start date, then 
+▪ If stop date contains a full date and 
+stop date is earlier than study 
+intervention start date, then set start 
+date = January 1. 
+▪ Else set start date = study intervention 
+start date.       
+Else set start date = January 1. 
+Missing end 
+day  
+A '28/29/30/31' will be used for the day (dependent 
+on the month and year). 
+Missing end 
+day and month 
+No Imputation 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 44 of 46 
+Element 
+Reporting Detail 
+Completely 
+missing 
+start/end date 
+No imputation 
+Concomitant 
+Medications/Medical 
+History 
+• Partial dates for any concomitant medications recorded in the CRF 
+will be imputed using the following convention: 
+Missing start 
+day 
+If study intervention start date is missing (i.e. 
+participant did not start study intervention), then 
+set start date = 1st of month. 
+Else if study intervention start date is not missing: 
+o If month and year of start date = month 
+and year of study intervention start date, 
+then 
+▪ If stop date contains a full date and 
+stop date is earlier than study 
+intervention start date, then set start 
+date= 1st of month. 
+▪ Else set start date = study intervention 
+start date. 
+Else set start date = 1st of month. 
+Missing start 
+day and month 
+If study intervention start date is missing (i.e. 
+participant did not start study intervention), then 
+set start date = January 1. 
+Else if study intervention start date is not missing: 
+o If year of start date = year of study 
+intervention start date, then 
+▪ If stop date contains a full date and 
+stop date is earlier than study 
+intervention start date, then set start 
+date = January 1. 
+▪ Else set start date = study. 
+intervention start date.       
+Else set start date = January 1. 
+Missing end day A '28/29/30/31' will be used for the day (dependent 
+on the month and year).  
+Missing end day 
+and month 
+A '31' will be used for the day and 'Dec' will be 
+used for the month. 
+Completely 
+missing 
+start/end date 
+No imputation 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 45 of 46 
+6.3.7. 
+Early PK Access Key Activities 
+Designated representative(s) may be unblinded for performing population PK, PKPD 
+dataset preparation and draft PK, PKPD model development using scrambled (random 
+reassignment of subject identification numbers) PK, PKPD unblinded datasets. 
+The PK and PKPD datasets will include information on PK concentration, actual dosing 
+information, demographics (including race and ethnicity), vital signs, concomitant 
+medications, antidrug antibodies, biomarkers (e.g. eosinophils and IL5 concentration) and 
+laboratory information. No information on adverse event and efficacy will be included. 
+6.3.8. 
+Trademarks 
+Trademarks of the GlaxoSmithKline 
+Group of Companies 
+ 
+Trademarks not owned by the 
+GlaxoSmithKline Group of Companies 
+None 
+ 
+SAS 
+CONFIDENTIAL 
+ 
+217095 
+XBU Statistical Analysis Plan (SAP) Template v1.0  24 March 2021  
+Page 46 of 46 
+7. 
+REFERENCES 
+Carpenter J, Roger J, Kenward M. Analysis of longitudinal trials with missing data: a 
+framework for relevant, accessible assumptions, and inference via multiple imputation. J 
+Biopharm Stat. 2013;23(6):1352-7. 
+Keene, Roger et al. Missing data sensitivity analysis for recurrent event data using 
+controlled imputation. Pharm Stat. Jul-Aug 2014;13(4):258-64. 
+Kenward MG, Roger, JH. Small Sample Inference for Fixed Effects from Restricted 
+Maximum Likelihood. Biometrics. 1997;53:983-997. 
+Rubin DB. Multiple Imputation for Nonresponse in Surveys. Wiley: New York, 1987. 
+Sampson HA, Munoz-Furlong A, Campbell RL, et al. Second symposium on the 
+definition and management of anaphylaxis: summary report—Second National Institute 
+of Allergy and Infectious Disease/Food Allergy and Anaphylaxis Network symposium. J 
+Allergy Clin Immunol 2006; 117: 391-397. 

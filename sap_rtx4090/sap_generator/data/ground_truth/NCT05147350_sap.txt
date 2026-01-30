@@ -1,0 +1,2098 @@
+ 
+ 
+Statistical Analysis Plan 
+Study Code 
+RP-6306-03 
+Edition 
+Number 
+Version 1.0 
+Date 
+29 Jul 2024 
+ 
+ 
+ 
+Phase 1 Study of the PKMYT1 Inhibitor RP-6306 in Combination With 
+FOLFIRI for the Treatment of Advanced Solid Tumors (MINOTAUR 
+Study) 
+Statistical Analysis Plan for RP-6306-03 
+ 
+2 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Phase 1 Study of the PKMYT1 Inhibitor RP-6306 in Combination With 
+FOLFIRI for the Treatment of Advanced Solid Tumors (MINOTAUR Study) 
+ 
+ 
+3 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+ 
+TABLE OF CONTENTS 
+LIST OF ABBREVIATIONS ......................................................................................................... 5 
+1. 
+INTRODUCTION ....................................................................................................... 8 
+2. 
+STUDY OBJECTIVES AND ENDPOINTS ............................................................... 8 
+2.1. 
+Module 1 Objectives and Endpoints ............................................................................ 8 
+2.2. 
+Analysis Endpoints ...................................................................................................... 9 
+2.2.1. 
+Safety Endpoints ........................................................................................................ 10 
+2.2.2. 
+Efficacy Endpoints ..................................................................................................... 10 
+2.2.3. 
+Pharmacokinetics ....................................................................................................... 11 
+3. 
+INVESTIGATIONAL PLAN .................................................................................... 11 
+3.1. 
+Overall Study Design and Plan .................................................................................. 11 
+3.2. 
+Schedule of Assessments ........................................................................................... 12 
+3.2.1. 
+Dose and Schedule Finding........................................................................................ 13 
+3.2.2. 
+Maximum Tolerated Dose ......................................................................................... 18 
+3.3. 
+Sample Size Considerations ....................................................................................... 21 
+4. 
+ANALYSIS POPULATIONS .................................................................................... 21 
+4.1. 
+DLT Evaluable Population ......................................................................................... 21 
+4.2. 
+Efficacy Population .................................................................................................... 21 
+4.3. 
+Safety Population ....................................................................................................... 21 
+4.4. 
+Pharmacokinetic Population ...................................................................................... 21 
+5. 
+DATA AND ANALYSIS CONSIDERATIONS ....................................................... 22 
+5.1. 
+General Principles ...................................................................................................... 22 
+5.2. 
+Study Day and Analysis Visit .................................................................................... 22 
+5.2.1. 
+Analysis Visit ............................................................................................................. 22 
+5.3. 
+Handling of Missing Data .......................................................................................... 23 
+5.3.1. 
+Missing/Partial Dates in Adverse Events ................................................................... 23 
+5.3.2. 
+Missing/Partial Dates in Concomitant Medication .................................................... 24 
+5.3.3. 
+Missing/Partial Dates during Screening Visit or Prior to Study Treatment ............... 25 
+5.3.4. 
+Missing/Partial Dates in Post-study Anticancer Therapy .......................................... 25 
+5.3.5. 
+Missing/Partial Last Dose Date.................................................................................. 26 
+5.3.6. 
+Relationship and Severity Imputation Rules for Adverse Events .............................. 26 
+6. 
+DISPOSITION, DEVIATIONS AND PATIENT CHARACTERISTIC DATA ...... 27 
+6.1. 
+Protocol Deviations .................................................................................................... 27 
+6.2. 
+Demographic and Baseline Characteristics................................................................ 28 
+4 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+6.3. 
+Genotype and Mutation Status at Enrollment ............................................................ 28 
+6.4. 
+Disease Characteristics .............................................................................................. 28 
+6.5. 
+Medical History.......................................................................................................... 28 
+6.6. 
+Prior and Concomitant Medications .......................................................................... 29 
+7. 
+SAFETY AND EXPOSURE DATA ......................................................................... 29 
+7.1. 
+Adverse Events .......................................................................................................... 30 
+7.2. 
+Treatment Exposure ................................................................................................... 31 
+7.3. 
+Laboratory Evaluations .............................................................................................. 33 
+7.4. 
+Vital Signs and Abnormalities ................................................................................... 34 
+7.5. 
+12-lead ECG ............................................................................................................... 35 
+7.6. 
+Physical Examination and ECOG Performance Status .............................................. 36 
+8. 
+EFFICACY DATA .................................................................................................... 36 
+8.1. 
+Derivation of Efficacy Endpoints .............................................................................. 36 
+8.1.1. 
+Best Percentage Change in Tumor Size ..................................................................... 36 
+8.1.2. 
+Objective Response Rate (ORR) ................................................................................ 36 
+8.1.3. 
+Best Overall Response Rate ....................................................................................... 36 
+8.1.4. 
+Clinical Benefit Rate (CBR) ...................................................................................... 37 
+8.1.5. 
+Duration of Response (DOR) ..................................................................................... 37 
+8.1.6. 
+Categorization of Best Tumor Response ................................................................... 37 
+8.1.7. 
+Change in Tumor Size ................................................................................................ 38 
+8.1.8. 
+Progression Free Survival (PFS) ................................................................................ 38 
+8.2. 
+Efficacy Analysis Methods ........................................................................................ 39 
+9. 
+PHARMACOKINETIC (PK) PARAMETERS DATA ............................................. 40 
+9.1. 
+Population PK/PD Modelling .................................................................................... 42 
+11. 
+INTERIM ANALYSIS .............................................................................................. 42 
+12. 
+REFERENCES........................................................................................................... 43 
+APPENDIX 1. DEFINITION OF DOSE LIMITING TOXICITY (DLT) ................................ 44 
+APPENDIX 2. GYNECOLOGICAL CANCER INTERGROUP DEFINITIONS FOR 
+RESPONSE AND PROGRESSION IN PATIENTS WITH OVARIAN 
+CANCER ................................................................................................................... 45 
+APPENDIX 3. RESPONSE EVALUATION CRITERIA IN SOLID TUMORS, 
+VERSION 1.1 ............................................................................................................ 47 
+5 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+LIST OF ABBREVIATIONS 
+Abbreviation or 
+special term 
+Explanation 
+AE 
+Adverse Event 
+ADaM 
+Analysis Data Model 
+ALT 
+Alanine Aminotransferase 
+ALP 
+Alkaline Phosphatase 
+ANC 
+Absolute Neutrophil Count 
+AST 
+Aspartate Aminotransferase 
+AUC 
+Area Under the Curve  
+AUC0-8 
+Area under the plasma concentration-time curve from time 0 to 8 hours post dose 
+AUC0-12 
+Area under the plasma concentration-time curve from time 0 to 12 hours post dose 
+AUC0-inf 
+Area under the plasma concentration-time curve from time 0 to infinite time 
+AUC0-last 
+Area under the plasma concentration-time curve from time 0 to t (“t” being the longest 
+time interval evaluable in all periods) 
+AUCss 
+Area under the plasma concentration-time curve at steady-state 
+BID 
+Twice daily 
+BOIN 
+Bayesian Optimal Interval 
+BP 
+Blood Pressure 
+BUN  
+Blood Urea Nitrogen 
+CBR 
+Clinical Benefit Rate 
+CCNE1 
+Cyclin E1 
+CDISC 
+Clinical Data Interchange Standards Consortium 
+CDK 
+Cyclin-dependent kinase 
+CDK1 
+Cyclin-dependent kinase 1 
+CDK2 
+Cyclin-dependent kinase 2 
+CI 
+Confidence Interval 
+Cmax 
+Maximum observed plasma Concentration 
+Cmin 
+Minimum observed plasma concentration 
+CR 
+Complete Response 
+CRF 
+Case Report Form 
+CSR 
+Clinical Study Report 
+CT 
+Computed Tomography 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+ctDNA 
+Circulating Tumor DNA 
+DBP 
+Diastolic Blood Pressure 
+DCO 
+Data Cut off 
+6 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+Abbreviation or 
+special term 
+Explanation 
+DLT 
+Dose Limiting Toxicity 
+DNA 
+Deoxyribonucleic Acid 
+DOR 
+Duration of Response 
+ECG 
+Electrocardiogram 
+ECOG 
+Eastern Cooperative Oncology Group 
+eCRF 
+Electronic Case Report Form 
+EOT 
+End-of-Treatment 
+FBXW7 
+F-box and WD repeat domain containing 7 
+FDA 
+Food and Drug Administration 
+FISH 
+Fluorescent in situ hybridization 
+GCP 
+Good Clinical Practice 
+G-CSF 
+Granulocyte Colony Stimulating Factor 
+GI 
+Gastrointestinal 
+ICF 
+Informed Consent Form 
+ICH 
+International Conference on Harmonization 
+IHC 
+Immunohistochemistry 
+LTFU 
+Lost to Follow-up 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MRI 
+Magnetic Resonance Imaging 
+MTD 
+Maximal Tolerated Dose 
+NCA 
+Non-compartmental Analysis 
+NCI 
+National Cancer Institute 
+NE 
+Not Evaluable 
+NGS 
+Next-Generation Sequencing 
+ORR 
+Objective Response Rate 
+OS 
+Overall Survival 
+PD 
+Progressive Disease  
+PE 
+Physical Exam 
+PET 
+Positron Emission Tomography 
+PFS 
+Progression Free Survival 
+PK 
+Pharmacokinetics 
+PKMYT1 
+Membrane-associated tyrosine- and threonine-specific Cdc2-inhibitory kinase 
+PODS 
+Precision Oncology Decision Support 
+PPP2R1A 
+Protein phosphatase 2 scaffold subunit A 
+PR 
+Partial Response 
+7 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+ 
+Abbreviation or 
+special term 
+Explanation 
+PSA 
+Prostate-Specific Antigen 
+PT 
+Preferred Term 
+QD 
+Once daily 
+QT 
+ECG interval measured from the onset of the QRS complex to the end of the T wave 
+QTc 
+QT interval corrected for heart rate 
+QTcF 
+Fridericia formula for corrected QT interval 
+RBC 
+Red Blood Cells 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+RP2D 
+Recommended Phase 2 Dose 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+SD 
+Stable Disease 
+SDTM 
+Study Data Tabulation Model 
+SOC 
+System Organ Class 
+SRC 
+Safety Review Committee 
+TEAE 
+Treatment Emergent Adverse Event 
+t½ 
+Terminal Elimination Half-Life 
+TL 
+Target Lesions 
+Tmax 
+Time to Maximum observed plasma concentration 
+ULN 
+Upper Limit of Normal 
+WBC 
+White Blood Cells 
+WHO 
+World Health Organization 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+8 
+ 
+1. 
+INTRODUCTION 
+This statistical analysis plan (SAP) prospectively describes the planned analyses for the study  Protocol 
+RP-6306-03 “Phase 1 Study of the PKMYT1 Inhibitor RP-6306 in Combination With FOLFIRI for the 
+Treatment of Advanced Solid Tumors (MINOTAUR Study)” Version 3.0, which was issued on 26 
+October 2022. The SAP is in full conformity with the most current version of Good Clinical Practices 
+(GCP), the FDA and ICH Guidelines for clinical trials. It contains definitions of analysis populations, 
+derived variables, and statistical methods for the analysis of efficacy and safety. In addition, the datasets 
+generated for this study will be compliant with the latest version of the CDISC standards for the SDTM 
+and ADaM datasets. 
+This SAP mainly covers the primary and secondary objectives of the study. Analyses for some of the 
+exploratory objectives will be addressed outside the SAP, where additional analysis plans may be 
+developed to address these objectives. In addition, population pharmacokinetics (PK) and 
+PK/pharmacodynamic modelling will be addressed outside of the SAP.  
+The purpose of this SAP is to ensure the credibility of the study findings by pre-specifying the statistical 
+approaches to the analysis of study data prior to database lock. This SAP will be finalized and approved 
+prior to the clinical database lock.   
+2. 
+STUDY OBJECTIVES AND ENDPOINTS 
+2.1. 
+Module 1 Objectives and Endpoints 
+Primary Objectives 
+Primary Endpoints 
+To assess the safety and tolerability of RP-6306 in 
+combination with FOLFIRI in patients with eligible, 
+advanced solid tumors 
+Incidence and severity of treatment-emergent adverse 
+events (TEAEs), laboratory assessments, vital signs, 
+electrocardiograms (ECGs), and use of concomitant 
+medications 
+To define the maximum tolerated dose (MTD) and the 
+recommended Phase 2 dose (RP2D) and schedule of RP-
+6306 in combination with FOLFIRI 
+Dose-limiting toxicities (DLTs) 
+Secondary Objectives 
+Secondary Endpoints 
+To assess the preliminary efficacy of RP-6306 in 
+combination with FOLFIRI in patients with molecularly 
+selected, advanced solid tumors 
+Best percent change in tumor size from baseline, objective 
+response rate (ORR), best overall response rate, duration of 
+response (DOR), clinical benefit rate (CBR), and 
+progression-free survival (PFS) at 6 months 
+To assess PK parameters of RP-6306 in combination with 
+FOLFIRI 
+Plasma concentrations of RP-6306, irinotecan, and SN-38 
+with calculation of maximum observed plasma 
+concentration within the dosing interval (Cmax), time to 
+maximum observed plasma concentration (Tmax), area under 
+the plasma concentration-time curve from time 0 to t (“t” 
+being the longest time interval evaluable in all periods) 
+(AUC0-last), and other parameters as appropriate 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+10 
+ 
+ 
+2.2.1. 
+Safety Endpoints 
+• DLTs  
+• Incidence of TEAEs, treatment related TEAEs, TEAEs leading to death, serious adverse 
+events (SAEs), treatment related SAEs, TEAEs leading to study drug discontinuation, TEAEs 
+leading to dose modifications (interruptions or reductions)  
+• Changes in clinical laboratory parameters (hematology, chemistry, urinalysis), CTCAE 
+graded laboratory toxicities, vital signs, Eastern  Cooperative Oncology Group (ECOG) 
+performance status, ECG parameters including QTc, physical exams (PEs) and usage of 
+concomitant medications 
+2.2.2. 
+Efficacy Endpoints 
+Best percentage change in tumor size: defined as the largest decrease or smallest increase (in the 
+absence of a decrease) in the sum of diameters of the target lesions (TLs) prior to progression or last 
+evaluable assessment in the absence of progression. 
+• Objective response rate (ORR): defined as the proportion of patients with confirmed best 
+overall response of complete response (CR) or partial response (PR) (i.e., 2 subsequent 
+responses of either CR or PR at least 4 weeks apart) according to RECIST v1.1.  
+• Best overall response rate: defined as the proportion of patients with confirmed or 
+unconfirmed response of CR or PR based on best overall response by investigators across all 
+visits. Unconfirmed CR or PR will be defined as those patients with CR or PR only reported 
+once in overall tumor assessment form by the Investigators according to RECIST 1.1.   
+• Clinical benefit rate (CBR):  defined as the proportion of patients with a best overall 
+response of CR or PR according to RECIST v1.1 based on Investigator’s assessment, or 
+duration on treatment of at least 16 weeks without evidence of progression.  
+Duration of response (DOR, applicable only to patients with confirmed CR or PR): defined as the 
+time interval between the date of the earliest qualifying response (CR or PR) and the date of disease 
+progression or death for any cause, whichever occurs earlier.  
+For patients who are alive without disease progression following response, DOR will be censored on the 
+date of last evaluable tumor assessment.  
+• Progression-free survival (PFS): defined as the time from the first day of study treatment 
+administration (Day 1) to disease progression as defined by RECIST v1.1 or death from any 
+cause.     
+− Patients who are alive and free from disease progression will be censored at the date of 
+their last tumor assessment.    
+− Any patient who dies in the absence of progression, and the death is >12 weeks after the 
+last evaluable tumor assessment, will be censored for PFS at the date of their last 
+evaluable tumor assessment. More details are provided in Section 8.1.9 and Table 8.  
+Detailed derivation of the endpoints can be found in Section 36. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+12 
+ 
+Figure 1: 
+Module 1 Study Schema 
+ 
+CCNE1=Cyclin E1; CRC=colorectal; FBXW7=F-box and WD repeat domain containing 7; GI=gastrointestinal; QD=once 
+daily; RP2D=recommended Phase 2 dose. 
+Note: Additional schedules may be tested based on safety, tolerability, and drug exposure data generated in Modules 1a 
+and 1b. 
+ 
+3.2. 
+Schedule of Assessments 
+The study will consist of a Screening Period (Day -28 to Day -1) to determine eligibility, Treatment 
+Period (14-day cycles), End-of-Treatment (EOT) Period (occurring within 7 days after the last dose of 
+study treatment), and a Safety Follow-up Period (occurring 30 days ±2 weeks after the last dose of study 
+treatment for all patients not cleared at the EOT visit, including patients with ongoing Grade ≥2 drug-
+related toxicities at the EOT visit (Figure 2). The End of Study is defined as the date of the last visit 
+(including all follow-up visits up to 12 months) of the last patient in the study. Patients will be followed 
+for survival up to 12 months after EOT unless the patient withdraws consent to the study, the study is 
+terminated, the patient dies or is lost to follow-up (LTFU). 
+ 
+Figure 2: 
+Study Conduct 
+    
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+13 
+ 
+ 
+AE=adverse event; C1D1=Cycle1 Day 1; ctDNA=circulating tumor deoxyribonucleic acid; ECG=electrocardiogram; 
+EOT=End-of-Treatment; FU=Follow-up; PD=progressive disease; PK=pharmacokinetic; RP2D=recommended Phase 2 
+dose. 
+The start of the study is defined as the date when the first patient in the whole study signs an informed 
+consent form (ICF). 
+The end of the study is defined as the date of the last visit (including all follow-up visits) of the last 
+patient in the whole study. 
+See protocol for full details on the schedule of assessments. 
+The key procedures required in this study include: 
+• Tumor assessments (based on CT, PET, and/or MRI scan) according to RECIST v1.1 or as 
+clinically indicated (see Appendix 4 of the protocol) 
+• PK samples throughout the study 
+• Baseline, on-treatment, and EOT blood samples 
+• Reporting all AEs occurring from the administration of the first dose of RP-6306 and 
+FOLFIRI 
+• Paired biopsies 
+• ECG 
+A cycle of treatment is 2 weeks (14 calendar days).  
+3.2.1. 
+Dose and Schedule Finding  
+This study aims to identify the RP2D and preferred dosing schedule of RP-6306 in combination with 
+FOLFIRI. RP-6306 will be given on a continuous QD schedule (Module 1a) and intermittent schedule 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+14 
+ 
+(Module 1b) as outlined below. If both modules are run concurrently, patients will be enrolled into either 
+Module 1a or 1b based on available slot openings at the time of signing the ICF and allocated to a cohort 
+by the Medical Monitor with guidance from the SRC. 
+Module 1a 
+The study will start at Dose Level 1 with up to 2 patients receiving 40 mg QD, oral RP 6306 in 
+combination with 180 mg/m2 IV irinotecan given over 30 to 90 minutes, 400 mg/m2 IV leucovorin given 
+over 30 to 90 minutes with irinotecan, and 400 mg/m2 IV fluorouracil bolus after leucovorin, then 2400 
+mg/m2 IV continuous IV of fluorouracil over 46 hours (Days 1 and 2) of each 14 day cycle.  
+This dose of RP-6306 was chosen based on the observed tolerability and PK of RP-6306 monotherapy in 
+the MYTHIC study. If Dose Level 1 is tolerated, the dose of RP 6306 will be escalated to 120 mg and the 
+dose of irinotecan will be maintained at 180 mg/m2 daily (Dose level 2). In addition, patients treated at 
+Dose Level 1 will be eligible to receive RP-6306 at 120 mg QD, if Dose Level 2 has completed the DLT 
+evaluation period and if agreed upon by the SRC. If Dose Level 1 is not tolerated, the dose of irinotecan 
+will be de-escalated to 150 mg/m2 and RP 6306 will be maintained at 40 mg daily (Dose level 1D). 
+After Dose Level 2, dose escalation of RP-6306 will proceed to the next higher dose level following 
+BOIN criteria and dose escalation and de-escalation rules as follows: 
+• Dose escalation will progress with N≥2 patients with increases of up to 100% RP 6306 until a 
+DLT is observed (Level R in Figure 3 and Table 1 below). Dose decisions will depend on 2 or 
+more evaluable patients completing the first 2 14-day treatment cycles. 
+• For de escalation at Level R and thereafter, the next dose level of RP 6306 will be 
+≥25% lower than the current dose (rounded down based on capsule strength) or de-escalated 
+down to the highest previously tolerated dose based on review of the toxicity patterns by the 
+SRC. In addition to decreasing the daily dose level of RP 6306, de-escalation can involve a 
+reduced frequency of dosing (eg, 3 consecutive days on / 4 consecutive days off or 1 week on 
+/ 1 week off). 
+• Dose escalation of RP-6306 will follow the BOIN criteria as guided by the SRC. RP 6306 can 
+continue with increases of 20% to 50% (R+1). 
+Module 1b 
+If tolerability of continuous RP-6306 with FOLFIRI is limiting, Module 1b will be initiated if agreed 
+upon by the SRC. In Module 1b, an intermittent dosing schedule of RP-6306 given 3 consecutive days on 
+/ 4 consecutive days off will be tested in combination with FOLFIRI. When Module 1b is initiated, the 
+starting dose of RP-6306 and FOLFIRI will be the same as the highest total daily dose evaluated in 
+Module 1a and will be given to a cohort of N≥2 patients. To allow better dose and schedule exploration 
+early in the development, additional schedules may be evaluated that involve intermittent dosing (eg, 2 
+consecutive days on / 5 consecutive days off or 1 week on / 1 week off) depending on observed 
+toxicities. The dose of RP-6306 or FOLFIRI will be increased or decreased per BOIN criteria 
+independently of Module 1a until an MTD is established. Dose escalation decisions will be discussed 
+with the SRC after at least 2 evaluable patients completing the first 2 14-day treatment cycles and based 
+on the emerging safety and tolerability profile, and clinical PK/pharmacodynamic data across the entire 
+patient population in Modules 1a and 1b.  
+In the event Modules 1a and 1b are explored concurrently, the Medical Monitor and SRC will prioritize 
+slot allocation for each module. The highest dose level of RP-6306 in this study will not exceed the MTD 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+15 
+ 
+of RP-6306 monotherapy identified in the MYTHIC study for a given schedule. The totality of safety, 
+PK, pharmacodynamic, and preliminary efficacy data will be used to select a preferred RP2D and 
+schedule for RP-6306 and FOLFIRI. 
+If anti-tumor activity is observed at a dose level that is lower than the current dose level being explored 
+(after escalation has proceeded to a higher dose level), additional patients (N≤6), preferably with the 
+same tumor/genomic alteration, may be enrolled at the lower dose level to further confirm safety and 
+efficacy at that dose level. The relevant DLTs from the backfill cohorts will be included in the MTD and 
+RP2D determination by the SRC. Additionally, intrapatient dose escalations for patients at a lower dose 
+level will be allowed at the discretion of the Investigator, and with Sponsor approval and guidance by the 
+SRC, if the higher dose level was deemed safe by the SRC. 
+Figure 3:  
+Module 1a and 1b Escalation Schema 
+ 
+BOIN=Bayesian optimal interval; DLT=dose-limiting toxicity; MTD=maximum tolerated dose; QD=once daily. 
+ 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+18 
+ 
+If Dose Level 1 is not tolerated in Module 1a, Dose Level 1D will be explored. At Dose Level 1D, RP 
+6306 will be given at 40 mg daily on a continuous schedule and irinotecan in the FOLFIRI regimen will 
+be reduced to 150 mg/m2 over 30 to 90 minutes on Day 1 of each 14 day cycle. If Dose Level 1D is 
+tolerated and deemed safe by the SRC, irinotecan will be maintained at 150 mg/m2, and escalation of RP 
+6306 will proceed in increments of 50% to 100% in a continuous schedule. If Dose Level 1D is not 
+tolerated, Dose Level 2D will be explored. At Dose Level 2D, RP 6306 will be given at 40 mg daily on a 
+continuous schedule and irinotecan in the FOLFIRI regimen will be reduced to 120 mg/m2 over 30 to 90 
+minutes on Day 1 of each 14 day cycle. If Dose Level 2D is tolerated and deemed safe by the SRC, 
+irinotecan will be maintained at 120 mg/m2 and escalation of RP 6306 will proceed in increments of 
+50% to 100% in a continuous schedule. If dose level 2D is not tolerated, dose Level 3D will be explored, 
+in which the bolus of fluorouracil will be eliminated from the regimen. 
+Based on the outcome of RP-6306 PK evaluation in the initial dose levels and emerging PK data in the 
+MYTHIC (RP-6306-01) monotherapy study, a consideration for a twice daily (BID; same total daily 
+dose as QD) RP-6306 administration will be discussed with the SRC. The decision to initiate BID dosing 
+will be based on observed patient outcomes (eg, absence of toxicities, tumor response, or other 
+pharmacologic activity) and PK parameters such as, but not limited to, elimination half-life (t½) is <12 
+hours or the Cmax:Cmin ratio >10 (where Cmin is the minimum observed plasma concentration within 
+the dosing interval). The same dose escalation/de-escalation criteria will apply for BID dosing cohorts. If 
+BID dosing is initiated, the SRC can elect to continue enrolling patients on a daily dosing arm or cease 
+enrollment on this arm based on the data collected. 
+3.2.2. 
+Maximum Tolerated Dose 
+The BOIN design will be employed to find the MTD of continuous RP-6306 (Module 1a) and, if 
+necessary, intermittent RP-6306 (Module 1b) in combination with FOLFIRI. The target toxicity rate is 
+25%. DLTs occurring within the first 28 days (2 cycles) will be used to direct MTD finding. 
+The BOIN design uses the following criteria, optimized to minimize the probability of incorrect dose 
+assignment, to guide dose escalation/de-escalation: 
+• If the observed DLT rate at the current dose is ≤0.197 (<20%), escalate the dose to 1 of the 2 
+next higher dose levels (ie, 1 level increase of RP-6306 or 1 level increase of FOLFIRI). 
+• If the observed DLT rate at the current dose is ≥0.298 (≥30%), de-escalate the dose to 1 of the 
+2 next lower dose levels (ie, 1 level decrease of RP-6306 or 1 level decrease of FOLFIRI). 
+• Otherwise, stay at the current dose. 
+Table 2: 
+Dose Escalation/De-Escalation Rules for the BOIN Design 
+Action 
+Number of Evaluable Patients at Current Dose Level 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+↑ if number of 
+DLT ≤ 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+1 
+1 
+2 
+2 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+19 
+ 
+Stay current 
+dose if 
+number of 
+DLT = 
+NA 
+NA 
+NA 
+1 
+1 
+NA 
+2 
+2 
+2 
+2 
+3 
+3 
+↓ if number 
+of DLT ≥ 
+1 
+1 
+1 
+2 
+2 
+2 
+3 
+3 
+3 
+3 
+4 
+4 
+Elim if 
+number of 
+DLT ≥ 
+NA 
+NA 
+3 
+3 
+3 
+4 
+4 
+4 
+5 
+5 
+6 
+6 
+BOIN = Bayesian optimal interval; ↑ = increase, ↓ = decrease, DLT = dose-limiting toxicity, Elim=eliminate, NA = 
+not applicable, dose cannot be eliminated until at least 3 patients have been treated 
+ 
+Note: Number of DLT is the number of patients with at least 1 DLT. When none of the actions (ie, escalate, 
+de-escalate or eliminate) is triggered, stay at the current dose for treating the next cohort of patients. 
+ 
+Dose finding starts at Dose Level 1. The steps to implement the BOIN design are described as follows: 
+1. 
+Patients in the first cohort are treated at Dose Level 1. Dose decisions will depend on 2 or more 
+evaluable patients completing the first 2 14-day treatment cycles. 
+2. 
+To assign a dose to the next cohort of patients, conduct dose escalation/de-escalation according to 
+the rule displayed in Table 2. When using Table B, please note the following: 
+a. “Eliminate” means eliminate the current and higher doses from the trial to prevent treating 
+any future patients at these doses because they are overly toxic. 
+b. When we eliminate a dose, automatically de-escalate the dose to the next lower level. When 
+the lowest dose is eliminated, stop the trial for safety. In this case, no dose should be selected 
+as the MTD. 
+c. If none of the actions (i.e., escalation, de-escalation or elimination) is triggered, treat the new 
+patients at the current dose.  
+d. If the current dose is the lowest dose and the rule indicates dose de-escalation, treat the new 
+patients at the lowest dose unless the number of DLTs reaches the elimination boundary, at 
+which point terminate the trial for safety.  
+e. If the current dose is the highest dose and the rule indicates dose escalation, treat the new 
+patients at the highest dose.  
+2. 
+To assign a dose to the next cohort of patients, conduct dose escalation/de-escalation according to 
+the rule displayed in Table 2. When using Table 2, please note the following: 
+a. “Eliminate” means eliminate the current and higher doses from the trial to prevent treating 
+any future patients at these doses because they are overly toxic. 
+b. When we eliminate a dose, automatically de-escalate the dose to the next lower level. When 
+the lowest dose is eliminated, stop the trial for safety. In this case, no dose should be selected 
+as the MTD. 
+c. If none of the actions (i.e., escalation, de-escalation or elimination) is triggered, treat the new 
+patients at the current dose.  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+20 
+ 
+d. If the current dose is the lowest dose and the rule indicates dose de-escalation, treat the new 
+patients at the lowest dose unless the number of DLTs reaches the elimination boundary, at 
+which point terminate the trial for safety.  
+e. If the current dose is the highest dose and the rule indicates dose escalation, treat the new 
+patients at the highest dose.  
+3. 
+Repeat Step 2 until the maximum sample size of 36 evaluable patients is reached for the 
+corresponding module or stop the trial early if the number of evaluable patients treated at the current 
+dose ≥9 and the decision according to Table B is to stay at the current dose. 
+After the study is completed, results from all DLT evaluable patients, including the relevant backfill 
+cohorts, will be included to assess the MTD. The dose for which the isotonic estimate of the toxicity rate 
+is closest to and no higher than 30% will be selected as the MTD. This computation can be implemented 
+by the shiny app “BOIN” available at http://www.trialdesign.org. The RP2D for RP 6306 and FOLFIRI 
+will be based on discussion between the Investigators and the Sponsor and will be the dose that at or 
+lower than the MTD based on the totality of the safety, PK, pharmacodynamics, and preliminary 
+efficacy. 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+21 
+ 
+3.3. 
+Sample Size Considerations 
+The maximum total sample size for this study is 104 patients. The maximum sample size for the Dose 
+Finding Phase is 36 evaluable patients per module (72 patients total if an intermittent dosing schedule is 
+initiated). The population used for determination of DLTs will consist of patients who have met the 
+minimum safety evaluation requirements of the study and/or who have experienced a DLT at any time 
+during the initial 28 days (2 cycles) of the study (Section 11.1 of the protocol). Minimum safety 
+requirements will be met if, during the first 2 cycles of treatment the patient receives at least 75% of 
+planned total doses of RP-6306 for the evaluated schedule, 100% of planned doses of FOLFIRI, 
+completes all required safety evaluations per Schedule of Assessments (Section 12.1 of the protocol), and 
+are observed at least until Day 28 since the first dose of study treatment. Thus, the possible total number 
+per module may be slightly higher at 40 patients (approximately +10%; 80 total patients). Depending on 
+the toxicity profile of the combination and the number of dose levels required to establish the 
+MTD/RP2D, the actual study sample size may vary. Approximately, an additional 24 patients will be 
+planned for backfill cohorts. 
+4. 
+ANALYSIS POPULATIONS 
+4.1. 
+ DLT Evaluable Population 
+DLT Evaluable Population will consist of patients who have met the minimum safety evaluation 
+requirements of the study and/or who experience a DLT at any time during the first two cycles (28 days) 
+of the study. Minimum safety requirements will be met if, during the first 2 cycles of treatment, the 
+patient receives at least 75% of planned total doses of RP-6306 for the evaluated schedule, 100% of 
+planned doses of FOLFIRI, completes all required safety evaluations per the Schedule of Assessments 
+(refer to Section 12.1 of the protocol), and is observed at least until Day 28 since the first dose of study 
+treatment. 
+4.2. 
+Efficacy Population  
+The Efficacy Population, used for the assessment of efficacy, will consist of all patients who receive at 
+least 1 dose of study treatment and had at least 1 post‑baseline tumor assessment based on RECIST v1.1 
+or without post-baseline tumor assessment but discontinued the treatment due to clinical progression or 
+death prior to any post-baseline tumor assessment, and have local confirmation of their genomic 
+alterations.  
+4.3. 
+Safety Population 
+The Safety Population, used for the assessment of overall safety and tolerability, will consist of all 
+patients who receive at least one dose of study treatment. Patients will be assessed for safety based on the 
+dose level in which they are enrolled. 
+4.4. 
+Pharmacokinetic Population 
+The Pharmacokinetic Population, used for the assessment of PK endpoints, will consist of all patients 
+who have sufficient RP-6306, irinotecan and/or SN-38 PK concentration data recorded to derive PK 
+endpoints. 
+For all analysis populations, patients will be presented by the initial dose received. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+22 
+ 
+5. 
+DATA AND ANALYSIS CONSIDERATIONS 
+5.1. 
+General Principles 
+All demography and safety data will be presented by the safety population, except for the DLT reporting 
+which will be based on the DLT evaluable population. Assessment of anti-tumor activity will be based 
+on the Efficacy Population and PK data will be presented by the PK Population. 
+Most of the analyses will be descriptive in nature. Unless stated otherwise, continuous variables will be 
+summarized using descriptive statistics (number of patients, mean, standard deviation, median, lower and 
+upper quartile, minimum and maximum values) and the number and percentage of patients will be used 
+for categorical variables. In general, missing data will be considered as missing and will not be imputed. 
+Unless stated otherwise, percentages will be calculated out of the number of patients in the relevant 
+analysis population. 
+Baseline will be the last assessment of the variable under consideration prior to first dose of RP-6306. 
+Unless stated otherwise, safety and efficacy data will be presented by assigned dose/schedule. 
+After determination of RP2D dose(s), safety and efficacy data may also be summarized by grouping dose 
+levels based on RP2D and clinical relevance.  
+All DLT rates will be summarized by the assigned initial dose levels.  
+Summary statistics will be presented to the following degree of precision unless otherwise specified: 
+Degree of Precision 
+Mean, Geometric mean, Median, Quartiles, 
+Confidence limit boundaries 
+One more decimal digit than the raw data. 
+Standard deviation, Standard error 
+Up to 2 more than the raw data  
+Minimum, Maximum 
+The same decimal digit as the raw data. 
+Percentage 
+One decimal place. A percentage of 100% will be reported as 100%. 
+Percentages of zero will be reported as 0. 
+5.2. 
+Study Day and Analysis Visit 
+Study Day will be calculated from the reference start date (defined as the date of first dose of study 
+drug), and will be used to show start/stop day of assessments/events:  
+Study Day = (date of assessments/events - reference start date) if event/assessment is prior to the 
+reference start;   
+Study Day = (date of assessments/events - reference start date + 1) if event/assessment is on or after the 
+reference start. 
+There is no Study Day 0. 
+5.2.1. 
+Analysis Visit  
+Baseline value will be the latest non-missing result obtained on or before the first dose of study 
+treatment. The nominal visits will be used as analysis visits for the purpose of summarizing data over 
+scheduled visit. If visits are clearly defined, no windowing algorithm will be used.  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+23 
+ 
+All recorded data will be included in the listings. 
+5.3. 
+Handling of Missing Data 
+There will be no imputation of incomplete or missing data other than the dates mentioned below. No 
+imputation will be performed for missing data elements for by-patient listings. However, the imputation 
+will be implemented for summary tabulations, when applicable.  
+5.3.1. 
+Missing/Partial Dates in Adverse Events 
+ 
+Missing Data Imputation for Adverse Event Start Dates 
+If the stop date is non-missing and the imputed start date is after the stop date, the stop date will be used 
+as the start date. 
+(1) Missing day only 
+• If the month and year are the same as the month and year of the first dose date, the first dose 
+date will be used. 
+• If the month and year are before the month and year of the first dose date, the last day of the 
+month will be assigned to the missing day. 
+• If the month and year are after the month and year of the first dose date, the first day of the 
+month will be assigned to the missing day. 
+(2) Missing day and month 
+• If the year is the same as the year of the first dose date, the first dose date will be used. 
+• If the year is prior to the year of the first dose date, December 31 will be assigned to the 
+missing fields. 
+• If the year is after the year of the first dose date, January 1st will be assigned to the missing 
+fields. 
+(3) Missing day, month, and year (or only year) 
+• The first dose date will be used. 
+ 
+Missing Data Imputation for Missing Adverse Event Stop Date 
+If the start date is non-missing and the imputed stop date is before the start date, the start date will be 
+used. If the death date is available and the imputed stop date is after the death date, the death date will be 
+used. 
+(1) Missing day only 
+• The last day of the month will be assigned as the missing day. 
+(2) Missing day and month 
+• December 31 will be assigned to the missing fields. 
+(3) Missing day, month, and year (or only year) 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+24 
+ 
+• The event will be regarded as ongoing. 
+ 
+5.3.2. 
+Missing/Partial Dates in Concomitant Medication 
+ 
+Missing Data Imputation for Concomitant Medication Start Dates 
+If the stop date is non-missing and the imputed start date is after the stop date, the stop date will be used 
+as the start date. 
+(1). Missing day only 
+• If the month and year are the same as the month and year of the first dose date, the first dose 
+date will be used. 
+• If the month and year are before the month and year of the first dose date, the last day of the 
+month will be assigned to the missing day. 
+• If the month and year are after the month and year of the first dose date, the first day of the 
+month will be assigned to the missing day. 
+(2). Missing day and month  
+• If the year is the same as the year of the first dose date, the first dose date will be used. 
+• If the year is prior to the year of the first dose date, December 31 will be assigned to the 
+missing fields. 
+• If the year is after the year of the first dose date, January 1st will be assigned to the missing 
+fields. 
+(3). Missing day, month, and year (or only year) 
+• Do not impute. 
+ 
+Missing Data Imputation for Missing Concomitant Medication Stop Date 
+If the start date is non-missing and the imputed stop date is before the start date, the start date will be 
+used. If the death date is available and the imputed stop date is after the death date, the death date will be 
+used. 
+(4) Missing day only 
+• The last day of the month will be assigned as the missing day. 
+(5) Missing day and month 
+• December 31 will be assigned to the missing fields. 
+(6) Missing day, month, and year 
+• Do not impute. 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+25 
+ 
+5.3.3. 
+Missing/Partial Dates during Screening Visit or Prior to Study Treatment 
+The following rules apply to dates recorded during the screening visits (e.g., prior therapies/medications, 
+initial diagnosis): 
+(1) Missing day only 
+• The first day of the month will be used if the year and the month are the same as those for the 
+first dose of study drug. Otherwise, the 15th will be used.  
+(2) Missing day and month 
+• If the year is the same as the year of the first dose of study drug, the 15th of January will be 
+used unless it is later than the first dose, in which case the date of the first of January will be 
+used. 
+• If the year is not the same as the year of the first dose of study drug, the date of the first of 
+July will be used, unless other data indicates that the date is earlier. 
+(3) Missing day, month, and year 
+• No imputation will be applied. 
+If the imputed date is later than the first dose, then the date of the first dose will be used. 
+5.3.4. 
+Missing/Partial Dates in Post-study Anticancer Therapy 
+ 
+Post-study therapy/radiotherapy start date: 
+If the stop date is non-missing and the imputed start date is after the stop date, the stop date will be used 
+as the start date. 
+• If year is missing (or completely missing), do not impute. 
+• If year is present and month and day are missing: 
+− If year is the same as the year of last dose date, impute as the last dose date + 1. 
+− If year is greater than the year of last dose date, impute as January 1st. 
+• If year and day are present and month is missing: 
+− If year is the same as the year of last dose date, and day is not greater than the day of last 
+dose date, impute the month as the month of last dose date + 1.  
+− If year or day is greater than the year or day of last dose date, impute the month as the 
+month of last dose date. 
+• If year and month are present and day is missing: 
+− If year and month are the same as the year and month of last dose date, impute as last dose 
+date + 1. 
+− If year or month is greater than the year or month of last dose date, impute day as first day 
+of the month. 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+26 
+ 
+Post-study therapy/radiotherapy end date: 
+If the start date is non-missing and the imputed stop date is before the start date, the start date will be 
+used. If the death date is available and the imputed stop date is after the death date, the death date will be 
+used. 
+• If year is missing (or completely missing), do not impute. 
+• If (year is present and month and day are missing) or (year and day are present and month 
+is missing, impute as December 31st. 
+• If year and month are present and day is missing, impute day as last day of the month. 
+• If the imputed end date is earlier than the observed/imputed post-study therapy/radiotherapy 
+start date, the end date will be imputed as the same as the start date. 
+ 
+5.3.5. 
+Missing/Partial Last Dose Date 
+Missing/incomplete last dose date from the treatment discontinuation page will be imputed as follows: 
+1. 
+Missing day only 
+• If the treatment discontinuation reason is death, the death date will be used. 
+Else if the last available dosing date from dosing data matches the partial last dose date from the 
+treatment discontinuation page, the last available dosing date will be used. 
+• Else the first day of the month will be used. 
+(2) Missing day and month 
+• If the treatment discontinuation reason is death, the death date will be used. 
+• Else if the last available dosing date from dosing data matches the partial last dose date from 
+the treatment discontinuation page, the last available dosing date will be used. 
+• Else January 1st will be used. 
+(3) Missing day, month and year 
+• If the treatment discontinuation reason is death, the death date will be used. 
+• Else the last available dosing date will be used. 
+The imputed last dose date will be compared to the available study discontinuation date and the data cut 
+off date. Then the earliest date will be used. 
+ 
+5.3.6. 
+Relationship and Severity Imputation Rules for Adverse Events 
+Imputation will not be made for data listings and datasets. Missing severity and relationship will not be 
+imputed. All AEs are expected to have non-missing severity (to toxicity grade) and relationship at the 
+time of database lock.  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+27 
+ 
+6. 
+DISPOSITION, DEVIATIONS AND PATIENT CHARACTERISTIC 
+DATA 
+An overall patient disposition summary will be presented for all subjects to show the number of unique 
+patients who entered the study. 
+In addition, patient disposition will be presented by Module 1a or 1b and by dose/schedule with 
+percentages based on the safety population. The following information will be presented for disposition: 
+• Included in each analysis population (DLT evaluation, safety, Efficacy and PK) 
+• Ongoing/discontinued study treatment at the data cut off 
+− Including reasons for discontinuation of treatment as per the eCRF 
+• Ongoing/withdrawn/completion from study at the data cut off 
+− Including reasons for study termination as per the eCRF 
+Disposition data will be listed for all patients and will include patient status, date of discontinuation from 
+treatment, date of withdrawal from study and reason for treatment discontinuation and study withdrawal. 
+In addition, the number and percentage of subjects by country and site will be summarized. 
+6.1. 
+Protocol Deviations 
+There is no per protocol analysis population defined for this study, therefore patients will not be excluded 
+from the data analysis and reporting based on deviations. 
+Any important deviations discovered during the trial either through the data collected on eCRFs or 
+monitoring visits/reports will be listed and summarized. Deviation data may be exported into the 
+database via third party data such as an excel file used by study monitors to track deviations (e.g., 
+deviations collected via the clinical study management system, CTMS). 
+The following deviations will be considered important deviations: 
+• Patients who entered the study but did not fulfil the entry criteria. 
+• Treatment deviations such as wrong treatment received or incorrect dose during the study. 
+Note, treatment delays or changes due to AE management are not considered  treatment 
+deviations. A review of relevant data may be required to confirm all important deviations in 
+this category. 
+• Patients who received a prohibited concomitant treatment, including prohibited anti- cancer 
+treatments. 
+If a patient has a delay in treatment or misses cycles due to the impact of COVID-19, their eligibility for 
+inclusion in the analysis will be decided on a case-by-case basis prior to database lock. 
+Following review of all reported deviations and associated data and prior to database lock, other 
+important deviation categories may be added. Only important deviations will be listed and summarized if 
+appropriate.  If the number of important deviations are few (<=5 patients), only listing will be provided.   
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+28 
+ 
+6.2. 
+Demographic and Baseline Characteristics 
+Demographics will be summarized by Module 1a or 1b and dose schedule for the safety population. 
+Baseline demographic will include age at informed consent, age group (<65 and ≥65 years),  gender, race, 
+ethnicity, height (cm), weight (kg), BMI (kg/m2). Baseline characteristics will include primary tumor 
+type and ECOG status.  
+6.3. 
+Genotype and Mutation Status at Enrollment 
+The genes and mutation status of patients based on local test at enrollment will be listed and summarized. 
+If a patient tests positive for more than one mutation/gene, the patient will be listed under the mixture of 
+mutation/gene category for the baseline summary.  
+6.4. 
+Disease Characteristics 
+The following disease characteristics will be summarized based on the Safety Population: 
+Disease History: 
+• Time since initial diagnosis (in years) 
+• Time since presentation of metastatic disease  
+• Primary tumor type 
+• Histology and grade of disease at diagnosis 
+ 
+Prior Anti-Cancer Therapy: 
+• Number of prior lines of treatment 
+• Prior irinotecan use 
+• Prior use of platinum containing regimen   
+• Information on last prior anticancer therapy: 
+− Reason for administration (adjuvant, neoadjuvant, advanced/metastatic, etc.) 
+− Best response   
+− Disease progression (yes, no) 
+− Time since end of last treatment in months 
+− Duration of last treatment 
+− Reason for end of regimen 
+6.5. 
+Medical History 
+Medical history will be coded using the latest version of Medical Dictionary for Regulatory Activities 
+(MedDRA) and will be summarized for the Safety Population, using System Organ Class (SOC) and 
+preferred term (PT). The table will include the number and percentage of subjects and will be sorted in 
+alphabetical order by SOC and PT. A subject will only be counted once within a class. A listing of 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+29 
+ 
+medical and surgical history will also be provided. In particular, cancer related medical history will be 
+summarized by SOC and PT. 
+6.6. 
+Prior and Concomitant Medications 
+Prior and concomitant medications will be coded using the World Health Organization (WHO) Drug 
+Dictionary. The number and percentage of patients will be tabulated by WHO drug generic term for the 
+Safety Population.  
+All prior and concomitant procedures (including transfusions) will be recorded from the Screening 
+through to the EOT visit. 
+Prior medications will include medications which started prior to the date of first dose of study treatment. 
+A summary table will present the numbers and percentages of patients who received prior therapy, 
+including prior systemic anticancer therapy, prior radiation, prior surgery, and best response to the prior 
+therapy, if known. Concomitant medications will include medications which started or were ongoing at 
+the date of first dose of study treatment through to 30 days after the last dose of study treatment, or to the 
+start of subsequent anticancer therapy, whichever occurs first. For Concomitant medications (including 
+transfusions), the generic name of the drug (or trade name for combination drugs) must be specified 
+along with the reason for use, and duration of treatment. 
+The number of patients with a transfusion, reason for transfusion and type of transfusion will be provided 
+in a listing.  
+Details of prohibited concomitant medications are provided in the protocol. To determine prohibited 
+medications programmatically, a coded list of all prohibited medications will be provided by clinical 
+team. Listings of prior and concomitant medications will display a flag for prohibited medications. This 
+information will be used to identify protocol deviations. 
+7. 
+SAFETY AND EXPOSURE DATA 
+Safety and tolerability will be assessed in terms of AEs, TEAEs, SAEs, DLTs, concomitant medications, 
+PEs, vital sign measurements, clinical safety laboratory evaluations (hematology, serum chemistry, and 
+urinalysis), ECOG performance scores, and ECGs including QTc. 
+Toxicity will be assessed using the National Cancer Institute (NCI) Common Terminology Criteria for 
+Adverse Events (CTCAE) Version 5.0 unless otherwise specified. A toxicity will be considered dose-
+limiting if it occurs during the first 28 days, it is deemed to be related to treatment and it meets the 
+criteria defined in Appendix 1. The DLT Evaluable Population will be used as the analysis set during 
+dose escalation to make dose decisions in determining the MTD. By-subject listings will be provided for 
+DLTs (Cycle 2) using DLT Evaluable Population. 
+DLTs will be identified from the AE eCRF where the AE is selected as a DLT. All AEs reported as 
+DLTs on the eCRF will be included even if they were not considered DLTs by the Safety Review 
+Committee (SRC) during the study reviews.  
+The MTD for this study will be defined as the highest dose with the toxicity probability (DLT rate) 
+<25%. The BOIN drug combination design will be employed to find the MTD of continuous RP-6306 
+(Module 1a) or intermittent RP-6306 (Module 1b) in combination with FOLFIRI. Module 1a and 1b will 
+be evaluated separately based on target toxicity rate is 25%. Simulations confirm that with this study 
+design, defining the MTD this way is equivalent to using an isotonic regression with a descending pooled 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+30 
+ 
+adjacent violators algorithm, which is the recommended method in the publication for BOIN study 
+designs (Yuan et al., 2016). 
+7.1. 
+Adverse Events 
+Adverse events (AEs) will be coded using the Medical Dictionary for Regulatory Activities (MedDRA) 
+version 26.0 or more recent version (at the time of database lock) and graded according to NCI-CTCAE 
+version 5. All laboratory test results will be classified for toxicity grade according to the NCI-CTCAE 
+version 5 criteria. 
+DLTs will be listed and summarized based on the DLT Evaluable Population.  
+Treatment emergent adverse events (TEAEs) are those events that occur or worsen on or after the first 
+dose of study drug up through 30 days post the last dose. Those events occurred after start of subsequent 
+anticancer therapy will be excluded.    
+An overview summary table of the number and percentage of patients in each of the categories listed 
+below will be presented. This summary will be presented based on all patients in the study (overall 
+summary to summarize unique patients) and then repeated split by module 1a or 1b and dose/schedule 
+(see Section 5.1 for general presentation format). 
+• All TEAEs 
+• Treatment related TEAEs (related to either study drug) 
+• DLTs 
+• TEAEs with ≥ CTCAE Grade 3 
+• Treatment-related TEAEs with ≥ CTCAE Grade 3 (related to either study drug) 
+• Serious TEAEs 
+• Treatment-related serious TEAEs (related to either study drug) 
+• TEAEs with outcome of death 
+• TEAEs leading to discontinuation of study treatment 
+• TEAEs leading to dose modification (i.e., dose reduced or dose interrupted) of study treatment 
+TEAEs will be summarized by system organ class (SOC), preferred term (PT), and by NCI CTCAE 
+toxicity grade (where applicable). For summary tables, an AE that occurs more than once within a SOC 
+and/or PT for the same patient will be counted only once using the worst NCI toxicity grade experienced. 
+Number and percentage of participants with TEAEs will also be presented by PT only. This summary 
+will be sorted in decreasing order of frequency based on overall safety population. 
+For the summary tables related to toxicity grades, if there are two or more TEAEs (or AEs) with same 
+SOC or PT and different toxicity CTCAE grades for the same subject, only the maximum toxicity grade 
+of AE be counted. 
+Data listing will be provided for all TEAEs, TEAEs with ≥ CTCAE Grade 3 and serious TEAEs. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+31 
+ 
+An AE table of most frequently occurring TEAEs, showing all events in at least 5% of patients, will be 
+summarized by preferred term, by decreasing frequency based on all patients. This cut-off may be 
+modified after review of the data.  
+TEAEs with outcome of death, leading to discontinuation of study treatment or leading to dose reduction, 
+dose interruption or discontinuation of study treatment will be summarized by preferred term. 
+Corresponding listings will be provided.  If the number of occurrences is low (e.g., when ≤ 5 patients 
+involved), only listing will be provided. If necessary, tabulated by preferred term depending on the 
+number of TEAEs reported for those categories. 
+For patients who have a dose modification, all AEs (due to drug or otherwise) will be assigned to the 
+initial dose group for summarizing. Any AE occurring before the first dose of study treatment will be 
+included in the data listings but will not be included in the summary tables of AEs.  
+Summary tables will include only treatment-emergent adverse events (TEAEs). Non-TEAEs will be 
+listed but will not be included in the summaries. Note that those events with onset after start of 
+subsequent anticancer therapy will be excluded from the TEAE summary. 
+Pooled rash will include preferred terms of Rash Maculo-popular, Pruritis, Rash, Skin Exfoliation, 
+Erythema, Dermatitis Contact, Eczema, Flushing, Rash Erythematous, and Rash Pruritic.   
+A listing of all deaths and causes of deaths will be provided. 
+ 
+7.2. 
+Treatment Exposure 
+Exposure will be derived for RP-6306 and FOLFIRI respectively. 
+Duration of Exposure for each drug RP6306 and FOLFIRI will be defined as the duration between the 
+first and last doses of respective study drug 
+• Duration of RP6306 exposure = last dose date - first dose date + 1. 
+• Duration of FOLFIRI exposure = last infusion date - first infusion date + 14,  due to 2 week 
+infusion cycle 
+ 
+Overall duration of treatment for the study regimen is defined as Date of Treatment Discontinuation 
+(from EOT page in the CRF) – first dose date +1. If treatment is still ongoing, use cut off date. If Date of 
+Treatment Discontinuation is not collected, use the duration of exposure calculated above (take the 
+longer of the either drugs).. 
+The last dose date will be obtained from the end of treatment (EOT) CRF page for each study drug. 
+Number of days dosed will be derived as the number of days a patient received a dose of each study drug 
+(i.e., excludes off treatment days and any missed doses). 
+ 
+Dose intensity for RP-6306 will be derived as: 
+Dose intensity = (total dose received/total planned dose)*100%  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+32 
+ 
+Total dose received (mg) for RP6306 is the sum of total doses (mg) received. If a patient had a dose 
+reduction/change during treatment, then the total dose received will be calculated for each actual dose 
+received and then summed to give the total dose received. 
+Total dose received: ∑
+ number of days dosed at dose 𝑥𝑥𝑖𝑖∗𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 𝑥𝑥𝑖𝑖 
+𝑘𝑘
+𝑖𝑖=0
+ 
+for i = 1 to k where i represents the number of dose levels received and k = number of distinct dose levels 
+Total planned dose for RP6306 will be derived as initial assigned dose a patient will receive without any 
+interruptions or reductions based on the time-period between the date of first dose and date of last dose 
+after excluding days when dosing information is not available, accounting for the number of treatment 
+days per week. This is assuming the days without dosing information is missing at random. 
+A dose interruption will be defined as a planned interruption where a decision is made to interrupt the 
+dose temporarily, usually due to AE reason. Dose interruptions will be captured on the eCRF. 
+A dose reduction is any reduction prescribed by PI in dose/schedule compared to the initial dose. 
+Patients who do not have an end of treatment date in the eCRF at the time of analysis and reporting will 
+be considered ongoing treatment. For deriving exposure, ongoing patients will be assumed to be ongoing 
+at the date of the data cut off and therefore the data cutoff date will be used to derive exposure. 
+Exposure for RP6306 will be listed and summarized by the Safety Population and presented by module 
+1a and 1b and dose/schedule. 
+The following will be presented for RP-6306 (if applicable) 
+• Duration of exposure (days) 
+• Number and % of patients with at least 1 cycle, with at least 2 cycles...etc (up to at least 5 
+cycles). 
+• Number of cycles treated (completed) 
+• Total dose received (mg) 
+• Dose intensity based on initial planned dose (%)    
+• Number and % of patients with at least one dose interruption reported in dosing log by 
+considering only those incidences when AE is indicated as a reason 
+− Further broken down by number with 1, 2 or ≥ 3 interruptions 
+• Number and % of patients with at least one dose reduction (include dose reduction as a result 
+of schedule change with less dose intensity) reported in dosing log considering only those 
+incidences when AE is indicated as a reason 
+− Further broken down by number with 1, 2 or ≥ 3 reductions 
+• Number of patients with any dose escalation per protocol  
+Patients with both an interruption and reduction will be included in both the interruption and  reduction 
+summaries.  
+The following will be presented for FOLFIRI. 
+• Duration of exposure (days) 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+33 
+ 
+• Number of infusions received  
+7.3. 
+Laboratory Evaluations 
+All laboratory data recorded in the eCRF will be listed. Out-of-reference range values will be flagged as 
+high (H) or low (L) in the listings. The results in standard unit will be used in the summary tables. 
+Box plots for percent changes from baseline over time for lab parameters will be produced by for all 
+treated patients, based on the safety population and the number of patients with data at the relevant 
+timepoints from selected lab tests. Sample size for each timepoint will be displayed. Summary tables of 
+actual and change from baseline from all the numerical lab tests will be provided. 
+Selected laboratory assessments (hemoglobin, neutrophils, white blood cells [WBC], platelets, ALT, 
+AST, BUN, total bilirubin, and creatinine) will be also presented in shift tables showing baseline grade 
+vs. maximum grade on study for lab assessment with CTCAE grading, based on all post-baseline data 
+including unscheduled assessments. The denominator for each on-treatment maximum grade is the total 
+number of patients in the corresponding row for baseline grade (i.e., the baseline row totals). The shift 
+from baseline to worst value will be summarized. 
+For lab assessments which do not have CTCAE grading these will be categorized as low/normal/high 
+based on reference ranges and shift tables will present baseline versus worst value on study. 
+If worst criteria could be a low or a high value or an increase or decrease (i.e., in both directions) then 
+shift tables should be split to show shift from baseline to worst low/decrease value and then repeated for 
+worst high/increase value. For example, CTCAE grade criteria is given for both lymphocytes count 
+increased and lymphocyte count decreased. 
+Table 3: 
+Clinical Safety Laboratory Analytes from the Protocol 
+Hematology 
+Serum Chemistry 
+Urinalysis 
+• White blood cell count with 
+differential (including at 
+minimum: neutrophils, 
+basophils, eosinophils, 
+lymphocytes, monocytes) 
+• RBC count 
+• Hemoglobin 
+• Hematocrit 
+• Platelet count 
+• Albumin 
+• Alkaline phosphatase 
+• ALT 
+• AST 
+• BUN and/or urea 
+• Calcium 
+• Chloride 
+• Creatinine 
+• Glucose 
+• Lactate dehydrogenase 
+• Phosphate or phosphorus 
+• Potassium 
+• Sodium 
+• Magnesium 
+• Total bilirubin 
+• Specific gravity 
+• Leukocyte esterase 
+• Ketones 
+• Protein 
+• Glucose 
+• Nitrite 
+• Occult blood 
+• Microscopy (if clinically 
+indicated) 
+• 
+pH 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+34 
+ 
+Hematology 
+Serum Chemistry 
+Urinalysis 
+• Direct bilirubin 
+• Total protein 
+• Uric acid 
+Abbreviations: ALT = alanine aminotransferase; AST = aspartate aminotransferase; BUN = blood urea nitrogen 
+ 
+Post-baseline liver function tests including unscheduled assessments will be summarized in the following 
+categories in Safety Population. Corresponding listing will be produced to assess clinical relevance of 
+these events (some maybe due to underlying disease): 
+• AST > 3 × ULN or 3 × Baseline (if baseline value is >ULN) 
+• ALT > 3 × ULN or 3 × Baseline (if baseline value is >ULN) 
+• ALP > 3 × ULN or 3 × Baseline (if baseline value is >ULN) 
+• Total bilirubin > 2 × ULN 
+ 
+7.4. 
+Vital Signs and Abnormalities 
+Descriptive statistics of pulse/heart rate, blood pressure (systolic and diastolic) (sitting/semi- recumbent), 
+weight, and body temperature values will be summarized at baseline and post baseline visits, and 
+changes from baseline will be summarized for post baseline visits based on the Safety Population. A 
+separate listing will include all the vital sign measurements, including those from the unscheduled visits.   
+The following post-baseline vital signs will be summarized based on the Safety Population: 
+• Maximum post-baseline in SBP: 
+− No increase 
+− Increase < 20 mmHg 
+− Increase ≥ 20 mmHg 
+− 
+≥ 160 mmHg and increase ≥ 20 mmHg 
+• Maximum post-baseline in DBP: 
+− No increase 
+− Increase < 20 mmHg 
+− Increase ≥ 20 mmHg 
+− 
+≥ 100 mmHg and increase ≥ 20 mmHg 
+For the number of subjects meeting each category for the post-baseline results or for the change from, the 
+numerator is the number of subjects with meeting the criterion at any post-baseline including the 
+unscheduled, and the denominator is the number of subjects with normal baseline and at least one post 
+baseline assessment including unscheduled visits in the Safety Population.  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+35 
+ 
+A listing for patients with any post-baseline potentially clinically significant changes listed above will be 
+also presented. 
+Box plots for percent changes from baseline over time will be produced by combining module 1a and 1b 
+based on the Safety Population and the number of patients with data at the relevant timepoints. 
+ 
+7.5. 
+12-lead ECG 
+Descriptive statistics (n, mean, SD, median, minimum, and maximum) of ECG parameters, including PR 
+interval, RR interval, QRS duration, QT interval, and QTcF interval (Fridericia’s corrections) will be 
+presented for baseline, each post-baseline visit, and change from baseline to each post baseline visit for 
+Safety Population. All measurements, including those during unscheduled visits, will be provided in data 
+listings, but only the scheduled measurements will be included in the by-visit summary. The average of 
+triplicate 12-lead ECG results will be used for descriptive statistics. 
+Overall ECG interpretation category (normal, abnormal NCS (not clinically significant), abnormal CS 
+(clinically significant), and not evaluable) is collected in the CRF at baseline and each scheduled 
+post-baseline visit. Shifts in ECG interpretation at baseline to worst post baseline will be presented. For 
+triplicate 12-lead ECG results collected at a visit, the average of triplicate 12-lead ECG results will be 
+used as the interpretation at baseline as well as post-baseline.  
+The QTcF will be categorized into the following categories. 
+• QTc interval >450 msec and ≤480 msec 
+• QTc interval >480 msec and ≤500 msec 
+• QTc interval >500 msec 
+The change from baseline in QTcF will also be categorized separately as follows: 
+•  QTc interval increases from baseline by >30 msec and ≤60 msec 
+•  QTc interval increases from baseline by >60 msec 
+For the number of subjects meeting each category for the post-baseline results, the numerator is the 
+number of subjects with meeting the criterion at any post-baseline including unscheduled visits and the 
+denominator is the number of subjects with normal baseline and at least one post baseline assessment 
+including unscheduled visits in the Safety Population. For the number of subjects meeting each category 
+for the change at post-baseline from baseline, the numerator is the number of subjects with meeting the 
+criterion at post-baseline and the denominator is the number of subjects with baseline and at least one 
+post baseline assessment in the Safety Population.  
+Box plots for absolute and pchange from baseline for QTcF will be produced by combining module 
+based on the Safety Population and the number of patients with data at the relevant timepoints. All ECG 
+parameters will be listed in a data listing. All ECG tables and listings will be reported on the safety 
+analysis set.   
+A separate analysis on correlation between exposure and QTc will be performed as part of the population 
+PK/ER analysis (outside the scope of this SAP).   
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+36 
+ 
+7.6. 
+ Physical Examination and ECOG Performance Status 
+Abnormalities identified from physical examination will be listed for the safety analysis set. 
+Shift table of baseline ECOG performance to worst post-baseline status will be summarized as the 
+number and % of patients in each ECOG category based on the Safety Population.  
+Any change in PE findings assessed as clinically significant should be recorded as an AE or SAE. 
+8. 
+EFFICACY DATA 
+The efficacy analysis will be summarized by dose combination. Data from the backfill cohorts will be 
+pooled with patients from the Dose Finding Phase that were treated at the RP2D (a minimum of 6 
+patients are expected to be treated at the RP2D during dose finding) when applicable. 
+Efficacy data will be summarized using the Efficacy Population. 
+8.1. 
+Derivation of Efficacy Endpoints 
+8.1.1. 
+Best Percentage Change in Tumor Size 
+Best percentage change in tumor size is defined as the largest decrease or smallest increase (in the 
+absence of a decrease) in the sum of diameters of the TLs prior to progression or last evaluable 
+assessment in the absence of progression.  
+• If a patient receives another anti-cancer therapy prior to progression, then data up until the 
+least evaluable TL assessment prior to the start of subsequent therapy will be included 
+• If a patient does not have any evaluable post-treatment TL assessments to allow a derivation 
+of best percentage change from baseline, they will be excluded from analysis 
+8.1.2. 
+Objective Response Rate (ORR) 
+Objective Response Rate (ORR) is defined as the proportion of patients with a confirmed response of CR 
+or PR (i.e., 2 visit responses of either CR or PR at least 4 weeks apart) according to RECIST v1.1 
+criteria. This analysis will be limited to patients with measurable disease.   
+• Response will be assessed based on all evaluable assessments up to and including progression 
+per RECIST v1.1. Responses occurring following subsequent anti-cancer therapy will be 
+excluded from the assessment of ORR but will be included in the listing. 
+8.1.3. 
+Best Overall Response Rate 
+Best Overall Response Rate is defined as the proportion of patients with confirmed or unconfirmed 
+response of CR or PR based on best overall response by investigators across all visits. Unconfirmed CR 
+or PR will be defined as those patients with CR or PR only reported once in overall tumor assessment 
+form by the Investigators according to RECIST 1.1. 
+Note that the unconfirmed CR or PR (assessed by investigator) is added as a response criterion in 
+addition to protocol defined confirmed CR or PR, to identify signal of anti-tumor activity for the 
+treatment. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+37 
+ 
+8.1.4. 
+Clinical Benefit Rate (CBR) 
+CBR is defined as the proportion of patients with a best overall response of CR or PR according to 
+RECIST v1.1 based on Investigator’s assessment or duration on treatment of at least 16 weeks without 
+evidence of progression. 
+CBR will be defined for patients in efficacy population only.  
+8.1.5. 
+Duration of Response (DOR) 
+Duration of Response (DOR) will be derived for patients with a confirmed CR or PR only. DOR is 
+defined as the time from the date of the earliest qualifying response (CR or PR) to the date of disease 
+progression or death for any cause, whichever occurs earlier. Note, the end of response should coincide 
+with the date of progression or death from any cause used for the PFS endpoint. 
+Given responses are required to be confirmed, the date of earliest qualifying response is the latest date 
+for the visit where the initial overall visit assessment of CR/PR was observed rather than the 
+confirmation visit assessment. 
+For patients who are alive without disease progression following response, DOR will be censored on the 
+date of the last evaluable tumor assessment, last follow-up for disease progression, or data cut-off date, 
+whichever occurs first. Handling of death without PD will be similar to PFS.   
+Table 4 gives the details rules of defining censoring/event for DOR. 
+Table 4: 
+Censoring rule for Duration of Response (DOR) based on radiographical tumor 
+assessment or death 
+Situation 
+Date of Censoring or 
+Date of Event 
+DOR (weeks) 
+Censor 
+Documented disease 
+progression (PD) before 
+data cutoff date 
+Date of first PD 
+(Date of first PD – Date of first PR/CR + 1)/7 
+0 
+No PD, but death date 
+before data cutoff date, 
+or death date within 12 
+weeks after last adequate 
+tumor assessment 
+Date of death  
+(Date of death – Date of first PR/CR + 1)/7 
+0 
+No PD and no death 
+before data cutoff date, 
+or death date beyond 12 
+weeks after last adequate 
+tumor assessment 
+Date of last adequate 
+tumor assessmenta before 
+data cutoff  
+(Date of last adequate tumor assessmenta – Date 
+of first PR/CR + 1)/7 
+1 
+a Adequate disease assessment is defined as a response assessment other than “not assessed” or “not evaluable.”  
+ 
+8.1.6. 
+Categorization of Best Tumor Response  
+For supportive information, the following confirmed best response categories will be derived for all 
+patients with at least one post-baseline tumor assessment: 
+• Complete Response (CR): 2 visit responses of CR at least 4 weeks apart. 
+• Partial Response (PR): 2 visit responses of PR at least 4 weeks apart. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+38 
+ 
+• Stable Disease (SD): If not confirmed CR/PR, at least one visit response of SD (or better i.e., 
+unconfirmed CR/PR) recorded at least 6 weeks after the date of first dose of study drug. 
+− To allow for the protocol window of ± 7 days, an overall assessment of SD on or after day 
+35 (i.e., 5 weeks) will be regarded as stable disease. 
+• Progressive Disease (PD): If not CR/PR/SD, and with at least one response of disease 
+progression 
+• Not-Evaluable (NE): No evidence of CR, PR, SD, or PD. Either by default or the only visit 
+response recorded is ‘NE’. 
+8.1.7. 
+Change in Tumor Size 
+The percent change in target lesions (TL) size compared to baseline will be derived at each visit as: 
+• Percent change in TL at Visit X = [(Visit X TL sum of diameters – Baseline TL sum of 
+diameters)/Baseline TL sum of diameters] *100 
+The best percent change will be derived as the largest decrease or smallest increase (in the absence of a 
+decrease) up to and including progression or last evaluable assessment in the absence of progression. If a 
+patient receives another anti-cancer therapy prior to progression, then data up until the last evaluable TL 
+assessment prior to the start of subsequent therapy will be included.   
+Note that only TLs matched with baseline will be used for calculation of percent change.  
+8.1.8. 
+Progression Free Survival (PFS) 
+Progression-Free Survival (PFS) is defined as the time from the first day of study drug administration 
+(Day 1) to disease progression as defined by RECIST v1.1 criteria or death from any cause.  
+TL, NTL and new lesion assessments may be performed on different dates. The following rules will be 
+applied for determine progression and censoring dates: 
+Date of progression will be determined based on the earliest of the dates of the component that triggered 
+the progression. For example, if progression was due to a new lesion only then the date of the new 
+lesions would be used. If progression was due to TLs and a new lesion, then the earliest of the TL and 
+new lesion dates would be used. 
+Patients who are alive and free from disease progression will be censored at the date of their last 
+evaluable tumor assessment prior to or equal to the data cut off date. 
+Any patient who dies in the absence of progression after 2 or more missed assessments will be censored 
+at the date of their last radiographic tumor assessment. Specifically, if the death date is >12 weeks from 
+the last tumor assessment, the death date will not be used for the calculation of PFS. 
+If a patient has no baseline tumor assessment/no post dose tumor assessments then they will be censored 
+at 0 days for PFS, unless they died within 12 weeks from the date of first dose (and also before cut-off), 
+in which case their death date will be used as a PFS event. 
+Table 5 gives the details rules of defining censoring/event for PFS. 
+PFS at 6 months will be reported based on KM methods as the number and % of patients estimated to be 
+progression free at 6 months. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+39 
+ 
+Table 5: 
+Censoring Rule for time-to-event analyses (PFS) based on radiographical tumor 
+assessment or death 
+Situation 
+Date of Censoring or Date of 
+Event 
+Censor 
+Documented disease progression (PD) before data cutoff 
+Date of first PD 
+0  
+No PD, but death date is within 12 weeks from the last adequate post-
+baseline assessmenta 
+Date of death  
+ 
+0 
+No PD, no post-baseline assessment, and death date is within 12 
+weeks from the date of first dose 
+Date of death 
+0 
+No PD, no post-baseline assessmenta, and death date > 12 weeks from 
+the date of first dose 
+Date of the first dose 
+1 
+No PD, no post-baseline assessmenta, and no death  
+Date of the first dose 
+1 
+No PD, Death date > 12 weeks from the last adequate post-baseline 
+assessmenta (e.g., 2 or more consecutive missed scheduled disease 
+status assessments and the gap > 12 weeks) 
+Date of last adequate tumor 
+assessmenta    
+1 
+No PD or death, but with last adequate assessmenta before data cut off  Date of last adequate tumor 
+assessmenta   
+1 
+a Adequate disease assessment is defined as a response assessment other than “not assessed” or “not evaluable.”  
+ 
+This Censoring Rule is used for the data after implementation of data cut off. 
+ 
+8.2. 
+Efficacy Analysis Methods 
+For overall response rate, ORR, and CBR, the number and percentage of patients along with an exact 
+binomial 95% confidence interval (CI), using the Clopper-Pearson method, will be presented. 
+In general, summary of all efficacy endpoints will be provided by dose level separately for Module 1a 
+and 1b patients.  
+The assessment of tumor efficacy will be based on the measurements recorded by the investigator. 
+A summary of the best objective response will be presented which will include the number and 
+percentage of patients with a best response of CR, PR, SD, PD and NE. 
+Time-to-event endpoints (PFS) will be analyzed using the KM method and results will be summarized 
+by the 25th, 50th and 75th percentiles, if estimable, with associated 2-sided 95% CIs. KM plots will be 
+provided. For PFS, the number (%) of patients with an event and the number (%) of patients censored 
+will also be presented. The rate of PFS at 16 weeks and 24 weeks will be derived from the corresponding 
+Kaplan-Meier curves. The KM analyses for DOR may be replaced by descriptive summary of median, 
+and quartiles with individual listing for responders if total confirmed responders are few and less than 5 
+patients.   
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+40 
+ 
+Maximum reduction in tumor size will be summarized by n, mean, standard deviation, median, 25th 
+quartile and 75th quartile, minimum and maximum. The spider plots displaying change in tumor size over 
+time for each patient will also be provided for each module and dose/schedule group as described above. 
+In addition, waterfall plots showing the best percentage change from baseline (largest decrease or smallest 
+increase in the absence of a decrease) in the sum of the TL sizes will be produced for each module by 
+dose/schedule group indicating each patient’ best objective response. 
+Swimmer plots will be produced for each module and dose/schedule group to show the duration of study 
+treatment per patient with indicators for timing of response, progression or death, where applicable. 
+9. 
+PHARMACOKINETIC (PK) PARAMETERS DATA 
+All PK data will be presented based on the Pharmacokinetic Population and presented by module 1a or 
+1b and dose/schedule.  
+PK parameters for RP-6306, irinotecan and SN-38 will be calculated using noncompartmental analysis 
+(NCA) or population PK modeling. In summaries of raw concentration data, plasma concentration that 
+falls below the lower limit of quantitation (BLQ) will be treated as zero in data tabulation. In individual 
+PK parameter estimation, BLQ plasma concentrations will be treated as zero if the value preceded Tmax. 
+BLQ plasma concentrations will be treated as missing if the value occurs after Tmax. All BLQ 
+concentration values will be listed as reported. 
+PK concentrations and parameters will be listed for all patients in the PK population.  
+Individual patient and mean plasma concentration-time profiles will be plotted on linear and semi-
+logarithmic scales for each cohort and dose/schedule. 
+The following summary statistics will be presented for AUC0-last, Cmax, Tmax, terminal elimination rate 
+constant (Kel), and terminal elimination half-life (t½) for RP-6306, irinotecan and SN-38. AUC0-8h, 
+AUC0-24h (for QD dosing), AUC0--12h (for BID dosing) will be calculated for RP-6306 only.  Other 
+parameters maybe calculated to support the development of RP-6306. The PK parameters will be 
+calculated using Phoenix WinNonlin version 8.3 or higher (Certara USA, Inc., Princeton, NJ) or other 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+41 
+ 
+appropriate software as appropriate. Default reporting in text and tables is 3 significant figures except for 
+time related parameters (t1/2, and Tmax). Time related parameters will be reported to two decimal places. 
+PK parameters for RP-6306, irinotecan and SN-38 will be derived using non-compartmental methods 
+from the concentration--time profiles as follows: 
+Table 6: 
+Derivation of Pharmacokinetic Parameters Prior to Analysis 
+Parameter 
+Definition 
+Method of Determination 
+Cmax 
+Maximum observed concentration within the 
+dosing interval 
+Observed directly from data 
+tmax 
+Time to Cmax 
+Observed directly from data as time of first 
+occurrence 
+AUC0-last  
+Area under the plasma concentration-time curve 
+from time 0 to t (“t” being the longest time interval 
+evaluable in all periods) 
+Linear up/Log down method 
+AUC0-8h 
+Area under the plasma concentration-time curve 
+from time 0 to 8 hours post dose 
+Linear up/Log down trapezoidal method 
+AUC0-12h 
+Area under the plasma concentration-time curve 
+from time 0 to 12 hours post dose 
+Linear up/Log down trapezoidal method 
+AUC0-24h 
+Area under the plasma concentration-time curve 
+from time 0 to 24 hours post dose 
+Linear up/Log down trapezoidal method 
+t½ 
+Elimination half-life 
+Ln (2)/kel, where kel is the terminal phase rate 
+constant calculated by a linear regression of the 
+log-linear concentration-time curve 
+PK parameters will not be calculated for profiles with less than three quantifiable concentrations. Actual 
+PK sampling times will be used in the derivation of PK parameters. 
+For PK parameters on the respective cycles and days appropriate to a given dose and schedule, the 
+following will be calculated: 
+• The geometric mean (gmean, calculated as exp [μ], where μ is the mean of the data on a 
+logarithmic scale). 
+• Coefficient of variation (CV, calculated as CV =100*SD/mean], where SD is the standard 
+deviation of the untransformed data).]). 
+• Geometric Coefficient of Variation calculated using log transformed data (Geom CV) 
+• Arithmetic mean calculated using untransformed data. 
+• Standard Deviation (SD) calculated using untransformed data. 
+• Minimum. 
+• Median. 
+• Maximum. 
+• Number of observations (n). 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+42 
+ 
+Tmax will be summarized as median, minimum, maximum and number of observations (n).  -For summary 
+statistics and summary plots by sampling time, the nominal PK sampling time will be used, for individual 
+patient plots by time, the actual PK sampling time will be used. 
+Given that no formal hypothesis testing is being undertaken for this module, no statistical  inference will 
+be made. 
+ 
+9.1. 
+Population PK/PD Modelling 
+The population PK/PD and exposure-response analyses will be developed and reported separately from 
+the CSR. Exploratory analysis of the population PK and biomarker changes may also be performed and 
+also reported separately from the CSR. In addition, population PK and PK/PD modelling will be 
+addressed outside of the SAP.  
+11. 
+INTERIM ANALYSIS 
+No interim analysis is planned for this study. 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+43 
+ 
+12. 
+REFERENCES 
+Eisenhauer EA, Therasse P, Bogaerts J, Schwart LH, Ford R, Dancey J, Arbuck S, et al. New response 
+evaluation criteria in solid tumors: revised RECIST guideline (version 1.1). Eur J Cancer. 2009; 
+45(2):228-47. 
+Liu S, Yuan Y. Bayesian optimal interval designs for phase I clinical trials. Appl Statist. 
+2015;64(3):507-523. 
+Yuan Y, Hess KR, Hilsenbeck SG, Gilbert MR. Bayesian Optimal Interval Design: A Simple and 
+Well-Performing Design for Phase I Oncology Trials. Clin Cancer Res. 2016;22(17):4291-301 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+44 
+ 
+APPENDIX 1. DEFINITION OF DOSE LIMITING TOXICITY (DLT) 
+DLTs are defined as follows: 
+Hematologic AEs: 
+• Grade 4 neutropenia lasting at least 7 days or if G-CSF or GM-CSF is given at any time  
+• Febrile neutropenia (defined as absolute neutrophil count [ANC] < 1000/ mm3 with a single 
+temperature of ≥38.3○C[101○F] or a sustained temperature of ≥38○C[100.4○F] for > 1 hour) 
+• Grade 4 thrombocytopenia, or Grade 3 thrombocytopenia associated with Grade ≥2 bleeding 
+• Grade 4 anemia, or Grade 3 anemia requiring red blood cell (RBC) transfusion per local 
+hospital guidelines  
+Note: The use of transfusions and hematopoietic growth factors, including thrombopoietin analogues, 
+will be part of the DLT definition if such intervention is required.  
+Non-hematologic AEs: 
+ 
+• Grade ≥3 nausea/vomiting/diarrhea that lasts >3 days despite optimal supportive care  
+• Any Grade 3 treatment-related TEAE of >24-hour duration  
+• Any Grade 4 treatment-related TEAE of any duration  
+ 
+The following events will not be considered a DLT: 
+• Grade >=3 non-hematologic laboratory abnormalities that are not considered clinically 
+relevant in the opinion of the investigator or respond to medical intervention  
+• Grade 3 fatigue with duration <7 days and resolved to Grade ≤2, unless it recurs within the 
+first cycle and is considered drug-related by the Investigator  
+• Grade >=3 nausea/vomiting/diarrhea that has not been treated with optimal supportive care 
+ 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+45 
+ 
+APPENDIX 2. GYNECOLOGICAL CANCER INTERGROUP 
+DEFINITIONS FOR RESPONSE AND PROGRESSION IN PATIENTS 
+WITH OVARIAN CANCER  
+For patients with ovarian cancer with elevated CA-125 levels, response evaluation will include cancer 
+antigen 125 (CA-125) in addition to Response Evaluation Criteria in Solid Tumors (RECIST) v1.1 
+criteria as per Gynecological Cancer Intergroup (GCIG) criteria [Rustin 2011]. 
+Definition of Response by CA-125 
+• A ≥50% reduction in CA-125 levels from a pretreatment sample. The response must be 
+confirmed and maintained for at least 3 weeks (note that GCIG recommends maintenance for 
+at least 28 days; Patients can be evaluated for a CA-125 response only if they have a 
+pretreatment sample that is at least twice the upper limit of the reference range and within two 
+weeks before starting treatment. 
+• Intervening samples and the confirmatory sample must be less than or equal to the previous 
+sample (within an assay variability of 10%). 
+• The date when the CA-125 level is first reduced by 50% is the date of the CA-125 response. 
+•  A CA-125 complete response can occur if CA-125 levels fall to within the reference range.  
+Definition of Progression by CA-125  
+• For patients with elevated CA-125 pre-treatment that normalizes or for patients with CA-125 
+in the normal range at baseline: CA-125 at least 2 times the upper limit of the reference range 
+on 2 occasions at least 1 week apart.  
+• For patients with elevated CA-125 pre-treatment which never normalizes: CA-125 at least 
+2 times the nadir value on 2 occasions at least 1 week apart.  
+• Progressive disease (PD) by objective change in tumor size should always take precedence 
+over changes in CA-125 should it occur first. If measurable disease is reducing in size but the 
+CA-125 suggests progression the patient should remain on treatment.  
+• CA-125 progression will be assigned the date of the first measurement that meets the above 
+criteria.  
+Note: CA-125 progression in the absence of radiographic or other clinical evidence of progression will 
+not be sufficient criteria for treatment discontinuation in this study.  
+Patients are not evaluable by CA-125 if they have received mouse antibodies (unless the assay used has 
+been shown not to be influenced by human antimouse antibody) or if there has been medical and/or 
+surgical interference with their peritoneum or pleura during the previous 28 days.  
+Evaluation of Best Overall Response by Combined CA-125 and RECIST 1.1 Criteria  
+• If patients have a CA-125 response but have PD by RECIST within 28 days of the CA-125 
+response, they will be classified as PD. 
+• Patients whose best response by RECIST is stable disease (SD) but who have a CA-125 
+response will be classified as CA-125 responders  
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+46 
+ 
+• For a patient to be classified as a complete responder according to RECIST, CA-125 levels 
+must be within the normal range  
+For Patient with Measurable Disease 
+ 
+For Patients without Measurable Disease 
+ 
+Reference:  Rustin GJS, Vergote I, Elizabeth E, Pujade-Laurane E, Quinn M, Thigpen T, et al; 
+Gynecological Cancer Intergroup. Definitions for response and progression in ovarian cancer clinical 
+trials incorporating RECIST 1.1 and CA 125 agreed by the Gynecological Cancer Intergroup (GCIG). Int 
+J Gynecol Cancer. 2011; 21(2):419-2 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+47 
+ 
+APPENDIX 3. RESPONSE EVALUATION CRITERIA IN SOLID 
+TUMORS, VERSION 1.1 
+Evaluation of Target Lesions 
+Complete Response (CR): Disappearance of all target lesions. Any pathological lymph nodes (whether 
+target or non-target) must have reduction in short axis to <10 mm. 
+Partial Response (PR): At least a 30% decrease in the sum of the diameters of target lesions, taking as 
+reference the baseline sum diameters. 
+Progressive Disease (PD): At least a 20% increase in the sum of the diameters of target lesions, taking 
+as reference the smallest sum on study (this includes the baseline sum if that is the smallest on study). In 
+addition to the relative increase of 20%, the sum must also demonstrate an absolute increase of at least 
+5 mm. (Note: the appearance of one or more new lesions is also considered progressions). 
+Stable Disease (SD): Neither sufficient shrinkage to qualify for PR nor sufficient increase to qualify for 
+PD, taking as reference the smallest sum diameters while on study. 
+ 
+Evaluation of Non-Target Lesions 
+Complete Response (CR): Disappearance of all non-target lesions and normalization of tumor marker 
+level. All lymph nodes must be non-pathological in size (<10 mm short axis). 
+Note: If tumor markers are initially above the upper normal limit, they must normalize for a patient to be 
+considered in complete clinical response. 
+Non-CR/Non-PD: Persistence of one or more non-target lesion(s) and/or maintenance of tumor marker 
+level above the normal limits. 
+PD: Appearance of one or more new lesions and/or unequivocal progression of existing non-target 
+lesions. Unequivocal progression should not normally trump target lesion status. It must be 
+representative of overall disease status change, not a single lesion increase. 
+Although a clear progression of “non-target” lesions only is exceptional, the opinion of the treating 
+physician should prevail in such circumstances, and the progression status should be confirmed at a later 
+time by the review panel (or principal investigator). 
+ 
+Evaluation of Best Overall Response 
+The best overall response is the best response recorded from the start of the treatment until disease 
+progression/recurrence (taking as reference for PD the smallest measurements recorded since the 
+treatment started). The patient’s best response assignment will depend on the achievement of both 
+measurement and confirmation criteria. 
+ 
+ 
+Statistical Analysis Plan 
+Study Code RP-6306-03 
+Version 1.0 
+29 Jul 2024 
+  
+48 
+ 
+For Patients with Measurable Disease (i.e., Target Disease) 
+Target Lesions 
+Non-Target Lesions 
+New Lesions 
+Overall 
+Response 
+Best Overall Response when 
+Confirmation is Required* 
+CR 
+CR 
+No 
+CR 
+>4 wks. Confirmation** 
+CR 
+Non-CR/Non-PD 
+No 
+PR 
+>4 wks. Confirmation** 
+CR 
+Not evaluated 
+No 
+PR 
+PR 
+Non-CR/Non-PD/not 
+evaluated 
+No 
+PR 
+SD 
+Non-CR/Non-PD/not 
+evaluated 
+No 
+SD 
+Documented at least once 8 
+wks. from first dose of study 
+medication** 
+PD 
+Any 
+Yes or No 
+PD 
+No prior SD, PR or CR 
+Any 
+PD*** 
+Yes or No 
+PD 
+Any 
+Any 
+Yes 
+PD 
+Abbreviations: CR = complete response; PD = progressive disease; PR = partial response; RECIST = Response Evaluation 
+Criteria in Solid Tumors; SD = stable disease.  
+*  
+See RECIST 1.1 manuscript for further details on what is evidence of a new lesion (Eisenhauer 2009). 
+** 
+Only for non-randomized trials with response as primary endpoint. 
+*** 
+In exceptional circumstances, unequivocal progression in non-target lesions may be accepted as disease progression. 
+Note: Patients with a global deterioration of health status requiring discontinuation of treatment without objective evidence of 
+disease progression at that time should be reported as “symptomatic deterioration.” Every effort should be made to document 
+the objective progression even after discontinuation of treatment. 
+ 
+For Patients with Non-Measurable Disease (i.e., Non-Target Disease) 
+Non-Target Lesions 
+New Lesions 
+Overall Response 
+CR 
+No 
+CR 
+Non-CR/non-PD 
+No 
+Non-CR/non-PD* 
+Not all evaluated 
+No 
+not evaluated 
+Unequivocal PD 
+Yes or No 
+PD 
+Any 
+Yes 
+PD 
+Abbreviations: CR = complete response; PD = progressive disease; SD = stable disease. 
+*Non-CR/non-PD’ is preferred over ‘stable disease’ for non-target disease since SD is increasingly used as an endpoint for 
+assessment of efficacy in some trials so to assign this category when no lesions can be measured is not advised. 
+ 
+Reference:  Eisenhauer EA, Therasse P, Bogaerts J, et al. New response evaluation criteria in solid 
+tumors: revised RECIST guideline (version 1.1). Eur J Cancer 2009;45(2): 228–247. 
+ 

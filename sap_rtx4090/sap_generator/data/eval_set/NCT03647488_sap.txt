@@ -1,0 +1,1659 @@
+Novartis Confidential Page 2
+SAP for abbreviated CSR CINC280D2201
+Document History  –Changes compared to previous final version of SAP
+Date Version Reason for update Outcome for update
+04-Oct-2018 1.0 N/A N/A -First version
+05-Oct-2020 2.0 (Amemdment 
+1)Decision not to 
+start 
+randomization 
+partOnly a final CSR will be 
+prepared as
+an abbreviated report based 
+on the
+data from run -in part and 
+with reduced analyses.
+
+Novartis Confidential Page 3
+SAP for abbreviated CSR CINC280D2201
+Table of contents
+Table of contents ................................................................................................................. 3
+1Introduction ......................................................................................................................... 6
+1.1 Study  design ............................................................................................................. 6
+Definition of primary  endpoint(s) ............................................................................ 7
+1.2 Study  objectives and endpoints ............................................................................... 8
+2Statistical methods ............................................................................................................... 9
+2.1 Data analy sis general information ........................................................................... 9
+2.1.1 General definitions ................................................................................ 10
+2.2 Analy sis sets .......................................................................................................... 13
+2.2.1 Subgroup of interest .............................................................................. 15
+2.3
+Patient disposition, demographics and other baseline characteristi cs................... 15
+2.3.1 Patient disposition ................................................................................. 16
+2.4 Treatments (stud y treatment, rescu e medication, concomitant therapies, 
+compliance) ............................................................................................................ 18
+2.4.1 Study  treatment / compliance ................................................................ 18
+2.4.2 Prior, concomitant and post therapies ................................................... 24
+2.5 Analy sis of the primary  objective .......................................................................... 25
+2.5.1 Primary  endpoint ................................................................................... 25
+2.5.2 Statistical hy pothesis, model, and method of analy sis.......................... 25
+2.5.3 Handling of missing values/censoring/d iscontinuations ....................... 27
+2.5.4 Supportive analy ses............................................................................... 27
+2.6 Analy sis of the key  secondary  objective ................................ ............................... 27
+2.7 Analy sis of secondary  efficacy  objective(s) .......................................................... 27
+2.7.1 Secondary  efficacy  endpoints ............................................................... 27
+2.7.2 Statistical hy pothesis, model, and method of analy sis.......................... 29
+2.7.3 Handling of missing values/censoring/discontinuations ....................... 30
+2.8 Safety  anal yses....................................................................................................... 31
+2.8.1 Adverse events (AEs) ............................................................................ 31
+2.8.2 Deaths .................................................................................................... 33
+2.8.3 Laboratory  data ..................................................................................... 33
+2.8.4 Other safety  data ................................................................................... 34
+2.9
+Pharmacokinetic endpoints.................................................................................... 37
+2.10 Immunogenicit y and PK/PD analyses ................................................................... 38
+2.10.1 Immunogenicit y
+.................................................................................... 38
+2.11 Other Exploratory  anal yses.................................................................................... 40
+
+Novartis Confidential Page 4
+SAP for abbreviated CSR CINC280D2201
+2.12 Interim anal ysis................................ ................................ ................................ ......40
+3 Sample size calculation ..................................................................................................... 40
+3.1 Primary  anal ysis..................................................................................................... 40
+3.2 Power for anal ysis of key secondary  variables
+...................................................... 40
+4Change to protocol specified anal yses.............................................................................. 41
+5Appendix ........................................................................................................................... 41
+5.1 Imputation rules ..................................................................................................... 41
+5.1.1 Study  drug ............................................................................................. 41
+5.1.2 AE, ConMeds and safety assessment date imputation .......................... 42
+5.2 AEs coding/grading ............................................................................................... 44
+5.3 Laboratory  parameters derivations ........................................................................ 44
+5.4 Statistical models ................................................................................................... 45
+6Reference ........................................................................................................................... 45
+
+Novartis Confidential Page 5
+SAP for abbreviated CSR CINC280D2201
+List of abbreviations
+AE Adverse event
+ATC Anatomical Therapeutic Classification
+AUC Area Under the Curve
+Bid
+CD8bis in diem/twice a day
+Cluster of differentiation 8
+CSR Clinical Study report
+CTC Common Toxicity Criteria
+CTCAE Common Terminology Criteria for Adverse Events
+DDS Dose Determining Set
+DLT Dose Limiting Toxicity
+DMC Data Monitoring Committee 
+ECG Electrocardiogram
+FAS Full Analysis Set
+eCRF
+IHCElectronic Case Report Form
+Immunohistochemistry
+irRECIST Immune -related RECIST
+IVR Interactive Voice Response
+MedDRA Medical Dictionar y for Regulatory Activities
+NCI National Cancer Institute
+NSCLC Non-small Cell Lung Cancer
+o.d. Once Daily
+OS Overall Survival
+PD-1 Programmed Death 1
+PD-L1 Programmed Death -Ligand 1
+PD-L2 Programmed Death -Ligand 2
+PFS Progression -Free Survival
+PK Pharmacokinetics
+PPS Per-Protocol Set
+qd Qua’que di’e / once a day
+RAP Report and Analysis P rocess
+RECIST Response Evaluation Criteria in Solid Tumors 
+SAE Serious Adverse Event
+SAP Statistical Analysis Plan
+SOC System Organ Class
+TFLs Tables, Figures, Listings
+WHO World Health Organization
+
+
+Novartis Confidential Page 6
+SAP for abbreviated CSR CINC280D2201
+1 Introduction
+This abbreviated statistical analysis plan (SAP) describes all planned analyses for the Clinical 
+Study  Report s(CSR s) of study  CINC280D2201 , a phase II, multicenter, randomized, two -arm 
+study  of capmatinib (INC280, an oral MET inhibitor) and spartalizumab (PDR001, a PD-1 
+inhibitor) combination therap y versus docetaxel in pretreated adult patients with EGFR wild-
+type, ALK rearrangement negative locall y advanced/metastatic non- small cell lung cancer.
+The content of this SAP is based on protocol [CINC280D2201 -v00--protocol] . All decisions 
+regarding final analysis, as defined in the SAP document, have been made prior to database 
+lock of the study  data.
+During the run-in part of the study  (18 subjects enrolled), we explored the safet y and 
+preliminary  efficacy  of this combination testing the hypothesis of immunomodulatory  and 
+synergistic activit y of capmatinib with spartalizumab in subjects previously  treated with 
+platinum and checkpoint inhibitor (anti- PD(L) -1).
+The primary  objective for the run -in part (safet y) was met with no new safety  signal observed. 
+Nevertheless the preliminary efficacy data, suggests earl y on that the probability to observe the 
+strong efficacy  signal in proof of concept 
+randomized part, which will lead to change of standard 
+of care ,is low. Based on these preliminary results, the randomized part of the stud y will not be 
+opened.
+In consideration of the early  permanent recruitment halt and given that the randomized part of 
+the study  will not be opened , the final analy sis will not be performed as originall y planned for 
+all endpoints. This abbreviated SAP describes the anal yses to be performed .
+1.1 Stud y design
+This is a two-part prospectively  designed, multicenter, open -label, randomized phase II study 
+to evaluate the safet y and efficacy  of capmatinib in combination with spartalizumab in adult 
+subjects with EGFR wt (for exon 19 deletion s and exon 21 L858R substitution 
+mutations), ALK 
+rearrangement negative in locally  advanced (stage IIIB, not eligible for definitive chemo -
+radiation) or metastatic (stage IV) NSCL C after failure of platinum doublet and checkpoint 
+inhibitor treatment. The study was planned to enroll approximately  105 subjects (approximately  
+15 subjects in the run -in [part 1] and 90 subjects in the randomized phase [part 2]). 
+The final analysis results will be summarized in the final abbreviated clinical study  report (CSR).
+Part 1: Run -in
+The primary  objective of this part wasto assess the safet y and tolerability  as well as preliminary 
+efficacy  of the capmatinib and spartalizumab combination. Eighteen subjects were enrolled and 
+treated with capmatinib and spartalizumab combi nation. A review meeting took place after all 
+subjects have at least 24 weeks of follow -up. 
+Refer to Figure 1-1for an overview of the Part I study  design.
+
+Novartis Confidential Page 7
+SAP for abbreviated CSR CINC280D2201
+Figure 1 -1 Study  Design Pa rt 1: Run-in
+pts: patients FUP: follow -up
+Part 2: Randomized
+Based on the preliminary results of the run- in part, the randomized part of the study will not be opened.
+Definition of primary  endpoint(s)
+Part 1: Run -in
+Incidence of DLTs during the first 8 w eeks (56 days) of treatment for patients in the DDS.
+Safety: Incidence and severity  of AEs and SAEs, including changes in laboratory  values, vital 
+signs, and ECGs.
+Tolerability: Dose interruptions, reductions, and dose intensity .
+
+
+Novartis Confidential Page 8
+SAP for abbreviated CSR CINC280D2201
+Part 2: Randomized
+Based on the preliminary results of the run -in part, the randomized part of the study will not be 
+opened.
+1.2 Stud y objectives and endpoints
+Objectives and related endpoints are described in Table 1-1 below. In consideration of the 
+early permanent recruitment halt and given that the randomized part of the study  will not be 
+opened , the final anal ysis will not be performed as originall y plan ned for all endpoints. This
+abbreviated SAP describes the anal yses to be performed for the run- in part of the study .
+Table 1-1 Objectives and related endpoints
+Objective(s) Endpoint(s)
+Primary objective(s) Endpoin t(s) for primary objective(s)
+Run-in part: To assess safety  and 
+tolerability of capmatinib and spartalizumab 
+combinationRun-in part: Incidence and severity of AEs 
+and SAEs, including changes in laborator y 
+values, vital signs and ECGs, dose 
+interruptions, reductions, and dose intensity.
+Randomized part: To assess the overall 
+survival of combination of capmatinib and 
+spartalizumab in comparison to docetaxelRandomized part: Overall Survival
+Secondary objective(s) Endpoint(s) for secondary objective(s)
+To assess the objective response rate 
+(ORR), disease control rate (DCR), 
+progression -free survival (PFS), duration of 
+response (DOR), and time to response 
+(TTR) of the capmatinib and spartalizumab 
+combination and that of docetaxelObjective r esponse rate (ORR), disease 
+control rate (DCR), progression -free survival 
+(PFS), duration of response (DOR), and time 
+to response (TTR) based on RECIST 1.1 
+To assess the safety  profile of capmatinib 
+and spartalizumab combination therapyIncidence and severity of AEs and SAEs
+To characterize the pharmacokinetics of 
+capmatinib and spartalizumab as a 
+combination therapy in this patient 
+populationPharmacokinetic parameters (e.g. Ctrough, 
+Cmax, AUC)
+To evaluate the prevalence and incidence 
+of immunogenic ityAntidrug antibodies (ADA) prevalence at 
+baseline and ADA incidence on treatment
+
+
+Novartis Confidential Page 9
+SAP for abbreviated CSR CINC280D2201
+Objective(s) Endpoint(s)
+2 Statistical methods
+2.1 Data analy sisgeneral information
+The final analy sis will be performed b y Novartis and/or a designated CRO . SAS version 9.4or 
+later and R version 3.2.3 or later software will be used to perform all data analysesand to 
+generate tables, figures and listings.
+Data included in the analy sis
+The analy sis cutoff date for the final anal ysis of study  data will be established at the end of the 
+study . All statistical analyseswillbe performed using all data colle ctedinthe database upto
+thedata cut-offdate. Alldata with an assessment date orevent start date (e.g. vital sign
+assessment date orstart date ofanadverse event) prior toor
+onthecut-offdate will be
+included intheanalysis.Any datacollected beyondthecut-offdate willnot be included in the
+analysis and will not be used for any derivations.
+All events with start date before or on the cut -off date and end date after the cut -off date will be 
+reported as ‘ongoing’. The same rule will be applied to events starting before or on the cut -off 
+date and not having documented end date. This approach applies, in particular, to adverse event 
+and concomitant medication reports. For these cases , the enddate will not be imputed and 
+therefore will not appear in the listings.
+The end of stud y is defined as the earliest occurrence of one of the following:
+All subjects have died or discontinued from the study .
+Another clinical stud y becomes available that can continue to provide capmatinib 
+and spartalizumab combination in this subject population, and all subjects ongoing 
+are eligible to be trans ferred to that clinical study .
+
+
+Novartis Confidential Page 10
+SAP for abbreviated CSR CINC280D2201
+General analy sis conventions
+Pooling of center s:Unless specified otherwise, data from all study  centers will be pooled for 
+the anal ysis. Due to expected small number of patients enrolled at centers, no center effect 
+will be assessed. 
+Qualitative data (e.g., gender, race, etc.) will be summarized by  means of contingency  tables
+; a missing category  will be included as applicable. Percentages will be
+calculated using the number of patients in the relevant population or subgrou p as the
+denominator.
+Quantitative data (e.g., age, bod y weight, etc.) will be summarized by appropriate
+descriptive statistics (i.e. mean, standard deviation, median, minimum, and maximum) by
+treatment group .
+2.1.1 General d efinition s
+Investigational drug and study  treatment
+Investigational drug ,will refer tocapmatinib or spartalizumab . The term investigational drug 
+and study  drug are used interchangeabl y. Whereas, study treatment will refer to capmatinib in 
+combination with spartalizumab . 
+Date of first administration of investigational drug
+The date of first administration of investigational drug ( capmatinib orspartalizumab )is 
+defined as the first date when a non -zero dose of investigational drug ( capmatinib or 
+spartalizumab) is administe red and recorded on ‘Study  Treatment: Capmatinib (INC280) ’
+and ‘ Study  Treatment_Infusion_Spartalizumab (PDR001) ’ (e)CRF pages . 
+Example : if 1stdose of capmatinib is administered on 05- Jan- 2019 , and 1stdose of 
+spartalizumab is administered on 03- Jan- 2019 , then the date of first administration of study 
+drug is on 03- Jan-2019. The date of first administration of study  drug will also be referred as 
+start of 
+investigational drug.
+Date of last administration of investigational drug
+The date of last administration of investigational drug ( capmatinib orspartalizumab )is 
+defined as the last date when a nonzero dose of investigational drug ( capmatinib or 
+spartalizumab) is administered and recorded on 
+‘Study  Treatment: Capmatinib (INC280)
+’and ‘ Study  Treatment_In fusion_Spartalizumab 
+(PDR001) ’ (e)CRF pages . 
+Example : if last dose of capmatinib is administered on 15- Jan- 20 20, and last dose of 
+spartalizumab is administered on 17- Jan- 20 20, then the date of lastadministration of study  drug 
+is on 17- Jan- 20 20.The date of lastadministration of investigational drug will also be referred 
+as endof investigational drug.
+
+Novartis Confidential Page 11
+SAP for abbreviated CSR CINC280D2201
+Date of first administration of study  treatment 
+The date of first administration of study  treatment is defined as the first date when a non- zero 
+dose of an y component of study treatment is administered and recorded on the respective 
+component -specific Study Treatment eCRF. 
+Date of last administration of study  treatment 
+The date of last administration of study  treatment is defined as the last date when a non -zero 
+dose of an y component of study treatment was administered and recorded on the respective 
+component -specific Study Treatment eCRF.
+Study day
+The study day, describes the day  of the event or assessment date, relative to the reference start 
+date. 
+The stud y day is defined as:
+The date of the event (visit date, onset date of an event, assessment date etc.) − 
+reference start date + 1 if event is on or after the reference start dat e;
+The date of the event (visit date, onset date of a n event, assessment date etc.) 
+− 
+reference start date if event precedes the reference start dat e.
+Thereference start dateforallassessments (e.g. safet y, efficacy , PK, , etc.) is the start of 
+study  treatment. 
+The study  day will be display ed in the data listings. Ifanevent starts before thereference start 
+date, thestudy day displa yed on the listing will be negative .
+Note: Some measurements may belong to safet y measurem ent and to efficacy  measurement
+(death’ is an efficacy endpoint, but it can also be included in the safety analysis). For safet y,the 
+‘study  day’ will be calculated relative to start of study
+ treatment.
+Time unit
+A year length is defined as 365.25 days. A month length is 30.4375 days (365.25/12). If duration 
+is reporte d in months, duration in days will bedivided by 30.4375.  If duration is reported in 
+years, duration in day s will be divided by  365.25.
+Baseline
+For efficacy evaluations, the last non-missing assessment, including unscheduled assess ments 
+on or before the date of start of stud y treatment (for the run -in part) is taken as “baseline” value 
+or “baseline” assessment.  
+For safet y evaluations
+, the last available assessment on or before the date of start of study 
+treatment is taken as“baseline” assessment.
+In case time of assessment and time of treatment start is captured (e.g. pre -dose ECG), the last 
+available assessment before the treatment start date/time is used for baseline.
+
+
+Novartis Confidential Page 12
+SAP for abbreviated CSR CINC280D2201
+For safety  parameters (e.g ECGs or vital signs), where study  requires multiple replicates per 
+time point, the average of theses measurements would be calculated for baseline (if not alread y 
+available in the database).
+In rare cases where multiple measurements meet the baseline definition, with no further flag or 
+label that can identify  the chronological order, then the following rule should be applied: 
+If values are from central and local laboratories, the value from central assessment 
+should be considered as baseline. 
+If multiple values are from the same lab oratory  (local or central) or collected for ECGs 
+or vital signs, then the last value should be considered as baseline.
+If patients have no value as defined above , the baseline result will be missing .
+On-treatment assessment/event and observation periods
+For adverse event reporting the overall observation period will be divided into three mutually 
+exclusive segments: 
+1.Pre-treatment period: from the day of the subject’s informed consent to the day before the 
+first dose of study  treatment.
+2.On-treatment period : from the day  of the first dose of study  treatment to 150 day s after the 
+last dose of spartalizumab, or 30 days after the last dose of capmatinib, whichever is later 
+(including start and stop dates).
+3.Post-treatment period: starting at 151 days after last dose of spartalizumab, or 31 days after 
+last dose of capmatinib, whichever is later.
+Safety  summaries (tables, figures) include only data from the on-treatment period with the 
+exception of baseline data which will also be summarized where appropriate (e.g. change from 
+baseline summaries). In addition, a separate summary  for death including on treatment and post 
+treatment deaths will be provided. In particular, s ummary  tables for adverse events (AEs) will 
+summarize only on-treatment events ,with a start date during the on-treatment period 
+(treatment
+-emergent AEs). However, all safet y data (including those from the post-treatment 
+period) will be listed and those collected during the pre-treatment and post-treatment period 
+willbe flagged.
+Additional summaries will be display ed to report deaths, all AEs, AEs related to study  
+treatment ,all SAEs and SAEs related to study  treatment collected up to 150 day s after last 
+administration of spartalizumab or up to 30 day s after the last dose of capmatinib whichever 
+come s last.
+Note: If a patient starts a post-treatment antineoplastic therap y after the last administration of 
+study  treatment, only adverse events suspected to be related to study  treatment will be collected 
+up to 150 day safter discontinuation of spartalizum ab or up to 30 day s after discontinuation of 
+capmatinib whichever comes last . All AEs/ all SAEs are planning to be reported up to 150 days 
+after discontinuation of spartalizumab or up to 30 days after discontinuation of capmatinib 
+acknowledging that comple te collection of data may  not be feasible for each patient.
+
+Novartis Confidential Page 13
+SAP for abbreviated CSR CINC280D2201
+Last contact date 
+The last contact date will be derived for patients not known to have died at the anal ysis cut -off 
+using the last complete date among the following:
+Table 2-2 Last contact date data sources
+Source data Conditions
+Last contac t date/last date subject was known to 
+be alive from Survival Follow -up pageSubject status is reported to be alive, lost to 
+follow -up or unknown
+Start/End dates from further antineoplastic 
+therapyNon-missing medication/procedure term.
+Start/End dates from study treatment pages Non-missing dose. Doses of 0 are allowed.
+End of treatment date from disposition page at 
+end of treatmentNo condition.
+Tumor (RECIST / ) assessment date Evaluation is marked as ‘done’.
+Verification for treatment beyond RECIST1.1 PD At least one non missing parameter value
+Laboratory/PK/IG collection dates Was sample taken? = ‘Yes’. 
+Vital signs da te At least one non -missing parameter value
+Performance Status date Non-missing performance status
+Start/End dates of AE Non-missing verbatim term
+The last contact date isdefined as the latest complete date from the above list on or before the 
+data cut-offdate. The cut -offdate willnotbe used for last contact date, unless thesubject was 
+seen or contacted on that dat e.No date post cut -off date will be used. Completely  imputed
+dates (e.g. theanalysiscut-offdateprogrammaticall yimputed toreplac ethemissing enddate
+of a dose administration record) will not b e used toderive the last contact date. Partial date 
+imputation is allowed for event (death)/censoring if coming from ‘Survival information’ eCRF. 
+2.2 Analysis sets
+Full A nalysis Set
+The Full Anal ysis Set (FAS) comprises all subjects in the run -in who received at least one dose 
+of an y component of study treatment ..
+Safety
+The Safet y Set includes all subjects who received at least one dose of study  treatment (i.e. at 
+least one dose of spartalizumab [including incomplete infusion
+]or of capmatinib). FAS and 
+safet y set are the same in the run- in part of this study .
+Dose -Determining Set 
+The Dose -Determining Set (DDS) includes all patients from the Safet y Set in the run-in part 
+who met the minimum exposure criterion and had suf ficient safety  evaluations, or experienced 
+a dose limiting toxicity  (DL T) during the first 56 day s (8 weeks) of dosing.
+
+
+Novartis Confidential Page 14
+SAP for abbreviated CSR CINC280D2201
+A subject has met the minimum exposure criterion if the subject receives at least 1 infusion of 
+spartalizumab and takes at least 50% of the planned dose of capmatinib within the first 8 weeks 
+of treatment.
+Subjects who do not experience a DLT during the first 56 days of dosing are considered to have 
+sufficient safet y evaluations if they  have been observed for ≥ 56 day s following the first dose, 
+and are considered by both the sponsor and investigators to have enough safety  data to conclude 
+that a DLT did not occur.
+Pharmacokinetic analy sis set(PAS)
+The capmatinib pharmacokinetic analysis set (PAS -INC280) includes all subjects who provide 
+atleast one evaluable capmatinib PK concentration. For a concentration to be evaluable, 
+subjects are required to:
+take a planned dose of capmatinib prior to sampling.
+for pre-dose samples, do not vomit within 4 hours after the dosing of capmatinib prior to 
+sampling; for post-dose samples, do not vomit within 4 hours after the dosing of capmatinib.
+for pre-dose sample, have the sample collected before the next dose administration and 9-
+15 hours after the last dose administration.
+The spartalizumab pharmacokinetic analysis set (PAS -PDR001) includes all subjects who 
+provide at least one evaluable spartalizumab PK concentration. For a concentration to be 
+evaluable, subjects are required to:
+receive 
+one of the planned treatments of spartalizumab prior t o sampling.
+for pre-dose samples, have the sample collected before the next dose administration.
+for end-of-infusion samples, have the sample collected within 2 hours post end of infusion.
+Immunogenicity  (IG) analy sis sets
+The immunogenicit y (IG) set includes two parts: IG prevalence set and IG incidence set:
+The IG prevalence set includes all subjects in the Full anal ysis set with a determinant 
+baseline IG sample or at least one determinant post- baseline IG sample.
+The IG incidence set includes all subject s in the IG prevalence set with a determinant 
+baseline IG sample and at least one determinant post- baseline IG sample.
+Patient Classification : 
+Patients may be excluded from the analysis populations defined above based on the protocol 
+deviations entered inthe database and/or on specific subject classification rules defined in Table 
+2-3. 
+
+Novartis Confidential Page 15
+SAP for abbreviated CSR CINC280D2201
+Table 2-3 Subject classification based on protocol deviations and non -PD 
+criteria
+Analy sis set Protocol deviations 
+leading to exclusio nNon protocol deviation leading to exclusion
+FAS No written inform ed
+consentNot applicable
+Safety  set No written inform ed
+consentNot applicable
+PAS-INC280 No written inform ed
+consentNo evaluable capmatinib PK concentration
+PAS-PDR001 No written inform ed
+consentNo evaluable spartalizumab PK 
+concentration
+IG prevalence set No written inform ed
+consentSubject not in the FAS
+No determinant baseline IG sample and no 
+determinant post -baseline IG sample
+IG incidence set No written inform ed
+consentSubject not in the FAS
+No determinant baseline IG sample or no 
+determinant post -baseline IG sample
+Withdrawal of Informed Consent
+Any data collected in the clinical database after a subject withdraws informed consent from all 
+further participation in the trial, will not be included in the analy sis.  The date on which a patient 
+withdraws full consent is recorded in the eCRF . 
+Death events may be used in the analy sis if captured from public records (registers) , local law 
+and subject informed consent permiting.
+Additional data for which there is a separate informed consent, e.g. PK, biomarker etc., 
+collected in the clinical database without having obtained that consent will not be included in 
+the anal ysis. These data will be excluded by  the presence of the appropriate protocol deviation 
+criterion.
+2.2.1 Subgroup of interest
+Not applicable for the run- in part.
+2.3 Patient disposition, demographics and other baseline
+characteristics
+The Full Anal ysis Set (FAS) will be used for all baseline and demographic summaries and 
+listings unless otherwise specified . Summaries and listings will be reported to assess baseline 
+
+Novartis Confidential Page 16
+SAP for abbreviated CSR CINC280D2201
+comparability .  Of note, all patients from the run-in part may  be presented in the summaries, if 
+relevant. No inferential statistics will be provided.
+Basic demographic and background data
+All demographic and baseline disease characteristics data will be summarized and listed. 
+Categorical data (e.g. gender, age groups: <65 and ≥ 65years, race, ethnicity , ECOG 
+performance status, smoking history ) will be summarized by frequency  counts and percentages ;
+the number and percentage of patients with missing data will be provided. Continuous data (e.g. 
+age, weight, height, body mass index) will be summarized by descriptive statistics (N,mean, 
+median, standard deviation, minimum and maximum ). 
+Body mass index (BMI )(kg/m2) will be calculated as:
+BMI [kg/m2] = weight[kg] / (height[m]2) using weight at Baseline. 
+Diagnosis and extent of cancer 
+Summary  statistics will betabulated fordiagnosis andextent ofcancer. This analysiswill 
+include the following: primar ysite ofcancer, details of tumor histology /cytology ,
+histological grade, stage at initial diagnosis, time since initial diagnosis ,time from initial 
+diagnosis to first recurrence/progression (in months) ,time since most recent relapse/progression 
+to start of treatment (in months), stage at time of study  entry, presence/absence of target and 
+non-target lesions, number and type of metastatic sites involved. Note: Presence/absence of 
+target and non-target lesions will be based on the data collected on RECI ST target/non -target 
+lesion assessment eCRF pages. Metastatic sites will be based on diagnosis page.
+Medical history
+Medical history  and ongoing 
+conditions, including cancer -related conditions and symptoms 
+entered on (e) CRF will be summarized and listed. Separate summaries will be presented for 
+ongoing and historical medical conditions.  The summaries will be presented by primary  system 
+organ class (SOC), preferred term (PT). Medical history and current medical conditions will be
+coded using the Medica l Dictionary  for Regulatory  Activities (MedDRA) terminology .The 
+MedDRA version used for reporting will be specified in the CSR and as a footnote in the 
+applicable tables/listings.
+Other
+All data collected at baseline including source of patient referral and exploratory  biomarker 
+informed consent , and treatment bey ond progression informed consent will be listed.
+2.3.1 Patient disposition
+The number (%) of treated patients included in the FAS will be presented overall. The number 
+(%) of patients in theFAS who ar
+e still on treatment, who discontinued the study  phases and 
+the reason for discontinuation will be presented .
+The following summaries will be provided (with % based on the total number of FAS patients):
+
+Novartis Confidential Page 17
+SAP for abbreviated CSR CINC280D2201
+Number (%) of patients who were treated (based on thestudy treatment eCRF pages 
+of each study treatment component completed with non- zero dose administered)
+Number (%) of patient s who are still on -treatment ( based on the ‘End of 
+Treatment’ page not completed); 
+Number (%) of patient s who discontinued the st udy treatment phase (based on the 
+‘End of Treatment’ page) 
+Primary  reason for study  treatment phase discontinuation (based on the ‘End of 
+Treatment’ page)
+Number (%) of patient s who have entered the post -treatment follow -up(based on 
+the ‘End of Treatment’ page);
+Number (%) of patient s who have discontinued from the post -treatment follow -up
+(based on the ‘Disposition’ page);
+Reasons for discontinuation from the post- treatment follow -up(based on 
+Study ’Disposition’ );
+Number (%) of patient s who have entere d the survival follow -up (based on the 
+‘End of Treatment’ or ’Disposition’ page).
+Protocol de viations
+The number (%) of subjects 
+in the FAS with any protocol deviation will be tabulated by 
+deviation category  (as specified in the edit checks specification) overall for the FAS. All 
+protocol deviations will be listed.
+The outbreak of the Covid -
+19 pandemic necessitated some changes to the study  conduct such 
+that the protocol could not be followed strictly . To understand the effect of the pandemic on the 
+execution and outcome of the study , deviations will be identified and recorded as protocol 
+deviations. 
+In addition to the pre-defined standard PD terms, Novartis has defined 6 new protocol 
+deviations and the corresponding relationship (health status related vs. site lockdown, patient 
+concerns, etc.) to the COVID -19 pandem ic in line with “FDA Guidance on Conduct of Clinical 
+Trials of Medical Products during COVID -19 Public Health Emergency” (March 2020) and 
+“Guidance on the management of clinical trials during the COVID -19 (coronavirus) pandemic” 
+(April 2020) from EMA as listed below. 
+Missing visits
+Changes in procedures and assessments
+Planned visits not done at sites
+Changes in drug supply  method
+Treatment not given
+Patient discontinuation due to COVID -19 situation
+The COVID -19 related protocol deviations will be summarized if applicable.
+
+Novartis Confidential Page 18
+SAP for abbreviated CSR CINC280D2201
+Analysis sets
+The number (%) of patients in each anal ysis set (defined in Section 2.2) will be summarized.
+2.4 Treatments (study  treatment, rescue medication, concomitant 
+therapies, compliance)
+2.4.1 Study treatment / compliance
+Duration of exposure, actual cumulative dose, dose intensity (DI)and relative dose intensity
+(RDI) will be summarized separatel y for each component of study  treatment
+.Duration of 
+exposure will also be calculated for the study  treatment.
+Duration of exposure and relative dose intensity  will be categorized into time intervals; 
+frequency  counts and percentages will be presented for the number (%) of subject s in each 
+interval . 
+The number (%)of subject s who have dose reductions or interruptions, and the reasons, will be 
+summarized for all subjects .Subject level listings of all doses administered on treatment along 
+with dose change reasons will be produced.  
+The safet ysetwill be used for all summaries and listings of study  treatment . 
+Duration of exposure to study  treatment
+Duration of exposure to study  treatment is considered by taking into account the duration of 
+exposure to 
+capmatinib and spartalizumab.
+Duration of exposure to study  treatment (INC280+PDR001
+)= (last date of exposure to study 
+treatment ) –(date of first administration of study  treatment) + 1.
+The last date of exposure to study  treatment ( INC280+PDR001) is the latest of the last dates of 
+exposure to capmatinib and spartalizumab (see Table 2 -4).
+Duration of exposure to study  drug ( capmatinib /spartalizumab )
+Duration of exposure to capmatinib (days) = (last date of exposure to capmatinib) –(date of 
+first administration of capmatinib) + 1.
+The last date of exposure to capmatinib is the end date from the last dose administration record 
+non-zero c apmatinib dose is recorded in the study treatment eCRF.
+Duration of exposure to spartalizumab (days) = (last date of exposure to spartalizumab) –(date 
+of first administration of spartalizumab) + 1.
+With:
+The last date of exposure to spartalizumab is the e
+nd date from the last dose 
+administration record non-zero spartalizumab dose is recorded in the study  treatment 
+eCRF + 27 day s (if no death or no lost to follow -up is observed).
+
+Novartis Confidential Page 19
+SAP for abbreviated CSR CINC280D2201
+The last date of exposure to spartalizumab is the earliest date among last dose 
+administration record non-zero spartalizumab dose + 27 days and date of death if the 
+subject died.
+The last date of exposure to spartalizumab is the earliest date among last dose 
+administration record non-zero spartalizumab dose + 27 days and date of last contact 
+date if the subject was lost to follow
+-up.
+Note :  If the derived last date of exposure goes beyond the data cutoff date, it should be 
+truncated to the date of data cutoff.
+Cumulative dose
+Cumulative dose of a study  treatment is defined as thetotal dose given during the study  
+treatment exposure and will be summarized for each of the study  treatment components, 
+respectivel y. 
+The planned cumulative dose for a study  treatment component refers to the total planned dose 
+as per the protocol up to the last date of study  treatment component administration. The planned 
+cumulative dose is not summarized/listed. I t is used for relative dose intensity calculations.
+The actual cumulative dose refers to the total actual dose administered, over the duration for 
+which the subject is on the study  treatment as documented in the in the Study  treatment –
+Capmatinib/ Study   Treatment_I nfusion_Spartalizumab eCRF pages .
+For patients who did not take an ydrug the cumulative dose is by  definition equal to zero.
+For capmatinib (continuous dosing), the actual cumulative dose is the sum of the non-zero doses 
+recorded over the dosing period. The planned cumulative dose is the planned starting dose 
+summed over 
+the same dosing period.
+For spartalizumab (intermittent dosing), the actual cumulative dose should be defined based on 
+the days when the subject is assumed to have taken a non-zero dose during dosing periods 
+(number of infusions taken over the treatment period). The planned cumulative dose is the 
+planned starting dose summed over the number of expected infusions during treatment period 
+(e.g, a subject treated for 60 day s is expected to have three infusions).
+Planned cumulative dose is calculated as follows:
+Spartalizumab in mg 400(mg) * W, 
+where W  is the integer part of [duration of exposure (days)/28]
+Capmatinib in mg 800 mg/day *d where d is the duration of exposure in day s
+Dose intensity  and relative dose intensity
+For dose intensity  calculations, the unit of time for capmatinib will be days and for 
+spartalizumab will be cycles.
+For capmatinib , the dose intensity (DI) is defined as follows: 
+DI (mg / days) = Actual Cumulative dose (mg) / Duration of exposure to capmatinib (day s).
+
+Novartis Confidential Page 20
+SAP for abbreviated CSR CINC280D2201
+For example: 
+The durat ion of exposure is 56 day s and the subject received 50 day s of full dosing
+DI (mg/day ) = 40 000 (mg) / 56 (Day ) = 714 (mg/day )
+For spartalizumab , the dose intensity (DI) is defined as follows: 
+DI (mg/ cycles) = length of cycle * (Actual Cumulative dose (mg) / duration of exposure to 
+spartalizumab (day s)).
+For example: 
+The duration of exposure is 56 days and the subject received two complete infusions
+DI (mg/cy cle) = 28 (day s) * (800 (mg) / 56 (day s)) = 400 (mg/cy cle)
+For patients who did not take an y dru g the DI is by  definition equal to zero . 
+For capmatinib , the Planned dose intensity (PDI )is defined as follows:
+PDI (mg / days
+) = Planned Cumulative dose (mg) / Duration of exposure to capmatinib (days)
+For example: 
+The duration of exposure is 56 day s and the subject is planned to receive 56 day s of dosing
+PDI (mg/day ) = 44 800 (mg) / 56 (Day ) = 800 (mg/day )
+For capmatinib , the Planned dose intensity (PDI )will alway s be 800 mg/day .
+For spartalizumab , the Pl anned dose intensity (PDI) isdefined as follo ws: 
+PDI (mg / cycles) = length of cy cle * (Planned Cumulative dose (mg) / duration of exposure to 
+spartalizumab (day s)).
+For example: 
+The duration of exposure is 56 day s and the subject is planned to receive two infusions
+PDI (mg /cycles) = 28 (day s) * (800 (mg) / 56 (day s)) = 400 (mg/cy cle)
+Relative dose intensity (RDI) is defined as follows:
+RDI = DI (mg / unit of time) / PDI  (mg / unit of time)
+DI and RDI will be summarized separatel y for each of the study  treatment components, using 
+the duration of exposure of each of the components. RDI will be summarized in percentages. 
+Summary  of RDI includes categorical summaries. The RDI categories are < 50%, ≥ 50% -< 
+75%, ≥ 75% - < 90%, ≥ 90% - < 110% and ≥ 110%.
+Dose reductions ,interruptions or permanent discontinuations
+The number of patients who have dose reductions, interruptions, permanent discontinuations, 
+and the reasons will be summarized separatel y for each of the study  treatment components in 
+the run- in part . 
+
+Novartis Confidential Page 21
+SAP for abbreviated CSR CINC280D2201
+‘Dose changed’, ‘Dose interrupted’, and ‘Dose permanentl y discontinued’ fields from the 
+Dosage Administration Record (DAR) CRF pages will be used to determine the dose reductions, 
+dose interruptions, and permanent discontinuations, respectivel y.
+The corresponding fields ‘Reason for dose change/dose interrupted’ and ‘Reason for permanent 
+discontinuation’ will be used to summarize the reasons.
+Interruption :An interruption is defined as a dose of zero g iven on one or more day s between 
+two non-zero dosing records. 
+For the purpose of summarizing interruptions and reasons, any two or more consecutive zero 
+doses of capmatinib or spartalizumab will be counted as one interr uption if the reasons for these 
+two consecutive dose interruption sare the same. It will be counted as two different interruptions 
+only if the reasons are different. If an interruption occurs for more than one day due to the same 
+reason, but the days are not consecutive, i.e., there is at least one dosing day in between, then 
+each dose interruption will be counted as a different occurrence. For patients who have dose 
+interruption checked but never resume non-zero dose, the dose interruption will not be counted.
+Reduction (For Capmatinib only) : A dose reduction is defined as a decrease of the total 
+capmatinib daily  dose from the protocol planned starting dose (400mg BID) to another non-
+zero dose or a decrease from the previous non-zero dose that is less than protocol planned 
+starting dose to another non-zero dose, even if thedecrease has been directly  preceded by an 
+interruption. Thenumber of reductions will be derived programmaticall y  based on the change 
+and the direction of the change.
+For example, in the sequence 800mg total daily to 0mg to 600mgto 400 mg ,600 mg and 400 
+mgtotal daily  will be counted as reduction s
+. On the other hand, if the dose decrease is followed 
+by an interruption, with the dose resuming at the same level prior to the interruption (e.g. in the 
+sequence 800mg total daily  to 600 mg to 0mg to600mg), the second 600 mg will not be 
+counted as dose reduction.
+If, due to a dosing error, a patient receives a higher than planned starting dose and moves down 
+to the planned starting dose then this is not considered a dose reduction. However if the dose 
+change is from a higher than planned starting dose down to a lower than protocol planned 
+starting dose, then this
+is considered a dose reduction. (e.g. in the sequence: 1000 mg total daily 
+to 800mg total daily  to 600mg total daily , 600 mg is considered as a dose reduction assuming 
+that 8 00 mg total daily  is the protocol planned starting dose).
+Ifa patient receives a lower than previous non-zero dose and resumes later at the protocol 
+specified dose reduction, then the lower dose received due to dosing error and protocol specified 
+dose reduction are dose reductions (e.g. in the sequence :
+800 mg daily  to400 mg daily  to600 
+mg daily, then 400 mg and 60 0 mg are considered as dose reductions assuming that 800 mg 
+daily  is the 
+protocol planned starting dose ).
+If due to interruption, a patient receives half of the dose during 1 day and follow edby an 
+interruption (due to the same reason) then this is no t a dose reduction . Dose interruption starts 
+on the daythat half of the dose is administered .For example, in the sequence: 800 mg total 
+daily  to 400 mg once a day  to 0 mg to 600 mg BID, 400 mg is not a dose reduction, 600 mg is 
+a dose reduction.
+
+Novartis Confidential Page 22
+SAP for abbreviated CSR CINC280D2201
+If due to permanent discontinuation, a patient receives half of the dose the last day of treatment 
+then this is not a dose reduction .
+The following are different example s of dose reduction.
+Case 1: If a patient did not receive the protocol planned dose for any  reason (for e.g. see table 
+below) , then this is a dose reduction ( e.g. 200/400 m g, 800 mg).
+Patient ID Start date End date Dose Regimen Reason Reduction
+(derived)Comments
+400 ONCE PER DAY DOSING ERROR Y 1stadministration 
+different from protocol 
+planned dose (800 mg)
+800 2 TIMES PER
+DAY
+Case 2: If, due to a dosing error, a patient receives higher than protocol planned dose and moves 
+down to the planned dose then this is not a dose reduction (800 mg, 1000 mg, 800mg); However 
+if the change is directly from a higher than planned do se down to a lower than protocol planned 
+dose, then this is a dose reduction (e.g. In the sequence, 800mg, 1000 mg, 400mg, is a dose 
+reduction).
+Patient ID Start date End date Dose Regimen Reason Reduction
+(derived)Comments
+800 2 TIMES PER 
+DAY
+0 ADVERSE EVENT
+600 2 TIMES PER 
+DAYADVERSE EVENT Y
+700 2 TIMES PER 
+DAYDOSING ERROR Y
+800 2 TIMES PER 
+DAY
+1000 2 TIMES PER 
+DAYDOSING ERROR
+800 2 TIMES PER 
+DAYN moves down to the 
+dose administered just 
+before dosing error
+800 2 TIMES PER 
+DAY
+0 ADVERSE EVENT
+600 2 TIMES PER 
+DAYADVERSE EVENT Y
+700 2 TIMES PER 
+DAYDOSING ERROR Y
+800 2 TIMES PER 
+DAY
+1000 2 TIMES PER 
+DAYDOSING ERROR
+600 2 TIMES PER 
+DAYY moves down to a lower 
+dose administered just 
+before dosing error
+
+
+Novartis Confidential Page 24
+SAP for abbreviated CSR CINC280D2201
+levels (for ex: 600 mg 2 times per day from , and 300mg once 
+per day  on ).
+Patient
+IDStart date End date Dose Regimen Reason Permanently  
+discontinuationReduction
+(derived)
+800 2 TIMES PER 
+DAY
+400 ONCE PER DAY ADVERSE EVENT Y N
+2.4.2 Prior, concomitant and post therap ies
+Prior anti -neoplastic thera py
+The number and percentage of patients who received any prior anti-neoplastic medications, 
+prior anti -neoplastic radiotherap y or prior anti -neoplastic surgery  will be summarized based on 
+FAS. Separat e listings willbe produced for prior anti-neoplastic medications, radiothera py,and 
+surger y.
+Prior anti-neoplastic medications will be summarized by number of prior regimens of anticancer 
+medications, therap y typ e, therapy  type at last treatment, setting at last treatment , best response 
+to last treatment . 
+Prior antineoplastic medications will also be summarized by ATC class, and 
+preferred term. The medication therap y type of any combination therapy  will be classified based 
+on the following order: immunotherapy , chemotherapy ,biologic therapy  (other than 
+immunotherapy ), targeted therap y, hormonal therapy . For example, a combination therapy  of 
+chemotherap y and immunotherap y will be classified as ‘immunotherap y’.The summary  of prior 
+anti-neoplastic radiotherapy  will include the radiotherap y locations, (including all locations 
+recorded for each subject), setting at last radiotherap y, and the time (in months ) between the 
+lastradiotherap y to start of study  treatment .
+The summary  of prior anti -neoplastic surgery  will include the time (in months) between the last 
+surgery  (non-biops y procedure) to start of study  treatment, procedure at last surgery  and residual 
+disease at last surgery .
+Anti- neoplastic medications will be coded using the NovDTD/WHO Drug Dictionary  (WHO -
+DD); anti-neoplastic surgery  will be coded using MedDRA. Details regarding MedDRA and 
+WHO -DD/ NovDTD version will be included in the footnote in the tables/listings. 
+Post treatment anti -neoplastic therapy
+Anti-neoplastic therapies since discontinuation of study  treatment- medications will be
+summarized by ATC class, preferred term, by means of frequency  counts and percentages. 
+Antineoplastic radiotherapy   (concomitant and since discontinuation of study  treatme nt) will 
+will also be summarized, by means of frequency  counts and percentages . Antineoplastic surgery 
+will also be summarized by system organ class and preferred term .
+The above anal yses will be performed using the FAS.
+
+
+Novartis Confidential Page 25
+SAP for abbreviated CSR CINC280D2201
+Concomitant therapy
+Concomitant therapy  is defined as all interventions (therapeutic treatments and procedures) 
+other than the study  treatment administered to a patient coinciding with the study  treatment 
+period. Concomitant therapy  include medications (other than study  drugs) starting on or after 
+the start date of stud y treatment or medications starting prior to the start date of stud y treatment 
+and continuing after the start date of stud y treatment. 
+Concomitant medications will be coded using the World Health Organization (WHO) Drug 
+Reference  Listing  (DRL)  dictionary   that  employ s  the  WHO  Anatomical  Therapeutic 
+Chemical (ATC) classification system and summarized by lowest ATC class and preferred term
+using frequency  counts and percentages. Surgical and medical proced ures will be coded using 
+MedDRA and summarized by SOC and preferred term. Concomitant medications will be 
+summarized by  lowest ATC class and preferred term using frequency  counts and percentages.
+These summaries will include:
+1.Medications starting on or aft er the start of study  treatment but no later than 30days 
+after last dose of capmatinib or 150 day s after the last dose of spartalizumab, 
+whichever comes last
+2.
+Medications starting prior to start of study treatment and continuing after the start of 
+study  treatment .
+Allreported concomitant therapies willbelisted.
+Any
+concomitant therapies starting andending prior tothestart ofstudy treatment orstarting
+morethan 150 days after the last dose of spartalizumab or 30 days after last dose of capmatinib , 
+whichever comes last ,will be flagged in the listin
+g. 
+Thesafetyset will be used for all concomitant medication tables and listings .
+2.5 Analysis of the primary  objective
+The primary  objective is to assess the safet y and tolerability  of capmatinib and spartalizumab 
+combination
+2.5.1 Primary  endpoint
+Incidence and severit y of AEs and SAEs, including changes in laboratory values, vital signs 
+and ECGs, dose interruptions, reductions, and dose intensity .
+DLT is defined in the study  protocol (See Section 6.5.4, Table 6- 6).
+2.5.2 Statistical hy pothesis, model, and method of analy sis
+The adaptive BLRM guided by EWOC principle will be used to assess the safety  and tolerability 
+ofcapmatinib (INC280) in combination with spartalizumab (PDR001) . The BLRMs will be 
+fitted on the dose-limiting toxicity  data (i.e. absence or presence of DLT) during the 56 day 
+DLT window accumulated to model the dose -toxicity  relationship.
+The dose-toxicity  (DLT) relationship is modeled by a 5-parameter BLRM as follows. Let π1(d1) 
+be the probability  ofDLT if PDR001 is given as a single -agent at Q4W dose d 1, and π 2(d2) the 
+
+Novartis Confidential Page 26
+SAP for abbreviated CSR CINC280D2201
+probability  of DLT if capmatinib is given as a single -agent at total daily  dose of d2. It is assumed 
+that the toxicity  of capmatinib is driven primaril y by AUC and therefore it is critical to use a 
+total daily  dose irrespective of regimen, e.g. 400mg bid will corres pond to 800mg total daily 
+dose. π12(d1,d2) denotes the probability  of DLT if PDR001 is given in combination with 
+capmatinib at Q4W dose d1of PDR001 and total daily  dose d2of capmatinib . The possibility  
+of synergism or antagonism between the safet y profiles of the two drugs is captured in the model 
+of odds of DLT rate with combination doses.
+PDR001: logit(π 1(d1)) = log(α 1) + β 1log(d 1/d1*)
+capmatinib : logit(π 2(d2)) = log(α 2) + β 2log(d 2/d2*)
+Odds(π 12(d1,d2))) = π 12(d1,d2)/(1- π12(d1,d2))
+= exp(η(d 1/d1*)(d 2/d2*))(π 1(d1)+ π 2(d2) – π1(d1) π2(d2))/((1 - π1(d1))(1- π2(d2))),
+where logit(π.(d.)) = log[π.(d.)/{1- π.(d.)}], d1* = 400mg and d2*= 400mg are the reference 
+doses of PDR00 1 and capmatinib respectivel y, α 1, α2, β1, β2>0 and -∞ <η
+<∞ is the interaction 
+coefficient.
+The Bayesian approach requires the specification of prior distributions for the model parameters. 
+The prior distributions for the BLRM are derived based on availa ble clinical data on PDR001 
+(CPDR001X2101 )and capmatinib (CINC280X2102 and CINC280C1101) . For further details 
+on the BLRM including the prior specification for the model parameters, refer to Appendix 4
+of the protocol.
+After the run -in part , the posterior distribution for the risk of DL T for new subjects at doses of 
+interest will be evaluated. The posterior distributions will be summarized to provide the 
+posterior probability  that the risk of DLT lies within the following intervals:
+Under -dosing: [0, 16%)
+Targeted toxicity : [16%, 33%)
+Excessive toxicity : [33%, 100%]
+Dosing decisions are guided by the EWOC principle (Rogatko et al, 2007 ). A dose may only 
+be used for newly  enrolled subjects if the risk of excessive toxicity  at that dose is less than 25%. 
+The f inal estimate of the MTD will also satisfy this criterion.
+Listing and summary of DLTs
+A summary  of the posterior distribution of the model parameters and the posterior distribution 
+of DLT rates based on the DLT data from allsubjects included in the DDS will be provided. 
+The corresponding results of the BLRM will also be presented graphically .
+DLTs will be listed and their incidence summarized by primary  system organ class, worst grade 
+based on the CTCAE version 5.0 . The DDS will be used for these summaries.
+Safety  and Tolerability
+See Section 2.8 for details of anal ysis.
+
+Novartis Confidential Page 27
+SAP for abbreviated CSR CINC280D2201
+2.5.3 Handling of missing values/censoring/discontinuations
+Subjects who are excluded from the DDS will be excluded from the BLRM anal ysis of the run-
+in part, al though their data will be used for all the remaining anal yses.
+2.5.4 Supportive analy ses
+Not applicable.
+2.6 Analysis of the key  secondary  objective
+Not applicable.
+2.7 Analysis of secondary  efficacy  objective (s)
+The secondary  efficacy  objectives are toassess the objective response rate (ORR), disease 
+control rate (DCR), progression- free survival (PFS), duration of response (DOR), and time to 
+response (TTR) of the capmatinib and spartalizumab combination.
+2.7.1 Secondary  efficacy  endpoints
+The secondary efficacy endpoint s are: objective response rate (ORR), disease control rate 
+(DCR), progression
+-free survival (PFS), duration of response (DOR), and time to response 
+(TTR) based on RECIST 1.1 as per local investigator’s assessment .
+Overall Response Rate (ORR)
+ORR is defined as the proportion of patients with best overall response (BOR) of complete 
+response (CR) or partial response (PR) according to RECI ST 1.1 (see Appendix 1 of the study  
+protocol). The best overall response is the best response recorded using local investiga tor’s 
+review based on RECI ST 1.1 from start of treatment until disease progression/recurrence, death, 
+start of new anti-neoplastic therap y, withdrawal of consent or cut-off date, whichever occurs 
+first.
+ORR will be calculated based on the FAS using local i nvestigators review of tumor assessment 
+data. Tumor asses sments performed before the start of any  further anti -neoplastic therapy  (i.e. 
+any additional secondary  antineoplastic therap y or surgery ) will be considered in the assessment 
+of BOR. Localized radiotherap y or limited -field palliative radiotherap y are permitted as per 
+protocol, in which case these should not be considered in determining anti-neoplastic therap y 
+usage. 
+Disease control rate (DCR)
+DCR is defined as the proportion of p atients with a best overall response (BOR) of CR or PR, 
+or stable disease (SD)according to RECIST 1.1 criteria. DCR will be calculated using the FAS 
+based on the investigators’ tumor assessments. 
+
+Novartis Confidential Page 28
+SAP for abbreviated CSR CINC280D2201
+Progression free survival (PFS)
+PFS is defined as the star t of treatment to the date of the first documented progression or death 
+due to any cause. PFS will be based onlocal investigators review of tumor assessments and 
+using RECI ST 1.1 criteria .
+Theanalysis will be based on FAS and will include all data observed up -to the cut-off date. If 
+a patient has not progressed or died  at the analysis cut-off date, PFS will be censored at the 
+date of the last adequate tumor evaluation date before the cut -off date. PFS events documented 
+after the initiation of new anti-neoplastic therapy  (i.e. RECI ST 1.1. documented disease 
+progression or death) will be considered provided tumor assessments continue after initiation 
+of new anti-neoplastic therapy .(See Section 2.7.3 for additional details regarding censoring 
+rules and determination of date of last adequate tumor assessment). Discontinuation due to
+disease progression (collected onthe ‘disposition ’page)without supporting objective evid
+ence
+satisf yingprogression criteria perREC IST 1.1willnotbe considered disease progression for 
+PFS derivation. Clinical deterioration will not be considered as a qualify ing event for 
+progression.
+Censoring pattern of PFS
+Number of patients with a PFS event and number of patients censored for the PFS analysis will 
+besummarized.
+Inaddition, asummary of reasons for PFS censoring will be provided by dose level based on 
+the following reasons:
+1: Ongoing without event
+2: Lost to follow -up
+3: Withdrew consen t
+4: Adequate assessment no longer availabl e
+5: Event after ≥ 2 missing tumor assessments
+The PFS censoring reasons are defined in the following way . 
+If the time interval between the last adequate TA date and the earliest of the following dates is 
+smaller or equal to interval of 2 missing tumor assessments :
+1.Analy sis cut- off date, 
+2.Date of consent withdrawal,
+3.Visit date of study  treatment discontinuation or end of post -treatment follow -up 
+discontinuation due to lost to follow -up.
+Then the PFS censoring reason will be:
+1.‘Ongoing’, 
+2.‘Withdrew consent’,
+3.‘Lost to follow -up’,  
+If the time interval is larger than
+the interval of 2 missing tumor assessments with no event 
+observed ,then the PFS censoring reason will always default to‘Adequate assessment no longer 
+available’. If the time interval between the last adequate tumor assessment date and thePFS 
+
+Novartis Confidential Page 29
+SAP for abbreviated CSR CINC280D2201
+event date is larger than theinterval of 2 missing tumor assessments then the patient will be 
+censored and the censoring reason will be 'Event documented after twoor more missing tumor 
+assessments'.
+These summaries on censoring reasons will be produced for PFS by  investigator. 
+Duration of response (DOR)
+DOR is defined as the time from the date of first documented CR or PR (date of initial response 
+is used, not date of confirmation) to the first documented progression according to RECIST 1.1
+based on local investigators review of tumor assessment dataor death due to any cause. Patients 
+continuing without progression or death will be censored at the date of their last adequate tumor 
+assessment using the censoring rule described for PFS analy sis
+. 
+Time to response (TTR)
+Time to response (TTR) is defined as the time from the start of treatment (run-in part) to the 
+first documented response of either CR or PR, which must be subsequently confirmed (date of 
+initial response is used, not date of confirmation) using local investigators review of tumor 
+assessment da ta and according to RECI ST 1.1. 
+All patients in the FAS will be included in the time to response calculation. Patients who did 
+not achieve a confirmed PR or CR will be censored at:
+the maxi mum follow -up time (i.e. FPFV -LPLV used for the anal ysis) for patients 
+who had a PFS event (i.e. either progressed or died due to an y cause);
+the last adequate tumor assessment date for all other patients.
+2.7.2 Statistical hy pothesis, model, and method of analy sis
+Response rates
+ORR and DCR will be summarized using descriptive statistics (N, %) along with two-sided 
+exact binomial 95% CI
+s [Clopper and Pearson 1934 ]. 
+PFS 
+PFS will be anal yzed in the FAS as defined in Section 2.2and includ ingall data observed up to 
+the cut-off date. The survival distribution of PFS will be estimated using the Kaplan -Meier 
+method. The medians of PFS and 95% confidence intervals of the medians [Brookm e
+yer and 
+Crowl ey 1982 ],along with the proportion of subjects alive at 3, 6and 9months and the 
+associated 95% confidence intervals, will be presented. Date of PD, last date free of PD, date 
+of death, principle cause of death and last date know alive for all subjects will be listed.
+TTR
+TTR will be summarized using the KM method based on FAS only if there are at least 10 
+subjects with a confirmed BOR of CR and PR. Since there are not enough responses ,no 
+summary  statistics is applicable. By patient listing will be provided.
+
+Novartis Confidential Page 30
+SAP for abbreviated CSR CINC280D2201
+DOR
+DOR isanalyzed based on FAS for patients with confirmed BOR of CR or PR if there are at 
+least 10 subjects with a confirmed BOR o f CR and PR . Since t here are not enough responses , 
+no summary  statistics is applicable. By patient listing will be provided.
+2.7.3 Handling of missing values/censoring/discontinuations
+PFS
+PFS will be censored at the last adequate tumor assessment (TA) if one of the following occurs: 
+absence of event ;the event occurred after two or more missing tumor assessments . The term 
+“missing adequate tumor assessment” is defined as a TA not performed or tumor assessment 
+with overall lesion response of “UNK”. The r ule to determine number of missing TAs is based 
+on the time interval between the date of last adequate tumor assessment and thedate of an event. 
+If the interval is greater than  twice the protocol -specified interval between the TAs and 2 times 
+the protocol- allowed time window around assessments, then the number of missing assessments 
+will be 2 or more .The date of last adequate tumor assessment is the date of the last tumor
+assessment with overall lesion response of CR, PR or SDor non-CR/non -PD before an event 
+or a censoring reason occurred. If no post-baseline assessments are available (before an event 
+or a censoring reason occurred) then the date of start date of stud y treatment will be used.
+Refer to Table 2 -5for censoring and event date options and outcomes for PFS.
+Table 2-5 Outcome and event/censor dates for PFS analysi s
+Situation Date Outcome
+No baseline assessment Date of start of treatment Censored
+Progression or death at or 
+before next scheduled 
+assessmentDate of progression (or death) Progressed
+Progression or death after 
+exactly one missing assessmentDate of progression (or death) Progressed
+Progression or death after two or 
+more missing assessmentsDate of last adequate 
+assessment prior to missed 
+assessment Censored
+No progression (or death) Date of last adequate 
+assessment Censored
+Treatment discontinuation due to 
+‘Disease progression’ without 
+documented progression, i.e. 
+clinical progression based on 
+investigator claimDate of last adequate 
+assessment Censored
+New anticancer therapy given 
+prior to protocol defined 
+progressionIgnore the new anticancer 
+therapy and follow situations 
+above As per above 
+situations
+Death before first PD 
+assessmentDate of death Progressed
+
+Novartis Confidential Page 31
+SAP for abbreviated CSR CINC280D2201
+ORR
+Patients with unknown or missing best overall response (BOR) will be counted as failures. If 
+there is no baseline tumor assessment, all post -baseline overall lesion responses are expected to 
+be ‘Unknown’. If no valid post-baseline tumor assessments are available, the best overall 
+response must be“Unknown” unless progression is reported. For the computation of ORR, 
+these patients will be included in the FAS and will be counted as ‘failures’.
+Of note, patients with only non-measurable disease at baseline are not allowed in the study . 
+However, in case there are such patients, they will be part of the analy sis and will be included 
+in the numerator onl y if a CRwas observed (as “responders” ).
+Only  tumor assessments performe d on or before the start of a new antineoplastic treatment other 
+than study  drug(s) (not considering palliative radiotherap y) will be considered in the assessment 
+of BOR.
+2.8 Safet y analyses
+For all safet y anal yses, the Safet y Set will be used.
+2.8.1 Adverse events (AEs)
+AE summaries will include all AEs occurring during on treatment period. Additional summaries 
+will be display ed to report all AEs, AEs related to study  treatment , all SAEs and SAEs related 
+to study  treatment collected up to 150 da ys after the last dose of spartalizumab, or 30 days after 
+the last dose of capmatinib, whichever is later (including start and stop dates). All AEs collected 
+in the AE (e)CRF page will be listed along with the information collected on those AEs e.g. AE 
+relationship to study  drug, AE outcome etc. AEs with start date outside of on -treatment period 
+will be flagged in the listings. 
+AEs will be summarized by  number and percentage of subjects having at least one AE, having 
+at least one AE in each primary  system organ class (SOC) and for each preferred term (PT)
+using MedDRA coding. A subject with multiple occurrences of an AE will be counted only 
+once in the respective AE category . A subject with multiple CTCAE grades for the same 
+preferred term will be summarized under the maximum CTCAE grade recorded for the event.
+AE with missing CTCAE grade will be included in the ‘All grades’ column of the summary 
+tables.
+In AE summaries, the primary  system organ class will be presented alphabeticall y and the 
+preferred terms will be sorted within primary  SOC in descending frequency. The sort order for 
+the preferred term will be based on their frequency .
+The following adverse event summaries will be produced :overview of adverse events and 
+deaths (number and % of subject s who died, with any AE, any SAE, any dose 
+reductions/interruptions etc use OSO shell) , AEs by SOC and PT, summari zedby relationship 
+(all AEs and AEs related to study  treatment) , seriousness (SAEs and non-SAEs) , leading to 
+treatment discontinuation, leadi ng to dose interruption/adjustment, requiring additional therapy . 
+In addition, a summary  of serious adverse events with number of occurrences will be produced 
+
+Novartis Confidential Page 32
+SAP for abbreviated CSR CINC280D2201
+(an occurrence is defined as >1 day between start and prior end date of record of same preferred
+term) . 
+For the legal requirements of ClinicalTrials.gov and EudraCT, two required tables on on-
+treatment adverse events which are not serious adverse events with an incidence greater than 
+5% and on 
+on-treatment serious adverse events and SAE suspected tobe related to study 
+treatment will be provided by  system organ class and preferred term on the safet y set.
+If for a same patient, several consecutive AEs (irrespective of study  treatment causalit y, 
+seriousness and severit y) occurred with the same SOC and PT:
+a single occurrence will be counted if there is ≤ 1 day  gap between the end date of the 
+preceding AE and the start date of the consecutive AE
+more than one occurrence will be counted if there is > 1 day  gap between the end date of 
+the preceding AE and the start date of the consecutive AE
+For occurrence, the presence of at least one SAE / SAE suspected to be related to study 
+treatment / non SAE has to be checked in a block e.g., among AEs in a ≤ 1 day  gap block; if at 
+least one SAE is occurring, then one occurrence is calculated for that SAE.
+The number of deaths resulting from SAEs suspected to be related to study  treatment and SAEs 
+irrespective of study  treatment relationship will be provided by SOC and PT.
+For DLTs, summary  will be produced (See Section 2.5 ).
+2.8.1.1 Adverse events of special interest / grouping of A Es
+Adverse Events of Special I nterest (AESI) consist of one or more well -defined safet y events 
+which are similar in nature and for which there is a specific clinical or safety  interest in 
+connection with the study compound. All definitions of AESI  for capmatinib and 
+spartalizumab will be stored in their respective Case Retrieval Strategy  (CRS) sheet with clear 
+versioning and reference to the Med DRA version used. If a CRS update is necessary , the final 
+version needs to be available in a reasonable time ahead of the DBL. The CRS version will be 
+included as a footnote of the AESI  tables. 
+Data analy sis of AESIs
+An adverse event of special interest is a grouping of adverse events that are of scientific and 
+medical concern specific to compound capmatinib or spartalizumab. These groupings are 
+defined using MedDRA terms, SMQs (standardized MedDRA queries), HLGTs (high level 
+group terms), HLT (high level terms) and PTs (preferred terms). Customized SMQs ( Novartis 
+MedDRA queries ,NMQ) may also be used. A NMQ is a customized group of search terms 
+which defines a medical concept for which there is no official SMQ available or the available 
+SMQ does not completely  fit the need. It may  include a combination of single terms and/or an 
+existing SMQ, narrow or broad. 
+All AESI  definitions or 
+AE grouping are specified in the electronic Case Retrieval Strategy 
+(eCRS), in which they are identified by the flag “SP”. This file may be updated based on review 
+of accumulating trial data, and therefore the groupings are also subject to potential change. The 
+most up -to-date version of the eCRS will be used at the time of the anal ysis.
+
+Novartis Confidential Page 33
+SAP for abbreviated CSR CINC280D2201
+For each specified AESI, number and percentage of patients with at least one event of the AESI 
+occurring during on treatment period will be summarized.
+Summaries of these AESIs will be provided  (specify inggrade, SAE, relationship, leading to 
+treatment discontinuation, leading to dose adjustment /interruption, hospitalization, death ,etc.).
+If sufficient number of events occurred, analysis of time to first occurrence will be applied. The 
+analysiswill be performed for AESI regardless of study  drug relatio nship and for AES I 
+suspected to be stud y drug related. 
+Time to first occurrence of an AESI is defined as time from start of study  treatment to the date 
+of first occurrence of first event within an AESI , i.e. time in day s is calculated as (start date of 
+first occurrence of event ) 
+– (start of stud y treatment ) +1. 
+In the absence of an event during the on-treatment period, the censoring date applied will be 
+the earliest ofthe following dates: 
+death date
+new anti cancer antineoplastic therapy  start date (not considering palliative radiotherap y), 
+end date of on -treatment period
+data cut -off date
+withdrawal of informed consent date.
+The corresponding censoring reason will be used: death, new anti cancer therapy ,treatment 
+discontinuation , ongoing at cut -off date or consent withdrawal .
+Median together with 95% confidence interval as well as 25th percentile and 75th percentile 
+will be presented. 
+In addition, the median time to occurrence for the subset of subject s who experienced the event
+of interest willbe calculated. Simple descriptive statistics, median, min and max as well as 25th 
+percentile and 75th percentile, will be presented.
+2.8.2 Deaths
+Separate summaries for on-treatment and all deaths (including post-treatment death) will be 
+produ ced for all subjects by system organ class and preferred term. Additional summary  will 
+be display ed to report all deaths up to 150 day s after the last dose of spartalizumab or up to 30 
+days after the last dose of ca pmatinib whichever comes last
+.
+All deaths   will be listed, post treatment deaths will be flagged. A separate listing of deaths prior 
+to starting treatment will be provided for all screened subjects.
+2.8.3 Laboratory  data
+On analyzing laboratory , data from all sources (central and local laboratories) will be combined. 
+The summaries will include only on-treatment assessments (see Section 2.1.1).
+The following summaries will be produced for hematology  and biochemistry  laboratory  data 
+(by laboratory  parameter and tr eatment ):
+
+Novartis Confidential Page 34
+SAP for abbreviated CSR CINC280D2201
+Worst post -baseline CTC grade (CTC v5.0) re gardless of the baseline status . Each subject
+will be counted only for the worst grade observed post -baseline.
+Shift tables using CTC grades to compare baseline to the worst on-treatment value
+For laboratory  tests where CTC grades are not defined, shift tables using the 
+low/normal/high/(low and high) classification to compare baseline to the worst on-
+treatment value.
+The following listings will be produced for the laboratory  data:
+Listing sof all laboratory data, with CTC grades and 
+classification relative to the 
+laboratory  normal range. Lab data collected during the post -treatment period willbe 
+flagged .  
+Listing of all CTC grade 3 or 4 laboratory  toxicities .
+Liver function parameters 
+Liver function parameters of interest are total bilirubin (TBL), ALT, AST and alkaline 
+phosphatase (ALP). The number (%) of patients with worst post -baseline values as per 
+Novartis L iver Toxicity  guidelines will be summarized:
+The following summaries will be produ ced:
+ALT >3×ULN, >5×ULN, >8xUL N, >10×ULN, >20×ULN
+AST >3×ULN, >5×ULN, >8×ULN, >10xUL N, >20×ULN
+ALT or AST >3×ULN, >5xULN, >8×ULN, >10xULN, >20×ULN
+TBL> 2xULN, >3 ×ULN
+ALT or AST > 3xULN & TBL > 2xULN
+ALT or AST > 3× ULN & TBL > 2×ULN & ALP ≥ 2 ×ULN
+ALT or AST > 3xULN & TBL > 2xULN & AL P < 2xUL N 
+2.8.4 Other safety  data
+2.8.4.1 ECG and cardiac imaging data
+At scheduled visits, triplicate 12-lead ECG’s will be performed. ECG machines will 
+automatically  calculate heart rate and measures of HR, PR, QRS, QT,QTcB and QTcF intervals. 
+ECG data will be read and interpreted locally . 
+An unscheduled ECG may be repeated at the discretion of the investigator at any time during 
+the study  and as clinically  indicated. Unscheduled ECGs with clinically  significant findings 
+should be collected in triplicate. Interpretation of the tracing must be made by a qualified 
+physician and documented on the ECG eCRF page.
+
+Novartis Confidential Page 35
+SAP for abbreviated CSR CINC280D2201
+Data handling
+In case the study  requires ECG replicates at any assessment, the average of the ECG parameters 
+at that assessment should be used in the anal yses.
+Data analy sis
+The number an d percentage of patients with notable ECG values will be presented overall and 
+by dose level (if applicable) . 
+QT, QTcF , QTcB
+-New value of > 450 and ≤ 480 ms
+-New value of > 480 and ≤ 500 ms
+-New value of > 500 ms
+-Increase from Baseline of > 30 ms to ≤  60ms
+-Increase from Baseline of > 60 ms
+HR
+-Increase from baseline >25% and to a value > 100 bpm
+- Decrease from baseline >25% and to a value < 50 bpm
+PR
+-Increase from baseline >25% and  to a value > 200 ms
+-New value of > 200 ms
+QRS
+-Increase from baseline >25% and  to a value > 120 ms 
+-New values of QRS > 120 ms 
+A listing of all ECG assessments will be produced  and notable values will be flagged. In the 
+listing, the assessments collected 
+during the post -treatment period will be flagged.
+2.8.4.2 Vital signs
+Vital sign assessments are performed in order to characterize basic body  function. The 
+following parameters were collected: weight (kg), body  temperature (°C), pulse rate (beats per 
+minute), sy stolic and diastolic blood pressure (mmHg).
+Data handling
+Vital signs collected on treatment will be summarized. Values measured outside of on treatment 
+period will be flagged in the listings.
+Data analy sis
+For analy sis of vital signs the clinically  notable vital sign criteria are provided in Table 2-6
+below.
+
+Novartis Confidential Page 36
+SAP for abbreviated CSR CINC280D2201
+Table 2-6 Clinically  notable changes in vital signs
+Vital sign 
+(unit)Clinically notable criteria
+above normal value below normal value
+Weight (kg) increase > 10 % from Baseline decrease  > 10 % from Baseline
+Systolic blood 
+pressure 
+(mmHg)≥ 180 with increase from baseline of ≥ 
+20≤ 90 with decrease from baseline of ≥ 20
+Diastolic blood 
+pressure 
+(mmHg)≥ 105 with increase from baseline of ≥ 
+15≤ 50 with decrease from ba seline of ≥ 15
+Pulse rate 
+(bpm)≥ 100 with increase from baseline 
+of >2 5%≤ 50 with decrease from baseline of > 
+25%
+Body 
+temperature≥39.1 -
+The number and percentage of subjects with notable vital sign values (high/low) will be
+presented.  Trends of systolic and diastolic blood pressures over time will be display ed via 
+boxplots for scheduled assessment timepoints along with corresponding tables display ing the 
+statistics used for the box plots .      
+A listing of all vital sign assessments will be produced and notable values will be flagged. In 
+the listing, the assessments collected outside of on -treatment period will be flagged. 
+2.8.4.3 ECOG performance status
+The ECOG PS scale ( Table 2 -
+7will be used to assess phy sical health of patients, ranging from 
+0 (most active) to 5 (least active):
+Table 2-7 ECOG Performance Scale
+Score Description
+0 Fully active, able to carry  on all pre -disease performance without restriction
+1 Restricted in phy sically  strenuous activity but ambulatory and able to carry out 
+work of a light or sedentar y nature, e.g., light house work, office work
+2 Ambulator y and capable of all self-care but unable to carry out any work 
+activities. Up and about more than  50% of waking hours
+3 Capable of only limited self -care, confined to bed or chair more than 50% of 
+waking hours
+4 Completely disabled. Cannot carry on any self -care. Totally confined to bed or 
+chair
+5 Dead
+Shift tables of ECOG performance status at baseline to worst post-baseline ECOG performance 
+status by score will be provided using the safet y set; shift tables of ECOG performance status 
+at baseline to best post-baseline ECOG performance status by score will also be provided. 
+ECOG performance status at each tim e point will be listed .
+
+Novartis Confidential Page 37
+SAP for abbreviated CSR CINC280D2201
+2.9 Pharmacokinetic endpoints
+The secondary  objective for PK is to characterize the pharmacokinetics of capmatinib and 
+spartalizumab as a combination therapy  in this patient population
+The respective PAS for each study drug will be used in the pharmacokinetic data anal ysis.
+PK parameters
+The descriptive statistics (n, mean, CV%, standard deviation (SD) , median, geometric mean, 
+geometric CV%, minimum and maximum) will be presented for all PK parameters, including 
+but not limited to those listed in Table 2-8except Tmax, where only  n, median, minimum and 
+maximum will be presented. Any missing PK parameter data will not to be imputed. All 
+individual PK parameters will be listed using the Pharmacokinetic anal ysisset.
+Table 2-8 Non-compartmental pharmacokinetic parameters  
+AUClast The AUC from time zero to the last 
+measurable concentration sampling time 
+(tlast) (mass x time x volume-1) 
+AUCtau The AUC calculated to the end of a dosing 
+interval (tau) at stead y-state (amount x time 
+x volume-1)
+Cmax The maximum (peak) observed plasma 
+serum concentration after single dose 
+administration (mass x volume-1)
+Ctrough The minimum (peak) observed plasma 
+serum concentration (mass x volume-1)
+Tmax The time to reach maximum (peak) plasma, 
+blood, serum, or other body  fluid drug 
+concentration after single dose 
+administration (time)
+T1/2 The elimination half-life associated with the 
+terminal slope (lambda_z) of a semi 
+logarithmic concentration -time curve (time). 
+Use qualifier for other half -lives
+PK concentrations 
+Descriptive statistics (n, m (number of non-zero concentrations ) , mean, CV%, SD, median, 
+geometric mean, geometric CV%, minimum and maximum) for spartalizumab and capmatinib 
+concentrations will be presented at each scheduled time point. All concentration data for 
+spartalizumab and capmatinib will be d isplay ed graphicall y.
+
+Novartis Confidential Page 38
+SAP for abbreviated CSR CINC280D2201
+The arithmetic mean (SD) and geometric mean and individual concentration versus time 
+profiles for spartalizumab and capmatinib will be display ed graphically  for patients in 
+Pharmacokinetic anal ysis set on the linear and semi- log view.
+All individual plasma for spartalizumab andcapmatinib concentration data will be listed for the 
+Full anal ysis set.
+Handling of PK data below LLOQ or missing
+All concentration values below thelower limit of quantitation (LLO Q) are set to zero by the 
+Bioa nalyst, and will be display ed in the listings as zero and flagged. LLOQ values will be 
+treated as zero in any calculations of summary  statistics, and treated as missing for the 
+calculation of the geometric means and their CV%. The number of non-zero concen trations will 
+also be reported in the summary  statistics.
+Missing values for an y PK data will not be imputed and will be treated as missing.
+2.10 Immunogenicity and PK/PD analy ses
+Another secondary   objective is to evaluate the prevalence and incidence of immunogenicit y
+.
+2.10.1 Immunogenicity
+Immunogenicit y will be characterized descriptively  by tabulating anti-drug antibodies (ADA) 
+prevalence at baseline and ADA incidence on -treatment. Sample AD A status will be listed.
+2.10.1.1 Sample ADA Status
+Each IG sample is assessed in a three tiered anti-drug anti-body  (ADA) testing approach. All 
+IG samples are analy zed in the initial screening assay  (first tier). Samples testing negative in 
+the screening assay  are not subject to a confirmatory assay .  Samples testing positive in the 
+screeni ng assay  are then subjected to the confirmatory  assay to demonstrate that ADA are 
+specific for the therapeutic protein product (second tier). The titer of confirmatory positive 
+samples will be subsequently  determined in the titration assay  (third tier). Samples identified as 
+positive in the confirmatory  assay are considered ADA positive. Samples can test negative in 
+either the scr eening or confirmatory  assay  but for anal ysis purposes they  are not differentiated.
+The following properties of each sample will be provided in the source data: 
+Result ofassay  according to pre-specified confirmatory  cut point: ADA positive (yes) or 
+ADA n egative (no)
+Titer (for positive samples): numerical representation of the magnitude of the ADA response
+Drug tolerance level: highest drug concentration that does not interfere in the ADA 
+detection method
+Fold titer change (i.e. x -fold): threshold for determining treatment boosted
+Sample ADA status will be defined for spartalizumab, based on their respective PK 
+concentrations. Sample ADA status is determined based on the following definitions:
+
+Novartis Confidential Page 39
+SAP for abbreviated CSR CINC280D2201
+ADA- inconclusive sample : Sample where assay  is ADA negative andspartalizumab PK 
+concentration at the time of IG sample collection is greater than or equal to the drug 
+tolerance level or missing.  
+Unevaluable sample : Sample where assay  is not available.
+Determinant sample: Sample that is neither ADA -inconclusive nor unevaluable.
+The following definitions apply  only to determinant samples:
+ADA- negative sample : Determinant sample where assay  is ADA negative and 
+spartalizumab PK concentration at the time of IG sample collection is less than the drug 
+tolerance level . 
+ADA-positive sample : Determinant sample where assay  is ADA positive.
+The following definitions apply  only to post -baseline ADA- positive samples with a 
+correspond ing determinant baseline sample.  To be classified as treatment -boosted or 
+treatment -unaffected , both the post -baseline and baseline titer must be non -missing:
+treatment -induced ADA
+-positive sample: ADA- positive sample post-baseline with ADA-
+negative sample at baseline. 
+treatment -boosted ADA -positive sample: ADA- positive sample post -baseline with titer that 
+is at least the fold titer change greater than the ADA -positive baseline titer.
+treatment -unaffected ADA -positive sample : ADA -positive sample post-baseline with titer 
+that is less than the fold titer change greater than the ADA -positive baseline titer.
+NOTE: PK concentrations which are flagged for exclusion will still be used to determine 
+ADA- inconclusive and ADA -negative samples.
+The following summaries of ADA sample status (n and %) will be provided using 
+Immunogenicity prevalence set : 
+•ADA- positive samples (i.e. ADA prevalence)  both overall and by time point (including 
+baseline). For summaries by time point, the denominator is the number of subjects at that 
+time point with a determinant sample.
+Listings will be provided of sample ADA status (including titer for positive samples).
+2.10.1.2   Subject A DA status
+Any IG sample collected after 150 days of the last dose of spartalizumab will not be used for 
+summaries or derivations and will only  be included in the list ing.
+Subject ADA status is
+defined as follows:
+Treatment -induced ADA -positive subject : subject with ADA- negative sample at 
+baseline and at least one treatment -induced ADA- positive sample . 
+Treatment -boosted ADA-positive subject : subject with ADA- positive sample at baseline 
+and at least one treatment -booste d ADA -positive sample .
+Treatment -unaffected ADA -positive subject : subject with ADA- positive sample at 
+baseline, no treatment -boosted ADA- positive sample s, and at least one treatment -
+unaffected ADA -positive sample . 
+
+Novartis Confidential Page 40
+SAP for abbreviated CSR CINC280D2201
+Treatment -reduced ADA-positive subject : subject with ADA- positive sample at baseline
+and at least one post baseline determinant sample, all of which are ADA-negative 
+samples . 
+ADA- negative subject : subject with ADA-n egative sample atbaseline and at least one 
+post baseline determinant sample, all of which are A DA-negative samples.  
+Inconclusive subject : subject who does not qualify as treatment -induced ADA -positive , 
+treatment -boosted ADA -positive , treatment -unaffecte d ADA
+-positive, treatment -
+reduced ADA- positive, or ADA -negative .  
+The following summaries of ADA subject status (n and %) will be provided using 
+Immunogenicity incidence set : 
+Treatment -boosted ADA -positive subjects; denominator is the number of subjects with 
+ADA- positive sample at baseline. 
+Treatment -induced ADA-positive subjects; denominator is the number of subjects with 
+ADA- negative sample at baseline. 
+ADA- negative subjects: denominator is the number of subjects in Immunogenicity 
+incidence set .
+ADA- positive subjects (i.e. ADA incidence): calculated as the number of treatment -
+boosted ADA- positive and treatment -induced ADA -positive subjects; denominator is 
+the number of subjects in Immunogenicity incidence set . 
+Listing swill be provided of subject ADA status.
+2.11 Other 
+Exploratory  analy ses
+Not applicable.
+2.12 Interim analy sis
+Not applicable.
+3 Sample size calculation
+3.1 Primary  analy sis
+No formal statistical power calculations to determine sample size were performed for this study .
+3.2 Power for analy sis of key  secon dary  variables
+Not applicable.
+
+Novartis Confidential Page 41
+SAP for abbreviated CSR CINC280D2201
+4 Change to protocol specified analyses
+Not applicable.
+5 Appendix
+5.1 Imputation rules
+5.1.1 Study drug
+The following rule should be used for the imputation of the dose end date for a given study  
+treatment component:
+Scenario 1: If the dose end date is completel y missing and there is no EOT page and no death 
+date,the patient is considered as on -going :
+The p atientshould be treated as on -going and the cut -off date should be used as the dose end
+date. 
+Scenario 2: If the dose end date is completel y or partially missing and the EOT page is 
+available :
+Case 1: T -he dose end date is completely  missing , and the EOT  completion date is complete, 
+then this latter date should be used.  
+Case 2: Only  Year (yyyy) of the dos e end date is available and yyyy < the year of EOT date:  
+Use Dec31yyyy
+Case 3: Only  Year (yyyy) of the dose end date is available and yyyy  = the year of EOT date:
+Use EOT date
+Case 4: Both Year (yyyy) and Month (mm) are available for dose end date , and yyyy  = the 
+year of EOT date and mm < the month of  EOT date: 
+Use lastday of the Month (mm)
+All other cases should be considered as a data issue and the statistician should contact the data 
+manager of the study .
+After imputation, compare the imputed date with start date of treatment, if the imputed date is 
+< start date of treatment:
+Use the treatment start date
+Patients with missing start dates are to be considered missing for all study  treatment component 
+related calculations and no imputation will be made. If start date is missing then end-date should 
+not be imputed.
+
+Novartis Confidential Page 42
+SAP for abbreviated CSR CINC280D2201
+5.1.2 AE, ConMeds and safety  assessment date imputation
+Table 5-1 Imputation of start dates (A E, CM) and assessments (LB, EG, VS)
+Missing 
+ElementRule
+day, month, 
+and y earNo imputation will be done for completely  missing dates
+day, month If available year = year of study  treatment start date then 
+oIf stop date contains a full date and stop date is earlier than 
+study  treatment start date then set start date = 01JanYYYY
+oElse set start date = stud y treatment start date. 
+If available year > year of study  treatment start date then 01JanYYYY
+If available y ear < year of study  treatment start date then 01JulYYYY
+day If available month and year = month and year of study  treatment start 
+date then 
+oIf stop date contains a full date and stop date is earlier than 
+study  treatment start date then set sta rt date= 01MONYYYY. 
+oElse set start date = stud y treatment start date.
+If available month and year > month and year of study  treatment start 
+date then 01MONYYYY  
+If available month and year < month year of stud y treatment start date 
+then 15MONYYYY  
+
+Novartis Confidential Page 43
+SAP for abbreviated CSR CINC280D2201
+Table 5-2 Imputation of end dates (A E, CM) 
+Missing 
+ElementRule
+(*=last treatment date plus 30 days (150 day s for PDR001) not > (death 
+date, cut -off date, withdrawl of consent date))
+day, month, 
+and y earCompletely  missing end dates (incl. ongoing events) will be imputed 
+by the end date of the on -treatment period* 
+day, month If partial end date contains y ear onl y, set end date = earliest of 
+31DecYYYY or end date of the on -treatment period * 
+day If partial end date contains month and y ear, set end date = earliest of 
+last day  of the month or end date of the on -treatment period *
+Any AEs and ConMeds with partial/missing dates will be displayed as such in the data listings .
+Any AEs and ConMeds which are continuing as per data cut-off will be shown as ‘ongoing’ 
+rather than the end date provided. 
+5.1.2.1 Other imputations
+Incomplete date of initial diagnosis of cancer and  date of most recent 
+recurrence 
+Missing day is defaulted to the 15thof the month and mi ssing month and day is defaulted to 01-
+Jan. 
+Incomplete assessment dates for tumor assessment
+All investigation dates (e.g. MRI scan, CT scan ) must be completed with day , month and y ear. 
+If one or more assessment dates are incomplete but other investigatio n dates are available, 
+this/these incomplete date(s) are not considered for calculation of the assessment date and 
+assessment date is calculated as the latest of all investigation dates (e.g. MRI  scan, CT scan ) if 
+the overall response at that assessment isCR/PR/SD/UNK . Otherwise –if overall response is 
+progression –the assessment date is calculated as the earliest date of all investigation dates at 
+that evaluation number.  If all measurement dates have no day  recorded, the 1stof the month is 
+used. If the month is not completed, for any of the investigations, the respective assessment will 
+be considered to be at the date which is exactly  between previous and following assessment. If 
+a previous and following assessment is not available, this assessment will not be used for any 
+calculation.
+Applying the cut -off to tumor assessment
+For tumor related assessments, if an evaluation has some assessments done prior tocut-off date 
+and others after the cut-off date , then the evaluatio n is considered post-cut-off date and will 
+be excluded from analy sis.
+
+Novartis Confidential Page 44
+SAP for abbreviated CSR CINC280D2201
+5.2 AEs coding/grading
+Adverse events are coded using the Medical dictionary  for regulatory  activities (MedDRA) 
+terminology .The latest available MedDRA version at the time of the analyses should be used. 
+The MedDRA version used should be specified in the footnote of relevant tables.  
+AEs will be assessed according to the Common Terminology  Criteria for Adverse Events 
+(CTCAE) version 5.0. 
+The CTCAE represents a comprehensive grading system for reporting the acute and late effects 
+of cancer treatments. CTCAE grading is by definition a 5-point scale generally  corresponding 
+to mild, moderate, severe, life threatening, and death. This grading system inherently  places a 
+value on the importance of an event, although there is not necessaril y proportionality  among 
+grades (a grade 2 is not necessari ly twice as bad as a grade 1). 
+5.3 Laboratory  parameters derivations
+Grade categorization oflab values will be assigned programmaticall y as per NCI Common 
+Terminology  Criteria for Adverse Events (CTCAE) version v5.0. The calculation of CTCAE 
+grades will be based on the observed laboratory  values only, clinical assessments will not be 
+taken into account. The criteria to assign CTCAE grades are given in Novartis internal criteria 
+for CTCAE grading of laboratory  paramete rs. The latest available version of the document 
+based on the underly ing CTCAE version 5.0at the time of anal ysis will be used. 
+For laboratory tests where grades are not defined by CTCAE v5.0, results will be graded b y the 
+low/normal/high (or other proje ct-
+specific ranges, if more suitable) classifications based on 
+laboratory  normal ranges.
+A severity  grade of 0 will be assigned for all non -missing lab values not graded as 1 or higher. 
+Grade 5 will not be used. For laboratory  tests that are graded for both low and high values, 
+summaries will be done separately  and labelled by direction, e.g., sodium will be summarized 
+as hyponatremia and hy pernatremia.
+Imputation Rules  
+CTC grading for blood differentials is based on absolute values. However,  this data may not 
+be reported as absolute counts but rather as percentage of WBC. 
+If laboratory  values are provided as ‘<X’ (i.e. below limit of detection) or ‘>X’ , prior to 
+conversion of laboratory  values to SI  unit, these numeric values are set to X. 
+The followi ng rules will be applied to derive the WBC differential counts when only 
+percentages are available for a xxx differential
+xxx count = (WBC count) * (xxx %value / 100)
+Further derivation of laboratory  parameters might be required for CTCAE grading. For instance, 
+corrected calcium can be derived using the reported total calcium value and albumin at the same 
+assessment using the following formula:
+Corrected Calcium (mg/dL) = Calcium (mg/dL) –0.8 [Albumin (g/dL )-4]
+
+Novartis Confidential Page 45
+SAP for abbreviated CSR CINC280D2201
+In order to apply the above formula, albumin values in g/L will be converted to g/dL by  
+multiply ing by 0.1), calcium values in mmol/L  will be converted to mg/dL  by dividing by 
+0.2495. For calculation of laboratory  CTC grades 0 and 1, the normal range for derived 
+corrected calcium is set to the same limits (in mg/dL ) as for calcium.
+CTC grades for the derived absolute WBC differential counts (neutrophils, lymphocy tes) and 
+corrected calcium will be assigned as described above for grading
+5.4 Statistical models
+Kaplan -Meier estimates
+Anestimate of the survival function willbeconstructed using Kaplan -Meier (product-limit ) 
+m
+ethodas implemented inPROC LIFETEST with METH OD=KM option. The PROC
+LIFETEST statement will usetheoption CON FTYP E=LOGL OG.
+Median survival willbe ob tained along with 95% confide nce intervalsca lculated from PRO C
+LIFE TEST output using themethod of[Brookm eyer and Crowl ey1982 ]. Kaplan-Mei er
+estimat esof the survivalfunction w ith 95% confidenceinterval s atspecific timepoint s
+will be sum m arized.Thestandard error of the Kaplan-Me ier estimate will b e calculated
+using Gr eenwood’s formula [Collett 1994].
+Treatment of ties
+The STRATA statement in LIFETEST procedure will be used to analyze time to event data 
+with ties. The PHREG procedure in SAS with option TIES=EXACT will be used to fit the Cox 
+proportional hazards model.
+6 Reference
+Brookmey
+er R and Crowley  J (1982). A Confidence Interval for the Median Survival Time. 
+Biometrics, 38, 29 - 41. 
+Clopper CJ and Pearson ES (1934). The use of confidence or fiducial limits illustrated in the 
+case of the binomial.  Biometrical , 26, 404-413.
+Collet D (1994). Modelling survival data in medical research. London, Chapman & Hall.
+Herbst RS, Baas P, Kim DW, et al (2016) Pembrolizumab versus docetaxel for previousl y 
+treated, PD -L1-positive, advanced non -small -cell lung cancer (KEYNOTE -010): a 
+randomised controlled trial. Lancet p. 1540 -
+50.
+Rittmey er A, Barlesi F, Waterkamp D, et al (2017) Atezolizumab versus docetaxel in patients 
+with previou sly treated non -small -cell lung cancer (OAK): a phase 3, open -label, multicentre 
+randomised controlled trial. Lancet p. 255 -265.

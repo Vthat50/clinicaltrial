@@ -1,0 +1,977 @@
+
+--- Page 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+INTERNATIONAL COUNCIL FOR HARMONISATION OF TECHNICAL 
+REQUIREMENTS FOR PHARMACEUTICALS FOR HUMAN USE 
+ 
+ 
+ICH HARMONISED GUIDELINE 
+ 
+ 
+ADDENDUM ON ESTIMANDS AND SENSITIVITY 
+ANALYSIS IN CLINICAL TRIALS 
+TO THE GUIDELINE ON STATISTICAL PRINCIPLES FOR 
+CLINICAL TRIALS 
+E9(R1) 
+ 
+ 
+Final version 
+Adopted on 20 November 2019 
+ 
+ 
+ 
+This Guideline has been developed by the appropriate ICH Expert Working Group and 
+has been subject to consultation by the regulatory parties, in accordance with the ICH 
+Process.  At Step 4 of the Process the final draft is recommended for adoption to the 
+regulatory bodies of ICH regions. 
+
+
+--- Page 2 ---
+ 
+ 
+ 
+E9(R1) 
+Document History 
+ 
+Code 
+History 
+Date 
+E9(R1) 
+Adopted by the Regulatory Members of the ICH 
+Assembly under Step 4 (document dated 17 
+November 2019). 
+20 November 
+2019 
+E9(R1) 
+Endorsement by the ICH Assembly under Step 2 
+and release for public consultation. 
+30 August 2017 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Legal notice: This document is protected by copyright and may, with the exception of the ICH 
+logo, be used, reproduced, incorporated into other works, adapted, modified, translated or 
+distributed under a public license provided that ICH's copyright in the document is acknowledged 
+at all times.  In case of any adaption, modification or translation of the document, reasonable 
+steps must be taken to clearly label, demarcate or otherwise identify that changes were made to 
+or based on the original document.  Any impression that the adaption, modification or translation 
+of the original document is endorsed or sponsored by the ICH must be avoided. 
+The document is provided "as is" without warranty of any kind.  In no event shall the ICH or the 
+authors of the original document be liable for any claim, damages or other liability arising from 
+the use of the document. 
+The above-mentioned permissions do not apply to content supplied by third parties.  Therefore, 
+for documents where the copyright vests in a third party, permission for reproduction must be 
+obtained from this copyright holder. 
+
+
+--- Page 3 ---
+ 
+ 
+ICH HARMONISED GUIDELINE  
+ADDENDUM ON ESTIMANDS AND SENSITIVITY 
+ANALYSIS IN CLINICAL TRIALS                                  
+TO THE GUIDELINE ON STATISTICAL PRINCIPLES FOR 
+CLINICAL TRIALS 
+ICH E9(R1) 
+ICH Consensus Guideline 
+ 
+ 
+TABLE OF CONTENTS 
+ 
+A.1. PURPOSE AND SCOPE .............................................................................................. 2 
+A.2. A FRAMEWORK TO ALIGN PLANNING, DESIGN, CONDUCT, ANALYSIS 
+AND INTERPRETATION .......................................................................................... 4 
+A.3. ESTIMANDS ................................................................................................................. 5 
+A.3.1. Intercurrent Events to be Reflected in the Clinical Question of Interest ....................... 5 
+A.3.2. Strategies for Addressing Intercurrent Events when Defining the Clinical Question of 
+Interest ............................................................................................................................ 7 
+A.3.3. Estimand Attributes ........................................................................................................ 9 
+A.3.4. Considerations for Constructing an Estimand.............................................................. 10 
+A.4. IMPACT ON TRIAL DESIGN AND CONDUCT .................................................. 13 
+A.5. IMPACT ON TRIAL ANALYSIS ............................................................................ 15 
+A.5.1. Main Estimation ........................................................................................................... 15 
+A.5.2. Sensitivity Analysis ...................................................................................................... 17 
+A.5.2.1. Role of Sensitivity Analysis ............................................................................ 17 
+A.5.2.2. Choice of Sensitivity Analysis ........................................................................ 17 
+A.5.3. Supplementary Analysis............................................................................................... 18 
+A.6. DOCUMENTING ESTIMANDS AND SENSITIVITY ANALYSIS ..................... 18 
+GLOSSARY............................................................................................................................ 20 
+ 
+ 
+ 
+ 
+
+
+--- Page 4 ---
+ICH E9(R1) Guideline 
+2 
+ 
+A.1. 
+PURPOSE AND SCOPE 
+To properly inform decision making by pharmaceutical companies, regulators, patients, 
+physicians and other stakeholders, clear descriptions of the benefits and risks of a treatment 
+(medicine) for a given medical condition should be made available.  Without such clarity, there 
+is a concern that the reported “treatment effect” will be misunderstood.  This addendum 
+presents a structured framework to strengthen the dialogue between disciplines involved in the 
+formulation of clinical trial objectives, design, conduct, analysis and interpretation, as well as 
+between sponsor and regulator regarding the treatment effect(s) of interest that a clinical trial 
+should address. 
+Precision in describing a treatment effect of interest is facilitated by constructing the 
+“estimand” (see Glossary; A.3.) corresponding to a clinical question of interest. Clarity requires 
+a thoughtful envisioning of “intercurrent events” (see Glossary; A.3.1.) such as discontinuation 
+of assigned treatment, use of an additional or alternative treatment and terminal events such as 
+death.  The description of an estimand should reflect the clinical question of interest in respect 
+of these intercurrent events, and this addendum introduces strategies to reflect different 
+questions of interest that might be posed.  The choice of strategies can influence how more 
+conventional attributes of a trial are reflected when describing the clinical question, for 
+example the treatments, population or the variable (endpoint) of interest. 
+The statistical analysis of clinical trial data should be aligned to the estimand.  This addendum 
+clarifies the role of “sensitivity analysis” (see Glossary) to explore robustness of conclusions 
+from the main statistical analysis. 
+Throughout the addendum, references to the original ICH E9 are made using x.y.  References 
+within this addendum are made using A.x.y. 
+This addendum clarifies and extends ICH E9 in respect of the following topics.  Firstly, ICH 
+E9 introduced the Intention-To-Treat (ITT) principle in connection with the effect of a 
+treatment policy in a randomised controlled trial, whereby subjects are followed, assessed and 
+analysed irrespective of their compliance to the planned course of treatment, indicating that 
+preservation of randomisation provides a secure foundation for statistical tests.  Multiple 
+consequences arising from the ITT principle can be distinguished.  Firstly, that the trial analysis 
+should include all subjects relevant for the research question.  Secondly, that subjects should 
+be included in the analysis as randomised.  Taken directly from the definition of the ITT 
+principle (see ICH E9 Glossary), a third consequence is that subjects should be followed-up 
+and assessed regardless of adherence to the planned course of treatment and that those 
+assessments should be used in the analysis.  It remains undisputed that randomisation is a 
+cornerstone of controlled clinical trials and that analysis should aim at exploiting the 
+advantages of randomisation to the greatest extent possible.  However, the question remains 
+whether estimating an effect in accordance with the ITT principle always represents the 
+treatment effect of greatest relevance to regulatory and clinical decision making. The 
+framework outlined in this addendum gives a basis for describing different treatment effects 
+
+
+--- Page 5 ---
+ICH E9(R1) Guideline 
+3 
+ 
+and some points to consider for the design and analysis of trials to give estimates of these 
+treatment effects that are reliable for decision making. 
+Secondly, issues considered generally under data handling and “missing data” (see Glossary) 
+are re-visited.  Two important distinctions are made.  Firstly, the addendum distinguishes 
+discontinuation of randomised treatment from study withdrawal.  The former represents an 
+intercurrent event, to be addressed in the precise specification of the trial objective through the 
+estimand.  The latter gives rise to missing data to be addressed in the statistical analysis.  
+Consider, for example, a subject switching treatments in an oncology trial, and a subject for 
+whom no outcome event can be observed because the trial is completed.  The former represents 
+an intercurrent event and the clinical question of interest in respect of that should be clear.  The 
+latter is administrative censoring which needs to be addressed as a missing data problem in the 
+statistical analysis.  Having clarity in the estimand gives a basis for planning which data need 
+to be collected and hence which data, when not collected, present a missing data problem to be 
+addressed in the statistical analysis.  In turn, methods to address the problem presented by 
+missing data can be selected to align with the estimand.  Secondly, the addendum highlights 
+the distinct consequences of different intercurrent events.  Events such as discontinuation of 
+treatment, switching between treatments, or use of an additional medication may render the 
+later measurements of the variable irrelevant or difficult to interpret even when they can be 
+collected.  Measurements after a subject dies do not exist. 
+Thirdly, issues related to the concept of analysis sets are considered in the framework.  Section 
+5.2. strongly recommends that analysis of superiority trials be based on the full analysis set, 
+defined to be as close as possible to including all randomised subjects.  However, trials often 
+include repeated measurements on the same subject.  Elimination of some planned 
+measurements on some subjects, perhaps because the measurement is considered irrelevant or 
+difficult to interpret, can have similar consequences to excluding subjects altogether from the 
+full analysis set, i.e. that the initial randomisation is not fully preserved.  A consequence of this 
+is that the theoretical benefits that randomisation confers on testing hypotheses about treatment 
+effects and the practical benefits of balancing confounding factors at baseline can be 
+diminished.  In addition, a meaningful value of the outcome variable might not exist, as when 
+the subject dies.  Section 5.2. does not directly address these issues.  Clarity is introduced by 
+carefully defining the treatment effect of interest in a way that determines both the population 
+of subjects to be included in the estimation of that treatment effect and the observations from 
+each subject to be included in the analysis considering the occurrence of intercurrent events.  
+The meaning and role of an analysis of the per protocol set is also re-visited in this addendum; 
+in particular whether the need to explore the impact of protocol violations and deviations can 
+be addressed in a way that is less biased and more interpretable than naïve analysis of the per 
+protocol set. 
+Finally, the concept of robustness (see 1.2.) is given expanded discussion under the heading of 
+sensitivity analysis.  A distinction is made between the sensitivity of inference to the 
+assumptions of a chosen method of analysis and the sensitivity to the choice of analytic 
+approach more broadly.  With precise specification of an agreed estimand and a method of 
+
+
+--- Page 6 ---
+ICH E9(R1) Guideline 
+4 
+ 
+analysis that is both aligned to the estimand and pre-specified to a level of detail that it can be 
+replicated precisely by a third party, regulatory interest can focus on sensitivity to deviations 
+from assumptions and limitations in the data in respect of a particular analysis. 
+The principles outlined in this addendum are relevant whenever a treatment effect is estimated, 
+or a hypothesis related to a treatment effect is tested, whether related to efficacy or safety.  
+While the main focus is on randomised clinical trials, the principles are also applicable for 
+single arm trials and observational studies.  The framework applies to any data type, including 
+longitudinal, time-to-first event, and recurrent event data.  Regulatory interest in the application 
+of the principles outlined will be greater for confirmatory clinical trials and, where used to 
+generate confirmatory conclusions, for data integrated across trials. 
+ 
+A.2. 
+A FRAMEWORK TO ALIGN PLANNING, DESIGN, CONDUCT, ANALYSIS 
+AND INTERPRETATION 
+Trial planning should proceed in sequence (Figure 1).  Clear trial objectives should be 
+translated into key clinical questions of interest by defining suitable estimands.  An estimand 
+defines the target of estimation for a particular trial objective (i.e. “what is to be estimated”, 
+see A.3.).  A suitable method of estimation (i.e. the analytic approach, referred to as the main 
+“estimator”, see Glossary) can then be selected (see A.5.1.).  The main estimator will be 
+underpinned by certain assumptions.  To explore the robustness of inferences from the main 
+estimator to deviations from its underlying assumptions, a sensitivity analysis should be 
+conducted, in the form of one or more analyses, targeting the same estimand (see A.5.2.). 
+ 
+ 
+Figure 1: Aligning target of estimation, method of estimation, and sensitivity analysis, for 
+a given trial objective 
+
+
+--- Page 7 ---
+ICH E9(R1) Guideline 
+5 
+ 
+ 
+This framework enables proper trial planning that clearly distinguishes between the target of 
+estimation (trial objective, estimand), the method of estimation (estimator), the numerical result 
+(“estimate”, see Glossary), and a sensitivity analysis.  This will assist sponsors in planning 
+trials, regulators in their reviews, and will enhance the interactions between these parties when 
+discussing the suitability of clinical trial designs, and the interpretation of clinical trial results. 
+The specification of appropriate estimands (see A.3.) will usually be the main determinant for 
+aspects of trial design, conduct (see A.4.) and analysis (see A.5.). 
+ 
+A.3. 
+ESTIMANDS 
+Central questions for drug development and licensing are to establish the existence, and to 
+estimate the magnitude, of treatment effects: how the outcome of treatment compares to what 
+would have happened to the same subjects under alternative treatment (i.e. had they not 
+received the treatment, or had they received a different treatment).  An estimand is a precise 
+description of the treatment effect reflecting the clinical question posed by a given clinical trial 
+objective.  It summarises at a population level what the outcomes would be in the same patients 
+under different treatment conditions being compared.  The targets of estimation are to be 
+defined in advance of a clinical trial.  Once defined, a trial can be designed to enable reliable 
+estimation of the targeted treatment effect. 
+The description of an estimand involves precise specifications of certain attributes, which 
+should be developed based not only on clinical considerations but also on how intercurrent 
+events are reflected in the clinical question of interest.  Section A.3.1. introduces intercurrent 
+events.  Section A.3.2. introduces strategies to describe the question of interest in respect of 
+intercurrent events.  Section A.3.3. describes the attributes of an estimand and Section A.3.4. 
+gives considerations for its construction.  It is critically important to understand the differences 
+between the strategies and to precisely articulate which are used in constructing the estimand.   
+ 
+A.3.1. 
+Intercurrent Events to be Reflected in the Clinical Question of Interest 
+Intercurrent events are events occurring after treatment initiation that affect either the 
+interpretation or the existence of the measurements associated with the clinical question of 
+interest.  It is necessary to address intercurrent events when describing the clinical question of 
+interest in order to precisely define the treatment effect that is to be estimated. 
+Intercurrent events need to be considered in the description of a treatment effect because 
+measurements of the variable can be influenced by the intercurrent event and the occurrence of 
+the intercurrent event may depend on treatment.  For example, two patients might be exposed 
+initially to the same treatment and provide the same measure of outcome, but if one patient has 
+received additional medication, the information that the two measures give about the treatment 
+differs between the two patients.  Furthermore, whether a patient needs to take additional 
+
+
+--- Page 8 ---
+ICH E9(R1) Guideline 
+6 
+ 
+medication, and whether or not a patient can continue taking treatment, may depend on the 
+treatment to which they are exposed.  Unlike missing data, intercurrent events are not to be 
+thought of as a drawback to be avoided in clinical trials.  Discontinuation of prescribed 
+treatment, use of additional medication, and other such events may occur in clinical practice as 
+they do in clinical trials, and their occurrence needs to be considered explicitly when defining 
+the clinical question of interest. 
+Examples of intercurrent events that can affect interpretation of the measurements include 
+discontinuation of assigned treatment and use of an additional or alternative therapy.  Use of 
+an additional or alternative therapy can take multiple forms, including change to background 
+or concomitant therapy and switching between treatments of interest.  Examples of intercurrent 
+events that would affect the existence of the measurements include terminal events such as 
+death and leg amputation (when assessing symptoms of diabetic foot ulcers), when these events 
+are not part of the variable itself.  Certain clinical events can also be intercurrent events, when 
+their occurrence, or non-occurrence, defines a principal stratum of interest (see A.3.2.).  
+Examples include tumour shrinkage defining objective response when assessing a treatment 
+effect on duration of response in oncology and occurrence of infection when assessing a 
+treatment effect on severity of infections occurring after vaccination of initially uninfected 
+subjects. 
+An intercurrent event might be identified solely by the event itself, such as discontinuation of 
+treatment, or might be more granular.  For example, the reason for the event might be specified, 
+such as discontinuation of treatment due to toxicity, or due to lack of efficacy; the event might 
+require to be of certain magnitude or degree, such as use of additional medication exceeding a 
+specified duration or dose; or the timing of the event might be specified, perhaps in relation to 
+its proximity to the assessment of the variable.  Some events will affect interpretation of the 
+outcome measurements indefinitely, such as discontinuation of treatment, whilst others will 
+affect interpretation only temporarily, such as short-term use of additional treatment.  Indeed, 
+additional or alternative treatments can be diverse; either replacing or supplementing a 
+treatment on which the subject is experiencing inadequate benefit, as an alternative where a 
+subject is not tolerating their assigned treatment, or as a short-term acute treatment to manage 
+a temporary flare in disease symptoms.  In a clinical trial, additional or alternative treatments 
+are often identified as e.g. background treatment, rescue medication, prohibited medication, 
+distinguishing their different roles and allowing them to be considered separately.  The 
+additional granularity, identifying different intercurrent events, is required if different 
+strategies are to be used.  If the intercurrent event for which a strategy needs to be selected 
+depends not only on, for example, failure to continue with treatment, but also on the reason, 
+magnitude or timing associated with that failure, this additional information should be defined 
+and recorded accurately in the clinical trial.  The description of intercurrent events might in 
+theory reflect very specific details of treatment and follow-up, such as a single missed dose of 
+a chronic treatment or a dose taken at the wrong time of day.  Where such specific criteria are 
+not expected to affect interpretation of the variable, they would not need to be addressed as 
+intercurrent events. 
+
+
+--- Page 9 ---
+ICH E9(R1) Guideline 
+7 
+ 
+As indicated above, consideration of intercurrent events is required when constructing the 
+estimand.  Because the estimand is to be defined in advance of trial design, neither study 
+withdrawal nor other reasons for missing data (e.g. administrative censoring in trials with 
+survival outcomes) are in themselves intercurrent events.  Subjects who withdraw from the trial 
+may have experienced an intercurrent event before withdrawal. 
+ 
+A.3.2. 
+Strategies for Addressing Intercurrent Events when Defining the Clinical Question of 
+Interest 
+Descriptions of various strategies are listed below, each reflecting a different clinical question 
+of interest in respect of a particular intercurrent event.  Whether or not the naming convention 
+is used, it is required that the choices of strategy are unambiguously clear once the estimand is 
+constructed.  It is not necessary to use the same strategy to address all intercurrent events.  
+Indeed, different strategies will often be used to reflect the clinical question of interest in 
+respect of different intercurrent events.  Section A.3.4. gives some considerations on selecting 
+strategies to construct an estimand. 
+Treatment policy strategy 
+The occurrence of the intercurrent event is considered irrelevant in defining the treatment effect 
+of interest: the value for the variable of interest is used regardless of whether or not the 
+intercurrent event occurs.  For example, when specifying how to address use of additional 
+medication as an intercurrent event, the values of the variable of interest are used whether or 
+not the patient takes additional medication. 
+If applied in relation to whether or not a patient continues treatment, and whether or not a 
+patient experiences changes in other treatments (e.g. background or concomitant treatments), 
+the intercurrent event is considered to be part of the treatments being compared.  In that case, 
+this reflects the comparison described in the ICH E9 Glossary (under ITT Principle) as the 
+effect of a treatment policy. 
+In general, the treatment policy strategy cannot be implemented for intercurrent events that are 
+terminal events, since values for the variable after the intercurrent event do not exist.  For 
+example, an estimand based on this strategy cannot be constructed with respect to a variable 
+that cannot be measured due to death. 
+Hypothetical strategies 
+A scenario is envisaged in which the intercurrent event would not occur: the value of the 
+variable to reflect the clinical question of interest is the value which the variable would have 
+taken in the hypothetical scenario defined. 
+A wide variety of hypothetical scenarios can be envisaged, but some scenarios are likely to be 
+of more clinical or regulatory interest than others. For example, it may be of clinical or 
+regulatory importance to consider the effect of a treatment under different conditions from 
+those of the trial that can be carried out.  Specifically, when additional medication must be 
+
+
+--- Page 10 ---
+ICH E9(R1) Guideline 
+8 
+ 
+made available for ethical reasons, a treatment effect of interest might concern the outcomes if 
+the additional medication was not available. A very different hypothetical scenario might 
+postulate that intercurrent events would not occur, or that different intercurrent events would 
+occur.  For example, for a subject that will suffer an adverse event and discontinue treatment, 
+it might be considered whether the same subject would not have the adverse event or could 
+continue treatment in spite of the adverse event.  The clinical and regulatory interest of such 
+hypotheticals is limited and would usually depend on a clear understanding of why and how 
+the intercurrent event or its consequences would be expected to be different in clinical practice 
+than in the clinical trial. 
+If a hypothetical strategy is proposed, it should be made clear what hypothetical scenario is 
+envisaged.  For example, wording such as “if the patient does not take additional medication” 
+might lead to confusion as to whether the patient hypothetically does not take additional 
+medication because it is not available or because the particular patient is supposed not to require 
+it. 
+Composite variable strategies 
+This relates to the variable of interest (see A.3.3.).  An intercurrent event is considered in itself 
+to be informative about the patient’s outcome and is therefore incorporated into the definition 
+of the variable.  For example, a patient who discontinues treatment because of toxicity may be 
+considered not to have been successfully treated.  If the outcome variable was already success 
+or failure, discontinuation of treatment for toxicity would simply be considered another mode 
+of failure.  Composite variable strategies do not need to be limited to dichotomous outcomes, 
+however.  For example, in a trial measuring physical functioning, a variable might be 
+constructed using outcomes on a continuous scale, with subjects who die being attributed a 
+value reflecting the lack of ability to function.  Composite variable strategies can be viewed as 
+implementing the intention-to-treat principle in some cases where the original measurement of 
+the variable might not exist or might not be meaningful, but where the intercurrent event itself 
+meaningfully describes the patient’s outcome, such as when the patient dies. 
+Terminal events, such as death, are perhaps the most salient examples of the need for the 
+composite strategy.  If a treatment saves lives, its effect on various measures in surviving 
+patients may be of interest, but it would be inappropriate to say that the summary measure of 
+interest was only the average value of some numerical measure in survivors.  The outcome of 
+interest is survival along with the numerical measures.  For example, progression-free survival 
+in oncology trials measures the treatment effect on a combination of the growth of the tumour 
+and survival. 
+While on treatment strategies 
+For this strategy, response to treatment prior to the occurrence of the intercurrent event is of 
+interest.  Terminology for this strategy will depend on the intercurrent event of interest; e.g. 
+“while alive”, when considering death as an intercurrent event. 
+If a variable is measured repeatedly, its values up to the time of the intercurrent event may be 
+considered relevant for the clinical question, rather than the value at the same fixed timepoint 
+
+
+--- Page 11 ---
+ICH E9(R1) Guideline 
+9 
+ 
+for all subjects.  The same applies to the occurrence of a binary outcome of interest up to the 
+time of the intercurrent event.  For example, subjects with a terminal illness may discontinue a 
+purely symptomatic treatment because they die, yet the success of the treatment can be 
+measured based on the effect on symptoms before death.  Alternatively, subjects might 
+discontinue treatment and, in some circumstances, it will be of interest to assess the risk of an 
+adverse drug reaction while the patient is exposed to treatment. 
+Like the composite variable strategy, the while on treatment strategy can hence be thought of 
+as impacting the definition of the variable, in this case by restricting the observation time of 
+interest to the time before the intercurrent event.  Particular care is required if the occurrence 
+of the intercurrent event differs between the treatments being compared (see A.3.3.). 
+Principal stratum strategies 
+This relates to the population of interest (see A.3.3.).  The target population might be taken to 
+be the “principal stratum” (see Glossary) in which an intercurrent event would occur. 
+Alternatively, the target population might be taken to be the principal stratum in which an 
+intercurrent event would not occur.  The clinical question of interest relates to the treatment 
+effect only within the principal stratum.  For example, it might be desired to know a treatment 
+effect on severity of infections in the principal stratum of patients becoming infected after 
+vaccination.  Alternatively, a toxicity might prevent some patients from continuing the test 
+treatment, but it would be desired to know the treatment effect among patients who are able to 
+tolerate the test treatment. 
+It is important to distinguish “principal stratification” (see Glossary), which is based on 
+potential intercurrent events (for example, subjects who would discontinue therapy if assigned 
+to the test product), from subsetting based on actual intercurrent events (subjects who 
+discontinue therapy on their assigned treatment).  The subset of subjects who experience an 
+intercurrent event on the test treatment will often be a different subset from those who 
+experience the same intercurrent event on control.  Treatment effects defined by comparing 
+outcomes in these subsets confound the effects of the different treatments with the differences 
+in outcomes possibly due to the differing characteristics of the subjects. 
+ 
+A.3.3. 
+Estimand Attributes 
+The attributes below are used to construct the estimand, defining the treatment effect of interest.   
+The treatment condition of interest and, as appropriate, the alternative treatment condition to 
+which comparison will be made (referred to as “treatment” through the remainder of this 
+document).  These might be individual interventions, combinations of interventions 
+administered concurrently, e.g. as add-on to standard of care, or might consist of an overall 
+regimen involving a complex sequence of interventions. (see Treatment Policy and 
+Hypothetical strategies under A.3.2.). 
+
+
+--- Page 12 ---
+ICH E9(R1) Guideline 
+10 
+ 
+The population of patients targeted by the clinical question.  This will be represented by the 
+entire trial population, a subgroup defined by a particular characteristic measured at baseline, 
+or a principal stratum defined by the occurrence (or non-occurrence, depending on context) of 
+a specific intercurrent event (see Principal Stratum strategies under A.3.2.). 
+The variable (or endpoint) to be obtained for each patient that is required to address the clinical 
+question.  The specification of the variable might include whether the patient experiences an 
+intercurrent event (see Composite Variable and While on Treatment strategies under A.3.2.). 
+Precise specifications of treatment, population and variable are likely to address many of the 
+intercurrent events considered in sponsor and regulator discussions of the clinical question of 
+interest.  The clinical question of interest in respect of any other intercurrent events will 
+usually be reflected using the strategies introduced as treatment policy, hypothetical or while 
+on treatment. 
+Finally, a population-level summary for the variable should be specified, providing a basis 
+for comparison between treatment conditions. 
+When defining a treatment effect of interest, it is important to ensure that the definition 
+identifies an effect due to treatment and not due to potential confounders such as differences in 
+duration of observation or patient characteristics. 
+ 
+A.3.4. 
+Considerations for Constructing an Estimand 
+The clinical questions of interest and associated estimands should be specified at the initial 
+stages of planning any clinical trial.  Precise specification of objectives for most trials will need 
+to reflect discontinuation of treatment and use of additional or alternative treatments.  In some 
+settings terminal events, such as death, should be addressed.  Some trial objectives can only be 
+described with reference to clinical events, for example the duration of response in subjects 
+who achieve a response. 
+The construction of an estimand should consider what is of clinical relevance for the particular 
+treatment in the particular therapeutic setting.  Considerations include the disease under study, 
+the clinical context (e.g. the availability of alternative treatments), the administration of 
+treatment (e.g. one-off dosing, short-term treatment or chronic dosing) and the goal of 
+treatment (e.g. prevention, disease modification, symptom control).  Also important is whether 
+an estimate of the treatment effect can be derived that is reliable for decision making.  For 
+example, a clinical question on the treatment effect on clinical outcome regardless of which 
+other therapies are to be used before that outcome is experienced differs to a clinical question 
+on the treatment effect had no additional medication been available.  Depending on the setting, 
+either might represent a clinical question of interest.  However, in both cases, a clinical trial 
+designed to estimate these treatment effects will often include the possibility to use additional 
+medications if medically required.  For the former question, values after the use of additional 
+treatment will be relevant.  For the latter question, values after the additional treatment are not 
+
+
+--- Page 13 ---
+ICH E9(R1) Guideline 
+11 
+ 
+directly relevant since the values also reflect the impact of that additional medication.  It should 
+be agreed that reliable estimation is possible before the choice of estimand is finalised.  This 
+includes, for the latter question, the methods to replace observations that are not to be used in 
+the analysis. 
+When constructing the estimand it is necessary to have a clear understanding of the treatment 
+to which the clinical question of interest pertains (see A.3.3.).  Clear specifications for the 
+treatments of interest might already reflect multiple relevant intercurrent events.  Specifically, 
+a treatment might already reflect the clinical question of interest in respect of changes in 
+background treatment, concomitant medications, use of additional or later-line therapies, 
+treatment-switching and conditioning regimens.  For example, it is possible to specify 
+treatment as intervention A added to background therapy B, dosed as required. In that case, 
+changes to the dose of background therapy B would not need to be considered as an intercurrent 
+event.  However, the use of an additional therapy would need to be considered as an intercurrent 
+event.  If use of any additional medication is also reflected, using the treatment policy strategy 
+for example, then treatment might be specified as intervention A added to background therapy 
+B, dosed as required, and with additional medication, as required.  Alternatively, if the 
+treatment is specified as intervention A, then both changes in background therapy and use of 
+additional therapy would be addressed as intercurrent events.   
+Discussions should also consider whether specifications for the population and variable 
+attributes should be used to reflect the clinical question of interest in respect of any intercurrent 
+events.  Strategies can then be considered for any other intercurrent events.  Usually an iterative 
+process will be necessary to reach an estimand that is of clinical relevance for decision making, 
+and for which a reliable estimate can be made.  Some estimands, in particular those for which 
+the measurements taken are relevant to the clinical question, can often be robustly estimated 
+making few assumptions.  Other estimands may require methods of analysis with more specific 
+assumptions that may be more difficult to justify and that may be more sensitive to plausible 
+changes in those assumptions (see A.5.1.).  Where significant issues exist to develop an 
+appropriate trial design or to derive an adequately reliable estimate for a particular estimand, 
+an alternative estimand, trial design and method of analysis would need to be considered. 
+Avoiding or over-simplifying the process of discussing and constructing an estimand risks 
+misalignment between trial objectives, trial design, data collection and method of analysis.  
+Whilst an inability to derive a reliable estimate might preclude certain choices of strategy, it is 
+important to proceed sequentially from the trial objective and an understanding of the clinical 
+question of interest, and not for the choice of data collection and method of analysis to 
+determine the estimand. 
+The experimental situation should also be considered.  If the management of subjects (e.g. dose 
+adjustment for intolerance, rescue treatment for inadequate response, burden of clinical trial 
+assessments) under a clinical trial protocol is justified to be different to that which is anticipated 
+in clinical practice, this might be reflected in the construction of the estimand. 
+
+
+--- Page 14 ---
+ICH E9(R1) Guideline 
+12 
+ 
+Once constructed, the estimand should define a target of estimation clearly and unambiguously.  
+Consider an intercurrent event of discontinuation of treatment; it is of utmost importance to 
+distinguish between treatment effects of interest based on the principal stratum of patients who 
+would be able to continue if administered the test treatment and the effect during continued 
+treatment.  Furthermore, neither of these should be taken to represent an effect if all patients 
+can continue with treatment.   
+As stated above, when using the hypothetical strategy, some conditions are likely to be more 
+acceptable for regulatory decision making than others.  The hypothetical conditions described 
+should therefore be justified for the quantification of an interpretable treatment effect that is 
+relevant to inform the decisions to be taken by regulators, and use of the medicine in clinical 
+practice.  The question of what the values for the variable of interest would have been if rescue 
+medication had not been available may be an important one.  In contrast, the question of what 
+the values for the variable of interest would have been under the hypothetical condition that 
+subjects who discontinued treatment because of adverse drug reaction had in fact continued 
+with treatment, might not be justifiable as being of clinical or regulatory interest.  A clinical 
+question of interest based on the effect if all subjects had been able to continue with treatment 
+is not well-defined without a thorough discussion of the hypothetical conditions under which 
+it is supposed that they would have continued.  The inability to tolerate a treatment may 
+constitute, in itself, evidence of an inability to achieve a favourable outcome.   
+Characterising beneficial effects using estimands based on the treatment policy strategy might 
+also be more generally acceptable to support regulatory decision making, specifically in 
+settings where estimands based on alternative strategies might be considered of greater clinical 
+interest, but main and sensitivity estimators cannot be identified that are agreed to support a 
+reliable estimate or robust inference.  An estimand based on the treatment policy strategy might 
+offer the possibility to obtain a reliable estimate of a treatment effect that is still relevant.  In 
+this situation, it is recommended to also include those estimands that are considered to be of 
+greater clinical relevance and to present the resulting estimates along with a discussion of the 
+limitations, in terms of trial design or statistical analysis, for that specific approach.  When 
+constructing estimands based on the treatment policy strategy, inference can be complemented 
+by defining an additional estimand and analysis pertaining to each intercurrent event for which 
+the strategy is used; for example, contrasting both the treatment effect on a symptom score and 
+the proportion of subjects using additional medication under each treatment.  Similarly, an 
+estimand using a while on treatment strategy should usually be accompanied by the additional 
+information on the time to intercurrent event distributions, and an estimand based on a principal 
+stratum would usefully be accompanied by information on the proportion of patients in that 
+stratum, if available.   
+The considerations informing the construction of estimand to support regulatory decision 
+making based on a non-inferiority or equivalence objective may differ to those for the choice 
+of estimand for a superiority objective.  As explained in ICH E9, the problem facing the 
+regulator in their decision making is different when based on non-inferiority or equivalence 
+studies compared to superiority studies.  In Section 3.3.2. it is stated that such trials are not 
+
+
+--- Page 15 ---
+ICH E9(R1) Guideline 
+13 
+ 
+conservative in nature and the importance of minimising the number of protocol violations and 
+deviations, non-adherence and study withdrawals is indicated.  In Section 5.2.1.  it is described 
+that the result of the Full Analysis Set (FAS) is generally not conservative and that its role in 
+such trials should be considered very seriously.  Estimands that are constructed with one or 
+more intercurrent events accounted for using the treatment policy strategy present similar 
+issues for non-inferiority and equivalence trials as those related to analysis of the FAS under 
+the ITT principle.  Responses in both treatment groups can appear more similar following 
+discontinuation of randomised treatment or use of another medication for reasons that are 
+unrelated to the similarity of the initially randomised treatments.  Estimands could be 
+constructed to directly address those intercurrent events which can lead to the attenuation of 
+differences between treatment arms (e.g. discontinuations from treatment and use of additional 
+medications).  When selecting strategies, it might be important to distinguish between trials 
+designed to detect whether differences exist between treatments containing the same or similar 
+active substance (e.g. comparison of a biosimilar to a reference treatment) and trials where a 
+non-inferiority or equivalence hypothesis is used in order to establish and quantify evidence of 
+efficacy.  An estimand can be constructed to target a treatment effect that prioritises sensitivity 
+to detect differences between treatments, if appropriate for regulatory decision making. 
+ 
+A.4. 
+IMPACT ON TRIAL DESIGN AND CONDUCT  
+The design of a trial needs to be aligned to the estimands that reflect the trial objectives.  A 
+trial design that is suitable for one estimand might not be suitable for other estimands of 
+potential importance.  Clear definitions for the estimands on which quantification of treatments 
+effects will be based should inform the choices that are made in relation to trial design.  This 
+includes determining the inclusion and exclusion criteria that identify the target population, the 
+treatments, including the medications that are allowed and those that are prohibited in the 
+protocol, and other aspects of patient management and data collection.  If interest lies, for 
+example, in understanding the treatment effect regardless of whether a particular intercurrent 
+event occurs, a trial in which the variable is collected for all subjects is appropriate.  
+Alternatively, if the estimands that are required to support regulatory decision making do not 
+require the collection of the variable after an intercurrent event, then the benefits of collecting 
+such data for other estimands should be weighed against any complications and potential 
+drawbacks of the collection. 
+Efforts should be made to collect all data that are relevant to support estimation, including data 
+that inform the characterisation, occurrence and timing of intercurrent events.  Data cannot 
+always be collected. Certainly, subjects cannot be retained in a trial against their will, and in 
+some trials missing data for some subjects is inevitable by design, such as administrative 
+censoring in trials with survival outcomes.  On the contrary, the occurrence of intercurrent 
+events such as discontinuation of treatment, treatment switching, or use of additional 
+medication, does not imply that the variable cannot be measured thereafter, though the 
+measures may not be relevant.  For terminal events such as death, the variable cannot be 
+
+
+--- Page 16 ---
+ICH E9(R1) Guideline 
+14 
+ 
+measured after the intercurrent event, but neither should these data generally be regarded as 
+missing. 
+Not collecting any data needed to assess an estimand results in a missing data problem for 
+subsequent statistical inference.  The validity of statistical analyses may rest upon untestable 
+assumptions and, depending on the proportion of missing data, this may undermine the 
+robustness of the results (see A.5.).  A prospective plan to collect informative reasons for why 
+data intended for collection are missing may help to distinguish the occurrence of intercurrent 
+events from missing data.  This in turn may improve the analysis and may also lead to a more 
+appropriate choice of sensitivity analysis.  For example, “loss to follow-up” may more 
+accurately be recorded as “treatment discontinuation due to lack of efficacy”.  Where that has 
+been defined as an intercurrent event, this can be reflected through the strategy chosen to 
+account for that intercurrent event and not as a missing data problem.  To reduce missing data, 
+measures can be implemented to retain subjects in the trial.  However, measures to reduce or 
+avoid intercurrent events that would normally occur in clinical practice risk reducing the 
+external validity of the trial.  For example, selection of the trial population or use of titration 
+schemes or concomitant medications to mitigate the impact of toxicity might not be suitable if 
+those same measures would not be implemented in clinical practice. 
+Randomisation and blinding remain cornerstones of controlled clinical trials.  Design 
+techniques for avoiding bias are addressed in Section 2.3.  Certain estimands may necessitate, 
+or may benefit from, use of trial designs such as run-in or enrichment designs, randomised 
+withdrawal designs, or titration designs.  It might be of interest to identify the principal stratum 
+of subjects who can tolerate a treatment using a run-in period, in advance of randomising those 
+subjects between test treatment and control.  Dialogue between regulator and sponsor would 
+need to consider whether the proposed run-in period is appropriate to identify the target 
+population, and whether the choices made for the subsequent trial design (e.g. washout period, 
+randomisation) supports the estimation of the target treatment effect and associated inference.  
+These considerations might limit the use of these trial designs, and use of that particular 
+strategy. 
+A precise description of the treatment effects of interest should inform sample size calculations.  
+Particular care should be taken when making reference to historical studies that might, 
+implicitly or explicitly, have reported estimated treatment effects or variability based on a 
+different estimand.  Where all subjects contribute information to the analysis, and where the 
+impact of the strategy to reflect intercurrent events is included in the effect size that is targeted 
+and the expected variance, it is not usually necessary to additionally inflate the calculated 
+sample size by the expected proportion of subject withdrawals from the trial. 
+Section 7.2. addresses issues related to summarising data across clinical trials.  The need to 
+have consistent definitions for the variables of interest is highlighted and this can be extended 
+to the construction of estimands.  Hence, in situations when synthesising evidence from across 
+a clinical trial programme is envisaged at the planning stage, a suitable estimand should be 
+constructed, included in the trial protocols, and reflected in the choices made for the design of 
+
+
+--- Page 17 ---
+ICH E9(R1) Guideline 
+15 
+ 
+the contributing trials.  Similar considerations apply to the design of a meta-analysis, using 
+estimated effect sizes from completed trials to determine non-inferiority margins, or the use of 
+external control groups for the interpretation of single-arm trials.  A naïve comparison between 
+data sources, or integration of data from multiple trials without consideration and specification 
+of the estimand that is addressed in each data presentation or statistical analysis, could be 
+misleading. 
+More generally, a trial is likely to have multiple objectives translated into multiple estimands, 
+each associated with statistical testing and estimation.  The multiplicity issues arising should 
+be addressed. 
+ 
+A.5. 
+IMPACT ON TRIAL ANALYSIS 
+A.5.1. 
+Main Estimation 
+An estimand for the effect of treatment relative to a control will be estimated by comparing the 
+outcomes in a group of subjects on the treatment to those in a similar group of subjects on the 
+control.  For a given estimand, an aligned method of analysis, or estimator, should be 
+implemented that is able to provide an estimate on which reliable interpretation can be based.  
+The method of analysis will also support calculation of confidence intervals and tests for 
+statistical significance.  An important consideration for whether an interpretable estimate will 
+be available is the extent of assumptions that need to be made in the analysis.  Key assumptions 
+should be stated explicitly together with the estimand and accompanying main and sensitivity 
+estimators.  Assumptions should be justifiable and implausible assumptions should be avoided.  
+The robustness of the results to potential departures from the underlying assumptions should 
+be assessed through an estimand-aligned sensitivity analysis (see A.5.2.).  Estimation that relies 
+on many or strong assumptions requires more extensive sensitivity analysis.  Where the impact 
+of deviations from assumptions cannot be comprehensively investigated through sensitivity 
+analysis, that particular combination of estimand and method of analysis might not be 
+acceptable for decision making.   
+All methods of analysis rely on assumptions, and different methods may rely on different 
+assumptions even when aligned to the same estimand.  Nevertheless, some kinds of assumption 
+are inherent in all methods of analysis aligned to estimands that use each of the different 
+strategies outlined; for example, the methodology for predicting the outcomes that would have 
+been observed in the hypothetical scenario, or for identifying a suitable target population in a 
+principal stratum strategy.  Some examples are given below related to the different strategies 
+used to reflect the occurrence of intercurrent events.  The issues highlighted will be key 
+components of discussion between sponsor and regulator in advance of an estimand, main 
+analysis and sensitivity analysis being agreed. 
+Analysis aligned with a treatment policy strategy to address a given intercurrent event may 
+entail stronger or weaker assumptions depending on the design and conduct of the trial.  When 
+most subjects are followed-up even after the respective intercurrent event (e.g. discontinuation 
+
+
+--- Page 18 ---
+ICH E9(R1) Guideline 
+16 
+ 
+of treatment), the remaining problem of missing data may be relatively minor.  In contrast, 
+when observation is terminated after an intercurrent event, which is obviously undesirable in 
+respect of this strategy, the assumption that (unobserved) outcomes for discontinuing subjects 
+are similar to the (observed) outcomes for those who remain on treatment will often be 
+implausible.  An alternative approach to handle the missing data would need to be justified and 
+sensitivity analysis will be expected. 
+Analysis aligned to a hypothetical strategy involves outcomes different from those actually 
+observed; for example, outcomes if rescue medication had not been given when in fact it was.  
+Observations before the rescue medication and observations on subjects who did not require 
+rescue medication may be informative, but only under strong assumptions.  
+A composite variable strategy can avoid statistical assumptions about data after an intercurrent 
+event by considering occurrence of the intercurrent event as a component of the outcome.  The 
+potential concern relates less to assumptions for estimation, and more to the interpretation of 
+the estimated treatment effect.  For the estimand to be interpretable, if scores are assigned for 
+failure because the intercurrent event occurs, these should meaningfully reflect the lack of 
+benefit to the patient (e.g. death may be reflected differently than discontinuation of treatment 
+due to adverse event). 
+Estimands constructed based on a while on treatment strategy can be estimated provided 
+outcomes are collected up to the time of the intercurrent event.  Again, the crucial assumptions 
+concern interpretation.  Take discontinuation of treatment by way of example.  Outcomes while 
+on treatment may be improved but the treatment may also shorten, or lengthen, the treatment 
+period by provoking, or delaying, discontinuations, and both these effects should be considered 
+in interpretation and assessment of clinical benefit. 
+Analysis aligned to a principal stratum strategy usually requires strong assumptions.  For 
+example, some principal stratification methods infer this from baseline characteristics of the 
+subjects, but the correctness of this inference may be difficult to assess.  This difficulty cannot 
+be avoided by simplified methods, however.  For example, simply comparing subjects who do 
+not have an intercurrent event on the test treatment to those who do not have an event on 
+control, assuming intercurrent events are unrelated to treatment, is very difficult to justify. 
+Even after defining estimands that address intercurrent events in an appropriate manner and 
+making efforts to collect the data required for estimation (see A.4.), some data may still be 
+missing, including e.g. administrative censoring in trials with survival outcomes.  Failure to 
+collect relevant data should not be confused with the choice not to collect, or to collect and not 
+to use, data made irrelevant by an intercurrent event.  For example, data that were intended to 
+be collected after discontinuation of trial medication to inform an estimand based on the 
+treatment policy strategy are missing if uncollected; however, the same data points might be 
+irrelevant for another strategy, and thus, for the purpose of that second estimand, are not 
+missing if uncollected.  Where those efforts to collect data are not successful it becomes 
+necessary to make assumptions to handle the missing data in the statistical analysis.  Handling 
+of missing data should be based on clinically plausible assumptions and, where possible, guided 
+
+
+--- Page 19 ---
+ICH E9(R1) Guideline 
+17 
+ 
+by the strategies employed in the description of the estimand.  The approach taken may be 
+based on observed covariates and post-baseline data from individual subjects and from other 
+similar subjects.  Criteria to identify similar subjects might include whether or not the 
+intercurrent event has occurred.  For example, for subjects who discontinue treatment without 
+further data being collected, a model may use data from other subjects who discontinued 
+treatment but for whom data collection has continued. 
+ 
+A.5.2. 
+Sensitivity Analysis 
+A.5.2.1. 
+Role of Sensitivity Analysis 
+Inferences based on a particular estimand should be robust to limitations in the data and 
+deviations from the assumptions used in the statistical model for the main estimator.  This 
+robustness is evaluated through a sensitivity analysis.  Sensitivity analysis should be planned 
+for the main estimators of all estimands that will be important for regulatory decision making 
+and labelling in the product information.  This can be a topic for discussion and agreement 
+between sponsor and regulator. 
+The statistical assumptions that underpin the main estimator should be documented.  One or 
+more analyses, focused on the same estimand, should then be pre-specified to investigate these 
+assumptions with the objective of verifying whether or not the estimate derived from the main 
+estimator is robust to departures from its assumptions.  This might be characterised as the extent 
+of departures from assumptions that change the interpretation of the results in terms of their 
+statistical or clinical significance (e.g. tipping point analysis). 
+Distinct from sensitivity analysis, where investigations are conducted with the intent of 
+exploring robustness of departures from assumptions, other analyses that are conducted in order 
+to more fully investigate and understand the trial data can be termed “supplementary analysis” 
+(see Glossary; A.5.3.).  Where the primary estimand(s) of interest is agreed between sponsor 
+and regulator, the main estimator is pre-specified unambiguously, and the sensitivity analysis 
+verifies that the estimate derived is reliable for interpretation, supplementary analyses should 
+generally be given lower priority in assessment. 
+ 
+A.5.2.2. 
+Choice of Sensitivity Analysis 
+When planning and conducting a sensitivity analysis, altering multiple aspects of the main 
+analysis simultaneously can make it challenging to identify which assumptions, if any, are 
+responsible for any potential differences seen.  It is therefore desirable to adopt a structured 
+approach, specifying the changes in assumptions that underlie the alternative analyses, rather 
+than simply comparing the results of different analyses based on different sets of assumptions.  
+The need for analyses varying multiple assumptions simultaneously should then be considered 
+on a case by case basis.  A distinction between testable and untestable assumptions may be 
+useful when assessing the interpretation and relevance of different analyses. 
+
+
+--- Page 20 ---
+ICH E9(R1) Guideline 
+18 
+ 
+The need for sensitivity analysis in respect of missing data is established and retains its 
+importance in this framework.  Missing data should be defined and considered in respect of a 
+particular estimand (see A.4.).  The distinction between data that are missing in respect of a 
+specific estimand and data that are not directly relevant to a specific estimand gives rise to 
+separate sets of assumptions to be examined in sensitivity analysis.   
+ 
+A.5.3. 
+Supplementary Analysis 
+Interpretation of trial results should focus on the main estimator for each agreed estimand 
+providing that the corresponding estimate is verified to be robust through the sensitivity 
+analysis.  Supplementary analyses for an estimand can be conducted in addition to the main 
+and sensitivity analysis to provide additional insights into the understanding of the treatment 
+effect.  They generally play a lesser role for interpretation of trial results.  The need for, and 
+utility of, supplementary analyses should be considered for each trial. 
+Section 5.2.3. indicates that it is usually appropriate to plan for analyses based on both the FAS 
+and the Per Protocol Set (PPS) so that differences between them can be the subject of explicit 
+discussion and interpretation.  Consistent results from analyses based on the FAS and the PPS 
+is indicated as increasing confidence in the trial results.  It is also described in Section 5.2.2. 
+that results based on a PPS might be subject to severe bias.  In respect of the framework 
+presented in this addendum, it may not be possible to construct a relevant estimand to which 
+analysis of the PPS is aligned.  As noted above, analysis of the PPS does not achieve the goal 
+of estimating the effect in any principal stratum, for example, in those subjects able to tolerate 
+and continue to take the test treatment, because it may not compare similar subjects on different 
+treatments.   
+Protocol violations and deviations might exclude subjects from the PPS, for example by having 
+a visit outside a time window, without an intercurrent event necessarily having occurred.  
+Likewise, subjects could experience an intercurrent event, such as death, without having 
+deviated from the protocol.  Notwithstanding the differences between violations and deviations 
+from the protocol and intercurrent events, events likely to affect the interpretation or existence 
+of measurements are considered in the description of the estimand.  Estimands might be 
+constructed, with aligned method of analysis, that better address the objective usually 
+associated with the analysis of the PPS.  If so, analysis of the PPS might not add additional 
+insights. 
+ 
+A.6. 
+DOCUMENTING ESTIMANDS AND SENSITIVITY ANALYSIS  
+A trial protocol should define and specify explicitly a primary estimand that corresponds to the 
+primary trial objective.  The protocol and the analysis plan should pre-specify the main 
+estimator that is aligned with the primary estimand and leads to the primary analysis, together 
+with a suitable sensitivity analysis to explore the robustness under deviations from its 
+assumptions.  Estimands for secondary trial objectives (e.g. related to secondary variables) that 
+
+
+--- Page 21 ---
+ICH E9(R1) Guideline 
+19 
+ 
+are likely to support regulatory decisions should also be defined and specified explicitly, each 
+with a corresponding main estimator and a suitable sensitivity analysis.  Additional exploratory 
+trial objectives may be considered for exploratory purposes, leading to additional estimands. 
+The choice of the primary estimand will usually be the main determinant for aspects of trial 
+design, conduct and analysis.  Following usual practices, these aspects should be well 
+documented in the trial protocol.  If secondary estimands are of key interest, these 
+considerations may be extended to support these as needed and should be documented as well.  
+Beyond these aspects, the conventional considerations for trial design, conduct and analysis 
+remain the same. 
+While it is to the benefit of the sponsor to have clarity on what is being estimated, it is not a 
+regulatory requirement to document an estimand for each exploratory objective. 
+Results from the main, sensitivity and supplementary analyses should be reported 
+systematically in the clinical trial report, specifying whether each analysis was pre-specified, 
+introduced while the trial was still blinded, or performed post hoc.  Summaries of the number 
+and timings of each intercurrent event in each treatment group should be reported. 
+Changes to the estimand during the trial can be problematic and can reduce the credibility of 
+the trial.  Addressing intercurrent events that were not foreseen at the design stage, and are 
+identified during the conduct of the trial, should discuss not only the choices made for the 
+analysis, but the effect on the estimand, i.e. on the description of the treatment effect that is 
+being estimated, and the interpretation of the trial results.  A change to the estimand should 
+usually be reflected through amendment to the protocol. 
+ 
+ 
+
+
+--- Page 22 ---
+ICH E9(R1) Guideline 
+20 
+ 
+GLOSSARY 
+Estimand: 
+A precise description of the treatment effect reflecting the clinical question posed by the trial 
+objective.  It summarises at a population-level what the outcomes would be in the same patients 
+under different treatment conditions being compared. 
+ 
+Estimate: 
+A numerical value computed by an estimator. 
+ 
+Estimator: 
+A method of analysis to compute an estimate of the estimand using clinical trial data. 
+ 
+Intercurrent Events: 
+Events occurring after treatment initiation that affect either the interpretation or the existence 
+of the measurements associated with the clinical question of interest.  It is necessary to address 
+intercurrent events when describing the clinical question of interest in order to precisely define 
+the treatment effect that is to be estimated. 
+ 
+Missing Data: 
+Data that would be meaningful for the analysis of a given estimand but were not collected.  
+They should be distinguished from data that do not exist or data that are not considered 
+meaningful because of an intercurrent event. 
+ 
+Principal Stratification: 
+Classification of subjects according to the potential occurrence of an intercurrent event on all 
+treatments.  With two treatments, there are four principal strata with respect to a given 
+intercurrent event: subjects who would not experience the event on either treatment, subjects 
+who would experience the event on treatment A but not B, subjects who would experience the 
+event on treatment B but not A, and subjects who would experience the event on both 
+treatments.  In this document a principal stratum refers to any of the strata (or combination 
+of strata) defined by principal stratification. 
+ 
+Sensitivity Analysis: 
+A series of analyses conducted with the intent to explore the robustness of inferences from the 
+main estimator to deviations from its underlying modelling assumptions and limitations in the 
+data. 
+ 
+Supplementary Analysis: 
+A general description for analyses that are conducted in addition to the main and sensitivity 
+analysis with the intent to provide additional insights into the understanding of the treatment 
+effect.   

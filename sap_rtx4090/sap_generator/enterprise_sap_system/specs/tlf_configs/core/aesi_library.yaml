@@ -1,0 +1,805 @@
+# =============================================================================
+# ADVERSE EVENTS OF SPECIAL INTEREST (AESI) LIBRARY
+# =============================================================================
+# Drug class-specific AESI definitions for oncology studies
+# Reference this library in study-specific configs
+#
+# Usage in study config:
+#   aesi_profile:
+#     - anti_vegf
+#     - checkpoint_inhibitor
+#   # This will combine AESIs from both classes
+
+version: "2.0"
+config_type: "aesi_library"
+
+# =============================================================================
+# ANTI-VEGF AGENTS
+# =============================================================================
+# Bevacizumab, Ramucirumab, Aflibercept, etc.
+anti_vegf:
+  name: "Anti-VEGF Agents"
+  agents:
+    - "Bevacizumab (Avastin)"
+    - "Ramucirumab (Cyramza)"
+    - "Aflibercept (Zaltrap)"
+
+  aesi_categories:
+    - category: "Hypertension"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Hypertension"
+        - "Blood pressure increased"
+        - "Hypertensive crisis"
+        - "Hypertensive encephalopathy"
+      monitoring: "Blood pressure at each visit"
+      ctcae_grades:
+        grade_2: "SBP 140-159 or DBP 90-99 mmHg"
+        grade_3: "SBP ≥160 or DBP ≥100 mmHg; medical intervention required"
+        grade_4: "Life-threatening (malignant hypertension)"
+
+    - category: "Proteinuria"
+      soc: "Renal and urinary disorders"
+      preferred_terms:
+        - "Proteinuria"
+        - "Nephrotic syndrome"
+        - "Protein urine present"
+      monitoring: "Urinalysis at each visit; 24h urine if dipstick ≥2+"
+      ctcae_grades:
+        grade_2: "1.0-3.4 g/24h"
+        grade_3: "≥3.5 g/24h"
+        grade_4: "Nephrotic syndrome"
+
+    - category: "Hemorrhage"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Haemoptysis"
+        - "Epistaxis"
+        - "Gastrointestinal haemorrhage"
+        - "Pulmonary haemorrhage"
+        - "Cerebral haemorrhage"
+        - "Haemorrhage"
+      high_risk: "Pulmonary hemorrhage in squamous NSCLC"
+
+    - category: "Thromboembolism (Arterial)"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Cerebrovascular accident"
+        - "Myocardial infarction"
+        - "Transient ischaemic attack"
+        - "Arterial thrombosis"
+      risk_factors: "Age ≥65, prior ATE"
+
+    - category: "Thromboembolism (Venous)"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Deep vein thrombosis"
+        - "Pulmonary embolism"
+        - "Venous thrombosis"
+
+    - category: "Gastrointestinal Perforation"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Gastrointestinal perforation"
+        - "Intestinal perforation"
+        - "Large intestine perforation"
+        - "Anastomotic leak"
+      risk_factors: "Recent bowel surgery, diverticulitis"
+
+    - category: "Wound Healing Complications"
+      soc: "General disorders"
+      preferred_terms:
+        - "Wound dehiscence"
+        - "Wound complication"
+        - "Impaired healing"
+        - "Wound infection"
+      management: "Hold 28 days before/after major surgery"
+
+    - category: "Fistula"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Fistula"
+        - "Gastrointestinal fistula"
+        - "Tracheo-oesophageal fistula"
+        - "Enterovesical fistula"
+
+    - category: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+      soc: "Nervous system disorders"
+      preferred_terms:
+        - "Posterior reversible encephalopathy syndrome"
+        - "Leukoencephalopathy"
+      symptoms: "Headache, seizure, visual disturbance, altered consciousness"
+
+    - category: "Congestive Heart Failure"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Cardiac failure"
+        - "Cardiac failure congestive"
+        - "Ejection fraction decreased"
+        - "Left ventricular dysfunction"
+
+    - category: "Infusion-Related Reactions"
+      soc: "General disorders"
+      preferred_terms:
+        - "Infusion related reaction"
+        - "Hypersensitivity"
+        - "Anaphylactic reaction"
+
+# =============================================================================
+# CHECKPOINT INHIBITORS (PD-1/PD-L1/CTLA-4)
+# =============================================================================
+# Pembrolizumab, Nivolumab, Atezolizumab, Durvalumab, Ipilimumab, etc.
+checkpoint_inhibitor:
+  name: "Immune Checkpoint Inhibitors"
+  agents:
+    pd1:
+      - "Pembrolizumab (Keytruda)"
+      - "Nivolumab (Opdivo)"
+      - "Cemiplimab (Libtayo)"
+    pdl1:
+      - "Atezolizumab (Tecentriq)"
+      - "Durvalumab (Imfinzi)"
+      - "Avelumab (Bavencio)"
+    ctla4:
+      - "Ipilimumab (Yervoy)"
+      - "Tremelimumab"
+
+  aesi_categories:
+    - category: "Pneumonitis"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Pneumonitis"
+        - "Interstitial lung disease"
+        - "Lung infiltration"
+        - "Pulmonary fibrosis"
+      monitoring: "Chest imaging if respiratory symptoms"
+      management: "Hold for Grade 2; discontinue for Grade 3-4"
+      immune_mediated: true
+
+    - category: "Colitis"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Colitis"
+        - "Diarrhoea"
+        - "Enterocolitis"
+        - "Autoimmune colitis"
+      monitoring: "Stool frequency; endoscopy if severe"
+      immune_mediated: true
+
+    - category: "Hepatitis"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "Hepatitis"
+        - "Autoimmune hepatitis"
+        - "AST increased"
+        - "ALT increased"
+        - "Transaminases increased"
+      monitoring: "LFTs every 2-4 weeks"
+      immune_mediated: true
+
+    - category: "Nephritis"
+      soc: "Renal and urinary disorders"
+      preferred_terms:
+        - "Nephritis"
+        - "Acute kidney injury"
+        - "Tubulointerstitial nephritis"
+        - "Creatinine increased"
+      immune_mediated: true
+
+    - category: "Endocrinopathies - Thyroid"
+      soc: "Endocrine disorders"
+      preferred_terms:
+        - "Hypothyroidism"
+        - "Hyperthyroidism"
+        - "Thyroiditis"
+        - "TSH increased"
+        - "TSH decreased"
+      monitoring: "TSH every 6-12 weeks"
+      immune_mediated: true
+
+    - category: "Endocrinopathies - Adrenal"
+      soc: "Endocrine disorders"
+      preferred_terms:
+        - "Adrenal insufficiency"
+        - "Hypophysitis"
+        - "Addisonian crisis"
+      immune_mediated: true
+
+    - category: "Endocrinopathies - Pituitary"
+      soc: "Endocrine disorders"
+      preferred_terms:
+        - "Hypophysitis"
+        - "Pituitary insufficiency"
+      immune_mediated: true
+
+    - category: "Type 1 Diabetes Mellitus"
+      soc: "Metabolism and nutrition disorders"
+      preferred_terms:
+        - "Type 1 diabetes mellitus"
+        - "Diabetic ketoacidosis"
+        - "Hyperglycaemia"
+      immune_mediated: true
+
+    - category: "Dermatologic Reactions"
+      soc: "Skin and subcutaneous tissue disorders"
+      preferred_terms:
+        - "Rash"
+        - "Pruritus"
+        - "Vitiligo"
+        - "Stevens-Johnson syndrome"
+        - "Toxic epidermal necrolysis"
+        - "Bullous dermatitis"
+        - "Exfoliative dermatitis"
+      immune_mediated: true
+
+    - category: "Myocarditis"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Myocarditis"
+        - "Pericarditis"
+        - "Troponin increased"
+      monitoring: "Troponin if cardiac symptoms"
+      immune_mediated: true
+      high_risk: "Can be fatal"
+
+    - category: "Neurological Events"
+      soc: "Nervous system disorders"
+      preferred_terms:
+        - "Myasthenia gravis"
+        - "Guillain-Barre syndrome"
+        - "Encephalitis"
+        - "Meningitis"
+        - "Peripheral neuropathy"
+      immune_mediated: true
+
+    - category: "Infusion-Related Reactions"
+      soc: "General disorders"
+      preferred_terms:
+        - "Infusion related reaction"
+        - "Hypersensitivity"
+      immune_mediated: false
+
+# =============================================================================
+# EGFR INHIBITORS
+# =============================================================================
+# Erlotinib, Gefitinib, Afatinib, Osimertinib, Cetuximab, Panitumumab
+egfr_inhibitor:
+  name: "EGFR Inhibitors"
+  agents:
+    tki:
+      - "Erlotinib (Tarceva)"
+      - "Gefitinib (Iressa)"
+      - "Afatinib (Gilotrif)"
+      - "Osimertinib (Tagrisso)"
+      - "Dacomitinib (Vizimpro)"
+    monoclonal:
+      - "Cetuximab (Erbitux)"
+      - "Panitumumab (Vectibix)"
+
+  aesi_categories:
+    - category: "Dermatologic Reactions"
+      soc: "Skin and subcutaneous tissue disorders"
+      preferred_terms:
+        - "Rash acneiform"
+        - "Dermatitis acneiform"
+        - "Dry skin"
+        - "Paronychia"
+        - "Skin fissures"
+        - "Pruritus"
+      note: "Class effect; may correlate with efficacy"
+
+    - category: "Diarrhea"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Diarrhoea"
+        - "Colitis"
+      management: "Loperamide; dose modification if Grade 3"
+
+    - category: "Interstitial Lung Disease"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+        - "Acute respiratory distress syndrome"
+      high_risk: "Higher in Asian populations"
+
+    - category: "Hepatotoxicity"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "Hepatotoxicity"
+        - "ALT increased"
+        - "AST increased"
+        - "Hepatic failure"
+      monitoring: "LFTs monthly"
+
+    - category: "Ocular Toxicity"
+      soc: "Eye disorders"
+      preferred_terms:
+        - "Keratitis"
+        - "Conjunctivitis"
+        - "Corneal erosion"
+        - "Abnormal eyelash growth"
+
+    - category: "QT Prolongation"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "QT prolongation"
+        - "Electrocardiogram QT prolonged"
+      monitoring: "ECG at baseline and periodically"
+      agents_specific: ["Osimertinib", "Vandetanib"]
+
+    - category: "Cardiac Events"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Cardiac failure"
+        - "Cardiomyopathy"
+        - "Ejection fraction decreased"
+      agents_specific: ["Osimertinib"]
+
+# =============================================================================
+# ALK/ROS1 INHIBITORS
+# =============================================================================
+alk_ros1_inhibitor:
+  name: "ALK/ROS1 Inhibitors"
+  agents:
+    - "Crizotinib (Xalkori)"
+    - "Ceritinib (Zykadia)"
+    - "Alectinib (Alecensa)"
+    - "Brigatinib (Alunbrig)"
+    - "Lorlatinib (Lorbrena)"
+    - "Entrectinib (Rozlytrek)"
+
+  aesi_categories:
+    - category: "Hepatotoxicity"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "ALT increased"
+        - "AST increased"
+        - "Drug-induced liver injury"
+      monitoring: "LFTs every 2 weeks initially"
+
+    - category: "Interstitial Lung Disease"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+
+    - category: "QT Prolongation"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "QT prolongation"
+        - "Electrocardiogram QT prolonged"
+      agents_specific: ["Crizotinib", "Ceritinib"]
+
+    - category: "Bradycardia"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Bradycardia"
+        - "Sinus bradycardia"
+      agents_specific: ["Crizotinib", "Ceritinib"]
+
+    - category: "Vision Disorders"
+      soc: "Eye disorders"
+      preferred_terms:
+        - "Vision blurred"
+        - "Visual impairment"
+        - "Photopsia"
+        - "Diplopia"
+      agents_specific: ["Crizotinib"]
+
+    - category: "CNS Effects"
+      soc: "Nervous system disorders"
+      preferred_terms:
+        - "Cognitive disorder"
+        - "Mood changes"
+        - "Hallucination"
+        - "Speech disorder"
+      agents_specific: ["Lorlatinib"]
+
+    - category: "Hyperlipidemia"
+      soc: "Metabolism and nutrition disorders"
+      preferred_terms:
+        - "Hypercholesterolaemia"
+        - "Hypertriglyceridaemia"
+      agents_specific: ["Lorlatinib"]
+
+# =============================================================================
+# HER2 INHIBITORS
+# =============================================================================
+her2_inhibitor:
+  name: "HER2-Targeted Agents"
+  agents:
+    monoclonal:
+      - "Trastuzumab (Herceptin)"
+      - "Pertuzumab (Perjeta)"
+      - "Trastuzumab deruxtecan (Enhertu)"
+      - "Trastuzumab emtansine (Kadcyla)"
+    tki:
+      - "Lapatinib (Tykerb)"
+      - "Neratinib (Nerlynx)"
+      - "Tucatinib (Tukysa)"
+
+  aesi_categories:
+    - category: "Cardiotoxicity"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Ejection fraction decreased"
+        - "Cardiac failure"
+        - "Left ventricular dysfunction"
+        - "Cardiomyopathy"
+      monitoring: "ECHO/MUGA at baseline and every 3 months"
+      risk_factors: "Prior anthracycline, prior cardiac disease"
+
+    - category: "Infusion-Related Reactions"
+      soc: "General disorders"
+      preferred_terms:
+        - "Infusion related reaction"
+        - "Cytokine release syndrome"
+        - "Hypersensitivity"
+
+    - category: "Interstitial Lung Disease"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+      agents_specific: ["Trastuzumab deruxtecan"]
+      high_risk: "Up to 10% with T-DXd; can be fatal"
+
+    - category: "Hepatotoxicity"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "Hepatotoxicity"
+        - "Nodular regenerative hyperplasia"
+      agents_specific: ["Trastuzumab emtansine"]
+
+    - category: "Diarrhea"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Diarrhoea"
+      agents_specific: ["Neratinib", "Lapatinib"]
+
+    - category: "Neutropenia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Febrile neutropenia"
+      agents_specific: ["Trastuzumab deruxtecan", "Trastuzumab emtansine"]
+
+# =============================================================================
+# PARP INHIBITORS
+# =============================================================================
+parp_inhibitor:
+  name: "PARP Inhibitors"
+  agents:
+    - "Olaparib (Lynparza)"
+    - "Rucaparib (Rubraca)"
+    - "Niraparib (Zejula)"
+    - "Talazoparib (Talzenna)"
+
+  aesi_categories:
+    - category: "Myelodysplastic Syndrome / Acute Myeloid Leukemia"
+      soc: "Neoplasms"
+      preferred_terms:
+        - "Myelodysplastic syndrome"
+        - "Acute myeloid leukaemia"
+      monitoring: "CBC monthly; consider bone marrow if prolonged cytopenias"
+      high_risk: "Long-term risk"
+
+    - category: "Anemia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Anaemia"
+        - "Haemoglobin decreased"
+      monitoring: "CBC monthly initially"
+      management: "Dose modification; consider transfusion"
+
+    - category: "Thrombocytopenia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Thrombocytopenia"
+        - "Platelet count decreased"
+
+    - category: "Neutropenia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Neutrophil count decreased"
+
+    - category: "Pneumonitis"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Pneumonitis"
+        - "Interstitial lung disease"
+
+    - category: "Venous Thromboembolism"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Pulmonary embolism"
+        - "Deep vein thrombosis"
+
+# =============================================================================
+# CDK4/6 INHIBITORS
+# =============================================================================
+cdk4_6_inhibitor:
+  name: "CDK4/6 Inhibitors"
+  agents:
+    - "Palbociclib (Ibrance)"
+    - "Ribociclib (Kisqali)"
+    - "Abemaciclib (Verzenio)"
+
+  aesi_categories:
+    - category: "Neutropenia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Neutrophil count decreased"
+        - "Febrile neutropenia"
+      monitoring: "CBC every 2 weeks for first 2 cycles, then monthly"
+      note: "Very common (>80%); usually reversible"
+
+    - category: "QT Prolongation"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "QT prolongation"
+        - "Electrocardiogram QT prolonged"
+      agents_specific: ["Ribociclib"]
+      monitoring: "ECG at baseline, Day 14 Cycle 1, and as indicated"
+
+    - category: "Hepatotoxicity"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "ALT increased"
+        - "AST increased"
+        - "Hepatotoxicity"
+      agents_specific: ["Ribociclib", "Abemaciclib"]
+
+    - category: "Diarrhea"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Diarrhoea"
+      agents_specific: ["Abemaciclib"]
+      note: "More common with abemaciclib"
+
+    - category: "Interstitial Lung Disease"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+
+    - category: "Venous Thromboembolism"
+      soc: "Vascular disorders"
+      preferred_terms:
+        - "Pulmonary embolism"
+        - "Deep vein thrombosis"
+      agents_specific: ["Abemaciclib"]
+
+# =============================================================================
+# CYTOTOXIC CHEMOTHERAPY
+# =============================================================================
+cytotoxic_chemotherapy:
+  name: "Cytotoxic Chemotherapy"
+  agents:
+    platinum:
+      - "Cisplatin"
+      - "Carboplatin"
+      - "Oxaliplatin"
+    taxanes:
+      - "Paclitaxel"
+      - "Docetaxel"
+      - "Nab-paclitaxel"
+    antimetabolites:
+      - "Pemetrexed"
+      - "Gemcitabine"
+      - "5-Fluorouracil"
+      - "Capecitabine"
+    topoisomerase:
+      - "Irinotecan"
+      - "Topotecan"
+      - "Etoposide"
+    anthracyclines:
+      - "Doxorubicin"
+      - "Epirubicin"
+    alkylating:
+      - "Cyclophosphamide"
+      - "Ifosfamide"
+    vinca:
+      - "Vinorelbine"
+      - "Vincristine"
+
+  aesi_categories:
+    - category: "Myelosuppression"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Febrile neutropenia"
+        - "Thrombocytopenia"
+        - "Anaemia"
+        - "Leukopenia"
+        - "Pancytopenia"
+      monitoring: "CBC before each cycle"
+
+    - category: "Nephrotoxicity"
+      soc: "Renal and urinary disorders"
+      preferred_terms:
+        - "Acute kidney injury"
+        - "Renal impairment"
+        - "Creatinine increased"
+      agents_specific: ["Cisplatin"]
+      prevention: "Hydration, avoid nephrotoxic drugs"
+
+    - category: "Neurotoxicity"
+      soc: "Nervous system disorders"
+      preferred_terms:
+        - "Peripheral sensory neuropathy"
+        - "Peripheral motor neuropathy"
+        - "Neuropathy peripheral"
+        - "Paraesthesia"
+      agents_specific: ["Cisplatin", "Oxaliplatin", "Paclitaxel", "Vincristine"]
+
+    - category: "Ototoxicity"
+      soc: "Ear and labyrinth disorders"
+      preferred_terms:
+        - "Hearing impaired"
+        - "Tinnitus"
+        - "Deafness"
+      agents_specific: ["Cisplatin"]
+
+    - category: "Cardiotoxicity"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "Cardiac failure"
+        - "Cardiomyopathy"
+        - "Ejection fraction decreased"
+      agents_specific: ["Doxorubicin", "Epirubicin"]
+      monitoring: "ECHO/MUGA; cumulative dose limits"
+
+    - category: "Hypersensitivity Reactions"
+      soc: "Immune system disorders"
+      preferred_terms:
+        - "Hypersensitivity"
+        - "Anaphylactic reaction"
+        - "Infusion related reaction"
+      agents_specific: ["Paclitaxel", "Docetaxel", "Carboplatin", "Oxaliplatin"]
+
+    - category: "Diarrhea"
+      soc: "Gastrointestinal disorders"
+      preferred_terms:
+        - "Diarrhoea"
+      agents_specific: ["Irinotecan", "5-Fluorouracil", "Capecitabine"]
+
+    - category: "Hand-Foot Syndrome"
+      soc: "Skin and subcutaneous tissue disorders"
+      preferred_terms:
+        - "Palmar-plantar erythrodysaesthesia syndrome"
+        - "Hand-foot syndrome"
+      agents_specific: ["Capecitabine", "5-Fluorouracil", "Doxorubicin liposomal"]
+
+    - category: "Pulmonary Toxicity"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Pulmonary fibrosis"
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+      agents_specific: ["Bleomycin", "Gemcitabine"]
+
+# =============================================================================
+# BCR-ABL INHIBITORS (TKIs for CML)
+# =============================================================================
+bcr_abl_inhibitor:
+  name: "BCR-ABL Inhibitors"
+  agents:
+    - "Imatinib (Gleevec)"
+    - "Dasatinib (Sprycel)"
+    - "Nilotinib (Tasigna)"
+    - "Bosutinib (Bosulif)"
+    - "Ponatinib (Iclusig)"
+
+  aesi_categories:
+    - category: "Myelosuppression"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Thrombocytopenia"
+        - "Anaemia"
+
+    - category: "Fluid Retention"
+      soc: "General disorders"
+      preferred_terms:
+        - "Oedema peripheral"
+        - "Pleural effusion"
+        - "Pericardial effusion"
+        - "Ascites"
+      agents_specific: ["Imatinib", "Dasatinib"]
+
+    - category: "Pleural Effusion"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Pleural effusion"
+      agents_specific: ["Dasatinib"]
+
+    - category: "QT Prolongation"
+      soc: "Cardiac disorders"
+      preferred_terms:
+        - "QT prolongation"
+        - "Electrocardiogram QT prolonged"
+      agents_specific: ["Nilotinib"]
+
+    - category: "Cardiovascular Events"
+      soc: "Cardiac disorders / Vascular disorders"
+      preferred_terms:
+        - "Myocardial infarction"
+        - "Cerebrovascular accident"
+        - "Peripheral arterial occlusive disease"
+      agents_specific: ["Ponatinib", "Nilotinib"]
+
+    - category: "Hepatotoxicity"
+      soc: "Hepatobiliary disorders"
+      preferred_terms:
+        - "Hepatotoxicity"
+        - "ALT increased"
+        - "AST increased"
+
+    - category: "Pulmonary Arterial Hypertension"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Pulmonary arterial hypertension"
+        - "Pulmonary hypertension"
+      agents_specific: ["Dasatinib"]
+
+# =============================================================================
+# ADC (ANTIBODY-DRUG CONJUGATES)
+# =============================================================================
+adc:
+  name: "Antibody-Drug Conjugates"
+  agents:
+    - "Trastuzumab emtansine (Kadcyla)"
+    - "Trastuzumab deruxtecan (Enhertu)"
+    - "Sacituzumab govitecan (Trodelvy)"
+    - "Enfortumab vedotin (Padcev)"
+    - "Tisotumab vedotin (Tivdak)"
+
+  aesi_categories:
+    - category: "Interstitial Lung Disease"
+      soc: "Respiratory, thoracic and mediastinal disorders"
+      preferred_terms:
+        - "Interstitial lung disease"
+        - "Pneumonitis"
+      high_risk: "Can be fatal; especially with T-DXd"
+      monitoring: "Respiratory symptoms; chest imaging"
+
+    - category: "Neutropenia"
+      soc: "Blood and lymphatic system disorders"
+      preferred_terms:
+        - "Neutropenia"
+        - "Febrile neutropenia"
+
+    - category: "Peripheral Neuropathy"
+      soc: "Nervous system disorders"
+      preferred_terms:
+        - "Peripheral sensory neuropathy"
+        - "Peripheral motor neuropathy"
+      agents_specific: ["Enfortumab vedotin", "Tisotumab vedotin"]
+
+    - category: "Ocular Toxicity"
+      soc: "Eye disorders"
+      preferred_terms:
+        - "Conjunctivitis"
+        - "Keratitis"
+        - "Dry eye"
+        - "Corneal ulcer"
+      agents_specific: ["Tisotumab vedotin"]
+
+    - category: "Skin Reactions"
+      soc: "Skin and subcutaneous tissue disorders"
+      preferred_terms:
+        - "Rash"
+        - "Rash maculo-papular"
+        - "Stevens-Johnson syndrome"
+      agents_specific: ["Enfortumab vedotin"]
+
+    - category: "Hyperglycemia"
+      soc: "Metabolism and nutrition disorders"
+      preferred_terms:
+        - "Hyperglycaemia"
+        - "Diabetes mellitus"
+      agents_specific: ["Enfortumab vedotin"]

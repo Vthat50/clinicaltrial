@@ -1,0 +1,703 @@
+# =============================================================================
+# PHARMACOKINETIC & IMMUNOGENICITY TABLE TEMPLATES
+# =============================================================================
+# PK and Immunogenicity analyses are often overlooked in planning-stage shells
+# but are critical for biologics, biosimilars, and combination therapies.
+#
+# This module provides comprehensive templates for:
+# - PK parameter summaries (Cmax, Ctrough, AUC, etc.)
+# - Concentration-time profiles
+# - ADA incidence and impact
+# - Neutralizing antibody (NAb) analysis
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PHARMACOKINETIC TABLE TEMPLATES
+# -----------------------------------------------------------------------------
+
+pk_tables:
+
+  # ---------------------------------------------------------------------------
+  # Table: PK Parameters Summary
+  # ---------------------------------------------------------------------------
+  pk_parameters_summary:
+    number_template: "14.4.1.1"
+    title_template: "Summary of Pharmacokinetic Parameters ({drug_name}) ({population_name})"
+    population: "pk_population"
+    source_dataset: "ADPC"
+
+    columns:
+      - header: "PK Parameter"
+        width: 2.5
+        alignment: L
+      - header: "{treatment_arm_1}\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "{treatment_arm_2}\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "Geometric Mean Ratio\\n[90% CI]"
+        width: 2.0
+        alignment: C
+        note: "For biosimilar comparisons"
+
+    stub_rows:
+      - level: 0
+        label: "Cmax (μg/mL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Arithmetic Mean (SD)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Ctrough (μg/mL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Arithmetic Mean (SD)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "AUC0-τ (μg·day/mL)"
+        bold: true
+        row_type: header
+        note: "If calculated"
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Arithmetic Mean (SD)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Clearance (L/day)"
+        bold: true
+        row_type: header
+        note: "If calculated from model"
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Volume of Distribution (L)"
+        bold: true
+        row_type: header
+        note: "If calculated from model"
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "t1/2 (days)"
+        bold: true
+        row_type: header
+        note: "Terminal half-life"
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Arithmetic Mean (SD)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population: All subjects who received study treatment and had at least one evaluable PK sample."
+      - symbol: "a"
+        text: "Cmax = maximum observed serum concentration."
+      - symbol: "b"
+        text: "Ctrough = serum concentration at end of dosing interval (predose)."
+      - symbol: "c"
+        text: "CV% = coefficient of variation as percentage."
+      - symbol: "d"
+        text: "PK parameters calculated using non-compartmental analysis."
+
+    programming_notes:
+      - "Use geometric mean for Cmax, Ctrough, AUC, CL, Vd"
+      - "Use arithmetic mean for t1/2"
+      - "CV% = 100 × √(exp(SD²) - 1) for log-transformed data"
+      - "Calculate GMR and 90% CI for biosimilar comparisons"
+
+  # ---------------------------------------------------------------------------
+  # Table: Serum Concentrations by Visit
+  # ---------------------------------------------------------------------------
+  serum_concentrations_by_visit:
+    number_template: "14.4.1.2"
+    title_template: "Summary of Serum {drug_name} Concentrations by Visit ({population_name})"
+    population: "pk_population"
+    source_dataset: "ADPC"
+    orientation: "LANDSCAPE"
+
+    columns:
+      - header: "Visit"
+        width: 1.5
+        alignment: L
+      - header: "Timepoint"
+        width: 1.2
+        alignment: L
+      - header: "{treatment_arm_1}\\nn\\nGeometric Mean (CV%)\\nMedian (Min, Max)"
+        width: 2.0
+        alignment: C
+      - header: "{treatment_arm_2}\\nn\\nGeometric Mean (CV%)\\nMedian (Min, Max)"
+        width: 2.0
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Cycle 1 Day 1"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Predose"
+        row_type: data
+      - level: 1
+        label: "End of Infusion"
+        row_type: data
+      - level: 1
+        label: "1 hour post-infusion"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Cycle 1 Day 8"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Predose"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Cycle 2 Day 1"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Predose (Ctrough)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Cycle 3 Day 1"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Predose (Ctrough)"
+        row_type: data
+      # Continue for additional cycles as per protocol
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population."
+      - symbol: "a"
+        text: "Concentrations below lower limit of quantification (LLOQ) set to LLOQ/2."
+      - symbol: "b"
+        text: "LLOQ = [X] μg/mL."
+
+    programming_notes:
+      - "BLQ values: Use LLOQ/2 for summary statistics"
+      - "Time relative to dosing should match protocol"
+      - "Flag visits with <50% of expected samples"
+
+  # ---------------------------------------------------------------------------
+  # Table: PK Parameters by ADA Status (Important!)
+  # ---------------------------------------------------------------------------
+  pk_by_ada_status:
+    number_template: "14.4.2.1"
+    title_template: "Summary of Pharmacokinetic Parameters by ADA Status ({population_name})"
+    population: "pk_population"
+    source_dataset: "ADPC"
+    importance: "Critical for assessing ADA impact on PK"
+
+    columns:
+      - header: "PK Parameter"
+        width: 2.5
+        alignment: L
+      - header: "ADA Negative\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "ADA Positive\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "Treatment-Emergent ADA\\n(N=xxx)"
+        width: 1.8
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Ctrough at Steady State (μg/mL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Cmax at Steady State (μg/mL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (CV%)"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population with available ADA results."
+      - symbol: "a"
+        text: "ADA Negative: Subjects with no ADA detected at any time point."
+      - symbol: "b"
+        text: "ADA Positive: Subjects with ADA detected at any time point."
+      - symbol: "c"
+        text: "Treatment-Emergent ADA: Subjects who were ADA negative at baseline and became ADA positive during treatment."
+
+# -----------------------------------------------------------------------------
+# IMMUNOGENICITY TABLE TEMPLATES
+# -----------------------------------------------------------------------------
+
+immunogenicity_tables:
+
+  # ---------------------------------------------------------------------------
+  # Table: ADA Incidence Summary
+  # ---------------------------------------------------------------------------
+  ada_incidence_summary:
+    number_template: "14.4.3.1"
+    title_template: "Summary of Anti-Drug Antibody Incidence ({population_name})"
+    population: "immunogenicity"
+    source_dataset: "ADAB"
+
+    columns:
+      - header: "ADA Status"
+        width: 4.0
+        alignment: L
+      - header: "{treatment_arm_1}\\n(N=xxx)\\nn (%)"
+        width: 1.5
+        alignment: C
+      - header: "{treatment_arm_2}\\n(N=xxx)\\nn (%)"
+        width: 1.5
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Evaluable ADA Samples"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Baseline ADA Status"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ADA Negative"
+        row_type: data
+      - level: 1
+        label: "ADA Positive (Pre-existing)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Post-Baseline ADA Status"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ADA Negative (Always)"
+        row_type: data
+      - level: 1
+        label: "ADA Positive (Any Time)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Treatment-Emergent ADA"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Treatment-Induced (Negative → Positive)"
+        row_type: data
+      - level: 1
+        label: "Treatment-Boosted (Positive → ≥4× Titer Increase)"
+        row_type: data
+      - level: 1
+        label: "Total Treatment-Emergent"
+        row_type: data
+        bold: true
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Transient vs Persistent ADA"
+        bold: true
+        row_type: header
+        note: "Among treatment-emergent"
+      - level: 1
+        label: "Transient"
+        row_type: data
+      - level: 1
+        label: "Persistent"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Neutralizing Antibodies (NAb)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "NAb Negative"
+        row_type: data
+      - level: 1
+        label: "NAb Positive"
+        row_type: data
+      - level: 1
+        label: "Treatment-Emergent NAb"
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Immunogenicity Population: Subjects who received study treatment and had at least one post-baseline ADA sample."
+      - symbol: "a"
+        text: "Treatment-Induced: Subjects who were ADA negative at baseline and became ADA positive post-baseline."
+      - symbol: "b"
+        text: "Treatment-Boosted: Subjects who were ADA positive at baseline and showed ≥4-fold increase in ADA titer post-baseline."
+      - symbol: "c"
+        text: "Transient: ADA positive at only one sampling time point, or ADA positive at 2+ consecutive time points spanning <16 weeks."
+      - symbol: "d"
+        text: "Persistent: ADA positive at 2 or more consecutive time points spanning ≥16 weeks, or ADA positive at last time point."
+      - symbol: "e"
+        text: "NAb = Neutralizing Antibody, assessed in ADA positive subjects."
+
+    programming_notes:
+      - "CRITICAL TABLE for biologics/biosimilars"
+      - "ADA tiered testing: Screening → Confirmation → Titer → NAb"
+      - "Use consistent definitions per FDA/EMA guidance"
+      - "Treatment-emergent = Treatment-induced + Treatment-boosted"
+
+  # ---------------------------------------------------------------------------
+  # Table: ADA Titer Summary
+  # ---------------------------------------------------------------------------
+  ada_titer_summary:
+    number_template: "14.4.3.2"
+    title_template: "Summary of Anti-Drug Antibody Titer ({population_name})"
+    population: "immunogenicity"
+    source_dataset: "ADAB"
+
+    columns:
+      - header: "Time Point"
+        width: 2.0
+        alignment: L
+      - header: "{treatment_arm_1}\\nMedian Titer (Range)"
+        width: 2.0
+        alignment: C
+      - header: "{treatment_arm_2}\\nMedian Titer (Range)"
+        width: 2.0
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Baseline (Pre-existing ADA)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Post-Baseline Maximum Titer"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Maximum Titer Categories"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "<100"
+        row_type: data
+      - level: 1
+        label: "100 to <1000"
+        row_type: data
+      - level: 1
+        label: "1000 to <10000"
+        row_type: data
+      - level: 1
+        label: "≥10000"
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Among ADA positive subjects with titer data."
+      - symbol: "a"
+        text: "Titer expressed as reciprocal of highest dilution with detectable signal."
+
+  # ---------------------------------------------------------------------------
+  # Table: Impact of ADA on Efficacy
+  # ---------------------------------------------------------------------------
+  ada_impact_efficacy:
+    number_template: "14.4.3.3"
+    title_template: "Summary of Efficacy by ADA Status ({population_name})"
+    population: "itt"
+    source_dataset: "ADRS"
+    importance: "Assess clinical relevance of ADA"
+
+    columns:
+      - header: "Endpoint"
+        width: 2.5
+        alignment: L
+      - header: "ADA Negative\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "ADA Positive\\n(N=xxx)"
+        width: 1.5
+        alignment: C
+      - header: "Treatment-Emergent ADA\\n(N=xxx)"
+        width: 1.8
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Objective Response Rate"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n/N (%)"
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Progression-Free Survival"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Events, n (%)"
+        row_type: data
+      - level: 1
+        label: "Median PFS (months)"
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population with available ADA status."
+      - symbol: "a"
+        text: "Descriptive analysis; not powered for formal comparison by ADA status."
+
+  # ---------------------------------------------------------------------------
+  # Table: Impact of ADA on Safety
+  # ---------------------------------------------------------------------------
+  ada_impact_safety:
+    number_template: "14.4.3.4"
+    title_template: "Summary of Safety by ADA Status ({population_name})"
+    population: "safety"
+    source_dataset: "ADAE"
+
+    columns:
+      - header: "Safety Category"
+        width: 3.5
+        alignment: L
+      - header: "ADA Negative\\n(N=xxx)\\nn (%)"
+        width: 1.5
+        alignment: C
+      - header: "ADA Positive\\n(N=xxx)\\nn (%)"
+        width: 1.5
+        alignment: C
+      - header: "Treatment-Emergent ADA\\n(N=xxx)\\nn (%)"
+        width: 1.8
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Any TEAE"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Infusion-Related Reactions"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Hypersensitivity Reactions"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        row_type: data
+      - level: 0
+        label: ""
+        row_type: spacer
+      - level: 0
+        label: "Treatment Discontinuation due to AE"
+        bold: true
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population with available ADA status."
+      - symbol: "a"
+        text: "Infusion-related reactions identified by sponsor-defined preferred term list."
+
+# -----------------------------------------------------------------------------
+# STUDY TYPE REQUIREMENTS
+# -----------------------------------------------------------------------------
+
+study_type_requirements:
+
+  biosimilar:
+    pk_tables_required:
+      - "pk_parameters_summary"
+      - "serum_concentrations_by_visit"
+      - "pk_by_ada_status"
+    immunogenicity_tables_required:
+      - "ada_incidence_summary"
+      - "ada_titer_summary"
+      - "ada_impact_efficacy"
+      - "ada_impact_safety"
+    pk_endpoints:
+      primary:
+        - "Ctrough at steady state"
+        - "Cmax at steady state"
+      secondary:
+        - "AUC0-τ (if calculated)"
+    bioequivalence_criteria: "90% CI of GMR within 80-125%"
+
+  immuno_oncology:
+    pk_tables_required:
+      - "pk_parameters_summary"
+      - "serum_concentrations_by_visit"
+    immunogenicity_tables_required:
+      - "ada_incidence_summary"
+      - "ada_impact_safety"
+    pk_endpoints:
+      secondary:
+        - "Ctrough at key visits"
+        - "Exposure-response (exploratory)"
+    note: "PK/immunogenicity typically secondary/exploratory in IO"
+
+  small_molecule:
+    pk_tables_required:
+      - "pk_parameters_summary"
+    immunogenicity_tables_required: []  # Generally not applicable
+    pk_endpoints:
+      secondary:
+        - "Cmax, Tmax, AUC"
+        - "Food effect (if applicable)"
+    note: "Immunogenicity not typically assessed for small molecules"
+
+  adc:
+    pk_tables_required:
+      - "pk_parameters_summary"  # For total antibody, payload, ADC
+      - "serum_concentrations_by_visit"
+      - "pk_by_ada_status"
+    immunogenicity_tables_required:
+      - "ada_incidence_summary"
+      - "ada_titer_summary"
+      - "ada_impact_safety"
+    pk_analytes:
+      - "Total antibody"
+      - "ADC (conjugated)"
+      - "Free payload"
+    note: "ADCs require separate PK tables for each analyte"

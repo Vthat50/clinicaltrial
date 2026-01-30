@@ -2,8 +2,6 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
@@ -20,11 +18,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [dragActive, setDragActive] = useState(false)
-
-  // TLF Shells state
-  const [tlfLoading, setTlfLoading] = useState(false)
-  const [tlfError, setTlfError] = useState<string | null>(null)
-  const [tlfMarkdown, setTlfMarkdown] = useState<string | null>(null)
 
   // Handle drag events
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -131,87 +124,6 @@ export default function Home() {
     if (ext === 'pdf') return '📄'
     if (ext === 'docx' || ext === 'doc') return '📝'
     return '📃'
-  }
-
-  // Generate TLF Shells directly from protocol (no SAP needed)
-  const handleGenerateTlfShells = async (format: 'markdown' | 'docx' = 'markdown') => {
-    if (mode === 'file' && !file) return
-    if (mode === 'text' && !textInput.trim()) return
-
-    setTlfLoading(true)
-    setTlfError(null)
-    setTlfMarkdown(null)
-
-    try {
-      if (mode === 'file' && file) {
-        const formData = new FormData()
-        formData.append('file', file)
-
-        const res = await fetch(`${API_URL}/generate-tlf-shells-direct?format=${format}`, {
-          method: 'POST',
-          body: formData,
-        })
-
-        if (!res.ok) {
-          const data = await res.json()
-          throw new Error(data.detail || 'TLF shell generation failed')
-        }
-
-        if (format === 'docx') {
-          const blob = await res.blob()
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = `TLF_Shells_${file.name.replace(/\.[^/.]+$/, '')}.docx`
-          a.click()
-          URL.revokeObjectURL(url)
-        } else {
-          const data = await res.json()
-          if (data.success) {
-            setTlfMarkdown(data.markdown)
-          } else {
-            throw new Error(data.message || 'TLF shell generation failed')
-          }
-        }
-      } else if (mode === 'text' && textInput.trim()) {
-        // For text mode, create a text file blob and send as file upload
-        const blob = new Blob([textInput], { type: 'text/plain' })
-        const textFile = new File([blob], 'protocol.txt', { type: 'text/plain' })
-        const formData = new FormData()
-        formData.append('file', textFile)
-
-        const res = await fetch(`${API_URL}/generate-tlf-shells-direct?format=${format}`, {
-          method: 'POST',
-          body: formData,
-        })
-
-        if (!res.ok) {
-          const data = await res.json()
-          throw new Error(data.detail || 'TLF shell generation failed')
-        }
-
-        if (format === 'docx') {
-          const blob = await res.blob()
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = 'TLF_Shells_protocol.docx'
-          a.click()
-          URL.revokeObjectURL(url)
-        } else {
-          const data = await res.json()
-          if (data.success) {
-            setTlfMarkdown(data.markdown)
-          } else {
-            throw new Error(data.message || 'TLF shell generation failed')
-          }
-        }
-      }
-    } catch (err: any) {
-      setTlfError(err.message || 'TLF shell generation failed')
-    } finally {
-      setTlfLoading(false)
-    }
   }
 
   return (
@@ -355,94 +267,29 @@ export default function Home() {
           </div>
         )}
 
-        {/* Action Buttons */}
-        <div className="flex gap-3">
-          {/* Generate SAP Button */}
-          <button
-            type="submit"
-            disabled={loading || tlfLoading || (mode === 'file' && !file) || (mode === 'text' && !textInput.trim())}
-            className={`flex-1 py-3 px-4 rounded-xl font-medium text-white transition-colors ${
-              loading || tlfLoading
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-indigo-600 hover:bg-indigo-700'
-            }`}
-          >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Generating SAP...
-              </span>
-            ) : (
-              'Generate SAP'
-            )}
-          </button>
-
-          {/* Generate TLF Shells Button */}
-          <button
-            type="button"
-            onClick={() => handleGenerateTlfShells('markdown')}
-            disabled={loading || tlfLoading || (mode === 'file' && !file) || (mode === 'text' && !textInput.trim())}
-            className={`flex-1 py-3 px-4 rounded-xl font-medium text-white transition-colors ${
-              loading || tlfLoading
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-emerald-600 hover:bg-emerald-700'
-            }`}
-          >
-            {tlfLoading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Generating TLF Shells...
-              </span>
-            ) : (
-              'Generate TLF Shells'
-            )}
-          </button>
-        </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading || (mode === 'file' && !file) || (mode === 'text' && !textInput.trim())}
+          className={`w-full py-3 px-4 rounded-xl font-medium text-white transition-colors ${
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-indigo-600 hover:bg-indigo-700'
+          }`}
+        >
+          {loading ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Processing...
+            </span>
+          ) : (
+            'Generate SAP'
+          )}
+        </button>
       </form>
-
-      {/* TLF Shell Error */}
-      {tlfError && (
-        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-700">{tlfError}</p>
-        </div>
-      )}
-
-      {/* TLF Shell Results */}
-      {tlfMarkdown && (
-        <div className="mt-6 bg-white rounded-xl shadow-sm border p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">TLF Shell Specifications</h2>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleGenerateTlfShells('docx')}
-                disabled={tlfLoading}
-                className="px-4 py-2 text-sm font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors"
-              >
-                Download .docx
-              </button>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(tlfMarkdown)
-                }}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                Copy Markdown
-              </button>
-            </div>
-          </div>
-          <div className="prose prose-sm max-w-none overflow-x-auto">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {tlfMarkdown}
-            </ReactMarkdown>
-          </div>
-        </div>
-      )}
 
       {/* Features */}
       <div className="mt-12 grid grid-cols-3 gap-4 text-center">

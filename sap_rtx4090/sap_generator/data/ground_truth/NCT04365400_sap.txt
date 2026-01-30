@@ -1,0 +1,2882 @@
+CONTRACT RESEARCH  
+ORGANIZATION: 
+SPONSOR: 
+AMS Advanced Medical Services GmbH 
+Afimmune Ltd. 
+Am Exerzierplatz 2 
+Trintech Building, South County Business Park, 
+Leopardstown 
+D-68167 Mannheim 
+Dublin 18, Republic of Ireland. 
+Phone: +49 (0)621 / 70095 100 
+ 
+Fax:     +49 (0)621 / 70095 140 
+ 
+ 
+Statistical Analysis Plan 
+for Clinical Trial Protocol DS102A-07-CV1 
+Study Title 
+A Randomised, Double-Blind, Placebo-Controlled, Dose Finding 
+Phase IIb Study to Assess the Efficacy and Safety of Orally 
+Administered Epeleuton in Patients with Hypertriglyceridemia 
+and Type 2 Diabetes. 
+Test product 
+Epeleuton 2g and Epeleuton 4g 
+Type of Study 
+Randomised, double-blind, placebo controlled, 3-arm, multi-
+centre Phase IIb study 
+Objectives of Study 
+To assess the efficacy and safety of orally administered Epeleuton 
+capsules versus placebo, in the treatment of adult patients with 
+hypertriglyceridemia and type 2 diabetes. 
+Sponsor Study No.  
+DS102A-07-CV1 
+EudraCT-No.: 
+2020-000065-16 
+SAP Author  
+ 
+Responsible 
+Biostatistician 
+Sandra Roldan 
+AMS Advanced Medical Services GmbH 
+ 
+Florian Schelz 
+AMS Advanced Medical Services GmbH 
+ 
+Date 
+June 09, 2022 
+Status of Document 
+Final Version 2.0 
+Pages 
+38 
+ 
+ 
+CONFIDENTIAL 
+ 
+ 
+ 
+Maud Hennion 
+(Signature)
+Digitally signed by Maud Hennion 
+(Signature) 
+Date: 2022.06.14 08:34:49 +02'00'
+Afimmune Ltd.
+AMS Advanced Medical Services GmbH
+Statistical Analysis Plan DS 1024-07-CV1
+Version history
+I have thoroughly read and reviewed the Statistical Analysis Plan for the above
+mentioned study and approve its content:
+Sponsor Signature(s)
+Version
+Date
+Author
+Description of chanses
+0.3
+May 27,2020
+Frank Scherer
+Third Draft Version
+0.4
+November 23,2021
+Florian Schelz
+Fourth Draft Version
+0.5
+March L1,2022
+Florian Schelz
+Fifth Draft Version according to protocol
+version 5.0
+1.0
+Mav 03.2022
+Florian Schelz
+Final Version
+2.0
+June09,2022
+Sandra Roldan
+Final Version
+Markus Weissbach
+(Chief Medical Officer, Afimmune)
+Date
+Maud Hennion
+(Statistical Consultant, Pharmalex)
+AMS Signature(s)
+Date
+Sandra Roldan, Biostatistician
+(SAP Author)
+Date
+4,*LJU;
+tt|/^:tltw
+Frank Scherer, Director Biostatistics
+(SAP Reviewer)
+Date
+Final Version 2.0, June 09,2022
+Page 2 of38
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 3 of 38 
+Contents 
+List of Abbreviations and Definition of Terms 
+5 
+1 
+Introduction 
+8 
+1.1 
+Study Objectives 
+8 
+1.2 
+General Study Design 
+8 
+1.3 
+Study Population 
+9 
+1.4 
+Study Medication 
+9 
+1.5 
+Randomisation and Unblinding 
+10 
+1.5.1 
+Emergency unblinding 
+10 
+1.5.2 
+Unblinding for studies conducted in the EU 
+11 
+1.5.3 
+Unblinding for studies conducted in the US 
+11 
+1.6 
+Interim Analysis 
+11 
+1.7 
+Time Schedule / Study Duration 
+11 
+2 
+Sample Size 
+15 
+3 
+Analysis Populations 
+15 
+4 
+Blind Data Review Meeting 
+15 
+5 
+Data Handling 
+17 
+5.1 
+General 
+17 
+5.1.1 
+Data sources 
+17 
+5.1.2 
+Coding 
+17 
+5.1.3 
+Visits 
+17 
+5.1.4 
+Baseline value 
+17 
+5.1.5 
+Units for laboratory tests 
+18 
+5.2 
+Handling of missing values 
+18 
+5.2.1 
+Handling of missing dates 
+18 
+5.3 
+Algorithms for data calculations and modifications 
+18 
+5.3.1 
+Study Day 
+18 
+5.3.2 
+Age 
+18 
+5.3.3 
+Time since diagnosis 
+18 
+5.3.4 
+BMI 
+19 
+5.3.5 
+Treatment duration 
+19 
+5.3.6 
+Previous vs. concomitant medication 
+19 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 4 of 38 
+6 
+General Methodology 
+19 
+6.1 
+Primary Endpoint Evaluation 
+19 
+6.2 
+Descriptive Analyses, Exploratory Tests 
+20 
+6.3 
+Subgroup analyses 
+20 
+7 
+Final analysis 
+21 
+7.1 
+Demographic and other baseline data 
+21 
+7.2 
+Efficacy - Primary Endpoint Evaluation  
+21 
+7.3 
+Efficacy - Secondary Endpoints Evaluation 
+21 
+7.4 
+Exploratory Endpoints 
+22 
+7.5 
+Safety Evaluation 
+24 
+7.5.1 
+Adverse Events 
+24 
+7.5.2 
+Hypoglycaemia assessment 
+25 
+7.5.3 
+Self-monitoring of blood glucose (SMBG) 
+26 
+7.5.4 
+Vital signs 
+26 
+7.5.5 
+ECG 
+26 
+7.5.6 
+Physical Examination 
+26 
+7.5.7 
+Safety Laboratory data 
+27 
+7.5.8 
+Urinalysis 
+27 
+7.5.9 
+Further safety endpoints 
+27 
+7.6 
+Further Analyses 
+28 
+7.6.1 
+Previous and concomitant medication 
+28 
+7.6.2 
+Study medication 
+28 
+7.6.3 
+Patients’ study termination status 
+28 
+7.6.4 
+Study duration and analysis sets 
+28 
+7.6.5 
+Protocol deviations 
+29 
+7.6.6 
+Pharmacokinetic sampling 
+29 
+8 
+Tables, Figures and Listings 
+30 
+9 
+References 
+38 
+ 
+ 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 5 of 38 
+List of Abbreviations and Definition of Terms  
+15(S)-HEPE 
+15-Hydroxy-Eicosapentaenoic Acid 
+15(S)-HEPE EE 
+15-Hydroxy-Eicosapentaenoic Acid Ethyl Ester, Epeleuton 
+AE 
+Adverse Event 
+ALP 
+Alkaline Phosphatase  
+ALT 
+Alanine transaminase 
+AMS 
+Advanced Medical Services GmbH (CRO) 
+ApoA1 
+Apolipoprotein A1 
+ApoB 
+Apolipoprotein B 
+ApoCIII 
+Apolipoprotein CIII 
+APTT 
+Activated Partial Prothrombin Time 
+AST 
+Aspartate transaminase 
+BDRM 
+Blind Data Review Meeting 
+BUN 
+Blood Urea Nitrogen  
+CRO 
+Clinical Research Organisation 
+ECG 
+Electrocardiography 
+eCRF 
+electronic Case Report Form 
+EPA 
+Eicosapentanoic Acid 
+ES 
+Enrolled Set 
+FAS 
+Full Analysis Set 
+FDA 
+Food and Drug Administration 
+GGT 
+Gamma-Glutamyl Transferase 
+ICH 
+International Conference on Harmonisation 
+IMP 
+Investigational medicinal product 
+IND 
+Investigational new drug 
+IWRS 
+Interactive Web Response System 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 6 of 38 
+HDL-C 
+High Density Lipoprotein Cholesterol 
+HDL-P 
+High Density Lipoprotein Particle Concentration 
+HOMA-β 
+Homeostatic Model Assessment of β-cell Function 
+HOMA-IR 
+Homeostatic Model Assessment of Insulin Resistance 
+hsCRP 
+High-Sensitivity C-Reactive Protein 
+ICAM-1 
+Intercellular Adhesion Molecule 1 
+ICH 
+International Conference on Harmonization 
+IDMC 
+Independent Data Monitoring Committee 
+IL- 
+Interleukin- 
+IMP 
+Investigational Medicinal Product 
+INR 
+International Normalised Ratio  
+LDL-C 
+Low-Density Lipoprotein Cholesterol 
+LDL-P 
+Low-Density Lipoprotein Particle Concentration 
+LOCF 
+Last observation carried forward 
+Lp(a) 
+Lipoprotein (a) 
+MCP-1 
+Monocyte Chemoattractant Protein 1 
+MedDRA 
+Medical dictionary for Drug Regulatory Affairs 
+nMR 
+Nuclear Magnetic Resonance 
+non-HDL-C 
+Non-High-Density Lipoprotein Cholesterol 
+PAI-1 
+Plasminogen Activator Inhibitor 1 
+PPS 
+Per-Protocol Set 
+PT 
+Prothrombin Time 
+RDW 
+Red Cell Distribution Width 
+RLP-C 
+remnant lipoprotein cholesterol 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 7 of 38 
+SAS 
+Safety Analysis Set 
+SDV 
+Source data verification 
+SMBG 
+Self-monitoring of Blood Glucose 
+SOC 
+System Organ Class 
+SOP 
+Standard Operating Procedure 
+TSH 
+Thyroid Stimulating Hormone 
+UACR 
+Urinary Albumin-to-Creatinine Ratio 
+V 
+Visit 
+VCAM-1 
+Vascular Cell Adhesion Molecule 1 
+VLDL 
+Very Low-Density Lipoprotein 
+VLDL-C 
+Very Low-Density Lipoprotein Cholesterol 
+WHO 
+World Health Organisation 
+ 
+ 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 8 of 38 
+1 Introduction 
+This Statistical Analysis Plan (SAP) refers to trial protocol DS102A-07-CV1, version 5.0 dated 
+February 14, 2022. The SAP will be finalised before any analysis will be conducted. The 
+specifications included in this SAP provide more detail to the analysis descriptions in the study 
+protocol and are focussed to statistical methodologies. 
+Additions or changes to the analysis planned in this SAP may be defined during the BDRM 
+(Blind Data Review Meeting) and documented in the BDRM minutes which will be approved 
+by the BDRM participants prior to database hard lock and unblinding. 
+The document is written in compliance with ICH Guideline E9 and AMS SOP ST-02.01 
+(Statistical Analysis Plan). 
+ 
+1.1 Study Objectives 
+Efficacy Objective: 
+· To assess the efficacy of orally administered Epeleuton capsules versus placebo, in the 
+treatment of adult patients with hypertriglyceridemia and type 2 diabetes. 
+Safety Objective: 
+· To assess the safety of orally administered Epeleuton capsules versus placebo, in the 
+treatment of adult patients with hypertriglyceridemia and type 2 diabetes. 
+ 
+The efficacy assessments in this study consist of laboratory tests to assess the status of the 
+underlying hypertriglyceridemia and type 2 diabetes and additional cardiovascular risk factors, 
+as well as body weight, waist circumference and blood pressure. 
+For details on primary/secondary efficacy endpoints and safety endpoints see section 7. 
+ 
+1.2 General Study Design 
+This is a randomised, double-blind, placebo controlled, 3-arm, multi-centre Phase IIb study 
+consisting of 26 weeks of active treatment and a 2-week post-treatment follow up period in 
+adult patients with hypertriglyceridemia and concomitant type 2 diabetes. It is planned to 
+perform this study in Germany, Switzerland, Latvia, Israel, US, UK and Georgia. 
+The proposed study aims to investigate the triglyceride lowering, antihyperglycemic, 
+triglyceride lowering and anti-inflammatory effects of Epeleuton as surrogate markers of its 
+potential to improve diabetic control and cardiovascular outcomes. Lipid qualification 
+eligibility criteria include a fasting triglyceride level ≥200 mg/dL (2.26 mmol/L) and 
+<750mg/dL (8.46 mmol/L) (inclusion #3) and LDL cholesterol <130mg/dL (3.34 mmol/L) 
+(inclusion #6). 
+Blood samples will be analysed at the central laboratory to determine concentrations of the 
+efficacy laboratory parameters. All patients must be fasted for a minimum of eight hours prior 
+to blood sampling. If patients have not fasted for a minimum of eight hours, the duration of 
+fasting should be recorded, and patients encouraged to fast appropriately for the next clinical 
+visit. Safety laboratory parameters will be analysed at the central laboratory as well. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 9 of 38 
+In a Phase IIa trial in patients with non-alcoholic fatty liver disease, Epeleuton produced 
+significant decreases of triglycerides, total cholesterol and multiple atherogenic lipids without 
+raising LDL cholesterol. Notably, decreases were greater in the higher dose group; and greater 
+at both 1g and 2g daily doses in sub-groups with elevated triglycerides at baseline, suggesting 
+that further decreases may be seen in prospectively designed studies in patients with 
+hypertriglyceridemia and at a higher daily dose. 
+Additionally, Epeleuton significantly decreased HbA1c. Notably, at week 16 (end-of-
+treatment) HbA1C was decreased by >1.0% in sub-groups with elevated HbA1C at baseline, at 
+least comparable to most common antihyperglycemic agents after 26 to 52 weeks treatment. 
+Additionally, HbA1C lowering was dose-dependent with no evidence of a plateau in treatment 
+at week 16 suggesting that further decreases may be observed at a higher dose and over a longer 
+treatment duration. Similar, dose-dependent decreases were observed for fasting plasma 
+glucose, insulin resistance indices and markers of inflammation and endothelial dysfunction. 
+ 
+1.3 Study Population 
+The study population will consist of male and female patients diagnosed with 
+hypertriglyceridemia and type 2 diabetes, aged 18 years and over. For a detailed list of the 
+inclusion/exclusion criteria please refer to study protocol sections 7.2 and 7.3. 
+Approximately 240 male or female patients, i.e. 80 patients per treatment group will be 
+randomised. 
+Patients who are withdrawn from the study due to an AE or lack of efficacy will not be replaced. 
+Patients who do not meet the eligibility criteria or are withdrawn due to loss to follow up may 
+be replaced. 
+ 
+1.4 Study Medication 
+The study treatment is capsules of Epeleuton (15(S)-HEPE EE) or placebo. Epeleuton and 
+placebo will be provided by Afimmune. Epeleuton and corresponding placebo are provided as 
+green hard-shelled capsules. 
+A patient kit contains four wallets (two “Morning” and two “Evening” walleted blister packs) 
+is sufficient for two weeks dosing. Each wallet holding 4 capsules for each of seven days (cf. 
+Figure 6 in study protocol section 10.3). 
+At the baseline visit, the first dose of IMP (Epeleuton or placebo) will be administered at site 
+only after all baseline assessments have been completed. The patient will take their second dose 
+of IMP in the evening of the day of the baseline visit (visit #3). Patients will be instructed how 
+to store study medication (in the fridge) and to continue taking the capsules twice daily, 
+throughout the 26 weeks study treatment period, starting with the next day. Patients will also 
+be instructed to take medication with food, or within 30 minutes after a meal. 
+Patients will attend the study visits fasting but will receive their morning IMP dose (Epeleuton 
+or placebo) at site after blood samples have been collected. 
+Each administration of IMP will be recorded by the patient in their eDiary or on a paper diary 
+card which is then transcribed during the next site visit into the eDiary system by the 
+Investigator or designee. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 10 of 38 
+At Visit 4 and subsequent visits, patients will return their used IMP (Epeleuton or placebo) and 
+further IMP will be supplied to the patient. The patient should take their next dose of IMP as 
+soon as all visit assessments have been completed, with food or within 30 minutes after a meal. 
+The IMP will continue to be taken twice- daily. 
+From Visit 9 on, further IMP will not be supplied to the patient. 
+Patients will receive standard of care therapy in addition to their assigned IMP throughout the 
+treatment period of the study. 
+ 
+1.5 Randomisation and Unblinding 
+A randomisation list permuted by blocks and stratified by site will be generated by the Sponsor 
+or its designee. The randomisation schedule with study drug assignments will be generated prior 
+to the start of the study and will be known only to the individuals responsible for labelling the 
+study drug, the statisticians generating the schedule and the IWRS team responsible for 
+implementing the schedule. The IWRS will assign a medication kit number to each patient and 
+the contents will be based on the randomisation code. 
+Patients will be randomised (1:1:1) at the baseline visit into the following treatment groups 
+according to a computer-generated randomisation plan: 
+· Treatment Group A (placebo): four placebo capsules orally administered twice a day, 
+i.e. eight capsules daily for 26 weeks. 
+· Treatment Group B (Epeleuton 2g): two Epeleuton 500mg capsules and two placebo 
+capsules orally administered twice a day, i.e. eight capsules daily for 26 weeks. 
+· Treatment Group C (Epeleuton 4g): four Epeleuton 500mg capsules orally administered 
+twice a day, i.e. eight capsules daily for 26 weeks. 
+To maintain the double-blind conditions, the Epeleuton capsules and placebo capsules will be 
+identical in appearance. 
+All study site personnel, as well as the personnel involved in the monitoring or conduct of the 
+study, will be blinded to the individual patient treatment assignments. Randomisation details 
+will be kept strictly confidential, accessible only in an emergency to authorised persons, until 
+the time of formal unblinding. The blinded code for the trial will be broken only after all patient 
+data has been recorded and verified and the database locked. 
+ 
+1.5.1 Emergency unblinding 
+The study medication blind shall not be broken by the Investigator unless information 
+concerning the study medication is necessary for the medical treatment of the subject. The date, 
+time, and reason the blind was broken must be recorded in the source documents and on the 
+appropriate eCRF. 
+If the unblinding is performed by the Investigator due to a medical requirement, the patient will 
+discontinue trial participation. 
+Emergency unblinding will be performed via the IWRS, with relevant site personnel and 
+pharmacovigilance monitors provided with the required system access to carry out unblinding. 
+The rest of the study team will be kept blinded regarding treatment assignment. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 11 of 38 
+1.5.2 Unblinding for studies conducted in the EU 
+If applicable and required, treatment codes will be unblinded prior to submission to authorities 
+and concerned ECs, by the Sponsor’s safety group, which is an independent entity within the 
+Sponsor or by the pharmacovigilance CRO. 
+The Sponsor will also inform all Investigators in a blinded fashion (EU only), unless otherwise 
+required by local regulations. Reporting obligations to the local EC of the Investigator will be 
+fulfilled by the Investigator, unless otherwise specified. 
+ 
+1.5.3 Unblinding for studies conducted in the US 
+The blind will be broken for investigational new drug (IND) safety reports submitted to FDA 
+and all participating Investigators. 
+ 
+1.6  Interim Analysis 
+An interim analysis may be conducted after at least 50% of planned enrolled patients have 
+completed their Week 16 assessments or an early termination visit. The interim analysis will be 
+conducted in accordance with sponsor standard operating procedure (SOP) “Interim Analysis 
+of Clinical Studies”. 
+An unblinded interim analysis will be performed by an unblinded independent statistician. 
+Interim data and the results of interim analyses will not be accessible by anyone other than the 
+unblinded statistician and an Independent Data Monitoring Committee (IDMC).  
+The sponsor trial team will remain blinded with procedures in place to ensure the confidentiality 
+of the interim data in accordance with sponsor SOP “Interim Analysis of Clinical Studies”. 
+The IDMC will make one of the following recommendations to the sponsor based upon the 
+primary efficacy endpoints: 
+· Increase the sample size to a defined number 
+· Continue the study as originally planned 
+· Stop the study due to futility 
+The IDMC may also make further recommendations to the sponsor including changes to study 
+design and conduct. Further interim analyses may be conducted if recommended by the IDMC. 
+Further details will be described in an interim statistical analysis plan. 
+ 
+1.7 Time Schedule / Study Duration 
+During the study, 10 visits to the clinic are scheduled: two Screening Visits (Visit 1 and Visit 
+2), one visit at the start of the comparative treatment period (Baseline/Visit 3), six visits in the 
+comparative treatment period (Visit 4/Week 4, Visit 5/Week 8, Visit 6/Week 12, Visit 7/Week 
+16, Visit 8/Week 20 and Visit 9/Week 26 or Early Termination) and one final safety follow-up 
+visit (Visit 10/Week 28). 
+The screening period will consist of up to 6-weeks lead-in during which all patients will 
+undergo diet and lifestyle stabilisation, washout of disallowed medications and optimisation of 
+statins. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 12 of 38 
+Patients who meet the inclusion criteria at both screening visits will be eligible to participate in 
+the study. Eligible patients will be randomised at the baseline visit. 
+Patients who discontinue the study early before Week 26, for whatever reason, will be asked to 
+attend the investigative site as soon as possible so that assessments scheduled for the early 
+termination visit (Visit 9) will be performed.  
+The flowchart below details the timing of assessments up to Visit V10.  
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 13 of 38 
+Flow chart 
+Visit 
+Visit 1 
+Screening 1 
+Visit 2 
+Screening 2 
+Visit 3 
+Baseline 
+Phone call 
+Week 2 
+Visit 4 
+Week 4 
+Visit 5 
+Week 8 
+Visit 6 
+Week 12 
+Visit 7 
+Week 16 
+Visit 8 
+Week 20 
+Visit 9 EoT 
+Week 26 
+Visit 10 EoS 
+Week 28 
+Day 
+-42 
+-7 
+0 
+14 
+28 
+56 
+84 
+112 
+140 
+182 
+196 
+Visit window 
++28 
+±1 day 
+0 
++/- 2 days +/- 2 days +/- 2 days 
++/- 2 days +/- 2 days +/- 2 days +/- 2 days 
++/- 2 days 
+Informed consent 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Inclusion/exclusion 
+X 
+X 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Urine pregnancy test1 
+ 
+ 
+X 
+ 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+Serum pregnancy test1 
+X 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Contraception counselling 
+X 
+ 
+X 
+ 
+ 
+ 
+X 
+ 
+ 
+X 
+ 
+Demographics 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+AE assessment 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Medical history 
+X 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Concomitant medication assessment 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+ECG (12-lead) 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Physical examination (incl. weight, BMI, waist 
+circumference) 
+X 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Physical examination (height) 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Vital signs (incl. heart rate, blood pressure, 
+X 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Counselling 
+X 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Assessment of symptomatic hypoglycaemic episodes 
+ 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Plasma PK sampling (trough levels)2 
+ 
+ 
+X 
+ 
+X 
+X 
+ 
+X 
+ 
+X 
+ 
+Exploratory blood sample 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Blood sampling for laboratory tests #1 (details below) 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Blood sampling for laboratory tests #2 (details below) 
+X 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Blood sampling for laboratory tests #3 (details below) 
+ 
+ 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Blood sampling for laboratory tests #4 (details below) 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+X 
+ 
+X 
+ 
+Blood sampling for laboratory tests #5 (details below) 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Urinary sampling for urinary albumin-to-creatinine ratio 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Urinalysis (dipstick) 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+TSH sample 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Self-monitoring of blood glucose3 
+ 
+ 
+X………………………X3………………………………………………………………….X 
+ 
+Patient randomisation 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IMP (Epeleuton/placebo) administration4 
+ 
+ 
+ 
+X 
+ 
+IMP (Epeleuton/placebo) reconciliation 
+ 
+ 
+ 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+ 
+1 Female Patients of childbearing potential only 
+2 Pharmacokinetics Ctrough only. Sample will be taken pre-dose  
+3 SMBG is at the investigator’s discretion from visit 4/week 4  
+4 To be taken with food at the same time each day 
+ 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 14 of 38 
+Laboratory test panel #1: Clinical haematology, clinical chemistry, coagulation. 
+Laboratory test panel #2: Triglycerides, LDL-C (calculated), HbA1c 
+Laboratory test panel #3: VLDL-C, non-HDL-C, total cholesterol, glucose, HDL-C, RLP-C 
+Laboratory test panel #4: LDL-C (preparative ultracentrifugation), ApoA1, ApoB, ApoCIII, Lp(a), insulin, hsCRP, HOMA-IR, HOMA-β, nMR lipid profile 
+Laboratory test panel #5: IL-6, IL-1β, PAI-1, VCAM-1, ICAM-1, MCP-1, serum biomarker 
+ 
+ 
+For a full list of the laboratory tests to be performed please refer to Appendix 2. “Table of Central Laboratory Assessments” in the study protocol. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 15 of 38 
+2 Sample Size 
+The primary efficacy endpoints are the percent change in triglycerides from baseline to week 16 
+and the change in HbA1c from baseline to week 26, which will be analysed separately. For details 
+how the familywise error rate is preserved see section 6.1. 
+The sample size was estimated based on results of a post hoc analysis of triglycerides and HbA1C 
+from a Phase IIa trial of Epeleuton in patients with non-alcoholic fatty liver disease. Changes in 
+triglycerides and HbA1C at the highest tested dose (2g/day) at week 16 (end-of-treatment) were 
+used to estimate relative effect sizes (Cohen’s D). Cohen’s D or the standardised relative effect 
+size is the difference between the group means divided by the pooled standard deviation. 
+· To discover a conservative relative effect size (Cohen’s d) between Epeleuton and placebo 
+of 0.6 in triglyceride change from baseline with 80% power, 45 patients per group are 
+necessary under ideal assumptions using the t-test for independent samples (alpha=0.05, 
+two-sided). 
+· To discover a conservative relative effect size (Cohen’s d) between Epeleuton and placebo 
+of 0.48 in HbA1C change from baseline with 80% power, 70 patients per group are 
+necessary under ideal assumptions using the t-test for independent samples (alpha=0.05, 
+two-sided). 
+To power the study for both primary endpoints and take deviations from ideal parametric 
+conditions and drop-outs into account, randomisation of 80 patients per group is recommended. 
+ 
+3 
+ Analysis Populations 
+The following population will be defined: 
+1. Enrolled Set (ES): All patients who provided informed consent will be included in the ES. 
+2. Full Analysis Set (FAS): Patients will be included in the FAS, a modified intention-to-treat 
+population, if they are randomised to the study, received at least one dose of study 
+medication and have at least one post-baseline measurement. Analysis will be done 
+according to treatment as randomised. 
+3. Safety Analysis Set (SAS): The SAS consists of all patients who received at least one dose 
+of the study medication. SAS is the analysis population for all safety endpoints. Analysis 
+will be done according to the actual treatment patients received. 
+4. Per Protocol Set (PPS): In order to qualify for the PPS, the patients must have followed the 
+study protocol without any major protocol violations. Protocol violations will be assessed 
+for each patient in a blinded fashion prior to database lock at a Blind Data Review Meeting 
+(BDRM), and the PPS will also be finalised during this meeting. PPS is a supportive 
+analysis population for the primary efficacy endpoint. Analysis will be done according to 
+the treatment that patients were randomised to. 
+ 
+4 Blind Data Review Meeting 
+During the study conduct, protocol deviations will be captured through site self-reporting, source 
+data verification (SDV) and data management edit checks, and will be recorded throughout the 
+study in monitoring visit reports and in the eCRF. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 16 of 38 
+A BDRM will be held prior to database hard lock/unblinding where AMS and Sponsor 
+representatives will assess protocol deviations as major or minor with regard to their influence on 
+any of the efficacy variables. 
+The AMS biostatistician will prepare blinded data review listings. Deviations not apparent in the 
+clinical database (e.g. findings during monitoring of the investigational site) will be contributed 
+by the clinical project leader. Additionally, data management may provide information to the 
+discussions. 
+The following criteria might be considered as major protocol violations: 
+(1) Violation of inclusion or exclusion criteria 
+(2) Assignment to incorrect treatment (i.e. actual treatment taken differs from the randomised 
+treatment scheduled) 
+(3) Non-adherence to the treatment schedule indicating insufficient treatment compliance  
+(4) Intake of prohibited concomitant therapies (medication for diabetes or obesity except for 
+metformin, sulfonylureas, DPP-4 inhibitors, SGLT2 inhibitors and short-term insulin 
+treatment for acute illness / Fibrates, PCSK9 inhibitors, bile acid sequestrants, niacin, 
+niacin analogues or dietary supplements for the purpose of lowering cholesterol / food 
+supplements rich in omega-3 or omega-6 fatty acids) 
+ 
+Listings for the criteria mentioned above and further listings relating to the following topics will 
+be prepared for the discussion in the review meeting: 
+· Identification of patients randomised but not treated 
+· Eligibility of diary data including checks on the availability of diaries (especially regarding 
+primary endpoint) 
+· Patients without efficacy data 
+· Patients where blind was broken prior to formal unblinding of the study 
+· Procedural deviations at the trial sites which are not reflected in the clinical database 
+· Premature patient discontinuations (reason and timing). 
+· Visit window deviations 
+· Further aspects deemed of interest 
+Further outputs may be prepared for data exploration purposes, e.g. to check distribution 
+assumptions, to check for outliers. 
+ 
+The decision of findings being major or minor protocol deviations will be taken during the BDRM. 
+The patients allocated to the PPS and the reasons for exclusion of patients from the PPS will be 
+documented prior to database hard lock and unblinding.  
+Full details on the reviews performed and the decisions made in the BDRM will be documented 
+in writing in the BDRM protocol and will be approved by signature of the attendees. The decisions 
+in the BDRM protocol may potentially amend/ overrule methodology/ analysis set definitions 
+planned in this SAP. The BDRM protocol will be handled as an addendum to the SAP. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 17 of 38 
+5 Data Handling 
+5.1 General 
+5.1.1 Data sources 
+Data will be collected using a validated, FDA CFR 21 Part 11compliant, electronic data capture 
+(EDC) solution. eCRFs will be utilised for recording data from each patient meeting the eligibility 
+criteria and being randomised in the study, and a limited amount of data will be completed for 
+patients who fail to meet eligibility criteria (i.e. screen failures).  
+Captured data will be monitored electronically and SDV will take place at the site, where 
+information will be verified against the individual patient records. Details will be specified in a 
+data validation plan, respectively monitoring plan. 
+Any inconsistencies will be presented as queries, either as automatically generated queries, if 
+raised by the logical data checks of the eCRF system, or by manually generated queries if raised 
+by the data validation checks or the SDV performed by the data manager (DM) or the clinical 
+research associate (CRA), respectively 
+SAEs will be reported to the pharmacovigilance contract research organisation (spm²). Prior to 
+data base lock an SAE reconciliation between the pharmacovigilance database and the clinical 
+database will be performed. 
+The biostatistical analysis will be based on the information recorded in the clinical database. 
+ 
+5.1.2 Coding 
+The process of coding will be performed according to the data management CRO standard 
+operating procedures and will comply with applicable regulatory coding guidelines (e.g. 
+‘MedDRA Points to consider’ / ‘Best Practices for the use of the WHO Drug Dictionaries’). 
+Adverse events and medical history terms will be coded to system organ class and preferred terms 
+using the current version of the Medical Dictionary for Regulatory Activities (MedDRA).  
+The current version of the WHO Drug Dictionary (WHO-DD) Global version B3 dictionary will 
+be used for the coding of concomitant medications. Coding will be performed indication-specific, 
+such that each medication is assigned the ATC code corresponding to its reason for administration. 
+ 
+5.1.3 Visits 
+In the analysis, visits and points in time will be presented under the visit number as documented 
+in the database. 
+ 
+5.1.4 Baseline value 
+For analysis of triglycerides, baseline will be defined as the mean of the Baseline (Visit 3) and 
+Screening 2/Week -1 (Visit 2) measurements. 
+For other parameters, the last non-missing value prior to first treatment will be referred to as 
+baseline value and will be used for change from baseline calculations. Thus, depending on data 
+availability, the baseline value could be a pre-dose value from Visit 3 (Baseline), a value from 
+Visit 2 (Screening 2) or from Visit 1 (Screening 1). 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 18 of 38 
+5.1.5 Units for laboratory tests 
+All blood samples will be analysed at the central laboratory. In the biostatistical analysis, the 
+laboratory tests will be displayed in the unit defined by the central laboratory. 
+ 
+5.2 Handling of missing values 
+Imputation of missing values will be performed for primary efficacy endpoints and secondary 
+efficacy endpoints: A multiple imputation (MI) approach will be applied that uses the baseline 
+value and all post-baseline values for a specific variable (e.g. triglycerides) as well as the treatment 
+group. 
+For the primary endpoints, a last observation carried forward (LOCF) missing data handling 
+approach will be conducted as an alternative imputation approach. 
+For exploratory endpoints, a last observation carried forward missing data handling approach will 
+be conducted. 
+Where mentioned there also will be a complete-case analysis, i.e. a data presentation without 
+imputation. 
+ 
+5.2.1 Handling of missing dates 
+Where a complete date is required for calculations but an incomplete date is documented only, the 
+following rules will be applied: 
+If only the day is not known completely, for onset dates or start dates missing day information will 
+be assumed as the 1st. If both day and month are missing, the 1st January will be used. For stop 
+dates missing day information will be imputed as the last of the month, if both day and month are 
+missing, the 31st December will be used. 
+However, if for adverse events it is not clear whether the event started prior to or in the treatment 
+period, the onset at day of first treatment will be assumed. 
+Handling of incomplete stop dates for concomitant medications is described in section 5.3.6. 
+ 
+5.3 Algorithms for data calculations and modifications 
+5.3.1 Study Day 
+Consistent with the study flowchart, the Study Day of an assessment or event will be defined as 
+Study Day = Date of Assessment - Date of first treatment 
+For patients without treatment, study day will not be calculated. 
+ 
+5.3.2 Age 
+The age of patients at screening as documented in the eCRF will be analysed.  
+ 
+5.3.3 Time since diagnosis 
+The time since diagnosis of diabetes will be given in months and will be rounded to one decimal. 
+Further analyses will use the rounded value. Time since diagnosis will be calculated as: 
+Time since diagnosis = (date of informed consent – date of diagnosis)/(365.25/12) 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 19 of 38 
+If the date of diagnosis is incomplete it will be imputed assuming the first of the month or the first 
+of January (cf. section 5.2.1). 
+ 
+5.3.4 BMI 
+If the Body Mass Index (BMI) is missing (e.g. weight not collected at a specific visit). BMI will 
+be defined as weight [kg] / (height [cm]/100)2 using a patient’s last preceding non-missing weight 
+value. 
+ 
+5.3.5 Treatment duration 
+The treatment duration of study medication [days] will be calculated as date of last dose 
+administration minus the date of first dose (i.e. usually the baseline visit date Visit 3) plus one.  
+ 
+5.3.6 Previous vs. concomitant medication 
+Previous medications are those medications on the concomitant medication page that were stopped 
+before the date of first study treatment of the patient. Concomitant medications are all other 
+medications. In case of doubt (due to incomplete stop date) a medication will be assumed to be 
+taken concomitantly. 
+For concomitant medication, if for indication “primary diagnosis” is ticked, the coding on the 
+TSG-level will be used to decide, if it is a medication for Type II Diabetes or for 
+Hypertriglyceridemia. It will be filtered for TSG= A10 Drugs used in diabetes and TSG= C10- 
+Lipid modifying agents. 
+ 
+6 General Methodology 
+All analyses will be performed using SAS Version 9.1.3 or higher. 
+If not mentioned otherwise significance tests and confidence intervals will be two-sided using a 
+Type I error rate of 0.05 / a confidence level of 95%. A two-sided p-value less than 0.05 is 
+considered statistically significant for all comparisons. 
+If not mentioned otherwise, analyses will be stratified by treatment group displaying the following 
+treatment groups (in this ordering): Epeleuton 4g, Epeleuton 2g, Epeleuton Total (where 
+mentioned), Placebo, Total. Therefore treatment will not be mentioned explicitly as stratification 
+variable usually. 
+At the investigational site, each patient will be assigned a patient identifier number during 
+screening that will be used on all patient documentation. The patient identifier number will contain 
+the site number and the patient number assigned in numerical order at the screening visit 
+(e.g. 102-10 for the tenth patient screened at the site number 102). This patient identifier number 
+will be used in listings. 
+Usually listings will be sorted by treatment, patient number and (if applicable) visit/point in time.  
+All eCRF data will be listed, therefore listings may not be mentioned explicitly in section 7. 
+ 
+6.1 Primary Endpoint Evaluation  
+The primary efficacy endpoints are: 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 20 of 38 
+· Percent change in triglycerides from baseline to week 16. 
+· Change in HbA1c from baseline to week 26. 
+The primary analysis will be based on the FAS using values imputed via multiple-imputation.  
+Pairwise comparisons of both Epeleuton doses vs Placebo will be performed. 
+The primary analysis will be repeated for FAS using LOCF and for the PPS as supportive analyses. 
+ 
+Analysis of the percentage change of triglycerides will be performed using a Wilcoxon rank sum 
+test with the Hodges Lehmann median and 95% confidence intervals estimates (Test 1 and Test 
+2).  
+Changes from baseline of HbA1c will be analysed using mixed model analysis of covariance 
+(ANCOVA) with baseline value as a covariate, patient as random effect and treatment regime as 
+fixed effect using type III sum of squares and calculating the least squares means for treatment and 
+treatment contrast including corresponding 95% confidence intervals (Test 3 and Test 4). 
+ 
+6.2 Descriptive Analyses, Exploratory Tests 
+Categorical variables will be displayed by absolute and relative frequencies (percentages). 
+Percentages for categorical variables will be based on all non-missing values (=100%). 
+Percentages will be rounded to one decimal place and therefore, there may be occasions when the 
+total of the percentages does not exactly equal 100%. The number of missing values will be 
+displayed. 
+Continuous variables will be summarised with number of observations used, number of missing 
+values, mean, standard deviation, median, minimum, maximum and the 25% and 75% quantiles. 
+If other statistical tests than those described in section 6.1 will be performed, these will have 
+exploratory character only and will be carried out using a two-sided significance level of 5% 
+without adjustment for multiplicity. 
+ 
+6.3 Subgroup analyses 
+Where conducted, subgroup analyses may use one or several of the following stratification 
+variables: 
+· Gender (male, female) 
+· Age group (<65, ≥65 years) 
+· Country 
+Subgroup definitions may be amended during the BDRM and further subgroups may be defined 
+during the BDRM. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 21 of 38 
+7 Final analysis 
+The final analysis will be conducted after end of patient observation, i.e. after the last patient 
+completed Visit 10 (Week 28) assessments. 
+The following sections summarise all analyses planned. 
+ 
+7.1 Demographic and other baseline data 
+All analyses described in this section will be performed as described in section 6.2 with the Safety 
+Analysis Set.  
+The analysis will be presented overall. The following variables will be analysed: 
+· 
+Age at Screening [years] 
+· 
+Age group (<65, ≥65 years) 
+· 
+Gender (male, female) 
+· 
+Ethnic origin (Caucasian, Black, Asian, other) 
+· 
+Smoking status (current smoker / ex-smoker / never smoked) 
+ 
+For medical history, the number/percentage of patients will be displayed by MedDRA primary 
+SOC and Preferred Term. 
+Medical history data will be listed including its MedDRA coding information. 
+The time since diagnosis of diabetes will be summarised descriptively. Further analyses may be 
+considered (at latest in the BDRM) for other data on diabetes history and complications (diabetic 
+nephropathy, diabetic retinopathy, diabetic neuropathy). 
+ 
+7.2 Efficacy - Primary Endpoint Evaluation  
+The primary efficacy endpoints (i.e. Percent change in triglycerides from baseline to week 16 and 
+Change in HbA1c from baseline to week 26) will be tested as described in section 6.1. 
+Triglyceride and HbA1c values and percentage change from baseline will be summarised 
+descriptively (location and dispersion parameters) by visit as detailed in section 6.2 (displaying all 
+visits).  
+Descriptive summary statistics for the two Epeleuton doses pooled will be given as well and 
+exploratory inference tests for the two Epeleuton doses pooled vs Placebo will be performed for 
+both primary endpoints. 
+Descriptive analyses for changes from baseline will generally include both absolute change and 
+percentage change. 
+ 
+7.3 Efficacy - Secondary Endpoints Evaluation  
+The secondary efficacy endpoints are: 
+· 
+Percent change in triglycerides from baseline to weeks 4, 8, 12, 20 and 26. 
+· 
+Change in HbA1c from baseline to weeks 4, 8, 12, 16 and 20. 
+· 
+Proportion of patients achieving a HbA1c below 7.0% at weeks 4, 8, 12, 16, 20 and 26. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 22 of 38 
+· 
+Percent change in very low-density lipoprotein cholesterol (VLDL-C) from baseline to 
+weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Percent change in non-high-density lipoprotein cholesterol (non-HDL-C) from baseline 
+to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Percent change in total cholesterol from baseline to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Change in fasting plasma glucose from baseline to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Proportion of patients achieving a HbA1c below 6.5% at weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Percent change in apolipoprotein B (ApoB) from baseline to weeks 16 and 26. 
+· 
+Percent change in remnant lipoprotein cholesterol (RLP-C) from baseline to weeks 8, 
+16 and 26. 
+· 
+Percent change in high-density lipoprotein cholesterol (HDL-C) from baseline to weeks 
+4, 8, 12, 16, 20 and 26. 
+· 
+Percent change in low-density lipoprotein cholesterol (LDL-C) (preparative 
+ultracentrifugation) from baseline to weeks 16 and 26. 
+· 
+Change in body weight (kg) from baseline to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Change in high-sensitivity C-reactive protein (hsCRP) from baseline to weeks 8, 16 
+and 26. 
+· 
+Change in systolic blood pressure from baseline to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Change in diastolic blood pressure from baseline to weeks 4, 8, 12, 16, 20 and 26. 
+· 
+Change in urinary albumin-to-creatinine ratio (UACR) from baseline to week 26 in the 
+sub-group of patients with microalbuminuria at baseline. 
+ 
+Logistic regression with baseline HbA1C as a covariate will be used to analyse the percentage of 
+patients with HbA1c < 7.0% and the percentage of patients with HbA1c < 6.5% at week 16. 
+All other secondary efficacy endpoints will be analysed using an ANCOVA mixed model, if the 
+data for that endpoint are normally distributed, or a Wilcoxon-rank-sum test, if the data are not 
+normally distributed. Significant departure from normality is defined as p-value of <0.01 for the 
+Shapiro-Wilk test. The ANCOVA mixed model for each specific endpoint will use the baseline 
+value of the specific endpoint variable as a covariate, patient as random effect and treatment regime 
+as fixed effect, type III sum of squares and the least squares means for treatment and treatment 
+contrast including corresponding 95% confidence intervals. 
+All statistical tests will be performed in an exploratory manner, without adjustment for 
+multiplicity. All tests will be repeated for the pooled Epeleuton dose vs Placebo. 
+All analyses of secondary efficacy endpoints will be performed a) based on the FAS using values 
+imputed via multiple-imputation b) using FAS with LOCF for endpoints related to triglycerides, 
+change in HbA1c, and body weight. Endpoints related to Triglycerides and change in HbA1c will 
+also be evaluated for PPS. 
+ 
+7.4 Exploratory Endpoints  
+Exploratory Endpoints are: 
+· 
+Change in waist circumference from baseline to weeks 8, 16 and 26. 
+· 
+Percent change in apolipoprotein CIII (ApoCIII) from baseline to weeks 16 and 26. 
+· 
+Percent change in apolipoprotein A1 (ApoA1) from baseline to weeks 16 and 26. 
+· 
+Percent change in lipoprotein (a) (Lp(a)) from baseline to weeks 16 and 26. 
+· 
+Percent change in high-density lipoprotein particle concentration (HDL-P) from 
+baseline to weeks 16 and 26. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 23 of 38 
+· 
+Percent change in small low-density lipoprotein particle concentration (Small LDL-P) 
+from baseline to weeks 16 and 26. 
+· 
+Percent change in large low-density lipoprotein particle concentration (Large LDL-P) 
+from baseline to weeks 16 and 26. 
+· 
+Percent change in low-density lipoprotein size (LDL size) from baseline to weeks 16 
+and 26. 
+· 
+Percent change in very low-density lipoprotein size (VLDL size) from baseline to 
+weeks 16 and 26. 
+· 
+Percent change in high-density lipoprotein size (HDL size) from baseline to weeks 16 
+and 26. 
+· 
+Change in fasting plasma insulin from baseline to weeks 16 and 26. 
+· 
+Change in Homeostatic model assessment insulin resistance (HOMA-IR) from baseline 
+to weeks 16 and 26. 
+· 
+Change in Homeostatic model assessment β-cell function (HOMA-β) from baseline to 
+weeks 16 and 26. 
+· 
+Change in interleukin 6 (IL-6) from baseline to week 26. 
+· 
+Change in interleukin 1β (IL-1β) from baseline to week 26. 
+· 
+Change in plasminogen activator inhibitor 1 (PAI-1) from baseline to week 26. 
+· 
+Change in vascular cell adhesion molecule 1 (VCAM-1) from baseline to week 26. 
+· 
+Change in intercellular adhesion molecule 1 (ICAM-1) from baseline to week 26. 
+· 
+Change in monocyte chemoattractant protein 1 (MCP-1) from baseline to week 26. 
+· 
+Change in red cell distribution width (RDW) from baseline to weeks 16 and 26. 
+· 
+Change in haemoglobin from baseline to weeks 16 and 26. 
+· 
+Change in reticulocyte count from baseline to weeks 16 and 26. 
+· 
+Change in erythrocyte (red blood cell) count from baseline to weeks 16 and 26. 
+ 
+All exploratory endpoints will be analysed using an ANCOVA mixed model, if the data for that 
+endpoint are normally distributed, or a Wilcoxon-rank-sum test, if the data are not normally 
+distributed. Significant departure from normality is defined as p-value of <0.01 for the Shapiro-
+Wilk test. The ANCOVA mixed model for each specific endpoint will use the baseline value of 
+the specific endpoint variable as a covariate, patient as random effect and treatment regime as fixed 
+effect, type III sum of squares and the least squares means for treatment and treatment contrast 
+including corresponding 95% confidence intervals. 
+All statistical tests will be performed in an exploratory manner, without adjustment for 
+multiplicity. All significance tests will be repeated for the pooled Epeleuton dose vs Placebo. 
+All analyses of exploratory endpoints will be performed for FAS using LOCF imputation. 
+Further exploratory endpoints are: 
+· 
+Trough plasma concentrations of total and unesterified 15-hydroxy eicosapentaenoic 
+acid (15(S)-HEPE) in treated population compared to placebo population at 
+Baseline/Day 0, Week 4, Week 8, Week 16 and Week 26. 
+· 
+Trough plasma concentrations of EPA in treated population compared to placebo 
+population at Baseline/Day 0, Week 4, Week 8, Week 16 and Week 26. 
+The analysis of these endpoints will be conducted by an independent pharmacokineticist. The 
+analysis methods for these exploratory endpoints will be described in a separate document. The 
+results and conclusions will be forwarded to the Medical Writer for incorporation into the Clinical 
+Study Report. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 24 of 38 
+Blood for exploratory biomarkers will be collected as per the Study Flow Chart (Appendix 1) at 
+Visit 3/Baseline and Visit 9/Week 26/Early Termination and will be stored for later biomarker 
+analysis. The biostatistical evaluation therefore will be performed separately from the analyses 
+described in this SAP. The sampling dates will be listed. 
+ 
+7.5 Safety Evaluation  
+Safety endpoints include 
+· 
+Incidence of treatment-emergent level 2 and level 3 hypoglycaemic episodes 
+· 
+Level 2 – Glucose <54 mg/dL (3.0 mmol/L), with or without symptoms  
+· 
+Level 3 – A severe event characterised by altered mental and/or physical status 
+requiring assistance for treatment of hypoglycaemia. 
+· 
+AE and SAE frequency and severity. 
+· 
+Safety laboratory parameters (haematology, clinical chemistry, coagulation). 
+· 
+Urinalysis 
+· 
+ECGs 
+· 
+Vital signs (heart rate, temperature, blood pressure) 
+· 
+Physical examination 
+ 
+Analyses generally use the Safety Analysis Set. 
+ 
+7.5.1 Adverse Events 
+The degree of attributability (causality) between an IMP and an AE is documented as Definitely / 
+Probable / Possible / Unlikely / Unrelated. A reasonable causal relationship is assumed if the 
+causality is at least “possible”. 
+An AE will be considered “treatment emergent” if its onset is at or after the first dose of study 
+drug at the baseline visit or if it worsened at or after the first dose of study drug. 
+ 
+The analyses of adverse events with onset on or after first administration of study medication 
+(“treatment-emergent AEs”) will be based on the Safety Analysis Set.  
+Adverse events occurring before first application of study medication will be included in AE 
+listings. Please note that Adverse Events with onset on study day of 0 or higher are treatment 
+emergent AEs, while AEs with negative study day are those that occurred before first application 
+of study medication.  
+The number and percentage of patients with specific adverse events during the treatment period 
+will be displayed by MedDRA primary SOC, Preferred Term and worst severity. The counts in 
+these analyses will reflect numbers of patients reporting one or more AE that map to the MedDRA 
+system organ class/preferred term, displaying patients who reported several AEs of one Preferred 
+Term with differing severities under the worst severity reported. E.g. one patient with two reported 
+headaches (mild and moderate) will be analysed with moderate. The percentage is a crude 
+incidence rate, i.e. the number of patients with a specific adverse event divided by the total number 
+of patients in the analysis population. 
+The analysis of treatment-emergent adverse events will be repeated for the following AE 
+categories: 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 25 of 38 
+· 
+All adverse events 
+· 
+Serious adverse events 
+· 
+Adverse events related to the study medication 
+· 
+Serious related adverse events 
+· 
+Adverse events leading to permanent discontinuation of study drug 
+ 
+Furthermore, a summary table with the overall incidences of the above mentioned AEs will be 
+created.  
+Listings will be based on the Enrolled Set and will include study day of AE onset and AE stop as 
+well as MedDRA information (i.e. SOC, Preferred Term, and Lowest Level Term).  
+Listings will be created for the following topics: 
+· 
+All adverse events 
+· 
+Serious adverse events 
+· 
+Adverse events related to the study medication  
+ 
+The number/percentage of patients with treatment-emergent adverse events will also be 
+summarised by MedDRA primary SOC and Preferred Term for most frequent non-serious adverse 
+events (incidence of preferred term ≥ 5%). In this table, the Totals overall or by SOC will consider 
+only those preferred terms with an incidence >=5%. 
+ 
+7.5.2 Hypoglycaemia assessment 
+Assessment of symptomatic hypoglycaemic episodes will be conducted at Visit 3/Baseline, 
+Week 2 Telephone Call, Visit 4/ Week 4, Visit 5/Week 8, Visit 6/ Week 12, Visit 7/ Week 16, 
+Visit 8/Week 20, Visit 9/Week 26/Early Termination and Visit 10/Week 28/Follow-up. 
+Hypoglycaemia is classified by the American Diabetes Association (ADA) and the European 
+Association for the Study of Diabetes (EASD) into the following levels:  
+· Level 1: Glucose <70 mg/dL (3.9 mmol/L) and ≥54 mg/dL (3.0 mmol/L) 
+· Level 2: Glucose <54 mg/dL (3.0 mmol/L), with or without symptoms 
+· Level 3: A severe event characterized by altered mental and/or physical status requiring 
+assistance for treatment of hypoglycaemia. 
+Level 2 hypoglycaemia with or without symptoms and Level 3 hypoglycaemia should be recorded 
+and warrant further investigation. 
+When a hypoglycaemic episode is suspected, plasma glucose should be self-measured and all 
+values, hypoglycaemic symptoms and details of the event should be reported in the 
+Hypoglycaemic Episode Form (cf. study protocol section 15.3, Appendix 3) by the patient. 
+Based on a blinded medical review the episodes will be classified into Level 1 to Level 3. 
+Data on the Hypoglycaemic Episode Form will be listed. 
+The number/percentage of patients with events (overall and per level) will be summarised. 
+The number/percentage of events (with percentage based on the total number of events) will be 
+summarised overall and per level. 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 26 of 38 
+7.5.3 Self-monitoring of blood glucose (SMBG) 
+All patients will be instructed or re-educated on how to use their blood glucose meter device and 
+test strips at the baseline visit. The instruction will be repeated as necessary during the trial. 
+SMBG profiles will be recorded daily from Visit 3/Baseline to Visit 4 / Week 4. After Visit 4 / 
+Week, at the investigator’s discretion, patients who have experienced hypoglycaemia may be 
+asked to continue SMBG. 
+Patients will be asked to record SMBG daily before meals and before bedtime. Patients will also 
+be asked to record SMBG before exercise and if they suspect low blood glucose, as described in 
+Section 7.5.2 Hypoglycaemia assessment. 
+Patients will record the results of the SMBG values in an electronic diary. The record of each 
+SMBG value will include date, time and value. Any SMBG values <70 mg/dL (3.9 mmol/L) 
+entered into the electronic diary will be automatically alerted to the investigator and medical 
+monitor for follow-up. If the patient is unable to access the electronic diary, a paper diary back up 
+will be provided and the data will be transcribed during the next site visit into the IRT by the 
+Investigator or designee. 
+The information if self-monitoring of blood glucose was completed and if the investigator does 
+recommend that the patient continues to complete eDiary for self-monitoring of blood glucose will 
+be listed. 
+ 
+7.5.4 Vital signs 
+Vital signs measurements will be performed at each visit, before any blood samples are taken. The 
+following vital sign parameters are obtained: 
+· 
+Systolic blood pressure [mmHg] - seated and resting for five minutes  
+· 
+Diastolic blood pressure [mmHg - seated and resting for five minutes ] 
+· 
+Heart rate [beats per min] – taken at rest 
+· 
+Temperature [°C]: - taken as per clinic practice 
+ 
+The analysis for systolic/diastolic blood pressure is described in section 7.3. The analysis for heart 
+rate and temperature will be performed as described in section 6.2 by visit using the Safety 
+Analysis Set considering values as well as changes from baseline. 
+ 
+7.5.5 ECG 
+A 12-lead electrocardiogram (ECG) 10 mm/1 mV, 25 mm/s with a 10 second lead II rhythm strip 
+will be recorded. Patients will be rested quietly in a fully supine position for five minutes before 
+the ECG is taken. Recordings will be made at Visit 3/Baseline and at Visit 9/Week 26/Early 
+Termination. 
+The number/percentage of patients with normal results, abnormal results with clinical significance 
+and abnormal results without clinical significance will be summarised overall and by visit for the 
+Safety Analysis Set (as described in section 6.2. 
+ 
+7.5.6 Physical Examination 
+A physical examination, including height (Visit 1/Screening 1 only), weight, BMI and waist 
+circumference measurement, will be performed at Visit 1/Screening 1, Visit 2/Screening 2, 
+Visit 3/Baseline, Visit 4/Week 4, Visit 5/Week 8, Visit 6/Week 12, Visit 7/Week 16, 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 27 of 38 
+Visit 8/Week 20, Visit 9/Week 26/Early Termination and Visit 10/Week 28/Follow up, in 
+accordance with local practices. 
+The analysis for weight is described in section 7.3, the analysis for waist circumference is 
+described in section 7.4. The analysis for BMI values and height values will be performed as 
+described in section 6.2 by visit using the Safety Analysis Set. 
+ 
+7.5.7 Safety Laboratory data 
+Safety laboratory include haematology, serum biochemistry and coagulation: 
+· Haematology: Full blood count to include red cell count, haemoglobin, haematocrit, white 
+cell count, differential white cell count, platelet count, reticulocyte count and red cell 
+distribution width (RDW). 
+· Serum biochemistry: Urea (blood urea nitrogen (BUN)), creatinine, uric acid, total 
+bilirubin, indirect and direct bilirubin, sodium, bicarbonate potassium, phosphorus, 
+calcium chloride, alkaline phosphatase (ALP), AST, ALT, AST:ALT ratio, gamma-
+glutamyl transferase (GGT), albumin, total protein and TSH (screening only). 
+· Coagulation: PT (prothrombin time), International normalised ratio (INR) and APTT 
+(activated partial prothrombin time) 
+Those parameters are not evaluated as efficacy/exploratory endpoints. The value and change from 
+baseline will be summarised descriptively by visit as described in section 6.2. 
+For all parameters a summary will display the number/percentage of patients with normal results, 
+abnormal results with clinical significance and abnormal results without clinical significance 
+overall and by visit. 
+Per parameter, a shift table will display the category (normal / abnormal, not clinically significant 
+/ abnormal, clinically significant) of the patient’s baseline value vs. the worst category observed 
+post-baseline. 
+All analyses for the safety laboratory will be based on the Safety Analysis Set. 
+Laboratory values outside the normal range will be listed separately in detail.  
+ 
+7.5.8 Urinalysis 
+Urinalysis assessment will be conducted as per Flow Chart (Appendix 1) at Visit3/Baseline and 
+Visit 9/Week 26/Early Termination. pH, protein, glucose, blood, ketones, leukocytes, leukocyte 
+esterase, bilirubin, specific gravity, urobilinogen and nitrate will be assessed. Reflex microbiology 
+to be done locally if blood, protein, leukocyte esterase or nitrate/nitrite are present. 
+Urinalysis assessment results will be summarised descriptively by visit as described in section 6.2 
+as applicable. Reflex microbiology data will be listed only. 
+ 
+7.5.9 Further safety endpoints 
+For female patients of childbearing potential only, a pregnancy test will be carried out as per the 
+study flow chart (Appendix 1) at Visit 1/Screening 1 and at Visit 3/Baseline, Visit 6/Week 12 and 
+Visit 9/Week 26. 
+Female patients and male patients with female partners of childbearing potential must use highly 
+effective contraceptive methods or have a sterilised partner for the duration of the study and this 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 28 of 38 
+must be continued post study for at least 30 days for WOCBP and 90 days for men. This should 
+be discussed with the patient as per the study flow chart (Appendix 1) at Visit 1/Screening 1, Visit 
+3/Baseline, Visit 6/Week 12 and Visit 9/Week 26. 
+Pregnancy test data and counselling on contraception will be listed only. 
+ 
+7.6 Further Analyses 
+ 
+7.6.1 Previous and concomitant medication 
+All administered concomitant medications should be recorded throughout the study. 
+The incidence of previous and concomitant medication will be displayed by ATC classification 
+(level 2 and preferred term). The analysis will be performed separately for previous medications 
+and concomitant medications for the Safety Analysis Set (cf. section 5.3.6). 
+ 
+7.6.2 Study medication 
+Drug accountability 
+If documented in the eCRF, the Drug Accountability data (i.e. amount of dispensed / returned 
+medication and other related information) will be listed. 
+Exposure data 
+Treatment duration [days] will be summarised descriptively by visit as described in section 6.2 for 
+the Safety Analysis Set. 
+ 
+7.6.3 Patients’ study termination status 
+Standard reasons for withdrawing from further participation in the study may be: 
+· 
+Unacceptable AEs 
+· 
+Patient’s decision (withdrawal of consent to participate) 
+· 
+Investigator’s discretion 
+· 
+Intercurrent illness 
+· 
+Pregnancy 
+· 
+Patient lost to follow-up 
+· 
+Reason not specified 
+ 
+The number/percentage of patients completing the study will be given, the number/percentage of 
+patients with premature study termination will be given overall and per main reason. The analysis 
+will be performed separately for screening failures, i.e. non-randomised patients, and for all 
+randomised patients. 
+ 
+7.6.4 Study duration and analysis sets 
+The date of the first patient in the study (i.e. the date of first informed consent) and the date of the 
+last patient out of the study (i.e. the last date of a patient visit/patient assessment in the study) will 
+be given for the Enrolled Set as well as for the Safety Set. 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 29 of 38 
+The number of patients in each analysis set will be given overall and by centre nested in countries. 
+All patients will be listed with their assignment to the analysis populations and if applicable the 
+reason for exclusion from specific analysis sets. 
+The patient’s visit dates will be listed including an indication of the corresponding study days. 
+ 
+7.6.5 Protocol deviations 
+Protocol deviations identified in the BDRM will be listed including the decision if these constitute 
+a minor or major protocol violation. 
+Based on the number of protocol deviations observed a summary may be considered during the 
+BDRM. 
+ 
+7.6.6 Pharmacokinetic sampling 
+Pharmacokinetic sampling and associated biostatistical evaluation is described in section 7.4. 
+ 
+ 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 30 of 38 
+8 Tables, Figures and Listings 
+FAS MI: Full Analysis Set with multiple imputation data, FAS LOCF: Full Analysis Set with 
+LOCF data, FAS: Full Analysis Set complete-case analysis 
+Item No. 
+Title  
+Population 
+Content Description 
+14.1 
+Demographic data, Baseline Characteristics, Patient disposition , 
+concomitant medication 
+ 
+Patient disposition 
+14.1.1 
+Study termination status 
+Randomised 
+patients 
+Descriptive statistics 
+14.1.2 
+Study termination 
+reasons for screening 
+failures 
+Non-
+randomised 
+patients 
+Descriptive statistics 
+14.1.3 
+Duration of study 
+ES, SAS 
+Date of first patient in and 
+last patient out 
+14.1.4 
+Number of patients in 
+analysis sets by country, 
+centre and overall 
+ES 
+Descriptive statistics 
+14.1.5 
+Treatment duration of 
+study medication 
+SAS 
+Descriptive statistics of 
+treatment duration 
+ 
+Demographic data, Baseline characteristics, concomitant 
+medication 
+14.1.6 
+Demographics / Smoking 
+status 
+SAS 
+Descriptive statistics (incl. 
+age, age group, gender, 
+ethnic origin, smoking 
+status) 
+14.1.7 
+Diabetes history and 
+complications  
+SAS 
+Descriptive statistics for 
+time since diagnosis and 
+possibly other parameters 
+14.1.8 
+Medical History 
+SAS 
+Descriptive statistics by 
+MedDRA SOC and 
+preferred term 
+14.1.9.1 
+Previous medication 
+SAS 
+Descriptive statistics by 
+ATC classification (level 
+2) and preferred term  
+14.1.9.2 
+Concomitant medication  
+SAS 
+Descriptive statistics by 
+ATC classification (level 
+2) and preferred term  
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 31 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.2 
+Efficacy  
+14.2.1 
+Primary Endpoint 
+14.2.1.1.1 to 
+14.2.1.1.3 
+Percent change in 
+triglycerides from 
+baseline to week 16: 
+Wilcoxon Test with 
+Hodges Lehmann median 
+FAS MI, 
+FAS LOCF, 
+PPS 
+Wilcoxon rank sum tests 
+(per Epeleuton dose level 
+and pooled Epeleuton 
+dose) with the Hodges 
+Lehmann median and 95% 
+confidence intervals 
+estimates 
+14.2.1.1.4 to 
+14.2.1.1.6 
+Triglycerides values and 
+changes by visit  
+FAS MI, 
+FAS LOCF, 
+PPS 
+Descriptive summaries 
+incl. a pooled Epeleuton 
+dose, absolute and 
+percentage change 
+14.2.1.2.1 to 
+14.2.1.2.3 
+Change in HbA1c from 
+baseline to week 26: 
+ANCOVA 
+FAS MI, 
+FAS LOCF, 
+PPS 
+Mixed model analysis of 
+covariance (per Epeleuton 
+dose level and pooled 
+Epeleuton dose) with 
+baseline value as a 
+covariate 
+14.2.1.2.4 to 
+14.2.1.2.6 
+HbA1c values and 
+changes by visit  
+FAS MI, 
+FAS LOCF, 
+PPS 
+Descriptive summaries 
+incl. a pooled Epeleuton 
+dose, absolute and 
+percentage change 
+14.2.2 
+Secondary Endpoints 
+14.2.2.1.1 to 
+14.2.2.1.3 
+Percent change in 
+triglycerides from 
+baseline per visit: 
+Wilcoxon Test with 
+Hodges Lehmann median 
+FAS MI, 
+FAS LOCF, 
+PPS 
+Wilcoxon rank sum tests 
+(per Epeleuton dose level 
+and pooled Epeleuton 
+dose) with the Hodges 
+Lehmann median and 95% 
+confidence intervals 
+estimates, per visit 
+14.2.2.2.1 to 
+14.2.2.2.3 
+Change in HbA1c from 
+baseline per visit: 
+ANCOVA 
+FAS MI, 
+FAS LOCF, 
+PPS 
+Mixed model analysis of 
+covariance (per Epeleuton 
+dose level and pooled 
+Epeleuton dose)  with 
+baseline value as a 
+covariate, per visit 
+14.2.2.3.1 
+Proportion of patients 
+with HbA1c below 7.0% 
+per visit: Logistic 
+regression 
+FAS MI 
+Logistic regression with 
+baseline HbA1c as a 
+covariate, per visit  
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 32 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.2.2.4.1 
+Proportion of patients 
+with HbA1c below 6.5% 
+per visit: Logistic 
+regression  
+FAS MI 
+Logistic regression with 
+baseline HbA1c as a 
+covariate, per visit 
+14.2.2.5.1 
+Percent change in 
+VLDL-C per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.6.1 
+Percent change in 
+non-HDL-C per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.7.1 
+Percent change in total 
+cholesterol per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.8.1 
+Change in fasting plasma 
+glucose per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.9.1 
+Percent change in ApoB 
+per visit: Significance 
+Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.10.1 
+Percent change in RLP-C 
+per visit: Significance 
+Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.11.1 
+Percent change in 
+HDL-C per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.12.1 
+Percent change in LDL-C 
+per visit: Significance 
+Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.13.1 to 
+14.2.2.13.2 
+Change in body weight 
+per visit: Significance 
+Test 
+FAS MI, 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.14.1 
+Change in hsCRP per 
+visit: Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.15.1 
+Change in systolic blood 
+pressure per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.16.1 
+Change in diastolic blood 
+pressure per visit: 
+Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.2.17.1 
+Change in UACR per 
+visit: Significance Test 
+FAS MI 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 33 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.2.3 
+Exploratory Analyses 
+14.2.3.1.1 
+Change in waist 
+circumference per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.2.1 
+Percent change in 
+ApoCIII per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.3.1 
+Percent change in ApoA1 
+per visit: Significance 
+Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.4.1 
+Percent change in Lp(a) 
+per visit: Significance 
+Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.5.1 
+Percent change in HDL-P 
+per visit: Significance 
+Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.6.1 
+Percent change in LDL-P 
+per visit: Significance 
+Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.7.1 
+Percent change in Large 
+LDL-P per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.8.1 
+Percent change in LDL 
+size per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.9.1 
+Percent change in VLDL 
+size per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.10.1 
+Percent change in HDL 
+size per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.11.1 
+Change in fasting plasma 
+insulin per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.12.1 
+Change in HOMA-IR per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.13.1 
+Change in HOMA-β per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 34 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.2.3.14.1 
+Change in IL-6 per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.15.1 
+Change in IL-1β per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.16.1 
+Change in PAI-1 per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.17.1 
+Change in VCAM-1 per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.18.1 
+Change in ICAM-1 per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.19.1 
+Change in MCP-1 per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.20.1 
+Change in RDW per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.21.1 
+Change in haemoglobin 
+per visit: Significance 
+Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.22.1 
+Change in reticulocyte 
+count per visit: 
+Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.23.1 
+Change in erythrocyte 
+(red blood cell) count per 
+visit: Significance Test 
+FAS LOCF 
+ANCOVA mixed model, if 
+feasible, otherwise 
+Wilcoxon-rank-sum test 
+14.2.3.24 
+Trough plasma 
+concentrations of total 
+and unesterified 
+15(S)-HEPE: Descriptive 
+summary by visit 
+FAS LOCF 
+Descriptive summary incl. 
+a pooled Epeleuton dose 
+14.2.3.25 
+Trough plasma 
+concentrations of EPA: 
+Descriptive summary by 
+visit 
+FAS LOCF 
+Descriptive summary incl. 
+a pooled Epeleuton dose 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 35 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.3 
+Safety 
+14.3.1 
+Adverse events 
+14.3.1.1 
+Summary of adverse 
+events  
+SAS 
+Overall incidences of 
+specific adverse event 
+types (AE, SAE, …) 
+14.3.1.2 
+Adverse events by 
+MedDRA SOC, preferred 
+term and worst severity 
+SAS 
+Descriptive statistics by 
+MedDRA SOC, preferred 
+term and worst severity 
+14.3.1.3 
+Serious adverse events 
+by MedDRA SOC, 
+preferred term and worst 
+severity 
+SAS 
+Descriptive statistics by 
+MedDRA SOC, preferred 
+term and worst severity 
+14.3.1.4 
+Adverse events related to 
+study medication by 
+MedDRA SOC, preferred 
+term and worst severity 
+SAS 
+Descriptive statistics by 
+MedDRA SOC, preferred 
+term and worst severity 
+14.3.1.5 
+Adverse events leading 
+to permanent 
+discontinuation of study 
+drug by MedDRA SOC, 
+preferred term and worst 
+severity 
+SAS 
+Descriptive statistics by 
+MedDRA SOC, preferred 
+term and worst severity 
+14.3.1.6 
+Adverse events with at 
+least 5% incidence, by 
+MedDRA SOC, preferred 
+term 
+SAS 
+Descriptive statistics by 
+MedDRA SOC and 
+preferred term 
+14.3.1.7 
+Hypoglycaemia: 
+Incidence on patient level 
+SAS 
+Descriptive summary 
+14.3.1.8 
+Hypoglycaemia: 
+Incidence on event level 
+SAS 
+Descriptive summary 
+14.3.5 
+Vital signs 
+14.3.5.1 
+Vital signs 
+SAS 
+Descriptive statistics of 
+values and changes to 
+baseline for heart 
+rate+temperature 
+14.3.6 
+Laboratory values 
+14.3.6.1 
+Serum biochemistry: 
+absolute values and 
+change from baseline 
+SAS 
+Descriptive statistics of 
+absolute values and 
+changes to baseline for 
+each parameter  
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 36 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.3.6.2 
+Serum biochemistry: 
+number and percentage 
+of normal and abnormal 
+values 
+SAS 
+Descriptive statistics for 
+each parameter (normal 
+and abnormal values with 
+and without clinical 
+significance) 
+14.3.6.3 
+Serum biochemistry: 
+Shift tables of normality 
+SAS 
+Shift table for change from 
+baseline to the worst value 
+post-baseline 
+14.3.6.4 
+Haematology: absolute 
+values and change from 
+baseline 
+SAS 
+Descriptive statistics of 
+absolute values and 
+changes to baseline for 
+each parameter  
+14.3.6.5 
+Haematology: number 
+and percentage of normal 
+and abnormal values 
+SAS 
+Descriptive statistics for 
+each parameter (normal 
+and abnormal values with 
+and without clinical 
+significance) 
+14.3.6.6 
+Haematology: Shift 
+tables of normality 
+SAS 
+Shift table for change from 
+baseline to the worst value 
+post-baseline 
+14.3.6.7 
+Coagulation: absolute 
+values and change from 
+baseline 
+SAS 
+Descriptive statistics of 
+absolute values and 
+changes to baseline for 
+each parameter  
+14.3.6.8 
+Coagulation: number and 
+percentage of normal and 
+abnormal values 
+SAS 
+Descriptive statistics for 
+each parameter (normal 
+and abnormal values with 
+and without clinical 
+significance) 
+14.3.6.9 
+Coagulation: Shift tables 
+of normality 
+SAS 
+Shift table for change from 
+baseline to the worst value 
+post-baseline 
+14.3.6.10 
+Urinalysis 
+SAS 
+Descriptive statistics for 
+each parameter  
+14.3.7 
+ECG 
+14.3.7.1 
+ECG: number and 
+percentage of normal and 
+abnormal values 
+SAS 
+Descriptive statistics for 
+each parameter (normal 
+and abnormal values with 
+and without clinical 
+significance) by visit and 
+overall 
+14.3.8 
+Physical Examination 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 37 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+14.3.8.1 
+Physical examination: 
+Descriptive summary 
+SAS 
+Descriptive statistics for 
+height and (by visit) BMI 
+ 
+ 
+ 
+ 
+16 
+Appendices 
+16.2 
+Patient data listings 
+16.2.1.1 
+Study termination 
+Randomised 
+patients  
+Individual patient data 
+listing of premature 
+termination yes/no incl. 
+reason for termination if 
+applicable 
+16.2.1.2 
+Screening failures  
+Non-
+randomised 
+patients 
+Individual patient data 
+listing incl. reason for 
+screening failures, only 
+non-randomised patients  
+16.2.2 
+Protocol deviations 
+ES 
+Individual patient data 
+listing of protocol 
+deviations incl. decision if 
+minor or major 
+16.2.3 
+Listing of patient 
+assignment to analysis 
+sets 
+ES 
+Individual patient data 
+listing incl. randomisation 
+number, randomisation 
+date, randomised 
+treatment, reason for 
+exclusions from analysis 
+sets 
+16.2.4.1 
+Demographic data / 
+Informed consent 
+ES 
+Individual patient data 
+listing 
+16.2.4.2 
+Medical history 
+ES 
+Individual patient data 
+listing incl. history of 
+CVD, history of liver 
+disease and 
+Hypercholesterolaemia 
+16.2.4.3 
+Diabetes history and 
+complications  
+ES 
+Individual patient data 
+listing 
+16.2.4.4 
+Previous/ Concomitant 
+medications 
+ES 
+Individual patient data 
+listing 
+16.2.5 
+Study medication 
+administration 
+SAS 
+Individual patient data 
+listing of study medication 
+data 
+16.2.7 
+Adverse Events Listings 
+16.2.7.1 
+Adverse events 
+ES 
+Individual patient data 
+listing 
+Afimmune Ltd. 
+ 
+Statistical Analysis Plan DS102A-07-CV1 
+AMS Advanced Medical Services GmbH 
+ 
+ 
+Final Version 2.0, June 09, 2022 
+ 
+ 
+Page 38 of 38 
+Item No. 
+Title  
+Population 
+Content Description 
+16.2.7.2 
+AEs related to study 
+medication 
+ES 
+Individual patient data 
+listing 
+16.2.7.3 
+Serious adverse events 
+ES 
+Individual patient data 
+listing 
+16.2.7.4 
+Symptomatic 
+hypoglycaemic episodes 
+ES 
+Individual patient data 
+listing 
+16.2.8 
+Listing of individual laboratory measurements 
+16.2.8.1 
+Listing of laboratory 
+values 
+All 
+Individual patient data 
+listing of laboratory 
+results, lab tests grouped 
+by test panel (PK, Panel 1 
+to 5, UACR, Urinalysis, 
+TSH) 
+16.2.8.2 
+Listing of abnormal 
+laboratory values 
+All 
+Individual patient data 
+listing of laboratory 
+results, lab tests grouped 
+by test panel (PK, Panel 1 
+to 5, UACR, Urinalysis, 
+TSH) 
+16.2.8.3 
+Pregnancy test and 
+Contraception 
+All 
+Individual patient data 
+listing  
+16.2.8.4 
+Exploratory biomarker 
+samples: Sampling dates 
+All 
+Individual patient data 
+listing  
+16.2.9 
+Other Listings  
+16.2.9.1 
+Vital signs / Physical 
+examination 
+All 
+Individual patient data 
+listing 
+16.2.9.2 
+ECG 
+All 
+Individual patient data 
+listing 
+16.2.9.3 
+Self-Monitoring of Blood 
+Glucose 
+All 
+Individual patient data 
+listing 
+16.2.9.4 
+Visit dates 
+All 
+Individual patient data 
+listing incl. study days 
+ 
+ 
+9 References 
+FDA: Center for Drug Evaluation and Research (CDER): Draft Guidance for Industry: Multiple 
+Endpoints in Clinical Trials (2017) 
+Guideline on multiplicity issues in clinical trials, EMA/CHMP/44762/2017 

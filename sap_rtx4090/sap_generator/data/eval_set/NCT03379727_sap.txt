@@ -1,0 +1,1105 @@
+Clinical Development  
+PKC412/Midostaurin/Rydapt® 
+CPKC412A2408 / NCT03379727  
+An open-labeled, multi–cent er, Phase IIIb study to assess 
+the safety and efficacy of midostau rin (PKC412) in patients 
+18 years of ag e or older with newly-diagnosed  
+FLT3-mutated Acute Myeloid Leukemia who are eligible for 
+“7+3” or “5+2” chem otherapy 
+Statistic al Analysis Plan (SAP) – Amendment 3 
+Author:   (Trial Statistician)  
+Document type:  SAP Documentation  
+Document status:  V4.0 
+Release date:  09-Nov-2021
+Number of pages:  30 
+Property of Novartis  
+For business use only 
+May not be used, divulged, published or otherwise disclosed  
+without the consent of Novartis  
+
+
+Novartis   For business use only  Page 2 
+SAP Amendment II I  CPKC412A2408  
+ 
+Document History – Changes compared to previous final version of SAP  
+ 
+Date  Time 
+point  Reason for update  Outcome for update  Section and title 
+impacted 
+(Current)  
+22-Aug-2017 Prior to 
+FPFV  N/A – Initial version  N/A N/A 
+14-Jan-2020  Prior to 
+database 
+lock Rules to select one 
+assessment among 
+several assessments in 
+the same visit  
+Time windows for 
+unplanned visits  Selection of assessment to 
+analyze among multiple 
+values in the same visit  
+ 
+Time windows to assign 
+unplanned visits in 
+scheduled ones  2.1.5  
+  Added rules to assign 
+patients to 7+3 and 5+2 
+groups  Patients who do not have 
+exactly 7+3 or 5+2 are 
+assigned  2.1.8  
+ 
+  Category/Value 
+missing  Added treatment exposure 
+category “>28”.Cardiac 
+imaging changed “>” to  
+“>-“ for 20  2.4.2  
+2.8.4.2  
+  Change in CSR 
+template  Concomitant medications 
+will be analyzed with FAS 
+instead of SAF  2.4.3  
+  Clinical efficacy 
+response derivation and 
+subgroup analyses  Selection of best response 
+among several assessment 
+in the same period. 
+Response analyzed by sex  2.6.1  
+  AEs by sub group AEs to be analyzed by age 
+category  2.8.1  
+  Resource utilization 
+updated to CRF  Updated with variables only 
+included in CRF  2.13.3  
+  Additional details on 
+imputation rules  Derivation rules updated  6.1 
+  BUN/Urea imputation 
+rules  To impute BUN or Urea 
+missing values  6.2 
+26-Jun-2020   Study treatment 
+exposure  Rules od stud y treatment 
+exposure clarified.  2.1.1  
+ 
+  Analysis set  All enrolled subjects added  2.2 
+     
+  Subgroups analyses 
+added : type of 
+induction drugs  Efficacy and safety outputs 
+provided by Idarubicin and 
+Daunorubicin.  2.3 
+  Age subgroups  <= 60 vs . >60 instead of 
+<60 vs. >=60  2.3 and 2.4.2  
+
+Novartis   For business use only  Page 3 
+SAP Amendment II I  CPKC412A2408  
+ 
+Date  Time 
+point  Reason for update  Outcome for update  Section and title 
+impacted 
+(Current)  
+  Efficay  If patient discontinued prior 
+to first efficacy assessment 
+then ‘unknown’ is assigned 
+as best response  2.7.1  
+ 
+  
+ 
+    
+ 
+ 
+ 
+ 
+ 
+   
+15-Jun-2021  Prior to 
+database 
+lock PD The number (%) of protocol 
+deviations with COVID -19 
+relationship will be 
+presented by type of 
+deviation for all enrolled 
+subjects . 2.5.4  
+09-Nov-2021  Post to 
+database 
+lock Subgroups analysis 
+amended  for a new 
+agesubgroup/category . Included the following age 
+subgroup/ category:  
+<= 60 / >60 to <=70 / > 70 
+years old  
+ 2.3, 2.4.2 , 2.5.2  and 
+2.7.1  
+FPFV: First patient first visit  
+ 
+
+
+Novartis   For business use only  Page 4 
+SAP Amendment II I  CPKC412A2408  
+ 
+Table of contents  
+1 Introduction  ................................ ................................ ................................ .........................  7 
+1.1 Study design ................................ ................................ ................................ .............  7 
+1.2 Study objectives and endpoints  ................................ ................................ ...............  9 
+2 Statistical methods  ................................ ................................ ................................ ...............  9 
+2.1 Data analysis general information  ................................ ................................ ...........  9 
+2.1.1  General definitions  ................................ ................................ ..................  9 
+2.1.2  Baseline  ................................ ................................ ................................ . 13 
+2.1.3  On-treatment assessment/event  ................................ .............................  13 
+2.1.4  Definition of months and years  ................................ .............................  14 
+2.1.5  Time windows  ................................ ................................ .......................  14 
+2.1.6  Definition of end of study  ................................ ................................ ..... 15 
+2.1.7  Early study termination  ................................ ................................ .........  15 
+2.1.8  Chemotherapy group assignment  ................................ ..........................  15 
+2.2 Analysis sets  ................................ ................................ ................................ ..........  15 
+2.2.1  All enrolled patients  ................................ ................................ ..............  15 
+2.2.2  Full analysis set  ................................ ................................ .....................  15 
+2.2.3  Safety set  ................................ ................................ ...............................  15 
+2.3 Subgroup analysis  ................................ ................................ ................................ .. 16 
+2.4 Patient disposition, demographics and other baseline characteristics  ...................  16 
+2.4.1  Patient disposition  ................................ ................................ .................  16 
+2.4.2  Patient demographics and other basel ine characteristics  ......................  16 
+2.5 Treatments (study treatment, concomitant therapies, compliance)  .......................  16 
+2.5.1  Dosing regimen  ................................ ................................ .....................  16 
+2.5.2  Study treatment and tolerability  ................................ ............................  17 
+2.5.3  Prior, concomitant and post therapies  ................................ ...................  18 
+2.5.4  Protocol deviations  ................................ ................................ ................  18 
+2.6 Analysis of the primary objective  ................................ ................................ ..........  18 
+2.6.1  Primary endpoint  ................................ ................................ ...................  18 
+2.6.2  Statistical hypothesis, model, and method of analysis  ..........................  18 
+2.6.3  Handling of missing values/censoring/discontinuations  .......................  18 
+2.6.4  Supportive analyses  ................................ ................................ ...............  18 
+2.7 Analysis of the secondary objectives  ................................ ................................ ..... 19 
+2.7.1  Secondary endpoints  ................................ ................................ .............  19 
+2.7.2  Statistical hypothesis, model, and method of analysis  ..........................  19 
+2.7.3  Handling of missing values/censoring/discontinuations  .......................  19 
+
+Novartis   For business use only  Page 5 
+SAP Amendment II I  CPKC412A2408  
+ 
+2.8 Analysis of secondary efficacy objective(s)  ................................ ..........................  19 
+2.9 Safety analyses  ................................ ................................ ................................ ....... 19 
+2.9.1  Adverse ev ents (AEs)  ................................ ................................ ............  19 
+2.9.2  Deaths  ................................ ................................ ................................ .... 21 
+2.9.3  Laboratory data  ................................ ................................ .....................  21 
+2.9.4  Other safety data  ................................ ................................ ...................  22 
+2.10  Pharmacokinetic endpoints  ................................ ................................ ....................  23 
+2.11  PD and PK/PD analyses ................................ ................................ .........................  24 
+  24 
+2.13  Biomarkers  ................................ ................................ ................................ .............  24 
+2.14  Other Exploratory analyses  ................................ ................................ ....................  24 
+  24 
+  25 
+2.14.3  Resource utilization  ................................ ................................ ...............  25 
+2.15  Interim analysis  ................................ ................................ ................................ ...... 25 
+3 Sample size calculation  ................................ ................................ ................................ ..... 25 
+4 Change to protocol specified analyses  ................................ ................................ ..............  26 
+5 References  ................................ ................................ ................................ .........................  26 
+6 Appendix  ................................ ................................ ................................ ...........................  27 
+6.1 Imputation rules  ................................ ................................ ................................ ..... 27 
+6.1.1  AE, CM date imputation  ................................ ................................ ....... 27 
+6.1.2  Prior therapies date imputation  ................................ .............................  28 
+6.2 Laboratory parameters derivations  ................................ ................................ ........  28 
+  28 
+
+
+Novartis   For business use only  Page 6 
+SAP Amendment II I  CPKC412A2408  
+ 
+List of abbreviations  
+AE adverse event  
+AESI  adverse events of special interest  
+ALT aspartate aminotransferase  
+AML acute myeloid leukemia  
+Ara-C cytarabine, also known as cytosine arabinoside  
+AST alanine aminotransferase  
+ATC anatomical therapeutic chemical classification  
+CIVI continuous intravenous infusion  
+CR complete remission  
+CRi complete remission with incomplete recovery  
+CRS  case retrieval sheet  
+CSR  clinical study report  
+CTCAE  common terminology criteria for adverse events  
+DI dose intensity  
+ECG  electrocardiogram  
+ECOG  eastern cooperative oncology group  
+eCRF  electronic case report form  
+  
+FAS full analysis set  
+FLT3  fms-like tyrosine kinase receptor  
+GPS  global programming & statistical environment  
+IV intravenous  
+LPLV  last patient last visit  
+LVEF  left ventricular ejection fraction  
+MedDRA  medical dictionary for drug regulatory affairs  
+MUGA  multi gated acquisition scan  
+NCCN  national comprehensive cancer network  
+NCDS  Novartis clinical data standards  
+PD pharmacodynamic s 
+PDS programming data specifications  
+  
+PK pharmacokinetics  
+  
+PT preferred term  
+QTc corrected QT interval  
+SAE serious adverse event  
+SAP statistical analysis plan  
+SI international system of units  
+SOC  system organ class  
+TFLs  tables, figures, listings  
+WHO  world health organization  
+
+
+Novartis   For business use only  Page 7 
+SAP Amendment II I  CPKC412A2408  
+ 
+1 Introduction  
+This statistical analysis plan (SAP) provides detailed statistical methodology for the analyses 
+of data which will be used for preparation of the PKC412A2408 clinical study report  (CSR) 
+and is based on the study protocol Amendment 1, dated 26 -Mar-2018 . At the time of this 
+amendment, enrollement was completed with 301 patients.  
+The shells for the in -text tables and figures as well as the post -text tables, figures and listings 
+(TFLs) are in the TFL shells document. Programming specifications  for datasets , including 
+derivation  of variables, are given in the programming data specifications (PDS) document . 
+All data will be analyzed by Novartis  using Novartis clinical data standards (NCDS) . Analysis 
+data sets and statistical outputs will be produced using the SAS system Version 9. 4 or higher 
+(UNIX environment) in the global programming & statistical (GPS) environment . 
+1.1 Study design  
+This is a n open -label, single arm, multicenter, Phase IIIb study of midostaurin (PKC412  or 
+CGP41251 ) in adults with newly -diagnosed fms -like tyrosine kinase receptor (FLT3) -mutated 
+acute myeloid leukemia (AML) who have started on “7+3” or “5+2”  induction  chemotherapy.  
+The purpose of this study is to gather and evaluate additional safety and efficacy data on the 
+combination of midostaurin  and standard of care.  
+Midostaurin is used  in combination with chemotherapy sequentially in induction  and 
+consolidation  phase  and as a single agent in maintenance  phase as outlined in Figure 1 -1. 
+Approximately 3 00 patients are planned to be enrolled . 
+No formal interim analyses are planned.  
+The final ( primary ) analysis will be performed  after database lock  when all pat ients  have either 
+complet ed the study  as per protocol  (including their  safety evaluation 30 days after the last dose 
+of study treatment ) or they have prematurely discontinued . 
+ 
+
+Novartis   For business use only  Page 8 
+SAP Amendment II I  CPKC412A2408  
+ 
+Figure 1-1 Study design  
+ 
+Complete remission (CR): Bone marrow blasts <5%; absence of blasts with Auer rods; absence of 
+extramedullary disease; absolute neutrophil count (ANC) >1.0 x109/L; platelet count >100 x 109/L; 
+independence of red cell transfusions  
+CR with incomplete recovery (CRi): All CR criteria except for residual neutropenia (<1.0 x109/L) or 
+thrombocytopenia (<100 x 109/L) 
+Figure 1-2 Recovery periods  
+ 
+
+
+Novartis   For business use only  Page 9 
+SAP Amendment II I  CPKC412A2408  
+ 
+1.2 Study objectives and endpoints  
+Objective  Endpoint  
+Primary   
+To further assess the safety of midostaurin in 
+induction, consolidation and maintenance 
+therapy, including, the “7+3” regimen, 
+daunorubicin (60 -90mg/m2/day), the substitution 
+of daunorubicin by idarubicin (12mg/m2/day), 
+cytarabine (100 -200 mg/m2/day) and also 
+allowing the “5+2” reduced dose regimen.  Proportion of patients with AEs, Grade 3&4 
+AEs, SAEs, AEs leading to discontinuation, and 
+deaths.  
+Secondary   
+To assess the clinical efficacy of midostaurin in 
+combination with chemotherapy regimens in 
+induction and consolidation and the clinical 
+efficacy of midostaurin maintenance phase 
+(measured by CR/CRi rate).  Proportion of patients with CR/CRi as per local 
+asses sment  
+Exploratory   
+  
+ 
+ 
+ 
+ 
+ 
+To assess resource utilization  Proportion of patients by reason for 
+hospitalization, number of hospital days, 
+discharge reason and concomitant medications 
+taken during hospital stay  
+AE: adverse event  
+ 
+ 
+2 Statistical methods  
+2.1 Data analysis general information  
+Categorical data will be presented as frequencies and percentages. For continuous data, n, mean, 
+standard deviation, median, 25th and 75th percentiles, minimum,  and maximum  will be 
+presented.  
+The data from all centers that participate will be combined in t he analyses.  
+Final (primary) analys is will be performed after database lock has occurred (after last patient 
+last visit (LPLV)).    
+2.1.1  General definitions  
+The overall observation period is divided into the following mutually exclusive  periods:  
+1. Pre-treatment : from day of patient’s informed consent to the day before first dose of 
+midostaurin  
+
+
+Novartis   For business use only  Page 10 
+SAP Amendment II I  CPKC412A2408  
+ 
+2. On-treatment : from start date of midostaurin to last date of study treatment + 30  days. 
+Further details provided in Section  2.1.3 . 
+On-treatment includes 3 mutually exclusive periods:  
+a. Induction  period: From day of first dose of midostaurin  to the day before start of 
+consolidation period (i.e. end  of induction phase plus any rest/recovery days).  
+Up to 2 cycles (28 days of treatment/cycle and a recovery period)  
+b. Consolidation  period: From day of first dose of study treatment in consolidation 
+phase to the day before start of maintenance (i.e. end of consolidation phase  plus any 
+rest/recovery days).  
+Up to 4 cycles ( 28 days of treatment/cycle and a recovery period ) 
+c. Maintenance  period: From day of first dose of midostaurin in the maintenance phase 
+to the date of last dose of midostaurin + 30 days.  
+Up to 12 cycles ( 28 days of treatment/cycle)  
+It is noted that if a patient permanently discontinues study treatment during any of these 
+periods, on -treatment is considered until the date of last dose of study treatment + 30 days 
+(unless patient withdraws study in formed consent or dies before then, then it is till the 
+withdrawal/death date)  
+3. Post-treatment : from last date of study treatment + 31 days to end of study  
+Each period will contain all patients who entered that period (incl. withdrawal, drop -outs etc.)  
+Study drug and study treatment  
+Study drug refer s to the individual drugs used in the study after signing of informed consent, 
+i.e. the Novartis investigational drug  midostaurin, or its partners, cytarabine and daunorubicin 
+(or idarubicin).  
+Study treatment refers to any component of the study drugs, midostaurin , cytarabine and 
+daunorubicin (or idarubicin).   
+Date of first administration of study drug  
+The date of first administration of study drug is derived as the first date when a nonzero dos e 
+of study drug is administered. The date of first administration of study drug is also referred to 
+as start date of study drug . Start date of study drug is defined for each drug which is part of 
+study treatment , by period (induction, consolidation, mainte nance, where applicable) and 
+overall .  
+Date of last administration of study drug  
+The date of last administration of study drug is defined as the last date when a nonzero dose of 
+study drug is administered. This date is also referred  to as last date of stud y drug.  Last date of 
+study drug is defined for each drug which is part of study treatment , by period (induction, 
+consolidation, maintenance, where applicable) and overall . 
+Date of first administration of study treatment  
+The date of first administration of study treatment (will be midostaurin for all patients) is 
+derived as the first date when a nonzero dose of any component of study treatment is 
+administered. It is derived by period (induction, consolidation, maintenance) and overall.  
+
+Novartis   For business use only  Page 11 
+SAP Amendment II I  CPKC412A2408  
+ 
+For example, if the 1st dose of midostaurin is taken on 0 8-Feb-2016, and 1st dose of a 
+combination partner  (e.g. cytarabine) , is taken on 0 1-Feb-2016, then the date of first 
+administra tion of study treatment is 01 -Feb-2016. The date of first administration of study 
+treatment is  also referred to as start date of study treatment.  
+Date of last administration of study treatment  
+The date of last administration of study treatment is derived as the last date when a nonzero 
+dose of any component of study treatment is administered.  It is derived by period (induction, 
+consolidation, maintenance) and overall.   
+For example if the last dose of midostaurin is taken on 21 -Mar-2016, and the last dose of a 
+combination partner is taken on 03-Apr-2016, then the date of last admin istration of study 
+treatment is on 03-Apr-2016. This date is also referred to as last date of study treatment . 
+Duration of exposure  
+Daunorobucin, Idarubicin and Cytarabine  
+The duration of exposure for the study drugs  will be  calculated by  cycle,  period  (induction,  
+consolidation, maintenance , when applicable) and overall  as: 
+• Duration of study drug exposure (days) in a cycle  = [(date of last administration of study 
+drug in that cycle) – (date of first administration of study drug in that cycle ) + 1]   
+• Duration of study drug exposure (days) in a period  = sum of durations of study drug 
+exposure (days) in each cycle of that period  
+• Overall  duration of study drug exposure (days) = sum of durations of study drug exposure 
+(days) in each cycle  
+Study treament and Midostaurin  
+The duration of exposure for the study treatment  and Midostaurin  will be calculated by cycle, 
+period (induction, consolidation, maintenance) and overall as:  
+• Duration of study treatment /Midostaurin  exposure (days) in a cycle  = [(date of last  
+administration of study treatment /Midostaurin  in that cycle) – (date of first administration 
+of study treatment /Midostaurin  in that cycle) + 1]  
+• Duration of study treatment exposure (days) in a period  = sum of durations of study 
+trt/Mido exposure (days) in each cycle of that period . 
+• Overall  duration of study treatment exposure (days) = [(date of last administration of 
+study treatment /Midostaurin ) – (date of first administration of study 
+treatment /Midostaurin ) + 1]  
+• If the start or end date of a study drug is missing, the duration will be missing.  The 
+durations will include periods of temporary interruption (planned or actual) for any reason.  
+Dose interruption  
+For midostaurin : An interruption is defined as a zero dose on one or more days between two 
+non-zero dosing records . Any rest period as part of the regimen/schedule is not considered as 
+an interruption  e.g. D ays 1 to 7 at the start of a cycle in the induction and consolidation phases 
+is not considered as an interruption.  
+
+Novartis   For business use only  Page 12 
+SAP Amendment II I  CPKC412A2408  
+ 
+For daunorubicin ( or idarubicin) and cytarabine : An interruption is defined as a zero dose 
+administered on one or more scheduled days of administration e.g. a zero dose on Days 1, 3 or 
+5 for cytarabine in the consolidation phase.  
+Note: The last zero dose of a study drug (followed by permanent discontinuation) is not 
+considered as a dose interruption. Additionally, two consecutive zero doses will be counted as 
+one interruption if the reasons for these two consecutive dose interruptions are the same.  
+For the purpose of summ arizing interruptions and reasons, in case multiple entries for 
+interruption are entered on consecutive days with different reasons these will be counted as 
+separate interruptions. However, if the reason is the same in these multiple entries on 
+consecutive  days, then it will be counted as one interruption.  
+Dose reduction  
+A dose reduction is where the prescribed dose is lower than the previous prescribed dose or 
+where the actual dose administered/total daily dose is lower than the prescribed dose. Any dose 
+change to correct a dosing error will not be considered a dose reduction, e.g. if due to a dosing 
+error, a patient receives higher than protocol planned starting dose and moves down to the 
+planned starting dose then this is not counted as a reduction, howev er if they move directly from 
+a higher than planned starting dose down to a lower than protocol planned starting dose, then 
+this is counted as a reduction.  
+Note: It is assumed that if there is a dose reduction, then the ‘Dose changed’ box was ticked on 
+the dose administration electronic case report form ( eCRF ) page.  
+If dose is recorded by regimen is missing or entered as ‘none’, it is assumed that the study drug 
+was taken as per -protocol.  
+Actual  cumulative  dose  
+Cumulative doses will be derived for each of t he study drugs: midostaurin, daunorubicin  and 
+idarubicin . 
+The actual cumulative dose  refers to the total actual dose administered, over the duration for 
+which the patient is on study drug  as documented in the dose administration eCRF.  
+For patients who did  not take any study drug , the actual cumulative dose is by definition equal 
+to zero.  
+The actual cumulative dose is the sum of the non -zero doses recorded over the study drug dosing 
+periods . Rest periods are not included.   
+Actual dose intensity  (DI) 
+Dose intensity (DI) will be derived for each of the study drugs: midostaurin, daunorubicin  and 
+idarubicin . 
+DI for patients  with non -zero duration of exposure is  defined as follows:  
+DI (dosing unit / unit of time ) = Actual cumulative dose ( dosing unit ) / D uration of exposure 
+(unit of time ). 
+
+Novartis   For business use only  Page 13 
+SAP Amendment II I  CPKC412A2408  
+ 
+For example , DI (mg/day)  = Actual cumulative dose (mg) / Duration of exposure (day)  
+    = 1300 mg / 14 days  
+    = 92.9 mg/day  
+For patients who did not take any study drug  the DI is by definition equal to zero.  
+Study day  
+The study day describes the relative day of the event related to the start date of midostaurin . 
+The reference start date is designated as Study Day 1. Study Day –1 is the day that precedes 
+Day 1. Study Day 0 is not defined.  Study day is not to be used in  numerical computations, for 
+example in calculating exposure.  
+The study day will be calculated as:  
+• The date of the event (visit date, onset date of an event, assessment date etc.) - reference 
+start date +  1, if event is on or  after the reference start date   
+• The date of the event (visit date, onset date of an event, assessment date etc.) - reference 
+start date , if event precedes the reference start date   
+The reference s tart date for all assessments (a dverse events  (AEs) , labora tory etc.) will be the 
+start date of study treatment.  
+The study day will be displayed in the data listings. If an event  starts  before  the reference start 
+date,  the study day displa yed in the listing will be negative.  
+2.1.2  Baseline  
+Baseline is the result of an investigation describing the “true” uninfluenced state of the patient , 
+defined as the period from the date of signing any informed consent document to the start date 
+of midostaurin .  
+The last non -missing assessment, including u nscheduled assessments on or before the first dose 
+of midostaurin  is defined as “baseline value ” or “baseline assessment ”. Assessments, specified 
+to be collected post -dose on the first date of midostaurin  are not considered  for baseline .  
+Where electrocardiogram  (ECG) replicates are provided, the average of the ECG parameters at 
+that assessment will be used in the analyses.  
+If patients  have no value as defined above, the baseline value will be missing.   
+2.1.3  On-treatment assessment/event  
+The definition of on -treatment is given below, depending on the context.  
+For safety summary tables (over the entire duration of the study) an on -treatment AE is defined 
+as any AE reported in the following time interval (including the lower and upper limits):  
+• <date of first administration of midostaurin ; date of last administration of study treatment 
++ 30 days>  
+This corresponds to the definition of  treatment -emergent AEs given in the protocol, i.e. AEs 
+which are newly reported or worsening from baseline.   
+
+Novartis   For business use only  Page 14 
+SAP Amendment II I  CPKC412A2408  
+ 
+An on -treatment assessment is defined as any assessment performed after the date of first 
+administration of midostaurin  (except for assessments sp ecified to be collected post -dose on 
+that day), i.e. assessments performed in the following time interval (including the lower and 
+upper limits):  
+• <date of first administration of midostaurin  + 1; date of last administration of study 
+treatment +  30 days>  
+For patients whose last date of study treatment is missing, on -treatment assessments/events 
+include any assessment/event present in the database occurring after the start date of study 
+treatment.  
+Listings will  contain all data, flagging assessments/events  outside of the on-treatment period 
+where applicable . 
+2.1.4  Definition of months and years  
+A month will be calculated as (365.25 / 12) = 30.4375 days. If duration is to be reported in 
+months, duration in days will be divided by 30.4375.  If duration is to be reported in years, 
+duration in days will be divided by 365.25.  
+2.1.5  Time windows  
+Time windows for assessments are based on protocol specified windows, see protocol Table  7-
+1. 
+If more than one assessment is done within the same time window, the assessment perfor med 
+closest to the target date will be used.  For two assessment s within a time window are equidistant 
+from the target date then the earlier of the two assessments will be used.  If there are multiple 
+assessments for the same date, then the worst case will b e used.  
+ 
+For unplanned visits, will be classified as follows:  
+Assessment  Target day of assessment  Time Interval  
+Baseline  Date when visit = IND C1D8 (or 
+Day1)  Last date <=  date of IND C1D8  
+INDC1  Date when visit = INDC1D8  Date of IND C1D8 - 7 <= date <  date of 
+IND C2D1  
+INDC2  Date when visit = INDC2D8  Date of IND C2D1 <=  date <  date of CON 
+C1D1  
+CONC1  Date when visit =  CONC1D8  Date of CON C1D1 <=  date <  date of 
+CON C2D1  
+CONC2  Date when visit =  CONC2D8  Date of CON C2D1 <=  date <  date of 
+CON C3D1  
+CONC3  Date when visit =  CONC3D8  Date of CON C3D1 <=  date <  date of 
+CON C4D1  
+CONC4  Date when visit = CONC4D8  Date of CON C4D1 <=  date <  date of 
+MAIN C1D1  
+MAINC1  Date when visit = MAIN C1D1  Date of MAIN C1D1 <=  date <  date of 
+MAIN C2D1  
+
+Novartis   For business use only  Page 15 
+SAP Amendment II I  CPKC412A2408  
+ 
+…  … … 
+MAINC12  Date when visit = MAIN C12D1  Date of MAIN C12D1 <= date <= date of 
+last non -zero dose +30  
+End Of 
+Treatment  Date when visitnum =399  Date when visitnum  in (399, 
+399.001,399.002,…)  
+2.1.6  Definition of end of study  
+The study will end around 18  to 25  months (mo) after LPFV  depending on number of cycles 
+and recovery durations (2mo induction  + 2mo recovery  + 4mo consolidation  + 4mo recovery  + 
+12mo maintenance  + 1mo safety follow -up). Study  treatment will be provided until disease 
+progression, death, unacceptable toxicities, physician’s decision, patient /guardian’s decision, 
+protocol deviation, study termination by sponsor, lost to follow -up, technical problems , 
+pregnancy, patient withdrew c onsent  or until the end of study, whichever event occurs first.  All 
+patients must have safety follow -up for 30 days , after the last dose of study treatment  except if 
+study consent was withdrawn.  
+2.1.7  Early study termination  
+The study can be terminated at any ti me for any reason by Novartis. Should this be necessary, 
+the patient should be seen as soon as possible and the same assessments should be performed 
+as for a discontinued or withdrawn  patient.  
+2.1.8  Chemotherapy group assignment  
+Patients will be assigned to ‘7+3 ’ or ‘5+2’ chemotherapy groups considering the following rules 
+of the first induction cycle:  
+• If cytarabine duration is ≥ 7 days, ‘7+3’ group will be assigned, without considering the 
+duration of daunorubicin/idarubicin.  
+• If cytarabine duration is < 7 days, ‘5+2’ group will be assigned, without considering the 
+duration of daunorubicin/idarubicin.  
+2.2 Analysis sets  
+2.2.1  All enrolled patients  
+The ‘All enrolled patients’ set comprises all screened patients who are not screening failures.  
+2.2.2  Full analysis set  
+The Full Analysis Set (FAS) comprises all patients who received at least one dose of 
+midostaurin  and have a documented FLT3 mutation (ITD or TKD).  
+2.2.3  Safety set  
+The safety s et comprises  all patients who received at least one dose of midostaurin.  
+
+Novartis   For business use only  Page 16 
+SAP Amendment II I  CPKC412A2408  
+ 
+Screening fa ilures  
+Patients who sign an informed consent form but fail to start on midostaurin  for any reason . 
+2.3 Subgroup analysis  
+Safety and efficacy data will be repored for the following subgroups:  
+• Age [(i) <= 60 / > 60 years old  and/or  (ii) <= 60 /  >60 to <=70  / > 70 years old ] 
+• Gender (female / male)  
+• Chemotherapy groups (‘7+3’ / ‘5+2’)  
+• Type of induction drugs (Daunorubicin (< 60 mg/m2), daunorubicin (>= 60 mg/m2) and 
+Idarubicin)  
+2.4 Patient disposition, demographics and other baseline 
+characteristics  
+2.4.1  Patient di sposition  
+Disposition data will be listed and summarized descriptively  by screening and period 
+(induction,  consolidation and maintenance)  for the FAS.  
+Summaries will also include t he number of patients who did not receive any dose of study 
+treatment, having received at  least one dose of study treatment, treatment completed as per 
+protocol criteria or treatment  permanently discontinued  with reason , as reported in the dose 
+administration record e CRF  pages.  
+Informed consent and inclusion/exclus ion criteria data will be listed. Screening data for screen 
+failure patients will be listed . 
+2.4.2  Patient demographics and other baseline characteristics  
+Demographic and other baseline data (e.g. medical history, diagnosis and extent of cancer,  
+eastern cooperat ive oncology group (E COG) performance status, FLT3 mutation status etc.) 
+will be summarized descriptively or listed as appropriate for the FAS. 
+Age will also be categorized as :  
+• <=60, > 60 years  and/or   
+• <= 60 / >60 to <=70  / > 70 years old . 
+Demographic data for screen failure patients will also be listed.  
+2.5 Treatments (study treatment, concomitant therapies, 
+compliance)  
+2.5.1  Dosing regimen  
+All patients on study will receive standard chemotherapy plus midostaurin.  
+The protocol treatment allow s 1-2 cycles of standard induction therapy with cytarabine and 
+daunorubicin (or idarubicin)  and up to 4 cycles of cytarabine consolidation, with midostaurin 
+
+Novartis   For business use only  Page 17 
+SAP Amendment II I  CPKC412A2408  
+ 
+given sequentially during each cycle, and up to 12 cycles of maintenance therapy with single -
+agent m idostaurin  as given in Figure 1 -1.  
+Table 2-1 Dose and treatment schedule – Induction  
+Treatment  Dose, route and frequency (based on 28 -day cycles)  
+Cytarabine  (Ara-C) with 
+anthracycline (Idarubicin or 
+Daunorubicin) (7+3)  Ara-C:100 -200 mg/m2/day by CI VI days 1 -7 (168 hour infusion)  
+Daunorubicin : 60-90 mg/m2/day by IV push on days 1 -3 
+or Idarubicin: 12 mg/m2/day by IV push on days 1 -3 
+Cytarabine with 
+anthracycline (Idarubicin or 
+Daunorubicin) (5+2)  Ara-C:100 mg/m2/day by CIVI days 1 -5 
+Daunorubicin : 60 mg/m2/day by IV push on days 1-2 
+or Idarubicin: 12 mg/m2/day by IV push on days 1 -2 
+Midostaurin  50 mg (two 25 mg capsules) twice a day by mouth on days 8 -28 
+Table 2-2 Dose and treatment schedule – Cons olidation  
+Treatment  Dose, route and frequency (based on 28 -day cycles)  
+Cytarabine  1-3 g/m2 every 12 h on days 1, 3, 5 x up to 4 cycles based on age and per 
+investigator discretion   
+Midostaurin  50 mg (two 25 mg capsules) twice a day by  mouth on days 8-28 
+Table 2-3 Dose and treatment schedule – Maintenance  
+Treatment  Dose, route and frequency (based on 28 -day cycles)  
+Midostaurin  50 mg (two 25 mg capsules) twice a day by mouth on days 1 -28 
+2.5.2  Study treatment and tolerability  
+Study treatment  
+Duration of  exposure (days) , actual cumulative dose and actual dose intensity will be 
+summarized by period and overall for each of the study drugs: midostaurin, daunorubicin  and 
+idarubicin for the safety set . Duration of  exposure (days) , actual cumulative dose and actual 
+dose intensity will be summarized also by cycle. The number of patients with midostaurin dose 
+changes, interruptions and permanent discontinuations will be presented  by age category and 
+overa ll, along with reasons for the dose change/interruption/permanent discontinuation.   
+Duration of midostaurin treatment exposure (days) will also be categorized and summarized by 
+period and overall for the safety set using the following intervals:  
+• ≤ 20; >20 ; >40; >60; >120; >180; >240; >300; >360  
+Duration of study treatment exposure (days) will be summarized by period and overall for the 
+safety set using the following i ntervals:  
+• ≤ 28; >28; >56; >84; >112; >196; >280; >364; >448; >532  
+Duration include  the re st/recovery days between cycles  and will be derived as the following:  
+
+Novartis   For business use only  Page 18 
+SAP Amendment II I  CPKC412A2408  
+ 
+Last intake of any study treatment component – first intake of any study treatment component 
++1  
+If there are more than 10 patients in each regimen exposure will be further summarized by  
+regimen (“7+3” and “5+2”).  
+Data will be listed for all patients in the safety set.  
+Tolerability  
+Tolerability  of midostaurin will be evaluated  in terms of dose reductions or dose interruption s 
+due to an AE.  
+2.5.3  Prior, concomitant and post therapies  
+Medications  and significant non -drug therapies prior to and after the start of the study treatment 
+will be coded according to the world health organization (WHO) Drug Reference List and 
+summarized by anatomical therapeutic chemical (ATC) c lassification  and preferred term .  
+A summary table and listing for prior antineoplastic therapies will be provided for the full 
+analysis set.  
+Summary tables for concomitant medications and concomitant non -drug therapies by treatment 
+period  and overall for the full anal ysis set will be provided. Prior, concomitant and post study 
+treatment medications and non -drug therapies will be listed for the safety set. Records  outside 
+of on -treatment period will be flagged . 
+2.5.4  Protocol deviations  
+Protocol deviations will be listed for all screened patients.  In addition, the number (%) of 
+protocol deviations  with COVID -19 relationship  will be presented by type of deviation  for all 
+enrolled subjects.  
+2.6 Analysis of the primary objective  
+2.6.1  Primary endpoint  
+The analysis of the primary endpoint i s described in  Section 2.8 . 
+2.6.2  Statistical hypothesis, model, and method of analysis  
+Not applicable.  
+2.6.3  Handling of missing values/censoring/discontinuations  
+See Section 2.8 . 
+2.6.4  Supportive analyses  
+Not applicable.  
+
+Novartis   For business use only  Page 19 
+SAP Amendment II I  CPKC412A2408  
+ 
+2.7 Analysis of the secondary objective s 
+2.7.1  Secondary endpoint s 
+The secondary objectives in this study are to assess the clinical efficacy of midostaurin in 
+combination with chemotherapy regimens in induction and consolidation and the clinical 
+efficacy of midostaurin in maintenance phase.  
+Clinical ef ficacy rate will be presented for the FAS. All assessments before the last available 
+on-treatment assessment will be included. Listings will include all data and will be based on the 
+FAS. Records outside of on -treatment period will be flagged.  For patients  who discontinued 
+prior to the first efficacy assessment, the response will be reported as ‘unknown’.  
+Clinical efficacy rate is defined as the proportion of patients with  complete remission (CR) or 
+complete remission with incomplete hematologic recovery (C Ri) as per local review. The CR 
+and CRi are defined by the national comprehensive cancer network (NCCN) guidelines version 
+1.2017 for AML.  
+Clinical efficacy rate and its 95% confidence interval will be presented by  period (induction, 
+consolidation and mai ntenance) and overall as described in Section  2.1.1 . The best overall 
+response w ill be analyzed in each period and overall. If there are more than 10 patients in each 
+regimen and age category, the clinical efficacy rate will be further summarized by regimen 
+(“7+3” and “5+2”) and age category ( e.g. <=60, >60 years  and/or <= 60 / >60 to <=70  / > 70 
+years old ) and by sex .  
+2.7.2  Statistical hypothesis, model, and method of analysis  
+Not applicable.  
+2.7.3  Handling of missing values/censoring/discontinuations  
+Not applicable.  
+2.8 Analysis of secondary efficacy objective(s)  
+Not applicable.  
+2.9 Safety analyses  
+The primary objective is to further assess the  safety of midostaurin in induction, consolidation 
+and maintenance therapy including the ‘7+3’ regimen, daunorubicin (60 -90mg /m2/day), the 
+substitution of daunorubicin by idarubicin ( 12 mg/m2/day) and cytarabin e (100-200 mg/m2/day) 
+and also allowing the “5+2” reduced dose regimen.  
+Except for baseline values, s afety summary tables will  only include on-treatment assessments  
+(up to  30 days after study treatment discontinuation ) and will be based on the safety set. Listings 
+will include all data and will be based on the safety set.   
+2.9.1  Adverse events (AEs)  
+The AEs will be re -coded using the latest version of the m edical dictionary for  regulatory 
+activities (MedDRA ) at the time of the analysis . 
+
+Novartis   For business use only  Page 20 
+SAP Amendment II I  CPKC412A2408  
+ 
+AEs will be graded using t he common toxicity criteria for adverse events (CTCAE) 
+Version  4.03. AEs will be summarized by period and overall for the safety set. AEs tables will 
+be provided by age category. AEs with different starts dates in different period s will be counted 
+within e ach period.  If a patient reported more than one AE with the same preferred term (PT), 
+the AE with the greatest severity will be presented. If a patient reported more than one AE 
+within the same primary system organ class (SOC), the patient will be counted only once with 
+the greatest severity at the SOC level, where applicable. An AE with missing CTCAE grade 
+will be included in the ‘All grades’ column of the summary tables.  
+In AE summaries, the primary SOC will be presented alphabetically and the PTs will be sorted 
+within the primary SOC in descending frequency.  
+Summary tables will be provided for:  
+• Overview of AEs and age category  
+• In-text table  
+• All AEs regardless of relationship to study treatment by primary system organ class 
+(SOC), preferred term (PT) and maximum severity  and age category  
+• In-text table by SOC and maximum  severity  
+• In-text table by PT and maximum severity  
+• AEs suspected to be related to study treatment by SOC, PT and maximum severity  and 
+age category  
+• In-text table by PT and maximum se verity  
+• AEs leading to treatment discontinuation regardless of relationship to study treatment by 
+SOC, PT and maximum severity  and age category  
+• In-text table by PT and maximum severity  
+• AEs leading to treatment reduction or interruption  regardless of relatio nship to study 
+treatment by SOC, PT and maximum severity  and age category  
+• In-text table by PT and maximum severity  
+• Serious AEs (SAEs) regardless of relationship to study treatment by SOC, PT and 
+maximum severity  and age category  
+• In-text table by PT and max imum severity  
+• On-treatment deaths by SOC and PT  and age category  
+• In-text table by SOC and PT  
+• All deaths by SOC, PT and age category  
+• *Non-SAEs  regardless of relationship to study treatment (threshold= 5%) by SOC and PT  
+• *On treatment deaths and SAE s by SOC  and PT 
+*(For the legal requirements of ClinicalTrials.gov and EudraCT, two required tables on <on -
+treatment/treatment emergent> AEs which are n ot SAE s with an incidence greater than 5% and 
+on <on -treatment/treatment emergent> SAE s and SAE suspected to be related to study 
+treatment will be provided by SOC  and PT on the safety set.  
+If for a same patient, several consecutive AEs (irrespective of study treatment causality, 
+seriousness and severity) occurred with the same SOC and PT:  
+
+Novartis   For business use only  Page 21 
+SAP Amendment II I  CPKC412A2408  
+ 
+• a single occurrence will be counted if there is  ≤ 1 day gap between the end date of the 
+preceding AE and the start date of the consecutive AE  
+• more tha n one occurrence will be counted if there is > 1 day gap between the end date of 
+the preceding AE and the start date of the consecutive AE  
+For occurrence, the presence of at least one SAE/SAE suspected to be related to study 
+treatment/non SAE has to be che cked in a block e.g., among AEs in a ≤ 1 day gap block, if at 
+least one SAE is occurring, then one occurrence is calculated for that SAE.  
+The number of deaths resulting from SAEs suspected to be related to study treatment and SAEs 
+irrespective of study tre atment relationship will be provided by SOC and PT . 
+Listings will be provided for a ll AEs , SAEs and AEs leading to discontinuations  (including 
+those from the pre and post -treatment periods) . Records  outside of on -treatment period will be 
+flagged . 
+2.9.1.1  Adverse e vents of special interest / grouping of AEs  
+The adverse events of special interest (AESI) are maintained and updated on a regular basis in 
+the project c ase retrieval sheet (CRS)  and the latest version at the time of the analyses will be 
+used. The CRS to pr oduce AESI outputs will be stated in listing 14.3.2 -8.  
+A summary table for AESIs will be provided by period and overall for the safety set.  
+2.9.2  Deaths  
+See Section 2.8.1 . A listing will be provided of all deaths. Deaths outside of the on-treatment 
+period will be flagged . 
+2.9.3  Laboratory data  
+Laboratory values are converted to the international system of units ( SI). CTCAE G rade 0 will 
+be assigned for all non -missing values not graded as 1 or higher. Grade  5 will not be used.  For 
+laboratory results  where grades are not defined by CTCAE  v4.03, results will be categorized as 
+low/normal/high based on laboratory normal ranges . 
+The following sum maries will  be generated separately for key hematology  and biochemistry  by 
+period and overall for the safety set:  
+• Shift tables  by grade (or low/normal/high if grades not available) to compare baseline to the 
+worst on -treatment  value : 
+• Hematology: Neutrophil s (absolute) and platelets  
+• Chemistry: Creatinine, total bilirubin, a spartate aminotransferase ( AST), alanine 
+aminotransferase  (ALT) and alkaline phosphatase  
+Listing of all laboratory data (including  urinalysis, coagulation, thyroid panel, pregnancy test 
+etc.) will be provided  with the corresponding CTCAE grades, if applicable, and the 
+classifications relative to the laboratory normal ranges.  Records  outside of on -treatment period 
+will be flagged . 
+
+Novartis   For business use only  Page 22 
+SAP Amendment II I  CPKC412A2408  
+ 
+2.9.4  Other safety data  
+2.9.4.1  Electrocardiogram (E CG) 
+Electrocardiogram (ECG) data will  be listed . Listing will include date of assessment, 
+position=supine, any new clinically  significant abnormalities (yes/no), QTcF (Fridericia’s 
+correction), mean heart rate and mean PR, QT and QRS durations. Notable values and records  
+outside of on -treatment period will be flagged . 
+Where ECG replicates are provided for an assessment, the aver age of the ECG parameters at 
+that assessment will be used in the analyses.  
+Table 2-4 Notable criteria for ECG parameters1 
+Parameter   Notable low value  Notable high  value  
+QTcF  New value of >450 and ≤  480 ms  
+New value of >480 and ≤  500 ms  
+New value of >500 ms  
+Increase from b aseline of >30 ms to ≤  60 ms  
+Increase from baseline of >60 ms  
+Heart rate  Decrease  >25% from 
+baseline  and to a  
+value <50 bpm  Increase >25% from b aseline  and to a value >100 bpm  
+PR -- Increase >25% from b aseline  and to a value >200 ms  
+New value of >200 ms  
+QRS  -- Increase >25% from b aseline  and to a value >120 ms  
+New value of >120 ms  
+2.9.4.2  Cardiac imaging  
+The left ventricular ejection fraction (LVEF ) data will be summarized for c hange  from baseline 
+to the worst on-treatment  value  by period and overall for the safety set. A listing will be 
+provided  showing the imaging method (multi gated acquisition scan (MUGA) or 
+echocardiogram), date of assessment, LVEF percentage, the overall interpretation (normal, 
+clinically insignificant abnormality  or clinically significant abnormality)  and the corresponding 
+ejection fraction CTCAE v4.03 grades . Records  outside of on -treatment period will be flagged . 
+Grades:  
+• Grade 0: Non missing value below Grade 2  
+• Grade 1: NA  
+• Grade 2: 50 -40% or 10 -19% drop from baseline i.e.  
+• 40% ≤  LVEF ≤  50% or  -20% < absolute change from baseline ≤  -10%  
+• Grade 3: 39 -20% or ≥20% drop from baseline i.e.  
+• 20% ≤  LVEF <40% or absolute change from baseline ≤ -20%  
+• Grade 4: <20% i.e.  
+• LVEF < 20%  
+
+Novartis   For business use only  Page 23 
+SAP Amendment II I  CPKC412A2408  
+ 
+2.9.4.3  Chest X -ray 
+Chest x -ray data will be listed showing date of assessment and the overall interpretation (normal, 
+clinically insignificant abnormality or clinically significa nt abnormality). Records  outside of 
+on-treatment period will be flagged . 
+2.9.4.4  Vital signs  
+Vital signs  (height, weight, body surface area, temperature, position, pulse and systolic/diastolic 
+blood pressure) will be summarized by period  and overall for the safety set. Listings will be 
+provided with n otable values and records  outside of on -treatment period flagged . 
+Table 2-5 Notable criteria for vital signs1 
+Vital sign (unit)   Notable low value  Notable high  value  
+Weight (kg)  decrease ≥  10% from b aseline  increase ≥ 10% from b aseline  
+Body temperature  ( o C) -- ≥ 39.1  
+Pulse rate  (bpm)  ≤ 50 and  
+decrease from baseline of >2 5% ≥ 100 and  
+increase from baseline of >2 5% 
+Systolic blood pressure 
+(mmHg)  ≤ 90 and  
+decrease from baseline of ≥ 20  ≥ 180 and  
+increase from baseline of ≥ 20 
+Diastolic blood pressure 
+(mmHg)  ≤ 50 and  
+decrease from baseline of ≥ 15 ≥ 105 and  
+increase from baseline of ≥ 15  
+2.9.4.5  ECOG performance status  
+ECOG performance status data will be listed. Records  outside of on -treatment period will be 
+flagged . Baseline summary will be provided as part of the demographics table.  
+Table 2-6 ECOG Performance Status  
+Grade  ECOG  
+0 Fully active, able to carry on all pre -disease performance without restriction  
+1 Restricted in physically strenuous activity but ambulatory and able to carry out work of a 
+light or sedentary nature, e.g. light house work, office work  
+2 Ambulatory and capable of all self -care but unable to carry out any work activities. Up 
+and about more than 50% of  waking hours  
+3 Capable of only limited self -care, confined to bed or chair more than 50% of waking 
+hours  
+4 Completely disabled. Cannot carry on any self -care. Totally confined to bed or chair  
+5 Dead  
+2.10 Pharmacokinetic endpoints   
+Not applicable.   
+
+Novartis   For business use only  Page 24 
+SAP Amendment II I  CPKC412A2408  
+ 
+2.11 PD and PK/PD analyses  
+Not applicable.    
+  
+ 
+2.13 Biomarkers  
+Not applicable.  
+2.14 Other Exploratory analyses  
+ 
+ 
+ resource utilization  will be used to evaluate the impact on 
+symptom burden, overall quality of life and change in status of a patient’s overall satisfacti on 
+with.  
+The safety set  will be used for analyzing  resource 
+utilization  data unless otherwise specified . 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+Novartis   For business use only  Page 25 
+SAP Amendment II I  CPKC412A2408  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+              
+         
+ 
+  
+  
+ 
+ 
+  
+ 
+ 
+  
+ 
+ 
+2.14.3  Resource utilization  
+Descriptive statistics  will be used to summari ze resource utilization, e.g. the reason for 
+hospitaliz ation  due to AE or not , if number of hospital days by facility/ward  type and discharge 
+status used during hospital stay(s).  Listings will flag records outside of the on -treatment period.  
+2.15 Interim analysis  
+No formal interim analysis is planned for this study. Analyses may be performed  periodically 
+(e.g. annually), if needed, to fulfill regulatory requests, safety updates or for publication 
+purposes.  
+3 Sample size calculation  
+Approximately 300 patients will be enrolled in this study. The planned sample size is based on 
+the average expected accrual rate (17 patients  per month ) and the planned recruitment duration 
+(18 months) of the trial. The actual sample size may differ from this planned number.  A sample 
+size of 300 patients provides a 95% probability of observing at least one patient with an adverse 
+event (AE) assuming a true probability of occurrence of 1%.  
+Table 3 -1 provides probabilities to detect  at least one patient with an AE for different sample 
+sizes and different true AE incidences.  
+
+
+Novartis   For business use only  Page 26 
+SAP Amendment II I  CPKC412A2408  
+ 
+Table 3-1 Probabilit y to detect at least one patient with an AE for different 
+sample sizes and different true AE incidences   
+Incidence  of an 
+adverse event Sample size  
+N=200  N=250  N=300  
+0.4%  0.5514  0.6329  0.6995  
+0.5%  0.6330  0.7144  0.7777  
+0.6%  0.6999  0.7779  0.8356  
+0.8%  0.7994  0.8657  0.9102  
+1.0 %  0.8660  0.9189  0.9510  
+1.3%  0.9270  0.9620  0.9803  
+4 Change to protocol specified analyses  
+None.  
+5 Reference s 
+1. Oncology guideline for safety analysis, v1.0, dated 09 -Jun-2016  
+2. Oncology standard outputs TFL v3.1, dated 03 -Aug-2017  
+3. NCCN Clinical Practice Guidelines in Oncology: Acute Myeloid  Leukemia. Version 
+1.2017, https://www.nccn.org/professionals/physician_gls/pdf/aml.pdf, last accessed on 
+27 March 2017  
+4. Cheson et al. (2003) Revised recommendations of the International Working Group for 
+Diagnosis, Standardization of Response Criteria, Tre atment Outcomes, and Reporting 
+Standards for Therapeutic Trials in Acute Myeloid Leukemia. Journal of Clinical 
+Oncology 21:24, 4642 -4649  
+
+Novartis   For business use only  Page 27 
+SAP Amendment II I  CPKC412A2408  
+ 
+6 Appendix  
+6.1 Imputation rules  
+6.1.1  AE, CM  date imputation  
+Table 6 -1 Imputation of start dates (AE, CM)  
+Missing 
+Element  Rule  
+day, month, 
+and year  • No imputation will be done for completely missing dates  
+day, month  • If available year = year of study treatment start date then  
+o If stop date contains a full date and stop date is earlier than 
+study treatment start date then set start date = 01JanYYYY   
+o Else set start date = study treatment start date.  
+• If available year > year of study treatment start date then 01JanYYYY  
+• If available year < year of study treatment start date then 01JulYYYY  
+day • If available month and year = month and year of study treatm ent start 
+date then  
+o If stop date contains a full date and stop date is earlier than 
+study treatment start date then set start date= 01MONYYYY .  
+o Else set start date = study treatment start date.  
+• If available month and year > month and year of study treatment start 
+date then 01MONYYYY   
+• If available month and year < month year of study treatment start date 
+then 15MONYYYY   
+Table 6 -2 Imputation of end d ates (AE, CM)  
+Missing 
+Element  Rule   
+(*=last treatment date plus 30 days not > (death date, cut -off date, 
+withdraw al of consent date))  
+day, month, 
+and year  • Completely missing end dates  (incl. ongoing events) will be imputed 
+by the end date of the on -treatment period*  
+day, month  • If partial end date contains year only, set end date = earliest of 
+31DecYYYY or end date of the on -treatment period  *  
+day • If partial end date contains month and year, set end date = earliest of 
+last day of the month or end date of the on -treatment period * 
+In the case of the imputed end date is before than start date, then the end date will be imputed 
+equals to start date.  
+Any AEs and ConMeds with partial/missing dates will be displayed as such in the data listings . 
+Any AEs and ConMeds which are continuing as per data cut -off will be shown as ‘ongoing’ 
+rather than an imputed end date provided . 
+
+Novartis   For business use only  Page 28 
+SAP Amendment II I  CPKC412A2408  
+ 
+6.1.2  Prior therapies date imputation  
+Missing day is defaulted to the 15th of the month and missing month and day is defaulted to 01 -
+Jan for start and end dates in ZT domain . 
+6.2 Laboratory parameters derivations  
+CTC grading for blood differentials is based on absolute values. However, this data ma y not be 
+reported as absolute counts but rather as percentage of WBC.  
+If laboratory values are provided as ‘<X’ (i.e. below limit of detection) or ‘>X’ , prior to 
+conversion of laboratory values to SI unit , these numeric values are set to X.   
+The followin g rules will be applied to derive the WBC differential counts when only 
+percentages are available  for a xxx differential  
+xxx count = (WBC count) * (xxx  %value / 100)  
+Further derivation of laboratory parameters might be required for CTCAE grading. For 
+instance, corrected calcium can be derived using the reported total calcium value and albumin 
+at the same assessment using the following formula:  
+Corrected Calcium (mg/dL) = Calcium (mg/dL) – 0.8 [Albumin (g/dL) -4] 
+In order to apply the above formula, albu min values in g/L will be converted to g/dL by 
+multiplying by 0.1, calcium values in mmol/L will be converted to mg/dL by dividing by 
+0.2495. For calculation of laboratory CTC grades 0 and 1, the normal range for  derived 
+corrected calcium is set to the sam e limits (in mg/dL) as for calcium.  
+For missing Blood Urea Nitrogen (BUN) or urea values the following formulae will be applied:  
+Urea (mg/dL) = BUN (mg/dL) / 0.357  
+BUN (mg/dL) = Urea (mg/dL) / 2.1428  
+
+
+Novartis   For business use only  Page 29 
+SAP Amendment II I  CPKC412A2408  
+
+
+Novartis   For business use only  Page 30 
+SAP Amendment II I  CPKC412A2408  
+ 
+ 

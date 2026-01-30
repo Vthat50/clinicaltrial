@@ -1,0 +1,36 @@
+# Environment files with secrets
+.env
+*.env
+.env.*
+# Exception: .env.production is safe (no secrets, just API URLs)
+!.env.production
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Backup files
+*.bak
+*.bak_*
+
+# ChromaDB local data (large binary files)
+sap_generator/data/chroma_db/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Virtual environments
+venv/
+env/
+.venv/

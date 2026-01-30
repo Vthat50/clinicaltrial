@@ -1,0 +1,34 @@
+```mermaid
+graph TD
+    classDef module fill:#4CAF50,stroke:#2E7D32,color:#fff
+    classDef data fill:#2196F3,stroke:#1565C0,color:#fff
+    classDef category fill:#FF9800,stroke:#E65100,color:#fff
+
+    cat_response_criteria[Response<br/>Criteria]:::category
+    cat_safety_analysis[Safety<br/>Analysis]:::category
+    cat_statistical_methods[Statistical<br/>Methods]:::category
+    rano[RANO]:::module
+    rano --> cat_response_criteria
+    cheson[Lugano]:::module
+    cheson --> cat_response_criteria
+    adverse_events[AE Analysis]:::module
+    adverse_events --> cat_safety_analysis
+    laboratory[Lab Safety]:::module
+    laboratory --> cat_safety_analysis
+    survival_analysis[Survival]:::module
+    survival_analysis --> cat_statistical_methods
+    binary_endpoints[Binary]:::module
+    binary_endpoints --> cat_statistical_methods
+    brain_RANO[9 RANO PDFs]:::data
+    rano -.-> brain_RANO
+    cheson -.-> brain_RANO
+    lymphoma_Lugano[13 Lugano PDFs]:::data
+    rano -.-> lymphoma_Lugano
+    cheson -.-> lymphoma_Lugano
+    ground_truth[116 SAPs]:::data
+    adverse_events -.-> ground_truth
+    laboratory -.-> ground_truth
+    OS_PFS[7 Survival PDFs]:::data
+    survival_analysis -.-> OS_PFS
+    binary_endpoints -.-> OS_PFS
+```

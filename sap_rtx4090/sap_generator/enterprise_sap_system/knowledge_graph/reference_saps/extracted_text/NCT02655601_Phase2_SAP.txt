@@ -1,0 +1,990 @@
+
+--- Page 1 ---
+Page 1 of 21 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN  
+ 
+FOR THE PHASE 2 COMPONENT 
+OF THE PROTOCOL ENTITLED 
+“A Phase 1 / 2 Trial for Patients with 
+Newly Diagnosed High Grade Glioma 
+Treated with Concurrent Radiation 
+Therapy, Temozolomide, and BMX-001”  
+Protocol #: BMX-HGG-001 
+ 
+Adapted from the Statistical Section included in the Research Protocol 
+ 
+Version Date:  June 1, 2023 
+ 
+ 
+
+
+--- Page 2 ---
+Page 2 of 21 
+ 
+1 
+List of Abbreviations ____________________________________________________________________________ 4 
+2 
+SIGNATURES ______________________________________________________________________________________ 5 
+3 
+INTRODUCTION __________________________________________________________________________________ 6 
+4 
+OVERVIEW OF STUDY DESIGN _________________________________________________________________ 6 
+5 
+PATIENT CHARACTERISTICS ___________________________________________________________________ 7 
+6 
+ANALYSIS POPULATIONS _______________________________________________________________________ 7 
+7 
+TREATMENT AND SUBJECT DISPOSITION ___________________________________________________ 8 
+8 
+PRIMARY OBJECTIVE: SURVIVAL ______________________________________________________________ 8 
+8.1 
+ENDPOINT _________________________________________________________________________________________ 8 
+8.2 
+METHOD OF PRIMARY ENDPOINT ANALYSIS ________________________________________________ 8 
+8.3 
+INTERIM ANALYSES ______________________________________________________________________________ 9 
+ 
+INTERIM ANALYSIS #1 _______________________________________________________________________ 9 
+ 
+INTERIM ANALYSIS #2 _______________________________________________________________________ 9 
+ 
+PRIMARY ENDPOINT ANALYSIS _____________________________________________________________ 9 
+8.4 
+POWER OF SURVIVAL COMPARISONS & FINAL ANALYSIS__________________________________ 9 
+ 
+ORIGINAL POWER ANALYSIS ________________________________________________________________ 9 
+ 
+REVISED POWER ANALYSIS _______________________________________________________________ 10 
+8.5 
+ADDITIONAL ANALYSES, INCLUDING SUBGROUP ANALYSES ____________________________ 10 
+9 
+SECONDARY OBJECTIVE: COGNITION _______________________________________________________ 11 
+9.1 
+DROP-OUT PATTERNS _________________________________________________________________________ 12 
+9.2 
+ENDPOINT _______________________________________________________________________________________ 12 
+9.3 
+METHOD OF ANALYSIS ________________________________________________________________________ 12 
+9.4 
+POWER FOR COGNITIVE COMPARISONS ____________________________________________________ 13 
+ 
+ORIGINAL POWER ANALYSIS ______________________________________________________________ 13 
+ 
+REVISED POWER ANALYSIS _______________________________________________________________ 13 
+9.5 
+ADDITIONAL ANALYSES _______________________________________________________________________ 13 
+10 
+SECONDARY OBJECTIVE: THROMBOCYTOPENIA _______________________________________ 13 
+10.1 
+ENDPOINT _____________________________________________________________________________________ 14 
+10.2 
+METHOD OF ANALYSIS ______________________________________________________________________ 14 
+10.3 
+POWER FOR THROMBOCYTOPENIA ENDPOINT _________________________________________ 14 
+ ORIGINAL POWER ANALYSIS ______________________________________________________________ 14 
+ REVISED POWER ANALYSIS _______________________________________________________________ 14 
+
+
+--- Page 3 ---
+Page 3 of 21 
+11 
+SECONDARY OBJECTIVE: ADVERSE EVENTS (AE) _______________________________________ 14 
+11.1 
+ENDPOINTS ___________________________________________________________________________________ 14 
+11.2 
+METHOD OF SUMMARIZATION AND ANALYSIS _________________________________________ 15 
+ ADVERSE EVENTS DURING CHEMORADIATION _________________________________________ 15 
+ SERIOUS ADVERSE EVENTS DURING CHEMORADIATION ______________________________ 15 
+ ADVERSE EVENTS DURING CHEMORADIATION ATTRIBUTABLE TO BMX-001 ______ 15 
+ OTHER SAFETY MEASURES AND TABULATIONS ________________________________________ 16 
+12 
+SECONDARY OBJECTIVE:  PROGRESSION-FREE SURVIVAL ____________________________ 16 
+12.1 
+ENDPOINT _____________________________________________________________________________________ 16 
+12.2 
+METHOD OF ANALYSIS ______________________________________________________________________ 16 
+12.3 
+ADDITIONAL ANALYSES _____________________________________________________________________ 16 
+13 
+SECONDARY OBJECTIVE: RADIOGRAPHIC RESPONSE _________________________________ 16 
+13.1 
+ENDPOINT _____________________________________________________________________________________ 17 
+13.2 
+METHOD OF ANALYSIS ______________________________________________________________________ 17 
+13.3 
+ADDITIONAL ANALYSES _____________________________________________________________________ 17 
+14 
+SECONDARY OBJECTIVE: PHARMACOKINETICS ________________________________________ 17 
+15 
+EXPLORATORY OBJECTIVE: HEALTH-RELATED QUALITY OF LIFE (HRQoL) _______ 17 
+15.1 
+ENDPOINT _____________________________________________________________________________________ 18 
+15.2 
+METHOD OF PRIMARY ANALYSIS __________________________________________________________ 18 
+15.3 
+ADDITIONAL ANALYSES _____________________________________________________________________ 18 
+16 
+EXPLORATORY OBJECTIVE: HAIR LOSS __________________________________________________ 19 
+17 
+EXPLORATORY OBJECTIVE: WHITE MATTER INTEGRITY _____________________________ 19 
+17.1 
+ENDPOINT _____________________________________________________________________________________ 19 
+17.2 
+METHODS OF ANALYSIS _____________________________________________________________________ 19 
+18 
+PROTOCOL DEVIATIONS ___________________________________________________________________ 19 
+19 
+DESCRIPTION OF TABLES FOR REPORTING _____________________________________________ 20 
+20 
+REFERENCES _________________________________________________________________________________ 21 
+ 
+ 
+ 
+ 
+
+
+--- Page 4 ---
+Page 4 of 21 
+1 List of Abbreviations 
+AE 
+Adverse Events 
+ANCOVA 
+Analysis of covariance 
+COWA 
+Controlled Oral Word Association 
+CSR 
+Clinical Study Report 
+FDA 
+Food and Drug Administration 
+Gy 
+Gray 
+HGG 
+High Grade Glioma 
+HRQoL 
+Health related Quality of Life 
+HVLT-R 
+Hopkins Verbal Learning Test - Revised 
+ICH 
+International Conference on Harmonization 
+ITT 
+Intent to Treat 
+OS 
+Overall Survival 
+PFS 
+Progression Free Survival 
+PK 
+Pharmacokinetic 
+PRO 
+Patient Reported Outcome 
+RANO 
+Response Assessment in Neuro-Oncology 
+RT 
+Radiation Therapy 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+SOC 
+Standard of Care 
+TEAE 
+Treatment-Emergent Adverse Event 
+TMT 
+Trails Making Test 
+TMZ 
+Temozolomide 
+WHO 
+World Health Organization 
+ 
+ 
+ 
+
+
+--- Page 6 ---
+Page 6 of 21 
+3 INTRODUCTION 
+This Statistical Analysis Plan (SAP) is based on the current trial protocol (version 9.0 dated 
+25 May 2019).  If statistical methods differ substantially between the SAP and the protocol, 
+refer to the SAP. 
+The SAP describes the datasets and the statistical methods to be used for reporting and 
+analysis of all data collected during the trial. 
+If a future protocol amendment necessitates a substantial change to the statistical analysis 
+of the trial data, the SAP will be amended.  If, after the database is locked, additional 
+analyses are required to supplement the planned analyses described in this SAP, those 
+unplanned analyses will not be described in an amended SAP, but they will be identified 
+in the final Clinical Study Report (CSR). 
+We have considered the following guidelines when writing this SAP: 
+• 
+International Conference on Harmonization (ICH) E9, Guidance for Industry:  
+Statistical Principles for Clinical Trials  
+• 
+ICH E3, Guidance for Industry:  Structure and Content of Clinical Study Reports.   
+Statistical analysis will primarily be conducted using SAS version 9.4, with additional 
+analyses and data visualization performed using the R software (version 4.2.1 or later). 
+4 OVERVIEW OF STUDY DESIGN 
+The Phase 2 portion of this protocol is a multi-
+center randomized open-label study comparing 
+the impact of concurrent daily Temozolomide 
+(TMZ) and Radiation Therapy (RT) with BMX-
+001 (Arm A) versus concurrent daily TMZ and RT 
+alone (Arm B) on survival in patients among 
+patients with newly diagnosed high grade glioma 
+(HGG - WHO grade III and IV).  Subjects were 
+randomized with a treatment arm allocation ratio 
+of 1:1, with a goal of enrolling 160 patients in this phase of the study (80 subjects per arm). 
+A permuted block randomization stratified by histologic grade (grade III / IV) and institution 
+will be used to assign patients to treatment with or without BMX-001. 
+Subjects in Arm A were administered BMX-001 subcutaneously first as a loading dose (28 
+mg) given 0 to 4 days before the start of chemoradiation and then at subsequent dose (14 
+mg) twice a week for eight weeks. Subjects in Arm A and Arm B received TMZ dosed at 
+75 mg/m2 orally daily for 42 days and RT delivered in daily fractions of 1.8-2 Gy given 5 
+days a week for 6 weeks for a total of 59.4-60 Gy.  
+In all subjects, cognitive performance was measured at the time of enrollment and 2 weeks 
+after the completion of RT, and standard of care (SOC) clinic visits (approximately 8 weeks 
+apart +/- 2 weeks) until death, or patient’s choice to discontinue study measures.  
+Cognitive testing was to continue after noted progression until the 12 month follow up 
+timepoint is reached.   
+In order to characterize the repeated dose pharmacokinetic (PK) profiles of BMX-001 in 
+combination with RT and TMZ in newly diagnosed HGG patients, PK blood samples were 
+drawn on Days 8 and 36 only from the first 6 patients enrolled and assigned to Arm A at 
+a single center (Duke). Measures were obtained at approximately the following times: Pre-
+TREATMENT ARMS 
+Arm A: Concurrent daily TMZ and 
+RT with BMX-001 
+Arm B: Concurrent daily TMZ and 
+RT alone 
+
+
+--- Page 7 ---
+Page 7 of 21 
+dose, then 0.5 hour, 1 hour, 2 hours, 6 hours and 24 hours post-dose. Samples will be 
+analyzed for BMX-001 using validated analytical methods at the Duke PK lab.   
+The study’s primary phase 2 endpoint is overall survival (OS), defined as the time between 
+randomization and death. A logrank test will be used to compare the survival experience 
+of the two treatment arms. An intent-to-treat philosophy will be used in the analysis of 
+survival by including all patients who are randomized in the analysis.   Other analysis sets 
+are defined in this document. 
+Among the secondary endpoints are two that are of particular interest: cognitive function 
+and thrombocytopenia. The mean change in cognitive functioning between baseline 
+(enrollment) and week 24 within each treatment arm will be computed, and analysis of 
+covariance will be conducted to compare groups with respect to that change. Treatment 
+group assignment will be included in the model as a predictor, and the baseline measure 
+of cognitive function will be included as a covariate.  
+The proportion of patients who experience grade 3 or 4 thrombocytopenia during 
+concurrent temozolomide and radiation, a period that terminates 2 weeks after completion 
+of radiation treatment, will be summarized. A chi-square test will be conducted to compare 
+the prevalence of such thrombocytopenia observed in patients with and without BMX-001. 
+5 PATIENT CHARACTERISTICS 
+The clinical and socio-demographic characteristics of all randomized patients will be 
+summarized using descriptive statistics (e.g., means/standard deviations, percentiles, 
+frequencies). Patient characteristics will be summarized by treatment group assignment. 
+Characteristics that will be summarized include: 
+ 
+• 
+Institution 
+• 
+Race 
+• 
+Ethnicity 
+• 
+Gender 
+• 
+Tumor Grade, according to WHO grade at time of enrollment and WHO 20211* 
+• 
+Performance Status (KPS) 
+• 
+Histology  
+• 
+Disease Description (Unifocal / Multifocal) 
+• 
+MGMT Status (Methylated / Unmethylated) 
+• 
+IDH:  mutated or wildtype 
+• 
+Extent of Resection (Gross total Resection / Subtotal Resection / Biopsy Only) 
+• 
+Age  
+6 ANALYSIS POPULATIONS 
+The following populations will be identified: 
+• 
+Intent to Treat Population (ITT):  All patients randomized into the clinical trial, 
+regardless of compliance.  
+                                               
+1 During study accrual, a new WHO classification system for CNS tumors was published [1]. Though 
+the classification system in use at the time of study activation was used throughout the conduct of 
+the study, the classification of all patients under the new WHO 2021 system will also be described. 
+
+
+--- Page 8 ---
+Page 8 of 21 
+• 
+Safety Population:  All patients who received at least one dose of  BMX-001 or 
+temozolomide 
+• 
+Treated Population:  All patients who completed chemoradiation with or without 
+BMX-001.  BMX-001 must be given for at least 6 weeks (or 13 doses). 
+• 
+PK Population:  Subjects who participated in the PK portion of the study (n=6). 
+7 TREATMENT AND SUBJECT DISPOSITION 
+A CONSORT diagram will be generated that displays the number of patients randomized 
+within each treatment arm, the number of patients within each arm who are treated with 
+chemoradiation, as well as the number of cycles of adjuvant treatment received. For 
+treatment during chemoradiation, the total dose of BMX-001 administered will be 
+summarized, as well as the total dose of TMZ and RT administered.   
+ 
+All subjects who withdrew or were withdrawn from the study will be listed by treatment arm 
+with the reason for withdrawal. 
+8 PRIMARY OBJECTIVE: SURVIVAL 
+The primary goal of this randomized, open-label Phase 2 study is to examine the impact 
+of BMX-001 on overall survival among patients newly diagnosed with HGG who are 
+receiving SOC treatment consisting of daily TMZ and RT.  After the primary endpoint 
+analysis at 84 deaths, we will continue following patients for survival and disease 
+progression even after the primary endpoint analysis.  Per protocol, patients will be 
+followed indefinitely.   
+8.1 
+ENDPOINT   
+The study’s primary endpoint is overall survival (OS) which is defined by the time 
+between randomization and death, or the last follow-up if the patient remains alive. 
+8.2 
+METHOD OF PRIMARY ENDPOINT ANALYSIS  
+This study will assess the hypothesis that BMX-001, when added to standard RT 
+and TMZ, will sensitize the malignancy and result in enhanced patient survival as 
+well as protect normal tissues from RT, resulting in better quality of life.   
+The primary analysis of survival will be done with the ITT population.   
+Kaplan-Meier methods will be used to graphically describe the distribution of 
+overall survival (OS) among patients within the BMX-001 treatment group (Arm A) 
+and within the control group (Arm B). Median OS, as well as 6-, 12-, 24-, and 36-
+month estimates of OS will be estimated from the Kaplan-Meier curve. A logrank 
+test will compare arms with respect to the survival outcome. 
+As an additional descriptive statistic, the mean overall survival over a time interval 
+chosen to maintain reasonable coverage of observed survival will be calculated. 
+If the underlying assumptions for the planned analyses are not satisfied,  
+alternative methods of analysis depending on the observed distribution of the data 
+will be explored. 
+
+
+--- Page 9 ---
+Page 9 of 21 
+8.3 
+INTERIM ANALYSES   
+Interim analyses using an O’Brien-Fleming boundary will be conducted with the 
+goal of terminating accrual early to accept or reject the null hypothesis of no 
+difference in survival. Given the inflated type I error rate for this Phase 2 study, 
+early termination will only be considered if it appears that the addition of BMX-001 
+treatment to radiation and temozolomide is decreasing survival. The interim 
+analysis will be conducted to determine whether the addition of BMX-001 is 
+possibly detrimental to the survival of patients.  
+ INTERIM ANALYSIS #1 
+The study was originally designed with one interim survival analysis after 
+approximately 42 deaths. The decision rule for accrual suspension was defined by 
+the O’Brien-Fleming spending function and is dependent upon the number of 
+deaths that will have been reported by the time of the interim analysis. If the 
+boundary was crossed, accrual was to be suspended while all other data (e.g., 
+cognitive function data) is reviewed to determine whether accrual should be 
+permanently terminated. 
+The first interim analysis was conducted in December 2021 when 46 deaths had 
+been observed in the ITT population (20 in Arm A and 26 in Arm B). The study was 
+not terminated early as a result of the first interim analysis. 
+ INTERIM ANALYSIS #2 
+An unplanned interim analysis was conducted in March 2022 to support an FDA 
+application for breakthrough therapy designation.  That analysis was conducted 
+when 54 deaths had been observed among treated subjects (22 in Arm A and 30 
+in Arm B). The study was not terminated early as a result of the first interim 
+analysis. 
+ PRIMARY ENDPOINT ANALYSIS 
+After these 2 interim analyses, no further interim analysis will be conducted until 
+the primary endpoint analysis.  The primary endpoint analysis is scheduled to 
+occur after 84 deaths have been observed. 
+8.4 
+POWER OF SURVIVAL COMPARISONS & FINAL ANALYSIS 
+The primary goal of the Phase 2 portion of this study is to assess the effect of BMX-
+001 treatment in conjunction with standard of care treatment consisting of 
+temozolomide and radiation on the survival of patients newly diagnosed with grade 
+III or IV glioma.  
+ ORIGINAL POWER ANALYSIS 
+With standard treatment, the median survival of Grade IV patients is 14.6 months, 
+and the median survival of Grade III is approximately 36 months. Before study 
+activation, we anticipated that approximately 10% of patients to be Grade III.  With 
+10% of patients as grade III, we estimated that the overall median survival with 
+standard treatment to be roughly 16.7 months 
+
+
+--- Page 10 ---
+Page 10 of 21 
+Though this Phase 2 study is comparative, the goal is to determine whether BMX-
+001 is worthy of further investigation in combination with standard RT and TMZ 
+treatment.  Many aspects of the new treatment will be considered in the decision-
+making concerning further investigation, including relative toxicity and ease of 
+treatment administration. As a Phase 2 study, there is a need to constrain the 
+sample size requirements at the expense of either an increased false negative or 
+false positive rate. A false-positive rate of 0.2 will be used to test the primary 
+statistical hypothesis while maintaining reasonably high power [3-5].  
+The power of a statistical comparison of survival is a function of the number of 
+deaths observed. In order that a 1-tailed logrank test conducted at the 0.2 level to 
+have 90% power to detect a hazard ratio of 0.63, 84 deaths need to be observed 
+among the 160 randomized patients. Under the assumption that survival is 
+exponentially distributed, this hazard ratio represents an increase in median 
+survival from 16.7 to 26.5 months.  
+ REVISED POWER ANALYSIS 
+In actuality, approximately 20% of patients enrolled were Grade III.  With 20% of 
+patients to be grade III, we estimate that the median overall survival with standard 
+of care treatment to be roughly 18.9 months. 
+With these modifications the power analysis has been revised: 
+The power of a statistical comparison of survival is a function of the number of 
+deaths observed. In order that a 1-tailed logrank test conducted at the 0.2 level to 
+have 90% power to detect a hazard ratio of 0.63, 84 deaths need to be observed 
+among the 160 randomized patients. Under the assumption that survival is 
+exponentially distributed, this hazard ratio represents an increase in median 
+survival from 18.9 to 30.0 months.  
+8.5 
+ADDITIONAL ANALYSES, INCLUDING SUBGROUP 
+ANALYSES 
+The analyses described in Section 8.2 will be repeated within the treated 
+population. 
+Within the ITT and treated patient populations, various subgroups analyses will be 
+conducted.  Subgroups will be defined by the following factors: 
+• 
+Original histologic WHO grade (III or IV) 
+• 
+New histologic WHO grade (III or IV) 
+• 
+MGMT (present or absent) 
+• 
+IDH status 
+• 
+19q FISH 
+• 
+Age:  subjects > 65 at time of consent 
+• 
+Others as needed 
+The Kaplan-Meier estimator will describe the survival within each combination of 
+histologic grade and treatment arm. Several analyses may be conducted: 
+1. Within each subgroup defined by the variables above, Cox proportional 
+hazards model will assess the effect of treatment on survival.  
+  
+
+
+--- Page 11 ---
+Page 11 of 21 
+2. The Cox model will explore the joint effect of the clinical predictor and treatment 
+assignment, and possibly their interaction.  Such an analysis will explore 
+whether the effect of BMX-001 treatment is consistent across levels of the 
+clinical predictors. 
+ 
+3. The Cox model may also explore the joint effects of age, gender, histologic 
+grade, MGMT, and other prognostic factors on survival.      
+9 SECONDARY OBJECTIVE: COGNITION 
+The first secondary objective involves an assessment of whether the addition of BMX-001 
+to standard RT and TMZ treatment for patients newly diagnosed with HGG has an impact 
+upon cognition. The BAC App (provided by VeraSci) and paper forms (HVLT-R, COWA, 
+TMT) were used to assess patient cognition.   
+BAC App (i-Pad based testing) 
+The BAC battery of tests was implemented through an iPad-based app called the BAC 
+App (the vendor that provides this is called VeraSci, previously called NeuroCog). 
+Subtests included:  
+• 
+Verbal Memory 
+• 
+Digit Sequencing 
+• 
+Token Motor 
+• 
+Semantic Fluency 
+• 
+Letter Fluency 
+• 
+Symbol Coding 
+• 
+Tower of London 
+Beginning at baseline, the BAC will be obtained longitudinally: 
+• 
+Screening (for the baseline assessment), 
+• 
+After standard RT and TMZ (within 2 to 4 weeks), and  
+• 
+Approximately every 8 weeks when a subject returns for a Standard of Care visit 
+during adjuvant TMZ.  
+Paper cognitive testing  
+Paper forms were used to assess patient cognition using the following instruments: 
+• 
+Hopkins Verbal Learning Test-Revised (HVLT-R) 
+• 
+Trails Making Test Parts A and B (TMT), and  
+• 
+Controlled Oral Word Association Test (COWA)  
+Timepoints completed:  
+• 
+Baseline (prior to the start of RT) 
+• 
+Standard of care visit before the start of the first cycle of adjuvant temozolomide,  
+• 
+Standard of care visits that are 6 and 12 months from the completion of radiotherapy/
+chemotherapy.  
+When a subject came off study for disease progression before the approximate 6 and 12 
+months post completion of treatment timepoint, cognitive testing was supposed to 
+continue and be collected at those timepoints and if present will be included. 
+
+
+--- Page 12 ---
+Page 12 of 21 
+The analysis of Cognition data will focus on the cohort of patients who were treated.  
+Typically, patients who were not treated did not provide any cognitive data follow-up. 
+9.1 
+ DROP-OUT PATTERNS 
+The ultimate goal of this objective is to compare groups with respect to longitudinal 
+changes in cognition over time.  Unfortunately, due to the patient population that 
+are eligible to participate in this study, a significant amount of the follow-up 
+cognitive assessments may be missing due to health decline, disease progression, 
+and death.  Some of the missing data may be intermittently missing (i.e., missing 
+observations between observed assessments); however, much of the missing data 
+will be “drop-out” (i.e., subject permanently drops out of longitudinal assessment).  
+The pattern of “drop-out” in the two treatment arms will be assessed. 
+The proportion of patients within each treatment arm who lack assessments after 
+the baseline assessment will be determined and compared using a chi-square test.  
+We will also explore whether there are subgroups defined by clinical, cognitive, or 
+HRQoL data that are predictive of a subject lacking a post-baseline assessment. 
+Drop-out may also occur after one or more follow-up assessments are completed.  
+The relationship between the time of the last completed assessment and treatment 
+group will be assessed via a contingency table and chi-square test. 
+9.2 
+ ENDPOINT 
+Though the study is a longitudinal analysis, the initial focus of the analyses of this 
+objective is an examination of the mean change in cognitive functioning between 
+baseline and week 24 (occurs after completion of RT) within each treatment arm. 
+The baseline measure is the last assessment obtained before initiation of standard 
+chemoradiation. 
+There is variability in the timing of follow-up measurements.  For the purpose of 
+this analysis a +/- 4 week window will define the 24 week assessment. 
+Clearly a patient without an assessment post-baseline will not be included in these 
+analyses. Analyses described in Section 9.1 explore how the patients excluded 
+from analyses differ from those who are included in analyses. 
+9.3 
+  METHOD OF ANALYSIS 
+For the analysis of change in cognition between baseline and week 24, an analysis 
+of covariance (ANCOVA) will be conducted to compare treatment groups within 
+the treated patient cohort. The outcome of this model is change in cognitive 
+function. Treatment group assignment will be included in the model as a predictor, 
+and the baseline measure of cognitive function will be included as a covariate.   
+As noted earlier, a significant amount of the follow-up cognitive assessments may 
+be missing due to health decline, disease progression, and death.  Much of the 
+missing data is due to a subject permanently dropping out of the longitudinal 
+assessment. A linear random coefficient model stratified by drop-out pattern will 
+assess whether cognitive changes over time are consistent across treatment 
+groups and drop-out patterns.  This pattern-mixture model accounts for within 
+subject correlation of longitudinal assessments. 
+
+
+--- Page 13 ---
+Page 13 of 21 
+If assumption for conducting either the ANCOVA model or the pattern mixture 
+model are not satisfied, alternative approaches to analyses may be conducted. 
+Options include transformation of the outcome data, as well as use of 
+nonparametric methods. 
+Given that numerous endpoints will be examined that relate to cognition, 
+adjustments for multiple comparisons (e.g., false discovery rate methods or 
+Bonferroni) may be considered. 
+9.4 
+POWER FOR COGNITIVE COMPARISONS 
+ ORIGINAL POWER ANALYSIS 
+We focus on the week 24 assessment of cognitive function in this power calculation 
+given that the study is a randomized study, even though we are interested in 
+comparing groups with respect to change in cognitive function between baseline 
+and week 24. Studies recently conducted at Duke suggest that the standard 
+deviation associated with a one-time assessment of executive function, a 
+component of cognitive function, is approximately 30 units. 
+We anticipate that 120 of the 160 patients will have pre- and post-measurements 
+of cognitive function. A two-tailed t-test conducted at the 0.05 level of significance 
+(two-tailed) will have 80% power to detect a difference of 15.5. 
+ REVISED POWER ANALYSIS 
+Collection of measures of health-related quality of life and cognition is plagued with 
+mistiming and drop-outs due to factors described in Section 9.1. 
+For the purpose of the analyses that focus on the change in cognition between 
+baseline and week 24, the follow-up assessment should have occurred within +/- 
+4 week window of the scheduled week 24 assessment. 
+With this adjustment, there are 94 patients (52 in Arm A and 42 in Arm B) that has 
+pre- and post-measurements of cognitive function. Assuming a standard deviation 
+of 30 units, a two-tailed t-test conducted at the 0.05 level of significance (two-tailed) 
+will have 80% power to detect a difference of 17.6. 
+9.5 
+ADDITIONAL ANALYSES 
+The analyses described in Section 9.3 will also be conducted within subgroups 
+defined by WHO grade (original or revised), and tumor markers which have been 
+captured in the study database.  Additionally, the joint effect of these clinical 
+predictors, treatment assignment, and their interaction will be explored in the 
+context of these models. 
+10   SECONDARY OBJECTIVE: THROMBOCYTOPENIA 
+The second secondary objective is to assess protection of bone marrow against 
+chemotherapy-induced thrombocytopenia of standard RT and TMZ in combination with 
+BMX-001 compared to standard RT and TMZ alone in newly diagnosed HGG patients. 
+
+
+--- Page 14 ---
+Page 14 of 21 
+10.1  ENDPOINT 
+The proportion of patients who experience grade 3 or 4 thrombocytopenia during 
+concurrent temozolomide and radiation will be estimated within each treatment 
+group. The proportion of patients who experience a platelet count less than 100K 
+during concurrent temozolomide and radiation will also be estimated within each 
+treatment group. The period of observation for these events will extend until 2 
+weeks after completion of radiation treatment.  
+10.2  METHOD OF ANALYSIS 
+For both endpoints described in Section 10.1, a chi-square or Fisher’s exact test 
+will be conducted to compare the prevalence of such thrombocytopenia observed 
+in patients with and without BMX-001. 
+10.3  POWER FOR THROMBOCYTOPENIA ENDPOINT 
+ ORIGINAL POWER ANALYSIS 
+Platelet counts will be obtained during radiation and temozolomide treatment and 
+ending 2 weeks after termination of radiation. The percentage of patients within 
+each treatment group that experience grade 3 or 4 thrombocytopenia will be 
+estimated. Gerber [2] reports that 15% of patients who receive standard radiation 
+and temozolomide experience grade 3 or 4 thrombocytopenia. With 80 patients 
+per arm, there is 80% power with a one-tailed chi-square test (α=0.05) to detect a 
+reduction in grade 3 or 4 thrombocytopenia from 15% in Arm B (without BMX-001) 
+to 4% in Arm A (with BMX-001). 
+ REVISED POWER ANALYSIS 
+For this endpoint to have relevance, a patients must have received some treatment 
+with temozolomide and radiation in either Arm A or B.  At this point, analyses 
+suggest that 78 patients in Arm A and 71 patients in Arm B received protocol 
+treatment. With 78 and 71 patients in Arms A and B, respectively, there is 80% 
+power with a one-tailed chi-square test (α=0.05) to detect a reduction in grade 3 or 
+4 thrombocytopenia from 15% in Arm B (without BMX-001) to 3.7% in Arm A (with 
+BMX-001). 
+11  SECONDARY OBJECTIVE: ADVERSE EVENTS (AE) 
+The third secondary objective is to assess the safety and tolerability of standard RT and 
+TMZ in combination with BMX-001 compared to standard RT and TMZ alone in newly 
+diagnosed HGG patients.  The collection of adverse events was stopped 30 days after 
+completion of chemoradiation treatment +/- BMX-001. Adverse events were coded by 
+clinical center staff.   
+11.1 ENDPOINTS 
+The phase 2 portion of this study has two adverse event endpoints:  
+(1) The proportion of patients who experience any grade 3 or 4 adverse event 
+during radiation and temozolomide treatment, and  
+
+
+--- Page 15 ---
+Page 15 of 21 
+(2) The proportion of patients who experience a grade 3 or 4 adverse event that 
+is definitely, possibly, or probably related to BMX-001 treatment during this same 
+period.  
+Adverse events occurring between baseline through 2 weeks after discontinuation of 
+radiation will be the focus of these analyses and will be summarized. 
+11.2  METHOD OF SUMMARIZATION AND ANALYSIS 
+ ADVERSE EVENTS DURING CHEMORADIATION 
+Each participating institution coded adverse events with their preferred term and 
+organ class using MedDRA system organ class. Whether or not the adverse event 
+was related to BMX-001 was determined for each event. 
+The initial summary of adverse events will consider all Treatment Emergent AE 
+(TEAE) occurring during chemoradiation regardless of attribution to BMX-001. A 
+TEAE is an event emerging during treatment having been absent pre-treatment or 
+having worsened relative to pre-treatment. The period of observation that will be 
+the focus of this tabulation will extend 2 weeks after termination of radiation 
+treatment. 
+The population for these summaries will be the safety population as defined in 
+Section 6. 
+For each study arm, the number of subjects with at minimum one Treatment 
+Emergent AE (TEAE) will be tabulated by preferred term and MedDRA system 
+organ class. Subjects with more than one TEAE will be counted only once, at 
+casualty, for each system organ class /preferred term.  Multiple TEAEs in a subject 
+will be counted once per system organ class and preferred term.  Summaries will 
+be sorted by system organ class and decreasing total incidence of preferred term. 
+ SERIOUS ADVERSE EVENTS DURING CHEMORADIATION 
+Serious Adverse Events (SAEs) will be summarized by system organ class and 
+preferred term.  A listing of the reasons for considering a SAE will be provided.  
+Narratives of SAEs will be included.   
+ ADVERSE EVENTS DURING CHEMORADIATION 
+ATTRIBUTABLE TO BMX-001 
+Given that this is an open-label treatment study, adverse events attributable to 
+BMX-001 will only occur in patients within Arm A who receive BMX-001. 
+For Arm A, the number of subjects with at least one BMX-001 related Treatment 
+Emergent AE (TEAE) will be tabulated by preferred term and MedDRA system 
+organ class. Subjects with more than one BMX-001 related TEAE will be counted 
+only once, at casualty, for each system organ class /preferred term.  Multiple 
+TEAEs in a subject will be counted once per system organ class and preferred 
+term.  This summary will be sorted by system organ class and decreasing total 
+incidence of preferred term. 
+
+
+--- Page 16 ---
+Page 16 of 21 
+ OTHER SAFETY MEASURES AND TABULATIONS 
+All AEs will be listed.  A listing of the relationship between system organ class and 
+verbatim text will also be presented.   
+Listings of the following data will be generated: 
+• 
+Clinical Laboratory Evaluations:  all laboratory values of clinical significance 
+(as defined by site principal investigator) will be listed. 
+• 
+Vital signs:  Vital signs pre and post BMX-001 injection will be summarized.  
+Only vital signs of clinical significance as defined by the site principal 
+investigator will be summarized and listed.   
+• 
+Physical Examinations:  Abnormal physical examination findings of clinical 
+significance will be summarized and listed.   
+12  SECONDARY OBJECTIVE:  PROGRESSION-FREE 
+SURVIVAL 
+The fourth secondary objective is to assess the effect on progression-free survival (PFS) 
+of standard RT and TMZ in combination with BMX-001 compared to standard RT and TMZ 
+alone in newly diagnosed HGG patients. 
+12.1   ENDPOINT 
+Progression-Free Survival (PFS) is defined as the time between initiation of 
+protocol treatment and disease progression or death. If the patient remains alive 
+without disease progression, then PFS will be censored at last follow-up. Analyses 
+similar to those described for OS will be generated for PFS.  
+12.2    
+METHOD OF ANALYSIS 
+The primary analysis of PFS will consider all patients, and consider them in their 
+assigned treatment arm regardless of compliance. This approach to analysis is 
+consistent with an intent-to-treat analysis approach. 
+As with survival, Kaplan-Meier methods will be used to graphically describe the 
+distribution of PFS among patients within the BMX-001 treated group (Arm A) and 
+within the control group (Arm B). Median PFS, as well as 6- and 12-month 
+estimates of PFS will be estimated from the Kaplan-Meier curve. A logrank test will 
+compare arms with respect to the PFS outcome. 
+12.3 ADDITIONAL ANALYSES 
+Analyses similar to those described in Section 8.5 will be conducted for PFS, 
+including analyses within subgroups of patients defined by grade, histological 
+subtype, and tumor markers which have been captured in the study database.  
+Analyses will also explore the interaction between clinical factors and treatment 
+assignment on the PFS outcome. 
+13  SECONDARY OBJECTIVE: RADIOGRAPHIC RESPONSE 
+The fifth secondary objective is to assess radiographic response in newly diagnosed HGG 
+patients treated with standard RT and TMZ in combination with BMX-001 compared to 
+standard RT and TMZ alone.  
+
+
+--- Page 17 ---
+Page 17 of 21 
+13.1 ENDPOINT 
+Radiographic response will be determined by brain MRI evaluations for 
+assessment based on the RANO criteria. The radiographic response rate is 
+defined as the proportion of patients of with a complete or partial response.  
+13.2 METHOD OF ANALYSIS 
+The response rate within each arm will be calculated and compared using a chi-
+square test or an exact chi-square test. Exact binomial confidence intervals will be 
+generated for each response rate estimate. 
+The initial analysis of response rate will focus on the ITT patient population.  Those 
+patients who did not receive treatment, or did not have a follow-up radiographic 
+assessment will be included in the denominator for the calculation of response 
+rate. These patients will not be counted a responders.   
+13.3 ADDITIONAL ANALYSES 
+Additional analyses will describe the response rate within patient subgroups 
+defined by arm and WHO grade.  Response rate will also be summarized within 
+the treated patient population. 
+14  SECONDARY OBJECTIVE: PHARMACOKINETICS 
+The sixth secondary objective is to characterize the repeated-dose pharmacokinetic profile 
+of BMX-001 when delivered in combination with RT and TMZ in newly diagnosed HGG 
+patients. 
+Samples were obtained from the first 6 patients at Duke that are randomized to Arm A. 
+Drug pharmacokinetics were obtained on Day 8 or the next day when drug is administered 
+and Day 36 or the next day when drug was administered during the chemoradiation phase. 
+Measures were obtained at the following time-points will be summarized: Pre-Dose, 0.5 
+hour, 1 hour, 2 hours, 6 hours and 24 hours. 
+15 EXPLORATORY OBJECTIVE: HEALTH-RELATED 
+QUALITY OF LIFE (HRQoL) 
+The first exploratory objective is to describe patient-reported outcomes of HRQoL in newly 
+diagnosed HGG patients treated with standard RT and TMZ in combination with BMX-001 
+compared to standard RT and TMZ alone. 
+HRQoL was assessed by the Functional Assessment of Cancer Therapy-Brain (FACT-
+BR) scale. The FACT-BR (version 4) contains subscales for  
+• 
+Physical well-being (7-items)  
+• 
+Functional well-being (7-items)  
+• 
+Emotional well-being (6-items) 
+• 
+Social/family well-being (7-items) 
+• 
+Brain cancer subscale (BCS; 23-items) which assess symptoms commonly 
+reported by brain cancer patients [27].  
+Cancer-related fatigue was assessed by the 13-item Fatigue Scale using the Functional 
+Assessment of Cancer Therapy-Fatigue (FACIT-Fatigue) subscale, version 4 [67].  
+
+
+--- Page 18 ---
+Page 18 of 21 
+Cognitive problems was assessed using version 3 of the Functional Assessment of 
+Cancer Therapy-Cognition (FACT-Cog) subscale [68]. This includes subscales for: 
+• 
+Perceived cognitive impairments (20 items) 
+• 
+Comments from others (4 items) 
+• 
+Perceived cognitive abilities (9 items) 
+• 
+Impact of quality of life (4 items).  
+Beck depression inventory (BDI) was used to evaluate for underlying depressive 
+symptoms. We used the revised version (BDI-II) and the scores will range from 0 (no 
+depression) to 63 (severe depression) [69]. The BDI contains 21 questions in regards to 
+mood symptoms and is multiple-choice and self-reported.  
+Exercise behavior was assessed using the Godin Leisure questionnaire [70].  
+HRQoL PROs questionnaires were obtained at screening, after standard RT and TMZ 
+(within 2 to 4 weeks), and approximately every 8 weeks when a subject returned for a 
+Standard of Care visit during adjuvant TMZ. 
+15.1 ENDPOINT 
+Though the study is a longitudinal analysis, the initial focus of the analyses of this 
+objective is an examination of the mean change in HRQoL between baseline and 
+week 24 (occurs after completion of RT) within each treatment arm of the treated 
+subjects.  
+There is variability in the timing of follow-up measurements.  For the purpose of 
+this analysis a +/- 4 week window will define the 24 week assessment. 
+15.2 METHOD OF PRIMARY ANALYSIS 
+The analyses that will be conducted are similar to those described in Section 9.3.  
+For the analysis of change in HRQoL between baseline and week 24, an analysis 
+of covariance will be conducted to compare treatment groups. The outcome of this 
+model is change in cognitive function. Treatment group assignment will be included 
+in the model as a predictor, and the baseline measure of HRQoL function will be 
+included as a covariate.   
+A linear random coefficient model stratified by drop-out pattern will assess whether 
+HRQoL changes over time are consistent across treatment groups and drop-out 
+patterns.  This pattern-mixture model accounts for within subject correlation of 
+longitudinal assessments. 
+If assumption for conducting these analyses fail, alternative analytic approaches 
+will be considered include, a transformation of the outcome data, or nonparametric 
+methods. 
+Given the number of HRQoL tests that will be conducted, p-values will be adjusted 
+for multiple comparisons. 
+15.3 ADDITIONAL ANALYSES 
+Additional analyses will explore the impact of BMX-001 on HRQoL within patient 
+subgroups defined by WHO grade and histological subtype.  
+
+
+--- Page 19 ---
+Page 19 of 21 
+16  EXPLORATORY OBJECTIVE: HAIR LOSS 
+The second exploratory objectives is to describe changes in hair loss in newly diagnosed 
+HGG patients treated with standard RT and TMZ in combination with BMX-001 compared 
+to standard RT and TMZ alone. 
+Subjective assessments of hair loss were obtained by the treating provider for subjects at 
+screening (baseline), after standard RT and TMZ finishes (within 2 to 4 weeks), and 
+standard of care (SOC) clinic visit (approximately every 8 weeks) during adjuvant TMZ.  
+Qualitative assessments of hair loss depicted in longitudinal subject photographs will be 
+conducted and summarized. Changes observed in Arm A will be compared to those 
+observed in Arm B. 
+The analyses group for this exploratory objective will include all treated patients who have 
+both assessments of their hair at baseline and at one or more follow-up assessments. 
+17 EXPLORATORY OBJECTIVE: WHITE MATTER 
+INTEGRITY 
+The third exploratory objective is to describe change in white matter integrity in newly 
+diagnosed HGG patients treated with standard RT and TMZ in combination with BMX-001 
+in comparison to standard RT and TMZ alone. 
+17.1 ENDPOINT 
+The mean change between baseline and each follow-up assessment for white 
+matter integrity, as measured by MRI diffusion tensor/susceptibility imaging will be 
+computed.  
+These images will be obtained three times during the study: on day -5 to 0, after 
+standard RT and TMZ (within 2 to 4 weeks), and 24 weeks after the start of 
+standard RT and TMZ (within 2 to 4 weeks).  
+17.2 METHODS OF ANALYSIS 
+Assuming normality, analysis of variance or a repeated measures analysis may be 
+used to compare change in Arms A and B. Additional analyses will be sub-divided 
+in terms of WHO grade and histological subtype.  
+18  PROTOCOL DEVIATIONS 
+Before closing the database, data listings will be reviewed to determine whether data 
+should be excluded from any of the analysis populations.   
+As a part of this review, there may be a need to conduct sensitivity analyses that assess 
+the impact on inferences when select patients are included or excluded from analyses. 
+A summary of important protocol deviations such as the following will be generated: 
+• 
+Patient entered the study even though they did not meet inclusion/exclusion criteria 
+• 
+Met criteria for withdrawal but were not withdrawn (reason to be documented) 
+• 
+Patient received the wrong treatment or dose 
+• 
+Patient received an excluded concomitant medication 
+ 
+ 
+
+
+--- Page 20 ---
+Page 20 of 21 
+19  DESCRIPTION OF TABLES FOR REPORTING 
+The following tables and figures will be produced, source data listings will be provided 
+ 
+Description 
+Population 
+Summary of Subject Disposition 
+ITT, Safety, 
+Treated 
+Summary of Important Protocol Deviations* 
+Safety 
+DEMOGRAPHICS 
+Summary of Demographic Characteristics 
+ITT, Treated 
+SAFETY DATA 
+Summary of All AEs 
+Safety 
+Summary of TEAEs 
+Safety 
+Summary of BMX-001 Related TEAEs 
+Safety 
+Summary of Baseline AEs 
+Safety 
+Summary of all AEs 
+Safety 
+Summary of SAEs/Deaths 
+Safety 
+Narratives of SAEs 
+Safety 
+Summary of Pre and Post dosing Vital Signs 
+Safety 
+Listing of Abnormal ECG findings post BMX-001 
+treatment 
+Safety 
+Summary of clinically significant: 
+• 
+Clinical Laboratory Evaluations 
+• 
+Physical Examinations:  Abnormal 
+physical examination findings  
+ 
+Safety 
+Safety 
+PK* 
+PK 
+OUTCOMES 
+OS 
+ITT, Treated 
+PFS 
+ITT, Treated 
+Thrombocytopenia 
+ITT, Treated 
+Cognitive Testing 
+ITT, Treated 
+HRQoLs 
+ITT, Treated 
+OTHER 
+Treatment Disposition:  TMZ, RT, BMX-001 
+Safety 
+
+
+--- Page 21 ---
+Page 21 of 21 
+Treatment Exposure:  TMZ, RT, BMX-001 
+Safety 
+Concomitant Medications 
+Treated 
+Analysis Sets, including subjects excluded from 
+analysis 
+All 
+List of Withdrawals 
+All 
+*= BioMimetix will provide 
+20  REFERENCES 
+1. Louis DN, Perry A, Wesseling P, Brat DJ, Cree IA, Figarella-Branger D, Hawkins C, Ng 
+HK, Pfister SM, Reifenberger G, Soffietti R, von Deimling A, Ellison DW. The 2021 WHO 
+Classification of Tumors of the Central Nervous System: a summary. Neuro Oncol. 2021 
+Aug 2;23(8):1231-1251. doi: 10.1093/neuonc/noab106. PMID: 34185076; PMCID: 
+PMC8328013. 
+2. Gerber DE, Grossman SA, Zeltzman M, Parisi MA, Kleinberg L. The impact of 
+thrombocytopenia from temozolomide and radiation in newly diagnosed adults with high-
+grade gliomas. Neuro Oncol 2007 Jan; 9(1):47-52. PMID: 17108062, PMC1828105. 
+3. Ratain, M.J. and D.J. Sargent , Optimising the design of phase II oncology trials: the 
+importance of randomisation. Eur J Cancer, 2009. 45(2): p. 275-80. 
+4. Rubinstein, L.V., et al., Design issues of randomized phase II trials and a proposal for 
+phase II screening trials.J Clin Oncol, 2005. 23(28): p. 7199-206. 
+5. Rubinstein, L., et al., Randomized phase II designs. Clin Cancer Res, 2009. 15(6): p. 
+1883-90. 

@@ -1,0 +1,2613 @@
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+1 
+ 
+ 
+  
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+ 
+Version: 1.0 
+Date: 31-May-2024 
+ 
+ 
+STUDY DRUG: 
+JZP385 
+Protocol/STUDY Number: 
+JZP385-201 Amendment 4.0 (10-Feb-2023) 
+ 
+STUDY TITLE: 
+A Phase 2b, 12-week, Double-blind, Placebo-controlled, Randomized, Parallel-group, 
+Multicenter Study of the Safety and Efficacy of JZP385 in the Treatment of Adults with Moderate 
+to Severe Essential Tremor 
+Sponsor: 
+Cavion, Inc., a subsidiary of Jazz Pharmaceuticals, Inc. 
+3170 Porter Dr, Palo Alto, CA 94304 
+ 
+This study is being conducted in compliance with good clinical practice, including the archiving 
+of essential documents. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+2 
+ 
+ 
+  
+ 
+SIGNATURE PAGE 
+ 
+ 
+This document has been prepared by: 
+ 
+MA, MS 
+ 
+ 
+ 
+ 
+Associate Director, Biostatistics 
+Jazz Pharmaceuticals  
+ 
+ 
+ 
+Date 
+ 
+ 
+ 
+ 
+ 
+This document has been reviewed and approved by: 
+ 
+ MSc 
+ 
+ 
+ 
+ 
+Senior Director, Biostatistics 
+Jazz Pharmaceuticals  
+ 
+ 
+ 
+Date 
+ MD, PhD 
+ 
+ 
+ 
+ 
+Senior Director, Clinical Development   
+Jazz Pharmaceuticals 
+ 
+ 
+ 
+Date 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+May-31-2024 | 11:04 AM PDT
+May-31-2024 | 10:25 AM PDT
+May-31-2024 | 10:26 AM PDT
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+3 
+ 
+ 
+  
+ 
+TABLE OF CONTENTS 
+TABLE OF CONTENTS .................................................................................................................3 
+1. 
+LIST OF ABBREVIATIONS.......................................................................................6 
+2. 
+MODIFICATION HISTORY .......................................................................................8 
+3. 
+INTRODUCTION ........................................................................................................9 
+4. 
+STUDY OBJECTIVES AND ENDPOINTS ..............................................................10 
+4.1. 
+Study Objectives .........................................................................................................10 
+4.1.1. 
+Primary Objective .......................................................................................................10 
+4.1.2. 
+Key Secondary Objective ...........................................................................................10 
+4.1.3. 
+Secondary Objectives .................................................................................................10 
+4.1.4. 
+Exploratory Objectives ...............................................................................................10 
+4.2. 
+Study Estimands and Endpoints .................................................................................10 
+4.2.1. 
+Primary Estimand .......................................................................................................10 
+4.2.2. 
+Key Secondary Estimand ............................................................................................11 
+4.2.3. 
+Other Secondary Endpoints ........................................................................................12 
+4.2.4. 
+Exploratory Endpoints ................................................................................................12 
+5. 
+STUDY DESIGN .......................................................................................................14 
+5.1. 
+Summary of Study Design ..........................................................................................14 
+5.2. 
+Study Intervention ......................................................................................................15 
+5.3. 
+Power and Sample Size Calculations .........................................................................16 
+5.4. 
+Randomization and Blinding ......................................................................................16 
+5.5. 
+Interim Analysis ..........................................................................................................17 
+6. 
+ANALYSIS SETS ......................................................................................................18 
+7. 
+GENERAL ASPECTS FOR STATISTICAL ANALYSIS ........................................19 
+7.1. 
+General Methods .........................................................................................................19 
+7.2. 
+Baseline and Study Day Definitions ...........................................................................19 
+7.2.1. 
+Baseline .......................................................................................................................19 
+7.2.2. 
+Study Day ...................................................................................................................19 
+7.2.3. 
+Visit Windows ............................................................................................................19 
+7.2.4. 
+Visit and Assessment Changes Due to COVID-19 ....................................................21 
+7.2.5. 
+Missing and Partial Data .............................................................................................21 
+7.3. 
+Hypotheses Testing .....................................................................................................22 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+4 
+ 
+ 
+  
+ 
+7.4. 
+Level of Significance & Multiplicity Adjustment ......................................................23 
+7.5. 
+Subgroups and Subgroup Analyses ............................................................................23 
+7.6. 
+Changes to Planned Analyses .....................................................................................24 
+8. 
+STUDY POPULATION SUMMARIES ....................................................................25 
+8.1. 
+Enrollment ..................................................................................................................25 
+8.2. 
+Subject Disposition .....................................................................................................25 
+8.3. 
+Demographic and Baseline Characteristics ................................................................25 
+8.4. 
+Medical/Surgical History ............................................................................................25 
+8.5. 
+Prior and Concomitant Medications ...........................................................................25 
+8.6. 
+Protocol Deviations ....................................................................................................26 
+9. 
+EFFICACY .................................................................................................................27 
+9.1. 
+Primary Efficacy Estimand and Analysis ...................................................................27 
+9.1.1. 
+Primary Estimand .......................................................................................................27 
+9.1.2. 
+Primary Analyses ........................................................................................................27 
+9.1.3. 
+Sensitivity Analyses ....................................................................................................28 
+9.1.4. 
+Completers Analysis (Data as Observed) ...................................................................30 
+9.1.5. 
+Subgroup Analyses .....................................................................................................30 
+9.2. 
+Secondary Efficacy Estimand, Endpoints and Analyses ............................................30 
+9.2.1. 
+Key Secondary Efficacy Estimand .............................................................................30 
+9.2.2. 
+Primary Analysis ........................................................................................................31 
+9.2.3. 
+Sensitivity Analyses ....................................................................................................32 
+9.2.4. 
+Completers Analysis (Data as Observed) ...................................................................33 
+9.2.5. 
+Subgroup Analyses .....................................................................................................33 
+9.2.6. 
+Other Secondary Endpoints and Analyses ..................................................................33 
+9.3. 
+Exploratory Endpoints ................................................................................................35 
+9.3.1. 
+Analysis of Exploratory Efficacy Continuous Endpoints ...........................................35 
+9.3.2. 
+Analysis of Exploratory Dichotomous Endpoints ......................................................35 
+9.3.3. 
+Time course efficacy analysis .....................................................................................35 
+10. 
+SAFETY .....................................................................................................................37 
+10.1. 
+Exposure .....................................................................................................................37 
+10.1.1. 
+Extent of Exposure .....................................................................................................37 
+10.1.2. 
+Treatment Compliance ................................................................................................37 
+10.2. 
+Adverse Events ...........................................................................................................37 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+5 
+ 
+ 
+  
+ 
+10.2.1. 
+Adverse Events of Special Interest .............................................................................39 
+10.3. 
+Laboratory Assessments .............................................................................................39 
+10.3.1. 
+Laboratory Specific Derivation ..................................................................................40 
+10.3.2. 
+Laboratory Normal Reference Ranges .......................................................................40 
+10.4. 
+Vital Signs ..................................................................................................................40 
+10.4.1. 
+Vital Signs Markedly Abnormal Criteria ...................................................................41 
+10.5. 
+ECG ............................................................................................................................41 
+10.5.1. 
+ECG Abnormal Criteria ..............................................................................................42 
+10.6. 
+Other Safety Endpoints ...............................................................................................42 
+10.6.1. 
+Columbia-Suicide Severity Rating Scale ....................................................................42 
+10.6.2. 
+Safety and COVID-19 Considerations .......................................................................43 
+11. 
+PHARMACOKINETIC ANALYSES ........................................................................44 
+11.1. 
+Pharmacokinetic Concentrations ................................................................................44 
+12. 
+PHARMACODYNAMIC ANALYSES .....................................................................45 
+13. 
+REFERENCES ...........................................................................................................46 
+APPENDIX 1: DATE IMPUTATION RULES ............................................................................47 
+ 
+List of Tables 
+Table 1: 
+List of Abbreviations ....................................................................................................6 
+Table 2 
+Version History for SAP ...............................................................................................8 
+Table 3 
+Study Intervention ......................................................................................................15 
+Table 4 
+Analysis Sets ...............................................................................................................18 
+Table 5 
+Visit Windows for Assessments or Measurements ....................................................20 
+Table 6 
+Vital Signs Predefined Markedly Abnormal Criteria .................................................41 
+ 
+List of Figures 
+Figure 1 
+Study Schema .............................................................................................................15 
+Figure 2 
+MAR vs CBI ...............................................................................................................29 
+ 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+6 
+ 
+ 
+  
+ 
+1. 
+LIST OF ABBREVIATIONS 
+Table 1: 
+List of Abbreviations 
+Abbreviation 
+Definition 
+AE 
+Adverse event 
+ALT 
+Alanine aminotransferase 
+AST 
+Aspartate aminotransferase 
+AUC 
+Area under the plasma concentration-time curve 
+CGI-C 
+Clinical Global Impression of Change 
+CGI-S 
+Clinical Global Impression of Severity 
+Cmax 
+Maximum plasma concentration 
+CMH 
+Cochran-Mantel-Haenszel 
+COVID 
+Coronavirus disease 2019 
+CBI 
+Control-based Imputation 
+CRF 
+Case report form 
+CSR 
+Clinical Study Report 
+C-SSRS 
+Columbia Suicide Severity Ration Scale 
+Ctau 
+Concentration at trough 
+DBP 
+Diastolic blood pressure 
+DR 
+Delayed release 
+ECG 
+Electrocardiogram 
+eCRF 
+Electronic case report form 
+ET 
+Essential tremor 
+ETEA 
+Essential Tremor Embarrassment Assessment 
+IB 
+Investigator’s Brochure 
+ICH 
+International Council for Harmonisation 
+IEC 
+Independent Ethics Committee 
+IR 
+Immediate release 
+IRT 
+Interactive response technology 
+ITT 
+Intent-to-treat 
+MAR 
+Missing at Random 
+MCMC 
+Markov chain Monte Carlo 
+MDS 
+Movement Disorder Society 
+MI 
+Multiple Imputation 
+MMRM 
+Mixed-effect model with repeated measures 
+MNAR  
+Missing not at Random 
+PGI-C 
+Patient Global Impression of Change 
+PGI-S 
+Patient Global Impression of Severity 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+7 
+ 
+ 
+  
+ 
+PI 
+Prescribing Information 
+PK 
+Pharmacokinetics 
+PMM 
+Predictive mean matching 
+QD 
+Once daily 
+QTcB 
+Bazett’s Corrected QT interval 
+QTcF 
+Fridericia’s corrected QT interval 
+QUEST 
+Quality of Life in Essential Tremor Questionnaire 
+SAE 
+Serious adverse event 
+SAP 
+Statistical analysis plan 
+SBP 
+Systolic blood pressure 
+SF-36v2 
+36-item Short Form Health Survey Version 2 
+SOC 
+System Organ Class 
+t1/2 
+Terminal half-life 
+T-CALM 
+Phase 2 proof of concept study CX-8998-CLN02-001 
+TEAE 
+Treatment-emergent adverse event 
+TETRAS-ADL 
+The Essential Tremor Rating Assessment Scale – Activities of Daily Living 
+TETRAS-PS 
+The Essential Tremor Rating Assessment Scale – Performance Subscale 
+Tmax 
+Time to maximum concentration 
+ULN 
+Upper limit of normal 
+WHO 
+World Health Organization 
+WOCBP 
+Women of childbearing potential 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+8 
+ 
+ 
+  
+ 
+2. 
+MODIFICATION HISTORY 
+Table 2 
+Version History for SAP 
+Version 
+Date 
+Description  
+Version 1.0 
+31 May 2024 
+Final 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+9 
+ 
+ 
+  
+ 
+3. 
+INTRODUCTION 
+The purpose of this SAP is to describe in detail the statistical methodology and planned analyses 
+to be conducted for Protocol JZP385-201 for inclusion in the CSR. The current version is based 
+on Protocol Amendment 04 dated 10 February 2023. Any additional analyses or deviation from 
+the analyses outlined in this plan will be documented with rationale in the final CSR. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+10 
+ 
+ 
+  
+ 
+4. 
+STUDY OBJECTIVES AND ENDPOINTS 
+4.1. 
+Study Objectives 
+4.1.1. 
+Primary Objective 
+The primary objective of the study is to evaluate the efficacy of JZP385 to improve functional 
+and performance-based impairment due to tremor when administered once daily for up to 12 
+weeks at fixed doses of 10, 20, and 30 mg/day. 
+4.1.2. 
+Key Secondary Objective 
+The key secondary objective of the study is to evaluate the efficacy of JZP385 to improve 
+functional impairment due to tremor when administered once daily for up to 12 weeks at fixed 
+doses of 10, 20, and 30 mg/day. 
+4.1.3. 
+Secondary Objectives 
+The secondary objectives of the study are: 
+• To evaluate the efficacy of JZP385 to improve overall ET when administered once daily 
+for up to 12 weeks at fixed doses of 10, 20, and 30 mg/day. 
+• To evaluate the safety and tolerability of JZP385 administered once daily for up to 
+12 weeks at fixed doses of 10, 20, and 30 mg/day in the treatment of adult participants 
+with ET. 
+4.1.4. 
+Exploratory Objectives 
+The exploratory objectives of the study are:  
+• To characterize the PK and exposure-response of JZP385 in adult participants with ET 
+using sparse PK sampling. 
+• To evaluate the efficacy of JZP385 to improve overall ET when administered once daily 
+for up to 12 weeks at fixed doses of 10, 20, and 30 mg/day. 
+4.2. 
+Study Estimands and Endpoints 
+4.2.1. 
+Primary Estimand 
+The primary estimand of the study is defined as: 
+• Treatment: 10, 20, and 30 mg/day JZP385 and placebo. 
+• Population: Adults with moderate to severe ET. 
+• Variable: Change from Baseline to Week 12 on the TETRAS composite outcome score*. 
+• Intercurrent events:  
+o Discontinuation of treatment due to an AE, for lack of efficacy, or any other 
+reason. Participants who experience any intercurrent event will be included as if 
+they did not experience the intercurrent event (hypothetical strategy). 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+11 
+ 
+ 
+  
+ 
+o Any change to concomitant anti-tremor medication use after the initiation of study 
+intervention, including but not limited to the following: 1) starting a new 
+antitremor medication, 2) stopping a concomitant antitremor medication, and 3) a 
+dose or regimen change to current antitremor medication. This type of intercurrent 
+event will be disregarded, and measurements obtained subsequently will be 
+reported and analyzed (treatment policy).+ 
+• Summary: Difference in the mean TETRAS composite outcome score from Baseline to 
+Week 12 between each dose of JZP385 and placebo. 
+* The TETRAS composite outcome score is the sum of modified items 1 to 11 of the TETRAS-ADL subscale and 
+modified items 6 and 7 of the TETRAS-PS. For TETRAS-ADL, each item is modified from 5 response items to 4 
+response items by collapsing options 0 and 1 together and for TETRAS-PS, each item is modified from 9 response 
+items (due to 0.5 scoring increments) to 4 response items. As such, the range of possible scores at each visit is 0 to 
+42. 
++ A blinded review of all concomitant medications and therapies will be performed prior to database lock to 
+determine the occurrence of this intercurrent event.  
+4.2.2. 
+Key Secondary Estimand 
+The key secondary estimand is defined as: 
+• Treatment: 10, 20, and 30 mg/day JZP385 and placebo. 
+• Population: Adults with moderate to severe ET. 
+• Variable: Proportion of participants who improved (≥ 1 point decrease) from Baseline to 
+Week 12 on the CGI-S*. 
+• Intercurrent events:  
+o Discontinuation of treatment due to an AE, for lack of efficacy, or any other 
+reason. Participants who experience any intercurrent event will be included as if 
+they did not experience the intercurrent event (hypothetical strategy). 
+o Any change to concomitant antitremor medication use after the initiation of study 
+intervention, including but not limited to the following: 1) starting a new 
+antitremor medication, 2) stopping a concomitant antitremor medication, and 3) a 
+dose or regimen change to current antitremor medication. This type of intercurrent 
+event will be disregarded, and measurements obtained subsequently will be 
+reported and analyzed (treatment policy).+ 
+• Summary: Difference in the proportion of participants who improved (≥ 1 point decrease) 
+from Baseline to Week 12 on the CGI-S between each dose of JZP385 and placebo. 
+* The CGI-S is converted to a numerical scale of 1 to5. 
++ A blinded review of all concomitant medications and therapies will be performed prior to database lock to 
+determine the occurrence of this intercurrent event.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+12 
+ 
+ 
+  
+ 
+4.2.3. 
+Other Secondary Endpoints 
+• Secondary efficacy endpoints include the following: 
+o Proportion of participants reported as much improved on the CGI-C at Week 12. 
+o Proportion of participants reported as much improved on the PGI-C at Week 12. 
+o Change from Baseline to Week 12 on the TETRAS-ADL subscale as summarized 
+by each dose of JZP385and placebo. 
+o Change from Baseline to Week 12 on the TETRAS-PS as summarized by each 
+dose of JZP385 and placebo. 
+o Change from Baseline to Week 12 on the upper limb score (item 4) of the 
+TETRAS-PS as summarized by each dose of JZP385 and placebo. 
+o Change from Baseline to Week 12 on the TETRAS total score, as summarized by 
+each dose of JZP385 and placebo. 
+o Change from Baseline to Week 12 on the QUEST as summarized by each dose of 
+JZP385 and placebo. 
+o Change from Baseline to Week 12 on the ETEA as summarized by each dose of 
+JZP385 and placebo. 
+• Secondary safety and tolerability endpoint is: 
+o Incidence and severity of TEAEs, evaluation of safety laboratory assessments, 
+vital signs, ECG results, C-SSRS results. 
+4.2.4. 
+Exploratory Endpoints  
+• The exploratory PK endpoints include: 
+o Plasma concentrations of JZP385 and its metabolites, if applicable, will be listed 
+and summarized. 
+o PK parameters (e.g., Cmax, Tmax, t½, Ctau, AUC) of JZP385 and its metabolites, 
+if applicable, will be estimated using population PK model and will be presented 
+separately from the study data. 
+o Population exposure-response analysis for JZP385 and its metabolites, if 
+applicable, will be performed and will be presented separately from the study 
+data. 
+• Exploratory efficacy endpoints include: 
+o Change from Baseline to Week 12 on the sum of modified items 6 and 7 of the 
+TETRAS-PS as summarized by each dose of JZP385 and placebo. 
+o Change from Baseline to Week 12 on the sum of modified items 1 to 11 of the 
+TETRAS-ADL subscale as summarized by each dose of JZP385 and placebo. 
+o Proportion of participants who improved (≥ 1 point decrease) from Baseline to 
+Weeks 4 and 8 on the CGI-S. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+13 
+ 
+ 
+  
+ 
+o Change from Baseline to Weeks 4 and 8 on the TETRAS composite outcome 
+score, TETRAS-ADL, TETRAS-PS, TETRAS upper limb score (item 4), and 
+TETRAS total score. 
+o Proportion of participants reported as much improved on the PGI-C and CGI-C at 
+Weeks 4 and 8. 
+o Change from Baseline to Week 12 on the 36-item Short Form Health Survey (SF-
+36) as summarized by each dose of JZP385 and placebo. 
+o Time course analysis on the sum of modified items 6 and 7 of the TETRAS-PS as 
+summarized by each dose of JZP385 and placebo. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+14 
+ 
+ 
+  
+ 
+5. 
+STUDY DESIGN 
+5.1. 
+Summary of Study Design 
+This is a 12-week, double-blind, placebo-controlled, randomized, parallel-group, multicenter 
+study of the safety and efficacy of JZP385 in the treatment of adult participants with moderate to 
+severe ET. 
+The total duration of the study for each participant will be approximately 19 weeks. During the 
+Screening Period, which will occur over a period of up to 35 days (an additional 28 days are 
+permitted for participants who require washout of primidone), all participants will be evaluated 
+for eligibility and will washout any prohibited medications. Participants eligible for the study 
+will be randomized in a 1:1:1:1 ratio to receive once daily doses of 10, 20, or 30 mg JZP385 or 
+placebo during a 12-week Double-blind Treatment Period. Randomization will be stratified by 
+the TETRAS composite outcome score (≤ 17 or > 17) and the use of concomitant antitremor 
+medication (Yes or No), as assessed at the Baseline Visit. JZP385 will be administered orally 
+(PO) once daily in the morning on an empty stomach for 12 weeks. Dosing will be titrated as 
+follows:  
+• Participants randomized to the 10 mg/day dose will initially receive 5 mg/day from Day 1 
+through Day 7, and 10 mg/day starting on Day 8.  
+• Participants randomized to the 20 mg/day dose will initially receive 5 mg/day from Day 1 
+through Day 7, 10 mg/day from Day 8 through Day 14, and 20 mg/day starting on Day 
+15.  
+• Participants randomized to the 30 mg/day dose will initially receive 5 mg/day from Day 1 
+through Day 7, 10 mg/day from Day 8 through Day 14, 20 mg/day from Day 15 through 
+Day 21, and 30 mg/day starting on Day 22.  
+Once participants reach their assigned fixed dose, they will continue on that dose for the 
+remainder of the planned 12-week treatment period. No dose adjustments will be allowed. 
+Participants who cannot tolerate their assigned fixed dose of JZP385 will be withdrawn from the 
+study. 
+The schema of study is shown in Figure 1.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+15 
+ 
+ 
+  
+ 
+Figure 1 
+Study Schema 
+ 
+5.2. 
+Study Intervention 
+The study intervention planned for use in this study are described in table below.  
+Table 3 
+Study Intervention 
+Treatment 
+Arm 
+Intervention 
+Namea 
+Formulation 
+Unit Dose Strength(s)b 
+Dosage Level(s) 
+Route of 
+Administration 
+1 
+Placebo 
+Capsule 
+Placebo 
+3 x placebo QD 
+Oral 
+2 
+JZP385 
+(DR2) 
+Capsule 
+Baseline Visit:  
+5 mg JZP385 
+1 x 5 mg QD + 2 x 
+placebo QD 
+Oral 
+Weeks 2-12: 
+10 mg JZP385 
+1 x 10 mg QD + 2 x 
+placebo QD 
+3 
+JZP385 
+(DR2) 
+Capsule 
+Baseline Visit:  
+5 mg JZP385 
+1 x 5 mg QD + 2 x 
+placebo QD 
+Oral 
+Week 2:  
+10 mg JZP385 
+1 x 10 mg QD + 2 x 
+placebo QD 
+Weeks 3-12: 20 mg 
+JZP385 
+2 x 10 mg QD + 1 x 
+placebo QD 
+4 
+JZP385 
+(DR2) 
+Capsule 
+Baseline Visit:  
+5 mg JZP385 
+1 x 5 mg QD + 2 x 
+placebo QD 
+Oral 
+Week 2:  
+10 mg JZP385 
+1 x 10 mg QD+ 2 x 
+placebo QD 
+Week 3: 
+20 mg JZP385 
+2 x 10 mg QD+ 1 x 
+placebo QD 
+Weeks 4-12: 30 mg 
+JZP385 
+3 x 10 mg QD 
+Abbreviations: mg = milligram; QD = once daily; DR2 = delayed release formulation 2. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+16 
+ 
+ 
+  
+ 
+a The JZP385 DR2 formulation is delayed release formulation 2; details of the formulation can be found in the 
+JZP385 IB.  
+b The dose strength of JZP385 is based on the active moiety in the drug product. 
+5.3. 
+Power and Sample Size Calculations  
+A sample size of 80 evaluable participants per treatment group will provide 90% power to detect 
+a difference of 3.1 points for the change from Baseline to Week 12 on the TETRAS composite 
+outcome between JZP385 and placebo, with a common SD of 6.0 points. This sample size will 
+also provide 91.7% power to detect a 26% between-treatment (assuming JZP385 at 66% versus 
+placebo at 40%) difference in proportion of participants who improved by at least 1 point on the 
+CGI-S from Baseline to Week 12. Assuming a 20% dropout rate, a total of 400 participants (100 
+participants per treatment group) will be randomized. The sample size calculation for the 
+TETRAS composite outcome score is based on t-test and the CGI-S sample size calculation is 
+based on chi-square test, both tests are 2-sided at the significance level of 0.05.  
+For the TETRAS composite outcome, at least 80% power is still achieved if there is a reduction 
+of 0.4 points from the assumption in the difference in mean change from baseline (assuming a 
+constant common standard deviation) or an increase in common standard deviation by 1 point, 
+(assuming a constant difference in means). For the key secondary endpoint, at least 80% power 
+is still achieved with comparable shifts in the assumptions. 
+The assumptions for these sample sizes were supported by the results from the Phase 2 study in 
+Essential Tremor (Study CX-8998-CLN2-001 [T-CALM]), where the TETRAS ADL and PS 
+were assessed. Using the same derived TETRAS composite outcome score, as defined in this 
+SAP, and assessing the change from baseline to Day 28 in T-CALM, there was a difference in 
+means between JZP385 and placebo of 3.04 and a difference in LS Means of 3.27. The standard 
+deviation for the change from baseline was 5.86 in JZP385 and 5.47 in placebo. It is 
+hypothesized that the treatment improvement will remain consistent over the longer study 
+duration of JZP385-201, with a small increase in variability, thus supporting the above 
+assumptions.  
+5.4. 
+Randomization and Blinding 
+Treatment allocation/randomization for this study will occur centrally through the use of an 
+interactive response technology (IRT). Participants eligible for the study will be randomized in a 
+1:1:1:1 ratio to receive once daily doses of 10, 20, or 30 mg JZP385 or placebo. Randomization 
+will be stratified by the TETRAS composite outcome score (≤ 17 and > 17), as assessed at the 
+Baseline. 
+A double-blind approach will be used throughout the 12-week treatment period. During the study 
+(including the titration period), the number of capsules taken each day will be the same for 
+patients randomized to each treatment. JZP385 and placebo capsules will look and feel identical. 
+The IRT will be programmed with blind-breaking instructions. In case of an emergency, the 
+investigator has the sole responsibility for determining if unblinding of a participants’ 
+intervention assignment is warranted. Participant safety must always be the first consideration in 
+making such a determination. If the investigator decides that unblinding is warranted, the 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+17 
+ 
+ 
+  
+ 
+investigator should make every effort to contact the sponsor prior to unblinding a participant’s 
+intervention assignment unless this could delay emergency treatment of the participant. 
+If a participant’s intervention assignment is unblinded, the sponsor must be notified within 
+24 hours after breaking the blind. The date and reason that the blind was broken must be 
+recorded in the source documentation and IRT system, as applicable. The participant’s treatment 
+assignment may be unblinded for regulatory reporting purposes. Notification of the treatment 
+assignment is only made known to those who require it for safety reporting and submission 
+processes. All other individuals involved in the study, including the investigator, will remain 
+blinded to treatment assignment. Participants for whom the blind is broken for this reason will 
+not be withdrawn from the study.  
+Sponsor safety staff may unblind the intervention assignment for any participant with an SAE. If 
+the SAE requires that an expedited regulatory report be sent to one or more regulatory agencies, 
+a copy of the report, identifying the participant’s intervention assignment, may be sent to 
+investigators in accordance with local regulations and/or sponsor policy. 
+5.5. 
+Interim Analysis 
+No interim analysis is planned. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+18 
+ 
+ 
+  
+ 
+6. 
+ANALYSIS SETS 
+For purposes of analysis, the following populations are defined: 
+Table 4 
+Analysis Sets 
+Analysis Set 
+Description 
+Enrolled  
+The Enrolled Analysis Set will include all participants who 
+provide informed consent for this study.  
+This set will be used to summarize participants’ screening, and 
+inclusion/exclusion from each analysis set as well as reasons for 
+exclusion. Summaries will be presented overall and by the 
+randomization group for those randomized.  
+Intent-to-treat (ITT) 
+The ITT Analysis Set will include all participants who are 
+randomized regardless of taking the study intervention (JZP385 or 
+placebo). This set will be used for standard, baseline 
+characteristics and demographic summaries, as well to be used for 
+efficacy analyses, and participants should be summarized 
+according to the randomized treatment arm.  
+Safety  
+The Safety Analysis Set will include all participants who are 
+randomized and receive at least 1 dose of study intervention 
+(JZP385 or placebo). This set will be used for standard, baseline 
+characteristics and demographic summaries, as well to be used for 
+safety analyses, and participants should be summarized according 
+to actual received treatment arm. 
+PK  
+The PK Analysis Set will include all participants who are 
+randomized and receive at least 1 dose of JZP385 and have at least 
+1 post-dose evaluable PK concentration. All PK analyses and 
+summaries will be based on the PK Analysis Set.  
+ 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+19 
+ 
+ 
+  
+ 
+7. 
+GENERAL ASPECTS FOR STATISTICAL ANALYSIS 
+The statistical principles applied in the design and planned analyses of this study are consistent 
+with International Conference on Harmonization (ICH) E9 guidelines (ICH 1998). 
+7.1. 
+General Methods 
+In general, results will be summarized by treatment group. Categorical variables will be reported 
+as frequency and percent. Continuous variables will be reported as the number of participants, 
+mean, SD, or SE, median, minimum, and maximum. All summaries, statistical analyses, and 
+individual participant data listings described below will be completed using Version 9.4 or later 
+of the SAS Statistical Analysis System (SAS Institute, Inc. Cary, NC). 
+7.2. 
+Baseline and Study Day Definitions 
+7.2.1. 
+Baseline 
+In general, the Baseline measurement for a variable is defined as the last non-missing value from 
+the baseline visit measured prior to the first dose of the study intervention. If a participant has 
+repeated measurements from the baseline visit, then the last repeated non-missing value will be 
+used. If there is not a value from the scheduled baseline visit, the last non-missing value from 
+other screening or unscheduled visits measured prior to the first dose of study intervention will 
+be used. If a participant who early discontinued without taking the study intervention, the 
+Baseline visit or the latest Screening Visit will be used. 
+7.2.2. 
+Study Day 
+A study day will be assigned as follows: 
+• 
+The first dose of study intervention is designated as Day 1. Participants self-administer 
+the first dose study intervention at home the day after the Baseline Visit.  
+• 
+For visit days after Day 1, study day = visit date - Day 1 date + 1. 
+• 
+For visit days prior to Day 1, study day = visit date - Day 1 date. Thus, study days for 
+screening visit are negative numbers. There is no “Day 0”. 
+• 
+The end date of treatment for each subject is the subject’s last dose date in the study. 
+• 
+The end date of the study for each subject is defined as the date of the subject’s last 
+assessment including the safety follow-up in the study. 
+7.2.3. 
+Visit Windows  
+All scheduled, unscheduled, and early termination assessments will be summarized by derived 
+analysis visit per the Table 5, regardless of whether the visit was performed on-site or remotely. 
+Visit dates will be mapped based on the scheduled Period of each visit, with adjusted analysis-
+defined visit windows as specified in Table 5. 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+20 
+ 
+ 
+  
+ 
+Table 5 
+Visit Windows for Assessments or Measurements 
+Study Period 
+Scheduled Visit 
+Scheduled 
+Study Day 
+TETRAS-ADL, 
+TETRAS-PS, 
+CGIs 
+CGIc and PGIc 
+QUEST, SF-36v2, 
+ETEA 
+C-SSRSb, Clinical 
+Laboratoryc, e, Urinalysise, 
+Weight, Vital Signs, Breath 
+Alcohold, e, ECG, Urine 
+Pregnancy test 
+Screening 
+Visit 1/Visit 2a 
+-49 to -8 
+Any Day up to -2 
+na 
+n/a 
+Any Day up to -2 
+Baselinef 
+Baseline Visit 
+-1 
+Closest prior to 
+dosing 
+na 
+Closest prior to dosing 
+Closest prior to dosing 
+Double-Blind 
+Treatment  
+Week 1 
+7 (-1, +2) 
+na 
+na 
+na 
+2 - 14 
+Week 4 
+28±3 
+2 - 42 
+2 - 42 
+na 
+15 - 42 
+Week 8 
+56± 3 
+43 - 70 
+43 - 70 
+na 
+43 - 70 
+Week 12 
+84± 3 
+71 - 98 
+71 – 98 
+2 - max 
+71 - max 
+Safety 
+Follow-up 
+End of Study 
+ 
+98± 3 
+na 
+na 
+2 - max 
+2 – max f  
+ 
+a Screening Visit 2 is only for participants who need to wash out of any medications that impact tremor (e.g., anti-tremor medications) prior to Baseline; 
+b At screening visit 1, C-SSRS screening/baseline version, at screening visit 2, C-SSRS since last visit version; 
+c Clinical laboratory includes hematology and chemistry labs; 
+d Breath Alcohol is not collected at W1; 
+e Not collected at Safety Follow-up. 
+f For participants who randomized without taking the study intervention, the Baseline Visit or latest Screening Visit (if Baseline Visit is not available) will be 
+mapped. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+21 
+ 
+ 
+  
+ 
+If multiple assessments or measurements are recorded within a single visit window (including 
+scheduled, unscheduled, repeated, and retest assessments or measurements as well as early 
+discontinuation data), the following rules will be applied to determine the result from which 
+assessment will be used for the summaries for that analysis visit.  
+• The priority will always be given to the scheduled visit within the corresponding visit 
+window (e.g., scheduled W4 visit corresponds to Week 4 visit window) regardless of the 
+relative distance to the scheduled Visit Day.  
+• If there are 2 or more observations within the same visit window, then the non-missing 
+one closest to the scheduled Visit Day will be used in the analysis.  
+• If 2 or more observations are equidistant from the scheduled Visit Day, then the non-
+missing observation with the earliest collection date will be used in the analysis.  
+• If 2 or more observations are collected on the same day and this day is the closest to the 
+scheduled Visit Day, then the non-missing observation with the earliest collection time 
+will be included in the analysis.  
+Screening Visit 1 and Visit 2 will be treated as two visits. Observations from the two visits will 
+be summarized separately, as applicable.  
+If a visit window does not contain any observations, then the data will remain missing for the 
+analysis visit.  
+Listings will include scheduled, unscheduled, repeated, retest, and early termination data per 
+nominal visits. 
+7.2.4. 
+Visit and Assessment Changes Due to COVID-19  
+Changes in scheduled visits and corresponding assessments due to COVID-19 restrictions will be 
+captured as in the eCRF. In the eCRF completion guidelines, sites were provided instructions for 
+capturing visits that were missed (not performed) or performed remotely. The following visit and 
+assessment changes will be included in submission datasets:  
+• All on-site visits that were converted to remote visits for any reason will be flagged. This 
+information will be captured in the eCRF and protocol deviation log.  
+• 
+Missed visits are flagged if the “not done” field is indicated and the reason for “not done” 
+is indicated as “Covid-19 restriction” or “Participant acquired Covid-19” from the 
+dropdown list.  
+7.2.5. 
+Missing and Partial Data 
+Missing or partially missing start and stop dates for concomitant medications and AEs will be 
+imputed as described in Appendix 1: Date Imputation Rules. However, imputed dates will NOT 
+be presented in the listings as their sole purpose will be for the classification of the medications 
+as past, concomitant or post (refer to Section 8.5). 
+Missing data will be handled as described below: 
+• 
+Missing safety data will not be imputed except for the start and stop dates for AEs and 
+concomitant medication. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+22 
+ 
+ 
+  
+ 
+• 
+Missing data for primary estimand and key secondary estimand will be handled as 
+described in Section 9.1 and 9.2. 
+• 
+Missing data for other secondary endpoints, and exploratory endpoints will be managed 
+as described in Section 9.2 and 9.3. 
+• 
+To manage the partial missing scales on TETRAS composite outcome score (derived 
+using TETRAS-ADL and TETRAS-PS items as described in Section 9.1.1), the 
+imputation of missing ADL and PS scores will be handled separately. For the purposes of 
+this imputation, only ADL items 1 to 11 and PS items 6 and 7 are considered. 
+Additionally, item 6 of the PS includes 2 separate scores (for the left- and right-hand 
+responses).  
+o If ≤ 3 ADL item scores are missing at a specific time point, the mean of the 
+remaining nonmissing ADL item scores at that time point will be used to impute 
+the missing ADL item score value. The TETRAS composite outcome score will 
+then be calculated as the sum of the observed and imputed item scores. If ≥ 4 
+ADL item scores are missing, the composite outcome score will not be calculated. 
+o If 1 PS item score is missing at a specific time point, the mean of the remaining 
+non-missing PS item scores at that time point will be used to impute the missing 
+PS item score value. The TETRAS composite outcome score will then be 
+calculated as the sum of the observed and imputed item scores. If ≥ 2 PS item 
+scores are missing, the composite outcome score will not be calculated. 
+7.3. 
+Hypotheses Testing 
+The null and alternative hypotheses for analysis of the primary estimand are:  
+H1_0: μ (JZP385) = μ (Placebo) (i.e., there is no difference in the mean change on the TETRAS 
+composite outcome score from Baseline to Week 12 between each JZP385 dose group and the 
+placebo group). 
+H1_A: μ(JZP385) ≠ μ (Placebo) (i.e., the mean change on the TETRAS composite outcome score 
+from Baseline to Week 12 is not equal between each JZP385 dose group and the placebo group). 
+The null and alternative hypotheses for analysis of key secondary estimand are: 
+H2_0: π (JZP385) = π (Placebo) (i.e., there is no difference in the proportion of participants who 
+improved [≥ 1 point decrease] on the CGI-S from Baseline to Week 12 between each JZP385 
+dose group and the placebo group. 
+H2_A: π  (JZP385) ≠ π  (Placebo) (i.e., there is a difference in the proportion of participants who 
+improved [≥ 1 point decrease] on the CGI-S from Baseline to Week 12 between each JZP385 
+dose group and the placebo group). 
+Each JZP385 treatment group will be compared individually to the placebo group in the order 
+specified in Section 7.4. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+23 
+ 
+ 
+  
+ 
+7.4. 
+Level of Significance & Multiplicity Adjustment 
+To evaluate the efficacy of JZP385 at doses of 10, 20, and 30 mg/day compared with placebo, 
+pairwise treatment difference between each of the 3 doses and placebo will be tested at the end 
+of Week 12 for the primary and key secondary endpoints.  
+The family-wise Type I error rate will be controlled at a 2-sided significance level of 0.05. To 
+address the multiplicity issue due to the multiple efficacy endpoints and doses, a fixed 
+hierarchical testing sequence will be employed. The testing procedure will stop when a p-value 
+exceeds 2-sided significance level of 0.05 (see below). 
+Statistical hypotheses to be tested (in sequential order): 
+1. Change in the TETRAS composite outcome score from Baseline to Week 12, 30 mg/day 
+versus placebo. 
+2. Difference in proportion of participants who improved (≥ 1 point decrease) on the CGI-S 
+from Baseline to Week 12, 30 mg/day versus placebo. 
+3. Change in the TETRAS composite outcome score from Baseline to Week 12, 20 mg/day 
+versus placebo. 
+4. Difference in proportion of participants who improved (≥ 1 point decrease) on the CGI-S 
+from Baseline to Week 12, 20 mg/day versus placebo. 
+5. Change in the TETRAS composite outcome score from Baseline to Week 12, 10 mg/day 
+versus placebo. 
+6. Difference in proportion of participants who improved (≥ 1 point decrease) on the CGI-S 
+from Baseline to Week 12, 10 mg/day versus placebo. 
+7.5. 
+Subgroups and Subgroup Analyses 
+Subgroup analyses will be conducted on the primary and key secondary efficacy endpoints for 
+the following: 
+• 
+Sex at birth (Female, Male) 
+• 
+Region (North America, Europe) 
+• 
+High enrolling sites, based on the number randomized (≥ 20 randomized, < 20 
+randomized) 
+• 
+Randomization stratum: TETRAS composite outcome score (≤ 17, > 17)  
+• 
+Randomization stratum: antitremor medication (No, Yes) 
+• 
+Age (< 65, ≥ 65) 
+• 
+Diagnosis (ET, ET plus) 
+• 
+Family history of ET (No, Yes) 
+The output for estimating the treatment difference within subgroup will not be provided (least 
+square means, standard error, LS Mean Difference (95% CI) or proportion difference (95% CI) 
+and p-value) if the data are too sparse.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+24 
+ 
+ 
+  
+ 
+It should be noted that the study was not designed to detect treatment differences with high 
+statistical power within any subgroups. 
+7.6. 
+Changes to Planned Analyses 
+Section 9.4.1.4 of the Protocol outlines the approach to imputation of missing item scores, as part 
+of the TETRAS composite outcome score. Based on these rules, it was possible for a participant 
+to have a missing TETRAS PS score at a visit and still have a valid composite outcome score. 
+The rules have been amended to change the imputation of missing item scores to be managed 
+within the individual subscale scores (ADL or PS) before the composite outcome score is 
+calculated. The details of the new calculation are specified in Section 7.2.5. 
+The mITT Analysis Set defined in the Protocol Section 9.3 has been updated to ITT, to include 
+all randomized participants for the primary efficacy analyses. 
+For Adverse Events of Special Interests defined in Protocol Section 8.4.6, presyncope was 
+removed in the formal definition of AEOSI in Section 10.2.1. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+25 
+ 
+ 
+  
+ 
+8. 
+STUDY POPULATION SUMMARIES 
+8.1. 
+Enrollment 
+The total number and percentage of participants for each Analysis Set defined in Section 6 will 
+be summarized by treatment group, also by country and study site/Investigator. 
+8.2. 
+Subject Disposition 
+All participants who provide informed consent will be accounted for in this study. The number 
+and percentages of screen failure participants will be presented by overall among the Enrolled 
+Analysis Set. The number and percentages of participants who received at least one dose, 
+completed, are still ongoing and withdrew, including reasons for withdrawal, will be presented 
+overall and by randomized treatment group. 
+Note that the disposition listing will capture the reason for withdrawal including any subject who 
+discontinues from the study due to COVID-19 related AE, or COVID-19 related. 
+8.3. 
+Demographic and Baseline Characteristics 
+Demographics and other baseline characteristics data including age, age group (<65, ≥65), race, 
+ethnicity, sex at birth, weight, height at screening, body mass index, childbearing potential 
+(female only), region, wash out of ET medications prior to Baseline, randomization stratification 
+factors, baseline TETRAS-ADL (items 1-12), TETRAS-PS (items 1-9) and CGI-S will be 
+summarized by treatment group for Safety, ITT, and PK analysis sets. Categorical variables will 
+be summarized by frequency and percentage of participants. The denominators for calculating 
+the percentages will be the number of participants in each analysis set. Continuous variables will 
+be summarized using descriptive statistics including the number of participants, mean, median, 
+standard deviation (SD), minimum and maximum. 
+8.4. 
+Medical/Surgical History 
+Surgical and medical history are defined as those medical conditions/ diseases which started 
+prior to or on the date first study dose.  
+The surgical and medical history data will be summarized based on the Safety Analysis Set and 
+ITT Analysis Set. 
+8.5. 
+Prior and Concomitant Medications 
+Medications will be coded to the anatomical therapeutic class (ATC) level 4 and preferred drug 
+name using the WHODrug Global-B3, March 2024, and will be classified as follows:  
+• 
+Prior medications are defined as any medications which started prior to the first dose of 
+study intervention. 
+• 
+Concomitant medications are defined as any medications which started prior to, on or 
+after the first dose of study intervention up to the last dose of study intervention and 
+continued during the study intervention.  
+• 
+Post medications are defined as any medications which started after the last dose of 
+study intervention.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+26 
+ 
+ 
+  
+ 
+See Appendix 1: Date Imputation Rules for handling of partial dates for medications. 
+Medications will be summarized by ATC level 4 and preferred drug name.  
+Summaries will include all prior medications under ITT and Safety Analysis Set, as well as 
+concomitant medications under the Safety Analysis Set. Additionally, prior and concomitant ET 
+medications will be summarized and listed.  
+8.6. 
+Protocol Deviations 
+Protocol deviations as classified in the CTMS (type of deviation and severity) will be 
+summarized using the ITT as well as Safety Analysis Set. All protocol deviations will also be 
+provided in a listing.  
+Changes to study conduct due to COVID-19 restrictions will be reported as protocol deviations. 
+These deviations will be summarized separately by the classification type in CTMS and included 
+in a listing. 
+Any IMP dispensing errors will be reported as protocol deviations. For outputs summarized 
+under ITT Analysis Set, participants will be analyzed according to the randomized treatment 
+arm. For outputs summarized under the Safety Analysis Set, actual treatment arm will be mapped 
+according to the planned arm based on randomization schedule, to handle potential drug 
+dispensation error(s) when unblinding, the most frequent dispensed dose (10, 20 or 30 mg)  on or 
+after Week 4 will be used, in case the drug dispensation error(s) occurred prior to Week 4, the 
+last dispensed kit upon early discontinuation will be used, for participant who early discontinued 
+on or prior to Day 7 on a 5 mg blister card, 10mg will be assigned as the actual treatment arm. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+27 
+ 
+ 
+  
+ 
+9. 
+EFFICACY  
+Unless otherwise described, efficacy data will be primarily presented by randomized treatment 
+groups using ITT, and treatment comparison will be between the randomized treatment groups. 
+9.1. 
+Primary Efficacy Estimand and Analysis 
+9.1.1. 
+Primary Estimand 
+The attributes of the primary estimand are listed in Section 4.2.1. 
+The primary estimand is a composite outcome of the sum of modified items 1 to 11 of the 
+TETRAS-ADL and modified items 6 and 7 of the TETRAS-PS. The scoring of each of the items 
+1 to 11 of the TETRAS-ADL subscale will be modified from 5 response options to 4 response 
+options by using the following rules: 
+• A score of 0 or 1 will be modified to a score of 0 
+• A score of 2 will be modified to a score of 1 
+• A score of 3 will be modified to a score of 2 
+• A score of 4 will be modified to a score of 3 
+• A missing score will remain missing 
+The scoring of each of the items 6 and 7 of the TETRAS-PS will be modified from 9 options to 4 
+response options by using the following rules: 
+• A score of 0, 0.5, or 1 will be modified to a score of 0 
+• A score of 1.5 or 2 will be modified to a score of 1 
+• A score of 2.5 or 3 will be modified to a score of 2 
+• A score of 3.5 or 4 will be modified to a score of 3 
+• A missing score will remain missing 
+There are a total of 14 items that contribute to the TETRAS composite outcome score (11 items 
+from the TETRAS-ADL with a total possible score of 33, TETRAS-PS item 6 with a total 
+possible score of 6 as this item includes assessments for both hands, and TETRAS-PS item 7 
+with a total possible score of 3). Therefore, the total range of the TETRAS composite outcome 
+score that will be used for the primary analysis is 0 to 42. 
+9.1.2. 
+Primary Analyses 
+For the main analysis of the primary efficacy endpoint, a MMRM will be used to include the 
+change in the TETRAS composite outcome score from Baseline to Weeks 4, 8, and 12.  
+𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑖𝑖𝑖𝑖= 𝛼𝛼𝑖𝑖+ 𝛽𝛽1 ∗𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑖𝑖 + 𝛽𝛽2 ∗𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗+ 𝛽𝛽3 ∗𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑖𝑖  + 𝛽𝛽4 ∗𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑖𝑖∗ 𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗 +  
+𝛽𝛽5 ∗𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑖𝑖∗ 𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗 + 𝛽𝛽6 ∗𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑡𝑡𝑢𝑢𝑢𝑢𝑖𝑖  + 𝜀𝜀𝑖𝑖𝑖𝑖 
+The model will include treatment group (𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑖𝑖  ), baseline TETRAS composite outcome 
+score (𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑖𝑖), week (as a discrete factor, 𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗), treatment group by week interaction 
+(𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑘𝑘∗ 𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗 ), week by baseline interaction (𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑗𝑗∗ 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑖𝑖), and randomization 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+28 
+ 
+ 
+  
+ 
+stratum (𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑖𝑖  ) as fixed effects, and week repeated within each participant as a repeated 
+effect (𝛼𝛼𝑖𝑖). For the purposes of this model, “week” refers to the treatment visit, as determined 
+using the windows specified in Section 7.2.3. An unstructured variance-covariance matrix will 
+be used to model the correlation among repeated measurements. If the model fails to converge on 
+the Newton-Raphson Algorithm, the alternative Fisher scoring algorithm should be explored 
+before considering other variance-covariance structures. Kenward-Roger’s degrees of freedom 
+will be used. 
+Least squares mean and standard error for Week 12 will be provided for each treatment group. 
+The difference between the LS means of JZP385 and placebo for Week 12, along with the SE of 
+the difference, 95% CI and associated p-value corresponding to testing the hypothesis of no 
+difference between the treatment groups will also be provided.  
+The assumption of normality will be examined by obtaining a histogram and a QQ-plot on 
+studentized residuals. Based on these plots, if there exists evidence to suggest the departure from 
+the normality assumption, a non-parametric MMRM with the covariate and response variables 
+replaced by their ranks will be used for the primary analysis. 
+The following is an example of SAS code for linear mixed model analysis: 
+PROC MIXED; 
+CLASS PATIENT TRT WEEK STRATUM; 
+MODEL CHG = BASELINE TRT WEEK STRATUM TRT*WEEK BASELINE*WEEK / 
+RESIDUAL OUTP=RESIDUAL DDFM=KR; 
+REPEATED WEEK/TYPE=UN SUB=PATIENT; 
+LSMEANS TRT*WEEK / CL DIFF ALPHA=0.05; 
+RUN; 
+9.1.3. 
+Sensitivity Analyses 
+Sensitivity analyses for the primary estimand will be conducted under the hypothetical strategy 
+framework using the ITT Analysis Set. These sensitivity analyses will only be needed where the 
+JZP385 group demonstrates a statistically significant improvement over the placebo group, based 
+on the criteria outlined in Section 7.3. 
+Under the hypothetical strategy, the MAR assumption is being followed for the primary analysis, 
+which supports the justification for using an MMRM model. This is supplemented by the 
+possibility of data being MNAR, assessed under the sensitivity and supplemental analyses. 
+9.1.3.1. 
+Pattern Mixture Model  
+A control-based Pattern Mixture Model will be used to explore the possibility of data being 
+MNAR for participants who discontinued early from study due to either lack of efficacy or an 
+adverse event. For participants who early discontinued due to other reasons, missing data will be 
+imputed assuming MAR. Control-based Imputation (CBI) method assumes a mean and variance 
+based on the control group for participants who withdrew from the JZP385 group at the time of 
+withdrawal to the imputed timepoint, with the observed values prior to withdrawal still 
+considered, thus a slow decay back toward the control group mean eventually. (Carpenter JR, 
+2013) This method assumes that from withdrawal onwards, participants in the active treatment 
+group will progress back to the participants in the control group.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+29 
+ 
+ 
+  
+ 
+Figure 2 illustrates MAR estimates versus the estimates derived from CBI (assuming study 
+participants withdraw at Visit 2 and a lower response indicates improvement).  
+Figure 2 
+MAR vs CBI 
+ 
+The control-based imputation will be implemented through steps below: 
+Treatment dropouts and missing observations at Weeks 4, 8 and 12 will be imputed using the 
+multiple imputation method. MI procedure in SAS will be used to impute the missing TETRAS 
+composite outcome score at the missed visit to create 20 complete datasets.  
+The missing data pattern will be checked. If any non-monotone missing data pattern is observed, 
+2 separate steps will be followed to complete the imputation, starting with Step 1. If a monotone 
+missing data pattern is observed, skip to Step 2 directly (set imputation number to 20 instead).   
+Step 1: the Markov Chain Monte Carlo (MCMC) method will be used with a single chain to 
+impute TETRAS composite outcome score by treatment, baseline stratification group as well as 
+baseline TETRAS composite outcome score to create 20 imputed datasets with monotone 
+missing patterns. Set the seed as 8715942. Imputed scores should be rounded to nearest integer, 
+with the minimum and maximum possible score set to 0 and 42 respectively, which corresponds 
+to the range of possible TETRAS composite outcome score.  
+Step 2: the predictive mean matching (PMM) method will be used to impute the remaining 
+missing scores for the 20 imputed datasets with monotone missing patterns. The imputation 
+procedure will use monotone statement to create 1 compete dataset for each of the monotone 
+datasets from Step 1, with model variables to include treatment, baseline stratification group, as 
+well as TETRAS composite outcome score at scheduled visits from Baseline to Weeks 4, 8 and 
+12. Set the seed as 4985135 and number of closest observations to 2.  
+For participants who discontinued the study early due to either lack of efficacy or an adverse 
+event, the post-discontinuation values imputed through Steps 1 and 2 will be set to missing and 
+rederived using CBI method (MNAR).  
+The imputed datasets with a mixture of MAR and MNAR imputations will be analyzed 
+separately using the MMRM model specified in 9.1.2, then final inference will be pooled using 
+the MIANALYZE procedure and reported.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+30 
+ 
+ 
+  
+ 
+9.1.3.2. 
+Tipping Point Analyses 
+Tipping point analyses will be used to investigate the robustness of the primary analysis method. 
+The delta adjusting approach (O’Kelly & Ratitch, 2014) will be used to find the tipping point, at 
+which JZP385 is no longer statistically significant. This analysis will only be performed where a 
+JZP385 treatment group shows a statistically significant improvement against placebo, based on 
+the criteria outlined in Section 7.4.  
+The marginal delta approach will be used for tipping point analyses by following Steps 1 and 2 
+specified above (Section 9.1.3.1) and then followed by: 
+Step 3: For participants in a JZP385 treatment group, make the imputed value worse by an 
+increment of delta, with the initial delta value set at 0, which is equivalent to the MAR estimate, 
+and increases delta value by 10% of the maximum observed treatment difference among all dose 
+groups at each time, until the tipping point is detected. 
+The primary analysis will be reperformed, using the MMRM model specified in Section 9.1.2, 
+for each imputed dataset, at each delta. The results from the datasets, at each delta, will be 
+pooled, using the MIANALYZE procedure.  
+The delta identified at which the results are no longer statistically significant will be the tipping 
+point. After the tipping point is determined, clinical judgement will be applied to the plausibility 
+of the assumptions underlying this tipping point. 
+9.1.4. 
+Completers Analysis (Data as Observed) 
+The primary analysis in Section 9.1.2 will only include the participants who have the TETRAS 
+composite outcome score at Weeks 4, 8 and 12. This constitutes a Completers Analysis. 
+Normality assumptions will not be reassessed. The corresponding parametric or nonparametric 
+analysis will be used from the primary analysis. 
+9.1.5. 
+Subgroup Analyses 
+Subgroup analyses for groups specified in Section 7.5 will be performed for the primary efficacy 
+estimand using the ITT Analysis Set. The primary analysis in Section 9.1.2 will be used for the 
+subgroup analyses. However, the randomization stratification factor will be removed from the 
+model for the analysis by subgroups of participants by randomization strata. The corresponding 
+parametric analysis used for the overall sample will be applied to each subgroup. A forest plot 
+summarizing the treatment difference and 95% CI will be provided for each subgroup with 
+sufficient sample size. 
+9.2. 
+Secondary Efficacy Estimand, Endpoints and Analyses 
+9.2.1. 
+Key Secondary Efficacy Estimand  
+The attributes of the key secondary estimand are listed in Section 4.1.2.  
+The CGI-S is a 5-point Likert-type ordinal scale. The responses to this investigator-completed 
+scale range from 1 to 5 and correspond to the following categories: 
+• No limitations (1) 
+• Mild (2) 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+31 
+ 
+ 
+  
+ 
+• Moderate (3) 
+• Marked (4) 
+• Severe (5) 
+For analysis purposes, CGI-S will be treated as a dichotomous variable where a response is 
+defined as a ≥ 1-point decrease (improvement) from Baseline to Weeks 4, 8 and 12. For the 
+estimator, the proportion of participants who have achieved the response at Week 12 will be 
+compared between JZP385 and placebo groups.  
+9.2.2. 
+Primary Analysis  
+The main estimator of the key secondary estimands will be analyzed using the CMH test 
+adjusting for the stratification factor at randomization (Baseline TETRAS composite score: ≤ 17 
+or > 17 and antitremor medication use at Baseline: Yes or No). Number of responders in each 
+group, proportion as well as 95% CI (Wilson score method) will be reported at Week 12. The 2-
+sided p-values from the CMH test, the unadjusted treatment difference as well as the adjusted 
+treatment difference in proportion using the weighted average of the treatment differences across 
+strata with CMH weights, and the associated 2-sided 95% CI using a normal approximation to 
+the weighted average will be derived and reported at Week 12.  
+Treatment dropouts and missing observations for the main analytic approach will be handled 
+through multiple imputation (MI), a method that relies on observed values from similar 
+participants who remained in the study to bridge information to deduce missing observations. 
+Missing values at Weeks 4, 8 and 12 for CGI-S will be imputed using the MI method. The MI 
+procedure in SAS will be used to impute a missing CGI-S score at the scheduled visit to create 
+20 complete datasets.  
+The missing data pattern will be checked at Baseline, Weeks 4, 8 and 12. If any non-monotone 
+missing pattern is observed, 2 separate steps will be followed to complete the imputation, starting 
+with Step 1. If a monotone missing pattern is observed, skip to Step 2 (setting imputation number 
+to 20) 
+Step 1: the Markov Chain Monte Carlo (MCMC) method will be used with a single chain to 
+impute missing CGI-S scores by treatment, baseline stratification group as well as baseline CGI-
+S score to create 20 imputed datasets with monotone missing patterns. Set the seed as 8715942. 
+Imputed scores should be rounded to nearest integer, set minimum and maximum possible score 
+to 1 and 5 respectively, which corresponds to the range of CGI-S.  
+Step 2: the predictive mean matching (PMM) method will be used to impute the remaining 
+missing CGI-S scores for the 20 imputed datasets with monotone missing patterns. The 
+imputation procedure will use monotone statement to create 1 compete dataset for each of the 
+monotone datasets from Step 1, with model variables include treatment, baseline stratification 
+group, as well as CGI-S score at scheduled visits from Baseline to Weeks 4, 8 and 12. Set the 
+seed as 4985135 and number of closest observations to 2.  
+The imputed datasets will be analyzed using CMH test, and the final inference will be pooled 
+using SAS procedure MIANALYZE. 
+The following is an example SAS code for CMH analysis: 
+PROC SORT DATA = CGIS; 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+32 
+ 
+ 
+  
+ 
+BY IMPUTESEQ VISIT TRT STRATUM DECENDING RESPONSE; 
+RUN; 
+ 
+PROC SQL; 
+CREATE TABLE ADDIN AS 
+SELECT DISTINCT IMPUTESEQ, VISIT, TRT, STRATUM, 1 AS RESPONSE 
+FROM CGIS; 
+QUIT; 
+ 
+DATA CMH; 
+MERGE CGIS (IN=A) ADDIN (IN=B); 
+BY IMPUTESEQ VISIT TRT STRATUM DECENDING RESPONSE; 
+IF B AND NOT A THEN WGT = 0; 
+ELSE WGT = 1; 
+RUN; 
+ 
+*Adjusted (Stratified) Difference and CMH TEST; 
+PROC FREQ DATA=CMH; 
+BY IMPUTESEQ AVISITN; 
+TABLES STRATUM*TRT*RESPONSE/RISKDIFF (COMMON CL=(NEWCOMBE)) CMH; 
+WEIGHT WGT/ZEROS; 
+RUN; 
+ 
+*Unadjusted (Unstratified) Difference; 
+PROC FREQ DATA=CMH; 
+BY IMPUTESEQ AVISITN; 
+TABLES TRT*RESPONSE/RISKDIFF CMH; 
+WEIGHT WGT/ZEROS; 
+RUN; 
+9.2.3. 
+Sensitivity Analyses 
+Sensitivity analyses will be conducted to account for missing data using NRI (Non-responder 
+Imputation) method and 2-dimensional tipping point analyses.  
+For NRI, participants who have insufficient data (due to missingness) for response determination 
+will be considered as non-responder (< 1 point change from Baseline) for Week 12. Then a 
+similar stratified/unstratified CMH test will be conducted, and results will be reported.  
+For the 2-dimensional tipping point analyses, let M1 and M2 be the total number of participants 
+with missing CGI-S data in the JZP385 and Placebo groups, respectively. There will be a total of 
+(M1+1)*(M2+1) possible ways end up with imputing missing values to a result of responder or 
+non-responder in each of the 2 groups. For each of the (M1+1)*(M2+1) imputation patterns, a 
+Chi-square test will be conducted to test the statistical significance, and the output will be 
+displayed in a rectangle shape. The staircase region that separates significant and non-significant 
+outcomes forms the tipping-point boundary. 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+33 
+ 
+ 
+  
+ 
+9.2.4. 
+Completers Analysis (Data as Observed) 
+The primary analysis in Section 9.2.2 will be conducted to only include the participants who 
+have the CGI-S at Week 12. This constitutes a Completers Analysis. The corresponding CMH 
+analysis will be used from the primary analysis. 
+9.2.5. 
+Subgroup Analyses 
+Subgroup analyses for groups specified in Section 7.5 will be performed for the key secondary 
+efficacy estimand using ITT. The analysis in Section 9.2.2 will be used for the subgroup 
+analyses. However, the randomization stratification factor will be removed from the model for 
+the analysis by subgroups of participants by randomization strata.  
+9.2.6. 
+Other Secondary Endpoints and Analyses 
+9.2.6.1. 
+CGI-C and PGI-C at Week 12 
+The secondary efficacy endpoint of CGI-C is defined as the proportion of investigators reporting 
+improvement of symptoms (“much improved”) on CGI-C at Week 12. The CGI-C is a 5-point 
+Likert-type rating scale. Investigators will rate their impression of any change in severity of the 
+subject’s condition on a 5-point scale ranging from 1 = “much improved” to 5 = “much worse” 
+since Baseline. Clinicians’ rating will focus on the change in the patients’ ability to function due 
+to ET. 
+The proportion of participants reporting improvement of symptoms on CGI-C will be compared 
+between treatment groups using the Cochran-Mantel-Haenszel (CMH) test stratified by 
+randomization stratum. The point estimate and continuity corrected Wilson’s 95% CI (as 
+modified by Newcombe) for the difference of the proportion will also be provided. 
+Similarly, the secondary efficacy endpoint of PGI-C is defined as the proportion of participants 
+reporting improvement of symptoms (“much improved”) on PGI-C at Week 12. The PGI-C is a 
+5-point Likert-type rating scale. Participants will rate the change in their condition since Baseline 
+on a 5-point scale ranging from 1 = “much improved” to 5 = “much worse”. Participants’ rating 
+will focus on the change in their ability to function due to ET.  
+The proportion of participants reporting improvement of symptoms on PGI-C will be compared 
+between treatment groups using the Cochran-Mantel-Haenszel (CMH) test stratified by 
+randomization stratum. The point estimate and continuity corrected Wilson’s 95% CI (as 
+modified by Newcombe) for the difference of the proportion will also be provided. 
+Treatment dropouts and missing observations will be handled by multiple imputation (MI) as 
+stated in Section 9.2.2. No sensitivity analyses or supplemental analysis planned. 
+9.2.6.2. 
+Change from Baseline to Week 12 on the TETRAS-ADL, TETRAS-PS, 
+TETRAS-PS upper limb score (item 4), and TETRAS total score 
+The secondary efficacy endpoints of change from Baseline to Week 12 on: 
+• TETRAS-ADL (sum of 12 items, each rated 0, 1, 2, 3 or 4. The maximum total score is 
+48)  
+• TETRAS-PS (sum of 9 items rated from 0-4 with half points and a maximum total score 
+of 64)  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+34 
+ 
+ 
+  
+ 
+• TETRAS-PS upper limb score (item 4) 
+• TETRAS total score (sum of the TETRAS-ADL and TETRAS-PS) 
+will be analyzed similarly with MMRM. The MMRM will include the difference from Baseline 
+to Weeks 4, 8, and 12. The model will include treatment group, corresponding baseline, week (as 
+a discrete factor), treatment group by week interaction, and randomization stratum as fixed 
+effects, and participant as a random effect. If the model fails to converge on the Newton-
+Raphson Algorithm, the alternative Fisher scoring algorithm should be explored before 
+considering other variance-covariance structures. The first alternative variance-covariance matrix 
+will be autoregressive. Kenward-Roger’s degrees of freedom will be used. 
+LS mean and SE for Week 12 will be provided for each treatment group. The difference between 
+the LS means of JZP385 and placebo for Week 12, along with the SE of the difference, 95% CI 
+and associated p-value corresponding to the testing hypothesis of no difference between the 
+treatment groups will also be provided.  
+The assumption of normality will be examined by obtaining a histogram and a QQ-plot on 
+studentized residuals. Based on these plots, if there is evidence to suggest the departure from the 
+normality assumption, a non-parametric MMRM with the covariate and response variables 
+replaced by their ranks will be used.  
+9.2.6.3. 
+Change from Baseline to Week 12 of QUEST score 
+The Quality of Life in Essential Tremor Questionnaire (QUEST) was developed to specifically 
+assess the impact of ET on health-related quality of life (Tröster 2005). The QUEST is a 30-item 
+questionnaire comprising 5 subscales (physical, psychosocial, communication, hobbies/leisure, 
+and work/finance), besides participants also provided assessments on overall health status, 
+overall quality of life, tremor self assessment plus 4 additional items under general information 
+relating to sexual function, satisfaction with tremor control, medication side effects and work 
+status.  
+For the analysis of change of QUEST score from Baseline to Week 12, an analysis of covariance 
+(ANCOVA) model will be used for related items on a continuous scale. The model will include 
+treatment group, randomization stratum, and corresponding baseline value as covariates. For 
+items on categorical scale, shift tables will be provided to detect change from Baseline to Week 
+12. No participant level imputation will be conducted to missing data or data after intercurrent 
+events. 
+9.2.6.4. 
+Change from Baseline to Week 12 of ETEA score 
+The Essential Tremor Embarrassment Assessment (ETEA) is a patient-rated questionnaire 
+administered by a health care provider or researcher that contains 14-items assessing 
+embarrassment related to tremor. Participants provide a simple response (disagree or agree) to 
+each of the 14-items, the sum of which yields an initial score (Score A, range = 0 to 14). 
+Participants then provide a more nuanced response to each question on a 0 to 5 point Likert scale 
+ranging from disagree (0) to agree strongly (5). The sum of the nuanced responses yields a 
+second score (Score B, range = 0 to 70). Higher scores on both the simple and nuanced responses 
+indicate greater embarrassment.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+35 
+ 
+ 
+  
+ 
+For the analysis of change of ETEA score from Baseline to Week 12, an ANCOVA model will 
+be performed using the PROC MIXED SAS procedure. The model will include treatment group, 
+randomization stratum, and corresponding baseline value as covariates. No participant level 
+imputation will be conducted to missing data or data after intercurrent events. 
+9.3. 
+Exploratory Endpoints 
+9.3.1. 
+Analysis of Exploratory Efficacy Continuous Endpoints 
+The continuous exploratory endpoints include the change from Baseline to Weeks 4 and 8 on:  
+• 
+The TETRAS composite outcome score 
+• 
+TETRAS-ADL 
+• 
+TETRAS-PS 
+• 
+TETRAS upper limb score (item 4)  
+• 
+TETRAS total score 
+The analyses results will be derived from the MMRM models for the Week 12 analysis used in 
+the primary estimand (Section 9.1.2), key secondary estimand (Section 9.2.2), and secondary 
+endpoints (Section 9.2.3). 
+For the analyses of exploratory endpoints: 
+• 
+The change from baseline to Week 12 on the modified items 6 and 7 of the TETRAS-PS 
+(where each item is modified from 9 response items to 4 response items as specified in 
+Section 9.1.1).  
+• 
+The change from baseline to Week 12 on the sum of modified items 1 to 11 of the 
+TETRAS-ADL subscale (where each item is modified from 5 response items to 4 response 
+items by collapsing options 0 and 1 together).  
+MMRM models similar to the one used in analysis for primary estimand (Section 9.1.2) will be 
+used.  
+For the analysis of change in SF-36v2 score from Baseline to Week 12, a descriptive summary at 
+each scheduled visit along with change from Baseline to Week 12 will be summarized and listed. 
+9.3.2. 
+Analysis of Exploratory Dichotomous Endpoints 
+For the analyses of proportion of participants reported as much improved on the PGI-C and CGI-
+C at Weeks 4 and 8, as well as proportion of participants improved (≥ 1 point decrease) from 
+Baseline to Weeks 4 and 8, the similar analysis to Section 9.2.2 will be conducted. Week 4 and 
+Week 8 data will be analyzed separately. CMH test stratified by the randomization stratum will 
+be used for the comparison between each dose of JZP385 and placebo. Study dropouts and 
+missing observations will be handled by multiple imputation (MI) as stated in Section 9.2.2. No 
+sensitivity analyses or supplemental analysis are planned. 
+9.3.3. 
+Time course efficacy analysis 
+The time course efficacy analysis uses the sum of modified items 6 and 7 of the TETRAS-PS. At 
+Baseline: items 6 and 7 of the TETRAS-PS will be assessed serially across the day at 6 time 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+36 
+ 
+ 
+  
+ 
+points: predose, 1, 2, 4, 6, and 8 hours post-dose. At Week 8 visit, items 6 and 7 of the TETRAS-
+PS will be assessed serially at the same 6 time points: predose, 1, 2, 4, 6, and 8 hours post-dose 
+(time matched at Baseline). The 1 hour post-dose assessment at Baseline as well as Week 8 
+should be taken from the full TETRAS-PS assessment.  
+The time course efficacy analysis will be performed with a mixed model with repeated 
+measurements (MMRM). The time-matched change on items 6 and 7 of the TETRAS-PS will be 
+the dependent variable in the model. The model will include time-matched baseline TETRAS-PS 
+item 6 and 7, treatment group, time points, treatment group by time point interaction and 
+randomization stratum as fixed effects, and participant as a random effect. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+37 
+ 
+ 
+  
+ 
+10. 
+SAFETY  
+All safety analyses, summaries, listings and figures will use the Safety Analysis Set unless 
+otherwise specified.  
+10.1. 
+Exposure 
+10.1.1. 
+Extent of Exposure 
+The duration of exposure will be derived as date of last dose of study intervention – date of first 
+dose of study intervention + 1. Dosing Interruptions are not taken into account for the duration of 
+exposure. The duration of exposure will be summarized using descriptive statistics.  by treatment 
+groups. Exposure summaries are based on data collected by the study intervention administration 
+eCRF and data collected in IRT. 
+10.1.2. 
+Treatment Compliance 
+Summary statistics for compliance to study intervention will be presented using descriptive 
+statistics as well as counts and percentages, as appropriate, based on the Safety Analysis Set 
+overall and by treatment group. Compliance will also be summarized by category (<75%, 75-
+125% and >125%). A listing of compliance will also be presented. 
+Compliance will be calculated as the number of capsules taken (i.e. total dispensed – total 
+returned) divided by the number of capsules that should have been taken by the subject during 
+that study period, expressed as a percentage i.e. 
+𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐(%) = 𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 𝑜𝑜𝑜𝑜 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐 𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑−𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 𝑜𝑜𝑜𝑜 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 𝑜𝑜𝑜𝑜 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑢𝑢𝑙𝑙𝑙𝑙𝑙𝑙 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑡𝑡𝑡𝑡 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝
+ 
+10.2. 
+Adverse Events 
+Adverse events (AEs) occurring from the first dose until the final study visit will be reported. If 
+the Investigator becomes aware of a SAE within 14 days after the last dose of study intervention, 
+the event must also be reported. In addition, any SAE assessed as related to study intervention or 
+procedure by the Investigator must be reported regardless of time after study termination.  
+AEs will be coded to system organ class (SOC) and preferred term using the Medical Dictionary 
+for Regulatory Activities (MedDRA), Version 27.0. The investigator will assess the relationship 
+of each AE to study intervention. AE with a missing relationship to study intervention will be 
+reported as related in the summaries. Severity, as determined by the Investigator, will be classed 
+as mild, moderate, severe, life-threatening or fatal. AE with missing severity will be reported as 
+missing in the summaries.  
+Note that participants who acquire COVID-19 or report AEs due to the COVID-19 public health 
+emergency (e.g., anxiety) while on study will be coded accordingly and included in the adverse 
+event summaries. 
+A treatment-emergent adverse event (TEAE) is defined as any event with onset date on or after 
+the first dose of study intervention, including adverse events that occur until 14 days after the last 
+dose date. For the purpose of calculating treatment emergence, incomplete onset dates will be 
+imputed as detailed in Appendix 1: Date Imputation Rules.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+38 
+ 
+ 
+  
+ 
+Time of first onset of AE is calculated as: TEAE start date – First dose date + 1 and is 
+categorized as: 
+• Week 1 (1 ≤ day of first onset of AE ≤ 7) 
+• Week 2 (8 ≤ day of first onset of AE ≤ 14) 
+• Week 3 (15 ≤ day of first onset of AE ≤ 21) 
+• Week 4 (22 ≤ day of first onset of AE ≤ 28) 
+• Weeks 5 to 8 (29 ≤ day of first onset of AE ≤ 56) 
+• Weeks 9 to 12 (57 ≤ day of first onset of AE ≤ 84) 
+• 
+After Week 12 (84 < day of first onset of AE) 
+Only TEAEs are included in summary tables unless otherwise specified. If a subject has multiple 
+episodes of events coded to the same SOC or PT, then the subject will be counted just once in the 
+summaries for that term. Subject incidence of TEAEs by SOC and PT tables are sorted by SOCs 
+(alphabetical order) and then by PTs (descending order) within each SOC for the overall 
+frequency. For summaries by PT only, PTs will be sorted in descending order of overall 
+frequency. 
+Each TEAE will be summarized by treatment group.  
+A general overall summary of TEAEs with the number and percent of participants who 
+experienced the following types of events will be provided: 
+• Participants with any TEAE  
+• Participants with any related TEAE  
+• Participants with any serious TEAE  
+• Participants with TEAE by severity  
+• Participants with an AE outcome as death  
+• Participants with any TEAE leading to study intervention discontinuation  
+• Any TEAE leading to study intervention dose reduction  
+• Any TEAE leading to study intervention dose interruption  
+• Any TEAE not recovered  
+Subject incidence of TEAEs tables will be summarized by the following:  
+• SOC and PT  
+• TEAE reported ≥5% in any treatment group by SOC and PT  
+• PT only  
+• TEAE reported >=5% in any treatment group by PT 
+• Maximum severity by SOC and PT  
+• Treatment-related by SOC and PT  
+• TEAEs of special interest by category (defined in Section 10.2.1) and PT  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+39 
+ 
+ 
+  
+ 
+• TEAEs leading to permanent withdrawal of study intervention by SOC and PT  
+• TEAEs leading to dose reduction of study intervention by SOC and PT  
+• TEAEs leading to dose interruption of study intervention by SOC and PT  
+• TEAE by Time of First Onset, SOC, and PT 
+• Serious TEAE by Time of First Onset, SOC, and PT 
+• 
+Serious treatment related TEAE by Time of First Onset, SOC, and PT 
+Separate adverse event listings will be provided including the following:  
+• All adverse events  
+• Adverse events with an outcome of death  
+• Adverse events leading to permanent withdrawal of study intervention 
+• Serious adverse events  
+• 
+Adverse events of special interest, defined in defined in Section 10.2.1 
+10.2.1. 
+Adverse Events of Special Interest  
+TEAEs of special interest will be summarized and may include the terms or categories noted 
+below.  
+• Hallucinations of any type 
+• Syncope 
+10.3. 
+Laboratory Assessments 
+The continuous clinical laboratory assessments (hematology, chemistry, and urinalysis) will be 
+summarized at each visit using descriptive statistics. The change from Baseline will be provided 
+at the Week 12.  
+Shift tables will summarize changes in clinical laboratory assessments at each of the post-
+baseline visit with respect to baseline. Lab values are categorized into L1, low, normal, high, or 
+H1 based on the lab reference range. L1 and H1 values are predefined per the lab vendor alert 
+ranges and correspond to the extreme abnormal lower and higher ranges, respectively. 
+Abnormal laboratory assessments deemed clinically significant by the investigator will be 
+reported as an adverse event.  
+A listing of Participants with abnormal value(s) according to the following criteria will be 
+summarized using Safety Analysis Set:  
+• Any laboratory value that falls into the pre-defined low or high panic ranges (L1 or 
+H1) per the Q2 Laboratory Range Chart.  
+• Alanine aminotransferase (ALT) or aspartate aminotransferase (AST) ≥ 3 × Upper 
+Limit of Normal (ULN) and total bilirubin > 2 × ULN, inclusive (Hy’s Law).   
+• AST or ALT ≥ 5 × ULN,  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+40 
+ 
+ 
+  
+ 
+• Creatinine ≥ 1.5 × ULN  
+• Participants positive for alcohol, urine drug screen or pregnancy assessments  
+All laboratory results, including pregnancy test, drug screen, and alcohol screen, will also be 
+presented in subject data listings. 
+10.3.1. 
+Laboratory Specific Derivation  
+• Multiple of upper limit of normal (ULN) = result / ULN  
+10.3.2. 
+Laboratory Normal Reference Ranges 
+Quantitative laboratory measurements will be compared with the relevant laboratory reference 
+ranges in SI units and categorized as:  
+• L1: result less than the low alert (L1)  
+• Low: result within the low alert (L1) and lower limit of normal (LLN) (L1 and LLN 
+limit included)  
+• Normal: result within the laboratory normal reference range (LLN and ULN limit 
+included)  
+• High: result within the ULN and high alert (H1) (ULN and H1 limit included)  
+• 
+H1: result greater than the high alert (H1)  
+10.4. 
+Vital Signs 
+The following vital signs measurements will be reported for this study. 
+• Supine and standing systolic blood pressure (SBP), (millimeter of mercury [mmHg]) 
+• Supine and standing diastolic blood pressure (DBP) (mmHg) 
+• Supine and standing pulse rate (beats per minutes [bpm]) 
+• Sitting or supine respiratory rate (breaths/min) 
+• Body Temperature (°C) 
+• Weight (kg) 
+• Height (cm) 
+• BMI (kg/m2) [derived] 
+The orthostatic vital signs will be derived as the difference found by subtracting the supine 
+measurement from the standing measurements. The orthostatic measurement will be summarized 
+with the supine and standard measurements. 
+These vital signs (with the exception of the BMI which will be calculated programmatically) will 
+be measured during the screening visit and each in-clinic scheduled visit. Height (cm) will be 
+obtained at screening visit only.  
+The following summaries will be provided for vital signs data: 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+41 
+ 
+ 
+  
+ 
+• Observed and change from baseline by visit  
+• Incidence of markedly abnormal criteria by visit  
+10.4.1. 
+Vital Signs Markedly Abnormal Criteria  
+Markedly abnormal quantitative vital signs measurements will be identified in accordance with 
+the following predefined markedly abnormal criteria as specified in Table 6. 
+Table 6 
+Vital Signs Predefined Markedly Abnormal Criteria 
+Variable (unit) 
+Low 
+High 
+SBP (mmHg) 
+≤ 90 mmHg AND  
+change from baseline ≤ -20 mmHg 
+≥ 180 mmHg AND 
+change from baseline ≥ 20 mmHg 
+DBP (mmHg) 
+≤ 50 mmHg AND 
+change from ≤ -15 mmHg 
+≥ 110 mmHg AND 
+change from baseline ≥ 15 mmHg 
+Orthostatic SBP 
+(mmHg) 
+≥ 20 mmHg drop with posture change from supine to standing 
+Orthostatic DBP 
+(mmHg) 
+≥ 10 mmHg drop with posture change from supine to standing 
+Pulse rate (bpm) 
+≤ 50 bpm AND 
+change from baseline ≤ -15 bpm 
+≥ 120 bpm AND 
+change from baseline ≥ 15 bpm 
+Orthostatic pulse rate 
+(bpm) 
+≥ 30 bpm increase with posture change from supine to standing 
+Weight (kg) 
+percentage change from baseline ≤  
+-10.0% 
+percentage change from baseline ≥ 
+10.0 % 
+Temperature (ºC) 
+≤ 35.0 ºC 
+≥ 39.0 ºC 
+Note: bpm: Beats per minute. DBP: Diastolic Blood Pressure. kg: kilogram. mmHg: Millimeter of mercury. SBP: 
+Systolic Blood Pressure 
+10.5. 
+ECG 
+A standard 12-Lead ECG will be recorded with the subject resting in supine for at least 5 
+minutes. ECGs will be performed during the Screening visit, Baseline visit, in-clinic scheduled 
+visit or early termination visit. Results from the central ECG core lab will be included in the 
+reporting of this study. The following ECG parameters will be reported: 
+• PR Interval (msec)  
+• RR Interval (msec)  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+42 
+ 
+ 
+  
+ 
+• QRS Interval (msec)  
+• QT Interval (msec)  
+• QT Bazett’s correction (QTcB) Interval (msec) [derived]  
+• QT Fridericia’s correction (QTcF) Interval (msec) [derived]  
+• Mean HR (bpm)  
+• Overall assessment of ECG:  
+o Normal  
+o Abnormal  
+The following summaries will be provided for ECG data across the study:  
+• Observed and change from baseline by visit (for quantitative measurements)  
+• ECG parameters results will be listed over time 
+10.5.1. 
+ECG Abnormal Criteria 
+Abnormal quantitative ECG measurements will be identified in accordance with the following 
+predefined markedly abnormal criteria: 
+Observed values for QT interval, QTcB interval and QTcF will be classified as follows at each 
+time point: 
+• > 450 msec 
+• > 480 msec 
+• > 500 msec 
+Change from baseline for QT interval, QTcB interval and QTcF will be classified as follows: 
+• >30 msec increase from baseline 
+• >60 msec increase from baseline 
+A listing of participants meeting markedly abnormal criteria as well as a listing of participants 
+with abnormal ECG overall assessment will also be provided based on the Safety Analysis Set. 
+10.6. 
+Other Safety Endpoints 
+10.6.1. 
+Columbia-Suicide Severity Rating Scale  
+The Screening/Baseline version of the C-SSRS will be administered to participants at screening 
+visit. 
+The Since Last Visit version of the C-SSRS will be administered to participants at every 
+scheduled in-clinic after the screening visit 2 up to the Safety Follow-up visit or early 
+discontinuation visit. 
+The following summaries will be provided for the C-SSRS data by visit and by treatment group: 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+43 
+ 
+ 
+  
+ 
+• Number and percentage of participants with any suicidal ideation (i.e., having responded 
+yes to any of the 5 types of suicide ideation) as well as broken down by type of suicidal 
+ideation 
+• Number and percentage of participants with any suicidal behavior (i.e., having responded 
+yes to any of the 4 or 5 types of suicidal behavior, as applicable) as well as broken down 
+by type of suicidal behavior 
+• Number and percentage of participants with any suicidal behavior or any suicidal ideation; 
+a subject having reported both suicidal behavior and suicidal ideation will be counted 
+only once 
+• Number and percentage of participants with self-injurious behavior without suicidal 
+intent  
+Missing data will not be imputed. All C-SSRS parameters will be presented in the subject data 
+listing. 
+10.6.2. 
+Safety and COVID-19 Considerations 
+10.6.2.1. Alternative methods for safety assessments  
+For remote visits, the Investigator will remain in contact with the subject via telephone to discuss 
+adverse events, as well as to evaluate efficacy and tolerability of the prescribed dose of study 
+intervention. Note that all protocol deviations due to changes in how assessments are collected 
+will be recorded and labeled as related to COVID-19 mitigations. 
+10.6.2.2. Assessment of safety due to COVID-19 considerations 
+Safety summaries will combine data that is collected on-site and remotely (e.g., exposure, 
+adverse event, and CSSR-S). A total number of assessments not done due to COVID-19 
+restrictions will be provided. A summary table of all protocol deviations relating to COVID-19 
+restrictions will be included. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+44 
+ 
+ 
+  
+ 
+11. 
+PHARMACOKINETIC ANALYSES  
+The dosing regimen during the PK evaluation will be the subject’s currently assigned treatment 
+regimen. Participants will take their dose at similar conditions to those normally followed at 
+home. Blood samples will be collected at 0 (pre-dose), and 1 sample between 0.5 to 3 hours post-
+dose for Weeks 1, 4 and 12 visits; and pre-dose, 1 sample between 0.5 to 3 hours postdose, and 1 
+sample anytime between 5 to 8 hours postdose for Week 8 visit. In the event a shorter clinic visit 
+is needed because of the COVID-19 pandemic, the 5 to 8 hour postdose sample at W8 may be 
+omitted with approval from the Sponsor’s Medical Monitor. 
+11.1. 
+Pharmacokinetic Concentrations 
+The plasma concentrations data for each analyte will be listed by participant and listing will 
+include visit, nominal timepoint, and actual time postdose.  
+The plasma concentration data will be used as part of population PK and population exposure-
+response analysis that will be described in separate SAP(s) and its results will be presented 
+separately from the study data. 
+The plasma concentration data will be used as part of population PK and population exposure-
+response analysis that will be described in separate SAP(s) and will be presented separately from 
+the study data. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+45 
+ 
+ 
+  
+ 
+12. 
+PHARMACODYNAMIC ANALYSES  
+Not applicable 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+46 
+ 
+ 
+  
+ 
+13. 
+REFERENCES 
+Carpenter JR, Roger JH, Kenward MG. Analysis of Longitudinal Trials with Protocol Deviation: 
+A Framework for Relevant, Accessible Assumptions, and Inference via Multiple Imputation 
+(2013) J Biopharm Stat. 2013;23(6):1352-71. 
+O’Kelly M, Ratitch B (2014) Clinical Trials with Missing Data A Guide for Practitioners, John 
+Wiley & Sons. 
+Tröster AI, Pahwa R, Fields JA, et al. Quality of life in Essential Tremor Questionnaire 
+(QUEST): development and initial validation. Parkinsonism & Related Disorders. 
+2005;11(6):367-73. 
+ 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+47 
+ 
+ 
+  
+ 
+APPENDIX 1: DATE IMPUTATION RULES 
+Incomplete Adverse Event Onset Date 
+If year is missing (or completely missing): set to the date of first dose. 
+If (year is present and month and day are missing) or (year and day are present and month 
+is missing): 
+ 
+If year = year of first dose: set the date to the first dose date. 
+ 
+If year < year of first dose: set month and day to December 31st. 
+ 
+If year > year of first dose: set month and day to January 1st. 
+If month and year are present and day is missing: 
+ 
+If year = year of first dose, and: 
+If month = month of first dose: set day to day of first dose. 
+ 
+ 
+If month < month of first dose: set day to last day of month. 
+ 
+ 
+If month > month of first dose: set day to 1st day of month. 
+ 
+If year < year of first dose: set day to last day of month. 
+ 
+If year > year of first dose: set day to 1st day of month. 
+             For all other cases: set to date of first dose. 
+ 
+Incomplete Concomitant Medication Start Date 
+If year is missing (or completely missing): do not impute. 
+If (year is present and month and day are missing) or (year and day are present and month 
+is missing): 
+Set month and day to January 1st. 
+If year and month are present and day is missing: 
+Set day to 1st day of month. 
+ 
+Incomplete Concomitant Medication End Date 
+Do not impute if Ongoing Flag is checked. 
+If year is missing (or completely missing): do not impute. 
+If (year is present and month and day are missing) or (year and day are present and month 
+is missing): 
+Set month and day to December 31st. 
+If year and month are present and day is missing: 
+Set day to last day of the month.  
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Jazz Pharmaceuticals 
+ 
+ 
+Statistical Analysis Plan - Protocol JZP385-201  
+ 
+ 
+48 
+ 
+ 
+  
+ 
+ 
+NOTE: If PD/Relapse date is available and after date of last dose, replace last dose of study 
+intervention with PD/Relapse date for imputation algorithm given in this section. 
+ 
+DocuSign Envelope ID: 0414D087-8407-4F04-A861-BA42008FC1BD
+Certificate Of Completion
+Envelope Id: 0414D08784074F04A861BA42008FC1BD
+Status: Completed
+Subject: Complete with Docusign: JZP385-201 SAP v1.0.pdf
+Source Envelope: 
+Document Pages: 48
+Signatures: 3
+Envelope Originator: 
+Certificate Pages: 5
+Initials: 0
+AutoNav: Enabled
+EnvelopeId Stamping: Enabled
+Time Zone: (UTC-08:00) Pacific Time (US & Canada)
+3180 Porter Dr.
+Palo Alto, CA  94304
+IP Address: 163.116.248.73 
+Record Tracking
+Status: Original
+             5/31/2024 10:23:11 AM
+Holder  
+ 
+             
+Location: DocuSign
+Signer Events
+Signature
+Timestamp
+Sr Dir, Clinical Development
+Jazz Pharmaceuticals
+Security Level: Email, Account Authentication 
+(Required)
+Signature Adoption: Pre-selected Style
+Signature ID: 
+7C8C69DA-74B8-4EB1-9DE1-9C553A1C31BE
+Using IP Address: 163.116.248.95
+With Signing Authentication via DocuSign password
+With Signing Reasons (on each tab): 
+   I approve this GxP document
+Sent: 5/31/2024 10:25:20 AM
+Viewed: 5/31/2024 11:04:28 AM 
+Signed: 5/31/2024 11:04:45 AM
+Electronic Record and Signature Disclosure: 
+      Not Offered via DocuSign
+Associate Director, Biostatistics
+Jazz Pharmaceuticals
+Security Level: Email, Account Authentication 
+(Required), Login with SSO
+Signature Adoption: Pre-selected Style
+Signature ID: 
+FE9E8018-58C0-4A8B-B742-49EF5003ECDF
+Using IP Address: 163.116.248.73
+With Signing Authentication via DocuSign password
+With Signing Reasons (on each tab): 
+   I approve this GxP document
+Sent: 5/31/2024 10:25:20 AM
+Viewed: 5/31/2024 10:25:38 AM 
+Signed: 5/31/2024 10:25:55 AM
+Electronic Record and Signature Disclosure: 
+      Accepted: 1/25/2023 9:10:40 AM
+      ID: 660e5bac-0ba6-446c-845c-100738fbfea5
+      Company Name: Jazz Pharmaceuticals
+Signer Events
+Signature
+Timestamp
+Sr Director, Biostatistics
+Jazz Pharmaceuticals
+Security Level: Email, Account Authentication 
+(Required)
+Signature Adoption: Pre-selected Style
+Signature ID: 
+F1EAA5F5-10C6-46C0-B57E-23057E8C651E
+Using IP Address: 163.116.254.41
+With Signing Authentication via DocuSign password
+With Signing Reasons (on each tab): 
+   I approve this GxP document
+Sent: 5/31/2024 10:25:20 AM
+Viewed: 5/31/2024 10:26:04 AM 
+Signed: 5/31/2024 10:26:32 AM
+Electronic Record and Signature Disclosure: 
+      Accepted: 2/14/2020 1:06:36 PM
+      ID: 67a3fd0d-7db0-46ed-b3b7-b7eb941ac397
+      Company Name: Jazz Pharmaceuticals
+In Person Signer Events
+Signature
+Timestamp
+Editor Delivery Events
+Status
+Timestamp
+Agent Delivery Events
+Status
+Timestamp
+Intermediary Delivery Events
+Status
+Timestamp
+Certified Delivery Events
+Status
+Timestamp
+Carbon Copy Events
+Status
+Timestamp
+Witness Events
+Signature
+Timestamp
+Notary Events
+Signature
+Timestamp
+Envelope Summary Events
+Status
+Timestamps
+Envelope Sent
+Hashed/Encrypted
+5/31/2024 10:25:20 AM
+Certified Delivered
+Security Checked
+5/31/2024 10:26:04 AM
+Signing Complete
+Security Checked
+5/31/2024 10:26:32 AM
+Completed
+Security Checked
+5/31/2024 11:04:45 AM
+Payment Events
+Status
+Timestamps
+Electronic Record and Signature Disclosure
+ELECTRONIC RECORD AND SIGNATURE DISCLOSURE 
+From time to time, Jazz Pharmaceuticals (we, us or Company) may be required by law to provide 
+to you certain written notices or disclosures. Described below are the terms and conditions for 
+providing to you such notices and disclosures electronically through the DocuSign system. 
+Please read the information below carefully and thoroughly, and if you can access this 
+information electronically to your satisfaction and agree to this Electronic Record and Signature 
+Disclosure (ERSD), please confirm your agreement by selecting the check-box next to ‘I agree to 
+use electronic records and signatures’ before clicking ‘CONTINUE’ within the DocuSign 
+system. 
+ 
+Getting paper copies 
+At any time, you may request from us a paper copy of any record provided or made available 
+electronically to you by us. You will have the ability to download and print documents we send 
+to you through the DocuSign system during and immediately after the signing session and, if you 
+elect to create a DocuSign account, you may access the documents for a limited period of time 
+(usually 30 days) after such documents are first sent to you. After such time, if you wish for us to 
+send you paper copies of any such documents from our office to you, you will be charged a 
+$5.00 per-page, with a minimum of $100 per-document fee. You may request delivery of such 
+paper copies from us by following the procedure described below. 
+ 
+Withdrawing your consent 
+If you decide to receive notices and disclosures from us electronically, you may at any time 
+change your mind and tell us that thereafter you want to receive required notices and disclosures 
+only in paper format. How you must inform us of your decision to receive future notices and 
+disclosure in paper format and withdraw your consent to receive notices and disclosures 
+electronically is described below. 
+ 
+Consequences of changing your mind 
+If you elect to receive required notices and disclosures only in paper format, it will slow the 
+speed at which we can complete certain steps in transactions with you and delivering services to 
+you because we will need first to send the required notices or disclosures to you in paper format, 
+and then wait until we receive back from you your acknowledgment of your receipt of such 
+paper notices or disclosures. Further, you will no longer be able to use the DocuSign system to 
+receive required notices and consents electronically from us or to sign electronically documents 
+from us. 
+ 
+All notices and disclosures will be sent to you electronically 
+Electronic Record and Signature Disclosure created on: 8/8/2019 10:59:54 AM
+Parties agreed to  
+ 
+ 
+ 
+ 
+Unless you tell us otherwise in accordance with the procedures described herein, we will provide 
+electronically to you through the DocuSign system all required notices, disclosures, 
+authorizations, acknowledgements, and other documents that are required to be provided or made 
+available to you during the course of our relationship with you. To reduce the chance of you 
+inadvertently not receiving any notice or disclosure, we prefer to provide all of the required 
+notices and disclosures to you by the same method and to the same address that you have given 
+us. Thus, you can receive all the disclosures and notices electronically or in paper format through 
+the paper mail delivery system. If you do not agree with this process, please let us know as 
+described below. Please also see the paragraph immediately above that describes the 
+consequences of your electing not to receive delivery of the notices and disclosures 
+electronically from us. 
+ 
+How to contact Jazz Pharmaceuticals: 
+You may contact us to let us know of your changes as to how we may contact you electronically, 
+to request paper copies of certain information from us, and to withdraw your prior consent to 
+receive notices and disclosures electronically as follows: 
+To contact us by email send messages to: 
+ 
+To advise Jazz Pharmaceuticals of your new email address 
+To let us know of a change in your email address where we should send notices and disclosures 
+electronically to you, you must send an email message to us at 
+jazz_notices@jazzpharma.com and in the body of such request you must state: your previous 
+email address, your new email address. 
+If you created a DocuSign account, you may update it with your new email address through your 
+account preferences. 
+ 
+To request paper copies from Jazz Pharmaceuticals 
+To request delivery from us of paper copies of the notices and disclosures previously provided 
+by us to you electronically, you must send us an email to jazz_notices@jazzpharma.com and in 
+the body of such request you must state your email address, full name, mailing address, and 
+telephone number.  
+ 
+To withdraw your consent with Jazz Pharmaceuticals 
+To inform us that you no longer wish to receive future notices and disclosures in electronic 
+format you may: 
+i. decline to sign a document from within your signing session, and on the subsequent page, 
+select the check-box indicating you wish to withdraw your consent, or you may; 
+ii. send us an email to
+ nd in the body of such request you must state 
+your email, full name, mailing address, and telephone number. 
+ 
+Required hardware and software 
+The minimum system requirements for using the DocuSign system may change over time. The 
+current system requirements are found here: https://support.docusign.com/guides/signer-guide-
+signing-system-requirements. 
+ 
+Acknowledging your access and consent to receive and sign documents electronically 
+To confirm to us that you can access this information electronically, which will be similar to 
+other electronic notices and disclosures that we will provide to you, please confirm that you have 
+read this ERSD, and (i) that you are able to print on paper or electronically save this ERSD for 
+your future reference and access; or (ii) that you are able to email this ERSD to an email address 
+where you will be able to print on paper or save it for your future reference and access. Further, 
+if you consent to receiving notices and disclosures exclusively in electronic format as described 
+herein, then select the check-box next to ‘I agree to use electronic records and signatures’ before 
+clicking ‘CONTINUE’ within the DocuSign system. 
+By selecting the check-box next to ‘I agree to use electronic records and signatures’, you confirm 
+that: 
+ 
+You can access and read this Electronic Record and Signature Disclosure; and 
+ 
+You can print on paper this Electronic Record and Signature Disclosure, or save or send 
+this Electronic Record and Disclosure to a location where you can print it, for future 
+reference and access; and 
+ 
+Until or unless you notify Jazz Pharmaceuticals as described above, you consent to 
+receive exclusively through electronic means all notices, disclosures, authorizations, 
+acknowledgements, and other documents that are required to be provided or made 
+available to you by Jazz Pharmaceuticals during the course of your relationship with Jazz 
+Pharmaceuticals. 
+ 
+You are the user identified and that you are applying to use electronic signatures at Jazz 
+Pharmaceuticals. Your first and last names and assigned user name are correct. You 
+hereby agree to use the combination of my assigned user name and associated private 
+password as my electronic signature to review and approve documents that require my 
+signature. You further agree that this electronic signature shall be the legally binding 
+equivalent of my handwritten signature. You understand that you are accountable and 
+responsible for any actions on documents that you initiate under your electronic 
+signature. 

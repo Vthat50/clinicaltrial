@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+ENV/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+test_results/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Environment
+.env
+.env.*
+*.env
+
+# Docs and examples
+docs/
+*.md
+*.txt
+!requirements.txt
+
+# Data files we don't need in production
+references/
+sap_harvest/
+rag_training_data/
+data/
+
+# Scripts not needed at runtime
+scripts/
+*.sh
+!web/backend/start_server.sh
+
+# Test files
+test_*.py
+*_test.py
+diagnose_*.py
+batch_*.py
+evaluate_*.py
+validate_*.py
+run_*.py
+fast_eval.py
+reindex_*.py
+
+# Generated files
+*.html
+generated_*.txt
+
+# Claude config
+.claude/

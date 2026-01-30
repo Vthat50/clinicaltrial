@@ -1,0 +1,275 @@
+{
+  "timestamp": "2026-01-14T12:53:39.992704",
+  "api_url": "http://localhost:8001",
+  "total_protocols": 10,
+  "average_score": 34.13461538461539,
+  "results": [
+    {
+      "nct_id": "NCT01515748",
+      "score": 26.923076923076923,
+      "matches": [
+        "sample_size",
+        "primary_endpoints",
+        "primary_test"
+      ],
+      "partial": [
+        "power_os",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "randomization_ratio",
+        "alpha",
+        "alpha_sided",
+        "stratification_factors",
+        "power_pfs",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method"
+      ],
+      "generated_fields": {
+        "sample_size": 530,
+        "randomization_ratio": null,
+        "alpha": null,
+        "alpha_sided": null,
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "log-rank",
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": "complete case",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": 530,
+        "randomization_ratio": "1:1",
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": 80,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "log-rank",
+        "stratification_factors": [
+          "site",
+          "TNM stage"
+        ],
+        "interim_count": 1,
+        "alpha_spending": "O'Brien-Fleming",
+        "missing_data_method": "censored",
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT01498484",
+      "score": 34.61538461538461,
+      "matches": [
+        "sample_size",
+        "primary_endpoints"
+      ],
+      "partial": [
+        "randomization_ratio",
+        "primary_test",
+        "stratification_factors",
+        "power_pfs",
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "alpha",
+        "alpha_sided"
+      ],
+      "generated_fields": {
+        "sample_size": 87,
+        "randomization_ratio": null,
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "ORR"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": "complete case",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": 87,
+        "randomization_ratio": null,
+        "alpha": 0.1,
+        "alpha_sided": "one-sided",
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "ORR"
+        ],
+        "primary_test": null,
+        "stratification_factors": null,
+        "interim_count": 0,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT01611090",
+      "score": 40.38461538461539,
+      "matches": [
+        "sample_size",
+        "alpha",
+        "primary_endpoints",
+        "primary_test"
+      ],
+      "partial": [
+        "power_os",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "randomization_ratio",
+        "alpha_sided",
+        "stratification_factors",
+        "power_pfs",
+        "interim_count"
+      ],
+      "generated_fields": {
+        "sample_size": 578,
+        "randomization_ratio": null,
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "stratified log-rank",
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": "censored",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": 580,
+        "randomization_ratio": "1:1",
+        "alpha": 0.025,
+        "alpha_sided": "one-sided",
+        "power_pfs": 90,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "stratified log-rank",
+        "stratification_factors": [
+          "purine analog refractory status",
+          "prior lines of therapy"
+        ],
+        "interim_count": 1,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT01622543",
+      "score": 34.61538461538461,
+      "matches": [
+        "randomization_ratio",
+        "primary_endpoints",
+        "primary_test"
+      ],
+      "partial": [
+        "power_os",
+        "interim_count",
+        "alpha_spending",
+        "missing_data_method",
+        "multiplicity_method"
+      ],
+      "mismatches": [
+        "sample_size",
+        "alpha",
+        "alpha_sided",
+        "stratification_factors",
+        "power_pfs"
+      ],
+      "generated_fields": {
+        "sample_size": 109,
+        "randomization_ratio": "1:1",
+        "alpha": 0.05,
+        "alpha_sided": "two-sided",
+        "power_pfs": null,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "stratified log-rank",
+        "stratification_factors": null,
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": "MMRM",
+        "multiplicity_method": null
+      },
+      "reference_fields": {
+        "sample_size": 100,
+        "randomization_ratio": "1:1",
+        "alpha": 0.1,
+        "alpha_sided": "one-sided",
+        "power_pfs": 80,
+        "power_os": null,
+        "primary_endpoints": [
+          "PFS"
+        ],
+        "primary_test": "stratified log-rank",
+        "stratification_factors": [
+          "KRAS mutation status",
+          "prior adjuvant chemotherapy"
+        ],
+        "interim_count": null,
+        "alpha_spending": null,
+        "missing_data_method": null,
+        "multiplicity_method": null
+      }
+    },
+    {
+      "nct_id": "NCT01712490",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT01693562",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT01767155",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT01740427",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT01777152",
+      "error": "Failed to generate SAP",
+      "score": 0
+    },
+    {
+      "nct_id": "NCT01832727",
+      "error": "Failed to generate SAP",
+      "score": 0
+    }
+  ]
+}

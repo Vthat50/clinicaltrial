@@ -1,0 +1,197 @@
+Statistical Methodology 
+Descriptive statistics will be computed to investigate the feasibility 
+of the trial. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+STU 022017-075 
+________________________________________________________________________ 
+STU022017-075, Parsons, FormA-ResearchProtocol, Mod_17, 06-15-21 (2) 
+ 
+5 
+1.0 
+BACKGROUND AND RATIONALE 
+1.1 
+Background 
+Respiratory motion affects all tumor sites in the thorax and abdomen. The disease of most 
+prevalence and relevance for motion-management needed radiotherapy are lung and liver 
+cancer.  Lung cancer is the leading cause of cancer-related mortality in the United States. 
+During 2016, an estimated 224,390 new cases of lung cancer are diagnosed, representing 
+13% of all cancer patients1, and an estimated 158,080 deaths of lung cancer were expected1. 
+The five-year survival rate for all stages combined is 17.7%, lower than many other leading 
+cancer sites, such as the colon (64.4%), breast (89.7%) and prostate (98.9%)2. Liver cancer 
+is the 10th most common cancer. In 2016, an estimated 39,230 adults (28,410 men and 
+10,820 women) in the United States will be diagnosed with primary liver cancer1. The 5-
+year survival rate of liver cancer is 17%2. 
+ 
+Stereotactic body radiotherapy (SBRT) is a therapeutic paradigm developed in the mid 
+1990’s. It administers very high, biological potent doses in few fractions (1 - 5 fractions) 
+using unique beam arrangements and special immobilization equipment. It has 
+demonstrated excellent local control in patients with inoperable non-small cell lung cancer 
+(NSCLC)3 and liver cancer4 . 
+ 
+Respiratory motion causes significant geometric and dosimetric uncertainties in lung and 
+upper abdomen cancer radiotherapy treatment simulation, planning, and delivery5. These 
+uncertainties are particularly large in SBRT, potentially leading to significant collateral 
+toxicity6-8 when using large beam apertures or, conversely, potential marginal miss with 
+very small apertures. Researchers and clinicians have been investigating respiratory 
+motion-management techniques for over a decade.9, 10 A variety of motion management 
+strategies have been explored and implemented for clinical use, including motion-
+encompassing methods [e.g. 4D CT and ITV (internal target volume) approach], abdominal 
+compression techniques to decrease motion amplitude, breath-holding methods, 
+respiratory-gating techniques, and real-time tumor-tracking methods. All of these 
+techniques aim to mitigate dosimetric uncertainties induced by respiratory motion by either 
+restricting or compensating for motion.  
+1.2 
+DIBH and Active Breathing Coordinator (ABC) 
+Among various respiratory motion management techniques, deep-inspiration breath-hold 
+(DIBH) technique has been developed and applied in lung and liver SBRT.11, 12 DIBH has 
+shown advantages for treating thoracic and abdominal tumors because it can significantly 
+reduce respiratory tumor motion and changes internal anatomy in way that often protects 
+critical normal tissues.  
+  
+There are several ways to assist DIBH during radiation treatments. One common way is by 
+using a commercially available system Active Breathing Coordinator (ABC; Elekta, 
+Crawley, UK) device. The ABC system has a digital spirometer that records real time 
+breathing. When the patient inspires to a preset DIBH level, a balloon valve is inflated so 
+as to prevent the patient from breathing out and thereby maintain a consistent chest wall 
+expansion with each DIBH. A nose clip prevents air leakage. The therapist monitors the 
+STU 022017-075 
+________________________________________________________________________ 
+STU022017-075, Parsons, FormA-ResearchProtocol, Mod_17, 06-15-21 (2) 
+ 
+6 
+respiratory cycle and DIBH signals on the screen during the radiation delivery. When the 
+patient depresses a handheld thumb switch, treatment is stopped and valve opens so 
+breathing can resume normally again. Dosimetric advantages of cardiac sparing using 
+DIBH ABC technique have been shown.13, 14 Currently, UTSW lung and liver SBRT and 
+left breast conventional irradiation are used ABC assisted DIBH (ABC-DIBH) for 
+respiratory motion management. 
+ 
+Several studies have pointed out potential drawbacks of the ABC system. For example, 
+even though the patient’s tidal volume remains consistent with ABC, different breathing 
+maneuvers (abdominal versus thoracic breathing) can cause for variations in breath-hold.15 
+They reported that for the same vital capacity, abdominal and thoracic breathing led to an 
+average difference of chest wall expansion of 1.9 cm. Remouchamps et al. also showed 
+that that overshoot can occur with ABC device where the patient can inhale a larger air 
+volume than the pre-determined set limit.13, 16 More recently, Mittauer et al. showed 
+through using an optical surface-tracking system to monitor ABC-assisted DIBH, that large 
+positional variations can occur in some patients due to their different breath hold 
+techniques17 and concluded that optical tracking system is a valuable tool for ABC-assisted 
+DIBH.  
+1.3 
+VRT and VRT-DIBH  
+A more recent competing technology for implementing the DIBH technique is real-time 
+surface photogrammetry using the AlignRT system (Vision RT Ltd., London, UK). 
+AlignRT system use non-ionization near infrared light to track patient surface motion. The 
+system has one projector projecting near infrared optical pattern on patient surface. The 
+optical pattern is imaged by optical cameras (two per pod) at ~25 Hz. The user selects a 
+region-of-interest (ROI) on the surface and the software calculates and displays the real-
+time position in six degrees (3 translations and 3 rotations) in real-time. Once the patient 
+has matched the pre-determined DIBH position (within threshold accuracy), the radiation 
+beam is enabled to be turned on for treatment. 
+ 
+Currently, VRT-DIBH has already applied to left breast radiotherapy to spare lung and 
+heart. Compared to ABC-DIBH, VRT-DIBH has several potential advantages: 
+1. VRT monitors patient (surface) position in addition to DIBH signal,  while ABC only 
+check the tidal volume, which can remain the same even if the patient shifts slightly on 
+the couch; 
+2. VRT is more cost effective, as patient tubing needs to be replaced daily for ABC; 
+3. VRT potentially has advantage on patient compliance, as with ABC breath is forced 
+impeded while with VRT breath-hold is voluntary.   
+ 
+In this study, we renovate the established DIBH motion management strategy by adopting 
+AlignRT system. The purpose of this study is to develop, validate, and prove the feasibility 
+of VRT-DIBH technique for lung and liver SBRT. 
+ 
+2.0 
+STUDY OBJECTIVES 
+STU 022017-075 
+________________________________________________________________________ 
+STU022017-075, Parsons, FormA-ResearchProtocol, Mod_17, 06-15-21 (2) 
+ 
+7 
+2.1 
+Primary Objectives 
+2.1.1 To investigate the feasibility of applying VRT-DIBH to lung/liver cancer 
+SBRT  
+2.2 
+Secondary Objectives 
+2.2.1 To determine planning target volume margin by investigating tumor 
+residual motion in VRT-DIBH 
+2.2.2  To determine VRT surface monitoring threshold by investigating inter/intra 
+VRT-DIBH patient surface stability/reproducibility/sensitivity  
+2.3 
+Exploratory Objectives 
+2.3.1 To quantify SBRT dose variation between planned and delivered with VRT-
+DIBH technique. 
+2.3.2 Treatment time 
+2.4 
+Endpoints 
+2.4.1 VRT-DIBH feasibility 
+2.4.2 To determine target margin in VRT-DIBH lung/liver SBRT  
+2.4.3   To determine threshold used for surface monitoring in VRT-DIBH assisted 
+lung/liver SBRT  
+   
+3.0 
+PATIENT ELIGIBILITY 
+Eligibility waivers are not permitted. Subjects must meet all of the inclusion and exclusion 
+criteria to be registered to the study. Study treatment may not begin until a subject is 
+registered. 
+3.1 
+Inclusion Criteria 
+3.1.1 Patients must be willing and capable to provide informed consent to 
+participate in the protocol. 
+3.1.2 Patient with presumed pulmonary function capable of holding breath for at 
+least 30 seconds – later to be confirmed. 
+3.1.3 
+All men, as well as women of child-bearing potential must agree to use adequate 
+contraception (hormonal or barrier method of birth control; abstinence) prior to study 
+entry, and until study imaging is complete. Should a woman become pregnant or 
+suspect she is pregnant while participating in this study, she should inform her 
+treating physician immediately. 
+ 
+3.1.6.1 A female of child-bearing potential is any woman (regardless of sexual 
+orientation, marital status, having undergone a tubal ligation, or 
+remaining celibate by choice) who meets the following criteria: 
+ 
+ 
+Has not undergone a hysterectomy or bilateral oophorectomy; or 
+ 
+Has not been naturally postmenopausal for at least 12 consecutive 
+months (i.e., has had menses at any time in the preceding 12 
+consecutive months). 
+ 
+STU 022017-075 
+________________________________________________________________________ 
+STU022017-075, Parsons, FormA-ResearchProtocol, Mod_17, 06-15-21 (2) 
+ 
+8 
+3.1.4 Patients must be compliant to all required pretreatment evaluations (section 
+5.1) 
+3.2 
+Exclusion Criteria 
+3.2.1 Pregnant or lactating women, as treatment involves unforeseeable risks to 
+the embryo or fetus 
+3.2.2 Patients are not compliant to all required pretreatment evaluations (section 
+5.1). 
+ 
+4.0 
+TREATMENT PLAN 
+4.1 
+Treatment Dosage and Administration 
+Patient recruit on this treatment protocol will go through training-screening 
+sessions: 
+1. Patient will go through a tumor motion evaluation session. Since we would like 
+to test the effectiveness of our proposed motion management strategy, we 
+would like to recruit patient with tumor motion in one direction is larger than 5 
+mm.  Tumor motion in free-breathing mode will be evaluated under imaging 
+study.. 
+2. Patient will go through a pre-oxygenation training-screening session. Research 
+studies18, 19 already shown that pre-oxygenation can effectively prolong breath-
+holds in patien
+... [truncated]

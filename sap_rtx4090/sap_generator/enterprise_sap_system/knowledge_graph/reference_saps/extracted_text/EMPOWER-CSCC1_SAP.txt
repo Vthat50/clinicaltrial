@@ -1,0 +1,2133 @@
+
+--- Page 1 ---
+Clinical Development and Regulatory Affairs 
+Biostatistics and Data Management 
+REGENERON CONFIDENTIAL 
+Page 1 of 41 
+STATISTICAL ANALYSIS PLAN 
+VERSION 6.0 FINAL 
+Title: 
+A Phase II Study of REGN2810, A Fully Human Monoclonal 
+Antibody to Programmed Death-1 (PD-1), in Patients with 
+Advanced Cutaneous Squamous Cell Carcinoma 
+Compound: 
+Cemiplimab [REGN2810 (anit-PD-1 mAb)] 
+Protocol Number: 
+R2810-ONC-1540 
+Clinical Phase: 
+Phase 2 
+Sponsor: 
+Regeneron Pharmaceuticals, Inc. 
+Study Biostatistician: 
+ 
+Clinical Trial Manager: 
+ 
+Study Medical Director: 
+ 
+ 
+Version/Date: 
+Version 6.0 / October 27, 2023 
+VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+NCT02760498
+
+
+--- Page 2 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 2 of 41 
+The approval signatures below indicate that these individuals have reviewed the Statistical 
+Analysis Plan (SAP) and agreed on the planned analysis defined in this document for 
+reporting. 
+ 
+ 
+See appended electronic signature page 
+ 
+ 
+ 
+ 
+ 
+See appended electronic signature page 
+ 
+ 
+ 
+ 
+ 
+See appended electronic signature page 
+ 
+ 
+ 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 3 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 3 of 41 
+TABLE OF CONTENTS 
+LIST OF ABBREVIATIONS AND DEFINITION OF TERMS ....................................................6 
+1. 
+OVERVIEW .................................................................................................................9 
+1.1. 
+Background/Rationale ..................................................................................................9 
+1.1.1. 
+Background ...................................................................................................................9 
+1.1.2. 
+Rationale .......................................................................................................................9 
+1.2. 
+Study Objectives ...........................................................................................................9 
+1.2.1. 
+Primary Objectives .......................................................................................................9 
+1.2.2. 
+Secondary Objectives .................................................................................................10 
+1.2.3. 
+Exploratory Objective .................................................................................................10 
+1.2.3.1. 
+Groups 2 and 4 ............................................................................................................10 
+1.2.3.2. 
+Group 5 Only ..............................................................................................................11 
+1.2.3.3. 
+Group 6 Only ..............................................................................................................11 
+1.2.3.4. 
+Group 6 Only – Patients Who Switch to SC Formulation ..........................................11 
+1.2.4. 
+Modifications from the Statistical Section in the Final Protocol ................................11 
+1.2.5. 
+Revision History for SAP Amendments .....................................................................12 
+2. 
+INVESTIGATION PLAN ..........................................................................................13 
+2.1. 
+Study Design ...............................................................................................................13 
+2.2. 
+Sample Size and Power Considerations .....................................................................13 
+2.3. 
+Study Plan ...................................................................................................................14 
+3. 
+ANALYSIS POPULATIONS ....................................................................................16 
+3.1. 
+Full Analysis Set (FAS) ..............................................................................................16 
+3.2. 
+Safety Analysis Set (SAF) ..........................................................................................16 
+3.3. 
+Pharmacokinetic Analysis Set ....................................................................................16 
+3.4. 
+Anti-drug Antibody Set ..............................................................................................16 
+3.5. 
+Biomarker Analysis Set ..............................................................................................16 
+4. 
+ANALYSIS VARIABLES .........................................................................................17 
+4.1. 
+Demographic and Baseline Characteristics ................................................................17 
+4.2. 
+Medical History ..........................................................................................................17 
+4.3. 
+Pre-Treatment / Concomitant Medication ..................................................................17 
+4.4. 
+Rescue Medication/Prohibited Medication .................................................................18 
+4.5. 
+Efficacy Variable ........................................................................................................18 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 4 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 4 of 41 
+4.5.1. 
+Primary Efficacy Variable ..........................................................................................18 
+4.5.2. 
+Secondary Efficacy Variables .....................................................................................19 
+4.5.3. 
+Exploratory Efficacy Variable ....................................................................................20 
+4.5.4. 
+Exploratory Biomarker Variables ...............................................................................20 
+4.6. 
+Safety Variables ..........................................................................................................20 
+4.6.1. 
+Adverse Events and Serious Adverse Events .............................................................20 
+4.6.2. 
+Adverse Events of Special Interest .............................................................................22 
+4.6.3. 
+Laboratory Safety Variables .......................................................................................22 
+4.6.4. 
+Vital Signs ..................................................................................................................22 
+4.6.5. 
+12-Lead Electrocardiography (ECG) ..........................................................................23 
+4.6.6. 
+Physical Examination Variables .................................................................................23 
+4.7. 
+Pharmacokinetic Variables and Immunogenicity Variables (ADA) ..........................23 
+5. 
+STATISTICAL METHODS .......................................................................................24 
+5.1. 
+Demographics and Baseline Characteristics ...............................................................24 
+5.2. 
+Medical History ..........................................................................................................24 
+5.3. 
+Prior/Concomitant Medications ..................................................................................24 
+5.4. 
+Subject Disposition .....................................................................................................25 
+5.5. 
+Protocol Deviation ......................................................................................................25 
+5.6. 
+Measurement of Compliance ......................................................................................25 
+5.7. 
+Exposure to Investigational Product ...........................................................................25 
+5.8. 
+Analyses of Efficacy Variables ..................................................................................26 
+5.8.1. 
+Analysis of Primary Efficacy Variable .......................................................................26 
+5.8.2. 
+Analysis of Secondary Efficacy Variables .................................................................27 
+5.8.3. 
+Analysis of Quality of Life Variables .........................................................................28 
+5.8.4. 
+Analysis of Exploratory Efficacy Variable .................................................................28 
+5.8.5. 
+Subgroup Efficacy Analysis .......................................................................................28 
+5.9. 
+Analysis of Safety Data ..............................................................................................28 
+5.9.1. 
+Adverse Events ...........................................................................................................29 
+5.9.2. 
+Clinical Laboratory Measurements.............................................................................30 
+5.9.3. 
+Analysis of Vital Signs ...............................................................................................31 
+5.9.4. 
+Analysis of 12-Lead ECG ...........................................................................................31 
+5.9.5. 
+Physical Exams ...........................................................................................................31 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 5 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 5 of 41 
+5.10. 
+Analysis of Pharmacokinetic and Immunogenicity Data ...........................................31 
+5.10.1. 
+Analysis of Pharmacokinetic Data ..............................................................................31 
+5.10.2. 
+Analysis of Anti-Drug Antibody Data ........................................................................32 
+5.10.3. 
+Analysis of Neutralizing Antibody (NAb) Data .........................................................34 
+5.10.4. 
+Analysis of Exploratory Biomarker Data ...................................................................34 
+6. 
+DATA CONVENTIONS ............................................................................................35 
+6.1. 
+Definition of Baseline for Efficacy/Safety Variables .................................................35 
+6.2. 
+Data Handling Convention for Efficacy Variables .....................................................35 
+6.3. 
+Data Handling Convention for Missing Data .............................................................35 
+6.4. 
+Unscheduled Assessments ..........................................................................................35 
+7. 
+MULTIPLICITY CONSIDERATIONS .....................................................................36 
+8. 
+INTERIM ANALYSIS ...............................................................................................37 
+9. 
+SOFTWARE ...............................................................................................................39 
+10. 
+REFERENCES ...........................................................................................................40 
+11. 
+APPENDIX.................................................................................................................41 
+11.1. 
+Summary of Statistical Analyses ................................................................................41 
+ 
+LIST OF TABLES 
+Table 1: 
+Alpha Spending for Analysis of ORR on Group 6 Patients .......................................38 
+Table 2: 
+Binomial Exact Confidence Intervals for Observed ORR in Group 6 .......................38 
+ 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 6 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 6 of 41 
+LIST OF ABBREVIATIONS AND DEFINITION OF TERMS 
+Abbreviation 
+Definition of Term 
+ADA 
+Anti-drug antibody 
+ADL 
+Activities of daily living 
+AE 
+Adverse event 
+AESI 
+Adverse event of special interest 
+ALP 
+Alkaline phosphatase 
+ALT 
+Alanine aminotransferase 
+AST 
+Aspartate aminotransferase 
+ATC 
+Anatomical therapeutic chemical 
+BAS 
+Biomarker analysis set 
+BCC 
+Basal cell carcinoma  
+BLA 
+Biologics license application 
+BMI 
+Body mass index 
+BOR 
+Best overall response 
+BUN 
+Blood urea nitrogen 
+CI 
+Confidence interval 
+CSR 
+Clinical study summary 
+CR 
+Complete response 
+CRF 
+Case report form  
+CSCC 
+Cutaneous squamous cell carcinoma  
+CT 
+Computed tomography 
+dDCR 
+Durable disease control rate 
+DCR 
+Disease control rate 
+DOR 
+Duration of response 
+EAS 
+Efficacy analysis set 
+ECG 
+Electrocardiogram 
+ECOG 
+East Cooperative Oncology Group 
+EOS 
+End of study 
+FAS 
+Full analysis set 
+GITR 
+Glucocorticoid-induced TNFR family related gene 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 7 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 7 of 41 
+Abbreviation 
+Definition of Term 
+ICH 
+International Council for Harmonisation 
+IHC 
+Immunohistochemistry 
+irAE 
+Immune-related adverse event 
+irRC 
+Immune-related response criteria 
+IWRS  
+Interactive web response system 
+LLOQ 
+Lower limit of quantification 
+LDH 
+Lactate dehydrogenase 
+MAA 
+Marketing authorization application 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MRI 
+Magnetic resonance imaging  
+mRNA 
+Messenger ribonucleic acid 
+NCCN 
+National Comprehensive Cancer Network 
+NCI-CTCAE 
+National Cancer Institute-Common Terminology Criteria for 
+Adverse Events  
+NE 
+Not evaluable  
+NSCLC 
+Non-small cell lung cancer 
+PBMC 
+Peripheral blood mononuclear cell 
+ORR 
+Objective response rate 
+OS 
+Overall survival 
+PD 
+Progression 
+PD-1 
+Programmed death-1 (receptor) 
+PD-L1  
+Programmed death ligand 1 
+PD-L2 
+Programmed death ligand 2 
+PET 
+Positron-emission tomography 
+PFS 
+Progression-free survival 
+PK 
+Pharmacokinetic 
+PR 
+Partial response 
+PT 
+Preferred term 
+RCC 
+Renal cell cancer 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 8 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 8 of 41 
+Abbreviation 
+Definition of Term 
+RNA 
+Ribonucleic acid 
+SAE 
+Serious adverse event 
+SAF 
+Safety analysis set 
+SAP 
+Statistical analysis plan 
+SAS 
+Statistical Analysis Systems (software) 
+SC 
+Subcutaneous 
+SD 
+Stable disease 
+SI 
+Standard international 
+SOC 
+System organ class 
+t½ 
+Beta-phase terminal half life 
+TEAE 
+Treatment-emergent adverse event 
+TILs 
+Tumor-infiltrating lymphocytes 
+TMB 
+Tumor mutation burden 
+TTR 
+Time to response 
+UV 
+Ultraviolet 
+WHODD 
+World Health Organization drug dictionary 
+WBC 
+White blood cell 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 9 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 9 of 41 
+1. 
+OVERVIEW 
+The purpose of the statistical analysis plan (SAP) is to ensure the credibility of the study results 
+by pre-specifying the statistical approaches for the analysis of study data prior to database lock. 
+The SAP is intended to be a comprehensive and detailed description of the strategy and statistical 
+methods to be used in the analysis of data for R2810-ONC-1540 study. 
+This plan may be revised during the study to accommodate protocol amendments and/or to make 
+changes to adapt to unexpected issues in study execution and/or data that affect planned 
+analyses. The final plan, if revised, will document all changes and be issued prior to database 
+lock.  
+1.1. 
+Background/Rationale 
+1.1.1. 
+Background 
+Cutaneous squamous cell carcinoma (CSCC) is the second most common malignancy in the 
+United States. A review of national databases indicates that incidence of non-melanoma skin 
+cancers, mostly basal cell carcinoma (BCC) and CSCC, approximately doubled between 1994 
+and 2006 in the context of an aging population. Most CSCC patients have a favorable prognosis, 
+but annual mortality is approximately 3,900 to 8,800 deaths in the United States. 
+Surgical resection is the centerpiece of clinical management of CSCC. Radiation therapy for 
+CSCC has also been used in the adjuvant setting. For the small percentage of patients who 
+develop unresectable locally recurrent or metastatic disease, treatment options are limited. 
+Regarding systemic therapies, there is a dearth of data to guide clinical decision-making for 
+oncologists who take care of patients with advanced CSCC. National Comprehensive Cancer 
+Network (NCCN) guidelines do not provide firm recommendations.  
+Blockade of the PD-1/PD-L1 immune checkpoint pathway is an effective and well tolerated 
+approach to stimulate the immune response, and has achieved significant objective responses in 
+advanced melanoma, renal cell cancer (RCC), non-small cell lung cancer (NSCLC), and other 
+solid tumors. cemiplimab is a high-affinity, fully human, hinge-stabilized IgG4P antibody 
+directed to the PD-1 receptor that potently blocks the interaction of PD-1 with its ligands, PD-L1 
+and PD-L2. 
+1.1.2. 
+Rationale 
+CSCC has several clinical and biological factors that suggest that it is appropriate for the clinical 
+study of inhibition of the PD-1 immune checkpoint: high mutation burden, presence of tumor 
+infiltrating lymphocytes (TILs), association with immunosuppression as a risk factor, evidence 
+of direct immunosuppressive effects of ultraviolet radiation (UV) which predisposes to CSSC, 
+and some clinical efficacy with interferon α2a-based treatment. 
+1.2. 
+Study Objectives  
+1.2.1. 
+Primary Objectives 
+For Groups 1 to 4, the primary objective of this study is to estimate the clinical benefit of 
+cemiplimab monotherapy for patients with: metastatic (nodal or distant) CSCC, or unresectable 
+locally advanced CSCC. Group 1 consists of patients with metastatic (nodal or distant) CSCC 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 10 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 10 of 41 
+treated with cemiplimab 3 mg/kg IV Q2W. Group 2 consists of patients with unresectable locally 
+advanced CSCC, treated with cemiplimab 3 mg/kg IV Q2W. Group 3 consists of patients with 
+metastatic (nodal or distant) CSCC treated with cemiplimab 350 mg IV Q3W. Group 4 consists 
+of patients with advanced CSCC (metastatic [nodal or distal] or unresectable locally advanced) 
+treated with cemiplimab 600 mg IV every 4 weeks (Q4W). For Group 6, the primary objective is 
+to provide additional efficacy and safety data for cemiplimab monotherapy in patients with 
+advanced CSCC (metastatic [nodal or distant] or locally advanced) treated with cemiplimab 
+350 mg IV Q3W. 
+Clinical benefit is measured by ORR according to central review in each group. 
+1.2.2. 
+Secondary Objectives 
+The secondary objectives for Groups 1 to 4, and Group 6 are: 
+• To estimate ORR according to investigator review 
+• To estimate the duration of response (DOR), PFS, and OS by central and investigator 
+review 
+• To estimate the complete response (CR) rate by central review 
+• To assess the safety and tolerability of cemiplimab 
+• To assess the PK of cemiplimab 
+• To assess the immunogenicity of cemiplimab 
+For Groups 1 to 5 only: 
+• To assess the impact of cemiplimab on quality of life using European Organization 
+for Research and Treatment of Cancer Quality of Life Questionnaire Core 30 
+(EORTC QLQ-C30) 
+Group 6 only: To assess relationships between PD-L1 status (by IHC) and efficacy measures 
+(ORR, DOR, PFS). 
+1.2.3. 
+Exploratory Objective 
+1.2.3.1. 
+Groups 2 and 4 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 11 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 11 of 41 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.3.2. 
+Group 5 Only 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.3.3. 
+Group 6 Only 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.3.4. 
+Group 6 Only – Patients Who Switch to SC Formulation 
+Protocol Amendment 9 allows Group 6 patients who have received IV cemiplimab for at least 27 
+weeks without experiencing disease progression to switch to SC cemiplimab (optional). This is 
+to extend clinical experience with SC cemiplimab, including variability in PK upon repeated SC 
+doses and the assessment of local tolerability at the site of SC injection. For these patients, the 
+following exploratory objectives will be evaluated: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.4. 
+Modifications from the Statistical Section in the Final Protocol 
+This study is expected to be a pivotal trial and will be part of the core of the BLA/MAA 
+submission. Accordingly, revision to this plan will only be made if deemed necessary to the 
+furtherance of the trial objectives. Such revision, if necessary, will be completed prior to the final 
+database lock. 
+Modifications from the Statistical Section in the protocols are listed below: 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 12 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 12 of 41 
+• Added TTR, DCR, and dDCR as additional analyses. 
+• Added a sensitivity analysis of ORR using patients who received at least one dose of 
+cemiplimab. 
+1.2.5. 
+Revision History for SAP Amendments 
+This is the sixth version of the SAP, based on the study protocol R2810-ONC-1540 Amendment 
+9 dated Sep 9, 2021. 
+The changes from SAP v5.0 dated Mar 10, 2021 (based on protocol amendment 7) include the 
+addition of exploratory objectives and analysis for Group 6 patients who were allowed to switch 
+to subcutaneous (SC) dosing per protocol amendment 9.  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 13 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 13 of 41 
+2. 
+INVESTIGATION PLAN 
+2.1. 
+Study Design 
+This is a phase 2, non-randomized, 6-group, multicenter pivotal study evaluating the efficacy and 
+safety of cemiplimab in patients with advanced CSCC. After a screening period of up to 28 days, 
+eligible patients will be enrolled into 1 of 6 groups and receive cemiplimab treatment as below. 
+• Group 1: Patients with metastatic (nodal or distant) CSCC, treated with cemiplimab 
+3 mg/kg IV every 2 weeks (Q2W). These patients are required to have histologic 
+confirmation of distant CSCC metastases (eg, lung, liver, bone, or lymph node). 
+• Group 2: Patients with unresectable locally advanced CSCC, treated with cemiplimab 
+3 mg/kg IV Q2W. These patients are required to have diseases that are considered 
+inoperable or to have medical contraindication to surgery or radiation or have not 
+achieved disease control with these treatments. 
+• Group 3: Patients with metastatic (nodal or distant) CSCC, treated with cemiplimab 
+350 mg IV every 3 weeks (Q3W) 
+• Group 4: Patients with advanced CSCC (metastatic [nodal or distant] or locally 
+advanced) treated with cemiplimab 600mg IV every 4 weeks (Q4W). 
+• Group 5: Patients with advanced CSCC, treated with 1 dose of cemiplimab 438 mg 
+SC followed by cemiplimab 350mg IV Q3W. 
+• Group 6: 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+Although included in the same clinical trial, the statistical analyses of the 6 groups will be 
+conducted independently and summarized separately, except for safety data analyses may be 
+combined at a later stage when deemed appropriate. 
+2.2. 
+Sample Size and Power Considerations 
+For Group 1 and Group 3, 50 patients (in each group) are required to provide at least 85% power 
+to reject a null hypothesis of an ORR of 15% at a 2-sided significance level of no more than 5% 
+if the true ORR is 34%. For Group 2, 72 patients are required to provide at least 90% power to 
+reject a null hypothesis of an ORR of 25% at a 2-sided significance level of no more than 5% if 
+the true ORR is 44%. For Group 4, 60 patients with advanced CSCC will be required to provide 
+at least 92% power to reject a null hypothesis of an ORR of 20% at a 2-sided significance level 
+of no more than 5% if the true ORR is 40%. In addition, for Group 4, 60 patients with advanced 
+CSCC will provide at least 93% or 87% power to reject a null hypothesis of an ORR of 15% or 
+25% at a 2-sided significance level of no more than 5% if true ORR is 35% or 45% respectively. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 14 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 14 of 41 
+Group 5 is a pilot cohort to obtain initial clinical and PK experience among patients who receive 
+a single dose of cemiplimab SC, with a sample size of 10 patients for PK analysis. 
+The sample size for Group 6 was selected such that the lower limit of the 95% confidence 
+interval of the estimated ORR excludes the highest independently-reviewed ORR to date in any 
+prospective study of anticancer systemic therapy for advanced CSCC that enrolled at least 
+30 patients. For Group 6, 150 patients will be required to provide at least 85% power to reject a 
+null hypothesis of an ORR of 28% at a 2-sided significance level of no more than 5% if the true 
+ORR is 40%.  
+The sample sizes for group 1 through 4 were selected such that the lower limit of the two-sided 
+95% confidence interval (CI) of the estimated ORR will be clinically meaningful. The non-
+clinically meaningful ORR of 15% for Group 1 and Group 3 (evaluated independently) will be 
+excluded using the lower limit of 95% CI if the observed ORR is around 28.0% or more; ie, the 
+ORR for Group 1 and/or Group 3 (evaluated independently) is significantly different from 15%. 
+The non-clinically meaningful ORR of 25% for Group 2 will be excluded using the lower limit 
+of 95% CI if the observed ORR is around 36.1% or more; ie, the ORR for Group 2 is 
+significantly different from 25%. An ORR of 20% for Group 4 will be excluded using the lower 
+limit of 95% confidence interval if the observed ORR is 31.7% or more; ie, the ORR for Group 4 
+is significantly different from 20%. In addition, if the observed ORR for Group 4 is 26.7% or 
+38.3% or more, the ORR for Group 4 is significantly different from 15% or 25% respectively, 
+using the lower limit of the 95% confidence intervals (see Table 11, Table 12, and Table 13 in 
+the protocol). The sample size for Group 6 was selected such that lower limit of the two-sided 
+95% CI of the estimated ORR will exclude the highest reported ORR in any study in advanced 
+CSCC patients that used independent radiology review and enrolled at least 30 patients. The 
+ORR of 28% for Group 6 will be excluded using the lower limit of 95% exact CI if the observed 
+ORR is 35.3% or more, ie, the ORR for Group 6 is significantly different from 28% 
+(see Table 14 of the protocol). 
+For groups 1 through 4, the sample sizes are further increased by 5% to account for patients who 
+withdraw prematurely from the study. Hence, the total sample sizes will be 53 patients for Group 
+1, 76 patients for Group 2, and 53 patients for Group 3, and 63 patients for Group 4. For Group 
+6, the sample size will be further increased by 10% to account for patients who withdraw 
+prematurely from the study. Hence, the total planned sample size will be approximately 
+167 patients for Group 6. The sample size calculation was based on the exact binomial test using 
+nQuery Advisor version 7.0 (Elashoff, 2007). 
+2.3. 
+Study Plan 
+After a screening period of up to 28 days, Group 1 and Group 2 patients will receive up to twelve 
+56-day (8-week) treatment cycles for a total of up to 96 weeks of treatment. Each patient will 
+receive 3 mg/kg cemiplimab intravenously on days 1, 15±3, 29±3, and 43±3 during each 
+treatment cycle. Tumor assessments will be made at the end of each treatment cycle. Extensive 
+safety evaluations will occur on day 1 of each cycle; routine safety evaluations will be conducted 
+at each cemiplimab dosing visit.  
+Group 3 patients will receive up to six 63-day (9-week) treatment cycles for up to 54 weeks of 
+treatment. Each patient will receive 350 mg cemiplimab intravenously on days 1, 22±3, and 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 15 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 15 of 41 
+43 ±3 during each treatment cycle. Tumor assessments will be made at the end of each treatment 
+cycle.  Extensive safety evaluations will occur on day 1 of each cycle, with routine safety 
+evaluations to be conducted at each cemiplimab dosing visit. 
+Group 4 patients will receive up to six 56-day (8-week) treatment cycles for up to 48 weeks of 
+treatment. Each patient will receive 600 mg cemiplimab intravenously on day 1, 29±3, and 56 ±3 
+during each treatment cycle. Tumor assessments will be made at the end of each treatment cycle.  
+Extensive safety evaluations will occur on day 1 of each cycle, with routine safety evaluations to 
+be conducted at each cemiplimab dosing visit. 
+Group 5 patients will receive up to six 63-day (9-week) treatment cycles for up to 54 weeks of 
+treatment. Each patient will receive 438 mg cemiplimab SC for the first dose and receive 350 mg 
+cemiplimab intravenously on day 22±3, and 43 ±3 in cycle 1 and day 1, 22±3, and 43 ±3 during 
+rest of treatment cycles. Tumor assessments will be made at the end of each treatment cycle.  
+Extensive safety evaluations will occur on day 1 of each cycle, with routine safety evaluations to 
+be conducted at each cemiplimab dosing visit. 
+Group 6 patients will receive up to twelve 63-day (9-week) treatment cycles for up to 108 weeks 
+of treatment. Each patient will receive 350 mg cemiplimab intravenously on days 1, 22±3, and 
+43 ±3 during each treatment cycle. Tumor assessments will be made at the end of each treatment 
+cycle.  Extensive safety evaluations will occur on day 1 of each cycle, with routine safety 
+evaluations to be conducted at each cemiplimab dosing visit. After implementation of PA9, 
+patients will be given the option to receive subsequent doses of cemiplimab SC. The first 12 
+patients who opt to switch to SC will receive cemiplimab 
+. The next ≥6 patients 
+who opt to switch to SC will receive cemiplimab 
+. Group 6 patients will have the 
+option to switch to SC dosing or to remain on 350 mg Q3W IV dosing. 
+A patient will receive treatment until the treatment period (96 weeks in Group 1 and Group 2; 
+54 weeks in Group 3; 48 weeks in Group 4; 54 weeks in Group 5; 108 weeks in Group 6) is 
+complete, or until disease progression, unacceptable toxicity, withdrawal of consent, or 
+confirmed complete response (CR). Group 1 and Group 2 patients with confirmed CR after a 
+minimum of 48 weeks of treatment and Group 6 patients with confirmed CR after a minimum 
+54 weeks of treatment may elect to discontinue treatment and continue with all relevant study 
+assessments (eg, efficacy assessments).  
+Groups 1 through 5: Patients in all groups who do not experience progressive disease (PD) will 
+be followed for an additional nontreatment period of up to approximately 6 months with scans 
+performed every 8-12 weeks. After completion of this follow-up period, patients will then enter 
+an extended follow-up period for approximately 1 additional year with assessments every 
+4 months. Patients in Groups 1 to 5 who complete treatment without disease progression and 
+subsequently experience disease progression during the follow-up period without any intervening 
+systemic anticancer therapy, are eligible for up to 2 years of retreatment with cemiplimab 
+350 mg IV Q3W. 
+Group 6: Patients who do not experience PD at the completion of the planned treatment period 
+will enter follow-up for approximately 6 months. There is no extended follow-up for Group 6. 
+Patients enrolled in Group 6 are not eligible for retreatment. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 16 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 16 of 41 
+3. 
+ANALYSIS POPULATIONS 
+In accordance with guidance from the International Conference of Harmonization of Technical 
+Requirements for Registration of Pharmaceuticals for Human Use (ICH) guideline ICH E9 
+Statistical Principles for Clinical Trials (ICH, 1998), the following population sets will be used 
+for statistical analysis. A patient is deemed eligible and enrolled after the patient completes the 
+screening process and the investigator deems that the subject is eligible, and the investigator 
+orders study drug in interactive web response system (IWRS). At that point, the patient’s status 
+in IWRS changes from “in screening” to “enrolled.” A patient is not deemed eligible until he/ 
+she is enrolled in IWRS. 
+3.1. 
+Full Analysis Set (FAS) 
+The full analysis set (FAS) includes all patients who have passed screening and deemed to be 
+eligible for this study. All efficacy endpoints will be analyzed using FAS. 
+3.2. 
+Safety Analysis Set (SAF) 
+The safety analysis set (SAF) includes all enrolled patients who received any study drug for each 
+group. Treatment compliance/administration and all clinical safety variables will be analyzed or 
+summarized using the SAF. 
+3.3. 
+Pharmacokinetic Analysis Set 
+The PK analysis set for cemiplimab will include all patients who had received cemiplimab/ and 
+had at least 1 qualified (non-missing) postbaseline measurement of cemiplimab concentration in 
+serum. 
+3.4. 
+Anti-drug Antibody Set 
+The ADA population for cemiplimab includes all treated patients who had at least 1 postdose 
+ADA result for cemiplimab. 
+3.5. 
+Biomarker Analysis Set 
+The biomarker analysis set (BAS) includes all treated patients who had at least 1 sample assayed. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 17 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 17 of 41 
+4. 
+ANALYSIS VARIABLES 
+4.1. 
+Demographic and Baseline Characteristics 
+The following demographic and baseline characteristics variables will be summarized: 
+• Age at screening in years (quantitative and qualitative variable: <65, ≥65 years) 
+• Sex (Male, Female) 
+• Race (American Indian/Alaskan Native, Asian, Black/African American, Native 
+Hawaiian/Other Pacific Islander, White and Other) 
+• Ethnicity (Hispanic/Latino or not) 
+• Weight (kg) 
+• Height (cm) 
+• Body mass index (BMI) calculated from weight and height: weight (kg) / [height 
+(m)]^2 
+• ECOG performance status (0, 1) 
+• For group 1 and group 3, type metastatic disease (Distant or Nodal only). 
+4.2. 
+Medical History 
+Medical history will be coded to a Preferred Term (PT) and associated primary System Organ 
+Class (SOC) according to the latest available version of MedDRA. 
+Oncology history: 
+• Primary diagnosis 
+• Time from initial diagnosis to study entry 
+• Histologic grade 
+• Cancer stages at initial diagnosis and at screening 
+• Prior anticancer systemic therapy 
+• Prior radiotherapy 
+• Duration of latest anticancer systemic therapy 
+4.3. 
+Pre-Treatment / Concomitant Medication 
+Medications/Procedures will be recorded from the day of informed consent until the end of study 
+(EOS) visit. Medications will be coded to the anatomical therapeutic chemical (ATC) level 2 
+(therapeutic main group) and ATC level 4 (chemical/therapeutic subgroup), according to the 
+latest available version of WHO Drug Dictionary (WHODD). Patients will be counted once in all 
+ATC categories linked to the medication. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 18 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 18 of 41 
+Pre-treatment medications/procedures: medications taken or procedures performed prior to 
+administration of the study drug, particularly, prior cancer related surgery, prior cancer related 
+radiotherapy, and prior cancer related systemic therapy: chemotherapy, targeted therapy, 
+immunotherapy and others.  
+Concomitant medications/procedures: any treatment administered from the time of informed 
+consent until 30 days after the last study treatment will be considered concomitant treatment. 
+This includes medications and other therapies for which administration started before the study 
+and will continue during the study, as well as any therapies started in the 6-month follow-up 
+period to treat a study drug related AE. All concomitant treatments must be recorded in the study 
+case report form (CRF) with the generic name, dose, dose unit, frequency, indication, and 
+start/stop date, as appropriate. 
+4.4. 
+Rescue Medication/Prohibited Medication 
+While participating in this study, a patient may not receive any standard or investigational agent 
+for treatment of a tumor other than cemiplimab as monotherapy. Any other medication which is 
+considered necessary for the patient’s welfare, and which is not expected to interfere with the 
+evaluation of the study drug, may be given at the discretion of the investigator. 
+Patients using immunosuppressive doses (>10 mg per day of prednisone or equivalent) of 
+systemic corticosteroids other than for corticosteroid replacement will not be eligible for the 
+study. It is recommended that patients do not receive systemic corticosteroids such as 
+hydrocortisone, prednisone, prednisolone (Solu-Medrol®) or dexamethasone (Decadron®) at 
+any time throughout the study except in the case of a life-threatening emergency and/or to treat 
+an immune-related adverse event (irAE). Physiologic replacement doses of systemic 
+corticosteroids are permitted, even if >10 mg/day prednisone equivalents. A brief course of 
+corticosteroids for prophylaxis (eg, contrast dye allergy) or for treatment of non-autoimmune 
+conditions (eg, delayed-type hypersensitivity reaction caused by contact allergen) is permitted. 
+4.5. 
+Efficacy Variable 
+4.5.1. 
+Primary Efficacy Variable 
+Overall response is based on central-reviewed evaluation at each time point at which a 
+response assessment occurs using the RECIST version 1.1 (Appendix 1 of the protocol) or the 
+composite response criteria (Appendix 2 of the protocol).  
+Best overall response (BOR) is determined once all the overall response data for the patient are 
+known. The best overall response is the best response recorded during the study.  
+• Best overall response of CR or PR must be confirmed by consecutive evaluations of 
+overall response of CR or PR at time points at least 4 weeks apart. In addition, locally 
+advanced CSCC patients followed by digital medical photography require biopsy to 
+confirm CR. 
+• Best overall response of SD must have met the response SD criteria at least once 
+≥39 days (6 weeks*7 days/week -3 days) after start of study treatment. Best overall 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 19 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 19 of 41 
+response of (early) PD does not require confirmation using the RECIST or the 
+composite response criteria.  
+• The best overall response for patients who do not have any post-baseline tumor 
+assessment will be not evaluable (NE). Patients with best overall response of NE will 
+be considered as not reaching an objective response of CR or PR. 
+Objective response rate (ORR) is determined by the proportion of patients with best overall 
+response of CR or PR in the FAS by group.  
+4.5.2. 
+Secondary Efficacy Variables 
+ORR based on investigator-assessed evaluation is also derived from the overall response that is 
+based on investigator-assessed evaluation at each time point at which a response assessment 
+occurs using the RECIST version 1.1 (Appendix 1 of the protocol) or the composite response 
+criteria (Appendix 2 of the protocol).  
+Duration of response (DOR) is determined for patients with best overall response of CR or PR. 
+Duration of response is measured from the time measurement criteria are first met for CR/PR 
+(whichever is first recorded) until the first date of recurrent or progressive disease (radiographic 
+or photographic), or death due to any cause. DOR by central-reviewed evaluation is the key 
+secondary endpoint. 
+Patients who do not have a documented tumor progression or death will be censored at the last 
+evaluable tumor assessment.   
+Progression-free survival (PFS) is measured from the start of treatment until the first date of 
+recurrent or progressive disease (radiographic or photographic), or death due to any cause. 
+Patients who do not have a documented tumor progression or death will be censored at the last 
+evaluable tumor assessment. If a patient has no post-baseline tumor assessment, the patient will 
+be censored at the first treatment date. 
+Overall survival (OS) is measured from the start of treatment until death due to any cause. 
+Patients who do not have a survival event will be censored at the last date that patient is 
+documented to be alive. As many patients may receive subsequent therapy after disease 
+progression, a variant of OS will also be defined as censoring patients who do not have a survival 
+event at the first date of a subsequent therapy is taken. 
+Time to tumor response (TTR) is determined for patients with BOR of CR or PR. TTR is 
+measured from the start of treatment until the time measurement criteria are first met for CR/PR 
+(whichever is first recorded).   
+For all of the above time-to-event variables, the time to event (day) is the date of event/censor   
+the date of first study treatment+ 1. 
+CR rate is determined by the proportion of patients with best overall response of CR. Patients 
+with best overall response of NE will be considered as not reaching an objective response of CR. 
+Disease control rate (DCR) is determined by the proportion of patients with BOR of CR, PR, or 
+SD.  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 20 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 20 of 41 
+Durable disease control rate (dDCR) is defined as the proportion of patients best overall response 
+of CR, PR, or SD without progression for at least 16 weeks (allowing tumor assessment made 
+1 week earlier than week 16).   
+Patient-reported quality of life is measured by the EORTC QLQ-C30 (Appendix 1 of protocol) 
+on day 1 of every cycle (Aaronson, 1993). The global health status/QoL, five functional scales 
+(physical, role, cognitive, emotional and social), and three symptom scales (fatigue, pain, nausea 
+and vomiting) and a number of single items assessing additional symptom commonly reported 
+by cancer patients (dyspnoea, loss of appetite, insomnia, constipation and diarrhoea) and 
+perceived financial impact of the disease will be computed using the QLQ-C30 scoring 
+procedures (Fayers, 2001). Change scores are defined as change of summary score of EORTC 
+QLQ-C30 from day 1 of first treatment cycle. 
+4.5.3. 
+Exploratory Efficacy Variable 
+Group 4 (excluding patients enrolled in Germany): ORR based on 18F-FDG-PET is determined 
+by the proportion of patients with best overall response of complete metabolic response (CMR) 
+or partial metabolic response (PMR) using EORTC criteria (Appendix 9 of the protocol). 
+4.5.4. 
+Exploratory Biomarker Variables 
+Biomarker variables for exploratory analyses of association with clinical efficacy endpoints may 
+include: 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4.6. 
+Safety Variables 
+Patient safety will be assessed through the collection of reported adverse events (AEs), clinical 
+laboratory data, vital signs, ECG and physical exam. Unless otherwise noted, the baseline value 
+is defined as the last available value before the first dose of study treatment. 
+4.6.1. 
+Adverse Events and Serious Adverse Events 
+The investigator (or designee) will seek information on AEs at each patient contact and record all 
+AEs that occur from the time the informed consent is signed until 105 days (5 half-lives) after 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 21 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 21 of 41 
+the end of study treatment. After informed consent has been obtained but prior to initiation of 
+study treatment, only the following categories of AEs should be reported on the AE electronic 
+CRF: 
+• SAEs 
+• Nonserious AEs associated with a protocol-mandated intervention (eg, AEs related to 
+an invasive procedure such as a biopsy) 
+Other AEs that occur prior to first treatment should be reported on the medical history CRF. 
+All AEs after initiation of study treatment and until 105 days (5 half-lives) after the last study 
+treatment, regardless of relationship to study treatment, will be reported on the AE electronic 
+CRF. Additionally, any SAE or other AE of concern that the investigator believes may be related 
+to study treatment and that occurs later than 105 days (5 half-lives) after last study treatment 
+should be reported. 
+Group 5 patients only: any local ISRs will be reported as AEs in the CRF, as appropriate. 
+All adverse events are to be coded to a Preferred Term (PT) and associated primary System 
+Organ Class (SOC) according to the latest available version of Medical Dictionary for 
+Regulatory Activities (MedDRA). 
+An Adverse Event (AE) is any untoward medical occurrence in a patient or clinical investigation 
+patient administered a pharmaceutical product and which does not necessarily have to have a 
+causal relationship with this treatment. A Serious Adverse Event (SAE) is an AE that is 
+classified as serious according to the criteria specified in the protocol. 
+The severity of AEs (including test findings classified as AEs) will be graded using the National 
+Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) version 4.03. 
+Adverse events not listed in the NCI-CTCAE will be graded according to the following scale: 
+• 1 (Mild): Mild; asymptomatic or mild symptoms; clinical or diagnostic observations 
+only; intervention not indicated.  
+• 2 (Moderate): Moderate; minimal, local or noninvasive intervention indicated; 
+limiting age-appropriate instrumental ADL*.  
+• 3 (Severe): Severe or medically significant but not immediately life threatening; 
+hospitalization or prolongation of hospitalization indicated; disabling; limiting self-
+care ADL**.  
+• 4 (Life-threatening): Life-threatening consequences; urgent intervention indicated.  
+• 5 (Death): Death related to AE. 
+* Instrumental Activities of Daily Living (ADL) refer to preparing meals, shopping 
+for groceries or clothes, using the telephone, managing money, etc.  
+** Self-care ADL refers to bathing, dressing and undressing, feeding self, using the 
+toilet, taking medications, and not bedridden. 
+The relationship of AEs to study drug will be assessed by the investigator and be determined 
+based on protocol specified criteria. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 22 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 22 of 41 
+Laboratory results, vital signs, or ECG abnormalities are to be recorded as AEs if they are 
+medically relevant: symptomatic, requiring corrective therapy, leading to treatment 
+discontinuation and/or fulfilling a seriousness criterion. 
+4.6.2. 
+Adverse Events of Special Interest 
+An AE of special interest (AESI) must be reported within 24 hours of identification. AEs of 
+special interest for this study include: 
+• Grade 2 or greater infusion-related reactions 
+• Grade 2 or greater allergic/hypersensitivity reactions 
+• Grade 3 immune-related toxicities (irAE) 
+• Grade 3 or greater ISR for the SC route 
+• An irAE of any grade in a patient previously treated with a PI 3-K inhibitor 
+Note: An irAE can occur shortly after the first dose or several months after the last 
+dose of treatment. All AEs of unknown etiology associated with drug exposure 
+should be evaluated to determine possible immune etiology. If an irAE is suspected, 
+efforts should be made to rule out neoplastic, infectious, metabolic, toxin or other 
+etiologic causes prior to labeling an AE as an irAE. 
+4.6.3. 
+Laboratory Safety Variables 
+The clinical laboratory data consists of serum chemistry, hematology, and urinalysis. Clinical 
+laboratory values will be converted to standard international (SI) units and grouped by function 
+in summary tables. Conventional unit may be provided. Functions are defined as follows: 
+Blood Chemistry: Sodium; Phosphorus; Alanine aminotransferase (ALT); Potassium; Glucose; 
+Aspartate aminotransferase (AST); Chloride; Albumin; Total bilirubin; Bicarbonate; Creatinine; 
+Alkaline phosphatase (ALP); Calcium; Blood urea nitrogen (BUN); Lactate dehydrogenase 
+(LDH); Magnesium; Uric acid 
+Hematology: Hemoglobin; White blood cells (WBCs); Platelet count; Differential: Neutrophils, 
+Lymphocytes, Monocytes 
+Urinalysis: Glucose; pH; Ketones; Blood; Specific gravity; Spot urine protein 
+Immune safety tests consist of rheumatoid factor (RF), thyroid-stimulating hormone (TSH), C-
+reactive protein (CRP), and antinuclear antibody (ANA). 
+4.6.4. 
+Vital Signs 
+Vital signs will be collected according to Table 5, Table 6, Table 7, Table 8, and Table 9 Study 
+Schedule of the protocol: 
+• Body temperature (°C) 
+• Resting systolic blood pressure and diastolic blood pressure (mmHg) 
+• Pulse (beats/minute) 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 23 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 23 of 41 
+• Respiratory rate (breaths/minute) 
+4.6.5. 
+12-Lead Electrocardiography (ECG) 
+A standard 12-lead ECG will be performed at time points according to Table 5, Table 6, Table 7, 
+Table 8, and Table 9 of the protocol. The ECG is to be recorded in triplicate. The ECG strips or 
+reports will be retained with the source. The ECG will be reviewed by the investigator (paper or 
+electronic tracing) and will be available for comparison with subsequent ECGs by the 
+investigator: 
+• PR Interval (msec) 
+• QRS Interval (msec) 
+• QT Interval (msec) 
+• Heart Rate (BPM; recorded from the ventricular rate) 
+Corrected QT (QTc) will be calculated from the QT interval and RR by two methods: 
+• Bazett's correction = QT/[RR1/2 ] 
+• Fredericia's Correction = QT/[RR1/3] 
+Any ECG finding that is judged by the investigator as a clinically significant change (worsening) 
+compared to the baseline value will be considered an AE, recorded, and monitored. 
+4.6.6. 
+Physical Examination Variables 
+A thorough complete or limited physical examination will be performed at visits specified in 
+Table 5, Table 6, Table 7, Table 8, and Table 9 of the protocol. Care should be taken to examine 
+and assess any abnormalities that may be present, as indicated by the patient’s medical history. 
+Complete physical examination will include examination of skin, head, eyes, nose, throat, neck, 
+joints, lungs, heart, pulse, abdomen (including liver and spleen), lymph nodes, and extremities, 
+as well as a brief neurologic examination. Limited physical examination will include lungs, 
+heart, abdomen, and skin. 
+4.7. 
+Pharmacokinetic Variables and Immunogenicity Variables (ADA)  
+Serum concentration of cemiplimab will be assessed at multiple time points throughout the study 
+treatment and follow-up periods, and descriptive PK variables will include: 
+• Ctrough - pre-infusion concentration 
+• Ceoi - concentration at end-of-infusion 
+• teoi - time of end-of-infusion  
+Anti-drug antibody variables include status (positive or negative), titer, NAb status and time-
+point/visit. Serum samples for ADA will be collected at the clinic visits specified in the protocol.  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 24 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 24 of 41 
+5. 
+STATISTICAL METHODS 
+For continuous variables, descriptive statistics will include the following: the number of patients 
+reflected in the calculation (n), mean, median, standard deviation, minimum, and maximum. In 
+addition, 25th percentile and 75th percentile will be provided. 
+For categorical or ordinal data, frequencies and percentages will be displayed for each category. 
+The denominator will be determined by the analysis population used for the summary.  
+For time-to-event variables, median time-to-event (and the survival rate at a fixed time point) 
+and its 95% confidence intervals will be summarized by the Kaplan-Meier method. 
+Statistical analysis for efficacy will be conducted independently for each group.  
+The data cut-off for primary efficacy analysis will be six months after the last patient starts the 
+treatment, plus at most three additional months if a tumor response of CR or PR occurring at six 
+months need be confirmed. The study will continue for data collection of tumor response, 
+duration of response and safety after primary efficacy analysis. The statistical analysis of 
+duration of response will be updated after four additional months to allow for sufficient data 
+maturation. 
+5.1. 
+Demographics and Baseline Characteristics 
+Patient demographics and baseline characteristics will be summarized by group based on the 
+FAS population.  
+Assessments made before the first dose of cemiplimab will be used as baseline measurements for 
+the purposes of statistical analysis and reporting unless otherwise specified. 
+5.2. 
+Medical History 
+Medical history will be listed which includes SOC, PT, investigator verbatim and start and end 
+dates and summarized by SOC and PT. Tables will be sorted by decreasing frequency of SOC 
+followed by PT. 
+Cancer diagnosis will be listed and summarized by primary cancer diagnosis, histological grade 
+and stages.  
+Prior cancer related surgery will be listed including type of procedure and date of surgery and 
+summarized by prior surgery status. Prior cancer related systemic therapy will be listed including 
+systemic therapy type, name of drug and start and end dates and summarized by systemic therapy 
+type. Prior cancer related radiotherapy will be listed by site, total dose and start and end dates 
+and summarized by prior radiotherapy status. 
+5.3. 
+Prior/Concomitant Medications  
+Prior/concomitant medications will be listed including generic name and ATC levels 2 and 4, 
+indication, study day onset (for medications started before treatment, the study day onset is 
+defined as date of medication start - date of the first dose; for medications started on or after 
+treatment, the study day onset is defined as date of medication start - date of the first dose+1), the 
+study end date (defined similarly as for study onset day), ongoing status, dose, frequency, and 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 25 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 25 of 41 
+route. Number and proportion of subjects taking concomitant medications sorted by decreasing 
+frequency of ATC Level 2 and ATC level 4. 
+5.4. 
+Subject Disposition 
+For subject disposition, the following summaries by table will be provided: 
+• The total number of screened patients 
+• The total number of patients in each analysis set 
+• The total number of patients who discontinued the study treatment and the reasons for 
+the treatment discontinuation 
+• The total number of patients who discontinued the study, and the reasons for the 
+study discontinuation 
+Listing of patient disposition will include dates of the first and the last cemiplimab 
+administration, date of the end of treatment and end of study visits, and reasons for treatment and 
+study discontinuation. 
+5.5. 
+Protocol Deviation 
+Protocol deviations will be defined in a separate protocol deviation definition document.  A 
+listing of all patients with protocol deviations and the reason of deviation will be provided. The 
+major protocol deviation, such as violation of inclusion/exclusion criteria; post-enrollment 
+deviations which will impact assessment of efficacy or safety endpoints, will be determined 
+before database lock and be summarized by group. 
+5.6. 
+Measurement of Compliance 
+Compliance with cemiplimab treatment will be calculated as follows: 
+Treatment Compliance =  
+(Number of doses of cemiplimab administered during treatment period) / (Number of 
+doses of cemiplimab planned to be administered during period) × 100% 
+where temporary dose discontinuation is ignored. 
+The percentage of subjects who have <60%, 60-80%, 80-100%, and >100% compliance will be 
+summarized for each group. 
+5.7. 
+Exposure to Investigational Product 
+Exposure to cemiplimab will be examined for each subject and the following variables will be 
+summarized by group: 
+• The total number of study doses administered  
+• The total dosage of cemiplimab administered  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 26 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 26 of 41 
+• Duration of treatment exposure (in weeks) calculated as the minimum of  
+− [date of last dose - date of first dose + 14 days based on Q2 weekly dosing 
+schedule] / 7 for Group 1 and Group 2;  
+[date of last dose - date of first dose + 21 days based on Q3 weekly dosing 
+schedule] / 7 for Group 3, Group 5, and Group 6; 
+[date of last dose - date of first dose + 28 days based on Q4 weekly dosing 
+schedule] / 7 for Group 4 
+or  
+− [date of clinical data cut-off or date of death - date of first dose + 1] / 7 
+• The number and percentage of subjects exposed to cemiplimab will be presented by 
+specific time points of interest (eg, . 4, 8, 12, 16, 24, 48, 72, 84, 96) for each group. 
+• The actual dose intensity (mg/kg/week) = total dose received per kg (mg/kg) / 
+duration of treatment exposure (week) for Group 1 and Group 2;  
+The actual dose intensity (mg /week) = total dose received (mg) / duration of 
+treatment exposure (week) for Group 3, Group 4, Group 5, and Group 6. 
+• The relative dose intensity = actual dose intensity / planned dose intensity, 
+− Planned dose intensity (mg/kg/week) = planned dose (mg/kg) / 2 for Group 1 and 
+Group 2; 
+− Planned dose intensity (mg /week) = planned dose (mg) / 3 for Group 3, Group 5, 
+and Group 6; 
+− Planned dose intensity (mg /week) = planned dose (mg) / 4 for Group 4 
+For patients who also receive cemiplimab as re-treatment which starts more than 30 days after 
+their last regular cemiplimab treatment, the retreatment dose will not be included in summery of 
+on-treatment exposure, instead, they will be listed and summarized if necessary. 
+For Group 6 patients who opt to switch to SC cemiplimab, cumulative exposure to cemiplimab 
+(IV + SC combined) and exposure to SC or IV alone will be summarized. 
+5.8. 
+Analyses of Efficacy Variables 
+The analysis of efficacy data will be performed based on the FAS. The summary of efficacy 
+results will be presented by group. 
+5.8.1. 
+Analysis of Primary Efficacy Variable 
+The ORR according to central review will be summarized by group and the corresponding 2-
+sided 95% exact binomial confidence intervals will be derived using the Clopper Pearson method 
+(Clopper, 1934). BOR will also be summarized by group. 
+The primary analysis of efficacy is based on the exact binomial confidence interval approach of 
+ORR.  If the lower limit of 95% confidence interval of observed ORRs excludes 15% for Group 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 27 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 27 of 41 
+1 and Group 3, excludes 25% for Group 2, exclude 20% for Group 4, or exclude 28% for Group 
+6, the study treatment is deemed effective for that group, respectively.  
+In addition, ORR along with two-sided 95% exact binomial confidence intervals for all patients 
+treated with cemiplimab will be presented.   ORR in patients whose CSCC disease has been 
+confirmed by central pathology review will also be summarized. 
+A sensitivity analysis will be performed for ORR using patients who received at least one dose of 
+cemiplimab. 
+For Group 6 patients who opt to switch to SC cemiplimab, efficacy data per central review will 
+be censored at the first SC dose. Because Group 6 patients are only allowed to switch to SC 
+cemiplimab after completing at least 27 weeks on study (3 tumor assessments after baseline), 
+which is the pre-specified timepoint for primary efficacy analyses in Group 6, switching to SC 
+dosing will have no impact on the primary efficacy analysis for Group 6. 
+The primary endpoint of ORR will also be summarized by pooling the objective response 
+observed in CSCC patients in this study with object response data of CSCC patients in 
+Regeneron study R2810-ONC-1423 to satisfy regulatory requirements from certain regions. 
+Details will be provided in separate SAP for integrated efficacy analysis. 
+5.8.2. 
+Analysis of Secondary Efficacy Variables 
+ORR derived from the overall response that is based on investigator-reviewed evaluation will be 
+analyzed similarly as primary efficacy variable. 
+DOR: The distribution of DOR will be estimated using the Kaplan-Meier method. The median 
+DOR along with its 95% CI will be presented by group and Kaplan-Meier estimates with 2-sided 
+95% CIs at specific time points (eg, 4, 6, 8, 12, 16, 20 and 24 months) will be summarized. The 
+Kaplan-Meier curves will be displayed by group. DOR will also be summarized descriptively by 
+range. Number and percentage of patients with DOR at specific time periods of interest (eg, >=4 
+months, >=6 months, >=8 months, >=12 months, etc.) will be summarized by group.  
+PFS: The distribution of PFS will be estimated using the Kaplan-Meier method. The median PFS 
+along with its 95% CI will be presented by group and Kaplan-Meier estimates with 2-sided 95% 
+CIs at specific time points (eg, 4, 6, 8, 12, 16, 20 and 24 months) will be summarized. The 
+Kaplan-Meier curves will be displayed by group.  
+OS: The distribution of OS will be estimated using the Kaplan-Meier method. The median OS 
+along with its 95% CI will be presented by group and Kaplan-Meier estimates with 2-sided 95% 
+CIs at specific time points (eg, 4, 6, 8, 12, 16, 20 and 24 months) will be summarized. The 
+Kaplan-Meier curves will be displayed by group. A variant of OS defined by censoring patients 
+at the start date of subsequent therapy will be summarized and displayed by Kaplan-Meier 
+approach as a sensitivity analysis. 
+TTR will be summarized descriptively by group and at specific time periods of interest (eg, 
+<2 months, 2 to 4- months, 4 to 6- months, >=6 months). 
+CR rate, DCR and dDCR with 95% confidence interval will be summarized by group using the 
+Clopper-Pearson method.  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 28 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 28 of 41 
+Depth of tumor response will be displayed using waterfall plot and spider plot and summarized 
+by descriptive statistics. 
+For Group 6 patients who opt to switch to SC cemiplimab, ORR, DOR, PFS per investigator 
+assessment will be summarized as IV + SC combined period and IV period.  
+Absence of residual CSCC in biopsy samples from patients with locally advanced CSCC 
+achieving a clinical response to cemiplimab, as measured by independent central pathological 
+review, will be summarized descriptively.  
+5.8.3. 
+Analysis of Quality of Life Variables  
+The quality of life of patients will be repeatedly measured by the EORTC QLQ-C30 at the day 1 
+of each treatment cycle for Groups 1 to 5. The change scores of each component of QLQ-C30 
+will be summarized descriptively at each post-baseline time point. The summary scores of each 
+component of QLQ C30 will also be graphically depicted by longitudinal plots. Partial missing 
+data in QLQ C30 will be taken care of by the scoring algorithm, no additional imputations will 
+be conducted for missing data. 
+5.8.4. 
+Analysis of Exploratory Efficacy Variable 
+ORR according to 18F-FDG-PET using EORTC criteria will be summarized for Group 4 patients 
+(excluding patients enrolled in Germany) and the corresponding 2-sided 95% exact binomial 
+confidence intervals will be derived using the Clopper-Pearson method. 
+5.8.5. 
+Subgroup Efficacy Analysis 
+Subgroup efficacy analyses will be performed based on the following factors, respectively: 
+• gender (Male, Female) 
+• age group (<65, ≥65) 
+• race (White, Non-white) 
+• geographical region (North American, Europe and Rest of World) 
+• ECOG (0, 1) 
+• Prior systemic anticancer therapy (Yes, No)  
+• Prior radiotherapy (Yes, No) 
+• For Group 1 and Group 3: Metastatic status (Distant or Nodal only) 
+• For Group 4 and Group 6: Advanced CSCC type (mCSCC, laCSCC)  
+However, as such analyses may not have enough power for hypothesis tests, the analysis will be 
+exploratory in nature. 
+5.9. 
+Analysis of Safety Data 
+The analysis of safety and tolerance will be performed on the SAF, as defined in Section 3.2.  
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 29 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 29 of 41 
+The safety analysis will be based on the reported AEs and other safety information (clinical 
+laboratory evaluations, vital signs and 12-lead ECG).  The analysis will comprise the basis upon 
+which conclusions will be drawn regarding the cemiplimab. The AE of special interest will be 
+determined by the list provided by medical monitors. 
+Period of observation: The observation period will be divided into three segments: pre-treatment, 
+on-treatment and post-treatment. 
+• The pretreatment period is defined as the time from signing the ICF to before the first 
+dose of study drug. 
+• The on-treatment period is defined as the day from the first dose of study drug to 
+105 days after the last dose of study drug or to follow-up visit, whichever is longer. 
+For patients who started cemiplimab as re-treatment more than 30 days after their last 
+regular cemiplimab treatment, the on-treatment period ends at the earlier day of 
+105 days after the last regular cemiplimab dose or 1 day before their first dose of 
+cemiplimab re-treatment. 
+• The post-treatment period is defined as the time starting 1 day after the on-treatment 
+period. 
+Day 1 is the first day of patient receiving cemiplimab treatment, Day –1 is the day before, and 
+there is no Day 0. 
+The safety analysis will be concentrated on events that occur during on-treatment period. Events 
+that occur during post-treatment period, or during cemiplimab re-treatment will be listed and 
+summarized if necessary. 
+The summary of safety results will be presented by group and combined. 
+5.9.1. 
+Adverse Events  
+The verbatim text, the primary system organ class (SOC), and the preferred term (PT) will be 
+displayed in subject listings. Summaries that include frequencies and proportions of patients 
+reporting AEs will include the SOCs and the PTs. 
+Definitions: 
+• Pre-treatment AEs are defined as AEs that developed during the pre-treatment period. 
+• Treatment-emergent AEs (TEAEs) are defined as AEs that developed or worsened 
+during the on-treatment period and any immune-related AEs that occurs any time 
+after the first dose of cemiplimab.  
+• Post-treatment AEs are defined as AEs that developed or worsened during the post 
+treatment period and are not considered drug related by the investigator. 
+The focus of adverse event reporting in the CSR will be on TEAEs. For details on handling 
+missing data and partial dates, see Section 6.  
+Summaries of AEs will include: TEAEs, Treatment related TEAEs, Serious TEAEs, Treatment-
+related Serious TEAEs, AESI, immune-related AEs, and infusion related AEs. For TEAEs, the 
+following will be summarized: 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 30 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 30 of 41 
+• The number and proportions of patients reporting at least 1 TEAE, presented by SOC 
+and PT 
+• TEAEs by severity (CTCAE, version 4.03 grade), presented by SOC and PT 
+• TEAEs related to treatment, presented by SOC and PT 
+• TEAEs occurring in ≥ 5% patients, presented by PT 
+• TEAEs leading to permanent treatment discontinuation, presented by SOC and PT 
+• TEAEs leading to death, presented by SOC and PT 
+For each TEAE summary presented by SOC and PT, the summary table will be sorted by 
+decreasing frequency of SOC and PT. For TEAE summary presented by PT, the summary table 
+will be sorted by decreasing frequency of PT. 
+The irAEs reported by investigator will be summarized. Additionally, irAEs identified by the 
+sponsor will be summarized. All irAEs occurred during the on-treatment and post-treatment 
+period will be included. 
+For AE listings, the following variables will be displayed:  
+• Age/Gender 
+• Verbatim Term, SOC, PT 
+• AE start date and end date/ongoing (and corresponding study day) 
+• AE duration 
+• Relationship to study drug: unrelated or related 
+• Seriousness (Serious AE or not) 
+• National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI 
+CTCAE) grade 
+• Action taken 
+• Treatment for AE 
+• Outcome 
+Counts will be provided for each patient within each SOC and PT. Percentages will be calculated 
+using the number of patients from the SAF in each group. 
+For Group 6 patients who opt to switch to SC cemiplimab, AEs that occured during SC 
+cemiplimab will be summarized separately. 
+Pre-treatment AEs and post-treatment AEs will be listed separately.  
+5.9.2. 
+Clinical Laboratory Measurements  
+Listings of laboratory measurement will include laboratory values, normal ranges, grade 
+(if applicable), collection date, and visit/cycle. The numeric lab variables and change from 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 31 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 31 of 41 
+baseline to each visit/cycle will be summarized. Listings of abnormal lab values and clinically 
+significant (Yes/No) by patient and visit/cycle will also be constructed.    
+Summary tables for worst laboratory values with NCI CTCAE v4.03 all grade and grade ≥ 3 
+observed during on-treatment period will be generated. Summary of Shift tables from baseline to 
+worst NCI CTCAE v4.03 grade observed during on-treatment period will be generated.  
+The shift tables include: 
+• Overall and individual Hematologic Test (Hemoglobin, Platelets, WBC) 
+• Overall and individual Liver Function Test: (AST, ALT, ALP, Total Bilirubin and 
+Albumin) 
+• Overall and individual Electrolytes (Sodium, Potassium, Magnesium, Calcium, 
+Chloride, Bicarbonate, Phosphorus) 
+5.9.3. 
+Analysis of Vital Signs 
+Vital signs (temperature, pulse, blood pressure, and respiration rate) will be listed and 
+summarized by Baseline and change from Baseline to each scheduled assessment time with 
+descriptive statistics.  
+5.9.4. 
+Analysis of 12-Lead ECG 
+ECG parameters (PR interval, QT interval, QTc interval, QRS interval, Ventricular rate and 
+Heart rate) will be listed and summarized by Baseline and change from Baseline to each 
+scheduled assessment time with descriptive statistics. 
+ECG status (ie, normal, abnormal not clinically significant, and abnormal clinically significant) 
+will be reported. Shift tables from baseline to worst post-baseline findings (normal, abnormal not 
+clinically significant, and abnormal clinically significant) during on-treatment period will be 
+generated.  
+5.9.5. 
+Physical Exams 
+Physical examination findings at baseline as well as post-treatment abnormal findings by body 
+system and status (normal, abnormal not clinically significant, and abnormal clinically significant) 
+will be listed. Number and proportion of patients with new or worsened physical exam 
+abnormalities during on-treatment period will be summarized. 
+5.10. 
+Analysis of Pharmacokinetic and Immunogenicity Data  
+5.10.1. 
+Analysis of Pharmacokinetic Data 
+Serum concentration of cemiplimab will be assessed at multiple time points throughout the study 
+treatment and follow-up periods, and the PK variables will be determined. 
+Summaries of study drug concentrations will be presented by nominal time point (ie, the time 
+points specified in the protocol) and group. Pharmacokinetic variables, including Ceoi, Ctrough, and 
+teoi, will be presented as individual values with descriptive statistics. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 32 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 32 of 41 
+5.10.2. 
+Analysis of Anti-Drug Antibody Data  
+The anti-drug antibody variables described in Section 4.7 will be summarized using descriptive 
+statistics.  
+Immunogenicity will be characterized by ADA responses and titers observed in patients in the 
+ADA analysis set. ADA response categories and titer categories are defined as follows: 
+ADA response categories:  
+• ADA Negative, defined as ADA negative response in the cemiplimab ADA assay at 
+all time points, regardless of any missing samples. 
+• Pre-existing immunoreactivity, defined as either an ADA positive response in the 
+ADA assay at baseline with all post first dose ADA results negative, OR a positive 
+response at baseline with all post first dose ADA responses less than 9-fold over 
+baseline titer levels.  
+• Treatment-emergent response, defined as a positive response in the ADA assay post 
+first dose when baseline results are negative or missing. The treatment-emergent 
+responses will be further characterized as Persistent, Indeterminate or Transient.   
+− Persistent Response – Treatment-emergent ADA positive response with two or 
+more consecutive ADA positive sampling time points, separated by at least        
+16-week period (based on nominal sampling time), with no ADA negative 
+samples in between, regardless of any missing samples. 
+− Indeterminate Response –Treatment-emergent ADA positive response with only 
+the last collected sample positive in the ADA assay, regardless of any missing 
+samples. 
+− Transient Response –Treatment-emergent ADA positive response that is not 
+considered persistent or indeterminate, regardless of any missing samples. 
+• Treatment-boosted response, defined as a positive response in the ADA assay post 
+first dose that is greater than or equal to 9-fold over baseline titer levels, when 
+baseline results are positive. 
+Titer categories (Maximum titer values): 
+• Low (titer <1,000) 
+• Moderate (1,000 ≤ titer ≤ 10,000) 
+• High (titer >10,000) 
+The following analysis will be provided: 
+• Number (n) and percent (%) of ADA-negative patients (pre-existing 
+immunoreactivity or negative in the REGNXXXX ADA assay at all time points) by 
+treatment groups 
+• Number (n) and percent (%) of treatment-emergent ADA positive patients by 
+treatment groups and ADA titer categories 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 33 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 33 of 41 
+− Number (n) and percent (%) of persistent treatment-emergent ADA positive 
+patients 
+− Number (n) and percent (%) of indeterminate treatment-emergent ADA positive 
+patients 
+− Number (n) and percent (%) of transient treatment-emergent ADA positive 
+patients 
+• Number (n) and percent (%) of treatment-boosted ADA positive patients by treatment 
+groups and ADA titer categories 
+• Listing of all ADA titer levels will be provided for patients with pre-existing, 
+treatment-emergent and treatment-boosted ADA response. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 34 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 34 of 41 
+Formation of ADA will be assessed in individual patients and per group as follows: 
+• Possible relationship between changes in PK profile and treatment-emergent positive 
+responses in the ADA assay will be assessed to evaluate a potential impact of anti 
+cemiplimab antibodies on drug exposure. 
+• Possible relationship between AEs and treatment-emergent positive responses in the 
+ADA assay will be assessed to evaluate a potential impact of anti-cemiplimab 
+antibodies on the incidence of Grade 3 and 4 AEs, atypical AEs, and SAEs. 
+Cases of ADA positivity will be listed and summarized as appropriate. Analysis of ADA data 
+will be provided in a separate report. 
+5.10.3. 
+Analysis of Neutralizing Antibody (NAb) Data 
+The absolute occurrence (n) and percent of patients (%) with NAb status in the NAb analysis set 
+will be provided by treatment groups.   
+5.10.4. 
+Analysis of Exploratory Biomarker Data 
+Biomarker data will be analyzed using standard scientific methods and summarized by 
+descriptive statistics and plots. Comparative analysis of biomarker data with parent study 
+(R2810-ONC-1423) may be performed using paired t-test or nonparametric Wilcoxon signed-
+rank test or Chi-square test. Correlative analysis with clinical response may be performed using 
+correlation coefficient, box plot and scatter plot, and basic regression models. Both comparative 
+analysis and correlative analysis will be exploratory in nature and may be provided either as an 
+appendix to CSR or in a separate report. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 35 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 35 of 41 
+6. 
+DATA CONVENTIONS 
+The following analysis conventions will be used in the statistical analysis.  
+6.1. 
+Definition of Baseline for Efficacy/Safety Variables 
+Unless otherwise specified, the Baseline assessment for all measurements will be the latest 
+available valid measurement taken prior to the administration of investigational product.  
+6.2. 
+Data Handling Convention for Efficacy Variables  
+Patients who are deemed NE according to RECIST version 1.1. or inevaluable by the composite 
+response criteria will be considered as not reaching PR/CR in calculating ORR, i.e. they are not 
+considered as responders in the numerator of ORR, but they are counted in the denominator of 
+ORR. 
+6.3. 
+Data Handling Convention for Missing Data 
+No missing data imputation is planned in this study unless specified otherwise. 
+For categorical variables, patients with missing data are not included in calculations of 
+percentages unless otherwise specified. When relevant, the number of patients with missing data 
+is presented. 
+Medication missing/partial dates 
+To determine whether a medication is prior, concomitant or post-treatment medication, the 
+missing medication start date is estimated as early as possible up to date of the first study 
+treatment, and the missing medication end date is estimated as late as possible. If the medication 
+start date is missing, the onset day will not be imputed in medication listings. 
+Date of first / last study treatment 
+Date of first infusion is the first non-missing start date of dosing filled in the CRF 
+“Investigational Product” module. 
+If a patient’s date of the last dose is totally missing or unknown, his/her last visit date will be 
+substituted. 
+6.4. 
+Unscheduled Assessments 
+Unscheduled visit measurements may be used to provide a measurement for a baseline or 
+endpoint value if appropriate according to their definition.  The measurements may also be used 
+to determine abnormal laboratory or ECG values. 
+The determination of baselines and values at the end of treatment for both efficacy and safety 
+variables will be based on scheduled available assessments and unscheduled available 
+assessments.  
+Extra assessments (laboratory data or vital signs associated with non-protocol clinical visits or 
+obtained in the course of investigating or managing adverse events) will be included in listings, 
+but not by visit summaries except for the endpoint determination.  If more than one laboratory 
+value is available for a given visit, the first observation will be used in summaries and all 
+observations will be presented in listings. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 36 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 36 of 41 
+7. 
+MULTIPLICITY CONSIDERATIONS 
+Adjustments to the significance level for the purposes of multiple testing are not applicable for 
+this study. Statistical analyses of efficacy for each group will be conducted and reported 
+separately; ie, efficacy results and clinical conclusions from one Group will not affect those of 
+other Groups, and vice versa. Therefore, statistical control of overall type I error for the whole 
+study is not planned. There is no multiplicity adjustment for secondary endpoint. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 37 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 37 of 41 
+8. 
+INTERIM ANALYSIS 
+Interim analysis for Group 2 
+At the time of the planned efficacy analysis for Group 1 (6 months after first dose of last patient), 
+an interim analysis of efficacy for Group 2 patients will be performed in order to better assess the 
+risks and benefits of cemiplimab in CSCC. This analysis will be restricted to Group 2 patients 
+with potential for adequate follow up, defined as patients who have opportunity to receive 
+approximately 9 months of study treatment at the time of the interim analysis.  
+For regions where alpha spending is not required: For this planned interim analysis, the ORR and 
+associated 95% confidence interval will be summarized. As the primary objective of this the 
+interim analysis is point estimation on ORR and characterizing the precision of point estimation, 
+there is no hypothesis testing associated with this interim analysis. Also, no decisions will be 
+made regarding study conduct associated with the interim analysis. Therefore, Type I error 
+adjustment is not applicable for this planned interim analysis. 
+For regions where alpha spending is required: For this interim analysis on group 2 patients, two-
+sided alpha of 0.0001 will be allocated for interim analysis and two-sided alpha of 0.0499 will be 
+preserved for the final analysis. Correspondingly, for the interim analysis of primary endpoint of 
+ORR in group 2 patients, the precision of ORR will be estimated by adjusted and two-sided 
+99.99% exact confidence interval. The un-adjusted and two-sided 95% exact confidence interval 
+will also be reported at the time of interim analysis. At the time of the final analysis for group 2 
+patients, both adjusted 95.01% and un-adjusted 95% exact confidence interval will be reported. 
+For other efficacy endpoints in group 2 patients, only two-sided 95% exact confidence interval 
+will be presented both at the interim and at the final analysis. 
+Interim analysis for Group 6 
+Per sample size calculation, 167 patients are planned for Group 6. An interim analysis of Group 
+6 patients will be performed after the first 50% of patients have had the opportunity to be 
+followed up for a minimum of 28 weeks (27 weeks for 3 tumor assessments + 1-week 
+assessment window) or have reached the end of study. The interim analysis will include a 
+minimum of 20 locally advanced CSCC patients. If 20 locally advanced patients are not yet 
+enrolled in the set of the first 84 patients enrolled in Group 6, the interim analysis will be 
+performed after 20 locally advanced CSCC patients have been enrolled and have had the 
+opportunity to be followed for at least 28 weeks. All patients enrolled in Group 6 who have had 
+the opportunity to be followed for at least 28 weeks will be included in the interim analysis. 
+For regions where alpha spending is not required: For this planned interim analysis, the ORR and 
+associated 95% confidence interval will be summarized. As the primary objective of this interim 
+analysis is point estimation on ORR and characterizing the precision of point estimation, there is 
+no hypothesis testing associated with this interim analysis. Therefore, Type I error adjustment is 
+not applicable for this planned interim analysis. 
+For regions where alpha spending is required: The overall type I error rate for analyses of the 
+primary endpoint of ORR is controlled at a 2-sided alpha of 0.05 using the O’Brien-Fleming 
+spending function. Table 1 demonstrates the bound and boundary properties for ORR hypothesis 
+testing at interim and final analyses, assuming interim analysis was performed at 50% of 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 38 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 38 of 41 
+enrollment. The table will be updated using the actual number of patients included in the interim 
+and final ORR analysis. 
+Table 1: 
+Alpha Spending for Analysis of ORR on Group 6 Patients 
+Analysis 
+ 
+Value 
+Interim Analysisa 
+Z 
+2.9626 
+α (2-sideda) 
+0.0031 
+Final Analysis 
+Z 
+1.9686 
+α (2-sided) 
+0.0490 
+a As a 2-sided test is used at interim, the superiority or futility of cemiplimab treatment will be claimed if the 
+statistical boundary is crossed. 
+For the interim analysis of ORR, the precision of ORR will be estimated by adjusted 2-sided 
+99.69% exact confidence interval. The un-adjusted 2-sided 95% exact confidence interval will 
+also be reported at the time of interim analysis. The ORR of 28% for Group 6 will be excluded 
+using the lower limit of 99.69% exact CI if the observed ORR is 44.1% or more (Table 2). 
+At the time of the final analysis, both adjusted 95.10% and un-adjusted 95% exact confidence 
+interval will be reported. The confidence level will be updated using the actual number of 
+patients included in the interim and final ORR analysis. 
+For other efficacy endpoints in Group 6 patients, only a 2-sided 95% confidence interval will be 
+presented both at the interim and at the final analysis. 
+Table 2: 
+Binomial Exact Confidence Intervals for Observed ORR in Group 6 
+Analysis 
+Two-sided 
+Exact CI 
+N 
+Number of 
+Responders 
+Observed ORR 
+Lower 
+Bound 
+Upper 
+Bound 
+Interim 
+99.69% 
+84 
+37 
+44.1% 
+28.4% 
+60.6% 
+Final 
+95.10% 
+167 
+59 
+35.3% 
+28.1% 
+43.1% 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 39 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 39 of 41 
+9. 
+SOFTWARE 
+All statistical analyses will be done using SAS Version 9.4 or above. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 40 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+ 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 40 of 41 
+10. 
+REFERENCES 
+1. Aaronson N.K., Ahmedzai S., Bergman B., et al. (1993) 'The European Organization for 
+Research and Treatment of Cancer QLQ-C30: a quality-of-life instrument for use in 
+international clinical trials in oncology', J Natl Cancer Inst, 85, 365–376. 
+2. Clopper, C. & Pearson, E. S. (1934), 'The use of confidence or fiducial limits illustrated 
+in the case of the binomial', Biometrika, 404-413. 
+3. Elashoff, J. D. (2007), 'nQuery Advisor Version 7.0 User’s Guide', Statistical Solutions 
+Ltd., Los Angeles, CA. 
+4. Fayers PM, Aaronson NK, Bjordal K, Groenvold M, Curran D, Bottomley A, on behalf 
+of the EORTC Quality of Life Group. The EORTC QLQ-C30 Scoring Manual 
+(3rd Edition). Published by: European Organisation for Research and Treatment of 
+Cancer, Brussels 2001. 
+5. ICH. (1998). ICH Harmonized tripartite guideline: Statistical principles for clinical trials 
+(E9). International Conference on Harmonization of Technical Requirements for 
+Registration of Pharmaceuticals for Human Use. 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 41 ---
+Regeneron Pharmaceuticals, Inc. 
+ 
+Protocol: R2810-ONC-1540 
+Statistical Analysis Plan 
+Date: October 27, 2023 
+ 
+REGENERON CONFIDENTIAL 
+Page 41 of 41 
+11. 
+APPENDIX 
+11.1. 
+Summary of Statistical Analyses 
+Efficacy Analysis: 
+Endpoint 
+Analysis 
+Populations 
+Primary Analysis 
+Statistical 
+Method 
+Supportive 
+Analysis 
+Subgroup 
+Analysis 
+Other 
+Analyses 
+Primary Endpoint 
+ORR 
+FAS 
+Proportion of patients with best overall 
+response of CR or PR (central review) 
+95% exact binomial 
+confidence interval using 
+Clopper-Pearson method 
+Exact binomial 
+test p-value 
+Yes 
+Yes 
+Secondary Endpoints 
+ORR 
+FAS 
+Proportion of patients with best overall 
+response of CR or PR (investigator 
+review) 
+95% exact binomial 
+confidence interval using 
+Clopper-Pearson method 
+Exact binomial 
+test p-value 
+No 
+No 
+Duration of 
+response 
+Patients with 
+best overall 
+response of 
+CR/PR in FAS 
+From the time measurement criteria are 
+first met for CR/PR (whichever is first 
+recorded) until the first date of recurrent 
+or progressive disease (radiographic), or 
+death due to any cause. 
+Kaplan-Meier method and 
+descriptive statistics 
+No 
+Yes 
+No 
+Progression-free 
+survival 
+FAS 
+From the start of treatment until the first 
+date of recurrent or progressive disease 
+(radiographic), or death due to any 
+cause. 
+Kaplan-Meier method 
+No 
+No 
+No 
+Overall survival 
+FAS 
+From the start of treatment until death 
+due to any cause. 
+Kaplan-Meier method 
+No 
+No 
+No 
+Quality of life 
+FAS 
+Changes scores from day 1 of EORTC-
+QLQ-C30 
+Descriptive statistics and 
+longitudinal plots 
+No 
+No 
+No 
+Safety Analyses: 
+Endpoint 
+Analysis 
+Populations 
+Primary Analysis 
+Statistical 
+Method 
+Supportive 
+Analysis 
+Subgroup 
+Analysis 
+Other 
+Analyses 
+Adverse Events 
+SAF 
+Percent of patients by system organ class and PT 
+Descriptive Statistics 
+No 
+No 
+No 
+ 
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00
+
+
+--- Page 42 ---
+Signature Page for VV-RIM-00330503 v1.0
+Signature Page for VV-RIM-00330503 v1.0 Approved
+Approval/eSignature
+12-Dec-2023 22:56:28 GMT+0000
+Approval/eSignature
+13-Dec-2023 02:12:18 GMT+0000
+Approval/eSignature
+13-Dec-2023 03:02:56 GMT+0000
+                                        VV-RIM-00330503-1.0 Approved - 12 Dec 2023 GMT-5:00

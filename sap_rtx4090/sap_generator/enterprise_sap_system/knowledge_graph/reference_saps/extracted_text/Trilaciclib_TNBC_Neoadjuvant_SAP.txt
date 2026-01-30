@@ -1,0 +1,3295 @@
+
+--- Page 1 ---
+ 
+1 
+                       
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN 
+ 
+Protocol Title: 
+A Phase 2, Open-Label, Single-Arm Study of Single-
+Dose Lead-In and Neoadjuvant Trilaciclib and 
+Chemotherapy in Patients with Early-Stage Triple 
+Negative Breast Cancer (TNBC) 
+Protocol Version 
+2.0 
+Protocol Number: 
+G1T28-212 
+Compound: 
+Trilaciclib for Injection, 300 mg/vial 
+Study Phase: 
+Phase 2 
+Study Name: 
+MOA 
+Sponsor: 
+G1 Therapeutics, Inc. 
+Legal Registered Address: 
+700 Park Offices Dr. Suite 200 
+PO Box 110341  
+Research Triangle Park, NC 27709 
+Regulatory Agency Identifier 
+Numbers: 
+IND: 145091 
+Statistical Analysis Plan 
+Version: 
+V 2.0 
+Approval Date: 
+18 Apr 2023  
+ 
+ 
+ 
+
+
+--- Page 2 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+2 
+CONFIDENTIAL 
+SAP SIGNATURE PAGE 
+I have read and understand the contents of this Statistical Analysis Plan, Version 2.0 for 
+Study G1T28-212 dated 18 April 2023 and I agree with all the statistical approaches, variable 
+derivations and data presentation detailed as described in this document. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Wayne Wang, PhD 
+Principal Biostatistician 
+G1 Therapeutics Inc.   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Date 
+Carson Miller, MS  
+Senior Biostatistician 
+Pharpoint Research  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Date 
+Andy Beelen, MD  
+Executive Director, Clinical Development 
+G1 Therapeutics Inc.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Date 
+Jingshan Zhang, PhD 
+Senior Director, Biostatistics 
+G1 Therapeutics Inc.  
+ 
+Date 
+18-Apr-2023
+18-Apr-2023
+19-Apr-2023
+19-Apr-2023
+
+
+--- Page 3 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+3 
+CONFIDENTIAL 
+TABLE OF CONTENTS 
+STATISTICAL ANALYSIS PLAN ................................................................................................1 
+SAP SIGNATURE PAGE ...............................................................................................................2 
+LIST OF ABBREVIATIONS ..........................................................................................................6 
+1. 
+INTRODUCTION ........................................................................................................8 
+1.1. 
+Study Design .................................................................................................................8 
+1.2. 
+Study Objectives .........................................................................................................10 
+1.3. 
+Sample Size Consideration .........................................................................................10 
+2. 
+THE NUMBER OF PLANNED ANALYSES ...........................................................12 
+3. 
+ANALYSIS POPULATIONS ....................................................................................13 
+3.1. 
+The Full Analysis Set – 1 (FAS1)...............................................................................13 
+3.2. 
+The Full Analysis Set – 2 (FAS2)...............................................................................13 
+3.3. 
+The Full Analysis Set (FAS) .......................................................................................13 
+4. 
+GENERAL CONSIDERATIONS FOR DATA SUMMARY AND 
+DISPLAY ...................................................................................................................14 
+4.1. 
+Treatment Group Descriptions and Display in Table, Listings and Figures ..............14 
+4.2. 
+Data Summary and Precision......................................................................................14 
+4.3. 
+Definitions for Analysis Related Timepoint and Time Interval .................................14 
+4.4. 
+Study Day ...................................................................................................................15 
+4.5. 
+General Principles of Missing Data Handling ............................................................16 
+5. 
+DISPOSITION AND BASELINE CHARACTERISTICS ........................................17 
+5.1. 
+Patient Disposition ......................................................................................................17 
+5.2. 
+Demographics and Baseline Disease Characteristics .................................................18 
+5.3. 
+Medical/Surgical History and Ongoing Conditions ...................................................18 
+5.4. 
+Prior and Concomitant Medications ...........................................................................18 
+5.5. 
+Summary of Protocol Deviations................................................................................20 
+5.5.1. 
+Definitions and Process for Identifying Protocol Deviations .....................................20 
+5.5.2. 
+Summary of Protocol Deviations................................................................................20 
+6. 
+CLASSIFICATION OF PRIOR SURGERIES AND PROCEDURES......................21 
+7. 
+STUDY DRUG EXPOSURE, DOSE INTENSITY AND MODIFICATION ...........22 
+7.1. 
+Duration of Study Drug Exposure ..............................................................................22 
+7.2. 
+Cumulative Dose and Dose Intensity .........................................................................22 
+
+
+--- Page 4 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+4 
+CONFIDENTIAL 
+7.3. 
+Study Drug Modifications ..........................................................................................24 
+8. 
+EFFICACY ANALYSIS ............................................................................................26 
+8.1. 
+Definitions of Efficacy Endpoints ..............................................................................26 
+8.1.1. 
+Primary Efficacy Endpoints – Change in CD8+ TILs/Tregs ratio from 
+baseline to 7 ± 1 days after single-dose monotherapy trilaciclib 
+administration .............................................................................................................26 
+8.1.2. 
+Secondary Efficacy Endpoints – Pathologic complete response (pCR) rate at 
+the time of definitive surgery ......................................................................................26 
+8.1.3. 
+Exploratory Endpoints ................................................................................................27 
+9. 
+SAFETY ANALYSIS ................................................................................................28 
+9.1. 
+General Consideration of Safety Analysis ..................................................................28 
+9.2. 
+Adverse Events ...........................................................................................................28 
+9.2.1. 
+Definition and Classification of Adverse Events ........................................................28 
+9.2.2. 
+Imputation Rules for Missing Start or Stop Date for Adverse Events .......................29 
+9.2.3. 
+Analysis for Adverse Events ......................................................................................30 
+9.3. 
+Clinical Laboratory Data ............................................................................................31 
+9.3.1. 
+Laboratory Parameters ................................................................................................31 
+9.3.2. 
+Analysis for Laboratory Parameters ...........................................................................32 
+9.4. 
+Vital Signs ..................................................................................................................33 
+9.4.1. 
+Vital Sign Parameters .................................................................................................33 
+9.4.2. 
+Analysis for Vital Signs ..............................................................................................34 
+9.5. 
+ECOG Performance Status .........................................................................................34 
+9.6. 
+12-lead Electrocardiograms ........................................................................................34 
+9.6.1. 
+Electrocardiograms Parameters ..................................................................................34 
+10. 
+CHANGES FROM THE PROTOCOL ......................................................................35 
+11. 
+REFERENCES ...........................................................................................................36 
+12. 
+APPENDICES ............................................................................................................37 
+APPENDIX 1. SCHEDULE OF ASSESSMENTS ....................................................................38 
+APPENDIX 2. CUSTOMIZED MEDDRA QUERIES FOR TRILACICLIB AESIS ...............40 
+APPENDIX 3. ANALYTICAL PLAN FOR QUANTIFICATION OF CD8+ TIL AND 
+FOXP3+ CELLS .................................................................................................46 
+ 
+
+
+--- Page 5 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+5 
+CONFIDENTIAL 
+LIST OF TABLES 
+Table 1: 
+Primary and Secondary Objectives and Endpoints .....................................................10 
+Table 2: 
+Statistical Power Calculation of Primary Endpoint ....................................................11 
+Table 3: 
+Definitions for Timepoints, Timepoint Related Assessments and Time 
+Intervals ......................................................................................................................15 
+Table 4: 
+Dose Administration Parameters for Study G1T28-212 ............................................23 
+Table 5: 
+Protocol Permitted Dose Reduction by Study Drug ...................................................24 
+Table 6: 
+Hematologic Preferred Terms to be Collapsed ...........................................................28 
+Table 7: 
+Laboratory Categories and Parameters .......................................................................31 
+Table 8: 
+Criteria for Potentially Clinically Significant Vital Signs ..........................................33 
+ 
+ 
+LIST OF FIGURES 
+Figure 1: 
+G1T28-212 Study Design Diagram ..............................................................................9 
+ 
+ 
+ 
+
+
+--- Page 6 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+6 
+CONFIDENTIAL 
+LIST OF ABBREVIATIONS  
+Abbreviation 
+Definition 
+AC 
+anthracycline/cyclophosphamide 
+AE 
+adverse event 
+AESI 
+adverse event of special interest 
+ALT 
+alanine aminotransaminase 
+AST 
+aspartate aminotransferase 
+AUC 
+area under the plasma concentration-time curve 
+CD8+ 
+cluster of differentiation 8 positive 
+CDK 
+cyclin-dependent kinase  
+CI 
+confidence interval 
+COVID-19 
+coronavirus disease 19 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+ECG 
+electrocardiogram 
+ECOG 
+Eastern Cooperative Oncology Group  
+eCRF 
+electronic case report form 
+EOS 
+End of study 
+FAS 
+Full Analysis Set 
+FOXP3 
+Forkhead Box P3 
+ICF 
+informed consent form 
+IFN 
+interferon 
+IHC 
+immunohistochemistry 
+INR 
+international normalized ratio 
+IV 
+intravenous 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MOA 
+mechanism of action 
+mRNA 
+messenger ribonucleic acid 
+MUGA 
+multigated acquisition 
+NCI 
+National Cancer Institute 
+
+
+--- Page 7 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+7 
+CONFIDENTIAL 
+Abbreviation 
+Definition 
+pCR 
+pathologic complete response 
+PCS 
+potentially clinically significant 
+PD-L1 
+programmed death-ligand 1 
+PR 
+progesterone receptor 
+PT 
+Preferred term 
+Q1 
+25th percentile 
+Q3 
+75th percentile 
+Q3W 
+every 3 weeks 
+RBC 
+red blood cell 
+SAE 
+serious adverse event 
+SAP 
+statistical analysis plan 
+SFU 
+Safety Follow-up  
+SOC 
+System organ class 
+TEAE 
+treatment-emergent adverse event 
+TIL 
+tumor-infiltrating lymphocyte 
+TNBC 
+triple negative breast cancer 
+Tregs 
+regulatory T cell 
+ULN 
+upper limit of normal 
+WHO-DD 
+World Health Organization Drug Dictionary 
+ 
+ 
+ 
+
+
+--- Page 8 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+8 
+CONFIDENTIAL 
+1. 
+INTRODUCTION 
+This Statistical Analysis Plan (SAP) provides detailed statistical methods, variable definitions 
+and derivations, and data handling that will be applied to analyze the clinical trial data collected 
+during study G1T28-212, “A Phase 2, Open-Label, Single-Arm Study of Single-Dose Lead-In 
+and Neoadjuvant Trilaciclib and Chemotherapy in Patients with Early-Stage Triple Negative 
+Breast Cancer (TNBC)” based on the protocol Version 2.0. 
+ 
+The Statistical Programming Supportive Documents (SPSD) will be developed based on the SAP 
+to serve as companion documents of the SAP to guide programming realization of the SAP. The 
+SPSD contain three separate documents: 
+1. The table of contents (TOC) for planned analyses (in Excel Spreadsheet). 
+2. The reporting conventions (in Word). 
+3. The shells or specificities for tables, listings, and figures (TLFs) generation (in Word).  
+If there are differences between statistical analysis approaches described in this SAP and those in 
+the protocol, the methods and approaches in this SAP will supersede those in the protocol.  
+Changes and additions to the last signed off version of this SAP will be documented with 
+corresponding rationale in the clinical study report (CSR). 
+Statistical software SAS® (SAS Institute Inc., Cary, NC) Version 9.4 or later will be used to 
+perform data analyses following the plan as laid out in this SAP. 
+1.1. 
+Study Design 
+This is a Phase 2 multicenter, open-label, single-arm, neoadjuvant study with 4 phases: 
+1. Screening Phase, 
+2. Trilaciclib Lead-in Phase,  
+3. Treatment Phase, and  
+4. Surgery and Safety Follow-Up Phase.  
+During the Screening Phase, tumor tissue (sample #1) will be obtained at baseline prior to any 
+study drug. This sample may be archival tissue, or if unavailable/insufficient, then a fresh biopsy 
+is required. Patients with adequate archival tissue will also have the option to undergo an 
+additional fresh biopsy at baseline. Patients will receive a single dose of monotherapy trilaciclib 
+240 mg/m2 in the Trilaciclib Lead-in Phase, followed by tumor biopsy (sample #2) 7 (±1) days 
+later. Following the biopsy, patients will enter the Treatment Phase in which trilaciclib 240 
+mg/m2 on Day 1 of each cycle will be administered along with dose-dense 
+anthracycline/cyclophosphamide followed by weekly taxane chemotherapy (doxorubicin 60 
+mg/m2 + cyclophosphamide 600 mg/m2 [AC] every 2 weeks for 4 cycles [Cycles 1-4], then 
+weekly paclitaxel [T] 80 mg/m2 weekly for 12 cycles [Cycles 5-16]). If pembrolizumab is given 
+(per Investigator discretion), it will start with AC (Cycle 1 of chemotherapy). If carboplatin is 
+given (per Investigator discretion) it will start with paclitaxel (Cycle 5).  
+Three to 5 weeks after the last dose of chemotherapy, patients will proceed to definitive surgery 
+at which time tumor tissue (sample #3) will be collected if the patient has residual disease. A 30-
+day Safety Follow-up Visit will occur 30 (+7) days after the last dose of trilaciclib and an End of 
+
+
+--- Page 9 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+9 
+CONFIDENTIAL 
+Study Visit will occur within 14 days after surgery. Both the Safety Follow-up Visit and End of 
+Study Visit may be conducted in person or by telephone and may occur on the same visit. 
+ 
+Figure 1: 
+G1T28-212 Study Design Diagram 
+ 
+AC=doxorubicin/cyclophosphamide; C=cycle; Cb=carboplatin; D=day; Mono=monotherapy; 
+Pembro=pembrolizumab; Q3W=every 3 weeks; QW=every week; SOC=standard of care; 
+T=paclitaxel; TNBC=triple-negative breast cancer; Trila=trilaciclib; Tx=treatment 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 10 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+10 
+CONFIDENTIAL 
+1.2. 
+Study Objectives  
+Primary: 
+To evaluate the immune-based mechanism of action of trilaciclib after a single-dose as measured 
+by the change in cluster of differentiation 8 positive (CD8+) tumor-infiltrating lymphocytes 
+(TILs)/regulatory T cell (Tregs) ratio in tumor tissue. 
+Secondary:  
+ To assess the pathologic complete response (pCR) rate at the time of definitive surgery. 
+ To evaluate the safety and tolerability of trilaciclib in combination with standard 
+neoadjuvant systemic therapies. 
+Specifically, the primary and secondary objectives and their associated endpoints are described 
+in Table 1.  
+Table 1: 
+Primary and Secondary Objectives and Endpoints 
+Objectives 
+Endpoints 
+Primary Objective 
+ To evaluate the immune-based 
+mechanism of action of trilaciclib 
+after a single-dose as measured by 
+the change in CD8+ TILs/Tregs 
+ratio in tumor tissue 
+ Change in CD8+ TILs/Tregs ratio in tumor tissue 
+from baseline to 7 days after single-dose 
+monotherapy trilaciclib administration  
+Secondary Objectives 
+ To assess the pCR rate at the time 
+of definitive surgery   
+ Rate of pCR using the definition of ypT0/Tis 
+ypN0 (i.e., no invasive residual tumor in breast or 
+nodes; noninvasive breast residuals allowed) as 
+assessed by the local pathologist 
+ To evaluate the safety and 
+tolerability of trilaciclib in 
+combination with standard 
+neoadjuvant systemic therapies  
+ Safety/tolerability as per CTCAE version 5.0 
+CD8+=cluster of differentiation 8 positive; CTCAE=Common Terminology Criteria for Adverse Events; 
+pCR=pathologic complete response; TIL=tumor-infiltrating lymphocyte; Tregs=regulatory T cells 
+Other objectives and endpoints of the study can be found in Section 5 of the study protocol.  
+1.3. 
+Sample Size Consideration  
+Sample size justification is based off of previously published data on the CD8+/Tregs ratio from 
+early stage TNBC patients who underwent neoadjuvant chemotherapy (Ahn). Using a 2-sided 
+significance level of 0.05, and anticipating that 10% patients enrolled to this study will not have 
+paired data (resulting in 27 patients with paired data), the power of the study to detect a 
+
+
+--- Page 11 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+11 
+CONFIDENTIAL 
+respective mean of paired difference in CD8+/Tregs ratio using paired Wilcoxon signed-rank 
+tests has been calculated using PASS 2019 (v19.0.3), and is presented in Table 2. 
+Table 2: 
+Statistical Power Calculation of Primary Endpoint 
+ 
+Mean of Paired Difference in CD8+/Tregs 
+Power 
+1.8 
+72% 
+2.0 
+81% 
+2.3 
+90% 
+2.5 
+94% 
+Based on the assumption of an estimated standard deviation of paired differences of 3.4. 
+ 
+ 
+ 
+
+
+--- Page 12 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+12 
+CONFIDENTIAL 
+2. 
+THE NUMBER OF PLANNED ANALYSES 
+There is only one planned analysis for this study. The planned analysis will be conducted to 
+evaluate the immune-based mechanism of action of trilaciclib after a single dose as measured by 
+the change in CD8+ TILs/Tregs ratio in tumor tissue. In addition, the pCR rate, at the time of 
+definitive surgery as well as the safety and tolerability of trilaciclib in combination with standard 
+neoadjuvant systemic therapies will be assessed. 
+ 
+
+
+--- Page 13 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+13 
+CONFIDENTIAL 
+3. 
+ANALYSIS POPULATIONS 
+3.1. 
+The Full Analysis Set – 1 (FAS1) 
+The Full Analysis Set – 1 (FAS1) population includes enrolled patients who have received 
+trilaciclib during the Trilaciclib Lead-in Phase. This population will be used to assess immune 
+response in tumor tissue.  
+3.2. 
+The Full Analysis Set – 2 (FAS2) 
+The Full Analysis Set – 2 (FAS2) population includes enrolled patients who have received at 
+least one dose of any study drug during the Treatment Phase of the study. 
+3.3. 
+The Full Analysis Set (FAS) 
+The Full Analysis Set (FAS) population includes enrolled patients who received at least one dose 
+of any study drug during the treatment period, where treatment period consists of the Trilaciclib 
+Lead-in Phase and the Treatment Phase. This population will be used to assess safety and 
+tolerability and the rate of pCR for trilaciclib in combination with neoadjuvant systemic 
+therapies. 
+ 
+
+
+--- Page 14 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+14 
+CONFIDENTIAL 
+4. 
+GENERAL CONSIDERATIONS FOR DATA SUMMARY AND DISPLAY 
+4.1. 
+Treatment Group Descriptions and Display in Table, Listings and Figures 
+This is a single-arm study in which all patients are treated with trilaciclib along with dose-dense 
+anthracycline/cyclophosphamide followed by taxane chemotherapy (with optional administration 
+of pembrolizumab and carboplatin). For TLFs that will be generated following SAP execution, 
+the term overall will be used to describe all patients enrolled or all patients enrolled who have 
+had at least one dose of any study drug, as applicable.    
+4.2. 
+Data Summary and Precision 
+General Principles of Data Summary 
+Data will be summarized in table format for the respective analysis populations described in 
+Analysis Populations. In general, continuous variables will be summarized based on number of 
+patients with non-missing data (indicated by n), by mean, standard deviation (SD), median, Q1, 
+Q3, minimum, and maximum values. Categorical variables will be summarized by number (n) 
+and percentage of patients in each category.  
+General Principle of Data Listing 
+All collected data and derived variables will be included in patient data listings. An indicator will 
+be provided for any imputed data element (e.g., imputed adverse event [AE] onset date). 
+Columns in listings will be ordered by study site, patient identification (ID), visit, and 
+assessment or event date, if applicable, and then data elements. 
+General Principle of Precision for Summary Statistics and Calculated Statistical Quantities 
+The precision of summary statistics for continuous variables, including mean, median, Q1, Q3, 
+minimum, and maximum, will be consistent with the precision of the variable as collected. 
+Calculated quantities of variability (e.g., standard deviation, standard error [SE]) will be 
+presented with one more decimal place than the precision of the variable that is collected. The 
+boundaries of a confidence interval (CI) will keep the same precision as the point estimate.  
+When the collected data are integers (including counting variables), the mean, median, Q1, and 
+Q3 will be presented with one decimal place. 
+For percentages, 1 digit will be presented after the decimal point (e.g., 10.1%). A percentage 
+value less than 0.1% will be displayed as “<0.1%.” A percentage value that is >99.9% and 
+<100% will be displayed as “>99.9%.”  
+P-values, in general, will be displayed in 3 decimal places except for when a p-value is less than 
+< 0.001, it will be presented as “<0.001”. If a p-value is greater than 0.999, it will be displayed as 
+“>0.999”.  
+Rounding will take place after all calculation steps are completed prior to result display. 
+4.3. 
+Definitions for Analysis Related Timepoint and Time Interval 
+Timepoint and time intervals related to efficacy and safety data collected during the study will be 
+summarized. For each specific category of data, the time interval by which the data will be 
+
+
+--- Page 15 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+15 
+CONFIDENTIAL 
+analyzed or summarized will be specified in the respective section in which the data analysis 
+plan is described.  
+To clarify data inclusion for each time interval of interest and baseline or end values for each 
+given time interval, Table 3 presents definitions for timepoints, timepoint related assessments, 
+and time intervals involved in statistical data analysis or summary. 
+Table 3: 
+Definitions for Timepoints, Timepoint Related Assessments and Time 
+Intervals 
+Term 
+Definition 
+Start of study (date) 
+Date of first dose of any study drug. 
+Study baseline 
+The last non-missing value prior to or on the date of the first dose of 
+any study drug at the time that is before the time of the first study 
+drug administration. If the event occurs on the same day as date of 
+first dose of study drug but does not have the exact time captured, 
+the event is assumed to have occurred prior to the first dose of study 
+drug. 
+Pre-trilaciclib 
+The period before lead-in monotherapy trilaciclib administration 
+when the first tumor biopsy (sample #1) will be obtained 
+Post-trilaciclib 
+The date that is 7 (±1) days after lead-in monotherapy trilaciclib 
+administration when the second tumor biopsy (sample #2) is 
+obtained 
+Day 1 of Cycle X 
+(date) 
+The date, during the Treatment Phase, when the first dose of any 
+study drug for cycle X is administered.    
+End of cycle (date) 
+The date of Day 1 of the subsequent cycle, if there is a subsequent 
+cycle. The end of the last cycle is the date of Safety Follow-up visit. 
+If Safety Follow-up visit does not occur for a patient after the last 
+dose of study drug, the End of cycle for the patient will be defined as 
+30 days post the last dose of study drug. 
+Duration of a cycle 
+(days) 
+Total number of days from Day 1 of the cycle to End of cycle, that 
+is, End of cycle – Day 1 of the cycle + 1. 
+Duration of study drug 
+exposure (weeks)  
+The duration (in weeks) between the date of lead-in dose of 
+monotherapy trilaciclib and End of the last cycle in the study. That 
+is, (End of the last study cycle – Day 1 of lead-in dose of 
+monotherapy trilaciclib + 1) / 7. 
+4.4. 
+Study Day 
+Study Day will be calculated for an event date or an assessment date to provide additional 
+information for interpretation of the event occurrence. Study Day is calculated as:  
+ The start date of the event (visit date, onset date of an event, assessment date etc.) – date of 
+first dose of any study drug + 1, if the event occurred on or after the reference date.  
+
+
+--- Page 16 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+16 
+CONFIDENTIAL 
+ The start date of the event (visit date, onset date of an event, assessment date etc.) − date of 
+first dose of any study drug, if the event occurred prior to the reference date.  
+4.5. 
+General Principles of Missing Data Handling 
+For primary efficacy endpoint the observed data are used for data summary and analyses. That is, 
+no missing imputation will be performed. However, imputation of missing onset or stop dates for 
+AEs and concomitant medication will be adapted to determine the status of each AE and the 
+prior/concomitant/subsequent status of each non-study treatment medication. Please refer to 
+9.2.2 for the rules of imputation of missing AE onset or stop date and 5.4 for the rules of 
+imputation of missing medication onset or stop dates. 
+For demographic and baseline characteristics, continuous variables will be summarized based on 
+non-missing observations with the sample size of patients with non-missing data indicated, and a 
+category of “Missing” will be included in the summary for each categorical variable.  
+
+
+--- Page 17 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+17 
+CONFIDENTIAL 
+5. 
+DISPOSITION AND BASELINE CHARACTERISTICS 
+5.1. 
+Patient Disposition  
+A summary of patient disposition will be generated using all accumulated data as of the database 
+lock date.  
+In general, patient disposition summary will include the following 4 major sections:  
+1. Disposition of all screened patients who signed informed consent  
+2. Study drug disposition for patients who received at least one dose of any study drug 
+3. Study disposition for patients who were enrolled 
+4. Deaths among patients who were enrolled  
+The specific details for each section are described below.  
+1. Disposition of all screened patients  
+The total number of screened patients who signed informed consent will be presented as two 
+mutually exclusive groups: those who were screen failures and those who were enrolled. For 
+those who were enrolled, patients who received no study drug and those who receive a single 
+dose of monotherapy trilaciclib during the Lead-in Phase are presented overall. Further, among 
+patients who received a single dose of monotherapy trilaciclib, the number who had at least one 
+dose of any study drug during the Treatment Phase will be summarized. Unless otherwise stated, 
+number of enrolled patients will be the denominator for calculating percentages of patients in 
+each of the categories.  
+2. Study drug disposition 
+For each study drug (trilaciclib, doxorubicin, cyclophosphamide, pembrolizumab, paclitaxel and 
+carboplatin), the number and percentage of patients who had at least one dose will be 
+summarized. In addition, the number of patients who were discontinued from the study drug will 
+be summarized. The number of patients who received at least one dose of study drug will be the 
+denominator for the percentage calculation of number of patients who discontinued for the 
+respective drug. For patients who discontinued the study drug, the primary reasons for study drug 
+discontinuation will be presented with the percentage of patients in each reason being calculated 
+based on the number of patients who discontinued the study drug.  
+3. Study disposition  
+The number and percentage of patients who discontinued from the study will be summarized. 
+The number of patients who were enrolled will be the denominator for the percentage 
+calculation. The primary reason for study discontinuation will also be summarized, and the 
+number of patients who discontinued the study will be the denominator for the percentage 
+calculation for each reason of discontinuation. 
+4. Death  
+The number and percentage of patients who died during the study will be summarized overall for 
+all enrolled patients along with the primary reason of death (Progressive Disease, Adverse Event, 
+Other). The number of enrolled patients will be the denominator for calculating percentages of 
+
+
+--- Page 18 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+18 
+CONFIDENTIAL 
+death, and the number of patients who died will be the denominator for calculating the 
+percentage of patients within each reason for death. 
+ 
+Study drug and study disposition information will be provided in data listings for all enrolled 
+patients.  
+5.2. 
+Demographics and Baseline Disease Characteristics 
+Demographics and baseline disease characteristics will be summarized on the FAS population. 
+Demographics including age at screening visit, age group (18-65, > 65), sex at birth, child-
+bearing potential, ethnicity, and race will be summarized. In addition, baseline body mass index 
+(BMI) and Eastern Cooperative Oncology Group (ECOG) score will be summarized. Further, 
+baseline disease characteristics such as stage at diagnosis, histologic grade, histopathological 
+type at diagnosis, BRCA mutation and PD-L1 status will be summarized for all patients in the 
+FAS population. 
+Data listing for demographics and baseline disease characteristics will be provided for all 
+enrolled patients. 
+5.3. 
+Medical/Surgical History and Ongoing Conditions 
+Surgical history and medical history and ongoing medical conditions at the Screening Visit will 
+be summarized on the FAS population.  
+Non-breast cancer related medical history and ongoing medical conditions as collected at the 
+Screening Visit will be coded using Medical Dictionary for Regulatory Activities (MedDRA) 
+version 25.1 or later, and then summarized overall. Medical history and ongoing conditions will 
+be presented by system organ class (SOC) and preferred term (PT), with both SOC and PT sorted 
+in descending frequency based on the overall column. A patient will only be counted once within 
+a particular SOC (or PT) even if the patient had multiple conditions/diseases in the same SOC (or 
+PT). 
+A data listing for medical history and ongoing medical conditions collected at the Screening 
+Visit will be provided for all enrolled patients. In addition, a data listing for prior 
+surgeries/procedures will be generated for all patients in the FAS population.  
+5.4. 
+Prior and Concomitant Medications  
+A summary of concomitant, non-cancer medications will be generated on the FAS population. 
+Prior medications will be presented in a data listing. All prior medications will be collected from 
+21 days prior to signing the informed consent form (ICF). 
+Concomitant medications are those protocol-permitted medications that were given during the 
+time interval from informed consent through the End of Study Visit. Vaccinations administered 
+within 90 days prior to the first dose of study drug through the End of Study Visit will also be 
+included as concomitant medications. Medications collected through electronic case report forms 
+(eCRFs) will be coded to Anatomical Therapeutic Classification (ATC) and PT, where 
+applicable, using the most recent World Health Organization Drug Dictionary (WHO-DD) 
+version WHODrug-Global-B3 202209.   
+
+
+--- Page 19 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+19 
+CONFIDENTIAL 
+Concomitant medications will be summarized by ATC and PT and presented in a descending 
+order of frequency for ATC and PT within an ATC based on the overall group. If a patient took 
+multiple medications within the same ATC, the patient will only be counted once for that ATC. 
+Similar logic applies to PT summaries. The number and percentage of patients receiving any 
+concomitant medications will be summarized overall. 
+Handling of Missing Start and/or End Date for Medications Entered into EDC 
+Medications with incomplete start and/or end dates will be imputed according to the 
+specifications described below. Those with incomplete start and/or end dates will be assumed to 
+be concomitant if it cannot be shown that the medication was taken outside of the treatment 
+period.  
+For completely missing or partially missing start dates: 
+ If the start date has month and year but day is missing, the first dose date will be used 
+if the month and year is the same as the first dose date, otherwise, the first day of the 
+month will be used. 
+ If the start date has year, but day and month are missing, then the first dose date will 
+be used if the year is the same as the first dose date, otherwise January 1st will be 
+used. 
+ If the start date is completely missing, then it will be imputed as the first dose date of 
+study drug. 
+After the imputation, the imputed start date will be compared with corresponding stop date, if 
+available. If the imputed start date is later than the stop date, the start date will be imputed with 
+the stop date instead. 
+For completely missing or partially missing stop dates for concomitant medications that are not 
+ongoing at the time of study database lock: 
+ If the stop date has month and year but day is missing, the last day of the month will 
+be used. 
+ If the stop date has year, but day and month are missing, December 31st will be used.  
+ If the stop date is completely missing, the last dose date will be used.  
+After the imputation, the imputed stop date will be compared against the death date for patients 
+who died. If the date is later than the death date, the date of death will be used to impute the stop 
+date instead. 
+Prior and concomitant medications will be listed with an indicator for prior or concomitant 
+among all patients in the FAS population.  
+ 
+ 
+ 
+
+
+--- Page 20 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+20 
+CONFIDENTIAL 
+5.5. 
+Summary of Protocol Deviations  
+5.5.1. 
+Definitions and Process for Identifying Protocol Deviations  
+Protocol deviation refers to situations where a patient’s eligibility for study entry or a specific 
+data collection deviate from the entry criteria or study procedure as specified in the protocol. 
+Protocol deviation cases at the patient level with specific data elements of concern need to be 
+summarized and reported in the CSR. Protocol deviations will be categorized as major or minor. 
+Major protocol deviations are those that could affect the integrity of the data or adversely affect 
+patients’ safety. Criteria that define major or minor protocol deviations will be specified, 
+documented, and signed off prior to study database lock. Specifically, a protocol deviation 
+specifications document that describes the criteria defining major and minor protocol deviations, 
+the categories of major protocol deviations, and the list of patients who had at least one protocol 
+deviation case with the classification of major or minor will be created and signed off prior to 
+study database lock.  
+5.5.2. 
+Summary of Protocol Deviations   
+A protocol deviation summary will be generated for the final analysis. 
+The number and percentage of patients in the FAS population with protocol deviations will be 
+tabulated for each of the following categories.  
+ Patients with at least one protocol deviation (major or minor)  
+ Patients with at least one major protocol deviation  
+ Patients with at least one protocol deviation in each of the major deviation categories  
+Protocol deviations will be listed with details and flags for major or minor for all enrolled 
+patients. 
+
+
+--- Page 21 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+21 
+CONFIDENTIAL 
+6. 
+CLASSIFICATION OF PRIOR SURGERIES AND PROCEDURES 
+Prior surgeries and procedures refer to those treatments that patients received prior to the 
+Screening Visit. Summaries of prior surgeries and procedures will be based on the FAS 
+population. The number and percentage of patients with any surgeries and procedures will be 
+summarized. In addition, the number and percentage of patients with any surgeries and 
+procedures related to the disease under study will be summarized. 
+A data listing for prior surgeries and procedures collected at the Screening Visit will be provided 
+for all patients in the FAS population. 
+ 
+ 
+ 
+ 
+
+
+--- Page 22 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+22 
+CONFIDENTIAL 
+7. 
+STUDY DRUG EXPOSURE, DOSE INTENSITY AND MODIFICATION  
+Analyses described in this section will be based on the FAS population unless otherwise 
+specified. 
+7.1. 
+Duration of Study Drug Exposure  
+Duration of study drug exposure (weeks) is defined as the duration from date of lead-in dose of 
+monotherapy trilaciclib to date of End of cycle for the last cycle. That is, duration of study drug 
+exposure (weeks) = (Date of End of cycle for the last cycle – date of lead-in dose of 
+monotherapy trilaciclib + 1)/7, where the definition for End of cycle for the last cycle is provided 
+in 4.3. 
+For each study drug, the number of patients who received the study drug at each cycle (including 
+the Lead-in Phase) will be summarized. In addition, the total number of cycles that a patient 
+received will be summarized as a continuous variable, as well as a categorical variable. That is, 
+descriptive summary statistics will be provided for the total number of cycles that patients 
+received, and the number and percentage of patients who received exactly 0, 1, 2…, to the 
+maximum number of cycles will be summarized.  
+Corresponding data listings will be provided.  
+7.2. 
+Cumulative Dose and Dose Intensity 
+The definitions for cumulative delivered dose, delivered dose intensity, relative cumulative dose, 
+and relative dose intensity at the patient level, along with other parameters involved in the 
+calculation of these variables are presented in Table 4. All collected dose information will be 
+used in the calculation.  
+The calculated cumulative delivered dose, delivered dose intensity, relative cumulative dose, and 
+relative dose intensity will be summarized as continuous variables for each study drug.  
+All variables described in Table 4 will be included in the data listing except for the study drug 
+administration schedule. 
+
+
+--- Page 23 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version: 2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+23 
+CONFIDENTIAL 
+Table 4: 
+Dose Administration Parameters for Study G1T28-212 
+Parameter 
+Meaning  
+Trilaciclib  
+Doxorubicin 
+Cyclophosphamide 
+Paclitaxel 
+Pembrolizumab 
+Carboplatin 
+Study drug 
+administration 
+schedule   
+Drug dose and 
+schedule per 
+protocol 
+240 mg/m2 
+administered as single-
+dose monotherapy in 
+Trilaciclib Lead-in 
+Phase, then on Day 1 
+of each chemotherapy 
+cycle 
+60 mg/m2 once every 
+2 weeks for 4 cycles 
+(Cycles 1-4) 
+600 mg/m2 once every 
+2 weeks for 4 cycles 
+(Cycles 1-4) 
+80 mg/m2 once every 
+week for 12 cycles  
+(Cycles 5-16) 
+400 mg once every 6 
+weeks starting on Day 
+1 of Cycle 1 and 
+continue through 
+Treatment Phase 
+AUC 1.5 every week 
+starting on Day 1 of 
+paclitaxel chemotherapy 
+(Cycles 5-16) 
+Cumulative 
+delivered dose 
+(mg/m2 or mg or 
+AUC) 
+Sum of actual doses 
+administered for 
+each study drug 
+Sum of doses over the 
+duration of trilaciclib 
+administration  
+[mg/m2] 
+Sum of doses over the 
+duration of 
+doxorubicin 
+administration  
+[mg/m2] 
+Sum of doses over the 
+duration of 
+cyclophosphamide 
+administration 
+[mg/m2] 
+Sum of doses over the 
+duration of paclitaxel 
+administration 
+[mg/m2] 
+Sum of doses over the 
+duration of 
+pembrolizumab 
+administration 
+[mg] 
+Sum of doses over the 
+duration of carboplatin 
+administration 
+[AUC] 
+Delivered Dose 
+Intensity  
+(mg/m2/week or 
+mg/week or 
+AUC/week) 
+Cumulative dose 
+administered per 
+week  
+Cumulative delivered 
+dose / EXP 
+[mg/m2/week] 
+Cumulative delivered 
+dose / EXP2 
+[mg/m2/week] 
+Cumulative delivered 
+dose / EXP2 
+[mg/m2/week] 
+Cumulative delivered 
+dose / EXP3 
+[mg/m2/week] 
+Cumulative delivered 
+dose / (EXP2 + EXP3) 
+[mg/week] 
+Cumulative delivered 
+dose / EXP3 
+[AUC/week] 
+Relative 
+cumulative dose 
+(%) 
+(Cumulative 
+delivered dose / 
+Cumulative 
+prescribed dose) 
+×100   
+[Cumulative delivered 
+dose / (240 × 
+(1+CYC+CYC2))] 
+×100  
+[Cumulative delivered 
+dose / (60 × CYC)] 
+×100  
+[Cumulative delivered 
+dose / (600 × CYC)] 
+×100 
+[Cumulative 
+delivered dose / (80 
+× CYC2)] ×100 
+{Cumulative 
+delivered dose / [400 
+× CEL((EXP2 + 
+EXP3) / 6)]} ×100 
+[Cumulative 
+delivered dose / (1.5 
+× CYC2)] ×100 
+Relative dose 
+intensity (%) 
+(Delivered dose 
+intensity / 
+prescribed dose 
+intensity) ×100 
+{Delivered dose 
+intensity / [(240 × (1 + 
+CYC + CYC2)) / (1 + 
+2CYC + CYC2)]} 
+×100 
+[Delivered dose 
+intensity / (60/2)] 
+×100 
+[Delivered dose 
+intensity / (600/2)] 
+×100 
+ 
+(Delivered dose 
+intensity / 80) ×100 
+ 
+[Delivered dose 
+intensity / (400/6)] 
+×100 
+(Delivered dose 
+intensity / 1.5) ×100 
+AUC = area under curve; IV = intravenous; CYC = number of cycles during cycles 1-4; CYC2 = number of cycles during cycles 5-16; EXP = duration of study drug exposure in 
+weeks including lead-in; EXP2 = duration of study drug exposure in weeks during cycles 1-4; EXP3 = duration of study drug exposure in weeks during cycles 5-16; CEL = ceiling 
+(smallest integer ≥ the resulting decimal number)
+
+
+--- Page 24 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+24 
+CONFIDENTIAL 
+7.3. 
+Study Drug Modifications 
+Overall study drug modifications will be summarized on the FAS population. There are three 
+types of study drug modification: dose reduction, cycle delay or infusion interruption. Protocol 
+permitted dose reductions for each study drug are summarized in Table 5.  
+Table 5: 
+Protocol Permitted Dose Reduction by Study Drug 
+Study Drug 
+Maximum Number of Dose Reductions Allowed 
+Trilaciclib 
+0 
+Doxorubicin 
+2 
+Cyclophosphamide 
+2 
+Paclitaxel 
+2 
+Carboplatin 
+2 
+Pembrolizumab 
+0 
+The overall number of patients with any study drug modification will be summarized based on 
+the FAS. In addition, study drug modifications will be summarized in each of the following 
+categories: chemotherapy dose reduction, treatment cycle delay, and infusion interruption. The 
+number and percentage of patients who had any chemotherapy dose reduction, any cycle delay, 
+or any infusion interruption will be summarized.  
+More detailed summaries as outlined below will be provided. 
+Dose reduction for a specific chemotherapy. Four chemotherapies (doxorubicin, 
+cyclophosphamide, paclitaxel, and carboplatin) can have dose reduction per protocol (Table 5). 
+The number and percentage of patients who had at least one dose reduction during the treatment 
+period will be summarized overall. Dose reduction is counting for all the reductions across these 
+four study drugs during the treatment period. In addition, the number and percentage of patients 
+in the following mutually exclusive categories: no chance to have any dose reduction (Cycle 1 
+treatment only), 0, 1, 2, up to the maximum number of reductions for the drug will be 
+summarized. The reasons for dose reduction as collected in the eCRF will also be summarized 
+for each of these chemotherapies.  
+Cycle delay. Information regarding whether a cycle was delayed was collected in the eCRF for 
+each cycle. The number of cycles that have been delayed will be summarized as a continuous 
+variable. In addition, the number and percentage of patients in each of the following mutually 
+exclusive categories will be summarized: no chance to have any cycle delay (Cycle 1 treatment 
+only), 0, 1, 2, and 3 or more cycle delays.  
+The reasons for cycle delay collected in eCRF are as follows:  
+ Low Neutrophil Count 
+ Low Platelet Count 
+ BOTH Low Neutrophil Count AND Low Platelet Count 
+ Other Hematologic Toxicity 
+ Non-hematologic toxicity 
+ Other 
+
+
+--- Page 25 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+25 
+CONFIDENTIAL 
+The number and percentage of patients in each of the categories will be calculated based on the 
+number of patients in the FAS population. 
+Infusion interruption. Infusion interruption was captured in the eCRF for each respective study 
+drug with the reasons. In addition to summarizing the number and percentage of patients who 
+had at least one infusion interruption for any study treatment, the summary statistics for the total 
+number of infusion interruptions and the number and percentage of patients in each of the 
+following mutually exclusive categories will be summarized: 0, 1, 2, and 3 or more infusion 
+interruptions. The number of interruptions is the sum of infusion interruptions for all study drugs 
+for which the interruption occurred at least once during the infusion across all cycles in the 
+Treatment Phase and Trilaciclib Lead-in Phase. Multiple interruptions for a drug during an 
+infusion will only be counted once. The reasons for infusion interruption as collected in the 
+eCRF will also be summarized. 
+Corresponding data listings will be provided.  
+
+
+--- Page 26 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+26 
+CONFIDENTIAL 
+8. 
+EFFICACY ANALYSIS 
+The parameters needed for the primary immune-response measure – the ratio of CD8+ TIL over 
+Forkhead Box P3 (FOXP3)+ regulatory T cells (abbreviated as CD8+ TILs/Tregs) will be 
+measured by our bio-marker vendor and a detailed analytical plan for the quantification of CD8+ 
+TILs and FOXP3 is included in Appendix 3. Briefly, CD8+ TILs and FOXP3+ cells will be 
+quantitated on baseline and Day 7 tumor samples using two independent immunohistochemistry 
+(IHC) assays, PanCK/CD8 IHC and FOXP3 IHC, respectively. The IHC slides are evaluated by 
+a pathologist and the derived density (/mm2) of CD8+ TILs and FOXP3+ cells will be used to 
+determine the ratio of CD8+ TILs/Tregs. 
+8.1. 
+Definitions of Efficacy Endpoints 
+8.1.1. 
+Primary Efficacy Endpoints – Change in CD8+ TILs/Tregs ratio from baseline 
+to 7 ± 1 days after single-dose monotherapy trilaciclib administration 
+From biopsy samples (archival or fresh) obtained, the ratio of CD8+ TILs to Tregs will be 
+calculated at pre-trilaciclib and post-trilaciclib. Among patient with paired results, the difference 
+in the ratio from pre-trilaciclib to post-trilaciclib will be calculated as 
+Change 𝑖𝑛 (CD8 + TILs
+Tregs
+) = (CD8 + TILs
+Tregs
+) 𝑝𝑜𝑠𝑡−𝑡𝑟𝑖𝑙𝑎𝑐𝑖𝑐𝑙𝑖𝑏−(CD8 + TILs
+Tregs
+) 𝑝𝑟𝑒−𝑡𝑟𝑖𝑙𝑎𝑐𝑖𝑐𝑙𝑖𝑏 
+For patients with missing value at baseline or day 7, no imputation will be carried out. 
+Histograms and Box plot for the distribution of the change in CD8+ TILs/Tregs will be 
+generated. In addition, a scatter plot for the correlation between pre and post trilaciclib ratio of 
+CD8+ TILs/Tregs will also be generated. 
+The change in the ratio of CD8+ TILs to Tregs will be categorized as positive (change in [CD8+ 
+TILs/Tregs] > 0), negative (change in [CD8+ TILs/Tregs] < 0), unchanged (change in [CD8+ 
+TILs/Tregs] = 0) or not evaluable. Further, categories for the incremental units of 1.5 will be 
+created for positive and negative changes. In situations where 2 or more consecutive units of 1.5 
+yield zero counts, such categories will be combined until the next unit of 1.5 with > 0 count. 
+Summary statistics for CD8+ TILs/Tregs among patients with both pre- and post-trilaciclib data 
+will be provided for measurements taken at baseline (pre-trilaciclib), 7 ± 1 days after single dose 
+trilaciclib (post-trilaciclib), and the change scores (post minus pre). The significance of the 
+magnitude of change will be compared using paired Wilcoxon Signed-Rank test. As sensitivity 
+analysis, patients with neuroendocrine features of the disease will be excluded and the 
+comparison analysis will be repeated. 
+The primary efficacy endpoint defined in this section will be derived based on FAS1 population. 
+8.1.2. 
+Secondary Efficacy Endpoints – Pathologic complete response (pCR) rate at the 
+time of definitive surgery 
+pCR will be evaluated using the definition of ypT0/Tis ypN0 (i.e., no invasive residual in breast 
+or nodes; residual noninvasive in breast allowed) as assessed by the local pathologist at the time 
+
+
+--- Page 27 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+27 
+CONFIDENTIAL 
+of definitive surgery. The pCR rate will be reported with a 95% confidence interval using the 
+Clopper-Pearson method based on FAS population.  
+In addition, subgroup analyses will be conducted on the pCR rate by classifying patients into 2 
+distinct groups using the following criteria: 
+ High change in CD8+ TILs/Tregs from pre- to post-trilaciclib (> median value) vs. Low 
+change in CD8+ TILs/Tregs from pre- to post-trilaciclib (≤ median value).  
+ Positive vs. negative changes in CD8+ TILs/Tregs (unchanged CD8+ TILs/Tregs will be 
+grouped with positive changes).  
+pCR rate will be summarized by subgroup and Fisher’s exact test will be used to assess the 
+association between pCR status and subcategories above.  
+Further, summary statistics for the change in CD8+ TILs/Tregs (from pre- to post-trilaciclib) will 
+be provided for patients who had pCR and those who did not have pCR (pCR=Yes vs. pCR=No 
+vs. pCR=Missing). Finally, where applicable, boxplots for the distribution of change in CD8+ 
+TILs/ Tregs by pCR subcategories (Yes vs. No vs. Missing) will be presented.  
+The secondary efficacy endpoint defined in this section will be derived based on the FAS 
+population. 
+8.1.3. 
+Exploratory Endpoints  
+The following endpoints will be explored. The description of the detailed steps involved in the 
+analyses of these endpoints is outside the scope of this SAP. 
+ Immune-specific RNA profiling of tumor tissue at baseline, 7 days after single-dose 
+monotherapy trilaciclib administration, and at surgery as quantified by CD8+ T cell and 
+Tregs infiltration  
+ Longitudinal immune changes in peripheral blood, measured by frequency of immune 
+subsets and profiling of activation, maturation, and exhaustion status  
+ Ex-vivo measurement of cytokine production to determine T cell function and 
+polyfunctionality  
+ pCR in patients by subgroups (e.g., CDK4/6 dependence signatures: CDK4/6 dependent, 
+CDK4/6 independent, CDK4/6 indeterminate; PD-L1 status as measured by IHC: 
+positive, negative)  
+ pCR in patients by gene signatures identified in the tumor at baseline  
+ pCR in patients by frequency of immune subsets, immunological markers, and cytokines  
+ 
+ 
+ 
+
+
+--- Page 28 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+28 
+CONFIDENTIAL 
+9. 
+SAFETY ANALYSIS 
+9.1. 
+General Consideration of Safety Analysis 
+Unless otherwise specified, all safety data collected during the study will be summarized. Hence, 
+safety data summaries will be based on the FAS as defined in 3.3 of this SAP. 
+Safety data will be summarized using descriptive statistics for all patients when appropriate. All 
+safety data collected through scheduled or non-scheduled visits during the study will be included 
+in the safety data analyses. Missing safety data will generally not be imputed, unless otherwise 
+specified.  
+Baseline assessment is, in general, defined as the last non-missing observation prior to receiving 
+the first dose of any study drug.  
+9.2. 
+Adverse Events  
+9.2.1. 
+Definition and Classification of Adverse Events 
+AEs are defined as those AEs occurring on or worsening in severity after the first dose of any 
+study drug (i.e., the conventional treatment-emergent AEs). Only AEs as described above are 
+collected in the study database. All AEs are reported from the first dose of any study drug until 
+end of study (EOS) visit. If EOS visit does not exist, then AEs until safety follow-up (SFU) visit 
+date will be reported, if SFU date does not exist then AEs collected until, and including, 30 days 
+after the last dose of study drug will be reported. SAEs thought to be related to a study specific 
+procedure are also collected between the time the patient signs the informed consent and the first 
+dose of any study drug.  
+AEs will be coded from verbatim text to PT and grouped by primary SOC according to 
+MedDRA version 25.1. The severity (toxicity grades 1-5) of AEs will be graded according to the 
+NCI CTCAE version 5.0 by the Investigator.  
+Hematologic Adverse Events 
+AEs related to hematologic toxicity will be collapsed based on the PTs from MedDRA 
+version 25.1 and will be summarized separately (see 9.2.3). Table 6 outlines those PTs that will 
+be collapsed.  
+Table 6: 
+Hematologic Preferred Terms to be Collapsed 
+Term presented in the Output  
+Preferred Term 
+Neutropenia 
+Neutropenia 
+Neutrophil count decreased 
+Anemia 
+Anemia 
+Anaemia 
+Red blood cell count decreased 
+Hemoglobin decreased 
+
+
+--- Page 29 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+29 
+CONFIDENTIAL 
+Thrombocytopenia 
+Thrombocytopenia 
+Platelet count decreased 
+Lymphocytopenia 
+Lymphocytopenia 
+Lymphopenia 
+Lymphocyte count decreased 
+Leukopenia 
+Leukopenia 
+White blood cell count decreased 
+Trilaciclib Adverse Events of Special Interest 
+AEs of special interest (AESI) for trilaciclib have been identified, reflecting either the findings in 
+the AEs from the previous studies of trilaciclib or class effects for CDK 4/6 inhibitors. AESI for 
+trilaciclib will be identified by searching MedDRA PTs based on the Customized MedDRA 
+Queries as detailed in Appendix 2.  
+Specifically, trilaciclib AESI include the following 5 categories: 
+ Injection site reaction/Phlebitis/Thrombophlebitis 
+ Acute drug hypersensitivity reaction 
+ Hepatotoxicity 
+ Interstitial lung disease /Pneumonitis 
+ Embolic and thrombotic events, venous 
+9.2.2. 
+Imputation Rules for Missing Start or Stop Date for Adverse Events 
+AEs with start/stop dates that are partially or completely missing that are not ongoing at the time 
+of data cutoff will be imputed according to the specifications below in order to classify AEs. 
+For completely missing or partially missing AE start date: 
+ If the start date has month and year but day is missing, the first dose date will be used 
+if the month and year is the same as the first dose date, otherwise, the first day of the 
+month will be used. 
+ If the start date has year, but day and month are missing, then the first dose date will 
+be used if the year is the same as the first dose date, otherwise January 1st will be 
+used. 
+ If the start date is completely missing, then it will be imputed as the first dose date of 
+study drug. 
+After the imputation, the imputed start date will be compared with AE stop date, if available. If 
+the imputed start date is later than the stop date, the start date will be imputed with the stop date 
+instead. 
+For completely missing or partially missing AE stop dates: 
+
+
+--- Page 30 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+30 
+CONFIDENTIAL 
+ If the stop date has month and year but day is missing, the last day of the month will 
+be used. 
+ If the stop date has year, but day and month are missing, December 31st will be used.  
+ If the stop date is completely missing, then the date of EOS visit will be used; if EOS 
+visit does not exist, then the SFU visit date is used, if SFU date does not exist then the 
+last dose date + 30 days will be used.  
+After the imputation, the imputed AE stop date will be compared against the death date for 
+patients who died. If the date is later than the death date, the date of death will be used to impute 
+the stop date instead. 
+Every attempt will be made to obtain complete information for AEs regarding severity 
+(i.e., CTCAE Grade) and relationship to drug. However, in the rare case of missing data, the 
+following conservative approach will be taken for summary purpose. The non-imputed raw data 
+will be presented in AE listings. 
+ Missing AE grade will be classified as ‘Grade 3’  
+ Missing AE relationship will be classified as “Related”  
+9.2.3. 
+Analysis for Adverse Events 
+AEs will be summarized by number and percentage of patients having at least one occurrence at 
+the PT and SOC level overall. Patients with more than one occurrence of the same SOC (PT) will 
+be counted only once within the SOC (PT) categorization. In general, the percentage of patients 
+with an event will be calculated using the number of patients in the FAS as the denominator. For 
+tables summarizing AEs related to study drugs the percentages will instead be calculated using 
+the number of patients who received the drug as the denominator.     
+AEs will also be summarized by CTCAE grade and relationship to study drug (to any study 
+drugs and to each individual study drug). Should a patient experience more than one occurrence 
+of the same SOC (PT), the patient’s worst occurrence (highest grade or highest related causality) 
+will be used for the analysis and reporting.  
+In AE summaries, the SOC and PT within a SOC will be presented in descending order based on 
+the incidence from all patients. If the incidence for two or more PTs is equal, these PTs will be 
+presented in alphabetical order.  
+The AEs by decreasing frequency in PT during the trilaciclib Lead-in Phase will be summarized 
+based on FAS1. 
+An  overall AE summary table will be generated to present general information related to AEs 
+including the following categories: number and percentage of patients with any AE, Serious 
+AEs, AEs with CTCAE Grade ≥ 3 or 4, AEs leading to discontinuation of any study drug, AEs 
+leading to death, AEs related to study drug (to any study drug, to trilaciclib, and to each other 
+study drug).  
+In addition, the following summary tables will be generated, and they will be, in general, 
+presented by SOC and PT unless otherwise specified.   
+
+
+--- Page 31 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+31 
+CONFIDENTIAL 
+1. AEs by decreasing frequency of PT during trilaciclib Lead-in Phase  
+2. AEs by decreasing frequency of PT during treatment period 
+3. AEs by PT and CTCAE Grade 
+4. AEs with CTCAE Grade 3 or 4 by PT 
+5. AEs leading to discontinuation of any study drug  
+6. AEs leading to death 
+7. AEs related to any and each study drug  
+8. Hematological AEs by collapsed PT and CTCAE grade  
+9. Serious AEs 
+10. Serious AEs related to any and each study drug  
+11. AESI for trilaciclib will be summarized.  
+In the above, hematological AEs will be reported using their coded PT with the exception of item 
+8 (Hematological AEs by collapsed PT and CTCAE grade), for which the collapsed terms as 
+specified in Table 6 (9.2.1) will be reported in place of coded PT.  
+Corresponding AE listings will be provided to clearly indicate, at the patient level, the AE and 
+SAE occurrence, start/stop date, relative study days to onset or stop, grade and causality for each 
+AE. AESI for trilaciclib will also be listed with a similar level of detail. The AE listings will be 
+generated based on FAS. 
+9.3. 
+Clinical Laboratory Data 
+9.3.1. 
+Laboratory Parameters 
+Blood and urine samples for the determination of clinical chemistry, hematology, urinalysis and 
+other laboratory variables described in Table 7 will be measured according to Schedule of 
+Assessments in Appendix 1. 
+Table 7: 
+Laboratory Categories and Parameters 
+Lab Category 
+Lab Parameters 
+Hematology 
+white blood cell (WBC), platelets, hemoglobin, absolute neutrophil count 
+(ANC). 
+Serum 
+Chemistry 
+Sodium, Potassium, Chloride, Bicarbonate, Urea, Phosphorus, Creatinine, 
+Calcium, Magnesium, Total Protein, Aspartate aminotransferase (AST), 
+Alanine aminotransferase (ALT), Bilirubin, Albumin. 
+Coagulation 
+Prothrombin time and/or international normalized ratio 
+Urinalysis 
+Semiquantitative dipstick: specific gravity, pH, evaluation of glucose, protein, 
+bilirubin, ketones, leukocytes, and hemoglobin 
+
+
+--- Page 32 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+32 
+CONFIDENTIAL 
+Microscopic examination (including RBC, WBC, and casts) will be performed, 
+if clinically warranted 
+Other Tests 
+Serum or urine human chorionic gonadotropin (hCG) pregnancy test (for 
+WOCBP only) 
+hCG=human chorionic gonadotropin; RBC=red blood cell; WBC=white blood cell; 
+WOCBP=woman of childbearing potential 
+For hematology parameters, if absolute counts are not provided, those values will be derived 
+from the differential percentage by multiplying differential percentage value with leukocyte 
+value from the same sample. The normal ranges will be left missing in those cases.  
+Clinical chemistry and hematology assessments will be graded according to NCI CTCAE 
+criteria, Version 5.0 or later. The determination of CTCAE grade for each measurement will be 
+based on the collected laboratory values and will not involve clinical judgement. For laboratory 
+parameters that CTCAE toxicity grade are not available, they will not be included in the analyses 
+in which toxicity grades are reported. Instead, these parameter results will be classified and 
+reported by the low/normal/high based on the laboratory normal reference ranges.  
+Abnormal Hepatic Laboratory Values 
+Abnormal hepatic laboratory values are defined in the following categories including any 
+occurrence among all on-treatment, post-baseline assessments including scheduled and 
+unscheduled values.  
+ Hy’s Law: alanine aminotransferase (ALT) and/or aspartate aminotransferase (AST) 
+> 3x the upper limit of normal (ULN), alkaline phosphatase (ALP) < 2xULN, and 
+total bilirubin ≥ 2xULN 
+ AST:  > 3 and ≤ 5x ULN, > 5 and ≤ 8x ULN, > 8 and ≤ 10x ULN, > 10 and ≤ 20x 
+ULN, and > 20x ULN; AST > 5x ULN for more than 5 weeks. 
+ ALT:  >3 and ≤ 5x ULN, > 5 and ≤ 8x ULN, > 8 and ≤ 10x ULN, > 10 and ≤ 20x 
+ULN, and > 20x ULN; ALT > 5x ULN for more than 5 weeks. 
+ Total bilirubin > 1.5xULN and < 2xULN, ≥ 2xULN  
+ 
+9.3.2. 
+Analysis for Laboratory Parameters  
+Laboratory data from all central and local laboratories will be included in the analyses. Different 
+laboratories are likely using slightly different normal reference ranges, which should not affect 
+the planned analysis since they are all categorical and reported based on CTCAE toxicity grade 
+or relationship to the normal ranges. The default convention for reporting of laboratory units will 
+be standard international (SI) units. If a lab value is reported using an inequality symbol e.g., less 
+than (<) a certain value, or greater than (>) a certain value, the given numeric value will be used 
+in the summary. Data will be presented in listings with their inequality symbol. 
+For each parameter in the clinical chemistry and hematology laboratory group, respectively, 
+CTCAE toxicity grading is used to classify patients into a toxicity grade from 1 to 4 for each 
+timepoint assessment. The number and percentage of patients with highest grade will be 
+
+
+--- Page 33 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+33 
+CONFIDENTIAL 
+summarized for each grade from 1 to 4 and Grade 3-4, along with such summary for the value 
+collected at baseline.   
+For the laboratory parameters that cannot be classified by CTCAE grade, the number and 
+percentage of patients in the categories of treatment-emergent low or treatment-emergent high 
+based on the normal reference range associated with the parameter will be summarized.  
+In addition, shift in CTCAE grade from baseline to the worst post-baseline value will be 
+produced. The shift tables will include patients who had non-missing baseline and at least one 
+non-missing post-baseline value for the parameter of interest.  
+The number and percentage of patients in each category of abnormal hepatic laboratory values 
+will be summarized. 
+Laboratory parameters will be listed by the group of chemistry, hematology, coagulation, and 
+other tests. In the data listing, flags that indicate the corresponding CTCAE grades and the 
+classifications relative to the laboratory reference ranges will be included. In addition, a separate 
+listing will be prepared for patients who met Hy’s law.  
+9.4. 
+Vital Signs  
+9.4.1. 
+Vital Sign Parameters 
+Vital signs including pulse rate, systolic blood pressure (SBP), diastolic blood pressure (DBP), 
+weight and height will be measured according to Schedule of Assessments in Appendix 1.  
+Baseline vital signs refer to the measurements taken on the date of the first dose of any study 
+drug (only if time of vital measurement is prior to the time of dosing) or, in the event vitals are 
+not taken on the date of first dose of study drug, at the Screening visit. Post-baseline assessments 
+refer to the measurements taken after the first dose of any study drug during the study. Change 
+from baseline to the highest/lowest value across all post-baseline measurements for each vital 
+sign parameter will be calculated. Patients who had a non-missing baseline and at least one non-
+missing measurement post-first dose for a given parameter will be included in the calculation.  
+Patients are classified with respect to the criteria of potentially clinically significant (PCS) 
+findings of vital signs, which are defined by the highest/lowest value among post-baseline 
+assessments and/or the change from baseline to the highest/lowest observed value. Details of 
+PCS criteria for vital signs can be found in Table 8.  
+Table 8: 
+Criteria for Potentially Clinically Significant Vital Signs 
+ Parameter   Direction  
+Highest/Lowest 
+Observed Value   
+Change from Baseline to the 
+Highest/Lowest Observed Value 
+ SBP   
+High 
+ 
+ ≥180 mmHg   
+ Increase ≥40 mmHg   
+    
+Low 
+ 
+ ≤ 90 mmHg   
+ Decrease ≥40 mmHg   
+ DBP   
+High 
+ 
+ ≥105 mmHg   
+ Increase ≥ 20 mmHg   
+    
+Low 
+ 
+ ≤ 50 mmHg   
+ Decrease ≥20 mmHg   
+ Heart Rate 
+High 
+ 
+ ≥ 120 bpm   
+ Increase ≥40 bpm   
+
+
+--- Page 34 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+34 
+CONFIDENTIAL 
+    
+Low 
+ 
+  ≤ 50 bpm   
+ Decrease ≥40 bpm  
+ Weight   
+High 
+ 
+--   
+ Increase ≥10%   
+ 
+Low 
+ 
+ -- 
+ Decrease ≥10% 
+bpm=beats per minute; DBP-diastolic blood pressure; SBP=systolic blood pressure 
+9.4.2. 
+Analysis for Vital Signs   
+Number and percentage of patients who meet any PCS criteria for each vital sign parameter as 
+well as for each criterion will be summarized.  
+All observed vital sign values, change from baseline at each post-first dose assessment, and PCS 
+flag will be listed. 
+9.5. 
+ECOG Performance Status  
+ECOG performance status was assessed at the Screening Visit and at Day 1 of each treatment 
+cycle during the study.  
+A shift table that tabulates ECOG status at baseline and the worst status post first dose of any 
+study drug will be generated.  
+All ECOG data will be included in data listing.  
+9.6. 
+12-lead Electrocardiograms 
+9.6.1. 
+Electrocardiograms Parameters 
+The standard 12-lead Electrocardiogram (ECG) will collect heart rate, PR interval, QRS interval, 
+RR interval, and QT interval at screening visit only. Additional ECGs may be performed as 
+clinically indicated at any time during the study (Appendix 1). 
+Since either QTcF or QTcB could be collected by different study sites, QTcF (using Fridericia's 
+method) will be calculated from the QT and RR (converted from collected ms to sec) intervals 
+based on the formula:  
+QTcF = Uncorrected QT/ (RR Interval)^1/3, if QT and/or RR are missing, the QTcF will be left 
+as missing.  
+A summary table of ECG parameters at baseline will be generated. In addition, ECG data will be 
+included in data listing.  
+ 
+
+
+--- Page 35 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+35 
+CONFIDENTIAL 
+10. 
+CHANGES FROM THE PROTOCOL 
+In section 12.2 of the protocol, FAS1 and FAS2 are defined as the study populations. In this 
+SAP, a FAS population is defined to ensure that safety data for patients who dropped from the 
+study after receiving a single dose of trilaciclib in the Lead-in Phase are adequately captured and 
+summarized where necessary. The FAS population also includes patients who did not receive the 
+single dose of trilaciclib in the Lead-in Phase before proceeding to the Treatment Phase. 
+ 
+
+
+--- Page 36 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+36 
+CONFIDENTIAL 
+11. 
+REFERENCES  
+Soomin Ahn, Yul Ri Chung, An Na Seo, Milim Kim, Ji Won Woo, So Yeon Park. Changes and 
+prognostic values of tumor-infiltrating lymphocyte subsets after primary systemic therapy in 
+breast cancer. PLoS One. 2020;15(5):e0233037.  
+
+
+--- Page 37 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+37 
+CONFIDENTIAL 
+12. 
+APPENDICES  
+
+
+--- Page 38 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+     
+                       Version:  2.0 
+ 
+ 
+38 
+APPENDIX 1. 
+SCHEDULE OF ASSESSMENTS 
+Screening 
+Trilaciclib 
+Lead-in Phase 
+Treatment Phase 
+Definitive 
+Surgery 
+Safety 
+Follow-u
+p Visit 
+End of 
+Study 
+Visit  
+See Protocol 
+Section for 
+Additional 
+Details 
+ 
+ 
+ 
+Single 
+dose  
+mono. 
+trila. 
+On-tx 
+biopsy  
+ 
+Doxorubicin/ 
+Cyclophosphamide 
++/- pembrolizumab 
+Each cycle = 2 weeks 
+Paclitaxel  
++/- carboplatin b 
++/- pembrolizumab b 
+Each cycle = 1 week 
+ 
+ 
+ 
+Protocol Activity 
+C1 
+D1a 
+C2 
+D1 
+C3 
+D1 
+C4 
+D1 
+ 
+C5 through C16  
+D1 
+Visit Window 
+Up to 
+21 days prior 
+to first dose 
+N/A 
+7d ±1d 
+after 
+trila 
+N/A 
+±2d 
+±2d 
+±2d 
+ 
+±1d 
+ 
+3-5 weeks 
+following 
+tx. 
+30d (+7) 
+after last 
+trila dose 
+Within 
+14d 
+after 
+surgery 
+Informed consent 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+ER-/PR-/HER2- status 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Inclusion/ exclusion 
+criteria 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Baseline characteristics 
+and demographics 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Medical and surgical 
+history 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Concomitant medications 
+and procedures 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X (C5, 8, 11, 16 
+only) 
+X 
+X 
+X 
+Section Error! 
+Reference 
+source not 
+found.  
+Complete physical exam 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+
+
+--- Page 39 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+     
+                       Version:  2.0 
+ 
+ 
+39 
+Screening 
+Trilaciclib 
+Lead-in Phase 
+Treatment Phase 
+Definitive 
+Surgery 
+Safety 
+Follow-u
+p Visit 
+End of 
+Study 
+Visit  
+See Protocol 
+Section for 
+Additional 
+Details 
+ 
+ 
+ 
+Single 
+dose  
+mono. 
+trila. 
+On-tx 
+biopsy  
+ 
+Doxorubicin/ 
+Cyclophosphamide 
++/- pembrolizumab 
+Each cycle = 2 weeks 
+Paclitaxel  
++/- carboplatin b 
++/- pembrolizumab b 
+Each cycle = 1 week 
+ 
+ 
+ 
+Protocol Activity 
+C1 
+D1a 
+C2 
+D1 
+C3 
+D1 
+C4 
+D1 
+ 
+C5 through C16  
+D1 
+Visit Window 
+Up to 
+21 days prior 
+to first dose 
+N/A 
+7d ±1d 
+after 
+trila 
+N/A 
+±2d 
+±2d 
+±2d 
+ 
+±1d 
+ 
+3-5 weeks 
+following 
+tx. 
+30d (+7) 
+after last 
+trila dose 
+Within 
+14d 
+after 
+surgery 
+Directed physical exam 
+ 
+X 
+ 
+X 
+X 
+X 
+X 
+X (C5, 8, 11, 16 
+only) 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Vitals 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+ECOG performance 
+status 
+X 
+X 
+ 
+X 
+ 
+ 
+ 
+X (C5 and 16 only) 
+ 
+ 
+X 
+Section Error! 
+Reference 
+source not 
+found.  
+Adverse event reporting 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+Section Error! 
+Reference 
+source not 
+found.  
+Hematology 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Serum chemistry 
+X 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Coagulation (PT or INR) 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+12-lead ECG 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+
+
+--- Page 40 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+     
+                       Version:  2.0 
+ 
+ 
+40 
+Screening 
+Trilaciclib 
+Lead-in Phase 
+Treatment Phase 
+Definitive 
+Surgery 
+Safety 
+Follow-u
+p Visit 
+End of 
+Study 
+Visit  
+See Protocol 
+Section for 
+Additional 
+Details 
+ 
+ 
+ 
+Single 
+dose  
+mono. 
+trila. 
+On-tx 
+biopsy  
+ 
+Doxorubicin/ 
+Cyclophosphamide 
++/- pembrolizumab 
+Each cycle = 2 weeks 
+Paclitaxel  
++/- carboplatin b 
++/- pembrolizumab b 
+Each cycle = 1 week 
+ 
+ 
+ 
+Protocol Activity 
+C1 
+D1a 
+C2 
+D1 
+C3 
+D1 
+C4 
+D1 
+ 
+C5 through C16  
+D1 
+Visit Window 
+Up to 
+21 days prior 
+to first dose 
+N/A 
+7d ±1d 
+after 
+trila 
+N/A 
+±2d 
+±2d 
+±2d 
+ 
+±1d 
+ 
+3-5 weeks 
+following 
+tx. 
+30d (+7) 
+after last 
+trila dose 
+Within 
+14d 
+after 
+surgery 
+source not 
+found.  
+Echocardiogram or 
+MUGA for LVEF 
+assessment 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Urinalysis 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Urine/serum HCG 
+(WOCBP only) 
+X 
+ 
+ 
+X 
+ 
+ 
+ 
+X (C5, 11, 16 only) 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Biomarker and Efficacy Assessments 
+Blood samples for 
+biomarkers 
+ 
+X 
+(pre-
+dose) 
+X (pre-
+biopsy) 
+ 
+X 
+(pre-
+dose) 
+ 
+ 
+ 
+X (-3 day) 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Tumor sample #1 
+(Baseline) 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Tumor sample #2 (On 
+treatment) 
+ 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Tumor sample #3 
+(Surgery) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+ 
+Section Error! 
+Reference 
+
+
+--- Page 41 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+     
+                       Version:  2.0 
+ 
+ 
+41 
+Screening 
+Trilaciclib 
+Lead-in Phase 
+Treatment Phase 
+Definitive 
+Surgery 
+Safety 
+Follow-u
+p Visit 
+End of 
+Study 
+Visit  
+See Protocol 
+Section for 
+Additional 
+Details 
+ 
+ 
+ 
+Single 
+dose  
+mono. 
+trila. 
+On-tx 
+biopsy  
+ 
+Doxorubicin/ 
+Cyclophosphamide 
++/- pembrolizumab 
+Each cycle = 2 weeks 
+Paclitaxel  
++/- carboplatin b 
++/- pembrolizumab b 
+Each cycle = 1 week 
+ 
+ 
+ 
+Protocol Activity 
+C1 
+D1a 
+C2 
+D1 
+C3 
+D1 
+C4 
+D1 
+ 
+C5 through C16  
+D1 
+Visit Window 
+Up to 
+21 days prior 
+to first dose 
+N/A 
+7d ±1d 
+after 
+trila 
+N/A 
+±2d 
+±2d 
+±2d 
+ 
+±1d 
+ 
+3-5 weeks 
+following 
+tx. 
+30d (+7) 
+after last 
+trila dose 
+Within 
+14d 
+after 
+surgery 
+source not 
+found.  
+pCR assessment 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+ 
+ 
+Treatment 
+Trilaciclib 
+ 
+X 
+ 
+X 
+X 
+X 
+X 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Doxorubicin/ 
+cyclophosphamide 
+ 
+ 
+ 
+X 
+X 
+X 
+X 
+ 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+Paclitaxel 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Carboplatin AUC 1.5 
+(Investigator discretion) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found. 
+Pembrolizumab 
+(Investigator discretion)  
+ 
+ 
+ 
+X 
+ 
+ 
+X 
+ X (C9 and C15 only) 
+ 
+ 
+ 
+ Section Error! 
+Reference 
+source not 
+found. 
+Definitive surgery 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+ 
+Section Error! 
+Reference 
+source not 
+found.  
+AUC=area under the curve; C=cycle; chemo=chemotherapy; d=day; ECG=electrocardiogram; ECOG=Eastern Cooperative Oncology Group; ER=estrogen receptor; HCG=human 
+chorionic gonadotropin; HER2=human epidermal growth factor receptor 2; INR=international normalized ratio; LVEF=left ventricular ejection fraction; mono=monotherapy; 
+
+
+--- Page 42 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+     
+                       Version:  2.0 
+ 
+ 
+42 
+MUGA=multiple-gated acquisition; N/A=not applicable; pCR=pathologic complete response; PR=progesterone receptor; PT=prothrombin time; q2w=every 2 weeks; 
+trila=trilaciclib; tx=treatment; WOCBP=women of childbearing potential 
+a C1D1 may be the same day as the on-treatment biopsy, as long as the biopsy is done prior to initiation of chemotherapy.  
+b Per Investigator discretion.
+
+
+--- Page 43 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+43 
+CONFIDENTIAL 
+APPENDIX 2. 
+CUSTOMIZED MedDRA QUERIES FOR TRILACICLIB AESIs 
+AESI Categories 
+Preferred Terms 
+Injection Site 
+Reaction/ 
+Phlebitis/ 
+Thrombophlebitis 
+ 
+Administration site phlebitis 
+Periphlebitis 
+Application site phlebitis 
+Phlebitis 
+Catheter site phlebitis 
+Phlebitis deep 
+Chemical phlebitis 
+Phlebitis infective 
+Infusion site phlebitis 
+Septic phlebitis 
+Infusion site thrombosis 
+Thrombophlebitis 
+Injection site phlebitis 
+Thrombophlebitis septic 
+Injection site thrombosis 
+Thrombophlebitis superficial 
+  
+Vascular access site thrombosis 
+Administration related reaction 
+Infusion site erythema 
+Administration site dermatitis 
+Infusion site hypersensitivity 
+Administration site 
+hypersensitivity 
+Infusion site pain 
+Administration site pain 
+Infusion site rash 
+Administration site rash 
+Infusion site reaction 
+Administration site recall 
+reaction 
+Infusion site recall reaction 
+Administration site urticaria 
+Infusion site urticaria 
+Administration site vasculitis 
+Infusion site vasculitis 
+Application site dermatitis 
+Injection related reaction 
+Application site hypersensitivity 
+Injection site dermatitis 
+Application site pain 
+Injection site erythema 
+Application site rash 
+Injection site hypersensitivity 
+Application site recall reaction 
+Injection site pain 
+Application site urticaria 
+Injection site rash 
+Application site vasculitis 
+Injection site reaction 
+Catheter site dermatitis 
+Injection site recall reaction 
+Catheter site hypersensitivity 
+Injection site urticaria 
+Catheter site pain 
+Injection site vasculitis 
+Catheter site rash 
+Installation site urticaria 
+Catheter site urticaria 
+instillation site hypersensitivity 
+Catheter site vasculitis 
+instillation site pain 
+Immediate post-injection reaction instillation site rash 
+Infusion related reaction 
+Skin reaction 
+Infusion site dermatitis 
+Vessel puncture site rash 
+  
+Vessel puncture site vesicles 
+Acute drug 
+hypersensitivity 
+reaction  
+Allergic bronchitis 
+Laryngitis allergic 
+Allergic cough 
+Laryngospasm 
+Allergic eosinophilia 
+Laryngotracheal oedema 
+
+
+--- Page 44 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+44 
+CONFIDENTIAL 
+AESI Categories 
+Preferred Terms 
+Allergic oedema 
+Lip edema 
+Allergic pharyngitis 
+Lip swelling mast cell degranulation present 
+Allergic reaction to excipient 
+Mouth swelling 
+Allergic respiratory disease 
+oedema mouth 
+Allergic respiratory symptom 
+Oropharyngeal oedema 
+Anaphylactic reaction 
+Oropharyngeal spasm 
+Anaphylactic shock 
+Oropharyngeal swelling 
+Anaphylactic transfusion reaction Palatal oedema 
+Anaphylactoid reaction 
+Palatal swelling 
+Anaphylactoid shock 
+Periorbital oedema 
+Anaphylaxis treatment 
+Periorbital swelling 
+angioedema 
+Pharyngeal oedema 
+Bronchospasm 
+Pharyngeal swelling 
+Circulatory collapse 
+Pruritus allergic 
+Circumoral oedema 
+Reaction to excipient 
+Circumoral swelling 
+Shock 
+Distributive shock 
+Shock symptom 
+Documented hypersensitivity to 
+administered product 
+Swelling face 
+Drug hypersensitivity 
+Swelling of eyelid 
+Drug reaction with eosinophilia 
+and systemic symptoms 
+Swollen tongue 
+Epiglottic oedema 
+Therapeutic product cross-reactivity 
+Eye oedema 
+Tongue oedema 
+Eye swelling 
+Tracheal oedema 
+Eyelid oedema 
+Type I hypersensitivity 
+Face oedema 
+Urticaria 
+Hypersensitivity 
+Urticaria contact 
+Immune-mediated adverse 
+reaction 
+Urticaria popular 
+Infusion related hypersensitivity 
+reaction 
+Urticarial dermatitis 
+Laryngeal oedema 
+Urticarial vasculitis 
+Hepatotoxicity  
+Acute hepatic failure 
+Hepatitis acute 
+Acute on chronic liver failure 
+Hepatitis cholestatic 
+Acute yellow liver atrophy 
+Hepatitis chronic active 
+Allergic hepatitis 
+Hepatitis chronic persistent 
+Autoimmune hepatitis 
+Hepatitis fulminant 
+Cholestatic liver injury 
+Hepatitis toxic 
+Chronic hepatic failure 
+Hepatocellular foamy cell syndrome 
+
+
+--- Page 45 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+45 
+CONFIDENTIAL 
+AESI Categories 
+Preferred Terms 
+Chronic hepatitis 
+Hepatocellular injury 
+Coma hepatic 
+Hepatotoxicity 
+Drug-Induced Liver Injury 
+Immune-mediated hepatitis 
+Hepatic failure 
+Liver disorder 
+Hepatic infiltration eosinophilia 
+Liver injury 
+Hepatic necrosis 
+Mixed liver injury 
+Hepatic steato-fibrosis 
+Non-alcoholic steatohepatitis 
+Hepatic steatosis 
+Steatohepatitis 
+Hepatitis 
+Subacute hepatic failure 
+Interstitial Lung 
+Disease (ILD) 
+/Pneumonitis 
+Acute interstitial pneumonitis 
+Idiopathic interstitial pneumonia 
+Acute lung injury 
+Idiopathic pneumonia syndrome 
+Acute respiratory distress 
+syndrome 
+Idiopathic pulmonary fibrosis 
+Alveolar lung disease 
+Immune-mediated pneumonitis 
+Alveolitis 
+Interstitial lung disease 
+Alveolitis necrotizing 
+Necrotizing bronchiolitis 
+Autoimmune lung disease 
+Obliterative bronchiolitis 
+Diffuse alveolar damage 
+Pneumonitis 
+Eosinophilic pneumonia 
+Pneumonitis chemical 
+Eosinophilic pneumonia acute 
+Progressive massive fibrosis  
+Eosinophilic pneumonia chronic 
+Pulmonary fibrosis 
+Granulomatous pneumonitis 
+Hypersensitivity pneumonitis 
+Pulmonary toxicity 
+  
+Restrictive pulmonary disease 
+Embolic and 
+thrombotic 
+events, venous  
+Axillary vein thrombosis 
+Pulmonary thrombosis 
+Brachiocephalic vein occlusion 
+Pulmonary vein occlusion 
+Brachiocephalic vein thrombosis 
+Pulmonary veno-occlusive disease 
+Deep vein thrombosis 
+Pulmonary venous thrombosis 
+Embolism venous 
+Subclavian vein occlusion 
+Iliac vein occlusion 
+Subclavian vein thrombosis 
+Obstructive shock 
+Superior vena cava occlusion 
+Pelvic venous thrombosis 
+Thrombosis 
+Peripheral vein occlusion 
+Vena cava embolism 
+Peripheral vein thrombus 
+extension 
+Vena cava thrombosis 
+Phlebectomy 
+Venous occlusion 
+Pulmonary embolism 
+Venous thrombosis 
+Pulmonary microemboli 
+Venous thrombosis limb 
+
+
+--- Page 46 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+46 
+CONFIDENTIAL 
+AESI Categories 
+Preferred Terms 
+AESI Categories 
+Preferred Terms 
+Injection Site 
+Reaction/ 
+Phlebitis/ 
+Thrombophlebitis 
+ 
+Administration site phlebitis 
+Periphlebitis 
+Application site phlebitis 
+Phlebitis 
+Catheter site phlebitis 
+Phlebitis deep 
+Chemical phlebitis 
+Phlebitis infective 
+Infusion site phlebitis 
+Septic phlebitis 
+Infusion site thrombosis 
+Thrombophlebitis 
+Injection site phlebitis 
+Thrombophlebitis septic 
+Injection site thrombosis 
+Thrombophlebitis superficial 
+  
+Vascular access site thrombosis 
+Administration related reaction 
+Infusion site erythema 
+Administration site dermatitis 
+Infusion site hypersensitivity 
+Administration site 
+hypersensitivity 
+Infusion site pain 
+Administration site pain 
+Infusion site rash 
+Administration site rash 
+Infusion site reaction 
+Administration site recall 
+reaction 
+Infusion site recall reaction 
+Administration site urticaria 
+Infusion site urticaria 
+Administration site vasculitis 
+Infusion site vasculitis 
+Application site dermatitis 
+Injection related reaction 
+Application site hypersensitivity 
+Injection site dermatitis 
+Application site pain 
+Injection site erythema 
+Application site rash 
+Injection site hypersensitivity 
+Application site recall reaction 
+Injection site pain 
+Application site urticaria 
+Injection site rash 
+Application site vasculitis 
+Injection site reaction 
+Catheter site dermatitis 
+Injection site recall reaction 
+Catheter site hypersensitivity 
+Injection site urticaria 
+Catheter site pain 
+Injection site vasculitis 
+Catheter site rash 
+Installation site urticaria 
+Catheter site urticaria 
+instillation site hypersensitivity 
+Catheter site vasculitis 
+instillation site pain 
+Immediate post-injection reaction instillation site rash 
+Infusion related reaction 
+Skin reaction 
+Infusion site dermatitis 
+Vessel puncture site rash 
+  
+Vessel puncture site vesicles 
+Acute drug 
+hypersensitivity 
+reaction  
+Allergic bronchitis 
+Laryngitis allergic 
+Allergic cough 
+Laryngospasm 
+Allergic eosinophilia 
+Laryngotracheal oedema 
+
+
+--- Page 47 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+47 
+CONFIDENTIAL 
+AESI Categories 
+Preferred Terms 
+Allergic oedema 
+Lip edema 
+Allergic pharyngitis 
+Lip swelling mast cell degranulation present 
+Allergic reaction to excipient 
+Mouth swelling 
+Allergic respiratory disease 
+oedema mouth 
+Allergic respiratory symptom 
+Oropharyngeal oedema 
+Anaphylactic reaction 
+Oropharyngeal spasm 
+Anaphylactic shock 
+Oropharyngeal swelling 
+Anaphylactic transfusion reaction Palatal oedema 
+Anaphylactoid reaction 
+Palatal swelling 
+Anaphylactoid shock 
+Periorbital oedema 
+Anaphylaxis treatment 
+Periorbital swelling 
+angioedema 
+Pharyngeal oedema 
+Bronchospasm 
+Pharyngeal swelling 
+Circulatory collapse 
+Pruritus allergic 
+Circumoral oedema 
+Reaction to excipient 
+Circumoral swelling 
+Shock 
+Distributive shock 
+Shock symptom 
+Documented hypersensitivity to 
+administered product 
+Swelling face 
+Drug hypersensitivity 
+Swelling of eyelid 
+Drug reaction with eosinophilia 
+and systemic symptoms 
+Swollen tongue 
+Epiglottic oedema 
+Therapeutic product cross-reactivity 
+Eye oedema 
+Tongue oedema 
+Eye swelling 
+Tracheal oedema 
+Eyelid oedema 
+Type I hypersensitivity 
+Face oedema 
+Urticaria 
+Hypersensitivity 
+Urticaria contact 
+Immune-mediated adverse 
+reaction 
+Urticaria popular 
+Infusion related hypersensitivity 
+reaction 
+Urticarial dermatitis 
+Laryngeal oedema 
+Urticarial vasculitis 
+Hepatotoxicity  
+Acute hepatic failure 
+Hepatitis acute 
+Acute on chronic liver failure 
+Hepatitis cholestatic 
+Acute yellow liver atrophy 
+Hepatitis chronic active 
+Allergic hepatitis 
+Hepatitis chronic persistent 
+Autoimmune hepatitis 
+Hepatitis fulminant 
+Cholestatic liver injury 
+Hepatitis toxic 
+Chronic hepatic failure 
+Hepatocellular foamy cell syndrome 
+
+
+--- Page 48 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+48 
+CONFIDENTIAL 
+AESI Categories 
+Preferred Terms 
+Chronic hepatitis 
+Hepatocellular injury 
+Coma hepatic 
+Hepatotoxicity 
+Drug-Induced Liver Injury 
+Immune-mediated hepatitis 
+Hepatic failure 
+Liver disorder 
+Hepatic infiltration eosinophilia 
+Liver injury 
+Hepatic necrosis 
+Mixed liver injury 
+Hepatic steato-fibrosis 
+Non-alcoholic steatohepatitis 
+Hepatic steatosis 
+Steatohepatitis 
+Hepatitis 
+Subacute hepatic failure 
+Interstitial Lung 
+Disease (ILD) 
+/Pneumonitis 
+Acute interstitial pneumonitis 
+Idiopathic interstitial pneumonia 
+Acute lung injury 
+Idiopathic pneumonia syndrome 
+Acute respiratory distress 
+syndrome 
+Idiopathic pulmonary fibrosis 
+Alveolar lung disease 
+Immune-mediated pneumonitis 
+Alveolitis 
+Interstitial lung disease 
+Alveolitis necrotizing 
+Necrotizing bronchiolitis 
+Autoimmune lung disease 
+Obliterative bronchiolitis 
+Diffuse alveolar damage 
+Pneumonitis 
+Eosinophilic pneumonia 
+Pneumonitis chemical 
+Eosinophilic pneumonia acute 
+Progressive massive fibrosis  
+Eosinophilic pneumonia chronic 
+Pulmonary fibrosis 
+Granulomatous pneumonitis 
+Hypersensitivity pneumonitis 
+Pulmonary toxicity 
+  
+Restrictive pulmonary disease 
+Embolic and 
+thrombotic 
+events, venous  
+Axillary vein thrombosis 
+Pulmonary thrombosis 
+Brachiocephalic vein occlusion 
+Pulmonary vein occlusion 
+Brachiocephalic vein thrombosis 
+Pulmonary veno-occlusive disease 
+Deep vein thrombosis 
+Pulmonary venous thrombosis 
+Embolism venous 
+Subclavian vein occlusion 
+Iliac vein occlusion 
+Subclavian vein thrombosis 
+Obstructive shock 
+Superior vena cava occlusion 
+Pelvic venous thrombosis 
+Thrombosis 
+Peripheral vein occlusion 
+Vena cava embolism 
+Peripheral vein thrombus 
+extension 
+Vena cava thrombosis 
+Phlebectomy 
+Venous occlusion 
+Pulmonary embolism 
+Venous thrombosis 
+Pulmonary microemboli 
+Venous thrombosis limb 
+
+
+--- Page 49 ---
+Statistical Analysis Plan for Protocol G1T28-212 
+Version:  2.0 
+ 
+ 
+ 
+ 
+G1 Therapeutics 
+49 
+CONFIDENTIAL 
+APPENDIX 3. 
+ANALYTICAL PLAN FOR QUANTIFICATION OF CD8+ TIL AND 
+FOXP3+ CELLS 
+ 
+PD-L1 SP142 will be scored according to SP142 algorithm (TE-IQ-16). The fraction of viable tumor cells 
+(%) that express PD-L1 (discernible membrane staining of any intensity) can be scored. Cytoplasmic 
+staining is not included in the scoring. In addition, immune cells are scored as a relative area estimate, i.e. 
+the percentage of the tumor area that is covered by PD-L1-positive immune cells.  
+ 
+The PanCK-CD8 IHC slides will be evaluated by a pathologist for CD8 using the density proportion 
+score algorithm (TE-IQ-40). The output of this analysis is the relative surface area (%) of the tumor with 
+a CD8-positive immune cell density that belongs to one of the 8 density bins, and for each of the 8 density 
+bins (8 data fields per IHC slide). The density bins are linked to reference images that are used by the 
+pathologist. The reference images are marker-specific (CD8). There are 4 density bins (0 – 3) for intra-
+stromal CD8-positive immune cells and 4 density bins (0- 3) for intra-epithelial CD8-positive immune 
+cells. In addition, the immune phenotype will be scored as ‘desert’, ‘inflamed’, ‘excluded’ in the PanCK-
+CD8 IHC slides based on the raw density proportion scores.  
+ 
+For the automated quantitative analysis (TE-IQ-36), a central tumor region is delineated by a pathologist. 
+If an interface is present with adjacent normal tissue, an a 1000-μm wide invasive margin will be drawn. 
+Visiopharm software is used to generate an epithelial carcinoma mask denoting the tumor region. The 
+relative surface area (%) as well as density (#/mm²) of CD8-positive TILs can then be measured in both 
+stromal and epithelial (carcinoma cell nests) compartments . If possible, these analyses will be performed 
+for both the invasive margin and in the center of tumor samples. A ‘tumor-stroma ratio’ between the 
+PanCK-positive carcinoma and the PanCK-negative stromal areas will be calculated, and areas will be 
+provided for each region of interest.  
+ 
+CD8/GZMB/FoxP3 IHC will be scored according to TE-IQ-137. An assay to measure relative marker 
+area and densities of CD8, FOXP3 and GZMB in solid tumor samples, within two regions of interest 
+(ROIs): Central Tumor (CnTumor) and Invasive Margin (IM). The tumor region is delineated by a 
+pathologist on the image of a serial HE-stained slide. The tumor annotation is copied manually onto the 
+CD8-GZMB-FOXP3 image. If an interface is present with adjacent normal tissue, a 1000-μm wide 
+invasive margin will be drawn. Single CD8-positive, single GZMB-positive, single FOXP3-positive, 
+double CD8-GZMB-positive and double CD8-FOXP3-positive cells are automatically detected in the 
+annotated regions through image analysis. The relative surface area (%) and density (#/mm²) of these 
+different cell types can then be quantified as well as the proportion in relation to the CD8 population.  
+ 
+FoxP3-stained slides will be analyzed by the TE-IQ-62 method. A central tumor region is delineated by a 
+pathologist. If an interface is present with adjacent normal tissue, an a 1000-μm wide invasive margin will 
+be drawn. The relative area and the density of FoxP3-positive cells in central tumor and, if present, the 
+invasive margin are quantified. 
+ 

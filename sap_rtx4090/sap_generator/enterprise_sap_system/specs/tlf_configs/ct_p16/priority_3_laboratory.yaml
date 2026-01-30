@@ -1,0 +1,1584 @@
+# CT-P16 Priority 3 Laboratory TLF Shells
+# ========================================
+# Laboratory Actual Values, Change from Baseline, and Shift Tables
+# Per SAP Section 10.2: Laboratory Evaluations
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 3
+  category: "Laboratory"
+  sap_sections: ["10.2"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# LABORATORY TABLES
+# =============================================================================
+# Per SAP Section 10.2:
+# "Actual result and change from baseline of all numeric laboratory parameters
+# including clinical chemistry, hematology, numeric urinalysis and coagulation
+# will be summarized using descriptive statistics by treatment group,
+# laboratory category, test parameter and visit."
+
+tables:
+  # ===========================================================================
+  # HEMATOLOGY - ACTUAL VALUES
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.1.1: Hematology Actual Values - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.1.1"
+    title: "Summary of Hematology Parameters - Actual Values by Visit - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Hemoglobin (g/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 2 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 3 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 4 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 5 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 6 Day 1"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "White Blood Cell Count (10^9/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 2 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 3 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 4 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 5 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 6 Day 1"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Absolute Neutrophil Count (10^9/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "[Visits as above]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Platelet Count (10^9/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "[Visits as above]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Lymphocyte Count (10^9/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits as above]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Red Blood Cell Count (10^12/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits as above]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Induction Study Period: Cycles 1-6."
+      - symbol: "b"
+        text: "Baseline = last non-missing value prior to first dose."
+      - symbol: "c"
+        text: "Statistics: n, Mean (SD), Median, Min, Max."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'HEMATOLOGY' and APERIODC = 'INDUCTION'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Hematology from ADLB where LBCAT = 'HEMATOLOGY'"
+      - "Induction period visits: Baseline through Cycle 6"
+      - "Key parameters: HGB, WBC, ANC, PLAT, LYMPH, RBC"
+      - "Use PROC MEANS for descriptive statistics"
+      - "One row per parameter per visit"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.1.2: Hematology Actual Values - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.1.2"
+    title: "Summary of Hematology Parameters - Actual Values by Visit - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Hemoglobin (g/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Cycle 7 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 10 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Every 6 cycles thereafter"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "End of Treatment"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[Other hematology parameters as in Induction table]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects entering Maintenance."
+      - symbol: "a"
+        text: "Maintenance Study Period: Cycle 7 onwards."
+      - symbol: "b"
+        text: "N denominator = subjects entering Maintenance."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and LBCAT = 'HEMATOLOGY' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "Maintenance period: Cycle >= 7"
+      - "N denominator = subjects entering Maintenance"
+      - "Less frequent monitoring than Induction"
+
+  # ===========================================================================
+  # HEMATOLOGY - CHANGE FROM BASELINE
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.2.1: Hematology Change from Baseline - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.2.1"
+    title: "Summary of Hematology Parameters - Change from Baseline by Visit - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.CHG"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.CHG"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.CHG"
+
+    stub_rows:
+      - level: 0
+        label: "Hemoglobin (g/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Cycle 2 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 3 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 4 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 5 Day 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 6 Day 1"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[Other hematology parameters]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Change from baseline = Post-baseline value - Baseline value."
+      - symbol: "b"
+        text: "Only subjects with both baseline and post-baseline values included."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'HEMATOLOGY' and APERIODC = 'INDUCTION' and not missing(CHG)"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "CHG = AVAL - BASE"
+      - "Exclude baseline visit (no change)"
+      - "Only subjects with both BASE and AVAL"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.2.2: Hematology Change from Baseline - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.2.2"
+    title: "Summary of Hematology Parameters - Change from Baseline by Visit - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.CHG"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.CHG"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.CHG"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.CHG"
+
+    stub_rows:
+      - level: 0
+        label: "[Hematology parameters by Maintenance visits]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects entering Maintenance."
+      - symbol: "a"
+        text: "Change from baseline (original Day 1 Cycle 1 baseline)."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and LBCAT = 'HEMATOLOGY' and APERIODC = 'MAINTENANCE' and not missing(CHG)"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+  # ===========================================================================
+  # CLINICAL CHEMISTRY - ACTUAL VALUES
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.3.1: Chemistry Actual Values - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.3.1"
+    title: "Summary of Clinical Chemistry Parameters - Actual Values by Visit - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16 (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "EU-Avastin (N=xxx)"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "n"
+        width: 0.5
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Mean (SD)"
+        width: 1.2
+        alignment: C
+        format: "xx.x (xx.x)"
+        source_variable: "ADLB.AVAL"
+      - header: "Median"
+        width: 0.8
+        alignment: C
+        format: "xx.x"
+        source_variable: "ADLB.AVAL"
+      - header: "Min, Max"
+        width: 1.0
+        alignment: C
+        format: "xx.x, xx.x"
+        source_variable: "ADLB.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Alanine Aminotransferase (ALT) (U/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "[Induction visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Aspartate Aminotransferase (AST) (U/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Total Bilirubin (mg/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Alkaline Phosphatase (U/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Creatinine (mg/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Blood Urea Nitrogen (mg/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Albumin (g/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Total Protein (g/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Glucose (mg/dL)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Sodium (mEq/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Potassium (mEq/L)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Visits]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Induction Study Period."
+      - symbol: "b"
+        text: "Key chemistry parameters for liver function (ALT, AST, Bilirubin, ALP) and renal function (Creatinine, BUN)."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'CHEMISTRY' and APERIODC = 'INDUCTION'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "Chemistry from ADLB where LBCAT = 'CHEMISTRY'"
+      - "Key parameters: ALT, AST, BILI, ALP, CREAT, BUN, ALB, PROT, GLUC, SODIUM, POTASSIUM"
+      - "Liver function tests important for bevacizumab monitoring"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.3.2: Chemistry Actual Values - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.3.2"
+    title: "Summary of Clinical Chemistry Parameters - Actual Values by Visit - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "[Statistics as in Induction table]"
+        width: 8.0
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "[Chemistry parameters by Maintenance visits]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects entering Maintenance."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and LBCAT = 'CHEMISTRY' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.4.1: Chemistry Change from Baseline - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.4.1"
+    title: "Summary of Clinical Chemistry Parameters - Change from Baseline by Visit - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "[Statistics as in Hematology Change table]"
+        width: 8.0
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "[Chemistry parameters]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population. Change from baseline."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'CHEMISTRY' and APERIODC = 'INDUCTION' and not missing(CHG)"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.4.2: Chemistry Change from Baseline - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.4.2"
+    title: "Summary of Clinical Chemistry Parameters - Change from Baseline by Visit - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "[Statistics]"
+        width: 8.0
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "[Chemistry parameters by Maintenance visits]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects entering Maintenance. Change from baseline."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and LBCAT = 'CHEMISTRY' and APERIODC = 'MAINTENANCE' and not missing(CHG)"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+  # ===========================================================================
+  # URINALYSIS
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.5.1: Urinalysis Summary - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.5.1"
+    title: "Summary of Urinalysis Parameters - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.5
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADLB"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADLB"
+
+    stub_rows:
+      - level: 0
+        label: "Urine Protein (Dipstick)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Baseline, n (%)"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Negative/Trace"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "1+"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "2+"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "≥3+"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Post-baseline Worst, n (%)"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Negative/Trace"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "1+"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "2+"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "≥3+"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "24-Hour Urine Protein (g/24h)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Urine protein monitoring important for bevacizumab (proteinuria is known AESI)."
+      - symbol: "b"
+        text: "24-hour urine collection if dipstick ≥2+."
+      - symbol: "c"
+        text: "Induction Study Period."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'URINALYSIS' and APERIODC = 'INDUCTION'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+    programming_notes:
+      - "Urinalysis from ADLB where LBCAT = 'URINALYSIS'"
+      - "Key parameter: Urine Protein (UPROT)"
+      - "Categorical summary for dipstick results"
+      - "24-hour quantitative if dipstick ≥2+"
+      - "Proteinuria is bevacizumab AESI"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.5.2: Urinalysis Summary - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.5.2"
+    title: "Summary of Urinalysis Parameters - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter\nVisit"
+        width: 2.5
+        alignment: L
+        source_variable: "ADLB.PARAM / AVISIT"
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADLB"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADLB"
+
+    stub_rows:
+      - level: 0
+        label: "[Urinalysis parameters as in Induction table]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects entering Maintenance."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and LBCAT = 'URINALYSIS' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["PARAMN", "AVISITN", "TRT01AN"]
+
+  # ===========================================================================
+  # SHIFT TABLES - CTCAE GRADE
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.6.1: Hematology CTCAE Shift - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.6.1"
+    title: "Shift Table of CTCAE Grade from Baseline to Worst Post-Baseline - Hematology (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nBaseline Grade"
+        width: 2.5
+        alignment: L
+        source_variable: "ADLB.PARAM / BASEGRP"
+      - header: "CT-P16 (N=xxx) Post-Baseline Worst Grade"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "No Grade"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 1"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 2"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 3"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 4"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "EU-Avastin (N=xxx) Post-Baseline Worst Grade"
+        width: 0.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "No Grade"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 1"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 2"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 3"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+      - header: "Grade 4"
+        width: 0.8
+        alignment: C
+        format: "xxx"
+        source_variable: "ADLB"
+
+    stub_rows:
+      - level: 0
+        label: "Hemoglobin (Anemia)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "No Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Neutrophil Count (Neutropenia)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "No Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Platelet Count (Thrombocytopenia)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "No Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "White Blood Cell (Leukopenia)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Lymphocyte Count (Lymphopenia)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "CTCAE version 5.0 grading criteria."
+      - symbol: "b"
+        text: "Baseline = last non-missing value prior to first dose."
+      - symbol: "c"
+        text: "Post-baseline worst = most severe grade at any post-baseline visit."
+      - symbol: "d"
+        text: "'No Grade' = result does not meet any CTCAE grade criteria."
+      - symbol: "e"
+        text: "Whole Study Period."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'HEMATOLOGY' and not missing(ATOXGRN)"
+    sort_order: ["PARAMN", "BASEGRPN", "TRT01AN"]
+
+    programming_notes:
+      - "CTCAE grading from ADLB ATOXGR (analysis toxicity grade)"
+      - "Baseline grade from BTOXGR"
+      - "Post-baseline worst from maximum ATOXGRN across all post-baseline"
+      - "No Grade = ATOXGR = 0 or missing"
+      - "Grade 5 (Death) not applicable for lab results"
+      - "Cross-tabulation: baseline grade × worst post-baseline grade"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.6.2: Chemistry CTCAE Shift - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.6.2"
+    title: "Shift Table of CTCAE Grade from Baseline to Worst Post-Baseline - Chemistry (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Parameter\nBaseline Grade"
+        width: 2.5
+        alignment: L
+        source_variable: "ADLB.PARAM / BASEGRP"
+      - header: "[Columns as in Hematology CTCAE Shift table]"
+        width: 8.0
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "ALT Increased"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "AST Increased"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Bilirubin Increased"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Creatinine Increased"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hyponatremia"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypokalemia"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hyperkalemia"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Grades]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population. CTCAE version 5.0. Whole Study Period."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and LBCAT = 'CHEMISTRY' and not missing(ATOXGRN)"
+    sort_order: ["PARAMN", "BASEGRPN", "TRT01AN"]
+
+    programming_notes:
+      - "Chemistry CTCAE terms differ from hematology"
+      - "Parameters: ALT increased, AST increased, Bilirubin increased, Creatinine increased, Hyponatremia, Hypokalemia, Hyperkalemia"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.7: Grade 3/4 Laboratory Abnormalities
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.7"
+    title: "Incidence of Treatment-Emergent Grade 3 or 4 Laboratory Abnormalities (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: "ADLB.PARAM"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one Grade 3/4 abnormality"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hematology"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Neutropenia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Anemia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Thrombocytopenia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Leukopenia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Lymphopenia"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Chemistry"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ALT increased"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "AST increased"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Bilirubin increased"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Creatinine increased"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hyponatremia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hypokalemia"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Treatment-emergent = Grade 3/4 at any post-baseline when baseline was Grade 0-2."
+      - symbol: "b"
+        text: "CTCAE version 5.0 grading."
+      - symbol: "c"
+        text: "Subjects counted once per parameter."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and ATOXGRN >= 3 and BTOXGRN <= 2"
+    sort_order: ["LBCAT", "PARAMN", "TRT01AN"]
+
+    programming_notes:
+      - "Treatment-emergent Grade 3/4: ATOXGRN >= 3 and BTOXGRN <= 2"
+      - "Count subjects once per parameter"
+      - "Key safety endpoint for chemotherapy toxicity"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.6.8: Liver Function Test Abnormalities
+  # ---------------------------------------------------------------------------
+  - number: "14.3.6.8"
+    title: "Summary of Patients with Potential Clinically Important Liver Function Abnormalities (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Criterion"
+        width: 4.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADLB"
+
+    stub_rows:
+      - level: 0
+        label: "ALT > 3 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "ALT > 5 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "ALT > 10 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "ALT > 20 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "AST > 3 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "AST > 5 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "AST > 10 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Total Bilirubin > 2 × ULN"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Potential Hy's Law Cases"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ALT or AST > 3 × ULN AND Total Bilirubin > 2 × ULN AND ALP < 2 × ULN"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "ULN = Upper Limit of Normal from local laboratory."
+      - symbol: "b"
+        text: "Potential Hy's Law: ALT or AST > 3 × ULN with Total Bilirubin > 2 × ULN and ALP < 2 × ULN (to exclude cholestatic injury)."
+      - symbol: "c"
+        text: "Any time post-baseline."
+
+    source_dataset: "ADLB"
+    filter_condition: "SAFFL = 'Y' and PARAMCD in ('ALT', 'AST', 'BILI', 'ALP')"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Liver function monitoring per FDA guidance"
+      - "ALT/AST thresholds: >3×, >5×, >10×, >20× ULN"
+      - "Hy's Law criteria: (ALT or AST > 3×ULN) AND (BILI > 2×ULN) AND (ALP < 2×ULN)"
+      - "Use ADLB.ANRHI (upper limit of normal)"
+      - "Ratio = AVAL / ANRHI"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Laboratory Tables in this file: 14
+#   - Hematology Actual: 2 (Induction, Maintenance)
+#   - Hematology Change: 2 (Induction, Maintenance)
+#   - Chemistry Actual: 2 (Induction, Maintenance)
+#   - Chemistry Change: 2 (Induction, Maintenance)
+#   - Urinalysis: 2 (Induction, Maintenance)
+#   - CTCAE Shift: 2 (Hematology, Chemistry)
+#   - Grade 3/4 Incidence: 1
+#   - LFT Abnormalities: 1

@@ -1,0 +1,1735 @@
+   
+ 1   
+ONO -4538 P HASE III STUDY 
+ 
+ 
+A MULTICENTER, RANDO MIZED,  DOUBLE -BLIND 
+TRIAL IN SUBJECTS WITH NON-SQUAMOUS NO N-
+SMALL CELL LUNG CANCER   
+ 
+ 
+STATISTICAL ANALYSIS  PLAN  
+ 
+ 
+  
+ 
+ONO PHARMACEUTICAL CO., LTD.  
+   
+Protocol No.: ONO-4538-52 Version No.: 2.0 Date of preparation : MAY 7, 2020 
+   
+
+   
+ 3   
+Unique 
+Identifier for 
+this Version  Date of the Document 
+Version  Author  Significant Changes from  
+Previous Authorized Version  
+1.0 25OCT2018   Not Applicable – First Version  
+2.0 07MAY2020   Descriptions for efficacy endpoint were 
+modified and updated.  
+Minor update for overall descriptions.  
+ 
+  
+
+   
+ 4  TABLE OF CONTENTS  
+1 DEFINITIONS OF STA TISTICAL ANALYSIS PL AN .............................................8  
+2 SAMPLE SIZE  .............................................................................................................9  
+2.1 Planned Sample Size  ..................................................................................................9  
+3 DETERMINATION OF SUBJECTS INCLUDED IN ANALYSIS ..........................11  
+3.1 Definitions of Analysis Sets  .....................................................................................11  
+3.2 Criteria for Handling of S ubjects  .............................................................................12  
+3.3 Criteria for Handling of Time Points  .......................................................................12  
+4 SIGNIFICANCE LEVEL  TO BE USED  ...................................................................13  
+4.1 Efficacy  ....................................................................................................................13  
+4.2 Safety  .......................................................................................................................13  
+5 GENERAL METHODS  .............................................................................................14  
+6 RELIABILITY OF THE  STUDY ..............................................................................15  
+6.1 Analysis Set  ..............................................................................................................15  
+6.2 Analytical Items and Data Handling  ........................................................................15  
+6.3 Analytical Methods ..................................................................................................16  
+7 EXTENT O F EXPOSURE AND ADMINISTRATION OF STUDY 
+TREATMENT  ............................................................................................................17  
+7.1 Analysis Set  ..............................................................................................................17  
+7.2 Analytical Items and Data Handling  ........................................................................17  
+7.3 Analytical Methods ..................................................................................................19  
+8 DEMOGRAPHICS AND OTHER BASELINE CHARAC TERISTICS  ...................21  
+8.1 Analysis Set  ..............................................................................................................21  
+8.2 Analytical I tems and Data Handling  ........................................................................21  
+8.3 Analytical Methods and Classification  ....................................................................22  
+9 PRIMARY ENDPOINT  .............................................................................................27  
+9.1 Analysis Sets  ............................................................................................................27  
+9.2 Analytical Item and Data Handling  .........................................................................27  
+9.3 Analytical Methods (when the study stopped for superiority based on the 
+results of Interim Analysis)  ......................................................................................29  
+9.3.1 Primary Analys is ...................................................................................................29  
+9.3.2 Sensitivity Analysis for Primary Analysis  ............................................................30  
+9.3.3 Secondary Analysis  ...............................................................................................30  
+
+   
+ 5  9.4 Analytical Methods (when the study continued based on the results of 
+Interim Analysis)  ......................................................................................................31  
+9.4.1 Primary Analysis  ...................................................................................................31  
+10 EFFICACY SECONDARY ENDPOINT ...................................................................33  
+10.1 Analysis Set  ..............................................................................................................33  
+10.2 Analytical Items and Data Handling  ........................................................................33  
+10.3 Analytical Methods ..................................................................................................38  
+10.4 Subgroup Analyses for the Efficacy Endpoints .......................................................38  
+10.4.1 Analysis Sets  .........................................................................................................38  
+10.4.2 Analytical Item and Data Handling  .......................................................................39  
+10.4.3 Analytical Methods ...............................................................................................41  
+10.5 Interaction Analysis .................................................................................................42  
+10.6 Adjusted Analysis ....................................................................................................42  
+10.7 Exploratory Analysis ................................................................................................42  
+11 ANALYSIS OF SAFET Y ..........................................................................................45  
+11.1 Analysi s Sets  ............................................................................................................45  
+11.2 Analytical Items and Data Handling  ........................................................................45  
+11.3 Analytical Methods ..................................................................................................48  
+11.4 Subgroup Analyses for the Safety Endpoints ..........................................................52  
+12 PATIENT REPORTED OUTCOMES  .......................................................................53  
+12.1 Analysis Sets  ............................................................................................................53  
+12.2 Analytical Items and Data Handling  ........................................................................53  
+12.3 Analytical Methods ..................................................................................................55  
+13 ANTI -DRUG ANTIBODY ANALYSIS  ...................................................................57  
+13.1 Analysis Sets  ............................................................................................................57  
+13.2 Analytical Item and Data Handling  .........................................................................57  
+13.3 Analytical Methods ..................................................................................................57  
+14 INTERIM STATISTIC AL ANALYSIS .....................................................................58  
+15 BLINDED REVIEWS  ................................................................................................59  
+15.1 Objectives  .................................................................................................................59  
+15.2 Analysis Sets  ............................................................................................................59  
+15.3 Analytical Items and Data Handling  ........................................................................59  
+15.4 Analytical Methods ..................................................................................................59  
+
+   
+ 6  16 TECHNICAL MATTERS  ..........................................................................................61  
+16.1 SAS Programming in Analyses  ................................................................................61  
+16.2 Imputation of Missing Value  ...................................................................................61  
+16.2.1 Imputing the Date of Death and Date of Severity CTCAE Grade5 (AE 
+grade 5 start date)  ..................................................................................................61  
+16.2.2 I mputing Other Date  ..............................................................................................62  
+17 REFERENCE .............................................................................................................63  
+18 CHANGES IN THE STATISTICAL ANALYSIS PLAN FROM THE STUDY SPECIFIC PROTO COL  ...............................................................................64
+ 
+18.1 Changes in the Statistical Analysis Plan from the Study Specific Protocol  ............64  
+18.2 Changes in the Statistical Analysis Plan from the Statistical Analysis Plan version 1.0 ................................................................................................................64
+ 
+19 APPENDIX .................................................................................................................67  
+ 
+
+   
+ 7  LIST OF TABLES  
+Table 7.2-1 Duration of Treatment, cumulative dose, relative dose intensity of ONO-
+4538 ............................................................................................................................18  
+Table 7.2-2 Duration of Treatment, cumulative dose, relative dose intensity of 
+chemotherapies  ...........................................................................................................18  
+Table 8.3- 1 Classification of analytical item  .................................................................................23  
+Table 9.2-1 Definition of event and censoring for the primary definition of PFS .........................28  
+Table 10.2-1 Definition of event and censoring for the secondary definition of PFS ...................34  
+Table 10.2-2 Definition of event and censoring in DOR ...............................................................36  
+Table 10.4- 1 Classification of analytical item  ...............................................................................39  
+Table 12.2-1 Time windows for QOL evaluations ........................................................................54  
+
+   
+ 8  1 DEFINITIONS OF STATISTICAL ANALYSIS PLAN 
+This statistical analysis plan  (SAP)  refers to the definition of terminologies, valid analytical 
+methods and the detailed contents of statistical analysis for ONO -4538 Phase III  study (protocol 
+number: ONO-4538-52).  
+The SAP  will be developed in accordance with the protocol, Core SAP (2017/0 5/26, V er.1.0), 
+and Core ADA- SAP (201 7/05/26, V er.1.0) for ONO-4538 study. The SAP Ver.1.0 will be 
+finalized before the cutoff data lock for interim analysis . The analysis principles are o utlined in 
+Section 10 “Statistical Analysis” in the study- specific protocol. 
+If additional analyses not stated in the SAP are performed  or endpoints not stated in the SAP are 
+analyzed,  the reasons for performing the  analyses or analyzing the endpoints will be reported in 
+the clinical study report, including the dates when the analyses were planned or the endpoints 
+were derived.  
+ 
+
+   
+ 9  2 SAMPLE SIZE  
+2.1 Plan ned Sample Size  
+The target sample size is approximately 265 subjects per group, and approximately 530 subjects 
+in total for the entire study.  
+ 
+<Rationale for sample size calculation >  
+This study is intended to evaluate the superiority of the ONO-4538 group over the placebo group, 
+with PFS as the primary endpoint, in randomized or PD -L1+ ( ≥ 1%) chemotherapy -naïve subjects 
+with stage IIIB/IV or recurrent non -squamous non- small cell lung cancer unsuitable for radical 
+radiation. Subjects will be randomized in a 1:1 ratio into either the ONO -4538 group or the placebo 
+group and stratified by PD -L1 expression level (≥ 50% vs 1% to 49% vs < 1% or indeterminate), 
+ECOG Performance Status (0 vs 1), and gender (male vs female).  
+In this study, one interim analysis of PFS among randomized subjects is planned for early stopping in case of superior efficac y, at the time when approximately 82.4% of the target number of events 
+are observed. To adjust the multiplicity of tests, a significance level for interim and final analyses will be calculated using the Lan -DeMets α spending function (O’Brien- Fleming). The  Hochberg 
+method will be used to adjust the multiplicity of tests associated with final analysis in randomized 
+subjects and PD- L1+ (≥ 1%) subjects.  
+Given that PFS followed an exponential distribution in the placebo group and followed a piecewise 
+exponentia l distribution with consideration for time to ONO -4538 response in the ONO -4538 
+group in both PD -L1+ (≥ 1%) subjects and PD -L1− (< 1%) subjects, the hazard ratio of the ONO -
+4538 group to the placebo group was assumed to be 1.0 for the first 2 months and 0.60 thereafter (the median PFS was 7.0 months in the placebo group and 10.3 months in the ONO -4538 group). 
+Since past clinical study data on ONO -4538 reported that the proportion of PD -L1+ (≥ 1%) 
+subjects to NSCLC subjects was in the range of 52% to 70%, the proportion of PD -L1+ (≥ 1%) 
+subjects to randomized subjects was assumed to be 55%. To detect a statistically significant 
+difference via the log -rank test in either randomized subjects or PD -L1+ (≥ 1%) subjects with a 
+two-sided significance level of 5% and a statistical power of approximately 90%, 340 events were 
+required. Assuming an accrual period of 24 months and a minimum follow -up of 16 months, 530 subjects 
+may be required to observe the required number of events taking into account the number of 
+
+   
+ 10  censored subjects. Therefore, the target sample size was set at 530 subjects. The required number 
+of events and the target sample size in the protocol were calculated by simulation with SAS 
+statistical analysis software (version 9.4).  
+ <Rationale for 7.0-month PFS (median) in the placebo group> 
+Based on the report that the PFS ranges from 6.2 to 6.9 months in subjects treated with carboplatin, 
+paclitaxel, and bevacizumab in studies in chemotherapy -naïve subjects with non- squamous non-
+small cell lung cancer, PFS  was set at 7.0 months in the placebo group. 
+ 
+<Rationale for a period of 2 months to ONO-4538 response> 
+The time to ONO -4538 response was determined by referring to the results from the phase 3 
+study evaluating the efficacy and safety of ONO -4538 monothera py in chemotherapy -naïve 
+subjects with non-small cell lung cancer (CA209026).
+ 
+ 
+ 
+
+   
+ 11  3 DETERMINATION OF SUBJECTS INCLUDED IN AN ALYSIS  
+The analysis sets for efficacy endpoints are the Intention -to-Treat  (ITT) and the PD -L1+ (≥ 1%) 
+set (PD -L1 1% Positive Set: PDL1- PS). 
+The analysis set for safety endpoints is the Safety Set (SAF).  
+The analysis set for anti -drug antibody endpoints is the Anti-Drug Antibody S et (ADA) . 
+Individual sets of subjects are defined below. 
+ 
+3.1 Definitions of Analysis Sets 
+1) Informed Consent Set (INF) 
+ The INF will consist of all subjects who signed an informed consent. 2) Enrolled Set (ENR) 
+ The Enrolled Set (ENR ) will consist of all subjects enrolled (enrollment) in this study via 
+IWRS.  
+3) ITT/Randomized Set (RND) 
+ The ITT and Randomized Set (RND) will consist of all randomized (randomization) subjects. 
+4) SAF 
+ The SAF will consist of all subjects who received  the investigational product or chemotherapy 
+at least once.  
+5) PDL1 -PS 
+ The PDL1 -PS will consist of all subjects included in the ITT and who are PD- L1+ (≥ 1%).  
+6) Anti-Drug Antibody Set  
+ The ADA will consist of all subjects who meet the following item in the SAF population.  
+1) Subjects have had their anti -ONO- 4538 antibodies  (samples with potential positive 
+measurement result at screening assay without obtaining result by confirmatory assay are 
+not included) measured before administration of ONO -4538 and at least 1 time point after 
+administration of ONO -4538. 
+ 
+
+   
+ 12  3.2 Criteria for Handling of Subjects  
+Details of handling of subjects are shown  below. 
+1) Non-enrolled Subjects 
+Subjects who were not enrolled after signed to informed consent are defined as non- enrolled 
+subjects.  
+2) Non-randomized Subjects 
+Subjects who were not randomized through the IWRS after enrollment are defined as non -
+randomized subjects.  
+3) Untreated Subjects  
+Subjects who have not received both of the investigational product and  chemotherapy are 
+defined as untreated subjects . 
+4) PD-L1 negative subjects  
+Subjects who are PD -L1 negative (< 1%) are defined as PD -L1 negative subjects. 
+5) Incomplete Anti- Drug Antibody  Subjects  
+Subjects with missing anti- ONO- 4538 antibody measurements before administration of the 
+investigational product or missing all anti- ONO- 4538 antibody measurements  after 
+administration of the investigational product  are defined as incomplete anti -drug antibody  
+subjects . 
+For unexpected, problematic cases other than above, the Sponsor will examine such cases and 
+decide how they will be handled in the analysis before database lock . 
+ 
+3.3 Criteria for Handling of Time Points  
+When  analysis by time point is performed, if the test day specified in the protocol is different 
+from the actual test day, only data measured within the time window described in Table 6-1 in the study- specific protocol should be adopted. 
+ 
+
+   
+ 13  4 SIGNIFICANCE LEVEL TO BE USED  
+4.1 Efficacy  
+To preserve the overall type I error rate at ≤ 5% (two-sided), a significance level for interim and 
+final analyses will be calculated using the Lan -DeMets α spending function (O’Brien- Fleming) 
+based on the actual number of observed PFS events  (as assessed by the Independent Radiology 
+Review C ommittee  (IRRC )). In addition, multiplicity of the test for final analysis will be 
+adjusted using the Hochberg’s method. The sig nificance level of the analysis for secondary 
+endpoints is to be 5% (two-sided). In addition, interaction will be examined using a two- sided 
+significance level of 15%  and adjusted analysis will be performed  using two -sided significance 
+level of 5% . 
+ 
+4.2 Safety  
+Not established because the test will not be performed.  
+
+   
+ 14  5 GENERAL METHODS  
+Unless otherwise noted, analysis will be conducted based on treatment group randomized by 
+IWRS. I n the following sections, treatment group will refer to ONO -4538 group and placebo 
+group. Investigational product will refer to ONO-4538 or placebo and c hemotherapy will refer to 
+carboplatin, paclitaxel and bevacizumab. The treatment group “As Randomized” will be retrieved from IWRS. The treatment group “As Treated” will  be the same as the arm randomized 
+by IWRS. However, if a subject received the incorrect treatment for the entire period of 
+treatment, the subject’s treatment group will be defined as the incorrect treatment the subject 
+actually received. Efficacy analysis  will be conducted by “As Randomized” while safety analysis 
+will be conducted by “As Treated”.  
+For evaluation by IRRC, if both the R eader 1 and Reader 2 complete assessment without 
+discordance, it will be adopted for the Reader’s assessment that the value of 10.2 1) (8) Maximum percentage of change in the sum of diameters of target lesions  (as assessed by the 
+IRRC)  will be  larger. If both Reader 1 and Reader 2 do not evaluate target lesions including the 
+case of unmeasurable or non- target lesions , the assessment of reader  will be adopted  in 
+alphabetical order . 
+ 
+
+   
+ 15  6 RELIABILITY OF THE S TUDY 
+ 
+6.1 Analysis Set  
+INF will be the analysis set for Analytical Item (1).  
+SAF will be the analy sis set  for Analytical Item (2 ). 
+ITT will be the analy sis set for Analytical Item ( 3), (4) and (5). 
+ 
+6.2 Analytical Item s and Data Handling  
+1) Analytical Item  
+(1) Reason for being excluded from each analysis set  
+(2) Reason for discontinuation of the study treatment ( Protocol 7.1.4) 
+(3) Reason for withdrawals and dropouts from the study (Protocol 13) 
+(4) The number of randomized subjects per study site  
+(5) Important protocol deviation  
+2) Handling of data 
+The following deviations will be considered as important protocol deviations. 
+Eligibility:  
+・Subjects who failed to fulfill inclusion criteria #3  
+・Subjects who failed to fulfill inclusion criteria #4  
+・Subjects who failed to fulfill inclusion criteria #7  
+・Subjects who failed to fulf ill exclusion criteria #10  
+On-study:  
+・Subjects receiving any concurrent anticancer therapy (ie. chemotherapy, hormonal therapy, 
+immunotherapy, surgery, or radiation therapy) while on study therapy 
+・Subjects treated differently as randomized (subjects who received the wrong treatment 
+excluding the never treated.)  
+ 
+
+   
+ 16  6.3 Analytical Methods 
+1) Frequency of subjects who are inclu ded or excluded  in each analysis  set and frequency  by 
+reason for exclusion  will be summarized  by treatment group. Frequency of subjects who 
+continuing or discontinued study treatment or study will also be summarized by treatment 
+group. 
+2) Reason for discontinuations of study treatment w ill be summarized  by treatment group. 
+3) Reason for lost to follow -up will be  summarized by treatment group.  
+4) For the number of subjects randomized per study site, frequency distribution and summary 
+statistics will be summarized  by treatment group. 
+5) Frequency of impor tant protocol deviation will be summarized  by treatment group .  
+
+   
+ 17  7 EXTENT OF EXPOSURE A ND ADMINISTRATI ON OF STUDY 
+TREATMENT  
+ 
+7.1 Analysis Set  
+The SAF will be the analysis set.  
+ 
+7.2 Analytical Item s and Data Handling  
+1) Analytical Items 
+(1) Duration of treatment period 
+(2) Number of doses received   
+(3) Duration of t reatment  
+(4) Number of cycles 
+(5) Cumulative dose 
+(6) Relative dose intensity  
+2) Handling of data  
+(1) Duration of treatment period 
+Duration of Treatment period = Last dose date of investigational product or each 
+chemotherapy - First dose date of investigational product or each chemotherapy  + 1 
+(2) Number of cycles 
+The number of cycle s will be  calculated for a cycle p roceeding to the next cycle. A 
+discontinued cycle or cycle in which no investigational product s are administered  will 
+also be included for the number of cycles of investigational products. The same handling rules will be applied to  each chemotherapy.  
+(3) Duration of Treatment, Cumulative dose, Relative dose intensity 
+To calculate duration of treatment, cumulative dose, and relative dose intensit y for ONO -
+4538, refer to Table 7.2-1 and to calculate those for the chemotherapies ( carboplatin, 
+paclitaxel, and bevacizumab ), refer to  Table 7.2-2. 
+
+   
+ 18  Table 7.2-1 Duration of Treatment, cumulative dose, relative dose intensity of ONO-4538 
+ 
+Table 7.2-2 Duration of Treatment, cumulative dose, relative dose intensity of 
+chemotherapies  
+ paclitaxel carboplatin bevacizumab  
+Cumulative 
+dose Cumulative dose (mg/m
+2) is the sum of 
+doses (mg/m2) 
+administered  to a subject 
+during the treatment period. 
+Dose (mg  / m
+2) = Dose 
+administered  of 
+Paclitaxel (mg)  / 
+Baseline BSA  
+BSA  (Body Surface 
+Area) will be calculated 
+by DuBois f ormula: 
+[Body weight at 
+screening  (kg)]0.425 x Cumulative dose 
+(AUC) is the sum of doses (AUC) 
+administered  to a 
+subject during the 
+treatment period.  
+Dose (AUC) =Dose administered  of 
+Carboplatin ( mg) / 
+(Creatinine Clearance 
+at screening + 25)  
+Creatinine Clearance 
+(CrCl) at screening will 
+be calculated by Cumulative dose (mg/kg) is the sum of doses (mg/kg) administered  to 
+a subject during the treatment period.  
+Dose (mg/ kg) = Dose 
+administered  of 
+Bevacizumab (mg) / 
+Baseline Body weight (at 
+screening)   ONO -4538 
+Cumulative dose Cumulative dose (mg) is the sum of doses (mg) administered  to a 
+subject during the treatment period. 
+Relative dose intensity  (%)  Cumulative dose (mg) / [Date of the last dose – Date of the first dose + 
+21] (days) x  360 (mg) / 21 (days) x 100 
+Duration of treatment (overall)  Date of the last dose – Date of the f irst dose + 1 
+
+   
+ 19  [Height at screening  
+(cm)]0.725 x 0.007184 Cockcroft- Gault 
+formula . 
+If value of the CrCl 
+yields a result of > 125 mL/min, it should be 
+used 125 mL/min for 
+the dose calculation . 
+Relative 
+dose 
+intensity  
+(%) Cumulative dose 
+(mg/m2) / [Date of the 
+last dose – Date of the 
+first dose + 21] (days) x  
+200 (mg /m2) / 21 (days) 
+x 100 Cumulative dose 
+(AUC ) / [Date of the 
+last dose – Date of the 
+first dose + 21] (days) x  
+6 (AUC ) / 21 (days) x 
+100 Cumulative dose (mg /kg) 
+/ [Date of the last dose – Date of the first dose + 21] (days) x  15 (mg /kg) / 
+21 (days) x 100 
+Duration of treatment 
+(overall) Date of the last dose – Date of the f irst dose + 1  Date of the last dose − 
+Date of the f irst date  + 
+1 Date of the last dose − 
+Date of the f irst dose + 1  
+ 
+7.3 Analytical Methods 
+1) For duration of treatment period, frequency distributions and summary statistics will be 
+calculated by treatment group.  
+2) For number of dose s received, summary statistics will be calculated by investigational product 
+and each chemotherapy . 
+3) For duration of treatment, frequency distributions and summary statistics will be calculated by 
+investigational product and each chemotherapy. 
+4) For number of cycle s, frequency distributions and summary statistics will be calculated by 
+investigational product and each chemotherapy. 
+5) For cumulative dose, summary statistics will be calculated  by investigational product and each 
+chemotherapy . 
+
+   
+ 20  6) For relative dose intensity, frequency distributions and summary statistics will be calculated 
+by investigational product and each chemotherapy . 
+
+   
+ 21  8 DEMOGRAPHICS AND OTHER BASELINE CHARACTE RISTICS  
+8.1 Analysis Set  
+The ITT will be the analysi s set.  
+ 
+8.2 Analytical Item s and Data Handling  
+1) Analytical Items 
+(1) Demographic Variables  
+Location, gender  (eCRF source) , age, race, ethnicity, height, body weight and  body mass 
+index ( BMI )  
+(2) Baseline Characteristics  
+Past history, complications, smoking history, ECOG Performance Status (eCRF source) , 
+period from the date of diagnosis of primary disease  through randomization, staging  
+(Stage)  and Tumor Node Metastasis (TNM) classification (at first diagnosis of the primar y 
+disease) , histology of non- squamous non- small cell lung cancer, primary site and 
+metastatic site of non -squamous non- small cell lung cancer, site of recurrence ( for recurrent 
+non-squamous non- small cell lung cancer), and previous treatment for cancers ( including 
+history of surgery, radiotherapy, or medical treatment) 
+(3) Baseline Values of Observation  
+ Sum of tumor diameters of target lesions  (IRRC)  
+(4) Biomarkers  
+PD-L1 (test result source)  
+(5) Randomization factors 
+PD-L1 (IWRS source), Gender (IWRS source), ECOG Pe rformance Status  (IWRS 
+source)  
+(6) Subsequent anticancer therapy  
+Surgery, radiotherapy, and medical treatment  
+(7) Concomitant medication  
+Immune modulating concomitant medication  
+2) Handling of data  
+(1) BMI  
+
+   
+ 22  BMI (kg/m2) = “Body weight (kg)” / “ [Height (m) ] 2” 
+(2) Period from the date of diagnosis of primary disease through randomization 
+Period  from the date of diagnosis of primary disease through randomization (months )  
+= (“Date of randomization” − “Date of d iagnosis of the primary disease ” + 1) / 
+30.4375 
+ 
+8.3 Analytical Methods and Classification  
+1) Each analytical item displayed in 8.2 Analytical Items and Data Handling  will be 
+summarized  by treatment group  according to Table 8.3-1. A lso, each analytical item will be 
+summarized  for each treatment group by location . 
+2) Previous medical treatment for cancer will be summarized for each treatment group by 
+generic name.  
+3) Details  of subsequent anticancer therapy  (surgery, radiotherapy, and medical treatment) will 
+be summarized by treatment group.  
+4) For immune modulating concomitant medication s, the number of subjects who received 
+immune modulating concomitant medication for manageme nt of adverse event, management 
+of concurrent disease, management of drug- related select adverse events  classified by 
+specific category  (any grade, grade 3 -5), management of IMAEs classified by specific 
+category (any grade, gr ade 3 -5), prevention, and other use will be calculated separately for 
+each treatment group by medication class  (WHODD: ATC Level 4)  and generic name.  
+5) Cross -tabulation between stratification factors (IWRS source) and stratification factors 
+(eCRF source or test result source) will be  provided by treatment group. 
+(1) PD-L1 expression level (IWRS source) vs PD- L1 expression level (test result source)  
+(2) ECOG Performance Status (IWRS source) vs ECOG Performance Status (eCRF source)  
+(3) Gender (IWRS source) vs Gender (eCRF source)  
+ 
+<Method of classification  > 
+
+   
+ 23  Classification  for the ordinal scale or the continuous value will be determined based on clinical 
+symptom or equipartition of the number of subjects (i.e., 1/3, 1/4, 1/5). 
+Each classification  of analytical item is  displayed in the following table.  
+ 
+Table 8.3-1 Classification of analytical item 
+Analytical Item  Stratum Analytical Method  
+Location Japan, Taiwan, South Korea Frequency distributions 
+Gender (IWRS  source) Female, Male  Frequency distributions 
+Gender (eCRF source)  Female, Male  Frequency distributions 
+Age  Category1  
+<65, >=65 
+ Category2  
+<65, 65 - <75, >=75  Summary statistics,   
+Frequency distributions 
+Race  Asian , American Indian or Alaska 
+Native, African American, Native 
+Hawaiian or Other Pacific Islander, 
+White  Frequency distributions 
+Ethnicity  Not Hispanic or Latino, Hispanic or Latino  Frequency distributions 
+Height (cm)  <160, 160 - <165, 165 - <170, >=170 Summary statistics , 
+Frequency distributions 
+Body w eight (kg) <50, 50 - <60, 60 - <70, >=70  Summary statistics , 
+Frequency distributions 
+BMI  (kg/m2) <18.5, 18.5 - <25.0, >=25.0  Summary statistics,   
+
+   
+ 24  Frequency distributions 
+Past history  No, Yes  Frequency distributions 
+Complications  No, Yes  Frequency distributions 
+Smoking history 
+(smoking status) Never, Current, Former, Unknown Frequency distributions 
+Smoking history (years)  <15, 15 - <30, 30 - <45, >=45  Summary statistics ,  
+Frequency distributions 
+ECOG Performance Status (IWRS source)  0, 1, 2, 3, 4 Frequency distributions 
+ECOG Performance Status (eCRF source)  0, 1, 2, 3, 4 Frequency distributions 
+Period from the date of diagnosis of primary disease through randomization (months) <1, 1 - <2, >=2  Summary statistics,  
+Frequency distributions 
+Staging (Stage)  IIIB, IV, Recurrent  Frequency distributions 
+Tumor Node Metastasis (TNM) classification  T: TX, T1a, T1b, T2a, T2b, T3, T4 
+N: NX, N0, N1, N2, N3  
+M: MX, M0, M1a, M1b Frequency distributions 
+Histology of non-
+squamous non- small cell 
+lung cancer Adenocarcinoma, Large cell carcinoma, Other  Frequency distributions 
+Primary site  of non-
+squamous non -small cell Right Upper Lobe, Right Middle 
+Lobe, Right Lower Lobe , Left Upper Frequency distributions 
+
+   
+ 25  lung cancer Lobe, Left Lower Lobe, Unknown, 
+Other  
+Metastatic site  of non-
+squamous non- small cell 
+lung cancer Lung (Right Upper Lobe, Right Middle Lobe, Right Lower Lobe, Left Upper Lobe, Left Lower Lobe, 
+Unknown, Other), Bone, Liver, 
+Brain, Lymph Node, Bone Marrow, Pleura, Peritonea, Adrenal Gland, Skin, Other Frequency distributions 
+Site of recurrence (for recurrent non-squamous non-small cell lung 
+cancer)  Lung (Right Upper Lobe, Right Middle Lobe, Right Lower Lobe, Left Upper Lobe, Left Lower Lobe, 
+Unknown, Other), Bone, Liver, 
+Brain, Lymph Node, Bone Marrow, Pleura, Peritonea, Adrenal Gland, Skin, Other Frequency distributions 
+Previous treatment for cancer s (history of 
+surgery) No, Yes  Frequency distributions 
+Previous treatment for cancer s (history of 
+radiotherapy)  No, Yes  Frequency distributions 
+Previous treatment for cancer s (history of 
+medical treatment ) No, Yes  Frequency distributions 
+Sum of tumor diameters of target lesions  <40, 40 - <60, 60 - <80, >=80  Summary statistics ,  
+Frequency distributions 
+
+   
+ 26  PD-L1 (IWRS source) ① <1% or indeterminate  
+② 1% - 49%  
+③ >= 50%  Frequency distributions 
+PD-L1 (test result 
+source)  ① <1% or indeterminate  
+② 1% - 49%  
+③ >= 50%  Frequency distributions 
+
+   
+ 27  9 PRIMARY E NDPOINT  
+9.1 Analysis Se ts 
+In the case of early efficacy stopping based on the results of the interim analysis, the ITT will be 
+used as the analysis set.  
+If the study is continued based on the results of the interim analysis, the ITT and PDL1 -PS will 
+be used as the analysis sets for primary and sensitive analysis. Additionally, if the superiority of 
+the ONO-4538 group over the placebo group is verified in the ITT in the primary analysis, the 
+ITT will be used as the analysis set for secondary analysis. On the other hand, if the superiority 
+of the ONO-4538 group over the placebo group is not verified in the ITT, the ITT and PDL1 -PS 
+will be used as the analysis sets for secondary analysis.  
+ 
+9.2 Analytical Item and Data Handling  
+1) Analytical Item  
+PFS ( per IRRC, primary definition ). 
+2) Handling of data 
+Primary definition of PFS  will be calculated by the following equation. 
+PFS (days) = [ date when overall response is assessed  as PD or date of death (for any reason), 
+whichever comes first] – [date of randomization] + 1 
+Overall response will not take into account any clinical deterioration  and evaluable radiographic 
+tumor assessment  will be those without an overall response of “ NE”. 
+Event/censored assessment in the primary definition of PFS will be performed according to Table 9.2-1, depending on the situation. If the date on which the overall response is assessed as 
+PD for the first time and the date of the start of subsequent anticancer therapy  are the same, the 
+event will be handled at the date on which the overall response is a ssessed as PD. Additionally, if 
+the date of r adiographic tumor assessment  which overall response is not PD or NE and the date 
+of the start of subsequent anticancer therapy  are the same, PFS will be censored at that date.  
+When a subject  corresponds to more than one situation, the shortest PFS will be handled as the 
+PFS of the subject. 
+ 
+ 
+
+   
+ 28  Table 9.2-1 Definition of event and censoring for the primary definition of PFS  
+Situation  Date of Progression or 
+Censoring Outcome  
+No baseline radiographic tumor assessment s Date of randomization Censored  
+No death without an overall response of PD Date of the last evaluable 
+radiographic tumor 
+assessment
+*1 Censored  
+No death without evaluable 
+radiographic tumor 
+assessment  Date of randomization Censored  
+Assessment of overall response will not be done 
+for more than 98 days 
+before overall response of PD or death  Date of the last evaluable radiographic tumor 
+assessment
+*1, *2 before overall 
+response of PD or death Censored  
+Subsequent anticancer 
+therapy  before an overall 
+response of PD or death Date of the last evaluable radiographic tumor assessment
+*1 on or before  
+initiation of subsequent anticancer therapy  Censored  
+End of investigating subsequent anticancer 
+therapy  before an overall 
+response of PD or death Date of the last evaluable 
+radiographic tumor 
+assessment
+*1 on or before end  
+of investigating subsequent 
+anticancer therapy  Censored  
+No subsequent anticancer Date of the last evaluable Censored  
+
+   
+ 29  therapy  before an overall 
+response of PD or death radiographic tumor 
+assessment*1 on or before no 
+subsequent anticancer therapy  
+Death without evaluable radiographic tumor 
+assessment  after 
+randomization Date of death  Event 
+Death  Date of death  Event 
+Overall response of PD Date of the first overall 
+response of PD Event 
+*1 The d ate of randomization will be used as the date of censoring when the subject does  not 
+have any evaluable radiographic tumor assessmen t after randomization. 
+*2 The d ate of randomization will be used instead  of date of the last evaluable radiographic 
+tumor assessment  when the subject does not have any evaluable radiographic tumor assessmen t 
+between the date of randomization and the date of assessment of PD or death. 
+ 
+9.3 Analytical Methods  (when the study stopped  for su periority based on 
+the results of Interim Analysis)  
+9.3.1 Primary Analysis 
+To preserve the overall type I error rate at ≤ 5% (two- sided), a significance level α  for analy sis 
+will be calculated using the Lan -DeMets α spending function (O’Brien -Fleming).  
+The distribution of PFS will be compared between the two treatments  groups using the two-sided 
+stratified log -rank test with the three stratification factors (IWRS source) presented below. 
+1) PD-L1 expression level ( ≥ 50% vs 1% to 49% vs < 1% or indeterminate ) 
+2) ECOG Performance Status (0 vs 1)  
+3) Gender (male vs female)  
+ 
+
+   
+ 30  9.3.2 Sensitivity Analysis for Primary Analysis 
+1) The distrib ution of PFS will be compared between the two treatment groups using the 
+unstratified log -rank test.  
+2) The distribution of PFS will be compared b etween the two treatment groups by using the 
+stratified log -rank test adjusted by the three stratification factors (Gender and ECOG 
+Performance Status from eCRF source and PD -L1 expression from test result source), if 
+there exist more than 10% discrepancy  in at least one factor  between stratification factors 
+(IWRS source) and stratification factors (eCRF source / test result source ). 
+ 
+9.3.3 Secondary Analysis 
+1) The number of events and censo rs will be tabulated for each treatment group. The status of 
+subjects who are censored in the Kaplan -Meier analysis will also be tabulated by treatment 
+groups using the following categories:  
+a) Censored on date of randomization 
+b) Censored on date of last evaluable tumor assessment  
+a. To confirm to r eceive subsequent anticancer therapy  before an overall response of 
+PD or death  
+b. To confirm the end of investigating subsequent anticancer therapy before an 
+overall response of PD or death 
+c. To confirm that assessment of overall response will not be done for more than 98 days before an overall response of PD or death 
+d. On-study : Not meet the above condition a, b and c and continuing the treatment 
+period or follow-up period (excluding the case to confirm the aliv e in outcome 
+survey even if the subject requested that the study be discontinued)  
+e. Off-study : Lost to follow-up and not meet all  the above condition a, b, c and d 
+2) The hazard ratio and the corresponding two-sided 100 (1- α) % confidence interval (CI) 
+(adjusted using Lan- DeMets alpha spending function (O’Brien- Fleming type) based on the 
+number of observed PFS events) for the ONO-4538 group relative to the placebo  group will 
+
+   
+ 31  be estimated using a stratified Cox proportional hazard model with the stratification f actors 
+(IWRS source) presented above and with the treatment group as the single covariate . The 
+hazard ratio and the corresponding two-sided 95 % CI for ONO -4538 group relative to the 
+placebo group for each stratification factor will be estimated using an unstratified Cox 
+proportional hazard  model  with the treatment group as the single covariate . 
+3) The Kaplan -Meier curve will be plotted for each treatment group. 
+4) Using the Kaplan -Meier method, the median PFS and the corresponding two -sided 100 (1 - 
+α) % CI (adj usted using Lan- DeMets alpha spending function (O ’Brien -Fleming type) based 
+on the number of observed PFS events) will be estimated for each treatment group. CI for median PFS will be calculated using the Brookmeyer and Crowley method based on a log-
+log tr ansformed CI for the survivor function. 
+5) For each treatment group, PFS rates at Months 6, 12, 18, 24, 30 and 36 after randomization  
+will be derived from the Kaplan- Meier method and the corresponding two -sided 95% CI  will 
+be derived based on Greenwood’ s form ula for variance derivation and on log- log 
+transformation applied on the survivor function. 
+6) The analyses described in  9.3.3 Secondary Analysis  1), 3) and 4) will be performed  by the  
+three stratification factors (IWRS source) presented  9.3.1 Primary Analysis  1) to 3). 
+ 
+9.4 Analytical  Methods ( when the study continued bas ed on the results of 
+Interim Analysis)  
+9.4.1 Primary Analysis 
+The analysis will be performed by adjusting multiplicity using the Hochberg’s method according 
+to the following procedures 1 to 4. A significance level α for analysis will be calculated using the 
+Lan-DeMets α spending function (O'Brien- Fleming).  
+1) For PFS, c omparison between treatment groups will be performed in the ITT via the stratified 
+log-rank test stratified by randomization factors (PD -L1 expression level, E COG Performance 
+Status, and gender). 
+
+   
+ 32  2) For PFS, comparison between treatment groups will be performed in the PDL1- PS via the 
+stratified log -rank test stratified by randomization factors (PD -L1 expression level, E COG 
+Performance Status, and gender).  
+3) If the p  value in the ITT and the p value in the PDL1 -PS obtained from the stratified log -rank 
+tests in 1 and 2 above are referred to as p (1) and p (2) in ascending order, then its corresponding 
+null hypotheses referred to as H 0(1) and H 0(2), respectively.  
+4) Superiority of the ONO-4538 group to the placebo group will be  verified using p  (1) and p  (2). 
+(1) If p  (2) < α, both null hypotheses H 0 (1) and H 0 (2) will be  rejected.  
+(2) If p  (2) ≥ α and p  (1) < α/2, only null hypothesis H 0 (1) will be  rejected.  
+ 
+9.4.2 Sensitivity Analysis for Primary Analysis 
+The analyses described in 9.3.2 Sensitivity Analysis for Primary Analysis  will be performed . 
+ 
+9.4.3 Secondary Analysis 
+The analyses described in  9.3.3 Secondary Analysis  will be performed. 
+ 
+
+   
+ 33  10 EFFICACY SECONDARY ENDP OINT  
+ 
+10.1 Analysis Set  
+In the case of early efficacy stop ping based on the results of the interim analysis, the ITT will be 
+used as the analysis set.  
+If the study is continued based on the results of the interim analysis and the superiority of the 
+ONO- 4538 group over the placebo group is verified in the ITT in the final analysis for primary 
+endpoint , the ITT will be used as the analysis set. On the other hand, i f the superiority of the 
+ONO-4538 group over the placebo group is not verified in the ITT, the ITT and P DL1-PS will be 
+used as the analysis sets.  
+ 
+10.2 Analytical Item s and Data Handling  
+1) Analytical Item  
+(1) Overall Survival (OS) 
+(2) PFS (as assessed by the study site’s investigator)  
+(3) Objective response rate (ORR  as assessed by the IRRC and study site ’s investigator ) 
+(4) Disease control rate (DCR  as assessed by the IRRC and study site ’s investigator )  
+(5) Duration of response (DOR as  assessed by the IRRC ) 
+(6) Time to response (TTR as assessed by the IRRC ) 
+(7) Best overall response (BOR  as assessed by the IRRC and study site ’s investigator ) 
+(8) Maximum percentage of change in the sum of diameters of target lesions  (as assessed by 
+the IRRC) 
+2) Handling of data  
+(1) PFS (per study site ’s investigator) 
+i. Primary definition of PFS ( per study site ’s investigator) 
+Refer to  9.2 1) Analytical Item  and 9.2 2)  Handling of data 
+ii. Secondary definition of PFS ( per study site ’s investigator) 
+
+   
+ 34  PFS (per study site ’s investigator , secondary definition) will be calculated by the following 
+equation. 
+PFS (days) = [date when overall response is assessed as PD, date of clinical deterioration , 
+or date of death (for any reason), whichever comes first] – [date of randomization] + 1 
+ 
+Evaluable radiographic tumor assessment  will be those without an overall response of “ NE”. 
+Event/censored assessment in the secondary definition of PFS will be performed according 
+to Table 10.2-1, depending on the situation. If the date on which the overall response is 
+assessed as PD  or clinical deterioration  for the first time and the date of the start of 
+subsequent anticancer therapy  are the same, the event will be handled at the date on which 
+the overall response is assessed as PD  or clinical deterioration . Additionally, if the date of 
+radiographic tumor assessment which overall response is not PD or NE and the date of the start of subsequent anticancer therapy are the same, PFS will be censored at that date. W hen 
+a subject corresponds to more than one situation, the shortest PFS will be handled as the PFS of the subject. 
+ 
+Table 10.2-1 Definition of event and c ensoring for the secondary definition of PFS  
+Situation  Date of Progression or 
+Censoring Outcome  
+No baseline radiographic tumor assessment s Date of randomization Censored  
+No death without an overall response of PD and clinical deterioration  Date of the last evaluable radiographic tumor assessment
+*1 Censored  
+No death without evaluable radiographic tumor assessment  and clinical 
+deterioration  Date of randomization Censored  
+
+   
+ 35  Assessment of overall 
+response will not be done 
+for more than 98 days 
+before overall response of PD, clinical deterioration  
+or death  Date of the last evaluable radiographic tumor 
+assessment
+*1,*2 before overall 
+response of PD , clinical 
+deterioration  or death  Censored  
+Subsequent anticancer 
+therapy before an overall 
+response of PD , clinical 
+deterioration or deat h Date of the last evaluable 
+radiographic tumor 
+assessment*1 on or before 
+initiation of subsequent 
+anticancer therapy  Censored  
+End of investigating 
+subsequent anticancer 
+therapy before an overall response of PD, clinical deterioration or death  Date of the last evaluable 
+radiographic tumor 
+assessment
+*1 on or before end  
+of investigating subsequent anticancer therapy  Censored  
+No subsequent anticancer 
+therapy  before an overall 
+response of PD , clinical 
+deterioration  or death  Date of the last evaluable 
+radiographic tumor 
+assessment*1 on or before no 
+subsequent anticancer therapy  Censored  
+Death without evaluable 
+radiographic tumor 
+assessment after 
+randomization Date of death  Event 
+Death  Date of death  Event 
+Overall response of PD Date of the first overall response of PD Event 
+
+   
+ 36  Clinical deterioration  Date of the first clinical 
+deterioration  Event 
+*1 The d ate of randomization will be used as the date of censoring when the subject does not 
+have any evaluable radiograph ic tumor assessment after randomization. 
+*2 The d ate of randomization will be used instead of date of the last evaluable radiographic 
+tumor assessment  when the subject does not have any evaluable radiographic tumor assessmen t 
+between the date of randomizat ion and the date of assessment of PD, clinical deterioration  or 
+death  
+ 
+(2) DOR  
+DOR will be calculated by the following equation. The target of the evaluation is a subject 
+whose best overall response is CR or PR. 
+DOR (day s) = [date on which overall response was first assessed as PD or date of death  
+(for any reason) after confirmed response, whichever comes first ] – [date on which  
+response was first assessed as confirmed CR or PR ] + 1  
+Event/censored assessment in DOR will be performed according to Table 10.2-2, depending 
+on the situation. If the date on which the overall response is assessed as PD for the first time and the date of the start of subsequent antic ancer therapy are the same, the event will be handled 
+at the date on which the overall response is assessed as PD.  Additionally, if the date of 
+radiographic tumor assessment which overall response is not PD or NE and the date of the start of subsequent ant icancer therapy are the same, DOR will be censored at that date.  Also, when 
+a subject corresponds to more than one situation, the shortest DOR will be handled as the DOR 
+of the subject. 
+ 
+Table 10.2-2 Definition of event and censorin g in DOR  
+Situation  Date of Response or Censoring  Outcome  
+No death without an 
+overall response of PD  Date of the last evaluable radiographic tumor assessment  Censored  
+No death without evaluable 
+radiographic tumor Date of the confirmation of Censored  
+
+   
+ 37  assessment  after the 
+confirmation of response  response  
+Assessment of overall 
+response will not be done for more than 98 days 
+before overall response of 
+PD or death  Date of the last evaluable radiographic tumor assessment before overall response of PD or death Censored  
+Subsequent anticancer therapy before an overall response of PD or death Date of the last evaluable radiographic tumor assessment 
+on or before initiation of 
+subsequent anticancer therapy  Censored  
+End of investigating 
+subsequent anticancer 
+therapy before an overall response of PD or death Date of the last evaluable 
+radiographic tumor assessment 
+on or before end  of 
+investigating subsequent anticancer therapy  Censored  
+No subsequent anticancer 
+therapy  before an overall 
+response of PD or death Date of the last evaluable 
+radiographic tumor assessment on or before no subsequent 
+anticancer therapy  Censored  
+Death without evaluable radiographic tumor 
+assessment  after the 
+confirmation of response Date of death  Event 
+Death  Date of death  Event 
+Overall response of PD Date of the first overall 
+response of PD Event 
+ 
+
+   
+ 38  (3) OS, ORR, DCR, TTR, and Maximum percentage of change in the sum of diameters of 
+target lesions  
+Refer to Core SAP  section  3. 
+Last confirmed to be alive  in Core SAP section 3.1 means last date of data confirmed to be 
+alive f rom all of date of data (visit date, performed or assessed)  in this study . 
+ 
+10.3 Analytical Methods 
+1) For item 1, the analyses in Core SAP section 5.1 1) to 5) will be performed. 
+2) For items 2, the analyses in Core SAP section 5.2 1) to 5) will be performed. Description of 
+Core SAP section 5.2 1) refer to 9.3.3 Secondary Analysis  1). 
+3) For item 3 and 4, the analyses in Core SAP section 5.4 1) and 3) and section 5.5 1) and 3) will 
+be performed, respectively. Also, the relative risk and the corresponding two- sided 95% CI of 
+the ONO-4538 group relative to the placebo group adjusted with the same stratification factor 
+will be calculated using the Cochran -Mantel -Haenszel method.  
+4) For items 5 and 6, the analyses in Core SAP section 5.6 1) and 2) and section 5.7 1) and 2) will 
+be performed, respectively. Description of Core SAP section 5.6 1) refer to  9.3.3 Secondary 
+Analysis  1) b) . 
+5) For item 7, the analysis in Core SAP section 5.10 1) will be performed. 
+6) For item 8, the analysis in Core SAP section 5.9 will be performed.  
+Note: the confidence level will be 95%. PFS rate and OS rate will be calculated at 6, 12, 18, 24, 
+30, and 36 months after randomization. 
+ 
+10.4 Subgroup Analyses for the Efficacy Endpoints  
+10.4.1  Analysis Sets 
+In the case of early efficacy stop ping based on the results of the interim analysis, the ITT will be 
+used as the analysis set. In addition, if the study is continued based on the results of the interim analysis and the superiority of the ONO-4538 group over the placebo group is verified in the ITT 
+in the final analysis  for primary endpoint, the ITT will be used as the analysis set. On the other 
+hand, if the superiority of the ONO-4538 group over the placebo group is not verified in the ITT, the ITT and PDL1 -PS will be used as the analysis sets.  
+ 
+
+   
+ 39  10.4.2  Analytical Item and Data Handling  
+1) Analytical Items 
+(1) PFS (per IRRC and study site ’s investigator , primary definition ) 
+(2) OS 
+(3) ORR ( per IRRC and study site ’s investigator) 
+2) Handling of data (1) Stratification fac tor and Method of classification 
+The stratification factors will be chosen from Section  8.2 Analytical Items and Data 
+Handling. The stratification factors will be classified as the following  Table 10.4-1. 
+Unless otherwise noted, ECOG Performance Status and Gender which are used for 
+randomization wi ll be extracted from IWRS. The others except for PD -L1 expression 
+level will be extracted from eCRF. PD -L1 expression will be extracted from test result.  
+Subsequen t anticancer therapy (Immunotherapy) will only be used for OS. 
+ 
+Table 10.4-1 Classification of analytical item  
+Analytical Item  Stratum 
+Location Japan, Taiwan, South Korea 
+Gender (IWRS source) Female, Male  
+Gender (eCRF source)  Female, Male  
+Age  Category 1  
+<65, >=65 
+ Category 2  
+<65, 65 - <75, >=75  
+Body weight (kg) <50, 50 - <60, 60 - <70, >=70  
+
+   
+ 40  BMI (kg/m2) <18.5, 18.5 - <25.0, >=25.0 
+Smoking history 
+(smoking status) Never, Current, Former, Unknown 
+Smoking history (years)  <15, 15 - <30, 30 - <45, >=45  
+ECOG Performance Status (IWRS source)  0, 1, >=2 
+ECOG Performance Status (eCRF source)  0, 1, >=2 
+Period from the date of diagnosis of primary 
+disease through 
+randomization (months) <1, 1 - <2, >=2  
+Histology of non-squamous non- small cell 
+lung cancer Adenocarcinoma, Large cell carcinoma, Other  
+Brain metastases  No, Yes  
+Liver metastases  No, Yes  
+Bone metastases  No, Yes  
+Staging (Stage)  IIIB, IV, Recurrent  
+Previous treatment for cancers (history of surgery) No, Yes  
+Previous treatment for 
+cancers (history of No, Yes  
+
+   
+ 41  radiotherapy)  
+Previous treatment for 
+cancers (history of 
+medical treatment)  No, Yes  
+Subsequent anticancer therapy (Immunotherapy) No, Yes 
+PD-L1 (IWRS source) ① <1% or indeterminate  
+② 1% - 49%  
+③ >= 50%  
+PD-L1 (test result 
+source)  ① <1% or indeterminate  
+② 1% - 49%  
+③ >= 50%  
+10.4.3  Analytical Methods 
+1) For OS and PFS, f orest plots  will be created to present the  number of events, the median and 
+the corresponding 95% CI for each treatment group and the hazard ratio and the corresponding 
+95% CI  for the ONO -4538 group relative to placebo group. Number of events, the median and 
+the corr esponding 95% CI will be calculated using Kaplan Meier method for each treatment 
+group. Also, the hazard ratio and the corresponding 95% CI for the ONO -4538 group relative 
+to placebo group will be calculated using the unstratified Cox proportional hazard model with 
+the treatment group as the single covariate in each subgroup. 
+2) For ORR, f orest plots will be created to present the percentage and the corresponding two-
+sided 95% CI, and the associated odds ratio and the corresponding two -sided 95% CI. The 
+percen tage and the corresponding two- sided 95% CI will be calculated using the Clopper -
+Pearson method for each treatment group. Also, the associated odds ratio and corresponding 
+two-sided 95% CI for ONO -4538 group relative to placebo group will be calculated using the 
+unstratified logistic regression model with the treatment group as the single covariate in each subgroup. 
+ 
+
+   
+ 42  10.5 Interaction Analysis 
+In the case of early efficacy stopping based on the results of the interim analysis, the ITT will be 
+used as the analysis  set. In addition, if the study is continued based on the results of the interim 
+analysis and the superiority of the ONO-4538 group over the placebo group is verified in the ITT 
+in the final analysis for primary endpoint, the ITT will be used as the analysis set. On the other 
+hand, if the superiority of the ONO-4538 group over the placebo group is not verified in the ITT, 
+the ITT and PDL1- PS will be used as the analysis sets.  
+Analyses specified in the Core SAP 5.11 1) will be performed using the unstratified Cox proportional hazard model. 
+ 
+10.6 Adjusted Analysis 
+In the case of early efficacy stopping based on the results of the interim analysis, the ITT will be 
+used as the analysis set. In addition, if the study is continued based on the results of the interim 
+analysis and the superiority of the ONO-4538 group over the placebo group is verified in the ITT 
+in the final analysis for primary endpoint, the ITT will be used as the analysis set. On the other hand, if the superiority of the ONO-4538 group over the placebo group is not verified in the ITT, the ITT and PDL1- PS will be used as the analysis sets.  
+Analyses specified in the Core SAP 5.12 1) will be performed. T he confidence level will be 
+95%.  
+ 
+10.7 Exploratory Analysis  
+The ITT will be used as the analysis set.  
+1) For OS and PFS ( per IRRC and study site ’s investigator , primary definition ), the point 
+estimate of R estricted Mean Survival time (RMST)  1), 2) at months 6, 12, 18, 24, 30 and 36 
+after randomization  and the corresponding two- sided 95% CI  will be  calculated by the 
+treatment  group. Also, t he difference between the RMST  of O NO-4538 group and placebo 
+group and the corresponding 95% CI  at each time point  will be  calculated.  
+For treatment group i ( i = 1, 2; 1=ONO-4538 group, 2=placebo group) and time point j ( j = 
+6, 12, 18, 24, 30 and 36), RMST and its standard error are expressed  as RMST ij and SE ij 
+
+   
+ 43  respectively  and these values will be derived by TIMELIM option of SAS’s LIFETEST 
+procedure. Using these values, 95% CI of RMST ij will be  calculated by the following 
+equation where z 2.5 denotes the upper 2.5% c ritical value for the standard normal 
+distribution . 
+RMST𝑖𝑖𝑖𝑖±𝑧𝑧2.5𝑆𝑆𝐸𝐸𝑖𝑖𝑖𝑖  
+Also, difference o f RMST between ONO -4538 group and placebo group and its 95% CI will 
+be calculated by the following equat ion respectively . 
+RMST1𝑖𝑖−RMST2𝑖𝑖, 
+RMST1𝑖𝑖−RMST2𝑖𝑖±𝑧𝑧2.5�𝑆𝑆𝐸𝐸1𝑖𝑖2+𝑆𝑆𝐸𝐸2𝑖𝑖2 
+2) For OS, to evaluate the effect of subsequent anticancer therapy (immunotherapy), the 
+adjusted hazard ratio and the corresponding two- sided 95% CI for the ONO -4538 group 
+relative to the placebo group will be estimated using the two -stage accelerated failure time 
+model (two -stage model) 3). The Weibull model will be used as the accelerated failure time 
+model. The following f actors are considered as those rel ated to the use of subsequent 
+anticancer therapy (immunotherapy) , and are included in the model as covariates when 
+estimating  acceleration factor. Note that the value at the closest  measurement point at the 
+time of discontinuation of all treatments and at the measurement point before  the date of 
+discontinuation of all treatments  will be used as covariates values except for PD -L1 
+expression level ( test result source ). 
+ PD-L1 expression level ( test result source : <1% or indeterminate, 1% - 49% and 
+>= 50%)  
+ Value of LDH at the time of discontinuation of all treatments  
+ Value of C RP at the time of discontinuation of all treatments  
+ Value of NLR at the time of discontinuation of all treatments  
+NLR =  Neutrophil count / Lymphocyte count  
+The specific procedure for estimating the adjusted hazard ratio and the corresponding two-
+sided 95% CI for the ONO -4538 group relative to the placebo group in OS using the 
+accelerated failure time model is as follows.  
+
+   
+ 44  (1) Classify the subjects in the placebo group into the following three groups: 
+A) Subjects who  are continuing the treatment period 
+B) Subjects who discontinued the treatment period and received a subsequent 
+anticancer therapy (immunotherapy)  once or more 
+C) Subjects who discontinued the treatment period and have not received any subsequent anticancer therapy (immunotherapy)  
+(2) Compare a survival time after the date of discontinuation in group B and C using the 
+accelerated failure time model (Weibull model) with group  (B or C) and factors related 
+to the use of su bsequent anticancer therapy (immunotherapy) described above as 
+covariates and estimate the acceleration factor. The acceleration factor will be calculated 
+by e 
+coefficient of group. 
+(3) Using the acceleration factor  estimated  in (2), calculate an adjusted overall survival for 
+each subject in group B if the subjects had not received any subsequent anti- cancer 
+therapy (immunotherapy). The adjusted overall survival will be calculated as follows: 
+The adjusted overall survival (month) = “time from randomization to discontinuation of 
+all treatments” + “(survival time after discontinuation of all treatments) / value of the acceleration factor”  
+3) Using the overall survival in ONO-4538 group and group A, C and the adjusted over survival in group B, the hazard ratio and the corresponding two- sided 95 % CI for ONO -4538 group 
+relative to the placebo group will be estimated using the stratified Cox proportional hazard model with the stratification factors (IWRS source) presented above and with the treatment group as the single covariate.  
+ 
+ 
+
+   
+ 45  11 ANALYSIS OF SAFETY 
+11.1 Analysis Sets 
+The SAF will be the analysis set.  
+ 
+11.2 Analytical Item s and Data Handling  
+1) Analytical Items 
+(1) Adverse events, drug- related adverse events and deaths  
+(2) Select adverse events and drug -related select adverse events  
+(3) Time to onset or resolution/resolving of select adverse events and drug -related select 
+adverse events  
+(4) Immune- mediated adverse events and drug -related immune -mediated adverse events  
+(5) Time to onset or resolution/resolving of immune- mediated adverse events  and drug- related 
+immune -mediated adverse events  
+(6) Laboratory tests  
+a) Hematology Tests  
+Hemoglobin, White blood cell count, Neutrophil count, Lymphocyte count, Platelet 
+count 
+b) Serum chemistry  Tests  
+ALP, AST (GOT), ALT (GPT), Total bilirubin, Creatinine 
+(7) Hormone Tests 
+Thyroid -stimulating hormone (TSH), Free triiodothyronine (free T3), Free thyroxine (free 
+T4) 
+(8) 12-lead ECG  
+Heart Rate (HR), PR Interval, RR Interval, QRS Complex, QT Interval, QTcF Interval 
+2) Handling of data 
+
+   
+ 46  (1) For analytical items (1), (2), (3),  (6), (7) and (8), handling of data refers  to the Core SAP 
+section 6. All of  the items  (1), (2) and (3) occurring  between the start date of the first 
+administration of the investigational product or each chemotherapy  and 30 days after the 
+last dose of investigational product or each chemotherapy (30 -day safety window) / 100 
+days after the last dose of investigational product or each chemotherapy  (100 -day safety 
+window) will be tabulated by treatment group.  
+Drug -related AEs will be defined as any AEs  for which a causal relationship to the 
+investigational product or chemotherapies  is “Related” or missing.  
+AEs and drug-related AEs leading to discontinuation of treatment group will be defined as 
+any AEs and drug-related AEs leading to discontinuation of the last treatment in treatment group, refer to 19 Appendix.  
+AEs leading to discontinuation of investigational product will be defined as any AEs with action taken with investigational product = “Drug Withdrawn”. 
+Drug -related AEs leading to discontinuation of investigational product will be defined as 
+any AEs leading to discontinuation of investigational product with causal relationship to  
+the investigational product assessed as  “Related” or missing.  
+AEs leading to discontinuation of 4 drugs will be defined as any AEs with action taken 
+with investig ational product and all chemotherapies  = “Drug Withdrawn”.  
+Drug -related AEs leading to discontinuation of 4 drugs  will be defined as any AEs leading 
+to discontinuation of 4 drugs with causal relationship to  the investigational product or 
+chemotherapies  assessed as  “Related” or missing.  
+AEs leading to dose delay of treatment  group will be defined as  any AEs with  action ta ken 
+with any  of treatment(s)  = “Drug Delayed ”. 
+Drug -related AEs leading to dose delay of treatment group will be defined as any AEs 
+leading to dose delay of treatment group with causal relationship to  that treatment assessed 
+as “Related” or missing.  
+The observation period of AE s for the tabulation by period will be from the date of the start 
+of the administration of the investigational pro duct to the date of 1) - 3) shown below, 
+whichever comes first.  
+
+   
+ 47  1) 30 days after the final administration of the investigational product and  each 
+chemotherapy (For 100-day safety window analysis, 100 days after the final administration 
+of the investigational product and  each chemotherapy)  
+2) The date of death  or the last date of survival c onfirmation  
+3) The date of data cutoff 
+Definition  of select  AEs will be  described in clinical study report . 
+For the items (6), (7) and (8) , test results measured  between the start date of the first 
+administration of the investigational product or each chemotherapy  and 30 days after the 
+last dose of investigational product or each chemotherapy will be used for tabulation. As baseline, the value at the time point closest to the start date of the first administration of the 
+investigational product or each chemotherapy  during the screening period (including 
+unscheduled) will be used for summarization . If the assessment date and start date of the 
+first administration ar e the same date and if it is confirmed that the assessment was 
+conducted before the first administration, the value on the date will be handled the data as 
+baseline.  On the other hand, if it is un known that the assessment was conduc ted before the 
+first administration, the value on the date will be handled the data as post dose of 
+administration. Also,  for the item (8), QTcF Interval will be calculated  by the following 
+equation. 
+QTcF = QT  / RR
+0.33 
+(2) Deaths  
+For subjects who died due to G rade 5 drug -related adverse events , the cause of death will 
+be defined as ‘ Drug toxicity ’ as priority . Otherwise, the reason of death in outcome survey 
+will be used for summary. 
+(3) Multiple events of adverse events 
+Analyses that take into account the multiple  occurrences of a given adverse event will be 
+conducted. This data will be presented as the rate per 100 person-years of exposure. The 
+analyses will take into account all on -treatment events (allowing more than 1 event per 
+subject) and the total exposure time. The person- year exposure will be computed as the 
+sum over the subject ’s exposure expressed in years where the exposure time is defined as  
+
+   
+ 48  “(Min (30 days after last dose of study treatment (100 days for 100-day safety window) or 
+date of death or last known date alive or data cutoff date – date of first dose of study 
+treatment) + 1 ) / 365.25” 
+(4) Immune- mediated adverse events (IMAEs)  
+IMAEs occur ring between the start date of the first administration of the investigational 
+product or each chemotherapy and 100 days after the last dose of investigational product or 
+each chemotherapy  (100-day safety window) will be tabulated . Analyses for IMAEs will be 
+limited to subjects who  are included in SAF and received immunosuppressive medication 
+for treatment of the event, with the exception of endocrine events that are defined as  
+specific category of  ADRENAL INSUFFICIENCY, 
+HYPOTHYROIDISM/THYROIDITIS , HYPERTHYROIDISM , DIABETES MELLITUS  
+and HYPOPHYSITIS , which will be included in the analysis regardless of treatment since 
+endocrine events are often managed without immunosuppression. For analytical items (5), handling of data is the  same as time to onset or resolution/resolving of selected AEs.  
+Definition of IMAEs will be described in clinical study report.  
+ 
+11.3 Analytical Meth ods  
+1) Adverse events, drug- related adverse events  
+Analyses  specified in the Core SAP 8.1 except for 2)  and the following analyses will be 
+performed  using 30-day / 100-day safety window . Note that a cutoff value of incidence rate used 
+for summarizing AEs and  drug- related AEs which incidence rate is greater  than  or equal to  
+certain level will be set as 5%. 
+(1) Drug -related AEs and drug- related SAEs by the worst CTCAE grade (grade 1, 2, 3, 4, 
+and 5) in each investigational product will be summarized by SOC and PT.  
+(2) AEs leading to discontinuation of investigational product and drug- related AEs leading to 
+discontinuation of investigational product by the worst CTCAE grade (grade 1, 2, 3, 4, and 5) in each investigational product will be summarized by SOC and PT. 
+(3) Drug-related AEs  and drug- related SAEs  by the worst CTCAE grade (any grade, grade 3 -
+4, and grade 5) in each investigational product will be summarized by SOC and PT . 
+
+   
+ 49  (4) AEs leading to discontinuation of investigational product and drug- related AEs leading to 
+discontinuation of investigational product by the worst CTCAE grade (any grade, grade 
+3-4, and grade 5) in each investigational product will be summarized by SOC and PT . 
+(5) Analyses specified in the Core SAP 8.1 3) will also  be performed for SAEs, drug- related 
+SAEs, AEs leading to discontinuation of treatment group and drug- related AEs leading to 
+discontinuation of treatment group. 
+(6) AEs leading to discontinuation of 4 drugs and drug- related AEs leading to 
+discontinuation of 4 drugs in each treatment group  will be summarized by SOC and PT. 
+2) Deaths  
+Number of all deaths and deaths within 30 days/100 days after the last dose of investigational 
+product or each chemotherapy as well as the frequency by the reason of death will be summarized by treatment group.  
+3) Multiple events of AEs and drug- related AEs  
+The total number and rate (exposure adjusted) of occurrences for all AEs and drug- related AEs 
+in each treatment group will be summarized by SOC and PT using 30-day / 100- day safety 
+window. 
+4) Select adverse events and drug -related select adverse events  
+Analyses specified in the Core SAP 8.2 and the following additional analyses will be performed  
+using 30-day / 100-day safety window replacing ‘SOC’ with ‘specific category and subcategory’ . 
+For Core SAP 8.2 1), it will be tabul ated by specific category and subcategory . 
+(1) Drug -related select AEs and serious drug -related select AEs by the worst CTCAE grade 
+(grade 1, 2, 3, 4 and 5) in each investigational product will be summarized by specific 
+category , subcategory and PT. 
+(2) Select AEs leading to discontinuation of investigational product and drug- related select 
+AEs leading to discontinuation of investigational product by the worst CTCAE grade 
+(grade 1, 2, 3, 4 and 5) in each investigational product will be summarized by specific 
+category , subcategory and PT. 
+
+   
+ 50  (3) Drug-related select AEs  and serious drug -related select AEs  by the worst CTCAE grade 
+(any grade, grade 3 -4 and grade 5) in each investigational product will be summarized by 
+specific category, subcategory and PT . 
+(4) Select AE s leading to discontinuation of investigational product and drug- related select 
+AEs leading to discontinuation of investigational product by the worst CTCAE grade 
+(any grade, grade 3 -4 and grade 5) in each investigational product will be summarized by 
+specific category, subcategory and PT.  
+(5) Analyses specified in the Core SAP 8.2 2) will also  be performed for serious select AEs , 
+serious drug -related  select  AEs , select AEs leading to discontinuation of treatment group 
+and drug- related select AEs leading to dis continuation of treatment group. 
+5) Time to onset or resolution/resolving of select adverse events and drug -related select adverse 
+events  
+Analyses specified in the Core SAP 8.3 and 8.4 will be performed using 30-day /100- day safety 
+window.  
+Additionally, following analyses will be performed  for t he time to resolution  / resolving of a ny 
+select AE s, any drug -related select AEs, CTCAE grade 3 or more select AE s and CTCAE grade 
+3 or more drug -related select AEs  by specific category  and subcategory using 30- day / 100- day 
+safety window. 
+(1) Subjects who received i mmune modulating medication  will be calculated.  
+(2) Subjects  in who m events  are resolved  / resolving  will be calculated.  
+(3) Subjects with immune modulating medication in who m events are resol ved / resolving 
+will be  calculated.  
+6) Immune- mediated adverse events  and drug- related immune -mediated adverse events  
+Same analyses specified in the Core SAP 8.2  and the following additional analyses will be 
+performed using 100- day safety window replacing "select AEs" with IMAEs  and ‘SOC’ with 
+‘specific category’. For Core SAP 8.2 1), it will be tabulated by specific category . 
+(1) Drug -related IMAEs and serious drug- related IMAEs by the worst CTCAE grade (grade 
+1, 2, 3, 4 and 5) in each investigational product will be summarized by s pecific category  
+and PT. 
+
+   
+ 51  (2) IMAEs leading to discontinuation of investigational product and drug- related IMAEs 
+leading to discontinuation of investigational product by the worst CTCAE grade (grade 1, 
+2, 3, 4 and 5) in each investigational product will be summarized by specific category  and 
+PT. 
+(3) Drug-related IMAEs and serious drug -related IMAEs by the worst CTCAE grade (any 
+grade, grade 3 -4 and grade 5) in each investigational product will be summarized by 
+specific category  and PT. 
+(4) IMAEs leading to discontinuation of investigational product and drug- related IMAEs 
+leading to discontinuation of investigational product by the worst CTCAE grade (any grade, grade 3 -4 and grade 5) in each investigational product will be summarized by 
+specific category and PT.  
+(5) Analyses specified in the Core SAP 8.2 2) will also  be performed for serious IMAEs, 
+serious drug -related  IMAEs, IMAEs leading to discontinuation of treatment group and 
+drug- related IMAEs leading to discontinuation of treatment group. 
+7) Time to onset or resolution/resolving of immune- mediated adverse events  and drug- related 
+immune -mediated adverse events  
+Same analyses described in  11.3 5) Time to onset or resolution/resolving of select adverse events 
+and drug- related select adverse events  will be performed  using 100-day safety window replacing 
+"select AEs" with IMAEs  and “specific category and subcategory” with “ specific category ”. 
+8) Laboratory tests  
+Analyses specified in the Core SAP 8.5 1) and 2) will be performed  using the data occurring 
+between the start date of the first administration of the investigational product or each chemotherapy  and 30 days after the last dose the  investigational product or each chemotherapy. 
+9) Hormone Tests 
+Analyses sp ecified in the Core SAP 8.7 1) will be performed using the data occurring between 
+the start date of the first administration of the investigational product or each chemotherapy and 
+30 days after the last dose the investigational product or each chemotherapy. 
+10) 12-lead ECG  
+
+   
+ 52  Analyses specified in the Core SAP 8.9 1) will be performed  using the data occurring between 
+the start date of the first administration of the investigational product or each chemotherapy and 
+30 days after the last dose the investigational p roduct or each chemotherapy. 
+ 
+11.4 Subgroup Analyses for the Safety Endpoints  
+For each treatment group as well as for the stratification fact ors presented in 10.4 Subgroup 
+Analyses for the Efficacy Endpoints, the overall summary table of any AEs, drug- related AEs, 
+serious AEs and drug- related serious AEs by the worst CTCAE grade (any grade, grade 3 -4, 
+grade 5) will be presented by SOC and PT using 30 -days safety window . 
+ 
+
+   
+ 53  12 PATIENT REPORTED OUT COMES  
+12.1 Analysis Sets 
+The ITT will be the analysis set.  
+ 
+12.2 Analytical Item s and Data Handling  
+1) Analytical Items 
+(1) Patient with questionnaire completion  
+(2) Euro Qol 5 Dimension (EQ- 5D) 
+(3) EQ-5D index scores (Japan based scoring)  
+(4) Change from baseline of EQ-5D index scores (Japan based scoring)  
+(5) EuroQol visual analogue scale (EQ -VAS) scores  
+(6) Change from baseline of EQ- VAS scores  
+(7) LCSS questionnaire completion rate 
+(8) The LCSS disease -related symptom improvement rate  at week 12  
+(9) Change from baseline of the average symptom burden scale index score at each LCSS 
+assessment  
+2) Handling of data 
+(1) EQ-5D index scores (Japan based scoring)  
+EQ-5D questionnaire asks the patient s to describe their current health state on 5 dimensions 
+(mobility, self -care, usual activities, pain/discomfort, and anxiety/depression) with each 
+dimension having 3 response choices (1 = no problem, 2 = some problem, and 3 = extreme 
+problem). For example, if mobility = 2, self- care = 2, usual activities = 1, p ain/discomfort =  
+1, and anxiety/depression = 1, then “ Health State ” would be “22111”.  
+(At least one 3 (N3), M2 (Mobility = 2), M3 (Mobility = 3), SC2 (Self Care = 2), SC3 (Self Care = 3), UA2 (Usual Activities = 2), UA3 (Usual Activities = 3), PD2 (Pain/Discomfort =  
+2), PD3 (Pain/Discomfort = 3), AD2 (Anxiety/Depression = 2), AD3 (Anxiety/Depression = 
+3)) 
+
+   
+ 54  If Full health “11111”, the value set is equal to 1. In other cases, the below mathematical  
+representation is used. 
+ 
+Japan Value Set: 1 - 0.152 - 0.075MO2 - 0.418MO3 - 0.054SC2 - 0.102SC3 - 0.044UA2 - 
+0.133UA3 - 0.080PD2 - 0.194PD3 - 0.063AD2 - 0.112AD3 
+ 
+If there is any question for which the answer is not given for these 5 questions, the EQ- 5D 
+index score will also not be available.  
+(2) LCSS questionnaire completion rate  
+LCSS questionnaire completion rate is defined as the proportion of questionnaires actually 
+received out of the expected number (i.e., the number of patient s still on treatment or in follow 
+up). 
+(3)  The LCSS disease -related symptom improvement rate  at week 12  
+Disease-related symptom improvement rate by Week 12 is defined as the proportion of 
+randomized patient s who had a 10 point or greater decrease from baseline in average symptom 
+burden scale index score at any time between baseline and Week 12.  
+(4) The average symptom burden scale index score 
+The average symptom burden index score at each assessment i s defined  as the mean of the 6 
+symptom-specific questions of the LCSS. 
+(5) Time window for QOL evaluations 
+All questionnaires completed at baseline and on -study will be assigned to a time -point 
+according to the windowing criteria in Table 12.2-1  Time windows for QOL evaluations . 
+ 
+Table 12.2-1 Time windows for QOL evaluations 
+Nominal Time -Point  Time Window  
+Screening Period  
+Treatment  Period  
+Week 6 (Day 43)  
+Week 12 (Day 85)  The response closest to the first administration of 
+investigational product or each chemotherapy  during 
+screening period including unscheduled wi ll be 
+adopted. 
+Day 2 to Day 64 
+
+   
+ 55  Week 18 (Day 127)  
+…Every 6 weeks thereafter while on treatment  
+At the completion of the treatment period (at  
+discontinuation)  
+Follow -up Period  
+∙Follow -up 1 ( ((date at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 92) 
+∙Follow -up 2 (((date at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 183) 
+∙Follow -up 3 (((date at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 274) 
+∙Follow -up 4 (((date at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 366) 
+∙Follow -up 5 ((d(ate at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 548) 
+∙Follow -up 6 (((date at the completion of the 
+treatment period or date at the 2 8 days after the 
+completion of the treatment period , whichever comes 
+last) +1) + 731) Day 65  to Day 106 
+Day 107 to Day 148 
+Scheduled assessed time point  (+21 days / - 20 days)  
+At the completion of the treatment period (at 
+discontinuation)  or 28 days after completion of the 
+treatment per iod incl. unscheduled.  
+(Max (date at the completion of the treatment period or  
+date at 28 days after the completion of the treatment 
+period incl. unscheduled ) +1) to Day 137 
+(Max (date at the completion of the treatment period or 
+date at 28 days after the completion of the treatment period incl. unscheduled ) +1) + 138 to Day  229 
+(Max (date at the completion of the treatment period or 
+date at 28 days after the completion of the treatment period incl. unscheduled ) +1) + 230 to Day 320 
+(Max (date at the completion of the treatment period or 
+date at 28 days after the completion of the treatment period incl. unscheduled ) +1) + 321 to Day 457 
+(Max (date at the completion of the treatment period or 
+date at 28 days after the completion of the treatment period incl. unscheduled ) +1) + 458 to Day 640 
+(Max (date at the completion of the treatm ent period or 
+date at 28 days after the completion of the treatment period incl. unscheduled ) +1) + 641 to Day 822 
+ 
+12.3 Analytical Methods  
+1) Patient with questionnaire completion  
+The percentage of patients with questionnaire completion in each treatment group  will be 
+summarized at each time point. Percentages will be  calculated  based on the number of patients 
+assessed by treatment group at each assessment time point.  
+2) EQ-5D 
+The percentages of patients with no health problems, moderate health problems and extrem e health 
+problems will be calculated for each EQ -5D dimension at each time point  by treatment group . 
+
+   
+ 56  Percentages will be calculated  based on the number of patients assessed by treatment group at each 
+assessment time point for each EQ -5D dimension. 
+3) EQ-5D in dex scores  (Japan based scoring)  
+(1) For EQ -5D index scores at each time point in each treatment group  will be summarized 
+using summary statistics.  95% CI for mean scores of EQ -5D index scores at each time 
+point in each treatment group will also  be calculated.  
+(2) For change from baseline of EQ -5D index scores at each time point in each treatment 
+group will be summarized using summary statistics.  95% CI for mean scores of change 
+from baseline of EQ-5D index scores at each time point in each treatment group will als o 
+be calculated.  
+4) EQ-VAS scores  
+(1) For EQ -VAS scores at each time point in each treatment group  will be summarized using 
+summary statistics.  95% CI for mean scores of EQ-VAS  scores  at each time point in each 
+treatment group  will also  be calculated.  
+(2) For change from baseline of EQ- VAS scores at each time point in each treatment group  
+will be summarized using summary statistics.  95% CI for mean scores of change from 
+baseline of EQ -5D index scores at each time point in each treatment group  will also be 
+calculated.  
+5) LCSS questionnaire completion rate 
+LCSS questionnaire completion rate will be calculated and summarized by treatment group at 
+each assessment point.  
+6) The LCSS disease -related symptom improvement rate  
+The disease -related symptom improvement rate at week 12 and its corresponding 95% exact CI  
+will also be calculated by Clopper -Pearso n method for each treatment group.  
+7) Change from baseline of the average symptom burden scale index score 
+Baseline and change from baseline of the average symptom burden scale index score at each  
+LCSS assessment  point will be summarized using summary statis tics (N, mean, median, SD, 
+the 25- and 75-percent points ) by treatment group. 
+
+   
+ 57   
+13 ANTI -DRUG ANTIBODY ANALYSIS  
+13.1 Analysis Sets 
+The ADA will be the analysis set.  
+ 
+13.2 Analytical Item and Data Handling  
+1) Analytical Item  
+Anti-ONO-4538 antibody up- regulated expression . 
+2) Handling of data  
+Refer to  Core ADA- SAP section 3 . 
+ 
+13.3 Analytical Methods  
+Refer to  Core -ADA SAP  section 5 .1. 
+ 
+
+   
+ 58  14 INTERIM STATISTICAL ANALYSIS  
+One interim analysis for PFS per IRRC will be performed in the ITT population to determine 
+whether to stop the study early for superiority based on the stratified log -rank test with allocation 
+factors (PD -L1 expression level, ECOG PS, and gender) as stratification factors when 
+approximately 82.4% (n = 280) of the target number of PFS events over the entire study (n = 340) 
+have occurred. To control the overall type I error rate at no more than 5% (two- sided), the 
+significance levels used in the interim and final  analyses will be calculated by the Lan -DeMets α 
+spending function (O’Brien- Fleming type) based on the actual number of events.  
+During the interim analysis, the I ndependent D ata M onitoring Committee  (IDMC) will determine 
+early efficacy stop. The details of  the interim analysis are described separately in IDMC procedures 
+and an interim analysis plan.  
+ When the superiority of the ONO -4538 group over the placebo group is verified with PFS (per 
+IRRC, primary definition) at the interim analysis or final analysis , analysis for OS (1
+st time) will 
+be performed at that time. Additionally, analysis of OS ( 2nd time) will be performed based on a 
+cut-off data which cut -off date is one year after a cut -off date of the interim analysis or final 
+analysis . 
+ 
+The following analysis will be performe d in 2nd time analysis of OS on the ITT.  
+1) The analysis in Core SAP section 5.1 1), 2), 3) and 5) will be performed.  
+2) The analysis in  10.4.3 Analytical Methods 1) will be performed.  
+ 
+ 
+ 
+
+   
+ 59  15 BLINDED REVIEWS  
+15.1 Objectives  
+After data accumulation, distribution of background factors will be  preliminarily examined using 
+blinded data before data lock to confirm appropriateness of the planned analytical methods. 
+15.2 Analysis Sets 
+The ITT will be the analysis set.   
+ 
+15.3 Analytical Item s and Data Handling  
+1) Analytical Items  
+(1) Patient background factors  
+(2) Subsequent anticancer therapy  (surgery, radiotherapy, medical treatment ) 
+(3) Efficacy endpoints 
+a) PFS (per IRRC, primary definition) 
+b) PFS (per study site’s investigator , primary definition)  
+c) OS 
+d) ORR (pe r IRRC)  
+(4) Adverse events and drug- related adverse events  
+2) Handling of data 
+Each item will be analyzed according to the method defined above.  
+ 
+15.4 Analytical Methods 
+1) Frequency distributions and summary statistics will be calculated for section 8.2 1) Analytical 
+Items  (1) to (5) except for (4) , and the classification in 8.3 Analytical Methods and 
+Classification  will be determined.  
+2) Details of subsequent anticancer therapy  (surgery, radiotherapy, and medical treatment ) will 
+be summarized.  
+3) To verify the validity of the analysis method or handling of data, the number of events, 
+censored and reason for censor s of PFS will be tabulated. Additionally, the median PFS and 
+the corresponding 95% CI by using Kaplan -Meier method will be estimated. 95% CI for the 
+
+   
+ 60  median PFS will be calculated using the Brookmeyer and Crowley method based on a log-log 
+transformed confidence interval for the survivor function. 
+4) To verify the validity of the analysis method or handling of data, the number of events and 
+censo rs of OS will be tabulated. Additionally, the median OS and the corresponding 95% CI 
+by using Kaplan -Meier method will be estimated. 95% CI for the median OS will be calculated 
+using the Brookmeyer and Crowley method based on a log -log transformed confidence interval 
+for the survivor function. 
+5) To verify the validity of the analysis method, ORR and the corresponding exact (Clopper -
+Pearson method) 95% CI will be calculated. As necessary, the missing condition will be verified.  
+6) Numbers of patients with AEs and  drug-related AEs will be summarized as a whole, or by 
+System Organ Class (SOC), Preferred Term (PT) and Grade.  
+ 
+
+   
+ 61  16 TECHNICAL MATTER S 
+Refer to Core SAP  section 12  
+ 
+16.1 SAS Programming in Analyses  
+1) Cochran -Mantel -Haenszel test  
+The Cochran -Mantel -Haenszel test will be performed using the CMH option of the FREQ 
+procedure of SAS. 
+PROC FREQ DATA = [Analysis data set];  
+TABLES [the stratification variable] * [treatment group] * [response variable] / CMH 
+RISKDIFF (COMMON COLUMN=1)  ALPHA = 0.05; 
+RUN;  
+2) The accelerated failure time model (Weibull model)  
+When estimating the acceleration factor using the accelerated failure time model (Weibull model) in  10.7 2), the following SAS sample program code of LIFEREG procedure will be 
+used. 
+PROC LIFEREG DATA = [Analysis data set];  
+MODEL [survival time variable] = [ treatment group] / DIST = WEIBULL;  
+OUPUT OUT = [Output data set] CDF=CDF;  
+RUN;  
+ 
+16.2 Imputation of M issing Value 
+16.2.1  Imputing the D ate of Death  and Date of Severity CTCAE Grade5  (AE grade 5 
+start date)  
+If the day of death is missing, “01” will be imputed for the day. After that, the derived date of 
+death will be derived from the following conditions; 
+1) If the imputed date of death < the date of the last survival confirmed, the date of last survival 
+confirmed will be the derived date of death. 
+2) If the imputed date of death >= the date of the last survival confirmed, the imputed date of death will be the derived date of death. 
+
+   
+ 62  If the year or month of death will be missing, the date of the last survival confirmed will be 
+the derived date of death. 
+ 
+16.2.2  Imputing Other Date 
+Define the derived minimum date as the earliest date within the possible date and the derived 
+maximum date as the latest  date within the possible date.  
+If day and month are missing, minimum date and maximum date to be derived is following; 
+1) Derived minimum date; 01 JAN  
+2) Derived maximum date; 31 DEC  
+If day is missing, minimum date and maximum date to be derived is following;  
+1) Derived minimum date; first date of that month  
+2) Derived maximum date; last date of that month  
+For AE start date (AE grade start date except for Grade 5 ) with completely missing, the first 
+administration date of investigational product or each chemotherapy  will be the derived date.  
+For AE start date (AE grade start date except for Grade 5 ) with partially  missing (da y and month 
+are unknown or day is unknown), the derived da te will be derived from the following conditions; 
+1) If the derived minimum date >= the first administration date of investigational product or each chemotherapy , the derived minimum date will be the derive d date.  
+2) If the derived minimum date < the first admin istration date of investigational product or each 
+chemotherapy  <= the derived maximum date, the first administration date of investigational 
+product or each chemotherapy  will be the de rived date.  
+3) If the first administration date of investigational product or each chemotherapy  > the derived 
+maximum date, the derived maximum date will be the derived date.  
+4) If the first administration date of investigational product or each chemotherapy  is missing, 
+the derived minimum date will be the derived date.  
+For the date of diagnosis of primary disease with partially missing (da y and month are 
+unknown), the derived date will be derived from the following conditions; 
+1) If the year of diagnosis of primary disease = the year of previous treatment for cancers 
+(including history of surgery, radiotherapy, or medical treatment) , the date performed 
+previous treatment for cancers  will be the derive d date.   
+2) If the year of diagnosis of primary disease is not equal to the year of previous treatment for 
+cancers , the derived minimum date will be the de rived date.  
+ 
+ 
+
+   
+ 63  17 REFERENCE  
+1) Royston P, Parmar MK. The use of restricted mean survival time to estimate the treatment 
+effect in randomized clinical trials when the proportional hazards assumption is in doubt. Stat Med. 2011;30:2409-2421. 
+2) Uno H, Claggett B, Tian L, et al. Moving beyond the hazard ratio in quantifying the between -group difference in survival analysis. J Clin Oncol . 2014;32:2380-2385. 
+3) Latimer NR, Henshall C, Siebert U, et al. Treatment Switching: statistical and d ecision 
+making challenges and approaches. Int J Technol Assess Health Care. 2016;32:160-166. 
+  
+
+   
+ 64  18 CHANGES IN THE STATISTICAL ANAL YSIS PLAN FROM THE 
+STUDY SPECIFIC PROTO COL   
+18.1 Changes in the Statistical Analysis Plan from the Study Specific 
+Protocol  
+1) Safety analysis items  
+(1) Changes  
+Vital signs, Chest X -ray and ECOG Performance Status were deleted from safety analysis 
+items  
+(2) Reason for changes  
+The above safety analysis items will be examined exclusively to secure the safety of 
+subjects.  
+ 
+18.2 Changes in the Statistical Analysis Plan from the Statistical Analysis 
+Plan version 1.0  
+1) 5. General methods 
+(1) Changes  
+Description of reader adoption for evaluation by IRRC was added. 
+(2) Reason for changes  
+It needs to clarify how to adopt the reader for evaluation by IRRC. 
+2) 6. Reliability  of the study 
+(1) Changes  
+Description of handling data for important protocol deviations was added . 
+(2) Reason for changes  
+It needs to clarify how to handle important protocol deviations. 
+3) 8. Demographics and other baseline characteristics  
+(1) Changes  
+Description of analytical method s and classification  was modified . 
+(2) Reason for changes  
+It needs to clarify analytical method s. 
+4) 9. Primary endpoint  
+(1) Changes  
+
+   
+ 65  Description of categories to tabulate the censors was  added. 
+(2) Reason for changes  
+It needs to define the categories to tabulate the censors.  
+5) 10. Efficacy secondary endpoint 
+(1) Changes  
+a) Handling of data about OS w as added. 
+b) Stratification factors for subgroup analysis were defined. 
+c) Exploratory analysis for OS was added. 
+(2) Reason for changes  
+a) It needs to define the handling of data for last confirmed to be alive . 
+b) It needs to define the stratification factors and classification for subgroup analysis. 
+c) It needs to evaluate more details of the efficacy  especially OS . 
+6) 11. Analysis of safety  
+(1) Changes  
+a) Definition of baseline for safety analysis items except for AEs was added . 
+b) Some analyses for time to resolution / resolving were added. 
+(2) Reason for changes  
+a) It needs to define the baseline for safety analysis items except of AEs . 
+b) It needs to evaluate more details of the safety especially Select AEs and IMAEs . 
+7) 12. Patient reported outcomes 
+(1) Changes  
+More details  of time windows for QOL evaluations were added. 
+(2) Reason for changes  
+It needs to make clear the time windows for QOL evaluations. 
+8) 14. Interim Statistical Analysis  
+(1) Changes  
+The 2nd time analysis plan of OS were added.  
+(2) Reason for changes  
+It needs to evalu ate the OS follow -up data. 
+9) 15. Blinded Reviews 
+(1) Changes  
+
+   
+ 66  Description of analytical methods was modified.  
+(2) Reason for changes  
+It needs to clarify analytical method s. 
+10) 16. Technical matters  
+(1) Changes  
+Description s for SAS programming in a nalyses  and imputation of missing  date of the date 
+of diagnosis of primary disease were added.  
+(2) Reason for changes  
+It needs to define the us ed SAS programming for 10.7 Exploratory Analysis and  
+imputation of missing  date of  the date of diagnosis of primary disease. 
+ 
+ 
+  
+
+   
+ 67  19 APPENDIX  
+ 
+Definition of AE and Drug -related AE leading to discontinuation of treatment group / 
+investigational product 
+ 
+ AEs and drug-related AEs leading to discontinuation of tre atment group  
+ Identify the treatment(s) discontinued last in treatment group  (investigational product 
+and chemotherapy) with their reason of discontinuation for AEs  whose action taken is 
+"Drug Withdrawn".  
+ 1. Identify treatment(s)* with last date of withdrawal  in treatment group.  
+Max (date of withdrawal  for investigational product, paclitaxel, carboplatin, 
+bevacizumab)  
+* There may be more than one treatment.  
+ 2. Identify AEs with action taken as "Drug Withdrawn" for the treatment(s) 
+identified in 1. Corresponding AEs are identified as AEs leading to discontinuation of treatment group.  
+ 3. Identify drug- related AEs with causal relationship to the investigational product 
+or chemotherapy as “Related” or missing  for the AEs identified in 2. Corresponding 
+drug- related AEs are identified as drug -related AEs leading to discontinuation of 
+treatment group.  
+ 
+Handling are shown in the  following example cases.  
+In Case 1, AE1 is identified as  the AE leading to discontinuation of treatment group which 
+caused discontinuation of investigational product that is the treatment discontinued last in 
+treatment group.  
+In Case 2, AE1 and AE4 are identified as the AEs leading to discontinuation of treatment group 
+which  caused disconti nuation of investigational product and Bevacizumab that are treatment 
+discontinued last in treatment group at the same date.  
+In Case 3, all AEs (AE1, AE2 and AE3) are identified as  the AEs leading to discontinuation of 
+treatment group because all  the treatment s are discontinued due to expression of AEs (AE1, AE2 
+and AE3) at the same date.  
+ 
+
+   
+ 68   
+ 
+ AEs and drug-related AEs leading to discontinuation of investigational product 
+ AEs leading to discontinuation of investigational product will be  defined as any AEs 
+with action taken with investigational product = “Drug Withdrawn”. 
+ Drug -related AEs leading to discontinuation of investigational product will be  defined 
+as any AEs leading to discontinuation of investigational product to  causal relationship 
+with the investig ational product assessed as  “Related” or missing . 
+ 

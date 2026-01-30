@@ -1,0 +1,29 @@
+# Render.com deployment configuration
+# https://render.com/docs/blueprint-spec
+#
+# This uses Docker to get R support for boundary calculations
+
+services:
+  - type: web
+    name: sap-generator-api
+    runtime: docker
+    region: oregon
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: SUPABASE_URL
+        sync: false  # Set manually in Render dashboard
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: LLAMA_CLOUD_API_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+    healthCheckPath: /health

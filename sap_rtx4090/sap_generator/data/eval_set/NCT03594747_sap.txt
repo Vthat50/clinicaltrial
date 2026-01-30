@@ -1,0 +1,874 @@
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 1 of 30 
+CONFIDENTIAL STATISTICAL ANALYSIS PLAN 
+Study Protocol 
+Number:  BGB-A317-307 
+Study Protocol 
+Title:  A Phase 3, Multicenter, Randomized Open-Label Study to Compare the 
+Efficacy and Safety of Tislelizumab (BGB -A317, Anti- PD1 Antibody) 
+Combined With Paclitaxel Plus Carb oplatin or Nab-Paclitaxel Plus 
+Carboplatin Versus Paclitaxel Plus Carboplatin Alone as First -Line 
+Treatment for Untreated Advanced Squamous Non -Small Cell Lung 
+Cancer  
+Date: Jan 2, 2020  
+Version: 1.0 
+DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+1&7
+
+ 
+BeiGene (Shanghai) Co, Ltd                        BGB-A317-307 
+              (Statistical Analysis Plan) 
+ 
+ 
+Version 1.0 :  1/2/2020 Page 2 of 30  
+CONFIDENTIAL 
+ SIGNATURE  PAGE 
+Author:  
+                
+                
+ 
+ Date:  ______________  
+  
+ 
+Approval 
+     
+ 
+     
+ 
+ 
+ 
+   
+  
+ 
+ 
+  
+Date: ______ __________ 
+ 
+ 
+ 
+ 
+Date: ________________  
+  DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 3 of 30 
+CONFIDENTIAL TABLE OF CONTENTS 
+1 INTRODUCTION 6  
+2 STUDY OVERVIEW 6  
+3 STUDY OBJECTIVES 7  
+3.1 Primary Objectives 7  
+3.2 Secondary Objectives 8  
+3.3 Exploratory Objectives 8  
+4 STUDY ENDPOINTS 9  
+4.1 Primary Endpoints 9  
+4.2 Secondary Endpoints 9  
+4.3 Exploratory Endpoints 9  
+5 SAMPLE SIZE CONSIDERATIONS 10  
+6 TYPE-I-ERROR CONTROL WITH MULTIPLE ENDPOINTS 10  
+7 INTERIM ANALYSIS 11  
+8 STATISTICAL METHODS 12  
+8.1 Analysis Sets 12  
+8.2 Data Analysis General Considerations 12  
+8.2.1  Definitions and Computations 12  
+8.2.2  Conventions 13  
+8.2.3  Handling of Missing Data 13  
+8.2.4  Adjustment for Covariates 13  
+8.2.5  Multiplicity Adjustment 13  
+8.3 Subject Characteristics 13  
+8.3.1  Subject Disposition 13  
+8.3.2  Protocol Deviations 14  
+8.3.3  Demographic and Other Baseline Characteristics 14  
+8.3.4  Disease History 14  
+8.3.5  Prior Anticancer Drug Therapies, Radiotherapy and Surgeries 14  
+8.3.6  Prior and Concomitant Medications 14  
+8.3.7  Medical History 15  
+8.4 Efficacy Analysis 15  
+8.4.1  Primary Efficacy Endpoints 15  
+8.4.2  Secondary Efficacy Endpoints 16  
+8.4.3  Subgroup Analyses 19  
+8.4.4  Exploratory Analysis 19  
+8.5 Safety Analyses 20  
+8.5.1  Extent of Exposure 21  
+8.5.2  Adverse Events 21  
+8.5.3  Laboratory Values 23  
+8.5.4  Vital Signs 23  
+8.5.5  Electrocardiograms (ECG) 24  
+8.5.6  Eastern Cooperative Oncology Group  (ECOG) 24  DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 4 of 30 
+CONFIDENTIAL 8.6 Pharmacokinetic Analyses 24  
+8.7 immunogenicity Analysis 24  
+9 CHANGES IN THE PLANNED ANALYSIS 25  
+10 REFERENCES 25  
+10.1  PFS censoring rules 27  
+10.2  Health Related Quality of Life 28  DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+ 
+BeiGene (Shanghai) Co, Ltd                        BGB-A317-307 
+              (Statistical Analysis Plan) 
+ 
+ 
+Version 1.0 :  1/2/2020 Page 5 of 30  
+CONFIDENTIAL 
+ LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS 
+Abbreviation Term 
+ADA Anti-drug antibody 
+ADI Actual dose intensity 
+AE Adverse event 
+AUC Area under the concentration-time curve 
+BOR Best overall response 
+CI Confidence interval 
+CR Complete response 
+CSR Clinical study report 
+CTCAE Common Terminology Criteria for Adverse Events 
+DOR Duration of response 
+ECG Electrocardiogram 
+ECOG Eastern Cooperative Oncology Group 
+eCRF Electronic case report form 
+FDA Food and Drug Administration 
+irAE Immune-related adverse event 
+IRC  Independent Review Committee 
+MTD Maximum tolerated dose 
+MedDRA Medical Dictionary for Regulatory Activities 
+NCI National Cancer Institute 
+ORR Overall response rate 
+OS Overall survival 
+PD Progressive disease 
+PK Pharmacokinetic  
+PFS Progression-free survival 
+PR Partial response 
+PS Performance status 
+PT Preferred term 
+RDI Relative dose intensity 
+SAE Serious adverse event 
+SAP Statistical Analysis Plan 
+SOC System Organ Class 
+TEAE Treatment-emergent adverse event DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 6 of 30 
+CONFIDENTIAL 1 INTRODUCTION 
+The purpose of this statistical analysis plan (SAP) is to describe the procedures and the statistical 
+methods that will be used to analyze and report results for protocol BGB-A317-307: A Phase 3, Multicenter, Randomized Open-Label Study to Compare the Efficacy and Safety of tislelizumab (BGB-A317, Anti-PD1 Antibody) Combined With Paclitaxel Plus Carboplatin or Nab-Paclitaxel Plus Carboplatin Versus Paclitaxel Plus Carboplatin Alone as First-Line Treatment for Untreated Advanced Squamous Non-Small Cell Lung Cancer. The focus of this SAP is for the planned primary, secondary and exploratory analysis specified in the study protocol. 
+The analysis details for exploratory biomarker analyses are not described within this SAP. 
+Separate analysis plans will be completed for these analyses and will be attached to the clinical 
+study report. 
+Reference materials for this statistical plan include the protocol amendment BGB-A317-307 
+(version 3.0, dated as 16Aug2019). If the protocol is amended or updated, then appropriate adjustments to the SAP may be made if they are related to the planned analyses. 
+The SAP described hereafter is an a priori plan. This is an open label study with a planned 
+interim analysis, the SAP will be finalized and approved before interim analysis. Statistical programming may occur as study data accumulate in order to have analysis programs ready at the time the study finishes. 
+All statistical analyses will be conducted using SAS® (SAS Institute, Inc., Cary, NC, USA), 
+Version 9.3 or higher. 
+2 STUDY OVERVIEW 
+This is an open-label, randomized, multicenter Phase 3 study designed to compare the efficacy 
+and safety of tislelizumab combined with carboplatin and either paclitaxel (Arm A) or nab-
+paclitaxel (Arm B) versus paclitaxel plus carboplatin alone (Arm C) as first-line treatment in approximately 342 patients with untreated Stage IIIB or IV squamous NSCLC.  
+Patients who have histologically confirmed and are untreated for their locally advanced (Stage 
+IIIB) or metastatic (Stage IV) squamous NSCLC are eligible. Patients with tumors of mixed non-small cell histology (squamous and nonsquamous) are eligible if the major histological component is confirmed to be squamous. Histology of squamous NSCLC will be confirmed at the investigator’s site. Pa tients with NSCLC tumors that have known EGFR-sensitizing mutation 
+or ALK gene translocation are excluded but testing is not required if not known. Archival tumor 
+specimens will be prospectively tested for PD-L1 expression by a central laboratory. If archived FFPE tissue is not sufficient for PD-L1 analysis, a fresh biopsy sample will be needed. PD-L1 status will be characterized as PD-L1 membrane staining on TC via the Ventana SP263 assay.  DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 7 of 30 
+CONFIDENTIAL Patients will be stratified by disease stage (IIIB versus IV), and PD-L1 expression (3 levels: < 
+1% TC versus 1% to 49% TC versus  50% TC). Patients whose tissues are unevaluable for 
+PD-L1 expression be included in the < 1% TC group. All patients will be randomized by a 1:1:1 ratio to receive one of the following treatment regimens: 
+x Arm A: Tislelizumab + paclitaxel + carboplatin 
+x Arm B: Tislelizumab + nab-paclitaxel + carboplatin  
+x Arm C: Paclitaxel + carboplatin 
+Patients who are randomized into the tislelizumab plus chemotherapy arms (Arms A and B) will 
+be permitted to continue tislelizumab monotherapy at the discretion of investigator if they experience disease progressive per Response Evaluation Criteria in Solid Tumors (RECIST) v1.1 
+during chemotherapy combination phase or thereafter while receiving tislelizumab monotherapy, 
+provided criteria stated in the protocol are met. Patients who are randomized into the chemotherapy arm (Arm C) will have the opportunity to cross over to receive tislelizumab if they experience radiographic disease progression on chemotherapy; that is, if disease progression per RECIST v1.1 has been confirmed by the independent review committee (IRC), provided criteria stated in the protocol are met and approval by the medical monitor has been obtained. 
+The study is composed of an initial screening phase (up to 28 days), a treatment phase (until 
+disease progression, intolerable toxicity, or withdrawal for other reasons), safety follow-up phase (around 30 days), and survival follow-up phase.  
+During the study, tumor assessment will be performed at baseline, and approximately every 6 
+weeks (± 7 days) for the first 6 months, every 9 weeks (± 7 days) for the remainder of Year 1, 
+every 12 weeks (± 7 days) from Year 2 onwards. Tumor response will be assessed by the IRC 
+and the investigator using RECIST v1.1. Patient who discontinues study treatment for reasons other than disease progression or death will continue to undergo tumor assessments following the original plan until the patient begins a subsequent anticancer treatment, experiences disease progression, withdraws consent, is lost to follow up, until death, or the study termination, whichever occurs first. 
+Patients will be evaluated for safety in this study through the monitoring of all adverse events 
+(AEs) and lab results, defined and graded according to National Cancer Institute Common Terminology Criteria for Adverse Event (NCI-CTCAE v5.0). AEs and serious adverse events (SAEs) will be recorded during the study and for up to 30 days after the last dose of study drug or until the initiation of another anticancer therapy, whichever occurs first. Immune-related AEs 
+will be recorded up to 90 days after the last dose of tislelizumab, regardless of whether the 
+patient starts a new anticancer therapy. 
+3 STUDY OBJECTIVES 
+3.1 P
+RIMARY OBJECTIVES
+x To compare the PFS as assessed by the IRC per RECIST v1.1 in an Intent-to-Treat (ITT) 
+analysis set between tislelizumab either combined with paclitaxel + carboplatin (Arm A) DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 8 of 30 
+CONFIDENTIAL or combined with nab-paclitaxel + carboplatin (Arm B) and paclitaxel + carboplatin 
+alone (Arm C) in patients with untreated Stage IIIB or Stage IV squamous NSCLC. 
+3.2 SECONDARY OBJECTIVES
+x To compare OS between tislelizumab combined with paclitaxel + carboplatin or nab-
+paclitaxel + carboplatin and paclitaxel + carboplatin alone in the ITT Analysis set. 
+x To compare ORR as assessed by the IRC and by the investigator per RECIST v1.1 
+between tislelizumab combined with paclitaxel + carboplatin or nab-paclitaxel + 
+carboplatin and paclitaxel + carboplatin alone. 
+x To compare duration of response (DOR) as assessed by the IRC and by the investigator 
+per RECIST v1.1 between tislelizumab combined with paclitaxel + carboplatin or 
+carboplatin + nab-paclitaxel and paclitaxel + carboplatin alone. 
+x To compare PFS as assessed by the investigator per RECIST v1.1 between tislelizumab 
+combined with paclitaxel + carboplatin or nab-paclitaxel + carboplatin and paclitaxel + 
+carboplatin alone in an ITT Analysis set. 
+x To compare health-related quality of life (HRQoL) between tislelizumab combined with 
+paclitaxel + carboplatin or carboplatin- nab-paclitaxel and paclitaxel + carboplatin alone. 
+x To evaluate the safety and tolerability of tislelizumab combined with paclitaxel + 
+carboplatin or nab-paclitaxel + carboplatin compared with paclitaxel + carboplatin alone. 
+x To evaluate the correlation between programmed death-ligand1 (PD-L1) expression 
+levels by IHC and antitumor activity of tislelizumab combined with paclitaxel + carboplatin or nab-paclitaxel + carboplatin. 
+3.3 E
+XPLORATORY OBJECTIVES  
+x To compare tumor assessment outcomes (eg, DCR, time to response [TTR]) between 
+tislelizumab combined with paclitaxel + carboplatin or nab-paclitaxel + carboplatin and 
+paclitaxel + carboplatin alone assessed by the investigator per RECIST v1.1. 
+x To assess tumor and blood-based biomarkers of tislelizumab response, resistance and 
+patient prognosis. 
+x To characterize the PK of tislelizumab when given in combination with paclitaxel + 
+carboplatin or nab-paclitaxel + carboplatin. 
+x To assess host immunogenicity to tislelizumab DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 9 of 30 
+CONFIDENTIAL 4 STUDY ENDPOINTS 
+4.1 PRIMARY ENDPOINTS  
+x PFS as assessed by the IRC – the time from randomization to the first objectively 
+documented disease progression, or death from any cause, whichever occurs first, as assessed by the IRC per RECIST v1.1 in the ITT Analysis set 
+4.2 S
+ECONDARY ENDPOINTS  
+x OS – the time from the date of randomization to the date of death due to any cause in an 
+ITT Analysis set. 
+x ORR as assessed by the IRC and investigator – the proportion of patients who had 
+complete response (CR) or PR as assessed by the IRC and investigator per RECIST v1.1 in all randomized patients with measurable disease at baseline. 
+x DOR as assessed by the IRC and investigator – the time from the first occurrence of a 
+documented objective response to the time of relapse, or death from any cause, whichever comes first, as assessed by the IRC and investigator per RECIST v1.1 in all randomized patients with documented objective responses. 
+x PFS as assessed by the investigator – the time from randomization to the first objectively 
+documented disease progression, or death from any cause, whichever occurs first, as assessed by the investigator per RECIST v1.1 in the ITT Analysis set. 
+x HRQoL – measured using the European Organization for Research and Treatment of 
+Cancer Quality of Life Questionnaire-Lung Cancer (EORTC QLQ-LC13) and Core 30 
+(EORTC QLQ-C30) as presented in patient-reported outcomes. 
+x Incidence and severity of treatment-emergent AEs (TEAEs) graded according to National 
+Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE), v5.0. 
+x PD-L1 expression by IHC as a predictive biomarker for response 
+4.3 E
+XPLORATORY ENDPOINTS  
+x DCR – the proportion of patients who had CR, PR, Non-CR/Non-PD or SD as assessed 
+by the investigator per RECIST v1.1. 
+x TTR – the time from randomization to the first occurrence of a documented objective 
+response as assessed by the investigator per RECIST v1.1. 
+x Status of exploratory biomarkers including but not limited to: PD-L1, tumor mutation 
+burden (TMB), and immune-related gene expression profiling (GEP) in archival and/or freshly obtained tumor tissues and blood (or blood derivatives) obtained before, during, DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 10 of 30 
+CONFIDENTIAL or after treatment with tislelizumab or at progression, and the association with disease 
+status and/or response to tislelizumab in combination with chemotherapy. 
+x Summary of serum concentrations of tislelizumab. 
+x Assessments of immunogenicity of tislelizumab by determining the incidence of antidrug 
+antibodies (ADAs). 
+5 SAMPLE SIZE CONSIDERATIONS 
+The sample size calculation is based on the number of PFS events required to demonstrate the 
+PFS superiority of Arm A or Arm B to Arm C in the ITT analysis set, respectively. Exponential distribution is assumed for PFS. The estimates of the number of events required to demonstrate 
+efficacy with regards to PFS are based on the following assumptions: 
+1. A one-side d Į of 0.025 and 80% power to detect a HR of 0.65, corresponding to an
+improvement in median PFS from 6 months to 9.2 months, in the PFS of A versus Ccomparison.
+2. A one- sided Į of 0.025 a nd 80% power to detect a HR of 0.65, corresponding to an
+improvement in median PFS from 6 months to 9.2 months, in the PFS of B versus Ccomparison.
+3. One planned interim analysis for both A versus C and B versus C comparisons when
+~75% of targeted PFS events occurred, with Lan-DeMets O'Brien-Flemingapproximation spending function.
+4. Dropout rate of 5% per 12 months in PFS evaluation
+With these assumptions, a total of approximately 173 PFS events are required for each primary 
+comparison of Arm A versus Arm C or Arm B versus Arm C at final analysis for PFS. 
+Assuming 342 patients are to be enrolled and randomized at a 1:1:1 ratio over a 11.5-month 
+period at a steady-state enrollment rate of 40 patients per month and enrollment ramp up duration of six month, ie, enrollment rate of 10 patients per month from study Month 0 to Month 2, 20 patients per month from Month 2 to Month 4, 30 patients per month from Month 4 to Month 6, and 40 patients per month afterwards. 
+6 TYPE-I-ERROR CONTROL WITH MULTIPLE ENDPOINTS  
+Type I error will be strongly controlled at an alpha of 0.025 by using sequential testing 
+procedure. Hypothesis testing for the primary endpoint of PFS (Arm A vs C followed by Arm B 
+vs C) will be carried out sequentially, each at a one-sided alpha of 0.025, until the first non-rejection. The alpha allocation algorithm is described in Figure 1  below. DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 11 of 30 
+CONFIDENTIAL Figure 1. Type I error control schema 
+7 INTERIM ANALYSIS 
+There will be one interim efficacy analysis of PFS in each comparison performed in the ITT 
+Analysis Set. For PFS endpoint, the interim efficacy analysis will be performed after approximately 130 PFS events (75% of the target number of approximately 173 PFS events) have been observed in each comparison of A versus C or B versus C.  It is estimated that it will take approximately 17 months to accumulate the required number of PFS events.  
+An independent statistical review will be conducted to determine if the required number of 
+events have occurred in two arms of A vs C or B vs. C. If the time of observing the targeted 
+number of events in each comparison is different from each other, the analysis could be separate. 
+The interim boundary is based on Lan DeMets O'Brien-Fleming approximation spending 
+function. The interim and final analysis timing and stopping boundaries for PFS are summarized in Table 1  below.  The times and boundaries for interim and final analysis are based on protocol-
+defined enrollment and PFS assumptions. They will be updated according to the actual PFS events included at interim and final analysis using Lan-DeMets spending function. 
+Table 1 Analysis Timing and Stopping Boundaries for PFS in Each of the Primary Testing 
+at One- Sided Į=0.025 
+Type of analysis # Events  Expected 
+Time 
+(months) Testing boundary 
+p-value boundaryApprox. hazard ratio 
+threshold 
+Interim analysis 130 16.7 0.0097 0.6637 
+Final analysis 173 23.8 0.0221 0.7364 DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 12 of 30 
+CONFIDENTIAL 8 STATISTICAL METHODS 
+8.1 ANALYSIS SETS 
+Intent-to-Treat (ITT) Analysis Set: includes all patients randomized to the study, and patients 
+will be grouped by assigned treatment at randomization. This will be the primary analysis set for efficacy analysis. 
+Per-Protocol analysis set (PP) includes patients in the ITT analysis set who had no important 
+protocol deviations. Important protocol deviations are a subset of major protocol deviations impacting efficacy analysis. Criteria for ex clusion from the PP will be determined and 
+documented before the database lock for the primary analysis. This will be the secondary analysis set for efficacy analysis when there are over 10% ITT patients who had important 
+protocol deviations. 
+Safety Analysis Set: includes all randomized patients who received at least 1 dose of any study 
+treatment, and patients will be grouped by first actual treatment arm received. This will be used for all safety analyses. Patients who were randomized to Arm C (paclitaxel + carboplatin) but received any dose of tislelizumab as first-line treatment will be included in Arm A (tislelizumab + paclitaxel + carboplatin) in SAF. Patients who were randomized to Arm A (tislelizumab +paclitaxel + carboplatin) but did not received any dose of tislelizumab will be included in Arm C(paclitaxel + carboplatin) in SAF.
+The HRQoL analysis set includes all randomized patients who received at least 1 dose of study 
+drug and completed at least one HRQoL assessment. This will be the analysis set for HRQoL 
+analysis.  
+PK Analysis Set: includes all patients who received at least 1 dose of tislelizumab per the 
+protocol, for whom any post-baseline PK data are available. 
+ADA Analysis Set: includes all patients who received at least 1 dose of tislelizumab for whom 
+both baseline ADA and at least 1 post-baseline ADA results are available.  
+8.2 D
+ATA ANALYSIS GENERAL CONSIDERATIONS  
+All descriptive statistics for continuous variables will be reported using mean, standard deviation 
+(SD), median, 25 percentile (Q1), 75 percentile (Q3), minimum (Min), maximum (Max) and n. Categorical variables will be summarized as number (percentage) of patients. 
+The study Table Listing Graph shells will be provided in a separate document, which will show 
+the content and format of all tables, listings, and graphs in detail. 
+8.2.1 Definitions and Computations 
+Baseline: Unless otherwise specified, a baseline value for ITT analysis set is defined as the last 
+non-missing value collected before or at the time of randomization date, if not available, defines 
+as last non-missing value collected before or at the time of first dose date. A baseline value for DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 13 of 30 
+CONFIDENTIAL safety analysis set is defined as the last non-missing value collected before or at the time of first 
+dose date. 
+Unscheduled Visits: Unscheduled measurements will not be included in by-visit table summaries 
+and graphs but will contribute to best/ worst case value where required (e.g. shift table). Listings 
+will include scheduled and unscheduled data. 
+8.2.2 Conventions 
+Unless otherwise specified, the following conventions will be applied to all analyses: 
+x 1 year = 365.25 days. Number of years is calculated as (days/365.25) rounded up to 1 
+significant digit. 
+x 1 month = 30.4375 days. Number of months is calculated as (days/30.4375) rounded up 
+to 1 significant digit. 
+x Age will be calculated as the integer part of (date of informed consent – date of birth + 
+1)/365.25  
+x P-values will be rounded to 4 decimal places.  P-values that round to 0.0000 will be
+presented as ‘<  0.0001’ and p -values that round to 1.000 will be pres ented as ‘>  0.9999’.  
+8.2.3 Handling of Missing Data 
+Missing data will not be imputed unless otherwise specified elsewhere in the SAP. Missing dates 
+or partially missing dates will be imputed conservatively for adverse events and prior or concomitant medications/procedures. 
+By-visit endpoints will be analyzed using observed data, unless otherwise specified. For 
+observed data analyses, missing data will not be imputed and only the observed records will be included. 
+8.2.4 Adjustment for Covariates 
+Not applicable. 
+8.2.5 Multiplicity Adjustment 
+Multiplicity adjustment for hypothesis testing of PFS has been described in Section 6.  No 
+multiplicity adjustment for covariates. 
+8.3 SUBJECT CHARACTERISTICS  
+8.3.1 Subject Disposition 
+The number (percentage) of patients randomized, treated, permanently discontinued from study 
+treatment, remained on treatment, discontinued from study, and remained on study will be summarized in the ITT Analysis Set. The primary reasons for study treatment discontinuation and study discontinuation will be summarized according to the categories in the CRF. Study follow-up time and primary reason for screen failure will be summarized. DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 14 of 30 
+CONFIDENTIAL 8.3.2 Protocol Deviations 
+Important protocol deviations are a subset of major protocol deviations impacting efficacy 
+analysis. Criteria for major protocol deviation and important protocol deviation impacting efficacy will be established and patients with major and important protocol deviations will be identified and documented before the database lock.  
+Both major protocol deviations and important protocol deviations will be summarized and listed 
+by category in the ITT analysis set.   
+8.3.3 Demographic and Other Baseline Characteristics 
+Demographic and other baseline characteristics will be summarized using descriptive statistics in 
+the ITT Analysis Set. Continuous variables include age, weight, BMI, baseline target lesions sum 
+of diameters by investigator; categorical variables include sex, ag e group (<65 years, 65 years), 
+ECOG performance status at baseline, smoking status, and stratification factors of disease stage and PD-L1 expression in tumor cell. 
+8.3.4 Disease History 
+The number (percentage) of patients reporting a history of disease and characteristic, as recorded 
+on the CRF, will be summarized in the ITT Analysis Set. Categorical disease characteristics variables include disease stage, histology, baseline target lesion location, and location of distant metastases. Continuous disease history variables include time from initial diagnosis to study entry and time from advanced/metastatic disease diagnosis to study entry. 
+Cancer associated symptoms at baseline will also be summarized by SOC, preferred term and 
+CTCAE grade. 
+8.3.5 Prior Anticancer Drug Therapies, Radiotherapy and Surgeries 
+The number and percentage of patients with prior anticancer drug therapies, time from end of last 
+therapy to study entry, and type of prior anticancer drug therapy will be summarized in ITT Analysis Set. 
+The number and percentage of patients with prior anticancer radiotherapy, anatomical site and 
+time from end of last radiotherapy to study entry will be summarized in ITT Analysis Set. 
+The number and percentage of patients with prior anticancer surgeries, curative intent (Yes, No), 
+and time from last surgery to study entry will be summarized in ITT Analysis Set. 
+8.3.6 Prior and Concomitant Medications 
+Prior and concomitant medications will be coded using the version of World Health Organization 
+Drug Dictionary (WHO DD) drug codes currently in effect at Beigene at the time of database lock and will be further classified to the appropriate Anatomical Therapeutic Chemical (ATC) code.  
+The number (percentage) of patients reporting prior and concomitant medications will be 
+summarized by ATC medication class and WHO DD preferred term (PT)  in the Safety Analysis DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 15 of 30 
+CONFIDENTIAL Set. Prior medications are defined as medications that received within 30 days before 
+randomization and stopped before the first dose date. Concomitant medications will be defined as medications that 1) started before the first dose of study drug and were continuing at the time of the first dose of study drug or 2) started on or after the date of the first dose of study drug up to 30 days after the p atient’s las t dose (as of the Safety Follow-up Visit). In addition, telephone 
+contacts with patients should be conducted to assess irAEs and concomitant medications (if appropriate, ie, associated with an irAE or is a new anticancer therapy) at 60 days, and 90 days (± 14 days) after the last dose of study treatment, regardless of whether or not the patient starts a new anticancer therapy. 
+8.3.7 Medical History 
+Medical History will be coded using MedDRA of the version currently in effect at BeiGene at 
+the time of database lock. The number (percentage) of patients reporting a history of any medical 
+condition, as recorded on the CRF, will be summarized by system organ class (SOC) and PT in the ITT Analysis Set.  
+8.4 E
+FFICACY ANALYSIS  
+If not specified otherwise, efficacy analysis described in this section will be based on the ITT 
+analysis set. 
+8.4.1 Primary Efficacy Endpoints 
+PFS per the IRC in ITT Analysis Set 
+PFS per the IRC is defined as the time from randomization to the first documented disease 
+progression as assessed by the IRC with the use of RECIST v1.1, or death from any cause, 
+whichever occurs first. The actual tumor assessment visit date will be used to calculate PFS. Patients who have a clinical determination of progression should undergo a CT/MRI, if possible, to correlate radiographic findings with the clinical findings. If a clinical determination of progression for a patient is confirmed, the date of the CT/MRI scan will be considered as the progression date for that patient.  
+The PFS censoring rules are specified in  Appendix 11.1.  
+PFS per the IRC will be compared between tislelizumab in combination with paclitaxel + 
+carboplatin (Arm A) and paclitaxel + carboplatin  (Arm C), and between tislelizumab in 
+combination with nab-paclitaxel + carboplatin (Arm B) and paclitaxel + carboplatin (Arm C). The two primary hypothesis tests are formed as follows: 
+One-sided testing of PFS superiority of Arm A to Arm C: 
+The null hypothesis to be tested is: 
+H0: PFS in Arm A  PFS in Arm C  
+Against the alternative hypothesis: 
+Ha: PFS in Arm A > PFS in Arm C 
+One-sided testing of PFS superiority of Arm B to Arm C: DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 16 of 30 
+CONFIDENTIAL The null hypothesis to be tested is: 
+H0: PFS in Arm B  PFS in Arm C 
+Against the alternative hypothesis: 
+Ha: PFS in Arm B > PFS in Arm C 
+The P value will be calculated from a stratified log-rank test at one-sided significance level 
+Į=0.025 based on the stratif ication factors defined in Section 2  using the actual values from EDC 
+(disease stage) and from central lab (PD-L1 expression). Kaplan Meier methodology will be used to estimate median or other quartiles of PFS along with its 95% confidence interval (constructed using Brookmeyer and Crowley method). Kaplan Meier curves will be constructed to provide a visual description of the PFS distribution. Event free rate at selected timepoints will be estimated 
+with 95% confidence interval using Greenwood formula. Follow-up time will be estimated by 
+the reverse Kaplan-Meier method. 
+The HR for PFS for each comparison (ie, Arm A versus Arm C, Arm B versus Arm C) will be 
+estimated using a stratified Cox proportional hazard model with Efron ’s method of tie handling, 
+with treatment arm as a factor and stratified by the same stratification variables used for the stratified log-rank test. The 95% CI for the HR will be provided. Unstratified log-rank test and Cox regression model will also be performed to provide p-value, HR and corresponding 95% CI. 
+In order to evaluate the robustness of the PFS per IRC, we will perform possible sensitivity 
+analyses with different censoring rules if the number of patients with censor reason (i.e. the specific situation in Appendix 11.1)  is greater than or equal to 5% of patients in either of the 
+comparison in the ITT analysis set. If the patient met multiple situations in Appendix 11.1, the 
+censor reason will be the earliest situation. The PFS censoring rules is based on Appendix C and 
+D from FDA guidance “Clinical Tria l Endpoints for the Approval of Non-Small Cell Lung 
+Cancer Drugs and Biolo gics”.  
+The sensitivity analysis 1 is the same as the primary analysis except that it progressed at date of 
+documented progression with protocol specified continued follow-up in all treatment arms or died at date of death whichever is earlier when new anticancer therapy was started. Sensitivity analysis 1 will be performed when >=5% of patients in either of the comparison in the ITT analysis set had started new anticancer therapy. 
+The sensitivity analysis 2 is the same as the primary analysis except that it progressed at date of 
+documented progression or died at date of death whichever is earlier after >=2 missed disease 
+assessment. Sensitivity analysis 2 will be performed when >=5% of patients in either of the comparison in the ITT analysis set had >=2 missed disease assessment. 
+When there are over 10% ITT patients who had important protocol deviations, sensitivity 
+analysis 3 in PP analysis set will be implemented using primary PFS censoring rule. 
+8.4.2 Secondary Efficacy Endpoints 
+Overall Survival 
+OS is defined as the time from randomization to death from any cause. Data for patients who are 
+not reported as having died at the time of analysis will be censored at the date last known to be DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 17 of 30 
+CONFIDENTIAL alive. Data for patients who do not have postbaseline information will be censored at the date of 
+randomization. Similar methodologies used to evaluate PFS per the IRC will be applied to OS analysis. 
+Progression-Free Survival per Investigator 
+PFS per investigator is defined as the time from randomization to the first objectively 
+documented disease progression assessed by investigator using RECIST v1.1, or death from any cause, whichever occurs first. PFS per the investigator will be analyzed similarly as PFS per the IRC. Concordance of PFS per the investigator and PFS per IRC in the ITT analysis set will also be assessed. 
+ 
+Objective Response Rate per the IRC 
+ORR (confirmation not required according to RECIST v1.1) is the proportion of patients who 
+had a CR or PR as assessed by the IRC per RECIST v1.1 in all randomized patients with measurable disease at baseline. Patients without any postbaseline assessment will be considered non-responders. Patients without measurable disease at baseline will also be considered as non-responders. The difference in ORR between Arm A versus Arm C and Arm B versus Arm C in the ITT Analysis Set will be evaluated using the Cochran-Mantel-Haenszel (CMH) chi-square test with the actual stratification factors as strata. The two-sided 95% CIs for the odds ratio and the difference in ORR will be calculated, as well as Clopper-Pearson 95% CIs for the ORR within each arm. 
+In addition, the number and percentage of patients for each of the BOR categories will be 
+presented.  
+A waterfall plot of best percent change in sum of target lesion diameters from baseline will be 
+provided for treatment arm (Arm A, Arm B and Arm C). The patients will be ordered by the percentage, patients with the largest percentage will be presented on the right. 
+Objective Response Rate per the Investigator 
+ORR (confirmation not required according to RECIST v1.1) is the proportion of patients who 
+had CR or PR as assessed by the investigator per RECIST v1.1 in all randomized patients with measurable disease at baseline. Patients without any postbaseline assessment will be considered non-responders. ORR per the investigator will be analyzed similarly as ORR per the IRC. 
+Duration of Response (DOR) per the IRC 
+DOR per the IRC is defined for patients with an objective response as the time from the first 
+documented objective response to documented disease progression as assessed by the IRC using RECIST v1.1, or death from any cause, whichever occurs first. Only the subset of patients who show a complete response or partial response will be included in the DOR analysis. Data for patients who are alive and who have not experienced disease progression at the time of analysis will be censored at the date of the last tumor assessment. If no tumor assessments were performed after the date of the first occurrence of the objective response (CR or PR), DOR will DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 18 of 30 
+CONFIDENTIAL be censored at the date of the first occurrence of the objective response. Median DOR and 
+corresponding 95% CIs will be estimated using Kaplan-Meier methodology for each treatment arm. Comparisons of DOR per the IRC between treatment arms will be made using the log-rank test for descriptive purposes only.  
+Duration of Response (DOR) per the Investigator 
+DOR per the investigator is defined for patients with an objective response as the time from the 
+first documented objective response to documented disease progression as assessed by the investigator using RECIST v1.1, or death from any cause, whichever occurs first. Similar censoring rules used for DOR per IRC will be applied for DOR per investigator. DOR per investigator will be analyzed similarly as DOR per IRC.  
+Health-Related Quality of Life 
+Analysis Method 
+There is no multiplicity adjustment for the HRQoL analysis. Descriptive statistics will be used 
+for all HRQoL analyses. All HRQoL analysis will be in HRQoL analysis set. Both EORTC QLQ-C30 and EORTC QLQ-LC13 instruments have been extensively tested for reliability and validity ( Bergman et al, 1994 ; Osoba et al, 1994 ; Groenvold et al, 1997 ). Two items measuring 
+overall health status and quality of life are graded on a 7-point Likert scale, while all remaining items are graded on a 4-point scale ranging from 1 (Not at all) to 4 (Very much).  
+Compliance 
+Compliance for the EORTC QLQ-C30 and EORTC QLQ-LC13 modules, defined as the 
+proportion of questionnaires actual received out of the expected number (i.e, number of patients on treatment), in the HRQoL analysis set will be summarized for each assessment time point and 
+treatment arm.   
+Change from Baseline by Visit 
+For each scale or item of EORTC QLQ-C30 and EORTC QLQ-LC13, summary statistics at each 
+assessment time point and change from baseline will be presented by treatment arm in tables. Boxplot depicting the mean scores over time of global health status/quality of life will be provided for each treatment arm.   
+Details of HRQoL scoring are specified in A ppendix 11.2 a ccording to the algorithm described 
+in the EORTC QLQ-C30 and EORTC QLQ-LC13 scoring manual ( Fayers 2001 ).  
+Time to Deterioration (TTD) of HRQoL 
+Time to deterioration (TTD) is defined as the time from randomization to first onset time at 
+which deterioration is clinically meaningful that is confirmed at a subsequent clinically meaningful deterioration. The minimum important clinically difference change in symptoms of QLQ-C30 and QLQ-LC13 is defined as 10 points increase from baseline ( Osoba  et al 1998 ; 
+King, 1996 ; Maringwa et al 2011 ). The clinically meaningful deterioration in function and global 
+health status/quality of life is defined as 10 points decrease from baseline. The median TTD of 
+QLQ-C30 global health status/quality of life and composite of cough, chest pain, and dyspnea in DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 19 of 30 
+CONFIDENTIAL the QLQ-LC13 will be calculated using Kaplan-Meier estimates, and presented with 2-sided 
+95% CIs. 
+PD-L1 Expression as a Predictive Biomarker for Response 
+Exploratory biomarker analyses will be performed to examine the relationship between tumor 
+tissue PD-L1 expression and measures of efficacy. Additionally, predictive and prognostic exploratory biomarkers in tumor tissue and/or blood will be examined for their association with disease status and clinical outcomes. These exploratory analyses will not be included in the CSR for this study. 
+8.4.3 Subgroup Analyses 
+Subgroup analysis of primary endpoint of PFS per the IRC will be conducted to determine 
+whether the treatment effect is consistent across various subgroups, and the HR estimates of PFS form an unstratified Cox model and its 95% CI will be estimated and plotted within each category of the following variables (a subgroup will not be analyzed if it includes <7% in one comparison of the ITT analysis set):  
+x PD-L1 expression in TC ( 50% TC versus 1% to 49% TC vers us < 1% TC) 
+x Disease Stage (IIIB versus IV) 
+x age ( 65 versus > 65 years),  
+x sex (female versus male) 
+x ECOG PS (0 versus 1) 
+x smoking status (never versus former/current) 
+x Liver metastases at baseline (Yes versus no) 
+x Brain metastasis status at baseline (yes versus no) 
+Forest plot of subgroup analysis in PFS per the IRC will be provided. Additional subgroup 
+analysis may also be conducted per additional prognosis factors as suggested. Subgroup analysis of secondary endpoint may also be conducted. 
+8.4.4 Exploratory Analysis 
+Disease Control Rate per the IRC and per the Investigator 
+DCR is defined as the proportion of patients with objective response (CR or PR), Non-CR/Non-
+PD, or stable disease ma intained for  6 weeks using RECIST v1.1. Bot h DCR per the IRC and 
+per the investigator will be analyzed. Similar methodologies for analysis of ORR will be applied 
+Time to Response per the IRC and per the Investigator 
+TTR per the investigator/IRC is defined for patients with an objective response as determined by 
+the investigator/IRC as the time from randomization to the first occurrence of a CR or PR as assessed by the investigator/IRC using RECIST v1.1. Only the subset of patients who show a CR DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 20 of 30 
+CONFIDENTIAL or PR will be included in the TTR analysis. TTR will be summarized for descriptive purposes. 
+The mean, standard error, median, and range of TTR will be provided. 
+Time to first subsequent anticancer systemic therapy (TFST) 
+TFST is defined for patients with the use of subsequent anticancer systemic therapy as the time 
+from end of study treatment to first dose of subsequent anticancer systemic therapy. The mean, standard error, median, and range of TFST will be provided. 
+Time to second progression-free survival per the investigator 
+Analysis of progression-free survival after next line of treatment (PFS2) is defined as the time 
+from randomization to second/subsequent disease progression, or death from any cause, whichever occurs first. Patients alive and for whom a second objective disease progression has 
+not been observed will be censored at the last time known to be alive and without second 
+objective disease progression. PFS2 analysis will be provided when data is mature. Similar methodology used to evaluate PFS per the IRC will be applied to analyze PFS2 per the investigator. 
+Subsequent anticancer systemic therapy 
+Subsequent anticancer systemic therapy will be summarized by category and PT in the ITT 
+analysis set.  
+Exploratory efficacy analysis of PFS/ORR in comparison of Arm B vs A 
+After the success of hypothesis testing for the primary endpoint of PFS in both comparisons of A 
+vs C and B vs C, hypothesis testing for B vs A will be carried out at a one-sided alpha of 0.025. 
+For PFS endpoint, the P value from stratified log-rank test for descriptive purpose only, HR for 
+PFS from a stratified Cox proportional hazard model and its 95% CI, median PFS along with its 95% CI using Kaplan Meier methodology, and event free rate at selected timepoints with 95% CI using Greenwood formula will be provided. For ORR endpoint, the difference in ORR between Arm B vs A and its 95% CI, odds ratio and its 95% CI, as well as Clopper-Pearson 95% CIs for the ORR within each arm will be provided. 
+8.5 S
+AFETY ANALYSES  
+All safety analyses will be performed by treatment arm based on the safety analysis set. The 
+incidence of treatment-emergent adverse events (TEAEs) and SAEs will be summarized. Laboratory test results, vital signs, ECG, ECOG and their changes from baseline will be 
+summarized using descriptive statistics (e.g., n, mean, standard deviation, median, Q1, Q3, 
+minimum, maximum for continuous variables; n [%] for categorical variables).  Abnormal values 
+will be flagged. 
+When crossover rate (the rate among the patients who crossed over to receive at least one dose of 
+tislelizumab monotherapy) is equal to or larger than 10% among the patients who actually randomized into Arm C, additional analysis for patients who crossed over will be provided, including but not limited to tislelizumab extent of exposure, overall summary of TEAE, concomitant medication. DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 21 of 30 
+CONFIDENTIAL 8.5.1 Extent of Exposure 
+The study treatment dose information of each patient will be assessed by the following variables: 
+x Number of treatment cycles equals to the count of cycles with tislelizumab and/or 
+chemotherapy 
+x Duration of exposure (weeks) is defined as: 
+(date of last dose* + 21 days – date of first dose)/7, with censored by death date and 
+cutoff date, without censoring when calculating actual dose intensity. 
+*For chemotherapy of nab-paclitaxel (dosing at Day 1,8,15), use the date of Day 1 in the
+last cycle.
+x Cumulative dose (mg): the sum of all actual doses of tislelizumab/paclitaxel/ nab-
+paclitaxel/carboplatin, given from first to last administration 
+x Actual dose intensity (ADI) in mg/cycle is defined as: 
+Cumulative dose (mg) / Duration of exposure (cycles) 
+x Relative dose intensity (RDI) in % is defined as: 
+Where planned dose intensity for tislelizumab equals to 200 mg/cycle, for paclitaxel/ nab-
+paclitaxel/carboplatin equal to the sum of all planned doses/total number of cycle started by the patient. 
+Number of cycles received by patient as a quantitative variable and by category (i.e., number (%) 
+of patient receiving at least 1 cycle, at least 2 cycles etc.), duration of exposure, cumulative dose, ADI and RDI will be summarized by descriptive statistics. 
+8.5.2 Adverse Events 
+AEs will be graded by the investigators using CTCAE v5.0. The AE verbatim descriptions 
+(investigator terms from the CRF) will be classified into standardized medical terminology using 
+the Medical Dictionary for Regulatory Activities (MedDRA). Adverse events will be coded to 
+the MedDRA (Version 20.0 or higher) lower level term closest to the verbatim term.  The linked MedDRA preferred term (PT) and primary system organ class (SOC) are also captured in the database. 
+A TEAE is defined as an AE that had an onset date or a worsening in severity from baseline 
+(pre-dose) on or after the date of first dose of study drug up to 30 days following study drug discontinuation or initiation of new anticancer therapy, whichever comes first. For the tislelizumab-containing arms, the TEAE classification also applies to immune-related AEs DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 22 of 30 
+CONFIDENTIAL (irAE) that are recorded up to 90 days after discontinuation from tislelizumab, regardless of 
+whether the patient starts a new anticancer therapy. Only those AEs that were treatment emergent will be included in summary tables. All AEs, treatment emergent or otherwise, will be presented in subject data listings. AEs that were treatment emergent for patients who crossover to receive tislelizumab monotherapy may be separately summarized if data allows. 
+An overview of patients with at least one TEAE will be presented with the incidence of: 
+x patients with any TEAE 
+x patients with any TEAE with grade  3 
+x patients with any serious TEAEs 
+x patients with any TEAE leading to death 
+x patient with any TEAE leading to permanent discontinuation of any component of study 
+treatment  
+x patients with any TEAE leading to treatment modification of tislelizumab and any 
+component of chemotherapy 
+x patients with any TEAE related to any component of study drug 
+x patients with any TEAE related to tislelizumab 
+x patients with any TEAE related to tislelizumab and grade  3 
+x patients with any TEAE with grade  3 and related to any component of study treatment 
+x patients with any serious TEAEs related to any component of study treatment 
+x patients with any irTEAE 
+Treatment-related AEs include those events considered by the investigator to be related to study 
+treatment or with missing assessment of the causal relationship.  For patients with multiple occurrences of the same event will be counted only once, and the maximum grade per CTCAE v5.0 will be used if CTCAE grade is needed. 
+If the grade is missing for one of the treatment- emergent occurrences of an adverse event, the 
+maximal severity on the remaining occurrences with the same preferred term of the same patient will be used. If the patient has no other TEAE with the same preferred term, then impute as the maximum severity on all TEAE with the same preferred term; If the severity is missing for all the occurrences, do not impute, a “missing” category will be added in the summary ta ble. 
+The incidence of following TEAEs will be reported by SOC and PT, sorted by decreasing 
+frequency of system organ class and preferred term: DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 23 of 30 
+CONFIDENTIAL x TEAE by maximum grade 
+x TEAE leading to permanent discontinuation of any component of study treatment 
+x TEAE leading to death 
+x TEAE with grade  3 
+x TEAE related to any component of study treatment 
+x Serious TEAE 
+All deaths and causes of death will be summarized by treatment arm, including those occurred 
+during the study treatment period and those reported during the survival follow-up period after treatment completion/discontinuation. 
+8.5.3 Laboratory Values 
+Laboratory results will be evaluated for selected parameters described in Table 3.  
+Descriptive summary statistics (n, mean, standard deviation, median, minimum, maximum for 
+continuous variables; n [%] for categorical variables) for laboratory parameters and their changes from baseline will be summarized by visit. 
+Laboratory parameters that are graded in NCI CTCAE (v.5.0) will be summarized by shifts from 
+baseline CTCAE grades to maximum post-baseline grades. In the summary of laboratory parameters by CTCAE grade, parameters with CTCAE grading in both high and low directions will be summarized separately.  
+Table 3. Serum Chemistry and Hematology Laboratory Tests 
+Serum Chemistry Hematology Thyroid Function 
+Alanine aminotransferase (ALT) Hemoglobin Free Triiodothyronine (FT3) 
+Aspartate aminotransferase (AST) White blood cell (WBC) count Free Thyroxine (FT4) 
+Creatinine Neutrophil (Absolute) Thyroid Stimulating 
+Hormone (TSH) 
+Potassium Platelet count 
+Sodium 
+Creatine kinase (CK) 
+Creatine kinase-cardiac muscle 
+isoenzyme (CK -MB) 
+8.5.4 Vital Signs 
+Descriptive statistics for vital sign parameters (i.e., systolic and diastolic blood pressure, pulse 
+rate, temperature, and weight) and changes from baseline will be presented by visit.   DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 24 of 30 
+CONFIDENTIAL 8.5.5 Electrocardiograms (ECG) 
+ECG will be performed during screening, safety follow-up and as clinically indicated at other 
+timepoints. Postbaseline abnormal QTc observations will be summarized. 
+8.5.6 Eastern Cooperative Oncology Group  (ECOG) 
+A shift table from baseline to worst post-baseline in ECOG performance score will be 
+summarized.  
+8.6 PHARMACOKINETIC ANALYSES  
+PK samples will be collected only in patients randomized to receive tislelizumab. Tislelizumab 
+post-dose and Ctrough (pre-dose) will be tabula ted and summarized for each cycle at which PK 
+is to be measured. Descriptive statistics will include means, medians, ranges, (standard 
+deviations), coefficient of variation (CV%), Geometric mean and geometric CV%, as appropriate.  
+Additional PK analyses, including population PK analyses and exposure-response (efficacy, 
+safety endpoints) analyses may be conducted as appropriate and the results from these analyses will be reported separately from the CSR. 
+8.7 
+IMMUNOGENICITY ANALYSIS  
+Human anti-drug antibodies (ADA) to tislelizumab will be assessed during the study as defined 
+in the protocol. 
+ADA attributes: 
+x Treatment boosted ADA is defined as ADA positive at baseline that was boosted to a 4-
+fold or higher level following drug administration.  
+x Treatment-induced ADA is defined as ADA negative at baseline and ADA positive post-
+baseline.  
+x Persistent ADA response is defined as Treatment-induced ADA detected at 2 or more 
+time points during treatment or follow-up, where the first and last ADA positive samples are separated by 16 weeks or longer; or detected in the last time point. 
+x Transient ADA response is defined as Treatment-induced ADA detected only at 1 time 
+point during treatment or follow-up, excluding last time point; or detected at 2 or more timepoints during treatment or follow-up, where the first and last positive samples 
+(irrespective of any negative samples in between) are separated by less than 16 weeks and 
+the last time point is negative. Transient ADA is a treatment-induced response that is not considered persistent. 
+x Neutralizing ADA is defined as ADA that inhibits or reduces the pharmacological 
+activity. 
+ADA response endpoints: DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 25 of 30 
+CONFIDENTIAL x ADA incidence is defined as sum of treatment-emergent ADA, which include both 
+treatment-induced and treatment-boosted ADA-positive patients, as a proportion of the ADA evaluable population.  
+x ADA prevalence is defined as proportion of all patients that are ADA positive, including 
+pre-existing ADA, at any time point. 
+The immunogenicity results will be summarized using descriptive statistics by the number and percentage of patients who develop detectable ADA.  The incidence of positive ADA and neutralizing ADA will be reported for evaluable patients. The effect of immunogenicity on PK, efficacy, and safety may be evaluated if data allow.   
+9 CHANGES IN THE PLANNED ANALYSIS 
+Not applicable so far. 
+10 REFERENCES 
+Brookmeyer R, Crowley J. A Confidence interval for the median survival time. Biometrics. 1982; 38: 29-
+41. 
+Clopper, C. and Pearson, ES. The use of confidence or fiducial limits illustrated in the case of the 
+binomial, Biometrika 1934; 26: 404-413. 
+Collett D. Modelling survival data in medical research. New York: Chapman & Hall; 1994. Common Terminology Criteria for Adverse Events (CTCAE). Version 4.0. United States Department of 
+Health and Human Services, National Institutes of Health, National Cancer Institute, Washington, DC, 
+USA, Nov 27, 2017. 
+Eisenhauer EA, Therasse P, Bogaerts J Schwartz LH, Sargent D, Ford R, et al. New response evaluation 
+criteria in solid tumours: Revised RECIST guideline (version 1.1). Eur J Cancer. 2009; 45:228-47. 
+Food and Drug Administration Center for Drug Evaluation Research CDER and Center for Biologics 
+Evaluation and Research. FDA Guidance for Industry Clinical Trial Endpoints for the Approval of Cancer 
+Drugs and Biologics, 2007. 
+Greenwood M. “ The natural durat ion of cancer”. Reports on Public Health and Medical Patients (Lo ndon: 
+Her Majes ty’s Station ery Office). 1926; 33:1-26. 
+Kaplan E, Meier P. Nonparametric estimation from incomplete observations. J Am Stat Assoc. 1958; 
+53:457-81. 
+Fayers PM, Aaronson NK, Bjordal K,Groenvold M, Curran D, Bottomley A, on behalf of the EORTC 
+Quality of Life Group. Brussels: EORTC, EORTC QLQ-C30 Scoring Manual (3rd edition). 2001. ISBN: 
+2-9300 64-22-6. 
+Bergman B, Aaronson NK, Ahmedzai S, Kaasa S, Sullivan M (1994) The EORTC QLQ-LC13: a modular 
+supplement to the EORTC Core Quality of Life Questionnaire (QLQ-C30) for use in lung cancer clinical 
+trials. EORTC Study Group on Quality of Life. Eur J Cancer 30A: 635 –642. 
+Osoba D, Zee B, Pater J, Warr D, Kaizer L, Latreille J (1994) Psychometric properties and responsiveness 
+of the EORTC quality of Life Questionnaire (QLQ-C30) in patients with breast, ovarian and lung cancer. Qual Life Res 3: 353 –364. DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 26 of 30 
+CONFIDENTIAL Groenvold M, Klee MC, Sprangers MA, Aaronson NK (1997) Validation of the EORTC QLQ-C30 
+quality of life questionnaire through combined qualitative and quantitative assessment of patient-observer 
+agreement. J Clin Epidemiol 50: 441 –450. 
+Osoba D, Rodrigues G, Myles J, Zee B, Pater J (1998) Interpreting the significance of changes in health-
+related quality-of-life scores. J Clin Oncol 16: 139 –144. 
+King MT. The interpretation of scores from the EORTC quality of life questionnaire QLQ-C30. Qual Life 
+Res 1996; 5: 555 –567. 
+Maringwa J, Quinten C, King M, et al. Minimal clinically meaningful differences for the EORTC QLQ-
+C30 and EORTC QLQ-BN20 scales in brain cancer patients. Annals of Oncology 2011; 22: 2107 –2112. DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 27 of 30 
+CONFIDENTIAL APPENDIX 
+10.1 PFS  CENSORING RULES  
+Definition of Progression Date: Progression date is assigned to the first time when tumor 
+progression was documented.  
+The PFS derivation rules in this SAP follow the Table C1 and C2 described in Appendix C of 
+Food and Drug Administratio n (FDA) “Guida nce for Industry Clinical Trial Endpoints for the 
+Approval of Non-Small Cell Lung Cancer Drugs and Biologics (2015)”.  
+Censoring rules for primary and sensitivity analyses are summarized in table 2.  
+Table  4 Censoring Rules for Primary and Sensitivity Analysis of PFS Per RECIST version 1.1  
+No. Situation Primary Analysis Sensitivity Analysis 
+1 Incomplete or no baseline 
+tumor assessments Censored at randomization date  
+2 No postbaseline tumor 
+assessment and no death Censo red at randomization date 
+3 No postbaseline tumor 
+assessment and death Died at date of death  
+4 Progression documented 
+between scheduled visits Progressed at date of documented progression 
+5 No progression   Censored at date of last adequate tumor assessment with no documented 
+progression 
+6 New anticancer treatment 
+started Censored at d ate of last adequate  
+tumor assessment before  date of new 
+anticancer treatment  Progressed at  
+Date of documented progression with 
+protocol specified continued follow-up
+ in all treatment arms or die d at 
+date of death whichever is earlier 
+7 Death between adequate 
+assessment visits  Died at date of death 
+8 Death or progression after  2  
+missed visi t Censored at  date of last adequate  
+tumor assessment prior to the 2 
+missed tumor assessments  Progr essed at  dat e of documented 
+progression or Died at date of death 
+whichever is earlier DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 28 of 30 
+CONFIDENTIAL 10.2 HEALTH RELATED QUALITY OF LIFE 
+The QLQ-C30 consists of thirty questions that are associated with five functional scales 
+(physical, role, cognitive, emotional, and social), three symptom scales (fatigue, pain, and nausea and vomiting), a global health status and six single items (dyspnea, insomnia, appetite loss, constipation, diarrhea, and financial difficulties). QLQ-C30 and QLQ-LC13 scale scores will be calculated as described below.  
+Scoring Process The principle for scoring applies to all scales/scores: Raw scores are calculated as the average of 
+the items that contribute to the scale.  
+A linear transformation to standardize the raw scores is utilized, so that the scores are ranged 
+from 0 to 100.  Increases in scores for functional domains (e.g., physical, role, social, emotional, etc.) are improvements while increases in scores for symptoms (e.g., fatigue, vomiting and nausea, diarrhea, pain, etc.) are deteriorations. 
+Missing Items 
+If at least half of the items for a scale are answered, then all the completed items are used to 
+calculate the score.  Otherwise, the scale score is set to missing. 
+In practical terms, if items I1, I2, ... In are included in a scale, the procedure is as follows: Raw Score 
+For all scores, the raw score (RS), is the mean of the component items 
+RS = ( I
+1+I2+…+ In)/n 
+Derived Scale 
+The derived scales are obtained from the raw scores as defined in the EORTC manual. The 
+derived scales have a more intuitive interpretation: larger function scale or global health status / QoL are improvements while larger symptom scales (e.g., pain, nausea, etc.) are deteriorations.  
+The derivation formulas are as follows. 
+DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 29 of 30 
+CONFIDENTIAL Table 5 Scoring of QLQ-C30 
+Scale Number 
+of items Item 
+range Item 
+Numbe rs 
+Global health status/ QoL 
+ Global health status/QOL QL2 2 6 29,30 
+Functional Scales 
+Physical functioning PF2 5 3 1, 2, 3, 4, 5  
+Role functioning RF2 2 3 6, 7  
+Emotional functioning EF 4 3 21, 22, 23, 24  
+Cognitive functioning CF 2 3 20, 25  
+Social functioning SF 2 3 26, 27  
+Symptom Scales/ items 
+Fatigue FA 3 3 10, 12, 18 
+Nausea and vomiting NV 2 3 14, 15 
+Pain PA 2 3 9, 19 
+Dyspnoea DY 1 3 8 
+Insomnia SL 1 3 11 
+Appetite loss AP 1 3 13 
+Constipation CO 1 3 16 
+Diarrhoea DI 1 3 17 
+Financial Difficulties FI 1 3 28 DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A
+
+BeiGene (Shanghai) Co, Ltd      BGB-A317-307 
+     (Statistical Analysis Plan) 
+Version 1.0 :  1/2/2020 Page 30 of 30 
+CONFIDENTIAL Table 6 Scoring of QLQ-LC13 
+Scale Number 
+of items Item 
+range Item 
+Numbers  
+Symptom scales/items 
+Dyspnoea LCDY 3 3 3,4,5 
+Coughing  
+LCCO 1 3 1 
+Haemoptysis LCHA 1 3 2 
+Sore mouth LCSM 1 3 6 
+Dysphagia LCDS 1 3 7 
+Peripheral neuropathy LCPN 1 3 8 
+Alopecia LCHR 1 3 9 
+Pain in chest LCPC 1 3 10 
+Pain in arm or shoulder LCPA 1 3 11 
+Pain in other parts LCPO 1 3 12 DocuSign Envelope ID: 1154FF54-4BF3-42C4-8061-4AB49C9DE39A

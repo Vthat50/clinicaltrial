@@ -1,0 +1,5457 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "type": "entry",
+      "label": "main.py",
+      "level": 0
+    },
+    {
+      "id": "workbench",
+      "type": "file",
+      "label": "workbench_core.py",
+      "level": 1
+    },
+    {
+      "id": "config",
+      "type": "file",
+      "label": "sap_structure_config.py",
+      "level": 2
+    },
+    {
+      "id": "kb_tools",
+      "type": "file",
+      "label": "kb_tools.py",
+      "level": 2
+    },
+    {
+      "id": "section_1",
+      "type": "section",
+      "label": "Section 1: TITLE PAGE & ADMINISTRATIVE INFORMATION",
+      "tool_count": 0,
+      "level": 3
+    },
+    {
+      "id": "section_2",
+      "type": "section",
+      "label": "Section 2: INTRODUCTION",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_oncology_tfl_templates",
+      "type": "tool",
+      "label": "get_oncology_tfl_templates",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "reg_PHUSE_Oncology_TFL_Templates",
+      "type": "regulatory_source",
+      "label": "PHUSE Oncology TFL Templates",
+      "level": 5
+    },
+    {
+      "id": "url_get_oncology_tfl_templates",
+      "type": "url",
+      "label": "https://phuse.global/",
+      "level": 5
+    },
+    {
+      "id": "section_3",
+      "type": "section",
+      "label": "Section 3: STUDY DESIGN",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_study_design_specs",
+      "type": "tool",
+      "label": "get_study_design_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E9_Statistical_Principles",
+      "type": "regulatory_source",
+      "label": "ICH E9: Statistical Principles",
+      "level": 5
+    },
+    {
+      "id": "url_get_study_design_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_study_type_template",
+      "type": "tool",
+      "label": "get_study_type_template",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Disease-Specific_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Disease-Specific Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_study_type_template",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "section_3.3",
+      "type": "section",
+      "label": "Section 3.3: Randomization/Stratification",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_stratification_specs",
+      "type": "tool",
+      "label": "get_stratification_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "trial_ADAURA_D5164C00001",
+      "type": "trial_source",
+      "label": "ADAURA (D5164C00001)",
+      "level": 5
+    },
+    {
+      "id": "trial_ALEX_NCT02838420",
+      "type": "trial_source",
+      "label": "ALEX (NCT02838420)",
+      "level": 5
+    },
+    {
+      "id": "trial_BEACON_CRC_ARRAY-818-302",
+      "type": "trial_source",
+      "label": "BEACON CRC (ARRAY-818-302)",
+      "level": 5
+    },
+    {
+      "id": "trial_CASSIOPEIA_NCT02541383",
+      "type": "trial_source",
+      "label": "CASSIOPEIA (NCT02541383)",
+      "level": 5
+    },
+    {
+      "id": "trial_CheckMate-214_CA209214",
+      "type": "trial_source",
+      "label": "CheckMate-214 (CA209214)",
+      "level": 5
+    },
+    {
+      "id": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "type": "trial_source",
+      "label": "DESTINY-Breast03 (DS8201-A-U302)",
+      "level": 5
+    },
+    {
+      "id": "trial_IMpower133_NCT02763579",
+      "type": "trial_source",
+      "label": "IMpower133 (NCT02763579)",
+      "level": 5
+    },
+    {
+      "id": "trial_KEYNOTE-024_MK-3475-024",
+      "type": "trial_source",
+      "label": "KEYNOTE-024 (MK-3475-024)",
+      "level": 5
+    },
+    {
+      "id": "trial_MONALEESA-3_CLEE011F2301",
+      "type": "trial_source",
+      "label": "MONALEESA-3 (CLEE011F2301)",
+      "level": 5
+    },
+    {
+      "id": "url_get_stratification_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_stratification_balance_specs",
+      "type": "tool",
+      "label": "get_stratification_balance_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_stratification_balance_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_baseline_covariates",
+      "type": "tool",
+      "label": "get_baseline_covariates",
+      "category": "Baseline",
+      "level": 4
+    },
+    {
+      "id": "trial_ELARA_CCTL019E2202",
+      "type": "trial_source",
+      "label": "ELARA (CCTL019E2202)",
+      "level": 5
+    },
+    {
+      "id": "trial_L-MIND_MOR208C203",
+      "type": "trial_source",
+      "label": "L-MIND (MOR208C203)",
+      "level": 5
+    },
+    {
+      "id": "trial_PACIFIC_D4191C00001",
+      "type": "trial_source",
+      "label": "PACIFIC (D4191C00001)",
+      "level": 5
+    },
+    {
+      "id": "trial_PALOMA-3_A5481023",
+      "type": "trial_source",
+      "label": "PALOMA-3 (A5481023)",
+      "level": 5
+    },
+    {
+      "id": "trial_PROfound_D081DC00007",
+      "type": "trial_source",
+      "label": "PROfound (D081DC00007)",
+      "level": 5
+    },
+    {
+      "id": "trial_VIALE-A_M15-656",
+      "type": "trial_source",
+      "label": "VIALE-A (M15-656)",
+      "level": 5
+    },
+    {
+      "id": "trial_VISION_NCT03511664",
+      "type": "trial_source",
+      "label": "VISION (NCT03511664)",
+      "level": 5
+    },
+    {
+      "id": "trial_ZUMA-3_KTE-X19",
+      "type": "trial_source",
+      "label": "ZUMA-3 (KTE-X19)",
+      "level": 5
+    },
+    {
+      "id": "section_3.4",
+      "type": "section",
+      "label": "Section 3.4: Blinding",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_blinding_specifications",
+      "type": "tool",
+      "label": "get_blinding_specifications",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_blinding_specifications",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_4",
+      "type": "section",
+      "label": "Section 4: SAMPLE SIZE & POWER",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_statistical_method",
+      "type": "tool",
+      "label": "get_statistical_method",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "trial_ClarIDHy_AG120-C-005",
+      "type": "trial_source",
+      "label": "ClarIDHy (AG120-C-005)",
+      "level": 5
+    },
+    {
+      "id": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "type": "trial_source",
+      "label": "ENGOT-OV44/FIRST (3000-03-005)",
+      "level": 5
+    },
+    {
+      "id": "trial_InnovaTV_301_SGNTV-003",
+      "type": "trial_source",
+      "label": "InnovaTV 301 (SGNTV-003)",
+      "level": 5
+    },
+    {
+      "id": "trial_KATHERINE_NCT01772472",
+      "type": "trial_source",
+      "label": "KATHERINE (NCT01772472)",
+      "level": 5
+    },
+    {
+      "id": "reg_ICH_E9_Statistical_Principles_for_Clinical_Trials",
+      "type": "regulatory_source",
+      "label": "ICH E9: Statistical Principles for Clinical Trials",
+      "level": 5
+    },
+    {
+      "id": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "type": "regulatory_source",
+      "label": "ICH E9(R1): Estimands and Sensitivity Analysis",
+      "level": 5
+    },
+    {
+      "id": "url_get_statistical_method",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_5",
+      "type": "section",
+      "label": "Section 5: ANALYSIS POPULATIONS",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_population_definitions",
+      "type": "tool",
+      "label": "get_population_definitions",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_population_definitions",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_5.7",
+      "type": "section",
+      "label": "Section 5.7: Re-treatment Population (CAR-T)",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_cart_specifications",
+      "type": "tool",
+      "label": "get_cart_specifications",
+      "category": "Therapy-Specific",
+      "level": 4
+    },
+    {
+      "id": "trial_ZUMA-1_Axicabtagene",
+      "type": "trial_source",
+      "label": "ZUMA-1 (Axicabtagene)",
+      "level": 5
+    },
+    {
+      "id": "trial_ELIANA_CTL019B2202",
+      "type": "trial_source",
+      "label": "ELIANA (CTL019B2202)",
+      "level": 5
+    },
+    {
+      "id": "trial_NCI_Anti-CD19_CAR_09-C-0082",
+      "type": "trial_source",
+      "label": "NCI Anti-CD19 CAR (09-C-0082)",
+      "level": 5
+    },
+    {
+      "id": "url_get_cart_specifications",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/125643Orig1s000TOC.cfm",
+      "level": 5
+    },
+    {
+      "id": "section_5A",
+      "type": "section",
+      "label": "Section 5A: BASELINE CHARACTERISTICS",
+      "tool_count": 5,
+      "level": 3
+    },
+    {
+      "id": "tool_get_demographics_baseline_specs",
+      "type": "tool",
+      "label": "get_demographics_baseline_specs",
+      "category": "Baseline",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_SDTM_DM_Domain",
+      "type": "regulatory_source",
+      "label": "CDISC SDTM DM Domain",
+      "level": 5
+    },
+    {
+      "id": "url_get_demographics_baseline_specs",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/sdtm",
+      "level": 5
+    },
+    {
+      "id": "tool_get_prior_therapy_specs",
+      "type": "tool",
+      "label": "get_prior_therapy_specs",
+      "category": "Baseline",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Clinical_Review_Documents",
+      "type": "regulatory_source",
+      "label": "FDA Clinical Review Documents",
+      "level": 5
+    },
+    {
+      "id": "url_get_prior_therapy_specs",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_performance_status_scales",
+      "type": "tool",
+      "label": "get_performance_status_scales",
+      "category": "Clinical Scales",
+      "level": 4
+    },
+    {
+      "id": "reg_ECOG_Oken_et_al._1982",
+      "type": "regulatory_source",
+      "label": "ECOG (Oken et al. 1982)",
+      "level": 5
+    },
+    {
+      "id": "reg_Karnofsky_Karnofsky_1949",
+      "type": "regulatory_source",
+      "label": "Karnofsky (Karnofsky 1949)",
+      "level": 5
+    },
+    {
+      "id": "url_get_performance_status_scales",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/7165009/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_prognostic_scores",
+      "type": "tool",
+      "label": "get_prognostic_scores",
+      "category": "Clinical Scales",
+      "level": 4
+    },
+    {
+      "id": "reg_IPI_Shipp_et_al._NEJM_1993",
+      "type": "regulatory_source",
+      "label": "IPI (Shipp et al. NEJM 1993)",
+      "level": 5
+    },
+    {
+      "id": "reg_FLIPI_Solal-C\u00e9ligny_et_al._Blood_2004",
+      "type": "regulatory_source",
+      "label": "FLIPI (Solal-C\u00e9ligny et al. Blood 2004)",
+      "level": 5
+    },
+    {
+      "id": "reg_ISS_Greipp_et_al._JCO_2005",
+      "type": "regulatory_source",
+      "label": "ISS (Greipp et al. JCO 2005)",
+      "level": 5
+    },
+    {
+      "id": "reg_IMDC_Heng_et_al._JCO_2009",
+      "type": "regulatory_source",
+      "label": "IMDC (Heng et al. JCO 2009)",
+      "level": 5
+    },
+    {
+      "id": "url_get_prognostic_scores",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/8411477/",
+      "level": 5
+    },
+    {
+      "id": "section_5A.1",
+      "type": "section",
+      "label": "Section 5A.1: Demographics",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "section_5A.2",
+      "type": "section",
+      "label": "Section 5A.2: Disease Characteristics",
+      "tool_count": 5,
+      "level": 3
+    },
+    {
+      "id": "tool_get_organ_function_specs",
+      "type": "tool",
+      "label": "get_organ_function_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_CTCAE_v5.0",
+      "type": "regulatory_source",
+      "label": "CTCAE v5.0",
+      "level": 5
+    },
+    {
+      "id": "reg_NCI_Organ_Function_Criteria",
+      "type": "regulatory_source",
+      "label": "NCI Organ Function Criteria",
+      "level": 5
+    },
+    {
+      "id": "url_get_organ_function_specs",
+      "type": "url",
+      "label": "https://ctep.cancer.gov/protocoldevelopment/electronic_applications/ctc.htm",
+      "level": 5
+    },
+    {
+      "id": "tool_get_organ_function_scores",
+      "type": "tool",
+      "label": "get_organ_function_scores",
+      "category": "Clinical Scales",
+      "level": 4
+    },
+    {
+      "id": "reg_Child-Pugh_Score",
+      "type": "regulatory_source",
+      "label": "Child-Pugh Score",
+      "level": 5
+    },
+    {
+      "id": "reg_MELD_Score",
+      "type": "regulatory_source",
+      "label": "MELD Score",
+      "level": 5
+    },
+    {
+      "id": "reg_CKD-EPI",
+      "type": "regulatory_source",
+      "label": "CKD-EPI",
+      "level": 5
+    },
+    {
+      "id": "url_get_organ_function_scores",
+      "type": "url",
+      "label": "https://www.mdcalc.com/",
+      "level": 5
+    },
+    {
+      "id": "section_5A.3",
+      "type": "section",
+      "label": "Section 5A.3: Prognostic Factors",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "section_5A.4",
+      "type": "section",
+      "label": "Section 5A.4: Prior Therapy",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "section_5A.5",
+      "type": "section",
+      "label": "Section 5A.5: Medical History",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_medical_history_specs",
+      "type": "tool",
+      "label": "get_medical_history_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_MedDRA_Coding",
+      "type": "regulatory_source",
+      "label": "MedDRA Coding",
+      "level": 5
+    },
+    {
+      "id": "url_get_medical_history_specs",
+      "type": "url",
+      "label": "https://www.meddra.org/",
+      "level": 5
+    },
+    {
+      "id": "section_5A.6",
+      "type": "section",
+      "label": "Section 5A.6: Concomitant Medications",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_concomitant_medication_specs",
+      "type": "tool",
+      "label": "get_concomitant_medication_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_WHO_ATC_Classification",
+      "type": "regulatory_source",
+      "label": "WHO ATC Classification",
+      "level": 5
+    },
+    {
+      "id": "url_get_concomitant_medication_specs",
+      "type": "url",
+      "label": "https://www.whocc.no/atc_ddd_index/",
+      "level": 5
+    },
+    {
+      "id": "section_6",
+      "type": "section",
+      "label": "Section 6: ENDPOINTS & ESTIMANDS",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_estimand_framework",
+      "type": "tool",
+      "label": "get_estimand_framework",
+      "category": "Estimands",
+      "level": 4
+    },
+    {
+      "id": "url_get_estimand_framework",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_tumor_response_specs",
+      "type": "tool",
+      "label": "get_tumor_response_specs",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "reg_RECIST_1.1_Eisenhauer_2009",
+      "type": "regulatory_source",
+      "label": "RECIST 1.1 (Eisenhauer 2009)",
+      "level": 5
+    },
+    {
+      "id": "url_get_tumor_response_specs",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/19097774/",
+      "level": 5
+    },
+    {
+      "id": "section_6.1",
+      "type": "section",
+      "label": "Section 6.1: Primary Endpoints",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_6.4",
+      "type": "section",
+      "label": "Section 6.4: Estimands",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_estimand_specifications",
+      "type": "tool",
+      "label": "get_estimand_specifications",
+      "category": "Estimands",
+      "level": 4
+    },
+    {
+      "id": "url_get_estimand_specifications",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_6.5",
+      "type": "section",
+      "label": "Section 6.5: Response Definitions",
+      "tool_count": 4,
+      "level": 3
+    },
+    {
+      "id": "tool_get_response_criteria",
+      "type": "tool",
+      "label": "get_response_criteria",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "trial_ELARA_CCTL019E2202_-_Lugano",
+      "type": "trial_source",
+      "label": "ELARA (CCTL019E2202) - Lugano",
+      "level": 5
+    },
+    {
+      "id": "trial_L-MIND_MOR208C203_-_Lugano",
+      "type": "trial_source",
+      "label": "L-MIND (MOR208C203) - Lugano",
+      "level": 5
+    },
+    {
+      "id": "trial_SHINE_PCI-32765MCL3002_-_Lugano",
+      "type": "trial_source",
+      "label": "SHINE (PCI-32765MCL3002) - Lugano",
+      "level": 5
+    },
+    {
+      "id": "trial_CASSIOPEIA_NCT02541383_-_IMWG",
+      "type": "trial_source",
+      "label": "CASSIOPEIA (NCT02541383) - IMWG",
+      "level": 5
+    },
+    {
+      "id": "trial_PROfound_D081DC00007_-_PCWG3",
+      "type": "trial_source",
+      "label": "PROfound (D081DC00007) - PCWG3",
+      "level": 5
+    },
+    {
+      "id": "trial_VISION_NCT03511664_-_PCWG3",
+      "type": "trial_source",
+      "label": "VISION (NCT03511664) - PCWG3",
+      "level": 5
+    },
+    {
+      "id": "trial_CheckMate-214_CA209214_-_irRECIST",
+      "type": "trial_source",
+      "label": "CheckMate-214 (CA209214) - irRECIST",
+      "level": 5
+    },
+    {
+      "id": "reg_Cheson_et_al._JCO_2014_Lugano",
+      "type": "regulatory_source",
+      "label": "Cheson et al. JCO 2014 (Lugano)",
+      "level": 5
+    },
+    {
+      "id": "reg_Kumar_et_al._Lancet_Oncol_2016_IMWG",
+      "type": "regulatory_source",
+      "label": "Kumar et al. Lancet Oncol 2016 (IMWG)",
+      "level": 5
+    },
+    {
+      "id": "reg_Scher_et_al._JCO_2016_PCWG3",
+      "type": "regulatory_source",
+      "label": "Scher et al. JCO 2016 (PCWG3)",
+      "level": 5
+    },
+    {
+      "id": "reg_iRECIST_Lancet_Oncology_2017",
+      "type": "regulatory_source",
+      "label": "iRECIST Lancet Oncology 2017",
+      "level": 5
+    },
+    {
+      "id": "url_get_response_criteria",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/25113753/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_all_response_criteria",
+      "type": "tool",
+      "label": "get_all_response_criteria",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "reg_Lugano_Cheson_2014",
+      "type": "regulatory_source",
+      "label": "Lugano (Cheson 2014)",
+      "level": 5
+    },
+    {
+      "id": "reg_IMWG_Kumar_2016",
+      "type": "regulatory_source",
+      "label": "IMWG (Kumar 2016)",
+      "level": 5
+    },
+    {
+      "id": "reg_PCWG3_Scher_2016",
+      "type": "regulatory_source",
+      "label": "PCWG3 (Scher 2016)",
+      "level": 5
+    },
+    {
+      "id": "reg_irRECIST_iRECIST_2017",
+      "type": "regulatory_source",
+      "label": "irRECIST/iRECIST (2017)",
+      "level": 5
+    },
+    {
+      "id": "reg_GCIG_CA-125_Rustin_2011",
+      "type": "regulatory_source",
+      "label": "GCIG CA-125 (Rustin 2011)",
+      "level": 5
+    },
+    {
+      "id": "url_get_all_response_criteria",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/19097774/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_reference_sap_section",
+      "type": "tool",
+      "label": "get_reference_sap_section",
+      "category": "Reference",
+      "level": 4
+    },
+    {
+      "id": "trial_Proprietary_SAP_access_required",
+      "type": "trial_source",
+      "label": "Proprietary SAP access required",
+      "level": 5
+    },
+    {
+      "id": "section_6.6",
+      "type": "section",
+      "label": "Section 6.6: Concordance Analysis",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_concordance_specs",
+      "type": "tool",
+      "label": "get_concordance_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_Statistics_textbooks",
+      "type": "regulatory_source",
+      "label": "Statistics textbooks",
+      "level": 5
+    },
+    {
+      "id": "tool_get_concordance_analysis",
+      "type": "tool",
+      "label": "get_concordance_analysis",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_Cohen's_Kappa_Statistics_literature",
+      "type": "regulatory_source",
+      "label": "Cohen's Kappa (Statistics literature)",
+      "level": 5
+    },
+    {
+      "id": "reg_Lin's_Concordance_Correlation",
+      "type": "regulatory_source",
+      "label": "Lin's Concordance Correlation",
+      "level": 5
+    },
+    {
+      "id": "section_6.7",
+      "type": "section",
+      "label": "Section 6.7: Re-treatment Endpoints (CAR-T)",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_7",
+      "type": "section",
+      "label": "Section 7: STATISTICAL METHODS",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_time_to_event_analysis",
+      "type": "tool",
+      "label": "get_time_to_event_analysis",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "trial_BMT_CTN_0901",
+      "type": "trial_source",
+      "label": "BMT CTN 0901",
+      "level": 5
+    },
+    {
+      "id": "trial_CheckMate-649_CA209649",
+      "type": "trial_source",
+      "label": "CheckMate-649 (CA209649)",
+      "level": 5
+    },
+    {
+      "id": "trial_POLO_D081FC00001",
+      "type": "trial_source",
+      "label": "POLO (D081FC00001)",
+      "level": 5
+    },
+    {
+      "id": "url_get_time_to_event_analysis",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam/adamig-v1-3",
+      "level": 5
+    },
+    {
+      "id": "section_7.1",
+      "type": "section",
+      "label": "Section 7.1: General Methods",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_7.2",
+      "type": "section",
+      "label": "Section 7.2: Time-to-Event Analysis",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_censoring_rules",
+      "type": "tool",
+      "label": "get_censoring_rules",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "trial_PRIMA_PR-30-5017-C",
+      "type": "trial_source",
+      "label": "PRIMA (PR-30-5017-C)",
+      "level": 5
+    },
+    {
+      "id": "trial_TOPAZ-1_D933AC00001",
+      "type": "trial_source",
+      "label": "TOPAZ-1 (D933AC00001)",
+      "level": 5
+    },
+    {
+      "id": "trial_EAA171_OPTIMUM",
+      "type": "trial_source",
+      "label": "EAA171/OPTIMUM",
+      "level": 5
+    },
+    {
+      "id": "reg_FDA_Clinical_Trial_Endpoints_for_Cancer_Drugs",
+      "type": "regulatory_source",
+      "label": "FDA: Clinical Trial Endpoints for Cancer Drugs",
+      "level": 5
+    },
+    {
+      "id": "url_get_censoring_rules",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/clinical-trial-endpoints-approval-cancer-drugs-and-biologics",
+      "level": 5
+    },
+    {
+      "id": "section_7.3",
+      "type": "section",
+      "label": "Section 7.3: Binary Endpoints",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_confidence_interval_methods",
+      "type": "tool",
+      "label": "get_confidence_interval_methods",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "trial_EMPOWER-CSCC1_R2810-ONC-1540",
+      "type": "trial_source",
+      "label": "EMPOWER-CSCC1 (R2810-ONC-1540)",
+      "level": 5
+    },
+    {
+      "id": "section_7.5",
+      "type": "section",
+      "label": "Section 7.5: Multiplicity Adjustment",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_multiplicity_adjustment",
+      "type": "tool",
+      "label": "get_multiplicity_adjustment",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_EMA_Multiplicity_Issues_Guideline",
+      "type": "regulatory_source",
+      "label": "EMA: Multiplicity Issues Guideline",
+      "level": 5
+    },
+    {
+      "id": "reg_FDA_Multiple_Endpoints_in_Clinical_Trials",
+      "type": "regulatory_source",
+      "label": "FDA: Multiple Endpoints in Clinical Trials",
+      "level": 5
+    },
+    {
+      "id": "url_get_multiplicity_adjustment",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/multiple-endpoints-clinical-trials-guidance-industry",
+      "level": 5
+    },
+    {
+      "id": "tool_get_multiplicity_methods",
+      "type": "tool",
+      "label": "get_multiplicity_methods",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Multiple_Endpoints_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Multiple Endpoints Guidance",
+      "level": 5
+    },
+    {
+      "id": "reg_Bretz_et_al._Graphical_Approaches",
+      "type": "regulatory_source",
+      "label": "Bretz et al. Graphical Approaches",
+      "level": 5
+    },
+    {
+      "id": "url_get_multiplicity_methods",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/multiple-endpoints-clinical-trials-guidance-industry",
+      "level": 5
+    },
+    {
+      "id": "section_7.6",
+      "type": "section",
+      "label": "Section 7.6: Single-Arm Methods",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_single_arm_tables",
+      "type": "tool",
+      "label": "get_single_arm_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Single-Arm_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Single-Arm Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_single_arm_tables",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "tool_get_phase2_design_specs",
+      "type": "tool",
+      "label": "get_phase2_design_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_Simon_Two-Stage_Design_Simon_1989",
+      "type": "regulatory_source",
+      "label": "Simon Two-Stage Design (Simon 1989)",
+      "level": 5
+    },
+    {
+      "id": "reg_Fleming_One-Stage_Design",
+      "type": "regulatory_source",
+      "label": "Fleming One-Stage Design",
+      "level": 5
+    },
+    {
+      "id": "url_get_phase2_design_specs",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/2702835/",
+      "level": 5
+    },
+    {
+      "id": "section_7.7",
+      "type": "section",
+      "label": "Section 7.7: MRD Analysis",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_mrd_assessment_specs",
+      "type": "tool",
+      "label": "get_mrd_assessment_specs",
+      "category": "Hematology",
+      "level": 4
+    },
+    {
+      "id": "trial_CLL-MRD_J2N-MC-JZNJ",
+      "type": "trial_source",
+      "label": "CLL-MRD (J2N-MC-JZNJ)",
+      "level": 5
+    },
+    {
+      "id": "reg_FDA_MRD_in_Hematologic_Malignancies",
+      "type": "regulatory_source",
+      "label": "FDA: MRD in Hematologic Malignancies",
+      "level": 5
+    },
+    {
+      "id": "url_get_mrd_assessment_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "section_8",
+      "type": "section",
+      "label": "Section 8: CENSORING RULES",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_similar_trials",
+      "type": "tool",
+      "label": "get_similar_trials",
+      "category": "Knowledge Graph",
+      "level": 4
+    },
+    {
+      "id": "trial_354_trials_from_ClinicalTrials.gov",
+      "type": "trial_source",
+      "label": "354 trials from ClinicalTrials.gov",
+      "level": 5
+    },
+    {
+      "id": "url_get_similar_trials",
+      "type": "url",
+      "label": "https://clinicaltrials.gov/api/gui",
+      "level": 5
+    },
+    {
+      "id": "section_9",
+      "type": "section",
+      "label": "Section 9: MISSING DATA HANDLING",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_missing_data_method",
+      "type": "tool",
+      "label": "get_missing_data_method",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_EMA_Missing_Data_in_Confirmatory_Clinical_Trials",
+      "type": "regulatory_source",
+      "label": "EMA: Missing Data in Confirmatory Clinical Trials",
+      "level": 5
+    },
+    {
+      "id": "url_get_missing_data_method",
+      "type": "url",
+      "label": "https://www.ema.europa.eu/en/missing-data-confirmatory-clinical-trials-scientific-guideline",
+      "level": 5
+    },
+    {
+      "id": "tool_get_data_handling_rules",
+      "type": "tool",
+      "label": "get_data_handling_rules",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_Standards",
+      "type": "regulatory_source",
+      "label": "CDISC Standards",
+      "level": 5
+    },
+    {
+      "id": "url_get_data_handling_rules",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards",
+      "level": 5
+    },
+    {
+      "id": "section_10",
+      "type": "section",
+      "label": "Section 10: SENSITIVITY ANALYSES",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_sensitivity_analysis",
+      "type": "tool",
+      "label": "get_sensitivity_analysis",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_sensitivity_analysis",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_sensitivity_analysis_catalog",
+      "type": "tool",
+      "label": "get_sensitivity_analysis_catalog",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E9R1_Estimands",
+      "type": "regulatory_source",
+      "label": "ICH E9(R1): Estimands",
+      "level": 5
+    },
+    {
+      "id": "url_get_sensitivity_analysis_catalog",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_10.4",
+      "type": "section",
+      "label": "Section 10.4: COVID-19 Sensitivity",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_covid19_variations",
+      "type": "tool",
+      "label": "get_covid19_variations",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_COVID-19_Clinical_Trial_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA COVID-19 Clinical Trial Guidance",
+      "level": 5
+    },
+    {
+      "id": "reg_EMA_COVID-19_Guidance",
+      "type": "regulatory_source",
+      "label": "EMA COVID-19 Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_covid19_variations",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/fda-guidance-conduct-clinical-trials-medical-products-during-covid-19-public-health-emergency",
+      "level": 5
+    },
+    {
+      "id": "section_11",
+      "type": "section",
+      "label": "Section 11: SUBGROUP ANALYSES",
+      "tool_count": 4,
+      "level": 3
+    },
+    {
+      "id": "tool_get_subgroup_analysis_specs",
+      "type": "tool",
+      "label": "get_subgroup_analysis_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "tool_get_subgroup_specifications",
+      "type": "tool",
+      "label": "get_subgroup_specifications",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Subgroup_Analysis_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Subgroup Analysis Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_subgroup_specifications",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "section_12",
+      "type": "section",
+      "label": "Section 12: SAFETY ANALYSIS",
+      "tool_count": 4,
+      "level": 3
+    },
+    {
+      "id": "tool_get_safety_analysis_specs",
+      "type": "tool",
+      "label": "get_safety_analysis_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E2A_Safety_Reporting",
+      "type": "regulatory_source",
+      "label": "ICH E2A: Safety Reporting",
+      "level": 5
+    },
+    {
+      "id": "url_get_safety_analysis_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "tool_get_safety_tables",
+      "type": "tool",
+      "label": "get_safety_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "url_get_safety_tables",
+      "type": "url",
+      "label": "https://ctep.cancer.gov/protocoldevelopment/electronic_applications/ctc.htm",
+      "level": 5
+    },
+    {
+      "id": "tool_get_safety_specifications",
+      "type": "tool",
+      "label": "get_safety_specifications",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E2A",
+      "type": "regulatory_source",
+      "label": "ICH E2A",
+      "level": 5
+    },
+    {
+      "id": "url_get_safety_specifications",
+      "type": "url",
+      "label": "https://ctep.cancer.gov/protocoldevelopment/electronic_applications/ctc.htm",
+      "level": 5
+    },
+    {
+      "id": "tool_get_ae_period_specifications",
+      "type": "tool",
+      "label": "get_ae_period_specifications",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_ADAE",
+      "type": "regulatory_source",
+      "label": "CDISC ADAE",
+      "level": 5
+    },
+    {
+      "id": "url_get_ae_period_specifications",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    },
+    {
+      "id": "section_12.1",
+      "type": "section",
+      "label": "Section 12.1: AE Periods",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_12.2",
+      "type": "section",
+      "label": "Section 12.2: Death Analysis",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_death_analysis_specs",
+      "type": "tool",
+      "label": "get_death_analysis_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Oncology_Endpoint_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Oncology Endpoint Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_death_analysis_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "section_12.3",
+      "type": "section",
+      "label": "Section 12.3: Exposure/Compliance",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_exposure_specifications",
+      "type": "tool",
+      "label": "get_exposure_specifications",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_ADEX_Specification",
+      "type": "regulatory_source",
+      "label": "CDISC ADEX Specification",
+      "level": 5
+    },
+    {
+      "id": "url_get_exposure_specifications",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    },
+    {
+      "id": "tool_get_treatment_compliance_specs",
+      "type": "tool",
+      "label": "get_treatment_compliance_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_treatment_compliance_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_12.4",
+      "type": "section",
+      "label": "Section 12.4: Subsequent Therapy",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_subsequent_therapy_specs",
+      "type": "tool",
+      "label": "get_subsequent_therapy_specs",
+      "category": "Efficacy",
+      "level": 4
+    },
+    {
+      "id": "url_get_subsequent_therapy_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+      "level": 5
+    },
+    {
+      "id": "section_12.8",
+      "type": "section",
+      "label": "Section 12.8: CRS (CAR-T)",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_cart_tables",
+      "type": "tool",
+      "label": "get_cart_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "url_get_cart_tables",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/125643Orig1s000TOC.cfm",
+      "level": 5
+    },
+    {
+      "id": "section_12.9",
+      "type": "section",
+      "label": "Section 12.9: ICANS (CAR-T)",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "section_12.10",
+      "type": "section",
+      "label": "Section 12.10: CAR-T Kinetics",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_pkpd_analysis_specs",
+      "type": "tool",
+      "label": "get_pkpd_analysis_specs",
+      "category": "PK/PD",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Population_PK_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Population PK Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_pkpd_analysis_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/population-pharmacokinetics",
+      "level": 5
+    },
+    {
+      "id": "section_12.11",
+      "type": "section",
+      "label": "Section 12.11: CAR-T Manufacturing",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_cart_manufacturing_specs",
+      "type": "tool",
+      "label": "get_cart_manufacturing_specs",
+      "category": "Therapy-Specific",
+      "level": 4
+    },
+    {
+      "id": "url_get_cart_manufacturing_specs",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2017/125643Orig1s000TOC.cfm",
+      "level": 5
+    },
+    {
+      "id": "section_12.14",
+      "type": "section",
+      "label": "Section 12.14: Healthcare Utilization",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_healthcare_utilization_specs",
+      "type": "tool",
+      "label": "get_healthcare_utilization_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "section_12.15",
+      "type": "section",
+      "label": "Section 12.15: Immunogenicity",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_immunogenicity_specs",
+      "type": "tool",
+      "label": "get_immunogenicity_specs",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Immunogenicity_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Immunogenicity Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_immunogenicity_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/immunogenicity-testing-therapeutic-protein-products-developing-and-validating-assays-anti-drug",
+      "level": 5
+    },
+    {
+      "id": "section_12.16",
+      "type": "section",
+      "label": "Section 12.16: ADC Safety",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_adc_specifications",
+      "type": "tool",
+      "label": "get_adc_specifications",
+      "category": "Therapy-Specific",
+      "level": 4
+    },
+    {
+      "id": "trial_EV-301_Enfortumab_Vedotin",
+      "type": "trial_source",
+      "label": "EV-301 (Enfortumab Vedotin)",
+      "level": 5
+    },
+    {
+      "id": "url_get_adc_specifications",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "section_12.17",
+      "type": "section",
+      "label": "Section 12.17: Bispecific Safety",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_bispecific_specifications",
+      "type": "tool",
+      "label": "get_bispecific_specifications",
+      "category": "Therapy-Specific",
+      "level": 4
+    },
+    {
+      "id": "trial_CD19-CD22_BiCART",
+      "type": "trial_source",
+      "label": "CD19-CD22 BiCART",
+      "level": 5
+    },
+    {
+      "id": "trial_FDA_Elranatamab_Review",
+      "type": "trial_source",
+      "label": "FDA Elranatamab Review",
+      "level": 5
+    },
+    {
+      "id": "trial_FDA_Teclistamab_Review",
+      "type": "trial_source",
+      "label": "FDA Teclistamab Review",
+      "level": 5
+    },
+    {
+      "id": "url_get_bispecific_specifications",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "section_13",
+      "type": "section",
+      "label": "Section 13: INTERIM ANALYSIS",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_interim_analysis",
+      "type": "tool",
+      "label": "get_interim_analysis",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Adaptive_Designs_for_Clinical_Trials",
+      "type": "regulatory_source",
+      "label": "FDA: Adaptive Designs for Clinical Trials",
+      "level": 5
+    },
+    {
+      "id": "url_get_interim_analysis",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/adaptive-design-clinical-trials-drugs-and-biologics-guidance-industry",
+      "level": 5
+    },
+    {
+      "id": "tool_get_interim_analysis_specs",
+      "type": "tool",
+      "label": "get_interim_analysis_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Adaptive_Designs_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA Adaptive Designs Guidance",
+      "level": 5
+    },
+    {
+      "id": "reg_Lan-DeMets_Alpha_Spending",
+      "type": "regulatory_source",
+      "label": "Lan-DeMets Alpha Spending",
+      "level": 5
+    },
+    {
+      "id": "url_get_interim_analysis_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/adaptive-design-clinical-trials-drugs-and-biologics-guidance-industry",
+      "level": 5
+    },
+    {
+      "id": "section_14",
+      "type": "section",
+      "label": "Section 14: BIOMARKER ANALYSIS",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_biomarker_endpoints",
+      "type": "tool",
+      "label": "get_biomarker_endpoints",
+      "category": "Biomarkers",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_Biomarker_Qualification_Program",
+      "type": "regulatory_source",
+      "label": "FDA Biomarker Qualification Program",
+      "level": 5
+    },
+    {
+      "id": "url_get_biomarker_endpoints",
+      "type": "url",
+      "label": "https://www.fda.gov/drugs/biomarker-qualification-program",
+      "level": 5
+    },
+    {
+      "id": "section_15",
+      "type": "section",
+      "label": "Section 15: PATIENT-REPORTED OUTCOMES",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_pro_qol_analysis",
+      "type": "tool",
+      "label": "get_pro_qol_analysis",
+      "category": "PRO/QoL",
+      "level": 4
+    },
+    {
+      "id": "reg_EORTC_QLQ-C30_Scoring_Manual",
+      "type": "regulatory_source",
+      "label": "EORTC QLQ-C30 Scoring Manual",
+      "level": 5
+    },
+    {
+      "id": "reg_EQ-5D_User_Guide",
+      "type": "regulatory_source",
+      "label": "EQ-5D User Guide",
+      "level": 5
+    },
+    {
+      "id": "url_get_pro_qol_analysis",
+      "type": "url",
+      "label": "https://www.eortc.org/app/uploads/sites/2/2018/02/SCmanual.pdf",
+      "level": 5
+    },
+    {
+      "id": "tool_get_qol_analysis_specs",
+      "type": "tool",
+      "label": "get_qol_analysis_specs",
+      "category": "PRO/QoL",
+      "level": 4
+    },
+    {
+      "id": "reg_FDA_PRO_Guidance",
+      "type": "regulatory_source",
+      "label": "FDA PRO Guidance",
+      "level": 5
+    },
+    {
+      "id": "url_get_qol_analysis_specs",
+      "type": "url",
+      "label": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/patient-reported-outcome-measures-use-medical-product-development-support-labeling-claims",
+      "level": 5
+    },
+    {
+      "id": "section_16",
+      "type": "section",
+      "label": "Section 16: DEFINITIONS",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_study_definitions",
+      "type": "tool",
+      "label": "get_study_definitions",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_study_definitions",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_17",
+      "type": "section",
+      "label": "Section 17: PROGRAMMING SPECIFICATIONS",
+      "tool_count": 4,
+      "level": 3
+    },
+    {
+      "id": "tool_get_programming_specifications",
+      "type": "tool",
+      "label": "get_programming_specifications",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_ADaM_Implementation_Guide",
+      "type": "regulatory_source",
+      "label": "CDISC ADaM Implementation Guide",
+      "level": 5
+    },
+    {
+      "id": "url_get_programming_specifications",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    },
+    {
+      "id": "tool_get_derived_variables",
+      "type": "tool",
+      "label": "get_derived_variables",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "url_get_derived_variables",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    },
+    {
+      "id": "tool_get_analysis_windows",
+      "type": "tool",
+      "label": "get_analysis_windows",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "url_get_analysis_windows",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    },
+    {
+      "id": "tool_get_analysis_timing_specs",
+      "type": "tool",
+      "label": "get_analysis_timing_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_analysis_timing_specs",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "section_17.4",
+      "type": "section",
+      "label": "Section 17.4: Data Cutoff",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_data_cutoff_specs",
+      "type": "tool",
+      "label": "get_data_cutoff_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_data_cutoff_specs",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "section_18",
+      "type": "section",
+      "label": "Section 18: TFL SHELLS",
+      "tool_count": 5,
+      "level": 3
+    },
+    {
+      "id": "tool_get_disposition_tables",
+      "type": "tool",
+      "label": "get_disposition_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "url_get_disposition_tables",
+      "type": "url",
+      "label": "https://phuse.global/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_efficacy_tables",
+      "type": "tool",
+      "label": "get_efficacy_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "url_get_efficacy_tables",
+      "type": "url",
+      "label": "https://phuse.global/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_all_figures",
+      "type": "tool",
+      "label": "get_all_figures",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "url_get_all_figures",
+      "type": "url",
+      "label": "https://phuse.global/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_listings",
+      "type": "tool",
+      "label": "get_listings",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "reg_PHUSE_Templates",
+      "type": "regulatory_source",
+      "label": "PHUSE Templates",
+      "level": 5
+    },
+    {
+      "id": "url_get_listings",
+      "type": "url",
+      "label": "https://phuse.global/",
+      "level": 5
+    },
+    {
+      "id": "section_18.1",
+      "type": "section",
+      "label": "Section 18.1: Disposition Tables",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_enrollment_specifications",
+      "type": "tool",
+      "label": "get_enrollment_specifications",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E6_Good_Clinical_Practice",
+      "type": "regulatory_source",
+      "label": "ICH E6: Good Clinical Practice",
+      "level": 5
+    },
+    {
+      "id": "url_get_enrollment_specifications",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_18.2",
+      "type": "section",
+      "label": "Section 18.2: Demographics Tables",
+      "tool_count": 3,
+      "level": 3
+    },
+    {
+      "id": "tool_get_lymphoma_tables",
+      "type": "tool",
+      "label": "get_lymphoma_tables",
+      "category": "TFL",
+      "level": 4
+    },
+    {
+      "id": "section_18.3",
+      "type": "section",
+      "label": "Section 18.3: Efficacy Tables",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_18.4",
+      "type": "section",
+      "label": "Section 18.4: Safety Tables",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "section_18.5",
+      "type": "section",
+      "label": "Section 18.5: Figures",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_18.6",
+      "type": "section",
+      "label": "Section 18.6: Listings",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "section_19",
+      "type": "section",
+      "label": "Section 19: DATA SCREENING",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_protocol_deviation_specs",
+      "type": "tool",
+      "label": "get_protocol_deviation_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "reg_ICH_E3_Clinical_Study_Reports",
+      "type": "regulatory_source",
+      "label": "ICH E3: Clinical Study Reports",
+      "level": 5
+    },
+    {
+      "id": "url_get_protocol_deviation_specs",
+      "type": "url",
+      "label": "https://www.ich.org/page/efficacy-guidelines",
+      "level": 5
+    },
+    {
+      "id": "section_20",
+      "type": "section",
+      "label": "Section 20: FOLLOW-UP ANALYSIS",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_follow_up_analysis_specs",
+      "type": "tool",
+      "label": "get_follow_up_analysis_specs",
+      "category": "Methodology",
+      "level": 4
+    },
+    {
+      "id": "url_get_follow_up_analysis_specs",
+      "type": "url",
+      "label": "https://www.accessdata.fda.gov/scripts/cder/daf/",
+      "level": 5
+    },
+    {
+      "id": "section_21",
+      "type": "section",
+      "label": "Section 21: CHANGES FROM PROTOCOL",
+      "tool_count": 0,
+      "level": 3
+    },
+    {
+      "id": "section_22",
+      "type": "section",
+      "label": "Section 22: REFERENCES",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_required_references",
+      "type": "tool",
+      "label": "get_required_references",
+      "category": "References",
+      "level": 4
+    },
+    {
+      "id": "reg_Standard_SAP_citations",
+      "type": "regulatory_source",
+      "label": "Standard SAP citations",
+      "level": 5
+    },
+    {
+      "id": "section_A.1",
+      "type": "section",
+      "label": "Section A.1: Date Imputation",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_date_imputation_rules",
+      "type": "tool",
+      "label": "get_date_imputation_rules",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_SDTM_ADaM_Implementation_Guide",
+      "type": "regulatory_source",
+      "label": "CDISC SDTM/ADaM Implementation Guide",
+      "level": 5
+    },
+    {
+      "id": "url_get_date_imputation_rules",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards",
+      "level": 5
+    },
+    {
+      "id": "section_A.2",
+      "type": "section",
+      "label": "Section A.2: TTE Derivation",
+      "tool_count": 2,
+      "level": 3
+    },
+    {
+      "id": "tool_get_tte_derivation_tables",
+      "type": "tool",
+      "label": "get_tte_derivation_tables",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "reg_CDISC_ADTTE_Implementation_Guide",
+      "type": "regulatory_source",
+      "label": "CDISC ADTTE Implementation Guide",
+      "level": 5
+    },
+    {
+      "id": "url_get_tte_derivation_tables",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam/adamig-v1-3",
+      "level": 5
+    },
+    {
+      "id": "section_A.3",
+      "type": "section",
+      "label": "Section A.3: MedDRA Strategies",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_meddra_search_strategies",
+      "type": "tool",
+      "label": "get_meddra_search_strategies",
+      "category": "Safety",
+      "level": 4
+    },
+    {
+      "id": "reg_MedDRA_SMQ_CMQ_Documentation",
+      "type": "regulatory_source",
+      "label": "MedDRA SMQ/CMQ Documentation",
+      "level": 5
+    },
+    {
+      "id": "url_get_meddra_search_strategies",
+      "type": "url",
+      "label": "https://www.meddra.org/",
+      "level": 5
+    },
+    {
+      "id": "section_A.4",
+      "type": "section",
+      "label": "Section A.4: Response Criteria",
+      "tool_count": 5,
+      "level": 3
+    },
+    {
+      "id": "tool_get_recist_specifications",
+      "type": "tool",
+      "label": "get_recist_specifications",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "reg_Eisenhauer_et_al._Eur_J_Cancer_2009_RECIST_1.1",
+      "type": "regulatory_source",
+      "label": "Eisenhauer et al. Eur J Cancer 2009 (RECIST 1.1)",
+      "level": 5
+    },
+    {
+      "id": "url_get_recist_specifications",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/19097774/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_cml_criteria",
+      "type": "tool",
+      "label": "get_cml_criteria",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "reg_ELN_CML_Guidelines_Baccarani_Blood_2013",
+      "type": "regulatory_source",
+      "label": "ELN CML Guidelines (Baccarani Blood 2013)",
+      "level": 5
+    },
+    {
+      "id": "url_get_cml_criteria",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/23843494/",
+      "level": 5
+    },
+    {
+      "id": "tool_get_iwcll_criteria",
+      "type": "tool",
+      "label": "get_iwcll_criteria",
+      "category": "Response Criteria",
+      "level": 4
+    },
+    {
+      "id": "reg_iwCLL_Guidelines_Hallek_Blood_2018",
+      "type": "regulatory_source",
+      "label": "iwCLL Guidelines (Hallek Blood 2018)",
+      "level": 5
+    },
+    {
+      "id": "url_get_iwcll_criteria",
+      "type": "url",
+      "label": "https://pubmed.ncbi.nlm.nih.gov/29540348/",
+      "level": 5
+    },
+    {
+      "id": "section_A.5",
+      "type": "section",
+      "label": "Section A.5: ADaM Specifications",
+      "tool_count": 1,
+      "level": 3
+    },
+    {
+      "id": "tool_get_adam_dataset_spec",
+      "type": "tool",
+      "label": "get_adam_dataset_spec",
+      "category": "ADaM",
+      "level": 4
+    },
+    {
+      "id": "url_get_adam_dataset_spec",
+      "type": "url",
+      "label": "https://www.cdisc.org/standards/foundational/adam",
+      "level": 5
+    }
+  ],
+  "edges": [
+    {
+      "from": "root",
+      "to": "workbench",
+      "relationship": "imports"
+    },
+    {
+      "from": "workbench",
+      "to": "config",
+      "relationship": "imports"
+    },
+    {
+      "from": "workbench",
+      "to": "kb_tools",
+      "relationship": "imports"
+    },
+    {
+      "from": "config",
+      "to": "section_1",
+      "relationship": "defines"
+    },
+    {
+      "from": "config",
+      "to": "section_2",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_oncology_tfl_templates",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_oncology_tfl_templates",
+      "to": "reg_PHUSE_Oncology_TFL_Templates",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_oncology_tfl_templates",
+      "to": "url_get_oncology_tfl_templates",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_2",
+      "to": "tool_get_oncology_tfl_templates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_3",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_study_design_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_study_design_specs",
+      "to": "reg_ICH_E9_Statistical_Principles",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_study_design_specs",
+      "to": "url_get_study_design_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_3",
+      "to": "tool_get_study_design_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_study_type_template",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_study_type_template",
+      "to": "reg_FDA_Disease-Specific_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_study_type_template",
+      "to": "url_get_study_type_template",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_3",
+      "to": "tool_get_study_type_template",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_3.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_stratification_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "trial_MONALEESA-3_CLEE011F2301",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_stratification_specs",
+      "to": "url_get_stratification_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_3.3",
+      "to": "tool_get_stratification_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_stratification_balance_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_stratification_balance_specs",
+      "to": "reg_ICH_E9_Statistical_Principles",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_stratification_balance_specs",
+      "to": "url_get_stratification_balance_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_3.3",
+      "to": "tool_get_stratification_balance_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_L-MIND_MOR208C203",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_MONALEESA-3_CLEE011F2301",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_PACIFIC_D4191C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_PALOMA-3_A5481023",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_PROfound_D081DC00007",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_VIALE-A_M15-656",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_VISION_NCT03511664",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_baseline_covariates",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_3.3",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_3.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_blinding_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_blinding_specifications",
+      "to": "reg_ICH_E9_Statistical_Principles",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_blinding_specifications",
+      "to": "url_get_blinding_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_3.4",
+      "to": "tool_get_blinding_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_statistical_method",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_InnovaTV_301_SGNTV-003",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_KATHERINE_NCT01772472",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "trial_MONALEESA-3_CLEE011F2301",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "reg_ICH_E9_Statistical_Principles_for_Clinical_Trials",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_statistical_method",
+      "to": "url_get_statistical_method",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_4",
+      "to": "tool_get_statistical_method",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_population_definitions",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_population_definitions",
+      "to": "reg_ICH_E9_Statistical_Principles_for_Clinical_Trials",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_population_definitions",
+      "to": "url_get_population_definitions",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5",
+      "to": "tool_get_population_definitions",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5.7",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_cart_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "trial_ZUMA-1_Axicabtagene",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "trial_NCI_Anti-CD19_CAR_09-C-0082",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_specifications",
+      "to": "url_get_cart_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5.7",
+      "to": "tool_get_cart_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_demographics_baseline_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_demographics_baseline_specs",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_demographics_baseline_specs",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_demographics_baseline_specs",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_demographics_baseline_specs",
+      "to": "reg_CDISC_SDTM_DM_Domain",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_demographics_baseline_specs",
+      "to": "url_get_demographics_baseline_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A",
+      "to": "tool_get_demographics_baseline_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_prior_therapy_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_prior_therapy_specs",
+      "to": "reg_FDA_Clinical_Review_Documents",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_prior_therapy_specs",
+      "to": "url_get_prior_therapy_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A",
+      "to": "tool_get_prior_therapy_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_performance_status_scales",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_performance_status_scales",
+      "to": "reg_ECOG_Oken_et_al._1982",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_performance_status_scales",
+      "to": "reg_Karnofsky_Karnofsky_1949",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_performance_status_scales",
+      "to": "url_get_performance_status_scales",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A",
+      "to": "tool_get_performance_status_scales",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_prognostic_scores",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_prognostic_scores",
+      "to": "reg_IPI_Shipp_et_al._NEJM_1993",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_prognostic_scores",
+      "to": "reg_FLIPI_Solal-C\u00e9ligny_et_al._Blood_2004",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_prognostic_scores",
+      "to": "reg_ISS_Greipp_et_al._JCO_2005",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_prognostic_scores",
+      "to": "reg_IMDC_Heng_et_al._JCO_2009",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_prognostic_scores",
+      "to": "url_get_prognostic_scores",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A",
+      "to": "tool_get_prognostic_scores",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_5A.1",
+      "to": "tool_get_demographics_baseline_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A.1",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.2",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_5A.2",
+      "to": "tool_get_demographics_baseline_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A.2",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_organ_function_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_organ_function_specs",
+      "to": "reg_CTCAE_v5.0",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_organ_function_specs",
+      "to": "reg_NCI_Organ_Function_Criteria",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_organ_function_specs",
+      "to": "url_get_organ_function_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A.2",
+      "to": "tool_get_organ_function_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A.2",
+      "to": "tool_get_performance_status_scales",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_organ_function_scores",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_organ_function_scores",
+      "to": "reg_Child-Pugh_Score",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_organ_function_scores",
+      "to": "reg_MELD_Score",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_organ_function_scores",
+      "to": "reg_CKD-EPI",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_organ_function_scores",
+      "to": "url_get_organ_function_scores",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A.2",
+      "to": "tool_get_organ_function_scores",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_5A.3",
+      "to": "tool_get_prognostic_scores",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A.3",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_5A.4",
+      "to": "tool_get_prior_therapy_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_5A.4",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.5",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_medical_history_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_medical_history_specs",
+      "to": "reg_MedDRA_Coding",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_medical_history_specs",
+      "to": "url_get_medical_history_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A.5",
+      "to": "tool_get_medical_history_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_5A.6",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_concomitant_medication_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_concomitant_medication_specs",
+      "to": "reg_WHO_ATC_Classification",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_concomitant_medication_specs",
+      "to": "url_get_concomitant_medication_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_5A.6",
+      "to": "tool_get_concomitant_medication_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_estimand_framework",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_estimand_framework",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_estimand_framework",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_estimand_framework",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_estimand_framework",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_estimand_framework",
+      "to": "url_get_estimand_framework",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_6",
+      "to": "tool_get_estimand_framework",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_6",
+      "to": "tool_get_oncology_tfl_templates",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_tumor_response_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_tumor_response_specs",
+      "to": "reg_RECIST_1.1_Eisenhauer_2009",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_tumor_response_specs",
+      "to": "url_get_tumor_response_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_6",
+      "to": "tool_get_tumor_response_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_6.1",
+      "to": "tool_get_tumor_response_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_estimand_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_estimand_specifications",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_estimand_specifications",
+      "to": "url_get_estimand_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_6.4",
+      "to": "tool_get_estimand_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6.5",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_6.5",
+      "to": "tool_get_tumor_response_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_response_criteria",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_ELARA_CCTL019E2202_-_Lugano",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_L-MIND_MOR208C203_-_Lugano",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_SHINE_PCI-32765MCL3002_-_Lugano",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_CASSIOPEIA_NCT02541383_-_IMWG",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_PROfound_D081DC00007_-_PCWG3",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_VISION_NCT03511664_-_PCWG3",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "trial_CheckMate-214_CA209214_-_irRECIST",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "reg_Cheson_et_al._JCO_2014_Lugano",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "reg_Kumar_et_al._Lancet_Oncol_2016_IMWG",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "reg_Scher_et_al._JCO_2016_PCWG3",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "reg_iRECIST_Lancet_Oncology_2017",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_response_criteria",
+      "to": "url_get_response_criteria",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_6.5",
+      "to": "tool_get_response_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_all_response_criteria",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_RECIST_1.1_Eisenhauer_2009",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_Lugano_Cheson_2014",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_IMWG_Kumar_2016",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_PCWG3_Scher_2016",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_irRECIST_iRECIST_2017",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "reg_GCIG_CA-125_Rustin_2011",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_all_response_criteria",
+      "to": "url_get_all_response_criteria",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_6.5",
+      "to": "tool_get_all_response_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_reference_sap_section",
+      "to": "trial_Proprietary_SAP_access_required",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_6.5",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6.6",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_concordance_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_concordance_specs",
+      "to": "reg_Statistics_textbooks",
+      "relationship": "based_on"
+    },
+    {
+      "from": "section_6.6",
+      "to": "tool_get_concordance_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_concordance_analysis",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_concordance_analysis",
+      "to": "reg_Cohen's_Kappa_Statistics_literature",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_concordance_analysis",
+      "to": "reg_Lin's_Concordance_Correlation",
+      "relationship": "based_on"
+    },
+    {
+      "from": "section_6.6",
+      "to": "tool_get_concordance_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_6.7",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_6.7",
+      "to": "tool_get_cart_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_7",
+      "to": "tool_get_statistical_method",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_time_to_event_analysis",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_BMT_CTN_0901",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_CheckMate-649_CA209649",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_PACIFIC_D4191C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_POLO_D081FC00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_PROfound_D081DC00007",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "trial_VISION_NCT03511664",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_time_to_event_analysis",
+      "to": "url_get_time_to_event_analysis",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7",
+      "to": "tool_get_time_to_event_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_7.1",
+      "to": "tool_get_blinding_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.2",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_7.2",
+      "to": "tool_get_time_to_event_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_censoring_rules",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_CheckMate-649_CA209649",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_POLO_D081FC00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_PRIMA_PR-30-5017-C",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_TOPAZ-1_D933AC00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_EAA171_OPTIMUM",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "reg_FDA_Clinical_Trial_Endpoints_for_Cancer_Drugs",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_censoring_rules",
+      "to": "url_get_censoring_rules",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.2",
+      "to": "tool_get_censoring_rules",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_confidence_interval_methods",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_confidence_interval_methods",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_confidence_interval_methods",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_confidence_interval_methods",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_confidence_interval_methods",
+      "to": "trial_EMPOWER-CSCC1_R2810-ONC-1540",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_confidence_interval_methods",
+      "to": "trial_NCI_Anti-CD19_CAR_09-C-0082",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_7.3",
+      "to": "tool_get_confidence_interval_methods",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.5",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_multiplicity_adjustment",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_InnovaTV_301_SGNTV-003",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "trial_MONALEESA-3_CLEE011F2301",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "reg_EMA_Multiplicity_Issues_Guideline",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "reg_FDA_Multiple_Endpoints_in_Clinical_Trials",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_multiplicity_adjustment",
+      "to": "url_get_multiplicity_adjustment",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.5",
+      "to": "tool_get_multiplicity_adjustment",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_multiplicity_methods",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_multiplicity_methods",
+      "to": "reg_FDA_Multiple_Endpoints_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_multiplicity_methods",
+      "to": "reg_Bretz_et_al._Graphical_Approaches",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_multiplicity_methods",
+      "to": "url_get_multiplicity_methods",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.5",
+      "to": "tool_get_multiplicity_methods",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_7.5",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.6",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_single_arm_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_single_arm_tables",
+      "to": "trial_ZUMA-1_Axicabtagene",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_single_arm_tables",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_single_arm_tables",
+      "to": "reg_FDA_Single-Arm_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_single_arm_tables",
+      "to": "url_get_single_arm_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.6",
+      "to": "tool_get_single_arm_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_phase2_design_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_phase2_design_specs",
+      "to": "reg_Simon_Two-Stage_Design_Simon_1989",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_phase2_design_specs",
+      "to": "reg_Fleming_One-Stage_Design",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_phase2_design_specs",
+      "to": "url_get_phase2_design_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.6",
+      "to": "tool_get_phase2_design_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_7.7",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_mrd_assessment_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_mrd_assessment_specs",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_mrd_assessment_specs",
+      "to": "trial_EAA171_OPTIMUM",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_mrd_assessment_specs",
+      "to": "trial_CLL-MRD_J2N-MC-JZNJ",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_mrd_assessment_specs",
+      "to": "reg_FDA_MRD_in_Hematologic_Malignancies",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_mrd_assessment_specs",
+      "to": "url_get_mrd_assessment_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_7.7",
+      "to": "tool_get_mrd_assessment_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_8",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_8",
+      "to": "tool_get_censoring_rules",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_similar_trials",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_similar_trials",
+      "to": "trial_354_trials_from_ClinicalTrials.gov",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_similar_trials",
+      "to": "url_get_similar_trials",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_8",
+      "to": "tool_get_similar_trials",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_8",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_9",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_missing_data_method",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "reg_EMA_Missing_Data_in_Confirmatory_Clinical_Trials",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_missing_data_method",
+      "to": "url_get_missing_data_method",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_9",
+      "to": "tool_get_missing_data_method",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_data_handling_rules",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_data_handling_rules",
+      "to": "reg_CDISC_Standards",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_data_handling_rules",
+      "to": "url_get_data_handling_rules",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_9",
+      "to": "tool_get_data_handling_rules",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_10",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_sensitivity_analysis",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_ENGOT-OV44_FIRST_3000-03-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "reg_ICH_E9R1_Estimands_and_Sensitivity_Analysis",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis",
+      "to": "url_get_sensitivity_analysis",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_10",
+      "to": "tool_get_sensitivity_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_sensitivity_analysis_catalog",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis_catalog",
+      "to": "reg_ICH_E9R1_Estimands",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_sensitivity_analysis_catalog",
+      "to": "url_get_sensitivity_analysis_catalog",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_10",
+      "to": "tool_get_sensitivity_analysis_catalog",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_10",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_10.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_covid19_variations",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_covid19_variations",
+      "to": "reg_FDA_COVID-19_Clinical_Trial_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_covid19_variations",
+      "to": "reg_EMA_COVID-19_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_covid19_variations",
+      "to": "url_get_covid19_variations",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_10.4",
+      "to": "tool_get_covid19_variations",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_11",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_subgroup_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_subgroup_analysis_specs",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_11",
+      "to": "tool_get_subgroup_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_subgroup_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_subgroup_specifications",
+      "to": "reg_FDA_Subgroup_Analysis_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_subgroup_specifications",
+      "to": "url_get_subgroup_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_11",
+      "to": "tool_get_subgroup_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_11",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_11",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_safety_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_safety_analysis_specs",
+      "to": "reg_ICH_E2A_Safety_Reporting",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_safety_analysis_specs",
+      "to": "reg_CTCAE_v5.0",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_safety_analysis_specs",
+      "to": "url_get_safety_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12",
+      "to": "tool_get_safety_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_safety_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "reg_CTCAE_v5.0",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_safety_tables",
+      "to": "url_get_safety_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12",
+      "to": "tool_get_safety_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_safety_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_safety_specifications",
+      "to": "reg_ICH_E2A",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_safety_specifications",
+      "to": "reg_CTCAE_v5.0",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_safety_specifications",
+      "to": "url_get_safety_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12",
+      "to": "tool_get_safety_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_ae_period_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_ae_period_specifications",
+      "to": "reg_CDISC_ADAE",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_ae_period_specifications",
+      "to": "reg_ICH_E2A_Safety_Reporting",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_ae_period_specifications",
+      "to": "url_get_ae_period_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12",
+      "to": "tool_get_ae_period_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_12.1",
+      "to": "tool_get_ae_period_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.2",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_death_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_death_analysis_specs",
+      "to": "reg_FDA_Oncology_Endpoint_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_death_analysis_specs",
+      "to": "url_get_death_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.2",
+      "to": "tool_get_death_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_exposure_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_exposure_specifications",
+      "to": "reg_CDISC_ADEX_Specification",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_exposure_specifications",
+      "to": "url_get_exposure_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.3",
+      "to": "tool_get_exposure_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_treatment_compliance_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_treatment_compliance_specs",
+      "to": "reg_ICH_E9_Statistical_Principles",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_treatment_compliance_specs",
+      "to": "url_get_treatment_compliance_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.3",
+      "to": "tool_get_treatment_compliance_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_subsequent_therapy_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_subsequent_therapy_specs",
+      "to": "reg_FDA_Oncology_Endpoint_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_subsequent_therapy_specs",
+      "to": "url_get_subsequent_therapy_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.4",
+      "to": "tool_get_subsequent_therapy_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.8",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_12.8",
+      "to": "tool_get_cart_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_cart_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_cart_tables",
+      "to": "trial_ZUMA-1_Axicabtagene",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_tables",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_tables",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_tables",
+      "to": "url_get_cart_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.8",
+      "to": "tool_get_cart_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_12.8",
+      "to": "tool_get_ae_period_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.9",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_12.9",
+      "to": "tool_get_cart_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_12.9",
+      "to": "tool_get_cart_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.10",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_12.10",
+      "to": "tool_get_cart_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_pkpd_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_pkpd_analysis_specs",
+      "to": "reg_FDA_Population_PK_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_pkpd_analysis_specs",
+      "to": "url_get_pkpd_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.10",
+      "to": "tool_get_pkpd_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.11",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_cart_manufacturing_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_cart_manufacturing_specs",
+      "to": "trial_ZUMA-1_Axicabtagene",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_manufacturing_specs",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_cart_manufacturing_specs",
+      "to": "url_get_cart_manufacturing_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.11",
+      "to": "tool_get_cart_manufacturing_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.14",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_healthcare_utilization_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_healthcare_utilization_specs",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_healthcare_utilization_specs",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_12.14",
+      "to": "tool_get_healthcare_utilization_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.15",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_immunogenicity_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_immunogenicity_specs",
+      "to": "reg_FDA_Immunogenicity_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_immunogenicity_specs",
+      "to": "url_get_immunogenicity_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.15",
+      "to": "tool_get_immunogenicity_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.16",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_adc_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_adc_specifications",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adc_specifications",
+      "to": "trial_EV-301_Enfortumab_Vedotin",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adc_specifications",
+      "to": "trial_InnovaTV_301_SGNTV-003",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adc_specifications",
+      "to": "trial_KATHERINE_NCT01772472",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adc_specifications",
+      "to": "url_get_adc_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.16",
+      "to": "tool_get_adc_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_12.16",
+      "to": "tool_get_safety_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_12.17",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_bispecific_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_bispecific_specifications",
+      "to": "trial_CD19-CD22_BiCART",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_bispecific_specifications",
+      "to": "trial_FDA_Elranatamab_Review",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_bispecific_specifications",
+      "to": "trial_FDA_Teclistamab_Review",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_bispecific_specifications",
+      "to": "url_get_bispecific_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_12.17",
+      "to": "tool_get_bispecific_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_12.17",
+      "to": "tool_get_safety_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_13",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_interim_analysis",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "trial_MONALEESA-3_CLEE011F2301",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "reg_FDA_Adaptive_Designs_for_Clinical_Trials",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_interim_analysis",
+      "to": "url_get_interim_analysis",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_13",
+      "to": "tool_get_interim_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_interim_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_interim_analysis_specs",
+      "to": "reg_FDA_Adaptive_Designs_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_interim_analysis_specs",
+      "to": "reg_Lan-DeMets_Alpha_Spending",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_interim_analysis_specs",
+      "to": "url_get_interim_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_13",
+      "to": "tool_get_interim_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_13",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_14",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_biomarker_endpoints",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_biomarker_endpoints",
+      "to": "reg_FDA_Biomarker_Qualification_Program",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_biomarker_endpoints",
+      "to": "url_get_biomarker_endpoints",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_14",
+      "to": "tool_get_biomarker_endpoints",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_14",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_15",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_pro_qol_analysis",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_pro_qol_analysis",
+      "to": "reg_EORTC_QLQ-C30_Scoring_Manual",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_pro_qol_analysis",
+      "to": "reg_EQ-5D_User_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_pro_qol_analysis",
+      "to": "url_get_pro_qol_analysis",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_15",
+      "to": "tool_get_pro_qol_analysis",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_qol_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_qol_analysis_specs",
+      "to": "reg_EORTC_QLQ-C30_Scoring_Manual",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_qol_analysis_specs",
+      "to": "reg_FDA_PRO_Guidance",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_qol_analysis_specs",
+      "to": "url_get_qol_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_15",
+      "to": "tool_get_qol_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_15",
+      "to": "tool_get_reference_sap_section",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_16",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_study_definitions",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_study_definitions",
+      "to": "reg_ICH_E9_Statistical_Principles",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_study_definitions",
+      "to": "url_get_study_definitions",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_16",
+      "to": "tool_get_study_definitions",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_17",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_programming_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_programming_specifications",
+      "to": "reg_CDISC_ADaM_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_programming_specifications",
+      "to": "url_get_programming_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_17",
+      "to": "tool_get_programming_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_derived_variables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_derived_variables",
+      "to": "reg_CDISC_ADaM_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_derived_variables",
+      "to": "url_get_derived_variables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_17",
+      "to": "tool_get_derived_variables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_analysis_windows",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_analysis_windows",
+      "to": "reg_CDISC_ADaM_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_analysis_windows",
+      "to": "url_get_analysis_windows",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_17",
+      "to": "tool_get_analysis_windows",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_analysis_timing_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_analysis_timing_specs",
+      "to": "reg_FDA_Clinical_Review_Documents",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_analysis_timing_specs",
+      "to": "url_get_analysis_timing_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_17",
+      "to": "tool_get_analysis_timing_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_17.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_data_cutoff_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_data_cutoff_specs",
+      "to": "reg_FDA_Clinical_Review_Documents",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_data_cutoff_specs",
+      "to": "url_get_data_cutoff_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_17.4",
+      "to": "tool_get_data_cutoff_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_disposition_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_disposition_tables",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_disposition_tables",
+      "to": "trial_CASSIOPEIA_NCT02541383",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_disposition_tables",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_disposition_tables",
+      "to": "url_get_disposition_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_18",
+      "to": "tool_get_disposition_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_efficacy_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_efficacy_tables",
+      "to": "url_get_efficacy_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_18",
+      "to": "tool_get_efficacy_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_18",
+      "to": "tool_get_safety_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_all_figures",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_ADAURA_D5164C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_CheckMate-649_CA209649",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_ZUMA-3_KTE-X19",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_ELIANA_CTL019B2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_all_figures",
+      "to": "url_get_all_figures",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_18",
+      "to": "tool_get_all_figures",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_listings",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_listings",
+      "to": "reg_CDISC_Standards",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_listings",
+      "to": "reg_PHUSE_Templates",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_listings",
+      "to": "url_get_listings",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_18",
+      "to": "tool_get_listings",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.1",
+      "to": "tool_get_disposition_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_18.1",
+      "to": "tool_get_single_arm_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_enrollment_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_enrollment_specifications",
+      "to": "reg_ICH_E6_Good_Clinical_Practice",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_enrollment_specifications",
+      "to": "url_get_enrollment_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_18.1",
+      "to": "tool_get_enrollment_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.2",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.2",
+      "to": "tool_get_demographics_baseline_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_18.2",
+      "to": "tool_get_baseline_covariates",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_lymphoma_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_lymphoma_tables",
+      "to": "trial_ELARA_CCTL019E2202",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_lymphoma_tables",
+      "to": "trial_L-MIND_MOR208C203",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "section_18.2",
+      "to": "tool_get_lymphoma_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.3",
+      "to": "tool_get_efficacy_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.4",
+      "to": "tool_get_safety_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_18.4",
+      "to": "tool_get_cart_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.5",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.5",
+      "to": "tool_get_all_figures",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_18.6",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_18.6",
+      "to": "tool_get_listings",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_19",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_protocol_deviation_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_protocol_deviation_specs",
+      "to": "reg_ICH_E3_Clinical_Study_Reports",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_protocol_deviation_specs",
+      "to": "url_get_protocol_deviation_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_19",
+      "to": "tool_get_protocol_deviation_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_20",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_follow_up_analysis_specs",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_follow_up_analysis_specs",
+      "to": "reg_FDA_Clinical_Review_Documents",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_follow_up_analysis_specs",
+      "to": "url_get_follow_up_analysis_specs",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_20",
+      "to": "tool_get_follow_up_analysis_specs",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_21",
+      "relationship": "defines"
+    },
+    {
+      "from": "config",
+      "to": "section_22",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_required_references",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_required_references",
+      "to": "reg_Standard_SAP_citations",
+      "relationship": "based_on"
+    },
+    {
+      "from": "section_22",
+      "to": "tool_get_required_references",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_A.1",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_date_imputation_rules",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_date_imputation_rules",
+      "to": "reg_CDISC_SDTM_ADaM_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_date_imputation_rules",
+      "to": "url_get_date_imputation_rules",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.1",
+      "to": "tool_get_date_imputation_rules",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_A.2",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_tte_derivation_tables",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_tte_derivation_tables",
+      "to": "reg_CDISC_ADTTE_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_tte_derivation_tables",
+      "to": "url_get_tte_derivation_tables",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.2",
+      "to": "tool_get_tte_derivation_tables",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_A.2",
+      "to": "tool_get_censoring_rules",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_A.3",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_meddra_search_strategies",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_meddra_search_strategies",
+      "to": "reg_MedDRA_SMQ_CMQ_Documentation",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_meddra_search_strategies",
+      "to": "url_get_meddra_search_strategies",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.3",
+      "to": "tool_get_meddra_search_strategies",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_A.4",
+      "relationship": "defines"
+    },
+    {
+      "from": "section_A.4",
+      "to": "tool_get_response_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_recist_specifications",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_ALEX_NCT02838420",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_BEACON_CRC_ARRAY-818-302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_CheckMate-649_CA209649",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_ClarIDHy_AG120-C-005",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_DESTINY-Breast03_DS8201-A-U302",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_IMpower133_NCT02763579",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_PACIFIC_D4191C00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_POLO_D081FC00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "trial_TOPAZ-1_D933AC00001",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "reg_Eisenhauer_et_al._Eur_J_Cancer_2009_RECIST_1.1",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_recist_specifications",
+      "to": "url_get_recist_specifications",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.4",
+      "to": "tool_get_recist_specifications",
+      "relationship": "uses"
+    },
+    {
+      "from": "section_A.4",
+      "to": "tool_get_all_response_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_cml_criteria",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_cml_criteria",
+      "to": "reg_ELN_CML_Guidelines_Baccarani_Blood_2013",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_cml_criteria",
+      "to": "url_get_cml_criteria",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.4",
+      "to": "tool_get_cml_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_iwcll_criteria",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_iwcll_criteria",
+      "to": "reg_iwCLL_Guidelines_Hallek_Blood_2018",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_iwcll_criteria",
+      "to": "url_get_iwcll_criteria",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.4",
+      "to": "tool_get_iwcll_criteria",
+      "relationship": "uses"
+    },
+    {
+      "from": "config",
+      "to": "section_A.5",
+      "relationship": "defines"
+    },
+    {
+      "from": "kb_tools",
+      "to": "tool_get_adam_dataset_spec",
+      "relationship": "contains"
+    },
+    {
+      "from": "tool_get_adam_dataset_spec",
+      "to": "trial_KEYNOTE-024_MK-3475-024",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adam_dataset_spec",
+      "to": "trial_CheckMate-214_CA209214",
+      "relationship": "extracted_from"
+    },
+    {
+      "from": "tool_get_adam_dataset_spec",
+      "to": "reg_CDISC_ADaM_Implementation_Guide",
+      "relationship": "based_on"
+    },
+    {
+      "from": "tool_get_adam_dataset_spec",
+      "to": "url_get_adam_dataset_spec",
+      "relationship": "public_reference"
+    },
+    {
+      "from": "section_A.5",
+      "to": "tool_get_adam_dataset_spec",
+      "relationship": "uses"
+    }
+  ]
+}

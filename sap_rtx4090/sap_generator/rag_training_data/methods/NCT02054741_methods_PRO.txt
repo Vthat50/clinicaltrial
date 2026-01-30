@@ -1,0 +1,72 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT02054741
+Section: METHODS
+Features: pro_qol, pro_endpoints
+Quality Tier: 1 (Specialized)
+
+---
+
+more than 16 NCORP sites are interested in participating, we will 
+allow randomization. The total participant sample size will remain the same, and accrual will cease 
+when that target is met. 
+15.4. Primary Analysis 
+a.
+The primary outcome measure for this study is the proportion of participants that experience
+grade 3-5 toxicity within 3 months of treatment initiation.  Because of the cluster randomized
+study design, we will apply generalized linear mixed model (GLMM) methodology.114
+Toxicity (Yes/No) will be the response, and arm, treatment type and arm:treatment type
+interaction will be the fixed effects.  NCORP practice site will be entered as a random effect
+independent of residual error.  Estimation will be performed using the Residual Pseudo
+Likelihood procedure, assuming a binomial distribution and logit link.  Using the fitted
+model, we will provide estimates and 95% confidence intervals for proportion of participants
+that experience toxicity for each arm, as well as risk ratios between the arms. This will allow
+the results for those who fit the original eligibility criterion (on chemotherapy) to be
+compared to the other allowed treatments that have a similar toxicity profile as
+chemotherapy.
+15.5. Secondary Analyses 
+15.5.1. Secondary Aim 1.  We will determine the effect of the intervention on 6-month survival 
+using log rank tests and survival plots. Assuming an exponential survival distribution, and given 
+survival proportion of 0.89 at 6 months from our previous observational work5 and a sample size of 
+624, we estimate that there will be 80% power (0.05 significance level) to detect an increase in 
+survival proportion greater than 0.942, implying a detectable hazard ratio of 0.511.   
+15.5.2. Secondary Aim 2a.  We will compare the effect of the intervention on measures of 
+decisional regret (both participant and oncology physician) using four linear mixed models (regret).  
+For each model, Arm will be the fixed effect and NCORP will be a random effect (independent of 
+residual error).  Restricted Maximum Likelihood (REML) estimation will be used, and inference will 
+be performed using the Kenward-Roger degrees of freedom adjustment procedure.  We will also 
+determine whether the intervention influences the relative dose intensity (RDI) of treatment given in 
+the first line setting by analyzing the Phase II RDI in the same manner.  In addition, to investigate 
+whether the intervention changes dosing, we will analyze with a linear mixed model.  In this model, 
+RDI will be the response.  The fixed effect will be Arm and the random effect will be NCORP.  
+Overall change in dosing will be assessed with an F Test. Lastly, we will determine the association of 
+baseline oncology physician and patient decision-making interaction on likelihood of developing 
+toxicity. Variables to be evaluated will be derived from participant assessments (control preferences 
+(CP)) and oncology physician comfort (PC) with shared decision-making.  A GLMM will be fit with 
+chemotherapy toxicity as the response, Arm, , CP and PC as fixed factors, and NCORP site as a 
+random effect independent of residual error.  Otherwise, the modeling methodology is the same as for 
+the Primary Aim. 
+NCT02054741
+9-26-16 URCC13059 Revised Protocol clean (1)26
+34 
+15.5.3. Secondary Aim 2b. We will compare whether the uptake of geriatric assessment 
+interventions (% of recommended interventions carried out influences chemotherapy toxicity.  The 
+data from the intervention arm will be fit to a GLMM with  toxicity as the outcome, percent of 
+recommended interventions as the fixed effect, and NCORP site as a random effect independent of 
+residual error.  Otherwise, the modeling methodology is the same as for the Primary Aim. 
+15.5.4. Exploratory Aims.   We will evaluate changes in functional abilities and physical 
+performance between Arms 1 and 2.  For each of these outcomes, a GLMM structured the same as 
+that used in Specific Aim 2 will be used.  Functional status will measured with IADL score.   Physical 
+performance will be measured with the OARS Physical Health Subscale and the Short Physical 
+Performance Battery.  PRO-CTCAE analyses will be performed using descriptive statistics, 
+correlations, and regressions to evaluate changes in symptoms over time, relationship between PRO 
+results and clinician-related to toxicity, and relationship of symptoms with treatment decisions. 
+15.6. Missing Data 
+Every effort will be made to encourage and facilitate participants' completion of questionnaires, but 
+because of dropout, missing data will occur. We will evaluate the patterns of missing data and 
+associations of missingness with other available variables. Under the missing at random (MAR) 
+assumption, we will use multiple imputation to obtain unbiased estimates of the key statistics.  If the data 
+are suspected to be missing not at random (MNAR), a sensitivity analysis using selection and/or pattern-
+mixture models will be run to determine the impact on the results.115  If the estimates are similar to the 
+ones obtained from the simpler analysis of only complete cases, we will report the complete-case analysis 
+results.  
+It is hypothesized that the GA su

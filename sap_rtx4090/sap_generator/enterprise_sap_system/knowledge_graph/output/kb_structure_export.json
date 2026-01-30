@@ -1,0 +1,795 @@
+{
+  "metadata": {
+    "generated": "2026-01-11",
+    "description": "SAP Knowledge Base Structure Export"
+  },
+  "files": {
+    "methodology_knowledge_base.py": {
+      "description": "Statistical methods, censoring rules, multiplicity",
+      "size_kb": 68.7,
+      "lines": 1814,
+      "modules": {
+        "STRATIFICATION_SPECIFICATIONS": {
+          "num_keys": 3,
+          "keys": [
+            "common_stratification_factors",
+            "stratification_by_indication",
+            "stratification_analysis_rules"
+          ],
+          "has_more": false
+        },
+        "DERIVED_VARIABLE_SPECIFICATIONS": {
+          "num_keys": 6,
+          "keys": [
+            "time_to_event_variables",
+            "response_variables",
+            "baseline_variables",
+            "derived_flags",
+            "exposure_variables",
+            "survival_follow_up"
+          ],
+          "has_more": false
+        },
+        "TIME_TO_EVENT_ANALYSIS": {
+          "num_keys": 8,
+          "keys": [
+            "pfs",
+            "os",
+            "dor",
+            "ttr",
+            "ttp",
+            "ttf",
+            "efs",
+            "dfs"
+          ],
+          "has_more": false
+        },
+        "CENSORING_RULES": {
+          "num_keys": 3,
+          "keys": [
+            "pfs_censoring",
+            "os_censoring",
+            "dor_censoring"
+          ],
+          "has_more": false
+        },
+        "STATISTICAL_METHODS": {
+          "num_keys": 5,
+          "keys": [
+            "log_rank_test",
+            "cox_proportional_hazards",
+            "kaplan_meier",
+            "fleming_harrington",
+            "rmst"
+          ],
+          "has_more": false
+        },
+        "CONFIDENCE_INTERVAL_METHODS": {
+          "num_keys": 5,
+          "keys": [
+            "proportions",
+            "differences",
+            "odds_ratios",
+            "hazard_ratios",
+            "medians"
+          ],
+          "has_more": false
+        },
+        "MISSING_DATA_HANDLING": {
+          "num_keys": 5,
+          "keys": [
+            "primary_assumption",
+            "date_imputation",
+            "multiple_imputation",
+            "last_observation_carried_forward",
+            "baseline_observation_carried_forward"
+          ],
+          "has_more": false
+        },
+        "SENSITIVITY_ANALYSES": {
+          "num_keys": 4,
+          "keys": [
+            "pfs_sensitivity",
+            "os_sensitivity",
+            "response_sensitivity",
+            "missing_data_sensitivity"
+          ],
+          "has_more": false
+        },
+        "MULTIPLICITY_ADJUSTMENT": {
+          "num_keys": 5,
+          "keys": [
+            "fixed_sequence",
+            "alpha_spending",
+            "graphical_approach",
+            "bonferroni_holm",
+            "subgroup_multiplicity"
+          ],
+          "has_more": false
+        },
+        "SUBGROUP_ANALYSIS_SPECIFICATIONS": {
+          "num_keys": 3,
+          "keys": [
+            "pre_specified_subgroups",
+            "methods",
+            "consistency_criteria"
+          ],
+          "has_more": false
+        },
+        "SAFETY_ANALYSIS_SPECIFICATIONS": {
+          "num_keys": 7,
+          "keys": [
+            "teae_definition",
+            "coding",
+            "counting_rules",
+            "exposure_adjusted",
+            "laboratory",
+            "vital_signs",
+            "ecg"
+          ],
+          "has_more": false
+        },
+        "PRO_QOL_ANALYSIS": {
+          "num_keys": 3,
+          "keys": [
+            "instruments",
+            "analysis_methods",
+            "missing_data"
+          ],
+          "has_more": false
+        },
+        "ANALYSIS_WINDOWS": {
+          "num_keys": 4,
+          "keys": [
+            "tumor_assessment",
+            "safety_windows",
+            "pro_windows",
+            "analysis_visit_derivation"
+          ],
+          "has_more": false
+        },
+        "INTERIM_ANALYSIS_SPECIFICATIONS": {
+          "num_keys": 5,
+          "keys": [
+            "regulatory_source",
+            "dmc_charter",
+            "efficacy_interim",
+            "os_interim_at_pfs_final",
+            "sample_size_re_estimation"
+          ],
+          "has_more": false
+        },
+        "DATA_CUTOFF_SPECIFICATIONS": {
+          "num_keys": 4,
+          "keys": [
+            "clinical_cutoff",
+            "database_lock",
+            "event_driven_analysis",
+            "follow_up_requirements"
+          ],
+          "has_more": false
+        }
+      }
+    },
+    "disease_specific_criteria.py": {
+      "description": "Response criteria: RECIST, Lugano, IMWG, iRECIST",
+      "size_kb": 25.6,
+      "lines": 680,
+      "modules": {
+        "RANO_CRITERIA": {
+          "num_keys": 10,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "imaging_requirements",
+            "measurable_disease",
+            "response_categories",
+            "pseudoprogression",
+            "pseudoresponse",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "LUGANO_CRITERIA": {
+          "num_keys": 10,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "imaging_requirements",
+            "measurable_disease",
+            "deauville_5_point_scale",
+            "response_categories",
+            "bone_marrow_assessment",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "PCWG3_CRITERIA": {
+          "num_keys": 9,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "psa_endpoints",
+            "soft_tissue_assessment",
+            "bone_assessment",
+            "overall_response",
+            "special_endpoints"
+          ],
+          "has_more": false
+        },
+        "IMWG_CRITERIA": {
+          "num_keys": 7,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "measurable_disease",
+            "response_categories",
+            "mrd_assessment"
+          ],
+          "has_more": false
+        },
+        "GCIG_CA125_CRITERIA": {
+          "num_keys": 8,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "ca125_response",
+            "ca125_progression",
+            "combined_response",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "RANO_BM_CRITERIA": {
+          "num_keys": 7,
+          "keys": [
+            "name",
+            "version",
+            "indication",
+            "reference",
+            "imaging",
+            "response_categories",
+            "local_vs_distant"
+          ],
+          "has_more": false
+        }
+      }
+    },
+    "oncology_reference_data.py": {
+      "description": "Therapy modules: CAR-T, ADC, bispecifics",
+      "size_kb": 52.7,
+      "lines": 1266,
+      "modules": {
+        "PCWG3_CRITERIA": {
+          "num_keys": 7,
+          "keys": [
+            "name",
+            "full_name",
+            "indication",
+            "version",
+            "response_categories",
+            "endpoints",
+            "baseline_variables"
+          ],
+          "has_more": false
+        },
+        "IMWG_CRITERIA": {
+          "num_keys": 8,
+          "keys": [
+            "name",
+            "full_name",
+            "indication",
+            "version",
+            "response_categories",
+            "MRD_assessment",
+            "endpoints",
+            "baseline_variables"
+          ],
+          "has_more": false
+        },
+        "GCIG_CA125_CRITERIA": {
+          "num_keys": 7,
+          "keys": [
+            "name",
+            "full_name",
+            "indication",
+            "version",
+            "response_categories",
+            "endpoints",
+            "baseline_variables"
+          ],
+          "has_more": false
+        },
+        "CML_CRITERIA": {
+          "num_keys": 8,
+          "keys": [
+            "name",
+            "full_name",
+            "indication",
+            "version",
+            "response_categories",
+            "milestones",
+            "endpoints",
+            "baseline_variables"
+          ],
+          "has_more": false
+        },
+        "IWCLL_CRITERIA": {
+          "num_keys": 7,
+          "keys": [
+            "name",
+            "full_name",
+            "indication",
+            "version",
+            "response_categories",
+            "endpoints",
+            "baseline_variables"
+          ],
+          "has_more": false
+        },
+        "ADJUVANT_TRIAL_TEMPLATE": {
+          "num_keys": 5,
+          "keys": [
+            "study_type",
+            "description",
+            "primary_endpoints",
+            "secondary_endpoints",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "NEOADJUVANT_TRIAL_TEMPLATE": {
+          "num_keys": 5,
+          "keys": [
+            "study_type",
+            "description",
+            "primary_endpoints",
+            "secondary_endpoints",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "BASKET_TRIAL_TEMPLATE": {
+          "num_keys": 5,
+          "keys": [
+            "study_type",
+            "description",
+            "design_features",
+            "primary_endpoints",
+            "statistical_considerations"
+          ],
+          "has_more": false
+        },
+        "UMBRELLA_TRIAL_TEMPLATE": {
+          "num_keys": 5,
+          "keys": [
+            "study_type",
+            "description",
+            "design_features",
+            "primary_endpoints",
+            "statistical_considerations"
+          ],
+          "has_more": false
+        },
+        "PHASE1_DOSE_FINDING_TEMPLATE": {
+          "num_keys": 5,
+          "keys": [
+            "study_type",
+            "description",
+            "designs",
+            "primary_endpoints",
+            "dlt_evaluation"
+          ],
+          "has_more": false
+        },
+        "CAR_T_MODULE": {
+          "num_keys": 14,
+          "keys": [
+            "therapy_type",
+            "description",
+            "unique_toxicities",
+            "analysis_populations",
+            "efficacy_endpoints",
+            "retreatment_endpoints",
+            "cellular_kinetics",
+            "special_endpoints",
+            "safety_monitoring",
+            "meddra_search_strategies",
+            "tte_derivation_rules",
+            "date_imputation_rules",
+            "operational_definitions",
+            "single_arm_considerations"
+          ],
+          "has_more": false
+        },
+        "BISPECIFIC_ANTIBODY_MODULE": {
+          "num_keys": 5,
+          "keys": [
+            "therapy_type",
+            "description",
+            "unique_considerations",
+            "efficacy_endpoints",
+            "safety_endpoints"
+          ],
+          "has_more": false
+        },
+        "ADC_MODULE": {
+          "num_keys": 5,
+          "keys": [
+            "therapy_type",
+            "description",
+            "unique_toxicities",
+            "efficacy_endpoints",
+            "pk_endpoints"
+          ],
+          "has_more": false
+        },
+        "BIOMARKER_ENDPOINTS": {
+          "num_keys": 7,
+          "keys": [
+            "PSA",
+            "M_protein",
+            "FLC",
+            "CA125",
+            "BCR_ABL",
+            "ctDNA",
+            "AFP"
+          ],
+          "has_more": false
+        },
+        "PERFORMANCE_STATUS_SCALES": {
+          "num_keys": 4,
+          "keys": [
+            "ECOG",
+            "Karnofsky",
+            "Lansky",
+            "ASA"
+          ],
+          "has_more": false
+        },
+        "ORGAN_FUNCTION_SCORES": {
+          "num_keys": 3,
+          "keys": [
+            "Child_Pugh",
+            "ALBI",
+            "eGFR_thresholds"
+          ],
+          "has_more": false
+        },
+        "PROGNOSTIC_SCORES": {
+          "num_keys": 2,
+          "keys": [
+            "IMDC",
+            "IPI"
+          ],
+          "has_more": false
+        },
+        "EFFICACY_TFL_TEMPLATES": {
+          "num_keys": 4,
+          "keys": [
+            "OS_5year",
+            "exploratory_endpoints",
+            "endpoint_specifications",
+            "exploratory_specifications"
+          ],
+          "has_more": false
+        },
+        "SAFETY_TFL_TEMPLATES": {
+          "num_keys": 2,
+          "keys": [
+            "ae_by_visit",
+            "ae_leading_to_modification"
+          ],
+          "has_more": false
+        }
+      }
+    },
+    "complete_tfl_inventory.py": {
+      "description": "TFL shell templates",
+      "size_kb": 68.0,
+      "lines": 1687,
+      "modules": {
+        "DISPOSITION_TABLES": {
+          "num_keys": 15,
+          "keys": [
+            "14.1.1",
+            "14.1.2",
+            "14.1.3",
+            "14.1.4",
+            "14.1.5",
+            "14.1.6",
+            "14.1.7",
+            "14.1.8",
+            "14.1.9",
+            "14.1.10",
+            "14.1.11",
+            "14.1.12",
+            "14.1.13",
+            "14.1.14",
+            "14.1.15"
+          ],
+          "has_more": false
+        },
+        "EFFICACY_TABLES": {
+          "num_keys": 24,
+          "keys": [
+            "14.2.1.1",
+            "14.2.1.2",
+            "14.2.1.3",
+            "14.2.2.1",
+            "14.2.2.2",
+            "14.2.3.1",
+            "14.2.3.2",
+            "14.2.3.3",
+            "14.2.4.1",
+            "14.2.4.2",
+            "14.2.5.1",
+            "14.2.5.2",
+            "14.2.5.3",
+            "14.2.6.1",
+            "14.2.6.2",
+            "14.2.7.1",
+            "14.2.7.2",
+            "14.2.7.3",
+            "14.2.8.1",
+            "14.2.8.2"
+          ],
+          "has_more": true
+        },
+        "SAFETY_TABLES": {
+          "num_keys": 29,
+          "keys": [
+            "14.3.1.1",
+            "14.3.1.2",
+            "14.3.1.3",
+            "14.3.1.4",
+            "14.3.2.1",
+            "14.3.2.2",
+            "14.3.3.1",
+            "14.3.3.2",
+            "14.3.4.1",
+            "14.3.4.2",
+            "14.3.5.1",
+            "14.3.5.2",
+            "14.3.6.1",
+            "14.3.6.2",
+            "14.3.7.1",
+            "14.3.7.2",
+            "14.3.7.3",
+            "14.3.7.4",
+            "14.3.7.5",
+            "14.3.8.1"
+          ],
+          "has_more": true
+        },
+        "FIGURES": {
+          "num_keys": 15,
+          "keys": [
+            "14.4.1.1",
+            "14.4.1.2",
+            "14.4.2.1",
+            "14.4.3.1",
+            "14.4.4.1",
+            "14.4.4.2",
+            "14.4.5.1",
+            "14.4.5.2",
+            "14.4.6.1",
+            "14.4.7.1",
+            "14.4.8.1",
+            "14.4.9.1",
+            "14.4.10.1",
+            "14.4.11.1",
+            "14.4.12.1"
+          ],
+          "has_more": false
+        },
+        "LISTINGS": {
+          "num_keys": 26,
+          "keys": [
+            "16.2.1.1",
+            "16.2.1.2",
+            "16.2.1.3",
+            "16.2.2.1",
+            "16.2.3.1",
+            "16.2.3.2",
+            "16.2.3.3",
+            "16.2.3.4",
+            "16.2.4.1",
+            "16.2.4.2",
+            "16.2.4.3",
+            "16.2.4.4",
+            "16.2.4.5",
+            "16.2.5.1",
+            "16.2.5.2",
+            "16.2.5.3",
+            "16.2.5.4",
+            "16.2.5.5",
+            "16.2.6.1",
+            "16.2.6.2"
+          ],
+          "has_more": true
+        },
+        "SINGLE_ARM_DISPOSITION_TABLES": {
+          "num_keys": 3,
+          "keys": [
+            "14.1.1_SA",
+            "14.1.2_SA",
+            "14.2.1_SA"
+          ],
+          "has_more": false
+        },
+        "LYMPHOMA_BASELINE_TABLES": {
+          "num_keys": 2,
+          "keys": [
+            "14.1.3_LYM",
+            "14.1.4_LYM"
+          ],
+          "has_more": false
+        },
+        "LYMPHOMA_EFFICACY_TABLES": {
+          "num_keys": 2,
+          "keys": [
+            "14.2.1_LYM",
+            "14.2.2_LYM"
+          ],
+          "has_more": false
+        },
+        "CAR_T_SAFETY_TABLES": {
+          "num_keys": 6,
+          "keys": [
+            "14.3.1_CART",
+            "14.3.2_CART",
+            "14.3.3_CART",
+            "14.3.4_CART",
+            "14.3.5_CART",
+            "14.3.6_CART"
+          ],
+          "has_more": false
+        },
+        "CAR_T_RETREATMENT_TABLES": {
+          "num_keys": 2,
+          "keys": [
+            "14.2.10_CART_RT",
+            "14.2.11_CART_RT"
+          ],
+          "has_more": false
+        }
+      }
+    },
+    "production_sap_specifications.py": {
+      "description": "SAP section specifications",
+      "size_kb": 56.2,
+      "lines": 1376,
+      "modules": {
+        "TFL_SHELLS": {
+          "num_keys": 5,
+          "keys": [
+            "disposition_tables",
+            "efficacy_tables",
+            "safety_tables",
+            "figures",
+            "formatting_rules"
+          ],
+          "has_more": false
+        },
+        "ADAM_SPECIFICATIONS": {
+          "num_keys": 5,
+          "keys": [
+            "adsl",
+            "adae",
+            "adtte",
+            "adrs",
+            "adlb"
+          ],
+          "has_more": false
+        },
+        "ESTIMANDS_FRAMEWORK": {
+          "num_keys": 4,
+          "keys": [
+            "definition",
+            "intercurrent_event_strategies",
+            "common_intercurrent_events",
+            "example_estimands"
+          ],
+          "has_more": false
+        },
+        "PROGRAMMING_SPECIFICATIONS": {
+          "num_keys": 6,
+          "keys": [
+            "visit_windowing",
+            "baseline_definition",
+            "analysis_windows",
+            "rounding_rules",
+            "handling_multiple_records",
+            "date_imputation"
+          ],
+          "has_more": false
+        },
+        "STUDY_DESIGN": {
+          "num_keys": 3,
+          "keys": [
+            "sample_size",
+            "alpha_allocation",
+            "interim_analysis"
+          ],
+          "has_more": false
+        },
+        "RECIST_SPECIFICATIONS": {
+          "num_keys": 7,
+          "keys": [
+            "target_lesions",
+            "non_target_lesions",
+            "new_lesions",
+            "response_categories",
+            "confirmation_requirements",
+            "best_overall_response",
+            "special_considerations"
+          ],
+          "has_more": false
+        },
+        "SAFETY_SPECIFICATIONS": {
+          "num_keys": 6,
+          "keys": [
+            "teae_definition",
+            "ae_summaries",
+            "laboratory_analysis",
+            "vital_signs",
+            "ecg_analysis",
+            "exposure"
+          ],
+          "has_more": false
+        },
+        "DATA_HANDLING": {
+          "num_keys": 7,
+          "keys": [
+            "treatment_assignment",
+            "unscheduled_visits",
+            "re_screening",
+            "treatment_discontinuation",
+            "study_discontinuation",
+            "missing_data",
+            "concurrent_medications"
+          ],
+          "has_more": false
+        }
+      }
+    },
+    "regulatory_standards.py": {
+      "description": "ICH E9, FDA guidance, MedDRA, CTCAE",
+      "size_kb": 24.7,
+      "lines": 692,
+      "modules": {}
+    }
+  },
+  "factual_kg": {
+    "size_mb": 3.1,
+    "total_nodes": 6311,
+    "total_edges": 6858,
+    "node_types": {
+      "trial": 354,
+      "document": 385,
+      "endpoint": 1760,
+      "quote": 1204,
+      "method": 958,
+      "population": 458,
+      "estimand": 64,
+      "visit": 508,
+      "censoring_rule": 288,
+      "stratum": 6,
+      "table": 44,
+      "interim_analysis": 85,
+      "sample_size": 114,
+      "multiplicity": 83
+    }
+  }
+}

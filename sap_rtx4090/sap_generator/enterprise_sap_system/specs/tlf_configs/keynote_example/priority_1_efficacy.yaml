@@ -1,0 +1,477 @@
+# KEYNOTE-EXAMPLE Priority 1 Efficacy TLF Shells
+# ================================================
+# Immuno-Oncology Study: Pembrolizumab + Chemo vs Placebo + Chemo
+# Primary Endpoints: PFS, OS
+
+metadata:
+  study: "KEYNOTE-EXAMPLE"
+  study_type: "immuno_oncology"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 1
+  category: "Efficacy"
+  sap_sections: ["8.1", "8.2"]
+
+# Inherit from IO base
+base_config: "../core/base_immuno_oncology.yaml"
+
+# AESI profile for this study
+aesi_profile:
+  - "checkpoint_inhibitor"
+  - "cytotoxic_chemotherapy"
+
+# =============================================================================
+# PRIMARY ENDPOINT TABLES
+# =============================================================================
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.2.1.1: PFS Summary - Primary Analysis
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.1"
+    title: "Summary of Progression-Free Survival (ITT Population, BICR)"
+    tlf_type: TABLE
+    population: ITT Population
+    review_type: BICR
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "Pembrolizumab + Chemo\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        source_variable: "ADTTE"
+      - header: "Placebo + Chemo\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Median PFS (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "PFS Rate [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 18 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Treatment Comparison"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "PFS per RECIST 1.1 by Blinded Independent Central Review (BICR)."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI for median by Brookmeyer-Crowley method."
+      - symbol: "c"
+        text: "HR from stratified Cox model; stratification factors: PD-L1 TPS, Region, Histology."
+      - symbol: "d"
+        text: "HR < 1 favors Pembrolizumab + Chemo."
+      - symbol: "e"
+        text: "One-sided p-value from stratified log-rank test; alpha = 0.025."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'PFS' and SRCDOM = 'BICR'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Primary analysis per protocol"
+      - "Stratified by PDLCAT, REGION, HISTOL"
+      - "Interim analysis: alpha spending per O'Brien-Fleming"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.1.2: OS Summary - Primary Analysis
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.2"
+    title: "Summary of Overall Survival (ITT Population)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "Pembrolizumab + Chemo\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        source_variable: "ADTTE"
+      - header: "Placebo + Chemo\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Deaths, n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Median OS (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Survival Rate [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Treatment Comparison"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "OS defined as time from randomization to death from any cause."
+      - symbol: "b"
+        text: "HR from stratified Cox model; HR < 1 favors Pembrolizumab + Chemo."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'OS'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.1: ORR Summary - BICR
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.1"
+    title: "Best Overall Response (ITT Population, BICR)"
+    tlf_type: TABLE
+    population: ITT Population
+    review_type: BICR
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Response Category"
+        width: 3.0
+        alignment: L
+        source_variable: "ADRS.AVALC"
+      - header: "Pembrolizumab + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS"
+      - header: "Placebo + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS"
+
+    stub_rows:
+      - level: 0
+        label: "Evaluable Subjects"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Best Overall Response"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Complete Response (CR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Partial Response (PR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Stable Disease (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Progressive Disease (PD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Not Evaluable (NE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Objective Response Rate (CR+PR)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Disease Control Rate (CR+PR+SD)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Treatment Comparison (ORR)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Difference [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population."
+      - symbol: "a"
+        text: "Response per RECIST 1.1 by BICR."
+      - symbol: "b"
+        text: "95% CI by Clopper-Pearson exact method."
+      - symbol: "c"
+        text: "P-value from stratified Miettinen & Nurminen method."
+
+    source_dataset: "ADRS"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'BOR' and SRCDOM = 'BICR'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.2: PFS by PD-L1 Subgroup
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.2"
+    title: "Summary of PFS by PD-L1 Expression Subgroup (ITT Population, BICR)"
+    tlf_type: TABLE
+    population: ITT Population
+    review_type: BICR
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "PD-L1 Subgroup"
+        width: 2.0
+        alignment: L
+      - header: "Treatment"
+        width: 2.0
+        alignment: L
+      - header: "N"
+        width: 0.6
+        alignment: C
+      - header: "Events\nn (%)"
+        width: 1.0
+        alignment: C
+      - header: "Median PFS\n(months)"
+        width: 1.2
+        alignment: C
+      - header: "HR\n[95% CI]"
+        width: 1.5
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "TPS <1% (PD-L1 Negative)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "TPS 1-49% (PD-L1 Low)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "TPS ≥50% (PD-L1 High)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "TPS ≥1% (PD-L1 Positive)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population."
+      - symbol: "a"
+        text: "PD-L1 TPS by 22C3 pharmDx assay."
+      - symbol: "b"
+        text: "Subgroup analyses are exploratory; not adjusted for multiplicity."
+      - symbol: "c"
+        text: "HR from unstratified Cox model within each subgroup."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'PFS' and SRCDOM = 'BICR'"
+    sort_order: ["PDLCAT", "TRT01PN"]
+
+    programming_notes:
+      - "Key subgroup analysis for IO studies"
+      - "PD-L1 categories: <1%, 1-49%, ≥50%, ≥1%"
+      - "Forest plot companion figure recommended"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Efficacy Tables in this file: 4
+#   - PFS Primary: 1
+#   - OS Primary: 1
+#   - ORR: 1
+#   - PFS by PD-L1 Subgroup: 1

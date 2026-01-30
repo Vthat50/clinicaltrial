@@ -1,0 +1,313 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: UNKNOWN
+Section: METHODS
+Features: immunotherapy, non_proportional_hazards, fleming_harrington, methodology
+Quality Tier: 1 (Specialized)
+
+---
+
+1 
+Paper 5062-2020 
+Combination weighted log-rank tests for survival analysis with 
+non-proportional hazards 
+Andrea Knezevic & Sujata Patil, Memorial Sloan Kettering Cancer Center 
+ABSTRACT  
+The statistical methods most commonly used to test the equality of survival curves in 
+time-to-event analysis rely on the assumption of proportional hazards. In oncology drug 
+development, non-proportional hazards between investigational treatments are often 
+observed but statistical methods that properly account for these situations are rarely used 
+in practice. The use of combinations of Fleming-Harrington weighted log-rank statistics is 
+one relatively straightforward way to perform hypothesis testing in the presence of non-
+proportional hazards. In this approach, the maximum test statistic of several weighted log-
+rank statistics (Zmax) is calculated from Z-statistics obtained using the G(ρ,γ) family. A 
+combination test can simultaneously detect equally weighted, early, late or middle 
+departures from the null hypothesis and can thus robustly handle several non-proportional 
+hazard types with no a priori knowledge of the hazard functions. Although the LIFETEST 
+procedure allows for testing with Fleming-Harrington weighted log-rank statistics, there is 
+no built-in functionality in SAS® to test combinations of weighted tests. We discuss the 
+development of a SAS macro that implements combination testing, including estimation of 
+the variance-covariance matrix of the joint distribution of the Z-statistics and calculation 
+of the p-value for Zmax. 
+INTRODUCTION  
+The typical approach to testing the equality of two survival curves is by using the 
+log-rank test statistic or Cox proportional-hazards regression. Both methods work well to 
+test the null hypothesis under the assumption of proportional hazards, or slight deviations 
+thereof. When the two hazard functions are clearly non-proportional, the use of the log-rank 
+test and Cox regression becomes problematic: the power of the tests to detect a difference 
+between the curves is lost and the hazard ratio from Cox regression becomes 
+uninterpretable. Thus, alternative analytical approaches to survival analysis are required 
+when the assumption of proportional hazards is violated. 
+Figures 1 illustrates examples of the shape that two survival curves take under 
+proportional hazards and several types of non-proportional hazards often encountered in 
+clinical data.  
+2 
+ 
+Figure 1. Type of non-proportional hazards. (a) 
+(Vermorken, 2007); (b) (Ferris, 2016); (c, d) (Mok, 
+2006). 
+In the delayed effect scenario, the treatment does not immediately take effect such 
+that a lag time observed, followed by diverging hazard functions later in the follow-up 
+period. Conversely, the treatment may provide short-term benefit and lose its effect in later 
+follow up, resulting in converging hazard functions and a diminishing effect. Lastly, a 
+treatment may result in higher event rate early on but may provide benefit over the entirety 
+of the follow up period, resulting in crossing hazard functions.  
+The log-rank test has maximum power under proportional hazards, and in any of 
+these non-proportional hazard scenarios the test may not detect a difference in the survival 
+curves, especially with smaller sample sizes. For example, when hazard functions cross, 
+events happen earlier in one group and later in the other. The log-rank scores will be 
+positive early and negative later, so that the test statistic based on the total score may be 
+close to zero and may not be significant, even though the two survival distributions are 
+different. Furthermore, the estimate of the hazard ratio from Cox regression (δ) assumes 
+that the ratio of the hazards is a constant, that is: 𝛿=
+ℎ1(𝑡)
+ℎ2(𝑡), for all times 𝑡, and when the 
+ratio changes significantly over time, the value of δ becomes meaningless. 
+3 
+One important example of non-proportional hazards in the oncology setting is the 
+delayed effect often seen in trials of immunotherapies. Immunotherapies quickly entered 
+the mainstream of cancer care after their introduction in the late 1990s and they are the 
+subject of an ever-increasing number of clinical trials (Sliwkowski & Mellman, 2013). They 
+work by eliciting anticancer immune responses and the delayed effect is due to an indirect 
+mechanism of action which requires time for activation of the immune system and 
+development of an antitumour response, with a subsequent impact on clinical outcome 
+(Hoos, 2012). Because of the strong pattern of delayed separation of survival curves in 
+immunotherapy trials, the proportional hazard assumption is violated such that the log-rank 
+test suffers from significant loss of power. Incorporating knowledge of the non-
+proportionality of hazards is essential to achieving properly powered clinical trials and 
+appropriately interpreting trial results. 
+In situations where a non-proportional hazards pattern can be determined a priori, 
+weighted log-rank tests can be used to test early, late or middle differences between two 
+survival curves. However, there are many situations where investigators may not be able to 
+predict the shape of the survival curves or whether non-proportional hazards will be 
+observed. In these situations, combinations of weighted log-rank tests can be used to a 
+wide range of scenarios. In this paper, we will describe the implementation of a combination 
+test using Fleming-Harrington weighted log-rank statistics.  
+LOG-RANK AND WEIGHTED LOG-RANK STATISTICS 
+The log-rank test statistic calculates the difference in observed versus expected 
+failures over time. Here we show the formulation of the test for the 2-sample case, which 
+can be generalized to more than 2 samples (Kalbfleisch & Prentice, 1980). The test statistic 
+is:  
+𝜒2 =
+[∑
+(𝑜𝑡−𝑒𝑡)
+𝐷
+𝑡=1
+]2
+∑
+𝑣𝑡
+𝐷
+𝑡=1
+ 
+where: 𝑜𝑡= 𝑑1𝑡, observed number of deaths in group 1 at time 𝑡, 
+𝑒𝑡= 𝑛1𝑡(
+𝑑𝑡
+𝑛𝑡), expected number of deaths in group 1 at time 𝑡, 
+𝑣𝑡= 𝑑𝑡𝑛1𝑡(
+𝑛𝑡−𝑛1𝑡
+𝑛𝑡
+2
+) (
+𝑛𝑡−𝑑𝑡
+𝑛𝑡−1 ), variance of expected number of deaths in group 1 at time 𝑡, 
+𝑑𝑡, total number of deaths at time 𝑡, 
+𝑛𝑡, total number at risk at time 𝑡, for each event time 𝑡= 1, … , 𝐷. 
+4 
+A weighted log-rank test incorporates a weight function 𝑤𝑡 that may change over 
+time, allowing for the testing of differences between the survival curves under alternatives 
+that differ from proportional hazards.  
+𝜒2 =
+[∑
+𝑤𝑡(𝑜𝑡−𝑒𝑡)
+𝐷
+𝑡=1
+]2
+∑
+𝑤𝑡2(𝑣𝑡)
+𝐷
+𝑡=1
+ 
+Consider 𝑆^(𝑡−), the left-continuous Kaplan-Meier estimate of the survival function at 
+time t for the pooled survival data. Fleming & Harrington (1982) introduced the Gρ family of 
+statistics, where 𝑤(𝑡) = {𝑆^(𝑡−)}
+𝜌, 𝜌≥0. When ρ>0, early events (where 𝑆^(𝑡−) is closer to 1) 
+are up-weighted and later events (where 𝑆^(𝑡−) is closer to 0) are down-weighted. When 
+ρ=0, the test is equivalent to the log-rank test.  
+Fleming & Harrington (1991) extended this definition to the Gρ,γ family of statistics, 
+𝑤(𝑡)  = {𝑆^(𝑡−)}
+𝜌{1 −𝑆^(𝑡−)}
+𝛾, 𝜌≥0, 𝛾≥0, which allows for the simultaneous weighting of early 
+and late events. For example, consider ρ=0, 1 and γ=0, 1 as shown in Table 1.  
+ρ, γ 
+𝒘(𝒕) 
+Type of test 
+0, 0 
+1 
+Log-rank 
+1 ,0 
+{𝑆^(𝑡−)} 
+Test early difference 
+0, 1 
+{1 −𝑆^(𝑡−)} 
+Test late difference 
+1, 1 
+{𝑆^(𝑡−)}{1 −𝑆^(𝑡−)} 
+Test middle difference 
+Table 1. Gρ,γ family of statistics 
+COMBINATION TESTS 
+In most situations, non-proportional hazards cannot be prespecified. In these cases, 
+a versatile test that is sensitive to both proportional hazards and a range of non-
+proportional hazards is desirable. One approach is to consider is combinations of weighted 
+log-rank statistics. Combination tests aim to have good power to detect a difference in 
+survival curves over a range of possible alternative hypotheses, which allows for testing of 
+differences without making assumptions about the shapes of the hazard functions.  
+There are several examples of proposed combination tests of Gρ,γ statistics in the 
+biometrical literature. Lee (1996) uses the combination of (G0,0, G2,0, G0,2, G2,2) to 
+simultaneously test equally weighted, early, late and middle differences and shows that this 
+combination has robust performance under different types of alternative hypotheses. 
+Karrison (2016) considers the combination of (G0,0, G1,0, G0,1) and provides Stata software 
+to test any trivariate Gρ,γ combination. In the statistical literature, others have proposed 
+more complex approaches to using weighted log-rank statistics including function-indexed 
+5 
+statistics that simultaneously consider a large collection of values for ρ and γ (Kosorok & 
+Lin, 1999) and tests based on weights able to adapt to changing hazard ratios (Yang & 
+Prentice, 2010). 
+In 2018, the Food & Drug Administration initiated a working group with 
+pharmaceutical companies to address issues in analysis of survival data with non-
+proportional hazards in the context of oncology clinical trials. The group held a public 
+workshop to discuss and present their findings, wherein they propose the combination of 
+(G0,0, G1,0, G0.1, G1,1) statistics, which they call the “max-combo” test (Lin, 2020). R 
+software was developed to perform the combination test, with the option to specify any set 
+of weights.  
+IMPLEMENTATION OF COMBINATION TESTS IN SAS 
+To implement the combination test, we first calculate the Gρ,γ statistics under 
+consideration using the built-in test=FH option in the strata statement of the LIFETEST 
+procedure. Consider two groups from the BMT dataset available in SAS to illustrate the code 
+and output:  
+   data bmt2;  
+    set sashelp.bmt(where=(group in ("ALL","AML-Low Risk"))); 
+   run; 
+    
+   proc lifetest data=bmt2; 
+    time T*status(0); 
+    strata group / test=FH(1,0); 
+   run; 
+The test option above gives the following output with results for the G1,0 statistic. 
+The LIFETEST Procedure 
+Testing Homogeneity of Survival Curves for T over Strata 
+Rank Statistics 
+Group 
+Fleming 
+ALL 
+5.5727 
+AML-Low Risk -5.5727 
+ 
+Covariance Matrix for the Fleming 
+Statistics 
+Group 
+ALL AML-Low Risk 
+ALL 
+6.37902 
+-6.37902 
+AML-Low Risk -6.37902 
+6.37902 
+ 
+6 
+Test of Equality over Strata 
+Test 
+Chi-Square DF 
+Pr > 
+Chi-Square 
+Fleming(1,0) 
+4.8682 
+1 
+0.0274 
+ 
+We use the square root of the absolute value of the Chi-square estimate (Z-statistic) 
+from the Test of Equality over Strata table to calculate Zmax, simply as the maximum of 
+the Z-statistics. We will also use the variance estimates of the Z-statistics from the 
+Covariance Matrix for the Fleming Statistics table in the p-value calculations for the 
+combination test. Note that LIFETEST must be run multiple times to obtain results for 
+different Gρ,γ statistics.  
+After calculating the necessary Z-statistics and their variance estimates, we use the 
+same option in LIFETEST to calculate the covariance estimates between Gρ,γ statistics to 
+complete the variance-covariance matrix. This is straightforward because, as Karrison 
+(2016) shows, Cov(Gρ1,γ1, Gρ2,γ2) = Var(G(ρ1+ρ2)/2, (γ1+γ2)/2). 
+Finally, to calculate the p-value for the combination test, we take 5 x 106 random 
+samples from a multidimensional normal distribution, using mean vector 0 and the 
+estimated variance-covariance matrix, and calculate the number of times the samples 
+exceed Zmax in any dimension. This proportion is the p-value for the combination test.  
+EXAMPLE COMBINATION TEST WITH NON-PROPORTIONAL HAZARDS 
+The following example uses digitally reconstructed data from a progression-free 
+survival figure published in an immunotherapy trial in which nivolumab monotherapy, 
+ipilimumab monotherapy and combination therapy were compared in 945 metastatic 
+melanoma patients (randomized 1:1:1) (Satagopan, 2017). Here, we use the monotherapy 
+groups only, and take a smaller, random sample of the data to illustrate the performance of 
+the combination test with small group sample size. A total of 85 patients were selected, 43 
+in the ipilimumab group with 33 events and 42 in the nivolumab group with 27 events. The 
+combination of weights proposed by Karrison (2016) are used: G0,0, G1,0, G0,1.  
+The two survival curves show the delayed group separation that is typical of 
+immunotherapy trials. The equally weighted log-rank and the early-weighted log rank tests 
+do not show a significant difference between survival curves (p=0.10, 0.27 respectively). 
+The late-weighted test is significant (p=0.02) and the combination test is also significant 
+(p=0.04). Here we have an example where the log-rank test was not able to detect a 
+7 
+difference in survival curves, but the combination test which simultaneously tested equally 
+weighted, early and late differences we able to detect a difference:  
+%combo_wlr(data=larkin_85, 
+           group=treatment_type, 
+           time=time, 
+           event=event, 
+           weights=%str(0,0 1,0 0,1)); 
+ 
+ 
+Combination weighted log-rank tests 
+ 
+ 
+ 
+Weighted log-rank tests 
+ 
+Test 
+Z statistic 
+P 
+Fleming(0,0) 
+1.63681 0.1017 
+Fleming(1,0) 
+1.09293 0.2744 
+Fleming(0,1) 
+2.29917 0.0215 
+ 
+Combination test 
+ 
+Z max 
+P 
+2.29917 0.0392 
+ 
+8 
+CONCLUSION 
+Testing combinations of weighted log-rank statistics offers an alternative to the 
+conventional, equally weighted log-rank test that is more robust to detecting differences in 
+survival curves in the presence of non-proportional hazards. This manuscript describes a 
+flexible macro developed in SAS to easily calculate these tests. The macro is available for 
+download via Github: https://github.com/dreaknezevic/combo-wlr. 
+The use of weighted log-rank tests that are more sensitive to alternatives is 
+appealing in situations where non-proportional hazards are likely to be observed, such as in 
+immunotherapy trials. Statistical obstacles remain to incorporating these tests into clinical 
+trials, however, including calculating sample size and stopping boundaries.  
+It has been suggested that weighted log-rank tests be included as pre-specified 
+sensitivity analyses in clinical trials to improve discovery of potential benefits of new 
+treatments (Su, 2018). However, the use of combination tests has also been cautioned by 
+authors who note that these tests can reject the null hypothesis both in favor of one group 
+and the other on the same data and suggest that these tests risk identifying statistically 
+significant results that are not clinically significant (Karrison, 2016; Freidlin & Korn, 2019). 
+The role of weighted log-rank and combination tests in the future design and analysis of 
+cancer trials remains to be seen.  
+ 
+9 
+REFERENCES 
+Vermorken JB, Remenar E, van Herpen C, et al. 2007. Cisplatin, fluorouracil, and 
+docetaxel in unresectable head and heck cancer. New England Journal of Medicine, 
+357(17):1695-704. 
+Ferris RL, Blumenschein G, Fayette J, et al. 2016. Nivolumab for recurrent squamous-
+cell carcinoma of the head and neck. New England Journal of Medicine, 
+375(19):1856-67. 
+Mok TS, Wu YL, Thongprasert S, et al. 2009. Gefitinib or

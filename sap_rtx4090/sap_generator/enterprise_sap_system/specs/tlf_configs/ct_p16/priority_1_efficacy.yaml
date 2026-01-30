@@ -1,0 +1,1697 @@
+# CT-P16 Priority 1 Efficacy TLF Shells
+# ======================================
+# Central vs. Local Review variants for all efficacy endpoints
+# Per SAP Section 8: Efficacy Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 1
+  category: "Efficacy"
+  sap_sections: ["8.1", "8.2"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# TABLE 14.2.1: BEST OVERALL RESPONSE / ORR - INDUCTION PERIOD
+# =============================================================================
+# Note: Per SAP, ORR during Induction is the original primary endpoint
+# (now sensitivity analysis for final CSR)
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.2.1.1: ORR Induction - ITT - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.1"
+    title: "Best Overall Response During Induction Study Period (ITT Population, Central Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Response Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+
+    stub_rows:
+      - level: 0
+        label: "Best Overall Response, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Complete Response (CR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Partial Response (PR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Stable Disease (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Progressive Disease (PD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Not Evaluable (NE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Objective Response Rate (CR+PR)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "Responders, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Risk Difference (CT-P16 - EU-Avastin)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Difference (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Disease Control Rate (CR+PR+SD)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "Per RECIST version 1.1 criteria based on central (IRC) review."
+      - symbol: "b"
+        text: "95% CI for response rate computed using Clopper-Pearson exact method."
+      - symbol: "c"
+        text: "Risk difference = CT-P16 - EU-Approved Avastin; 95% CI by Newcombe method."
+      - symbol: "d"
+        text: "Best overall response during Induction Study Period (Cycles 1-6)."
+
+    source_dataset: "ADRS"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'BOR' and APTS = 'INDUCTION' and EVALBY = 'CENTRAL' and ANL01FL = 'Y'"
+    sort_order: ["TRT01PN", "AVALC"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "BOR from ADRS where PARAMCD = 'BOR' and APTS = 'INDUCTION'"
+      - "Central review: EVALBY = 'CENTRAL'"
+      - "ORR = (n CR + n PR) / N"
+      - "Use PROC FREQ with EXACT BINOMIAL option for CI"
+      - "Risk difference CI by Newcombe method using RISKDIFF option"
+      - "This is a SENSITIVITY ANALYSIS for final CSR (per SAP Section 8.1)"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.1.2: ORR Induction - ITT - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.2"
+    title: "Best Overall Response During Induction Study Period (ITT Population, Local Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Response Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+
+    stub_rows:
+      - level: 0
+        label: "Best Overall Response, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Complete Response (CR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Partial Response (PR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Stable Disease (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Progressive Disease (PD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Not Evaluable (NE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Objective Response Rate (CR+PR)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "Responders, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Risk Difference (CT-P16 - EU-Avastin)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Difference (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Disease Control Rate (CR+PR+SD)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "Per RECIST version 1.1 criteria based on local (investigator) review."
+      - symbol: "b"
+        text: "95% CI for response rate computed using Clopper-Pearson exact method."
+      - symbol: "c"
+        text: "Risk difference = CT-P16 - EU-Approved Avastin; 95% CI by Newcombe method."
+      - symbol: "d"
+        text: "Best overall response during Induction Study Period (Cycles 1-6)."
+
+    source_dataset: "ADRS"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'BOR' and APTS = 'INDUCTION' and EVALBY = 'LOCAL' and ANL01FL = 'Y'"
+    sort_order: ["TRT01PN", "AVALC"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "BOR from ADRS where PARAMCD = 'BOR' and APTS = 'INDUCTION'"
+      - "Local review: EVALBY = 'LOCAL' (investigator assessment)"
+      - "This is a SENSITIVITY ANALYSIS for final CSR"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.1.3: ORR Induction - PP - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.3"
+    title: "Best Overall Response During Induction Study Period (PP Population, Central Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Response Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+
+    stub_rows:
+      - level: 0
+        label: "Best Overall Response, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Complete Response (CR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Partial Response (PR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Stable Disease (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Progressive Disease (PD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Not Evaluable (NE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Objective Response Rate (CR+PR)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "Responders, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Risk Difference (CT-P16 - EU-Avastin)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Difference (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Disease Control Rate (CR+PR+SD)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population: Per-Protocol Population excluding major protocol deviations."
+      - symbol: "a"
+        text: "Per RECIST version 1.1 criteria based on central (IRC) review."
+      - symbol: "b"
+        text: "95% CI for response rate computed using Clopper-Pearson exact method."
+      - symbol: "c"
+        text: "Risk difference = CT-P16 - EU-Approved Avastin; 95% CI by Newcombe method."
+      - symbol: "d"
+        text: "SUPPORTIVE ANALYSIS for final CSR."
+
+    source_dataset: "ADRS"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'BOR' and APTS = 'INDUCTION' and EVALBY = 'CENTRAL' and ANL01FL = 'Y'"
+    sort_order: ["TRT01PN", "AVALC"]
+
+    programming_notes:
+      - "Population: ADSL where PPROTFL = 'Y' (Per-Protocol)"
+      - "This is a SUPPORTIVE ANALYSIS for final CSR"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.1.4: ORR Induction - PP - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.1.4"
+    title: "Best Overall Response During Induction Study Period (PP Population, Local Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Response Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.4
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADRS.AVALC"
+
+    stub_rows:
+      - level: 0
+        label: "Best Overall Response, n (%)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Complete Response (CR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Partial Response (PR)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Stable Disease (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Progressive Disease (PD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Not Evaluable (NE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Objective Response Rate (CR+PR)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "Responders, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Risk Difference (CT-P16 - EU-Avastin)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Difference (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Disease Control Rate (CR+PR+SD)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population: Per-Protocol Population excluding major protocol deviations."
+      - symbol: "a"
+        text: "Per RECIST version 1.1 criteria based on local (investigator) review."
+      - symbol: "b"
+        text: "95% CI for response rate computed using Clopper-Pearson exact method."
+      - symbol: "c"
+        text: "Risk difference = CT-P16 - EU-Approved Avastin; 95% CI by Newcombe method."
+      - symbol: "d"
+        text: "SUPPORTIVE ANALYSIS for final CSR."
+
+    source_dataset: "ADRS"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'BOR' and APTS = 'INDUCTION' and EVALBY = 'LOCAL' and ANL01FL = 'Y'"
+    sort_order: ["TRT01PN", "AVALC"]
+
+    programming_notes:
+      - "Population: ADSL where PPROTFL = 'Y' (Per-Protocol)"
+      - "Local review: EVALBY = 'LOCAL'"
+      - "This is a SUPPORTIVE ANALYSIS for final CSR"
+
+  # ===========================================================================
+  # TABLE 14.2.2: PROGRESSION-FREE SURVIVAL (PFS)
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.1: PFS - ITT - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.1"
+    title: "Summary of Progression-Free Survival (ITT Population, Central Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "PFS defined as time from randomization to first documented disease progression (per RECIST 1.1, central review) or death from any cause, whichever occurs first."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI for percentiles by Brookmeyer-Crowley method."
+      - symbol: "c"
+        text: "HR from stratified Cox model; stratification factors: country/region, sex, disease status, ECOG PS."
+      - symbol: "d"
+        text: "HR < 1 favors CT-P16."
+      - symbol: "e"
+        text: "P-value from stratified log-rank test."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'PFS' and EVALBY = 'CENTRAL'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "PFS from ADTTE where PARAMCD = 'PFS' and EVALBY = 'CENTRAL'"
+      - "AVAL in days; convert to months: AVAL / 30.4375"
+      - "Use PROC LIFETEST for KM estimates, median, percentiles, survival rates"
+      - "Use PROC PHREG for stratified HR with STRATA statement"
+      - "Stratification: country/region (REGION1N), sex (SEXN), disease status (DISSTATN), ECOG (ECOGPSN)"
+      - "Censoring hierarchy per SAP Section 8.2.2"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.2: PFS - ITT - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.2"
+    title: "Summary of Progression-Free Survival (ITT Population, Local Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "PFS defined as time from randomization to first documented disease progression (per RECIST 1.1, local/investigator review) or death from any cause, whichever occurs first."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI for percentiles by Brookmeyer-Crowley method."
+      - symbol: "c"
+        text: "HR from stratified Cox model; stratification factors: country/region, sex, disease status, ECOG PS."
+      - symbol: "d"
+        text: "HR < 1 favors CT-P16."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'PFS' and EVALBY = 'LOCAL'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "PFS from ADTTE where PARAMCD = 'PFS' and EVALBY = 'LOCAL'"
+      - "Local/Investigator assessment"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.3: PFS - PP - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.3"
+    title: "Summary of Progression-Free Survival (PP Population, Central Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population: Per-Protocol Population excluding major protocol deviations."
+      - symbol: "a"
+        text: "PFS defined as time from randomization to first documented disease progression (per RECIST 1.1, central review) or death from any cause."
+      - symbol: "b"
+        text: "SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'PFS' and EVALBY = 'CENTRAL'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where PPROTFL = 'Y'"
+      - "Supportive analysis for final CSR"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.2.4: PFS - PP - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.2.4"
+    title: "Summary of Progression-Free Survival (PP Population, Local Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population: Per-Protocol Population."
+      - symbol: "a"
+        text: "PFS per RECIST 1.1, local/investigator review."
+      - symbol: "b"
+        text: "SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'PFS' and EVALBY = 'LOCAL'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADSL where PPROTFL = 'Y'"
+      - "Local review: EVALBY = 'LOCAL'"
+
+  # ===========================================================================
+  # TABLE 14.2.3: TIME TO PROGRESSION (TTP)
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.2.3.1: TTP - ITT - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.3.1"
+    title: "Summary of Time to Progression (ITT Population, Central Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events (Progression), n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death without progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "No event"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "TTP defined as time from randomization to first documented disease progression (per RECIST 1.1, central review). Deaths without progression are censored."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI for percentiles by Brookmeyer-Crowley method."
+      - symbol: "c"
+        text: "HR from stratified Cox model; HR < 1 favors CT-P16."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'TTP' and EVALBY = 'CENTRAL'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "TTP: Only progression is event; death censored"
+      - "PARAMCD = 'TTP' in ADTTE"
+      - "Central review: EVALBY = 'CENTRAL'"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.3.2: TTP - ITT - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.3.2"
+    title: "Summary of Time to Progression (ITT Population, Local Review)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events (Progression), n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death without progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "No event"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Event-free Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "P-value (Stratified Log-rank)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population: All randomized subjects."
+      - symbol: "a"
+        text: "TTP per RECIST 1.1, local/investigator review."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'TTP' and EVALBY = 'LOCAL'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.3.3: TTP - PP - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.3.3"
+    title: "Summary of Time to Progression (PP Population, Central Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events (Progression), n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population. SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'TTP' and EVALBY = 'CENTRAL'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.3.4: TTP - PP - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.3.4"
+    title: "Summary of Time to Progression (PP Population, Local Review)"
+    tlf_type: TABLE
+    population: PP Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Events (Progression), n (%)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Stratified Analysis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hazard Ratio [95% CI]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population. SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'TTP' and EVALBY = 'LOCAL'"
+    sort_order: ["TRT01PN"]
+
+  # ===========================================================================
+  # TABLE 14.2.4: DURATION OF RESPONSE
+  # ===========================================================================
+
+  # ---------------------------------------------------------------------------
+  # 14.2.4.1: DOR - ITT - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.4.1"
+    title: "Summary of Duration of Response (ITT Population, Central Review)"
+    tlf_type: TABLE
+    population: ITT Population (Responders Only)
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Responders (CR+PR)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "25th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "75th Percentile (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Response Duration Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 24 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 36 Months"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Analysis limited to subjects with confirmed objective response (CR or PR) in ITT Population."
+      - symbol: "a"
+        text: "Duration of response defined as time from first documented response to disease progression (per RECIST 1.1, central review) or death."
+      - symbol: "b"
+        text: "Kaplan-Meier estimates; 95% CI by Brookmeyer-Crowley method."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'DOR' and EVALBY = 'CENTRAL' and RSPCFL = 'Y'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: Subjects with BOR = CR or PR (responders only)"
+      - "RSPCFL = 'Y' flag identifies responders"
+      - "DOR from ADTTE where PARAMCD = 'DOR'"
+      - "Start date = date of first response"
+      - "Central review: EVALBY = 'CENTRAL'"
+
+  # ---------------------------------------------------------------------------
+  # 14.2.4.2: DOR - ITT - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.4.2"
+    title: "Summary of Duration of Response (ITT Population, Local Review)"
+    tlf_type: TABLE
+    population: ITT Population (Responders Only)
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Responders (CR+PR)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Disease Progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Kaplan-Meier Estimates"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Median (months) [95% CI]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Response Duration Probability [95% CI]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "At 6 Months"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "At 12 Months"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Analysis limited to responders. Local/Investigator review."
+
+    source_dataset: "ADTTE"
+    filter_condition: "ITTFL = 'Y' and PARAMCD = 'DOR' and EVALBY = 'LOCAL' and RSPCFL = 'Y'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.4.3: DOR - PP - Central Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.4.3"
+    title: "Summary of Duration of Response (PP Population, Central Review)"
+    tlf_type: TABLE
+    population: PP Population (Responders Only)
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Responders (CR+PR)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Median (months) [95% CI]"
+        bold: true
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population, Responders only. SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'DOR' and EVALBY = 'CENTRAL' and RSPCFL = 'Y'"
+    sort_order: ["TRT01PN"]
+
+  # ---------------------------------------------------------------------------
+  # 14.2.4.4: DOR - PP - Local Review
+  # ---------------------------------------------------------------------------
+  - number: "14.2.4.4"
+    title: "Summary of Duration of Response (PP Population, Local Review)"
+    tlf_type: TABLE
+    population: PP Population (Responders Only)
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.0
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.8
+        alignment: C
+        format: null
+        source_variable: "ADTTE"
+
+    stub_rows:
+      - level: 0
+        label: "Number of Responders (CR+PR)"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Number of Events, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Number Censored, n (%)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Median (months) [95% CI]"
+        bold: true
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PP Population, Responders only, Local review. SUPPORTIVE ANALYSIS."
+
+    source_dataset: "ADTTE"
+    filter_condition: "PPROTFL = 'Y' and PARAMCD = 'DOR' and EVALBY = 'LOCAL' and RSPCFL = 'Y'"
+    sort_order: ["TRT01PN"]
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Efficacy Tables in this file: 16
+#   - ORR Induction: 4 (ITT Central, ITT Local, PP Central, PP Local)
+#   - PFS: 4 (ITT Central, ITT Local, PP Central, PP Local)
+#   - TTP: 4 (ITT Central, ITT Local, PP Central, PP Local)
+#   - DOR: 4 (ITT Central, ITT Local, PP Central, PP Local)

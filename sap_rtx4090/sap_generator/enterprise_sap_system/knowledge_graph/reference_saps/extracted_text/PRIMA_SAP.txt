@@ -1,0 +1,3324 @@
+
+--- Page 1 ---
+CONFIDENTIAL 
+ 
+Page 1 of 61 
+STATISTICAL ANALYSIS PLAN 
+A Phase 3, Randomized, Double-Blind, Placebo-Controlled,  
+Multicenter Study of Niraparib Maintenance Treatment in Patients  
+with Advanced Ovarian Cancer Following Response on Front-Line  
+Platinum-Based Chemotherapy 
+Protocol PR-30-5017-C 
+ 
+Protocol Number: 
+PR-30-5017-C 
+Protocol Version and Date: 
+Version 4.0: 12 February 2018 (Amendment 3) 
+Version 3.0: 16 November 2017 (Amendment 2) 
+Version 2.0: 22 November 2016 (Amendment 1) 
+Version 1.0: 26 October 2015 (Original) 
+Name of Test Drug: 
+Niraparib ([3S]-3-[4-{7-(aminocarbonyl)-2H-indazol-2-yl} 
+phenyl] piperidine [tosylate monohydrate salt]) 
+Phase: 
+Phase 3 
+Methodology: 
+Double-Blind, Placebo-Controlled 
+Sponsor: 
+TESARO, Inc. 
+1000 Winter Street 
+Waltham MA  02451 
+Tel: 
+Sponsor Representative: 
+, MD 
+Senior Medical Director 
+Analysis Plan Date: 
+19 June 2019 
+Analysis Plan Version: 
+Final Version 1.0 
+ 
+Confidentiality Statement 
+The information contained herein is confidential and the proprietary property of 
+TESARO, Inc., and any unauthorized use or disclosure of such information  
+without the prior written authorization of TESARO, Inc., is expressly prohibited. 
+PPD
+PPD
+
+
+--- Page 2 ---
+PPD
+PPD
+PPD
+PPD
+PPD
+
+
+--- Page 3 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 2 of 61 
+APPROVAL SIGNATURE PAGE 
+Protocol Title: 
+A Phase 3, Randomized, Double-Blind, Placebo-Controlled, 
+Multicenter Study of Niraparib Maintenance Treatment in 
+Patients with Advanced Ovarian Cancer Following Response on 
+Front-Line Platinum-Based Chemotherapy 
+Protocol Number: 
+PR-30-5017-C 
+Sponsor: 
+TESARO, Inc. 
+1000 Winter Street 
+Waltham MA 02451 
+Author: 
+Veristat, LLC 
+118 Turnpike Road 
+Southborough, MA 01772 
+ 
+ 
+Author Signatory: 
+Principal Biostatistician 
+ 
+Signature:______________________________________ 
+ 
+Date:__________________________________________ 
+Sponsor Approval: 
+By signing this document, I acknowledge that I have read the document and approve of 
+the planned statistical analyses described herein. I agree that the planned statistical 
+analyses are appropriate for this study, are in accordance with the study objectives, and 
+are consistent with the statistical methodology described in the protocol, clinical 
+development plan, and all applicable regulatory guidance and guidelines. 
+I have discussed any questions I have regarding the contents of this document with the 
+biostatistical author. 
+I also understand that any subsequent changes to the planned statistical analyses, as 
+described herein, may have a regulatory impact and/or result in timeline adjustments. All 
+changes to the planned analyses will be described in the clinical study report. 
+Sponsor Signatory: 
+, MD 
+Senior Medical Director 
+ 
+Signature:______________________________________ 
+ 
+Date:__________________________________________ 
+ 
+ 
+ PhD 
+Senior Director, Biostatistics 
+Signature:______________________________________ 
+ 
+Date:__________________________________________ 
+PPD
+PPD
+PPD
+
+
+--- Page 4 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 3 of 61 
+TABLE OF CONTENTS 
+1. 
+INFORMATION FROM THE STUDY PROTOCOL .................................................10 
+1.1. 
+Introduction and Objectives ..............................................................................10 
+1.1.1. 
+Introduction ........................................................................................10 
+1.1.2. 
+Study Objectives ................................................................................11 
+1.2. 
+Study Design .....................................................................................................12 
+1.2.1. 
+Synopsis of Study Design ..................................................................12 
+1.2.2. 
+Randomization Methodology .............................................................14 
+1.2.3. 
+Stopping Rules and Unblinding .........................................................14 
+1.2.4. 
+Study Procedures ...............................................................................14 
+1.2.5. 
+Efficacy, Pharmacokinetic, and Safety Parameters ...........................18 
+1.2.5.1. PFS (Progression-Free Survival) ........................................18 
+1.2.5.2. OS (Overall Survival) .........................................................19 
+1.2.5.3. PFS2 (Progression-Free Survival-2) ...................................20 
+1.2.5.4. TFST (Time to First Subsequent Therapy) .........................20 
+1.2.5.5. Time to CA-125 Progression ..............................................20 
+1.2.5.6. PROs (Patient Reported Outcomes) ....................................21 
+1.2.5.7. Pharmacokinetic Parameters ...............................................26 
+1.2.5.8. Safety Parameters ................................................................27 
+2. 
+PATIENT POPULATION ............................................................................................29 
+2.1. 
+Population Definitions ......................................................................................29 
+2.2. 
+Protocol Deviations ...........................................................................................29 
+3. 
+GENERAL STATISTICAL METHODS .....................................................................30 
+3.1. 
+Sample Size Justification ..................................................................................30 
+3.2. 
+General Methods ...............................................................................................31 
+3.3. 
+Computing Environment ...................................................................................32 
+3.4. 
+Baseline Definitions ..........................................................................................32 
+3.5. 
+Methods of Pooling Data ..................................................................................32 
+3.6. 
+Adjustments for Covariates ...............................................................................32 
+3.7. 
+Multiplicity ........................................................................................................33 
+3.8. 
+Subpopulations ..................................................................................................34 
+3.8.1. 
+Biomarker Definitions .......................................................................34 
+
+
+--- Page 5 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 4 of 61 
+3.8.2. 
+Biomarker Subpopulations .................................................................34 
+3.8.3. 
+Fixed and Individualized Starting Dose Subgroups ...........................35 
+3.8.4. 
+Other Study-Specific Subgroups ........................................................36 
+3.9. 
+Withdrawals, Dropouts, Loss to Follow-up ......................................................36 
+3.10. Missing Data .....................................................................................................36 
+3.11. Visit Windows ...................................................................................................37 
+4. 
+STUDY ANALYSES ...................................................................................................38 
+4.1. 
+Patient Disposition ............................................................................................38 
+4.2. 
+Demographics, Baseline Characteristics, and Medical History ........................38 
+4.3. 
+Efficacy Evaluation ...........................................................................................42 
+4.3.1. 
+Summary of Primary Analyses and Pre-Specified Sensitivity 
+Analyses .............................................................................................42 
+4.3.2. 
+Primary Efficacy Endpoint ................................................................43 
+4.3.3. 
+Secondary Efficacy Endpoints ...........................................................46 
+4.3.3.1. Overall Survival ..................................................................46 
+4.3.3.2. Other Time to Event Endpoints ..........................................46 
+4.3.3.3. Patient Reported Outcomes .................................................47 
+4.3.3.4. Outcomes for Next Anticancer Therapy Following Study 
+Treatment ............................................................................48 
+4.4. 
+Safety Analyses .................................................................................................49 
+4.4.1. 
+Treatment Exposure and Compliance ................................................49 
+4.4.2. 
+Adverse Events ..................................................................................50 
+4.4.2.1. Overview .............................................................................50 
+4.4.2.2. Adverse Drug Reactions .....................................................52 
+4.4.2.3. Adverse Events of Special Interest .....................................52 
+4.4.2.4. Other Adverse Events of Interest ........................................53 
+4.4.3. 
+Exposure Adjusted Incidence Rate ....................................................53 
+4.4.4. 
+Laboratory Data .................................................................................54 
+4.4.5. 
+Vital Signs and Physical Examination ...............................................55 
+4.4.6. 
+Concomitant Medications ..................................................................55 
+5. 
+CHANGES TO PLANNED ANALYSES ....................................................................57 
+6. 
+REFERENCES ..............................................................................................................58 
+7. 
+APPENDIX ...................................................................................................................59 
+
+
+--- Page 6 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 5 of 61 
+7.1. 
+Scoring Algorithm for the FACT/NCCN Ovarian Symptom Index (FOSI) .....59 
+7.2. 
+EQ-5D-5L Crosswalk Value Set .......................................................................60 
+7.3. 
+MedDRA Preferred Terms for AESIs and Other Grouped Events ...................60 
+8. 
+STATISTICAL OUTPUT SHELLS .............................................................................61 
+ 
+
+
+--- Page 7 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 6 of 61 
+TABLES INCLUDED IN THE TEXT 
+Table 1-1 
+Schedule of Assessments (Protocol Amendment 3) ........................................................ 15 
+Table 1-2 
+Determination of Disease Progression Date .................................................................... 19 
+Table 1-3 
+Scoring the QLQ-C30 version 3.0 ................................................................................... 23 
+Table 1-4 
+Scoring the QLQ-OV28 .................................................................................................. 25 
+Table 3-1 
+Summary of Sample Size Assumptions in Protocol Amendments .................................. 31 
+Table 3-2 
+Data Source of Stratification Factors for Primary and Sensitivity Analysis ................... 33 
+Table 3-3 
+Windows (Inclusive) for PRO Assessments after EOT................................................... 37 
+Table 4-1 
+List of Country by Region ............................................................................................... 40 
+Table 4-2 
+Reported Anti-cancer Therapies ...................................................................................... 40 
+Table 4-3 
+Adverse Events of Special Interest .................................................................................. 53 
+Table 4-4 
+Other Adverse Events of Interest .................................................................................... 53 
+ 
+ 
+
+
+--- Page 8 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 7 of 61 
+LIST OF ABBREVIATIONS AND DEFINITION OF TERMS 
+Abbreviation 
+Definition 
+AE 
+Adverse event 
+AESI 
+Adverse event(s) of special interest 
+ALT 
+Alanine aminotransferase 
+AML 
+Acute myeloid leukemia 
+AST 
+Aspartate aminotransferase 
+ATC 
+Anatomical Therapeutic Chemical 
+BER 
+Base excision repair 
+BMI 
+Body mass index 
+BRCA 
+Breast cancer gene 
+CA-125 
+Cancer antigen 125 
+CBC 
+Complete blood count 
+CFI 
+Chemotherapy-free interval 
+CI 
+Confidence interval 
+CR 
+Complete response 
+CSR 
+Clinical study report 
+CT 
+Computed tomography 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+DNA 
+Deoxyribonucleic acid 
+ECG 
+Electrocardiogram 
+ECOG 
+Eastern Cooperative Oncology Group 
+EORTC-QLQ-C30 
+European Organisation for Research and Treatment of Cancer Quality of 
+Life Questionnaire C30 
+EORTC-QLQ-OV28 
+Ovarian Cancer Module OV28 
+EQ-5D-5L 
+European Quality of Life scale, 5-Dimensions 
+eCRF 
+Electronic case report form 
+EOT 
+End of treatment 
+FUACT 
+Follow up anti-cancer treatment 
+FIGO 
+International Federation of Gynecology and Obstetrics 
+FOSI 
+Functional Assessment of Cancer Therapy–Ovarian Symptom Index 
+gBRCAmut 
+Germline breast cancer gene mutation 
+GCIG 
+Gynecologic Cancer Intergroup 
+GGT 
+Gamma glutamyl transferase 
+HEENT 
+Head, Eyes, Ears, Neck, and Throat 
+HLT 
+High level term 
+HRD 
+Homologous recombination deficiency 
+HRDnd 
+Homologous recombination deficiency not determined 
+HRDneg 
+Homologous recombination deficiency negative 
+
+
+--- Page 9 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 8 of 61 
+Abbreviation 
+Definition 
+HRDpos 
+Homologous recombination deficiency positive 
+ICF 
+Informed consent form 
+ICH 
+International Conference on Harmonisation 
+IDMC 
+Independent data monitoring committee 
+IEC 
+Independent Ethics Committee 
+IRB 
+Institutional Review Board 
+ITT 
+Intent-to-treat 
+KM 
+Kaplan-Meier 
+MDS 
+Myelodysplastic syndrome 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MRI 
+Magnetic resonance imaging 
+NCI 
+National Cancer Institute 
+OS 
+Overall survival 
+PARP 
+Poly(ADP-ribose) polymerase 
+PD 
+Progressive disease 
+PFS 
+Progression-free survival 
+PK 
+Pharmacokinetic 
+PP 
+Per-protocol 
+PR 
+Partial response 
+PRO 
+Patient reported outcome 
+PT 
+Preferred Term (MedDRA) 
+Q1 
+First quartile 
+Q3 
+Third quartile 
+QD 
+Once daily 
+QTc 
+QT interval corrected for heart rate 
+QTcB 
+QT interval corrected for heart rate using Bazett’s formula 
+QTcF 
+QT interval corrected for heart rate using Fridericia’s formula 
+R0 
+No residual disease 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+SAE 
+Serious adverse event 
+SAF 
+Safety 
+SAP 
+Statistical analysis plan 
+sBRCAmut 
+Somatic breast cancer gene mutation 
+SD 
+Standard deviation 
+SDF 
+Survival distribution function 
+SMQ 
+Standardized MedDRA queries 
+SOC 
+System Organ Class (MedDRA) 
+tBRCAmut 
+Tumor breast cancer gene mutation 
+
+
+--- Page 10 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 9 of 61 
+Abbreviation 
+Definition 
+tBRCAnd 
+Tumor breast cancer gene not determined 
+tBRCAwt 
+Tumor breast cancer gene wild type 
+TEAE 
+Treatment-emergent adverse event 
+TFST 
+Time to first subsequent therapy 
+ULN 
+Upper limit of normal 
+WHO 
+World Health Organization 
+WHODD 
+World Health Organization Drug Dictionary 
+
+
+--- Page 11 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 10 of 61 
+1. 
+INFORMATION FROM THE STUDY PROTOCOL 
+1.1. 
+Introduction and Objectives 
+1.1.1. 
+Introduction 
+Niraparib is a potent, orally active poly(ADP-ribose) polymerases (PARP)-1 and -2 inhibitor 
+being developed as an agent for tumors with defects in the homologous recombination 
+deoxyribonucleic acid (DNA) repair pathway. 
+PARP-1 and -2 are zinc-finger DNA-binding enzymes that play a crucial role in DNA repair. 
+Upon formation of DNA breaks, PARP binds at the end of broken DNA strands, a process that 
+activates its enzymatic activity. Activated PARP catalyzes addition of long polymers of 
+ADP-ribose onto PARP and several other proteins associated with chromatin, including histones 
+and various DNA repair proteins. This results in chromatin relaxation, fast recruitment of DNA 
+repair proteins, and efficient repair of DNA breaks. In this manner, PARP plays a key role in 
+sensing DNA damage and converting it into intracellular signals that activate the base excision 
+repair (BER) and single-strand break repair pathways. 
+Normal cells repair up to 10,000 DNA defects daily, and single-strand breaks are the most 
+common form of DNA damage. Cells that are unable to repair this burden of DNA damage, 
+such as those with defects in the homologous recombination or BER pathways, are at risk for 
+accumulating multiple lesions that will ultimately trigger apoptosis. They enter the S (DNA 
+replication) phase of the cell cycle with unrepaired single- and double-strand breaks. 
+Pre-existing single strand breaks are converted to double-strand breaks as the replication 
+machinery passes. Accumulated double-strand breaks present during S phase are repaired by 
+homologous recombination. Homologous recombination is the preferred repair pathway because 
+it is associated with a much lower error rate than other forms of repair. Cells unable to perform 
+DNA repair via homologous recombination (e.g., due to inactivation of genes required for 
+homologous recombination, such as breast cancer susceptibility gene 1 [BRCA1] or BRCA2) are 
+at risk for accumulating multiple lesions that will ultimately trigger apoptosis. These cells 
+accumulate stalled replication forks during S phase and are more likely to use the error-prone 
+nonhomologous end-joining (NHEJ) or alternative (alt)-NHEJ pathways to repair double-strand 
+breaks in DNA. Accumulation of errors in DNA by NHEJ contributes to mutations that promote 
+the development of cancer. Over time, the buildup of excessive DNA errors in combination with 
+the inability to complete S phase (because of stalled replication forks) contributes to cell death. 
+Treatment with PARP inhibitors represents an opportunity to selectively kill a subset of cancer 
+cells with deficiencies in DNA repair pathways. For example, a tumor arising in a patient with a 
+germline BRCA mutation (gBRCAmut) has a defective homologous recombination DNA repair 
+pathway and would be increasingly dependent on NHEJ, alternative (alt)-NHEJ, and BER for 
+maintenance of genomic integrity. PARP inhibitors block alt-NHEJ and BER, forcing tumors 
+with BRCA deficiencies to use the error-prone NHEJ to fix double strand breaks. Non-BRCA 
+deficiencies in homologous recombination DNA repair genes could also enhance tumor cell 
+sensitivity to PARP inhibitors. The rationale for anticancer activity in a subset of non-
+gBRCAmut tumors is that they share distinctive DNA repair defects with gBRCAmut carriers, a 
+phenomenon broadly described as “BRCAness.”[1] DNA repair defects can be caused by 
+germline or somatic alterations to the homologous recombination DNA repair pathway. In a 
+recent analysis of approximately 500 high-grade serous ovarian adenocarcinoma tumors, 
+approximately 50% contained homologous recombination defects.[2] A subset of these tumors 
+
+
+--- Page 12 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 11 of 61 
+had biologically plausible molecular alterations that may make them sensitive to PARP 
+inhibition by niraparib. 
+1.1.2. 
+Study Objectives 
+The primary objective of this study is to evaluate the efficacy of niraparib versus placebo as 
+maintenance treatment, as measured by progression free survival (PFS), in patients with 
+Stage III or IV ovarian cancer (including fallopian and peritoneal cancers) with a complete 
+response (CR) or partial response (PR) following front-line platinum-based chemotherapy 
+treatment. 
+The secondary objectives of the study are as follows: 
+x To evaluate additional measures of clinical benefit for niraparib versus placebo as 
+maintenance treatment, such as overall survival (OS), patient-reported outcomes (PROs), 
+outcomes for next anti-cancer therapy following study treatment, time to first subsequent 
+therapy (TFST), time to progression on the next anticancer therapy (PFS2) and time to 
+cancer antigen-125 (CA-125) progression. 
+x To evaluate the safety and tolerability of niraparib versus placebo. 
+The exploratory objectives of the study are as follows: 
+x To assess population pharmacokinetics (PK) and estimate PK parameters for niraparib 
+and its major metabolite. 
+x To evaluate potential biomarkers related to ovarian cancer and PARP inhibition (e.g., 
+DNA repair pathways). 
+x To explore the relationship between homologous recombination deficiency (HRD) status 
+and platinum sensitivity in ovarian cancer patients who have initial response to front-line 
+platinum therapy. 
+This statistical analysis plan (SAP) is designed to outline the methods to be used in the analyses 
+of study data in order to answer the study objectives. Patient populations to be used for analyses, 
+data handling rules, statistical methods, and formats for data presentation are identified and 
+provided. The statistical analyses and summary tabulations described in this SAP will provide 
+the basis for the results sections of the clinical study report (CSR) for this trial. 
+This SAP will also outline any differences in the currently planned analytical objectives relative 
+to those planned in the study protocol. 
+The SAP is based upon the following study documents: 
+x Study Protocol v4.0 dated 12 February 2018 
+x Electronic Case Report Form (eCRF) v.7.154 dated 04 April 2018 
+Analyses of PK data are described in a separate SAP. 
+ 
+ 
+
+
+--- Page 13 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 12 of 61 
+1.2. 
+Study Design 
+1.2.1. 
+Synopsis of Study Design 
+This study is a double-blind, randomized (2:1 niraparib:placebo), placebo-controlled study in 
+patients with advanced ovarian cancer. Stage III patients with R0 (i.e., no residual disease) are 
+not eligible for this study due to the superior outcomes observed following appropriate post-
+operative therapy. For screening purposes, response assessment may be performed after the 
+patient has completed at least 3 cycles of platinum therapy. Patients must have received at least 
+6 and no more than 9 cycles of front-line or neo-adjuvant/adjuvant platinum-based regimen with 
+a physician-assessed response of CR or PR. Additionally, patients must have a normal or >90% 
+decrease in CA-125 upon treatment completion. The study will assess whether maintenance 
+treatment with niraparib will extend PFS in this population. 
+Stratification factors include administration of neoadjuvant chemotherapy (yes or no), best 
+response to platinum therapy (CR or PR), and HRD status (HRDpos, includes gBRCAmut and 
+somatic breast cancer gene mutation [sBRCAmut] patients; or HRDneg/nd). 
+For all potentially eligible patients, a tumor sample will be sent for centralized HRD testing. To 
+facilitate the screening and enrollment processes, the samples may be sent in advance of the 
+protocol-defined screening period. For patients without a known gBRCA or sBRCA mutation, 
+HRD test results are required prior to randomization. For patients with a documented deleterious 
+gBRCA or sBRCA mutation by local results, randomization may occur before the HRD results 
+are available; for stratification purposes, these patients will be considered as having HRDpos 
+tumors. Given the study’s multiple international sites, the Sponsor will accept BRCA results 
+obtained according to local practice guidelines. To minimize bias, patients, investigators and the 
+site investigative staff will be blinded to HRD status and treatment assignment. 
+Prior to Protocol Amendment 2, all patients were required to start with 300mg niraparib (3 x 
+100 mg capsules) or placebo (3 capsules) daily (Fixed Starting Dose) and dose modifications 
+were allowed to reduce the dose to 200mg and 100mg daily. Starting in Protocol Amendment 2, 
+the starting dose of study treatment will be based upon the patient’s baseline body weight or 
+baseline platelet count (Individualized Starting Dose). Patients with a baVHOLQHERG\ZHLJKW
+NJDQGEDVHOLQHSODWHOHWFRXQW/ȝ/ZLOOEHDGPLQLVWHUHGQLUDSDULEPJRUSODFHER
+daily. Patients with a baseline body weight <77 kg or baseline platelet count <150,000/ȝ/ZLOO
+be administered niraparib 200 mg (2 ×100 mg capsules) or placebo (2 capsules) daily. Dose 
+modifications of study treatment are still allowed based on tolerability but will not be based 
+upon changes in the patient’s body weight during study participation. For patients whose 
+starting dose is 2 capsules once daily, escalation to 3 capsules once daily is permitted in patients 
+who did not require treatment interruption or discontinuation during the first 2 cycles of therapy. 
+Patients will be instructed to take their dose once daily or as instructed by the Investigator. The 
+first dose will be administered at the site. 
+Dose interruption (no longer than 28 days) or dose reduction will be allowed based on treatment 
+side effects. For patients whose starting dose is 3 capsules daily, dose reductions to 2 capsules 
+daily (200 mg/day) and subsequently to 1 capsule daily (100 mg/day) will be allowed. No 
+further dose reductions will be allowed. For patients whose initial dose is 2 capsules, dose 
+reduction to 1 capsule once daily (100 mg/day) will be allowed. No further dose reduction will 
+be allowed without discussion with the Medical Monitor. The timing of efficacy or safety 
+evaluations will not be modified due to dose interruptions or reductions. 
+
+
+--- Page 14 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 13 of 61 
+Blood samples for PK will be collected on Cycle 1/Day 1 and Cycle 2/Day 1 predose (within 30 
+minutes prior to dosing) and 2 hours (±15 minutes) postdose. Additional samples for PK on 
+Cycle 4/Day1 and Cycle 8/Day 1 will be collected at predose (trough; within 30 minutes before 
+scheduled dose) only. If study drug is held one day prior to and on C2D1, PK sample collection 
+on that day is not required. If study drug is held on C4D1 or C8D1, PK sample collection on 
+those days is not required. 
+Clinic visits (other than Cycle 1) will be every cycle (28 days ±3 days). RECIST (v.1.1) tumor 
+assessment via computed tomography (CT) or magnetic resonance imaging (MRI) scan of the 
+abdomen/pelvis and other areas as clinically indicated is required at screening, then every 
+12 weeks (±7 days) from Cycle 1/Day 1 visit until progression is confirmed by Blinded 
+Independent Central Review (BICR). Positron emission tomography (PET)/CT may be used 
+according to RECIST guidelines, but its use is not a study requirement. Cycle timing will not be 
+delayed for treatment interruptions, and tumor assessment should occur according to this 
+schedule regardless of whether study treatment is interrupted. If a patient discontinues treatment 
+for a reason other than progression or death, withdrawal of consent, or loss to follow-up, scans 
+should continue at the specified intervals. If a patient discontinues treatment for clinical 
+progression and does not meet the criteria specified in the protocol, scans and CA-125 testing 
+should continue at the specified intervals until progression is confirmed or the start of 
+subsequent anticancer treatment. 
+For patients who discontinue study treatment due to progressive disease (PD), provision of a 
+tumor sample for exploratory biomarker analyses will be optional. All patients will continue to 
+be followed for OS and other secondary objectives as outlined in Section 1.1.2. 
+Patient-Reported Outcomes (PROs, including Functional Assessment of Cancer Therapy – 
+Ovarian Symptom Index [FOSI], European Quality of Life scale, 5-Dimensions [EQ-5D-5L], 
+European Organisation for Research and Treatment of Cancer Quality of Life Questionnaire 
+C30 [EORTC-QLQ-C30], EORTC-QLQ ovarian module [EORTC-QLQ-OV28]) will be 
+collected during the study. 
+All adverse events (AEs) will be collected and recorded in the eCRF for each patient from the 
+day of signed informed consent until 30 days after the last dose of study treatment or until the 
+patient begins participation in a new clinical trial or initiates a new chemotherapy regimen. If, at 
+any time after the study is completed (or as otherwise indicated below), an Investigator becomes 
+aware of a serious adverse event (SAE) that is considered related to the investigational product, 
+or an adverse event of special interest (AESI) regardless of causality, the Investigator should 
+report the SAE/AESI to the Sponsor's Pharmacovigilance Department within 24 hours of 
+becoming aware of the SAE. 
+The AESIs for this study are myelodysplastic syndrome (MDS), acute myeloid leukemia 
+(AML), secondary cancers (new malignancies other than MDS/AML), pneumonitis, and 
+embryo-fetal toxicity. MDS/AML and secondary cancers (new malignancies other than MDS or 
+AML) must be reported until death or loss to follow-up. Pneumonitis must be reported for up to 
+90 days after the last dose of study treatment and pregnancy must be reported for up to 180 days 
+after the last dose of study treatment. All AEs experienced by a patient, irrespective of the 
+suspected causality, will be monitored until the AE has resolved, abnormal laboratory values 
+have returned to baseline or normalized, there is a satisfactory explanation for the changes 
+observed, the patient is lost to follow-up, or the patient has died. 
+
+
+--- Page 15 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 14 of 61 
+An independent data monitoring committee (IDMC) will be established to provide independent 
+review and assessment of the efficacy and safety data in a systematic manner and to safeguard 
+the interest and safety of the participating patients in the study. The composition of the IDMC 
+will consist of 3 independent individuals, including 1 biostatistician and 2 physicians. The 
+IDMC is tasked with making a recommendation to the Sponsor to continue or stop the trial 
+based on their assessment of efficacy and safety information. The membership, the key 
+responsibilities of the IDMC, and the corresponding procedures will be defined in an IDMC 
+charter. 
+No crossover to niraparib is permitted for patients randomized to placebo. 
+Approximately 620 patients are planned to enroll in this study at approximately 250 sites. 
+1.2.2. 
+Randomization Methodology 
+Patients who meet the entry criteria are eligible for randomization on Cycle 1/Day 1. Eligible 
+patients will be randomized to treatment with niraparib or placebo in a 2:1 (niraparib:placebo) 
+ratio. Randomization will be completed in a double-blind manner using an interactive web 
+response system. Randomization may not be completed prior to receiving on-study HRD test 
+results (unless gBRCAmut or sBRCAmut status is known based on the local test result, then 
+randomization may proceed). 
+The investigative staff will enter the clinical stratification factors of chemotherapy regimen 
+(neoadjuvant or not), and best response to front-line platinum therapy into the electronic data 
+capture system. An unblinded TESARO employee without affiliation to the study scientific 
+team will enter the final stratification of HRD status into the electronic data capture system to 
+initiate the randomization process. 
+1.2.3. 
+Stopping Rules and Unblinding 
+There are no pre-specified stopping rules for the study. 
+The patient, Investigator, study staff, and the Sponsor study team and its representatives will be 
+blinded to the patients’ tumor HRD status and identity of the assigned treatment from the time 
+of randomization until database lock. If an individual’s role on the trial requires information 
+about HRD status or treatment assignment (e.g., an individual is involved in emergency 
+unblinding or entry of HRD status for stratification), procedures will be used to ensure all other 
+personnel remain blinded. Study treatment assignment and tumor BRCA status will be available 
+to the investigator upon request for post-study treatment planning. 
+Patients and investigators will not be unblinded to HRD status or study treatment except in cases 
+associated with important medical reasons as determined by the investigator and for specific 
+non-urgent medical events. The process for unblinding the identity of the assigned treatment is 
+outlined in the Pharmacy Manual. 
+Patients who require unblinding will be discontinued from study treatment but will remain on 
+study until progression or death, withdrawal of consent, or loss to follow-up. 
+No study sites will be provided with all of the treatment codes within that site until completion 
+of the study following the final analysis and reporting of the CSR.  
+1.2.4. 
+Study Procedures 
+The schedule of assessments, as outlined in the study protocol, is provided in Table 1-1. 
+
+
+--- Page 16 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 15 of 61 
+Table 1-1 
+Schedule of Assessments (Protocol Amendment 3) 
+ 
+ 
+Visita 
+Procedure` 
+Screeningb 
+Cycle 1 
+Cycle 
+2 
+Subsequent 
+Cycles 
+EOT 
+Post-
+Treatment 
+Assessments 
+Day 
+-28 to -1 
+1 
+8 
+15 
+22 
+1 
+C(n)/D1c 
+Within 7 days 
+of last dose or 
+discontinuation 
+determination 
+Every 12 
+weeks 
+Informed consent 
+Xd 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Demographics and height 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Medical, surgical, cancer (including genotyping), and 
+medication history 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+Sample collection (tumor) for centralized HRD testing 
+Xe 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+12-lead ECG 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Serum or urine pregnancy testf 
+X 
+Xg 
+ 
+ 
+ 
+X 
+Xf 
+ 
+ 
+Physical examination 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+Vital signs and weight 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+ECOG performance status 
+X 
+X 
+ 
+ 
+ 
+X 
+X 
+X 
+ 
+Adverse event monitoringh 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+X 
+Concomitant medications 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+Serum chemistry 
+X 
+Xg 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+CBCi 
+X 
+Xg 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+Serum CA-125j 
+X 
+Xg 
+ 
+ 
+ 
+X 
+X 
+X 
+X 
+RECIST v.1.1 assessmentj 
+X 
+ 
+ 
+ 
+ 
+ 
+X 
+X 
+X 
+Chest CT or MRIk 
+X 
+ 
+ 
+ 
+ 
+ 
+X 
+X 
+X 
+
+
+--- Page 17 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 16 of 61 
+ 
+Visita 
+Procedure` 
+Screeningb 
+Cycle 1 
+Cycle 
+2 
+Subsequent 
+Cycles 
+EOT 
+Post-
+Treatment 
+Assessments 
+Day 
+-28 to -1 
+1 
+8 
+15 
+22 
+1 
+C(n)/D1c 
+Within 7 days 
+of last dose or 
+discontinuation 
+determination 
+Every 12 
+weeks 
+FOSI, EQ-5D-5L, EORTC-QLQ-C30/EORTC-QLQ-
+OV28l 
+X 
+ 
+ 
+ 
+ 
+ 
+X 
+X 
+X 
+Randomization 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Study treatment dispensed or collected 
+ 
+Xm 
+ 
+ 
+ 
+X 
+X 
+X 
+ 
+Blood sample for PKn 
+ 
+X 
+ 
+ 
+ 
+X 
+Xo 
+Xp 
+ 
+Blood ctDNA for exploratory biomarker testing 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Optional sample (tumor) collection 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Xq 
+ 
+Anticancer therapies assessmentr 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+Survival assessment 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+Bone marrow aspirate and biopsy 
+ 
+Xs 
+Abbreviations: C = cycle; CA-125 = cancer antigen 125; CBC = complete blood count; CT = computed tomography; D = day; ECG = electrocardiogram; 
+ECOG = Eastern Cooperative Oncology Group; EOT = end of treatment; EQ-5D-5L = European Quality of Life scale, 5-Dimensions; EORTC-QLQ-C30 = 
+European Organisation for Research and Treatment of Cancer Quality of Life Questionnaire C30; EORTC-QLQ-OV28 = EORTC-QLQ ovarian module; 
+FOSI = Functional Assessment of Cancer Therapy – Ovarian Symptom Index; HRD = homologous recombination deficiency; MDS = myelodysplastic 
+syndrome; MRI = magnetic resonance imaging; PK = pharmacokinetics; RECIST = Response Evaluation Criteria in Solid Tumors. 
+a Treatment cycles are 28 days long. Study visits are scheduled every 28 days (±3 days), except Cycle 1 (every week). 
+b Screening tests that are considered standard of care (i.e., CT/MRI, physical examination) that were performed within the 28-day screening ‘window’ may be used as part of the 
+patient’s screening assessment even if they were performed prior to the patient providing informed consent. In this case those assessments dates become start date of screening 
+‘window.’ 
+c  A new cycle will begin every 28 days ±3 days. 
+d  Depending on local site requirements, patients may sign an HRD testing ICF prior to the screening period to facilitate early HRD testing only. After a Main ICF is signed all 
+other study tests and procedures must be done in the screening window (Day -28 to Day -1). 
+e  For patients with known documented gBRCA or sBRCA mutation, randomization may occur prior to receipt of centralized HRD testing. For patients without known gBRCA or 
+sBRCA mutation, centralized HRD testing of tumor sample must be completed with results reported prior to randomization for stratification. For patients who do not have 
+archival tissue, tissue from a fresh biopsy must be obtained. 
+
+
+--- Page 18 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 17 of 61 
+f  For women of childbearing potential, a negative serum or urine pregnancy test is required within 7 days of the first dose of study treatment. In addition, a negative urine 
+pregnancy test is required monthly (CnD1) thereafter. 
+g  Screening assessments completed within 7 days of the first dose do not need to be repeated. 
+h  All AEs will be collected and recorded in the eCRF for each patient from the day of signed informed consent until 30 days after the last dose of study treatment or until the 
+patient begins participation in a new clinical trial or initiates a new chemotherapy regimen. The Investigator should report the SAE to the Sponsor’s Pharmacovigilance 
+Department within 24 hours of becoming aware of the SAE according to timelines for reporting SAEs described in protocol Section 6.3.5. 
+i  If dose interruption or modification is required at any point on study because of hematologic toxicity, weekly blood draws for CBC will be monitored until the AE resolves, and 
+to ensure safety of the new dose, weekly blood draws for CBC also will be required for an additional 4 weeks after the AE has been resolved to the specified levels, after which 
+monitoring every 4 weeks may resume. 
+j  RECIST tumor assessment via CT or MRI scan of abdomen/pelvis and clinically indicated areas required at screening, then every 12 weeks (±7 days) until centrally confirmed 
+disease progression. Cycle timing will not be delayed for treatment interruptions, and tumor assessment should occur according to this schedule regardless of whether study 
+treatment is interrupted. If a patient discontinues treatment for clinical progression and does not meet the criteria specified in the protocol, scans and CA-125 testing should 
+continue at the specified intervals until progression is centrally confirmed. 
+k  Chest CT or MRI if not done as part of RECIST tumor assessment. If the chest CT or MRI is clear at screening, repeat chest imaging is not required in the absence of lesions to 
+be followed or in the absence of clinical indication requiring follow-up; otherwise, repeat chest imaging should be completed at the same time as RECIST imaging. 
+l  PROs will be collected every 8 weeks (±7 days) for 56 weeks beginning on C1D1, then every 12 weeks (±7 days) while on study treatment. PROs should be completed by the 
+patient before conducting any other procedures. During the follow-up period, if a patient discontinues study treatment, assessments will occur at 4 weeks, 8 weeks, 12 weeks, 
+and 24 weeks (±1 week for each timepoint) after EOT, regardless of the status of subsequent treatment. 
+m  Dosing must occur within 7 days from randomization. 
+n  Blood samples for PK on Cycle 1/Day 1 and Cycle 2/Day 1 collected predose (within 30 minutes before scheduled dose) and 2 hours postdose (±15 minutes). Note: The exact 
+time of the PK blood draw will be recorded. If study drug is held 1 day prior to and on C2D1, PK sample collection on that day is not required. 
+o  Additional blood samples for PK on Cycle 4/Day 1 and Cycle 8/Day 1 will be collected at predose (trough, within 30 minutes before scheduled dose). If study drug is held on 
+C4D1 or C8D1, PK sample collection on those days is not required. 
+p  A PK sample should only be collected at EOT if the patient discontinues before completing the Cycle 8/Day 1 blood sample collection for PK. 
+q  If the patient has experienced progression. 
+r  In addition to survival and anticancer assessment, these assessments include outcomes for subsequent anticancer therapies and any new malignancy information. 
+s  For any suspected MDS/AML case reported while on study, a bone marrow aspirate/biopsy must be completed by a local hematologist. 
+ 
+
+
+--- Page 19 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 18 of 61 
+1.2.5. 
+Efficacy, Pharmacokinetic, and Safety Parameters 
+1.2.5.1. 
+PFS (Progression-Free Survival) 
+PFS assessed by the blinded independent central review (BICR) is the primary efficacy endpoint 
+and defined as the time from the date of treatment randomization to the date of first 
+documentation of progression or death due to any cause in the absence of documented 
+progression, whichever occurs first.  
+Tumor assessment via computed tomography (CT) or magnetic resonance imaging (MRI) scan 
+of the abdomen/pelvis and other areas as clinically indicated is required at screening, then every 
+12 weeks (± 1 week) from Cycle 1/Day 1 visit until progression is confirmed by BICR.  
+BICR will assess study imaging and available clinical data to determine overall tumor 
+assessment for each patient at each timepoint by data cut-off date for the primary analysis of 
+PFS. After the primary analysis of PFS, BICR may no longer be required.  
+The original RECIST 1.1 criteria applies unless specifically clarified in the Independent Review 
+Charter (IRC) for this particular indication and patient population. Patients for this trial may 
+have minimal or no disease at baseline. If a subject has no disease (measurable or non-
+measurable) at baseline the radiologist will assign ‘No Disease’ (ND) as the overall tumor 
+assessment for any available follow-up timepoints unless a new unequivocal lesion is identified, 
+in which case the assessment will be PD, or imaging is not assessable in which case the 
+assessment will be NE. 
+BICR includes:   
+x Radiology Review: two blinded independent radiologists and adjudication radiology 
+review by a third blinded radiologist if required 
+x Oncology Review: one blinded independent oncologist when the radiology review does 
+not meet the criteria for PD and clinical judgment is required (clinical PD). For date of 
+progression the oncologist will use the earliest date among radiographic and clinical 
+information. 
+Because of the pelvic location of the primary tumor and the frequent occurrence of peritoneal 
+disease, imaging may not always be reliable for documentation of PD. Therefore, PD will be 
+determined if at least 1 of the following criteria is met: 
+x Tumor assessment by computed tomography/magnetic resonance imaging (CT/MRI) 
+unequivocally shows PD according to RECIST 1.1 criteria. 
+x CA-125 progression according to Gynecologic Cancer Intergroup (GCIG) criteria 
+(Section 1.2.5.5) AND additional diagnostic tests (e.g., histology/cytology, ultrasound 
+techniques, endoscopy, positron emission tomography [PET]) may identify new lesions 
+or determine existing lesions qualify for unequivocal PD. 
+x CA-125 progression according to GCIG criteria (Section 1.2.5.5) AND definitive 
+clinical signs and symptoms of PD unrelated to non-malignant or iatrogenic causes, such 
+as: [1] intractable cancer-related pain; [2] malignant bowel obstruction/worsening 
+dysfunction; or [3] unequivocal symptomatic worsening of ascites or pleural effusion. 
+ 
+ 
+
+
+--- Page 20 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 19 of 61 
+ 
+Determination of the PD date for the primary analysis of PFS is shown in Table 1-2.  
+Table 1-2 
+Determination of Disease Progression Date  
+BICR 
+Investigator 
+Date of PD 
+Radiology 
+Oncology 
+PD 
+PD 
+PD 
+Earliest date of BICR and Investigator 
+PD 
+Non-PD 
+PD 
+BICR (Radiology) 
+PD 
+PD 
+Non-PD 
+BICR (Radiology)  
+PD 
+Non-PD 
+Non-PD 
+BICR (Radiology) 
+Non-PD 
+PD 
+PD 
+Earliest date of BICR and Investigator 
+Non-PD 
+PD 
+Non-PD 
+Non-PD 
+Non-PD 
+Non-PD 
+PD 
+Non-PD 
+ 
+Note, BICR assessed clinical progression (by oncology review) is considered as an event in the 
+primary analysis of PFS only if it is also a PD by Investigator assessment. When a clinical 
+progression is determined by both BICR and Investigator assessment, the date of PD will be 
+determined by the earliest date of BICR and Investigator assessment.  
+Censoring for the primary endpoint PFS will be determined as follows: 
+1. No evaluable baseline OR no evaluable post-baseline radiological assessments; PFS is 
+censored at the date of randomization unless death or progression occurred within two 
+visits of randomization (25 weeks allowing for visit window). 
+2. Patients who have not progressed or died and have not started subsequent anti-cancer 
+therapy are censored at the date of the latest evaluable radiological assessment. 
+3. Patients who started subsequent anti-cancer therapy are censored at the date of the latest 
+evaluable radiological assessment prior to the start of subsequent anti-cancer therapy, 
+regardless of whether they have progressed or died after the start of subsequent anti-
+cancer therapy. 
+4. Patients who have progressed or died after two or more missed radiological assessments 
+(25 weeks allowing for visit window) are censored at the date of the latest evaluable 
+radiological assessment prior to the missed interval. 
+Unless otherwise specified, PFS and other time-to-event endpoints will be calculated in month 
+as: (event or censoring date – randomization date + 1)/30.4375  
+Primary analysis of PFS will be performed first in HRDpos population and followed by ITT 
+population. PFS based on the Investigator assessment will be conducted for sensitivity analysis.  
+1.2.5.2. 
+OS (Overall Survival) 
+OS is a key secondary endpoint and defined as the time from the date of randomization to the 
+date of death by any cause.  
+Following the treatment discontinuation visit, survival assessment will be collected every 12 
+weeks (± 2 weeks). 
+
+
+--- Page 21 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 20 of 61 
+Any patient not known to have died at the time of analysis will be censored based on the last 
+recorded date on which the patient was known to be alive.  
+1.2.5.3. 
+PFS2 (Progression-Free Survival-2) 
+PFS2 is defined as the time from the date of randomization to the date of progression on the 
+next anti-cancer therapy following study treatment or death by any cause, whichever occurs 
+first.  
+The date of progression on the next anti-cancer therapy is based on the Investigator assessment 
+according to the local standard clinical practice and recorded on the eCRF follow-up anti-cancer 
+therapy form. Following the treatment discontinuation visit, the assessment of follow-up anti-
+cancer therapy will be collected every 12 weeks (± 2 weeks). The algorithm to define lines of 
+follow-up anti-cancer therapies is specified in Section 4.3.3.4.  
+Patients who died prior to any follow-up anti-cancer therapy are considered as events in the 
+PFS2 analysis.   
+Censoring for PFS2 will be determined as follows: 
+1. Patients who are alive and have not started any follow-up anti-cancer therapy are 
+censored at the last contact date. 
+2. Patients who have not progressed or died and have not started the second line follow-up 
+anti-cancer therapy are censored at the last contact date. 
+3. Patients who started the second line follow-up anti-cancer therapy are censored at the 
+start date of the second line follow-up anti-cancer therapy, regardless of whether they 
+have progressed or died after the start of the second line follow-up anti-cancer therapy. 
+4. Patients who have progressed or died after two or more missed follow-up assessments 
+(26 weeks allowing for visit window) following treatment discontinuation are censored 
+at the latest follow-up assessment prior to the missed interval or treatment 
+discontinuation date if no follow-up assessment was done. 
+1.2.5.4. 
+TFST (Time to First Subsequent Therapy) 
+TFST is defined as the time from the date of randomization to the date of the first subsequent 
+anti-cancer therapy or death, whichever occurs first.  
+Any patient not known to have died at the time of analysis and not known to have had started 
+any subsequent anti-cancer therapy will be censored at the last known time to have not received 
+any subsequent therapy, i.e. the last assessment where this was confirmed. 
+1.2.5.5. 
+Time to CA-125 Progression 
+Time to CA-125 Progression (TCA-125) is defined as the time from the date of randomization 
+to the date of the CA-125 progression.  
+CA-125 progression criteria are defined as follows:   
+x Patients with elevated CA-125 pretreatment and normalization of CA-125 during 
+treatment with blinded study drug must show evidence of CA- 2 x ULN on 2 
+occasions at least 1 week apart, OR 
+
+
+--- Page 22 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 21 of 61 
+x Patients with elevated CA-125 pretreatment, which never normalizes during treatment 
+with blinded study drug must show evidence of CA-[WKHQDGLUYDOXHin the 28-
+day period before day 1 on 2 occasions at least 1 week apart, OR 
+x Patients with CA-125 in the normal range pretreatment must show evidence of CA-125 
+[8/1RQRFFDVLRQVDWOHDVWZHHNDSDUW 
+The date of CA-125 progression will be the date of the first measurement that meets the above 
+criteria.  
+Any patient not known to have died at the time of analysis and have not had CA-125 
+progression will be censored at the date of the last available CA-125 measurement. Patients that 
+do not have any post-randomization CA-125 measurements will be censored at the date of 
+randomization. 
+1.2.5.6. 
+PROs (Patient Reported Outcomes) 
+PROs will be collected every 8 weeks (± 1 week) for 56 weeks beginning on C1D1, then every 
+12 weeks (± 1 week) thereafter while the patient is receiving study treatment. Once a patient 
+discontinues treatment, PRO evaluations will be performed at the time of treatment 
+discontinuation and then at 4 weeks, 8 weeks, 12 weeks, and 24 weeks (± 1 week for each 
+timepoint) after EOT, regardless of the status of subsequent treatment. Note for patients enrolled 
+in the Original Protocol and Protocol Amendment 1, PROs are collected after EOT every 12 
+weeks (± 2 weeks) until study discontinuation. 
+1.2.5.6.1. FOSI (Functional Assessment of Cancer Therapy-Ovarian Symptom Index) 
+FOSI is a validated, 8-item measure of symptom response to treatment for ovarian cancer. 
+Patients respond to their symptom experience over the past 7 days using a 5-point Likert scale 
+scored from
+to
+  
+The FOSI score will be derived in accordance with the FOSI scoring manual (Section 7.1). 
+Negatively stated items are reversed by subtracting the response from
+ After reversing 
+proper items, all subscale items are summed to a total, which is the subscale score. A higher 
+score indicates a better Quality of Life (QOL). 
+If there are missing items, subscale scores will be prorated as long as more than 50% of the 
+items were answered (i.e. at least 5 of 8 items). The proration is done by multiplying the sum of 
+the subscale by the number of items in the subscale, then dividing by the number of items 
+actually answered.  
+FOSI score = 
+ x 
+ 
+The FOSI score ranges from
+to
+ A change of 2 
+points in FOSI score is considered as a minimum clinically important difference (MCID). The 
+FOSI score change from baseline will be categorized at each visit as follows:  
+x ,PSURYHGFKDQJHIURPEDVHOLQH2 
+x Stable: -2 < change from baseline < 2 
+x :RUVHQHGFKDQJHIURPEDVHOLQH-2 or “Patient was too ill” is answered as the reason 
+for not completing the FOSI form at visit.  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 23 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 22 of 61 
+In the reporting of the proportion of patients who have a response of Improved, Stable, or 
+Worsened, the denominator will be all patients with non-missing FOSI scores at baseline and at 
+each corresponding visit.  
+The Time-to-First-Worsening in FOSI score (TFW-FOSI) will be defined as the time from the 
+date of randomization to the date of first worsened FOSI score (change from baseline -2).  
+Any patient without a worsened FOSI score will be censored at the date of the last evaluable 
+FOSI assessment, i.e. FOSI score is not missing. Patients who have no valid baseline FOSI 
+assessment or any post-baseline FOSI assessment will be censored at the date of randomization.  
+1.2.5.6.2. EQ-5D (European Quality of Life Scale, 5-Dimensions) 
+EQ-5D was first developed including three levels of severity in each of five dimensions (EQ-
+5D-3L) by EuroQol Group. This study used a newer version of the EQ-5D including five levels 
+of severity in each of the existing five dimensions (EQ-5D-5L).  
+The five domains asking patients to rate their perceived health state today include: 
+ 
+ Each domain is scored on a 
+Likert-type scale ranging from 1 to 5 with increasing levels of severity (
+ 
+).  
+A unique health state, the EQ-5D-5L profile, based on the five dimension is reported as a five-
+digit code with a possible total of 3,125 health states. For example, state 11111 indicates no 
+problems on any of the five dimensions; versus, state 55555 indicates extreme problems on all 
+five dimensions. Any missing items will be coded as 
+ in creating patient profiles.  
+The EQ-5D-5L profile will be converted into a weighted health state utility value, the EQ-5D 
+index, by applying a country-specific valuation set to the profile that represents the comparative 
+value of health states. The EQ-5D index values summarize how good or bad each health state is 
+on a scale from
+ to
+. A higher index value indicates a better 
+QOL. The EQ-5D index value is regarded as missing when responses are missing for 1 or more 
+of the 5 dimensions. 
+For purpose of analysis, the US value set will be used. EQ-5D index values for the data gathered 
+XVLQJWKH(4ဩ'ဩ/GHVFULSWLYHV\VWHPwill be calculated by mapping the 5L descriptive system 
+data onto the 3L valuation set using the EQ-5D-5L crosswalk value set (Section 7.2) 
+A Visual Analogue Score (EQ-VAS) is collected separately and records the respondent’s self-
+rated health on a vertical, visual analogue scale from
+ to 
+ 
+ 
+1.2.5.6.3. EORTC-QLQ-C30 and OV28 
+The European Organisation for Research and Treatment of Cancer Quality of Life 
+Questionnaire C30 (EORTC-QLQ-C30), Version 3.0, incorporates five functional scales 
+(
+), three symptom scales (
+ 
+), a global health status/QoL scale (
+), and 6 single 
+items assessing additional symptoms commonly reported by cancer patients (
+ 
+). Table 1-3 summarizes the QLQ-
+C30 scales and component items. 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which 
+are protected by third party copyright laws and therefore have been excluded.
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 24 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 23 of 61 
+Table 1-3 
+Scoring the QLQ-C30 version 3.0 
+Scale 
+Abbr. 
+Number of 
+Items 
+Item 
+Range* 
+Version 3.0 
+Item Numbers 
+eCRF  
+Item Numbers 
+Scale scores are calculated by averaging items within scales and transforming average scores 
+linearly. All of the scales range in score from  to 
+. A high score for a functional scale 
+represents a high/healthy level of functioning whereas a high score for a symptom scale or item 
+represents a high level of symptomatology or problems. 
+The principle for scoring these scales is the same in all cases and detailed below: 
+For all scales, the RawScore (RS) is the mean of the component items: 
+ܴܽݓܵܿ݋ݎ݁=
+For QLQ-C30 Global health status/QoL Scale:  
+ܵܿ݋ݎ݁=
+Thus, a higher score represents a higher ("better") level of health status/QoL.  
+For QLQ-C30 Functional Scales: 
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which are protected by third party 
+copyright laws and therefore have been excluded.
+C
+C
+CCI 
+- 
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which are protected by 
+third party copyright laws and therefore have been excluded.
+CCI
+CCI - This section contained 
+Clinical Outcome Assessment 
+data collection questionnaires or 
+indices, which are protected by 
+third party copyright laws and 
+
+
+--- Page 25 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 24 of 61 
+ܵܿ݋ݎ݁=
+Thus, a higher score represents a higher (“better”) level of functioning. 
+For QLQ-C30 Symptom Scales/Items: 
+ܵܿ݋ݎ݁=
+Thus, a higher score represents a higher ("worse") level of symptoms. 
+ 
+If there are missing items in a scale, the scale score will be calculated on the completed items if 
+at least 50% of the component items have been completed; otherwise the scale score is regarded 
+as missing. 
+ 
+A change of 10 points in QLQ-C30 scale score is considered conventionally as a minimum 
+clinically important difference (MCID).  
+For QLQ-C30 Global health status/QoL and Functional Scales, the scale score change from 
+baseline will be categorized as follows:  
+x ,PSURYHGFKDQJHIURPEDVHOLQH 
+x Stable: -10 < change from baseline < 10 
+x :RUVHQHGFKDQJHIURPEDVHOLQH-10 or “Patient was too ill” is answered as the reason 
+for not completing the QLQ-C30 form at visit.  
+For QLQ-C30 Symptom Scales (
+), the scale score change 
+from baseline will be categorized as follows:  
+x ,PSURYHGFKDQJHIURPEDVHOLQH-10 
+x Stable: -10 < change from baseline < 10 
+x :RUVHQHGFKDQJHIURPEDVHOLQH or “Patient was too ill” is answered as the reason 
+for not completing the QLQ-C30 form at visit. 
+In the reporting of the proportion of patients who have a response of Improved, Stable, or 
+Worsened, the denominator will be all patients with non-missing corresponding QLQ-C30 scale 
+scores at baseline and at each corresponding visit.  
+The Ovarian Cancer Module (QLQ-OV28) supplements to the QLQ-C30. It includes three 
+functional scales (
+) and five symptom 
+scales/items (
+ 
+).  Table 1-4 summarizes the QLQ-OV28 scales 
+and component items. 
+CCI - This section contained 
+Clinical Outcome Assessment 
+data collection questionnaires 
+or indices, which are protected 
+by third party copyright laws 
+CCI - This section 
+contained Clinical 
+Outcome Assessment 
+data collection 
+questionnaires or indices, 
+hi h
+t
+t d b
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 26 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 25 of 61 
+Table 1-4 
+Scoring the QLQ-OV28 
+Scale 
+Abbr. 
+Number 
+of Items 
+Item 
+Range 
+QLQ-OV28 
+Item 
+eCRF  
+Item Numbers 
+Overall, the scoring approach for the QLQ-OV28 is identical to that used for the QLQ-C30. A 
+few additional rules include:  
+For all scales, the RawScore (RS) is the mean of the component items: 
+ܴܽݓܵܿ݋ݎ݁=
+For OV-28 Functional Scales (
+): 
+ܵܿ݋ݎ݁=
+For OV-28 Functional Scales (
+): 
+ܵܿ݋ݎ݁=
+Thus, a higher score represents a higher (“b
+oning. 
+For OV-28 Symptom Scales/Items: 
+ܵܿ݋ݎ݁=
+Thus, a higher score represents a higher ("worse") level of symptoms. 
+ 
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which are protected by third party 
+copyright laws and therefore have been excluded.
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which are protected by third 
+party copyright laws and therefore have been excluded.
+CCI - This section contained Clinical Outcome Assessment data 
+collection questionnaires or indices, which are protected by third 
+CCI - This 
+section 
+CCI
+CCI - This section contained 
+Clinical Outcome Assessment data 
+collection questionnaires or indices, 
+which are protected by third party 
+i h l
+d h
+f
+h
+CCI - This section contained 
+Clinical Outcome 
+Assessment data collection 
+questionnaires or indices, 
+which are protected by third 
+party copyright laws and
+CCI - This section contained 
+Clinical Outcome 
+Assessment data collection 
+questionnaires or indices, 
+which are protected by third
+
+
+--- Page 27 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 26 of 61 
+If there are missing items in a scale, the scale score will be calculated on the completed items if 
+at least 50% of the component items have been completed; otherwise the scale score is regarded 
+as missing. 
+A change of 10 points in QLQ-OV28 scale score is considered conventionally as a minimum 
+clinically important difference (MCID).  
+For QLQ-OV28 Symptom Scales (
+), the scale score change from baseline will be 
+categorized as follows:  
+x ,PSURYHGFKDQJHIURPEDVHOLQH-10 
+x Stable: -10 < change from baseline < 10 
+x :RUVHQHGFKDQJHIURPEDVHOLQH or “Patient was too ill” is answered as the reason 
+for not completing the QLQ-OV28 form at visit. 
+For QLQ-OV28 Symptom Scales (
+), a Time-to-First-Worsening in the QLQ-
+OV28-AG scale (TFW-OV28-AG) will be defined as the time from the date of randomization to 
+the date of first worsened OV28-AG scale score FKDQJHIURPEDVHOLQH.  
+Any patient without a worsened OV28-AG scale score will be censored at the date of the last 
+evaluable OV28-AG scale assessment, i.e. OV28-AG scale score is not missing. Patients who 
+have no baseline OV28-AG scale score or any post-baseline OV28-AG scale assessment will be 
+censored at the date of randomization.  
+1.2.5.6.4. Overall compliance of Patient Reported Outcomes 
+For each of the PROs (FOSI, EQ-5D-5L, QLQ-C30/OV28), overall compliance and compliance 
+by visit will be summarized, based on the following definitions. 
+x Expected forms: number of patients expected to complete PRO form. Date of study 
+discontinuation and/or date of death will be used to determine the last visit at which a 
+patient is still expected under PRO follow-up. 
+x Received forms: number of PRO forms received back.  
+x Evaluable forms: number of Received forms with at least one non-missing scale value 
+plus number of forms not received back for reasons of “Patient was too ill”.   
+The overall compliance rate is defined as the number of patients with an evaluable baseline and 
+at least one evaluable post-baseline form, divided by the number of patients expected to 
+complete the baseline form.  
+Compliance by visit will be calculated as the number of patients with an evaluable form at that 
+visit, divided by the number of patients expected to complete the form at that visit.   
+The distribution of forms received and the reasons for forms not received back will be reported 
+at each visit. To ensure the representativeness of the reported PRO data, a comparison of 
+baseline characteristics for compliant vs. non-compliant patients may be performed if 
+compliance is considered inadequate.  
+1.2.5.7. 
+Pharmacokinetic Parameters 
+A separate analysis plan will describe PK parameters and analyses. 
+ 
+CCI
+CCI
+
+
+--- Page 28 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 27 of 61 
+1.2.5.8. 
+Safety Parameters 
+Safety parameters evaluated during the conduct of the study include: treatment-emergent AEs 
+(TEAEs), clinical laboratory (hematology, chemistry), vital signs, electrocardiogram (ECG), 
+physical examination, Eastern Cooperative Oncology Group (ECOG) performance status, and 
+use of concomitant medications. The safety endpoints are: 
+x TEAEs 
+x Clinical laboratory: 
+o Complete blood count (CBC): hemoglobin, platelets, mean corpuscular volume, 
+white blood cell count, differential white cell count (at least absolute neutrophil 
+count) 
+o Serum chemistry assessments for safety include: sodium, potassium, calcium, 
+magnesium, chloride, glucose, creatinine, total bilirubin, alkaline phosphatase 
+(ALP), aspartate aminotransferase (AST), alanine aminotransferase (ALT), urea 
+or blood urea nitrogen (BUN), total protein, albumin 
+o Serum CA-125 
+o Serum or urine pregnancy testing 
+x Physical examination, which includes assessments of the following body systems: 
+o General Appearance 
+o Dermatologic 
+o Head, Eyes, Ears, Nose, and Throat (HEENT) 
+o Thyroid 
+o Lymph Nodes 
+o Respiratory 
+o Cardiovascular 
+o Gastrointestinal 
+o Extremities 
+o Musculoskeletal 
+o Psychiatric 
+x Vital signs: 
+o Height (at screening only) 
+o Weight 
+o Systolic and diastolic blood pressure 
+o Pulse 
+o Temperature 
+x ECOG performance status 
+
+
+--- Page 29 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 28 of 61 
+x ECG (screening only)  
+x Concomitant medications 
+Additional safety parameters include study treatment exposure and compliance. 
+
+
+--- Page 30 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 29 of 61 
+2. 
+PATIENT POPULATION 
+2.1. 
+Population Definitions 
+The following patient populations will be evaluated and used for presentation and analysis of 
+the data: 
+x Intent-to-Treat (ITT) population is defined as all patients randomized into the study. The 
+ITT population is the primary analysis population for the efficacy analysis. For this 
+analysis, patients will be analyzed as randomized. Patients who were incorrectly 
+stratified during randomization will be analyzed and presented under the stratum 
+assigned during randomization. 
+x Per-protocol (PP) population is defined as all patients randomized and treated in the 
+study who do not have protocol deviations that could significantly impact the 
+interpretation of efficacy results. Patients will be analyzed according to the treatment 
+they actually receive. Patients who were incorrectly stratified during randomization will 
+be analyzed and presented under the correct stratum based on the clinical database. 
+x Safety (SAF) population is defined as all patients who receive at least 1 dose of study 
+drug. Patients will be analyzed as treated. Patients receiving treatment from more than 
+one treatment arm will be accounted for based on their first study treatment.  
+The ITT population is the primary analysis population for the efficacy analysis. The PP 
+population will be used for supportive analysis as needed. The SAF population will be the 
+primary analysis population for the safety analysis. 
+2.2. 
+Protocol Deviations 
+Protocol deviations will be assessed as important or significant per Sponsor’s SOP. 
+x A protocol deviation is classified as important if there is the potential to impact the 
+completeness, accuracy, and/or reliability of the study data, or affect a patient’s rights, 
+safety, or well-being. 
+x An important protocol deviation is classified as significant if it is confirmed to adversely 
+impact the completeness, accuracy, and/or reliability of the study data, or affect a 
+patient’s rights, safety, or well-being. 
+All protocol deviations will be identified and finalized prior to database lock. Patients excluded 
+from the PP population due to a protocol deviation will be identified prior to database lock. If 
+the deviations are serious enough to have the potential to impact the primary analysis, sensitivity 
+analyses may be performed.  
+The following protocol deviation summaries will be provided: 
+x Number and percentage of patients with a significant protocol deviation and by category 
+x Number and percentage of patients with an important protocol deviation and by category 
+x A data listing of all protocol deviations. 
+
+
+--- Page 31 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 30 of 61 
+3. 
+GENERAL STATISTICAL METHODS 
+3.1. 
+Sample Size Justification 
+The sample size justification is summarized according to the Protocol Amendment 3 dated 12 
+February 2018.   
+In the studies of the maintenance therapy following first line chemotherapy for advanced 
+ovarian cancer, the median PFS has been shown to be up to approximately 14 months in the 
+broad population of patients.[3, 4, 5] In addition, several studies showed that patients with 
+gBRCA mutation had a longer median PFS (approximately 30 months) than those without the 
+mutation.[6, 7] Therefore the median PFS for all placebo patients is assumed as 14 months and 
+the median PFS for placebo patients with BRCAmut is assumed as 30 months. As the data are 
+limited for the prognostic role of HRD in tBRCAwt patients in the first line maintenance setting, 
+median PFS for tBRCAwt/HRDpos and HRDneg placebo patients is assumed to be the same. 
+The median PFS for HRDpos placebo patients is calculated as follows: Assuming an 
+exponential distribution, the PFS for all placebo patients has a mixture of exponential 
+distributions (35% with BRCAmut and 65% with tBRCAwt) with the median PFS of 14 months. 
+Since the median PFS for BRCAmut placebo patients is assumed to be 30 months, data 
+simulation yields a median PFS of 10 months for tBRCAwt placebo patients and 21 months for 
+HRDpos placebo patients. 
+Assuming a median PFS of 21 months for HRDpos placebo group, to detect an expected benefit 
+corresponding to hazard ratio (HR) of 0.5 with 90% power and a 2:1 randomization ratio, 99 
+PFS events are required. Current projections suggest that approximately 50% of all patients 
+randomized will be HRDpos. Therefore, enrollment of approximately 620 patients (310 with 
+HRDpos) will be needed to complete the study in about 44 months. This assumes that 15% of 
+patients will not provide a PFS event for the primary endpoint (lost-to-follow-up, discordance 
+between investigator and central reviewer, etc.). Since it is an event-driven study, if the actual 
+median PFS for the placebo group in this study is longer or shorter than the assumed median 
+estimate, the time needed to reach the required minimum number of PFS events will be either 
+extended or reduced accordingly.  
+The final analysis of PFS for HRDpos and ITT population will be performed sequentially after  
+approximately 99 HRDpos PFS events are reached. The PFS analysis in the ITT population will 
+include all PFS events observed at the time of the final analysis. Assuming a median PFS of 14 
+months for all placebo patients, a total of approximately 270 PFS events are expected for the 
+final analysis of PFS in the ITT population. This will provide at least 90% power to detect a true 
+HR of 0.65. 
+If a statistically significant PFS treatment difference is observed in the ITT population , the 
+sequential testing will continue for OS endpoint first in the ITT population and then in HRDpos 
+population. The analysis of OS will include an interim analysis of OS at the time of the final 
+analysis of PFS and a final analysis of OS when approximately 440 deaths have occurred in the 
+ITT population (60% data maturity).  A Lan-DeMets alpha-spending function with the O’Brien-
+Fleming stopping boundaries will be used to determine the significance levels for interim and 
+final analyses based on the observed fraction of OS events [8]. The final analysis of OS is 
+expected to occur approximately 70 months after first patient randomized. To detect a 
+statistically significant OS treatment difference at 1-sided 0.025 Type I error, the analysis of OS 
+with 440 events will have at least 80% power if the true HR is 0.75 or less in the ITT 
+
+
+--- Page 32 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 31 of 61 
+population. Although this study is not powered for OS analysis in HRDpos population, about 
+one third of deaths in the ITT population are estimated to be HRDpos patients at the time of 
+final analysis of OS, thus the analysis of OS with 150 HRDpos events will have at least 70% 
+power if the true HR is 0.65 or less in HRDpos population.  
+First patient was randomized in August 2016 and last patient was randomized in June 2018. By 
+the time of enrollment close, patients who had signed informed consent and still under screening 
+were allowed to continue and be randomized if deemed eligible. A total of 733 patients were 
+randomized into the study. Table 3-1 summarizes the changes in sample size assumptions from 
+all protocol amendments.  
+Table 3-1 
+Summary of Sample Size Assumptions in Protocol Amendments 
+Protocol version 
+HRDpos population 
+ITT population 
+Sample size 
+Original Protocol 
+HR 0.65, Placebo mPFS 6m 
+N/A[1] 
+305 
+Amendment 1 
+HR 0.5, Placebo mPFS 10m 
+HR 0.65, Placebo mPFS 7m 
+330 
+Amendment 2 
+HR 0.5, Placebo mPFS 13m 
+HR 0.65, Placebo mPFS 10m 
+468 
+Amendment 3 
+HR 0.5, Placebo mPFS 21m 
+HR 0.65, Placebo mPFS 14m 
+620 
+[1] The original protocol enrolled HRDpos patients only (n=44). HR = Hazard Ratio. mPFS = median PFS. 
+ 
+3.2. 
+General Methods 
+All safety data listings that contain an evaluation date will also contain a relative study day. 
+Pre-treatment and on-treatment study days are numbered relative to the day of the first dose of 
+study drug which is designated as Day 1. The preceding day is Day -1, the day before that is 
+Day -2, etc. The last day of study drug is designated with an “L” (e.g., Day 14L). Post-treatment 
+study days are numbered relative to the last dose and are designated as Day +1, Day +2, etc. In 
+addition to relative day, cycle and day of treatment within cycle will be calculated and 
+presented. 
+All output will be incorporated into Microsoft Word or Excel files or Adobe Acrobat PDF files, 
+sorted and labeled according to the International Conference on Harmonisation (ICH) 
+recommendations, and formatted to the appropriate page size(s). 
+Tabulations will be produced for appropriate demographic, baseline, efficacy, and safety 
+parameters. Unless otherwise stated, all tabulations will be summarized separately for HRDpos 
+population and ITT population. 
+For categorical variables, summary tabulations of the number and percentage of patients within 
+each category of the parameter will be presented. Percentages will be based on the patients with 
+a non-missing parameter. Percentages will be reported to 1 decimal place. Percentages will not 
+be presented for zero counts. 
+For continuous variables, the number of patients, mean, standard deviation (SD), median, first 
+quartile (Q1), third quartile (Q3), minimum, and maximum values will be presented. Mean, 
+
+
+--- Page 33 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 32 of 61 
+median, Q1, and Q3 will be reported to 1 more decimal place than the raw data, while the SD 
+will be reported to 2 more decimal places than the raw data. 
+Time-to-event data will be summarized using Kaplan-Meier (KM) methodology using 25th, 50th 
+(median), and 75th percentiles with associated 2-sided 95% confidence intervals (CIs), as well as 
+percentage of censored observations. 
+Formal statistical hypothesis testing will be performed on the efficacy endpoints as described in 
+the SAP. 
+In addition: 
+x P-values greater than or equal to 0.001, in general, will be presented to 3 decimal places; 
+p-values less than 0.001 will be presented as “<0.001” 
+x CIs will be presented to 1 more decimal place than the raw data 
+x Weeks will be calculated as Number of days divided by 7 
+x Months will be calculated as Number of days divided by 30.4375 
+x Years will be calculated as Number of days divided by 365.25 
+x Day 1 will be considered as the first day of treatment 
+x End of Study is defined as the last available study assessment 
+x All tables, figures, and listings will include footers at the bottom of the page reflecting 
+the path of the programs used to generate the tables, figures, and listings, and date and 
+time of the generation of the output 
+3.3. 
+Computing Environment 
+All statistical analyses will be performed using SAS statistical software v9.4 or later, unless 
+otherwise noted. Medical history and AEs will be coded using the Medical Dictionary for 
+Regulatory Activities (MedDRA) v20.0 or later. Laboratory parameter changes will be 
+described using shift tables, relative to the National Cancer Institute (NCI) Common 
+Terminology Criteria for Adverse Events (CTCAE) v4.03. Concomitant medications will be 
+coded using the latest version of the World Health Organization’s (WHO) Anatomical 
+Therapeutic Chemical (ATC) classification (September 2017 or later). 
+3.4. 
+Baseline Definitions 
+For all analyses, baseline is defined as the most recent measurement prior to the first 
+administration of study drug (including Cycle 1 Day 1). 
+3.5. 
+Methods of Pooling Data 
+Data will be pooled across study sites. 
+3.6. 
+Adjustments for Covariates 
+The stratified log-rank test and Cox proportional hazards models will include the randomization 
+stratification factors as “strata”. Unless otherwise noted, the randomization stratification factors 
+will be included in the analyses of all primary and secondary efficacy endpoints when 
+appropriate. Stratification factors entered for randomization will be used in the primary analysis. 
+
+
+--- Page 34 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 33 of 61 
+If there is any mis-stratification, a sensitivity analysis will be performed using the stratification 
+data based on the clinical database.   
+In the Original Protocol, patients must be HRDpos and were randomized by one stratification 
+factor: best response to platinum therapy (CR or PR). Since Protocol Amendment 1, patients 
+were randomized by three stratification factors: best response to platinum therapy (CR or PR), 
+administration of neoadjuvant therapy (Yes or No), and HRD status (HRDpos or 
+HRDneg/HRDnd).  
+When analyzing ITT population in a single model, the strata of neoadjuvant therapy and HRD 
+status for patients from the Original Protocol will be based on data in the clinical database. 
+When analyzing HRDpos population, similar approach as in the ITT population will be applied. 
+The HRD status will be removed from the model since it is a constant for HRDpos population.  
+Table 3-2 summarizes the data sources of stratification factors used for the analysis.  
+Table 3-2 
+Data Source of Stratification Factors for Primary and Sensitivity Analysis 
+ 
+Protocol in 
+which patient 
+was randomized 
+Stratification factor 
+Best response to 
+platinum therapy 
+(CR or PR) 
+Administration of 
+neoadjuvant 
+therapy (Yes or No) 
+HRD status  
+(HRDpos or 
+HRDneg/HRDnd)[1] 
+Primary 
+Analysis 
+Original Protocol 
+Randomization 
+Clinical database 
+Clinical database 
+Amendments 
+Randomization 
+Randomization 
+Randomization 
+Sensitivity 
+Analysis 
+Original Protocol 
+Clinical database 
+Clinical database 
+Clinical database 
+Amendments 
+  [1] HRD status is not applicable in the analysis of HRDpos Population. 
+Potential influences of other baseline characteristics in addition to the pre-specified stratification 
+factors may be evaluated in an exploratory manner by including them in the models as 
+covariates. For each potential covariate, a statistical test for the presence of a treatment-by-
+covariate interaction will be performed, by including the interaction term in the analysis model. 
+If any of the treatment-by-covariate interactions are found to be statistically significant at the 2-
+sided 10% level (p<0.10), it will be retained in the final model; otherwise it will be excluded. 
+Formal analyses adjusting for possible covariate effects for the PK endpoints are contained in a 
+separate SAP. 
+3.7. 
+Multiplicity 
+A hierarchical testing method will be used to control overall Type I error at 1-sided 0.025, 
+where the first statistical test will be performed for the primary endpoint PFS in HRDpos 
+population, followed by a test in the entire ITT population. The analysis of OS is also included 
+in the hierarchical testing to ensure a strong control of the overall Type I error. OS will be only 
+tested if statistical significance is both shown for PFS in HRDpos and ITT populations. OS will 
+
+
+--- Page 35 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 34 of 61 
+be analyzed sequentially using the full alpha first in the ITT population and then in HRDpos 
+population. The testing sequence is shown in the figure below.  
+Figure 1 
+Hierarchical Testing Procedure 
+   
+An interim analysis of OS will be performed at the time of the final PFS analysis. A Lan-
+DeMets alpha-spending function with the O’Brien-Fleming stopping boundaries will be used to 
+determine the significance levels for interim and final OS analyses.  
+Results of all statistical analysis will be presented using 95% confidence intervals and two-sided 
+p-values, if applicable. 
+3.8. 
+Subpopulations 
+3.8.1. 
+Biomarker Definitions 
+Germline BRCA mutation (gBRCAmut): An inherited deleterious or suspected deleterious 
+mutation in either a BRCA1 or BRCA2 tumor suppressor gene found in blood. 
+Tumor BRCA mutation (tBRCAmut): A deleterious or suspected deleterious BRCA1 or BRCA2 
+mutation found in a tumor. Somatic BRCA mutation (sBRCAmut) refers to the presence of 
+tBRCAmut but not gBRCAmut. 
+Tumor BRCA wild type (tBRCAwt): A tumor does not possess either a deleterious or suspected 
+deleterious BRCA mutation. 
+Homologous recombination deficiency (HRD): Dysregulation in the homologous recombination 
+pathway (due to genetic mutations or alterations) leading to cellular genomic instability and an 
+inability to efficiently repair damaged DNA. 
+HRD positive (HRDpos): HRD positive status may be determined by the myChoice HRD test. 
+Any tuPRUWKDWVFRUHVRUKDVDGHOHWHULRXVRUVXVSHFWHGGHOHWHULRXVBRCA mutation would 
+be considered HRD positive. 
+HRD negative (HRDneg): HRD negative status may be determined by the myChoice HRD test. 
+Any tumor that scores <42 and does not possess a deleterious or suspected deleterious BRCA 
+mutation would be considered HRD negative. 
+3.8.2. 
+Biomarker Subpopulations 
+In this study, BRCA and HRD status are determined by tumor samples at screening via the 
+myChoice HRD test. Note, gBRCAmut status by blood test was initially collected for patients 
+enrolled in the Original Protocol and was removed subsequently in Protocol Amendment 1.   
+All patients will be summarized by tBRCA status as follows: 
+x tBRCAmut 
+x tBRCA wild type (tBRCAwt) 
+PFS 
+(HRDpos) 
+PFS (ITT) 
+OS (ITT) 
+OS 
+(HRDpos) 
+
+
+--- Page 36 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 35 of 61 
+x tBRCA not determined (tBRCAnd): tBRCA test result not available (e.g., test canceled, 
+incomplete/inconclusive, or missing) 
+All patients will be summarized by HRD status as follows: 
+x HRDpos: 
+o tBRCAmut 
+o non-tBRCAmut and HRDpos (i.e. HRD VFRUH42) 
+x HRDneg 
+x HRD not determined (HRDnd): HRD score not available (e.g., test canceled, 
+incomplete/inconclusive, or missing) 
+If applicable, other exploratory biomarker subpopulations may be further defined and analyzed. 
+3.8.3. 
+Fixed and Individualized Starting Dose Subgroups 
+Prior to Protocol Amendment 2, all patients were required to start with 300mg niraparib or 
+placebo daily (Fixed Starting Dose subgroup). After introduction in Protocol Amendment 2, the 
+starting dose of study treatment will be based upon the patient’s baseline body weight or 
+baseline platelet count (Individualized Starting Dose subgroup). With the amendment, patients 
+ZLWKDEDVHOLQHERG\ZHLJKWNJDQGEDVHOLQHSODWHOHWFRXQW/ȝ/ZLOOEH
+administered niraparib 300 mg or placebo daily. Patients with a baseline body weight <77 kg or 
+baseline platelet count <150,000/ȝ/ZLOOEHDGPLQLVWHUHGQLUDSDULE mg or placebo daily. 
+Further dose modifications based on tolerability regardless of the starting dose are allowed as 
+described in Section 1.2.1.  
+NOTE: In conjunction with the Protocol Amendment 2, TESARO sent an administrative letter 
+on 06 December 2017 to inform all sites about the above changes of the starting dose. Based on 
+the guidance in their institutions, some sites started implementing the new starting dose scheme 
+for new patients who were randomized still under Protocol Amendment 1 prior to formal 
+approval of Protocol Amendment 2 by their institution. There is no specific data field flagging 
+those patients enrolled under Protocol Amendment 1 with the new individualized dosing 
+scheme. The following convention will be used to classify the fixed dosing and individualized 
+dosing subgroups.  
+The effective date for the individualized dosing scheme at each site is defined according to 
+whichever of the following criteria occurs first:  
+x the date of the first patient randomized after 06 December 2017 with a starting dose of 
+200 mg/day; or  
+x the date of the first patient randomized under Amendment 2; or 
+x the date of the last patient randomized at this site plus 1 day. 
+Using the site-specific effective date defined above, patients will be classified into one of the 
+two subgroups:  
+x Fixed Starting Dose subgroup: Patients who were randomized prior to their site’s 
+effective date of the individualized dosing scheme.  
+x Individualized Starting Dose subgroup: Patients who were randomized on or after their 
+site’s effective date of the individualized dosing scheme.   
+
+
+--- Page 37 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 36 of 61 
+For each subgroup, PFS hazard ratio and its 95% confidence interval will be estimated using the 
+stratified Cox proportional hazard (PH) regression model that includes the stratification 
+variables used in randomization as “strata” and treatment as a covariate. In order to evaluate the 
+magnitude of the difference between the subgroup hazard ratios, a stratified Cox PH regression 
+on all patients that includes an indicator variable for the subgroup and a subgroup-by-treatment 
+interaction term will be added to the model. A statistically significant interaction at 2-sided, 0.10 
+Type I error level may suggest a differential treatment effect between the two starting dose 
+schemes. Other important prognostic baseline characteristics may be included in the models 
+above (with and without interaction) as covariates to account for potentially important 
+imbalances between the subgroups. 
+3.8.4. 
+Other Study-Specific Subgroups 
+The following subgroups will be defined according to baseline data: 
+x Age categories [<65 or ] 
+x Race [White or non-White] 
+x ECOG performance status [0 or 1] 
+x Stage of disease at initial diagnosis [III or IV] 
+x Primary tumor site [ovarian, primary peritoneal, fallopian tube] 
+x Neoadjuvant chemotherapy [yes or no] based on the randomization data 
+x Best response to first platinum regimen [CR or PR] based on the randomization data 
+x Neoadjuvant chemotherapy [yes or no] derived based on the eCRF data 
+x Best response to first platinum regimen [CR or PR] derived based on the eCRF data 
+x Baseline CA-OHYHO>8/1RU!8/1@ 
+x Region [North America or Rest of World] 
+3.9. 
+Withdrawals, Dropouts, Loss to Follow-up 
+Patients who are withdrawn or discontinue from the study will not be replaced. 
+3.10. 
+Missing Data 
+In general, there will be no substitutions made to accommodate missing data points. Methods 
+for handling incomplete PRO instruments are performed according to their scoring manuals. All 
+data recorded on the eCRF will be included in data listings that will accompany the CSR. 
+When tabulating AE data, partial dates will be handled as follows. If the day of the month is 
+missing, the onset day will be set to the first day of the month unless it is the same month and 
+year as study treatment. In this case, in order to conservatively report the event as treatment-
+emergent, the onset date will be assumed to be the date of treatment. If the onset day and month 
+are both missing, the day and month will be assumed to be January 1, unless the event occurred 
+in the same year as the study treatment. In this case, the event onset will be coded to the day of 
+treatment in order to conservatively report the event as treatment-emergent. A missing onset 
+date will be coded as the day of treatment. If the resulting onset date is after a reported date of 
+resolution, the onset date will be set equal to the date of resolution. Imputation of partial dates is 
+
+
+--- Page 38 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 37 of 61 
+used only to determine whether an event is treatment-emergent; data listings will present the 
+partial date as recorded in the eCRF. 
+3.11. 
+Visit Windows 
+It is expected that all visits should occur according to the protocol schedule. By-visit summaries 
+and analyses will be by nominal visit (all data will be tabulated per the evaluation visit as 
+recorded on the eCRF unless otherwise specified). In data listings, the relative day of all dates 
+will be presented. 
+For PRO endpoints, visit windows will be applied to PRO assessments after EOT as shown in 
+Table 3-3 when applicable. If multiple assessments are observed in a window, the visit closest to 
+the scheduled assessment date will be used. If equally close, the earlier visit will be used. 
+Table 3-3 
+Windows (Inclusive) for PRO Assessments after EOT  
+Visit after EOT 
+Scheduled Day after EOT 
+Window (Days) 
+4 weeks 
+28 
+14 to 42 
+8 weeks 
+56 
+43 to 70 
+12 weeks 
+84 
+71 to 126 
+24 weeks 
+168 
+127 to 210 
+36 weeks 
+252 
+211 to 294 
+48 weeks 
+336 
+295 to 378 
+60 weeks 
+420 
+379 to 462 
+72 weeks 
+504 
+463 to 546 
+84 weeks 
+588 
+547 to 630 
+96 weeks 
+672 
+631 to 714 
+
+
+--- Page 39 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 38 of 61 
+4. 
+STUDY ANALYSES 
+4.1. 
+Patient Disposition 
+Patient disposition will be tabulated and include the numbers of screened patients (who have 
+signed informed consent) and the numbers of randomized patients in each patient population for 
+analysis, the numbers who discontinued treatment and discontinued study and reason(s) for 
+withdrawal, and the number of patients who died. 
+Tables will be summarized separately for HRDpos and ITT population. Tables may also be 
+summarized by starting dose subgroup for HRDpos and ITT population, respectively. A by-
+patient data listing of study completion information including the reasons for treatment 
+discontinuation and/or study discontinuation will be presented. 
+4.2. 
+Demographics, Baseline Characteristics, and Medical History 
+Demographics, baseline characteristics, and medical history information will be summarized 
+using descriptive statistics. Tables will be summarized separately for HRDpos and ITT 
+population. Tables may also be summarized by starting dose subgroup for HRDpos and ITT 
+population, respectively. No formal statistical comparisons will be performed. 
+Demographic and baseline data for each patient will be provided in data listings. 
+The demographic and baseline characteristics tables will include the following variables: 
+x Age at time of screening (years) as reported on the eCRF 
+x Age categories (18 to <65WR; and  
+x Reproductive status (childbearing/non-childbearing potential) 
+x Race (White, Black, Asian, American Indian/Alaska native, native Hawaiian or other 
+Pacific Islander, other, unknown, and not reported) 
+x Ethnicity (Hispanic or Latino, non-Hispanic or Latino, unknown, and not reported) 
+x Time from first diagnosis to first dose (years) 
+x Primary tumor site (ovarian, primary peritoneal, or fallopian tube) 
+x International Federation of Gynecology and Obstetrics (FIGO) stage at time of initial 
+diagnosis 
+x Baseline weight (in kilograms, last value prior to or on Cycle 1 Day 1; if weight is 
+reported in pounds, convert to kilograms by dividing by 2.2) 
+x Baseline height (in centimeters, last value prior to or on Cycle 1 Day 1; if height is 
+reported in inches, convert to centimeters by multiplying by 2.54) 
+x Baseline body mass index (BMI) (kg/m2), calculated using the patient’s height and 
+weight at Baseline [BMI (kg/m2) = weight (kg) / height (m)2] 
+x ECOG performance status at baseline 
+x Histology and grade of disease at diagnosis  
+x History of myelosuppression (thrombocytopenia, leukopenia, anemia, or neutropenia) 
+within the past year 
+
+
+--- Page 40 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 39 of 61 
+x History of blood transfusion or colony stimulating factors 
+x History of thrombocytopenia with Grade 3 or 4 (repeated for leukopenia, anemia, and 
+neutropenia) within the past year 
+x Stratification factors according to the randomization 
+o Best response to first platinum regimen (CR or PR) 
+o Neoadjuvant chemotherapy (yes or no) 
+o HRD status 
+x Stratification factors according to the eCRF 
+o Best response to first platinum regimen (CR or PR) 
+o Neoadjuvant chemotherapy (yes or no) 
+o HRD status  
+x Patient randomized by region, country and site  
+x Prior ovarian cancer treatment, including  
+o Any surgeries/procedures related to the study indication  
+o Number of surgeries (grouped based on date of surgery if multiple procedures 
+were reported on the same date in the eCRF) 
+o Any radiotherapy prior to enrollment  
+o Duration of first line platinum therapy (sum of the actual durations of all reported 
+first line platinum regimens, months) 
+o Total number of cycles in first line platinum therapy 
+o Duration from the end date of first line platinum therapy to the date of 
+randomization (months) 
+o Prior chemotherapies  
+x Other cancer history (yes or no) and type of other cancer 
+x tBRCA status (tBRCAmut, tBRCAwt, tBRCAnd) 
+x HRD status (HRDpos, HRDneg, HRDnd) 
+o HRDpos (tBRCAmut, tBRCAwt, tBRCAnd) 
+o HRDneg (tBRCAwt, tBRCAnd) 
+x Baseline CA-125 level (ULN, >ULN, Missing) 
+x Baseline platelet count 
+ 
+Countries will be grouped by region according to Table 4-1.  
+ 
+ 
+
+
+--- Page 41 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 40 of 61 
+Table 4-1 
+List of Country by Region 
+Region 
+Country Name 
+Country Code 
+North America 
+Canada 
+124 
+United States 
+840 
+Eastern Europe 
+Czechia 
+203 
+Hungary 
+348 
+Poland 
+616 
+Russia 
+643 
+Ukraine 
+804 
+Western Europe 
+Belgium 
+056 
+Denmark 
+208 
+Finland 
+246 
+France 
+250 
+Germany 
+276 
+Ireland 
+372 
+Israel 
+376 
+Italy 
+380 
+Norway 
+578 
+Spain 
+724 
+Sweden 
+752 
+Switzerland 
+756 
+UK 
+826 
+ 
+Prior chemotherapies will be summarized according to Table 4-2 based on the reported 
+regimens in the eCRF when applicable. 
+Table 4-2 
+Reported Anti-cancer Therapies   
+Therapy 
+Regimens (Preferred Terms) reported in the eCRF 
+Platinum 
+CARBOPLATIN 
+CARBOPLATIN W/GEMCITABINE 
+CARBOPLATIN W/PACLITAXEL 
+CISPLATIN 
+CISPLATIN W/DOXORUBICIN 
+CISPLATIN W/PACLITAXEL 
+OXALIPLATIN 
+
+
+--- Page 42 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 41 of 61 
+PACLITAXEL W/CARBOPLATIN 
+Carboplatin 
+CARBOPLATIN 
+CARBOPLATIN W/GEMCITABINE 
+CARBOPLATIN W/PACLITAXEL 
+PACLITAXEL W/CARBOPLATIN 
+Cisplatin 
+CISPLATIN 
+CISPLATIN W/DOXORUBICIN 
+CISPLATIN W/PACLITAXEL 
+Taxane 
+DOCETAXEL 
+PACLITAXEL 
+PACLITAXEL ALBUMIN 
+PACLITAXEL W/CARBOPLATIN  
+CARBOPLATIN W/PACLITAXEL 
+CISPLATIN W/PACLITAXEL 
+Doxorubicin 
+DOXORUBICIN 
+DOXORUBICIN HYDROCHLORIDE 
+LIPOSOMAL DOXORUBICIN HYDROCHLORIDE 
+PEGYLATED LIPOSOMAL DOXORUBICIN 
+PEGYLATED LIPOSOMAL DOXORUBICIN HYDROCHLORIDE 
+CYCLOPHOSPHAMIDE W/DOXORUBINCIN 
+CISPLATIN W/DOXORUBICIN 
+Gemcitabine 
+GEMCITABINE 
+GEMCITABINE HYDROCHLORIDE  
+CARBOPLATIN W/GEMCITABINE 
+CARBOPLATIN W/GEMCITABINE HYDROCHLORIDE 
+CISPLATIN W/GEMCITABINE HYDROCHLORIDE 
+Bevacizumab 
+BEVACIZUMAB 
+Cyclophosphamide 
+CYCLOPHOSPHAMIDE 
+CYCLOPHOSPHAMIDE W/DOXORUBINCIN 
+PARP inhibitor 
+OLAPARIB 
+NIRAPARIB 
+RUCAPARIB 
+TALAZOPARIB 
+VELIPARIB 
+PD(L)-1 inhibitor 
+PEMBROLIZUMAB 
+ATEZOLIZUMAB 
+DURVALUMAB 
+NIVOLUMAB 
+AVELUMAB 
+CEMIPLIMAB 
+ 
+ 
+ 
+
+
+--- Page 43 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 42 of 61 
+4.3. 
+Efficacy Evaluation 
+4.3.1. 
+Summary of Primary Analyses and Pre-Specified Sensitivity Analyses  
+Endpoint 
+Analysis 
+Population 
+PFS  
+Primary analysis: stratified log-rank test/Cox model 
+using BICR data 
+HRDpos 
+ITT 
+Sensitivity analyses: stratified log-rank test/Cox model  
+x S1: evaluate Investigator data to assess 
+informative censoring 
+x S2: evaluate BICR data to assess attrition bias 
+(using alternative censoring rules) 
+x S3: evaluate BICR data to assess stratification 
+bias (using stratification factors from eCRF) 
+x S4: evaluate BICR data to assess evaluation-time 
+bias (progressions not at the protocol-scheduled 
+scan timepoints) 
+x S5: evaluate BICR data using only radiology 
+(RECIST 1.1) 
+x S6: evaluate BICR data in the per-protocol 
+population 
+x S7: evaluate BICR data to assess subsequent anti-
+cancer therapy bias 
+x S8: evaluate BICR data using only two 
+stratification factors (best response to platinum 
+therapy and HRD status)  
+OS  
+PFS2  
+TFST 
+Stratified log-rank test/Cox model 
+HRDpos 
+ITT 
+FOSI  
+EQ-5D 
+QLQ-C30/OV38  
+Mixed Model for Repeated Measures (MMRM) analysis 
+of the change from baseline 
+HRDpos 
+ITT 
+ 
+ 
+ 
+
+
+--- Page 44 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 43 of 61 
+4.3.2. 
+Primary Efficacy Endpoint 
+The primary endpoint of PFS is based on the Blinded Independent Central Review (BICR). 
+A hierarchical testing for the PFS endpoint will be used to control the overall Type I error. First, 
+the analysis of PFS will be conducted in HRDpos population at the 1-sided 0.025 Type I error. 
+If the result is positive, PFS analysis will be conducted in the ITT population at the 1-sided 
+0.025 Type I error; otherwise, PFS analysis becomes exploratory in the ITT population. 
+A stratified log-rank test on PFS will be performed using SAS PROC LIFETEST with method = 
+PL option (Kaplan-Meier estimates, also known as the product-limit estimates) 
+In the analysis of HRDpos population, the STRATA statement will include the following 
+variables: administration of neoadjuvant chemotherapy (yes or no) and best response to platinum 
+therapy (CR or PR). 
+In the analysis of ITT population, the STRATA statement will include the following variables: 
+administration of neoadjuvant chemotherapy (yes or no), best response to platinum therapy (CR or 
+PR), and HRD status (HRDpos or HRDneg/HRDnd). 
+The hazard ratio with 2-sided 95% CI will be estimated from the stratified Cox proportional 
+hazards model using SAS PHREG procedure with ties=EXACT option in the model. In this 
+analysis the baseline hazard function will be allowed to vary across strata; i.e., the MODEL 
+statement will include treatment group variable as the only covariate and the STRATA 
+statement will include the above prespecified variables. The assumption of proportionality will 
+be tested by producing plots of complementary log-log (event times) versus log(time).  
+Quartiles (i.e., 25th percentile, median, 75th percentile) and associated 95% CIs for PFS time will 
+be estimated from the product-limit (KM) method. The KM estimate of the survival distribution 
+function (SDF) will be computed for comparison of the 2 treatment groups. Estimates of the 
+SDF will be presented at 6 months, 12 months, 24 months, and so on as data allow. Kaplan-
+Meier plots of the SDF will be presented and will include the number of patients at risk over 
+time by treatment group. Summaries of the number and percentage of subjects experiencing a 
+PFS event, and the type of event (PD or death) will also be provided.  
+The following sensitivity analyses will be performed.   
+x S1: The potential impact of informative censoring will be assessed by sensitivity 
+analysis using a stratified log-rank test with the Investigator-assessed PFS. The 
+stratification factors and censoring rules used in the primary analysis will be applied to 
+the Investigator data in this sensitivity analysis. In addition, the distribution of 
+discrepancy in progression assessment between BICR and Investigator will be 
+summarized by treatment group.  
+x S2: The potential attrition bias will be assessed by using alternative censoring rules for 
+those patients who are censored in the primary analysis due to the following reasons:  
+o Patients who have progressed or died after the start of subsequent anti-cancer therapy 
+are censored at the date of the latest evaluable radiological assessment prior to the 
+start of subsequent anti-cancer therapy. 
+o Patients who have progressed or died after two or more missed radiological 
+assessments (25 weeks allowing for visit window) are censored at the date of the 
+latest evaluable radiological assessment prior to the missed interval. 
+
+
+--- Page 45 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 44 of 61 
+In this sensitivity analysis, these patients will be considered as having an event and using 
+their actual PFS event times in the analysis. The stratification factors used in the primary 
+analysis will be applied. The censoring rules in this sensitivity analysis are below: 
+1. No evaluable baseline OR no evaluable post-baseline radiological assessments; PFS 
+is censored at the date of randomization unless death or progression occurred within 
+two visits of randomization (25 weeks allowing for visit window). 
+2. Patients who have not progressed or died and have not started subsequent anti-cancer 
+therapy are censored at the date of the latest evaluable radiological assessment. 
+3. Patients who have not progressed or died and have started subsequent anti-cancer 
+therapy are censored at the date of the latest evaluable radiological assessment prior 
+to the start of subsequent anti-cancer therapy. 
+x S3: The potential misclassification of randomization stratification factors will be 
+assessed by using the actual values from the eCRF for the randomization stratification 
+factors in this sensitivity analysis. The censoring rules used in the primary analysis will 
+be applied. In addition, the distribution of discrepancy in each stratification factor 
+between randomization data and the derived value from eCRF data will be summarized 
+by treatment group. 
+x S4: The potential evaluation-time bias for those patients whose disease progressions 
+were determined by scans not performed at the protocol-scheduled timepoints will be 
+assessed by using the midpoint between the time of progression and the previous 
+evaluable RECIST assessment. The stratification factors and censoring rules used in the 
+primary analysis will be applied in this sensitivity analysis.  
+x S5: The BICR radiology data based on RECIST 1.1 will be assessed in this sensitivity 
+analysis. The stratification factors and censoring rules used in the primary analysis will 
+be applied in this sensitivity analysis.  
+x S6: The BICR data will be assessed using the per-protocol population in this sensitivity 
+analysis. The stratification factors will be based on the eCRF data. The censoring rules 
+used in the primary analysis will be applied.  
+x S7: The potential subsequent anti-cancer therapy bias will be assessed by considering 
+patients who started subsequent anti-cancer therapy as having an event at the start of the 
+subsequent anti-cancer therapy, regardless of whether they have progressed or died after 
+the start of the subsequent anti-cancer therapy. The stratification factors used in the 
+primary analysis will be applied. The censoring rules in this sensitivity analysis are 
+below: 
+1. No evaluable baseline OR no evaluable post-baseline radiological assessments; 
+PFS is censored at the date of randomization unless death/progression occurred 
+or subsequent anti-cancer therapy started within two visits of randomization (25 
+weeks allowing for visit window). 
+2. Patients who have not progressed or died or started subsequent anti-cancer 
+therapy are censored at the date of the latest evaluable radiological assessment. 
+3. Patients who have progressed or died or started subsequent anti-cancer therapy 
+after two or more missed radiological assessments (25 weeks allowing for visit 
+
+
+--- Page 46 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 45 of 61 
+window) are censored at the date of the latest evaluable radiological assessment 
+prior to the missed interval.   
+x S8: The number of randomization stratification factors will be adjusted in this sensitivity 
+analysis. The primary analysis in HRDpos population will use one stratification factor 
+from randomization list: best response to platinum therapy. The primary analysis in the 
+ITT population will use two stratification factors from randomization list: best response 
+to platinum therapy and HRD status. The censoring rules used in the primary analysis 
+will be applied.  
+In addition, to estimate the median PFS follow-up time at the time of analysis, a time-to-
+censoring analysis will be performed by reversing the censoring indicator used in the primary 
+PFS analysis, i.e. the censored becomes an event and the PFS event becomes censored. 
+Subgroup analyses will be performed to assess the consistency of treatment effect across 
+potential or expected prognostic factors. If there are too few events in a particular subgroup, i.e. 
+<20 events per subgroup level, only descriptive summaries will be provided. Combining 
+relevant subgroup levels may be considered if necessary.  
+The following subgroup analyses will be performed on the BICR data in HRDpos and ITT 
+population respectively, unless otherwise indicated: 
+x Age categories [<65 or ] 
+x Race [White or non-White] 
+x ECOG performance status [0 or 1] 
+x Stage of disease at initial diagnosis [III or IV] 
+x Primary tumor site [ovarian, primary peritoneal, fallopian tube] 
+x Neoadjuvant chemotherapy [yes or no], according to randomization 
+x Best response to first platinum regimen [CR or PR], according to randomization 
+x Neoadjuvant chemotherapy [yes or no], according to eCRF 
+x Best response to first platinum regimen [CR or PR], according to eCRF 
+x Baseline CA-125 level [ULN or >ULN] 
+x Region (North America or Rest of World) 
+x Starting dose subgroup [Fixed Starting Dose or Individualized Starting Dose] 
+x tBRCA status [tBRCAmut, tBRCAwt] (ITT population) 
+x HRD status [tBRCAmut, (non-tBRCAmut and HRDpos), HRDneg, HRDnd] (ITT 
+population)  
+For each subgroup, HR and associated CIs will be calculated from a stratified Cox proportional 
+hazards model. The stratification factors in the primary analysis will be used in the subgroup 
+analyses when applicable. The HRs and 95% CIs will be presented on a forest plot including the 
+HR and 95% CI for the overall group. Summaries of the number and percentage of patients 
+
+
+--- Page 47 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 46 of 61 
+experiencing a PFS event for each subgroup will be provided along with the median PFS by 
+treatment group. 
+4.3.3. 
+Secondary Efficacy Endpoints 
+4.3.3.1. 
+Overall Survival 
+The OS endpoint will be analyzed in the same manner as for the primary analysis of PFS. An 
+interim analysis of OS will be performed at the time of the primary PFS analysis. The statistical 
+significance will be determined using O’Brien-Fleming methodology based on the actual 
+number of events observed at the time of analysis. it will be performed sequentially first in the 
+ITT population and then in HRDpos population.   
+To estimate the median OS follow-up time at the time of analysis, a time-to-censoring analysis 
+will be performed by reversing the censoring indicator used in the primary OS analysis, i.e. the 
+censored becomes an event and the OS event becomes censored. 
+The following subgroup analyses will be performed for OS: 
+x Neoadjuvant chemotherapy [yes or no], according to the eCRF 
+x Best response to first platinum regimen [CR or PR], according to the eCRF 
+x Region (North America or Rest of World) 
+x Starting dose subgroup [Fixed Starting Dose or Individualized Starting Dose] 
+4.3.3.2. 
+Other Time to Event Endpoints 
+The time to event endpoints of PFS2 and TFST will be analyzed in the same manner as for the 
+primary efficacy endpoint of PFS. Given the CA-125 progression is part of the clinical 
+evaluation of PFS, the time to CA-125 progression alone has limited clinical interpretation; 
+therefore, it will only be analyzed if deemed necessary.  
+The following subgroup analyses will be performed for PFS2 and TFST: 
+x Neoadjuvant chemotherapy [yes or no], according to the eCRF 
+x Best response to first platinum regimen [CR or PR], according to the eCRF 
+x Region (North America or Rest of World) 
+x Starting dose subgroup [Fixed Starting Dose or Individualized Starting Dose] 
+A sensitivity analysis will be performed for PFS2 to assess potential attrition bias using 
+alternative censoring rules for those patients who are censored in the primary analysis of PFS2 
+due to the following reasons:  
+x Patients who have progressed or died after the start of the second line of follow-up anti-
+cancer therapy are censored at the start date of the second line follow-up anti-cancer 
+therapy. 
+x Patients who have progressed or died after two or more missed follow-up assessments 
+(26 weeks allowing for visit window) following treatment discontinuation are censored 
+at the latest follow-up assessment prior to the missed interval or treatment 
+discontinuation date if no follow-up assessment was done. 
+
+
+--- Page 48 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 47 of 61 
+In this PFS2 sensitivity analysis, these patients will be considered to have an event and their 
+actual PFS2 event times will be used in the analysis. The censoring rules are below: 
+1. Patients who are alive and have not started any follow-up anti-cancer therapy are 
+censored at the last contact date. 
+2. Patients who have not progressed or died and have not started the second line of follow-
+up anti-cancer therapy are censored at the last contact date. 
+3. Patients who have not progressed or died and have started the second line of follow-up 
+anti-cancer therapy are censored at the start date of second line follow-up anti-cancer 
+therapy. 
+4.3.3.3. 
+Patient Reported Outcomes 
+The following PRO continuous variables will be summarized at each time point. 
+x FOSI: total score 
+x EQ-5D-5L: VAS score and EQ-5D index value  
+x EORTC-QLQ-C30: subscale scores 
+x EORTC-QLQ-OV28: subscale scores 
+Summary statistics for observed values and changes from baseline will be provided. A mixed-
+effects model for repeated measures (MMRM) will be performed to compare between-treatment 
+difference adjusting for correlations across multiple time points within a patient and controlling 
+for the baseline value. The MMRM model will analyze data on treatment visits, EOT, and Week 
+12/24 visits after EOT. Adjusted mean difference and 95% CIs will be presented to illustrate the 
+effect of treatment. Adjusted means and standard error bars will be plotted over time. The 
+analysis visits include baseline, post-baseline visits, unless there is excessive missing data at a 
+visit (defined as >75% missing data).  
+The MMRM model will include patient, treatment, analysis visit, and treatment-by-visit 
+interaction as explanatory variables, the baseline value as a covariate along with the baseline-
+by-visit interaction. Treatment, visit, and treatment-by-visit interactions will be fixed effects in 
+the model; patient will be treated as a random effect. An unstructured covariance matrix will be 
+used to model the within subject variance and the Kenward-Roger approximation will be used to 
+estimate the degrees of freedom. Restricted maximum likelihood (REML) estimation will be 
+used. An overall adjusted mean estimates and estimates of the treatment difference will be 
+derived, representing the average treatment effect over visits giving each visit equal weight. If 
+the fit of the unstructured covariance structure fails to converge, the following covariance 
+structures will be used in order until convergence is reached: toeplitz with heterogeneity 
+(TOEPH), autoregressive with heterogeneity (ARH(1)), Toeplitz (TOEP), and autoregressive 
+(AR(1)). If there are still issues with the fit of the model or estimation of the treatment effects, 
+SUBJECT will be treated as a fixed effect.  
+Descriptive summaries by visit and including change from baseline will be reported for QLQ-
+C30/OV28 subscales. The PRO categorical variables defined according to the MCID levels will 
+be summarized by visit. The time-to-event PRO variables will be summarized using the PFS 
+analysis method. PRO questionnaire compliance (overall compliance and by visit on treatment, 
+EOT, and Week 12/24 after EOT) will be summarized by treatment group. Descriptive 
+
+
+--- Page 49 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 48 of 61 
+summaries of individual items in each questionnaire and percentage of missing data at each visit 
+will be reported.  
+The following subgroup analyses will be performed: 
+x Starting dose subgroup [Fixed Starting Dose or Individualized Starting Dose] 
+4.3.3.4. 
+Outcomes for Next Anticancer Therapy Following Study Treatment 
+The following data are collected in the eCRF for the next anticancer therapy following study 
+treatment: Name of drug (and/or class), Start and Stop date, Progression date, Best response and 
+Dose-limiting toxicities.  
+The lines of follow-up therapy are determined for each patient based on the reported start date(s) 
+of follow-up therapies (excluding hormonal therapy) and the reported progression date(s) after 
+the start of any follow-up therapy.  
+Hormonal therapy (PT: tamoxifen, tamoxifen citrate, toremifene, raloxifene, ospemifene, 
+bazedoxifene, letrozole, anastrozole, exemestane) will not be considered for lines of follow-up 
+therapy.  
+If there are one or more progression dates, all the reported follow-up therapies will be grouped 
+into lines of therapies by comparing their reported start dates to the reported progression dates. 
+The follow-up therapies started prior to the first progression date following the start of any 
+follow-up therapy are grouped as the first line of follow-up therapy. The follow-up therapies 
+started after the first progression date and prior to the second progression date are grouped as 
+the second line of follow-up therapy, and so forth. If there is none of progression date reported, 
+the reported follow-up therapies are grouped as the first line of follow-up anticancer therapy.  
+For each line of follow-up therapy, the start date of the line is the earliest start date of reported 
+therapies in the line; the stop date of the line is the latest stop date of reported therapies in the 
+line. All reported follow-up anticancer treatments will be summarized for overall and by starting 
+dose subgroup, including  
+o Any follow-up surgeries (yes or no) 
+o Any follow-up radiotherapy (yes or no) 
+o Number of lines of follow-up anticancer therapies 
+o Follow-up anticancer therapies 
+The follow-up anticancer therapies will be summarized according to Table 4-2 when applicable. 
+
+
+--- Page 50 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 49 of 61 
+4.4. 
+Safety Analyses 
+Safety analyses will be conducted using the Safety (SAF) population. 
+4.4.1. 
+Treatment Exposure and Compliance 
+Treatment exposure will be summarized as follows: 
+x Number and percent of patients beginning 1, 2, 3, ..., 12, and >12 cycles. 
+x Number of cycles started summarized as a continuous variable. 
+x Overall treatment exposure (months), defined as the [last dose date - first dose date + 1] / 
+30.4375, will be summarize as a continuous variable. 
+x Actual treatment exposure (months), defined as the overall treatment exposure minus the 
+duration of dose interruptions, will be summarized as a continuous variable.   
+x Time on study (months), defined as the [last contact date or date of death - first dose date 
++ 1] / 30.4375, will be summarized as a continuous variable. 
+Treatment compliance will be summarized using study treatment data up to the last dose date by 
+data cut-off date as follows: 
+x The total number of capsules consumed is the sum of the number of capsules dispensed 
+minus the sum of the number of capsules returned by the patient during the study. The 
+sum of the daily doses consumed (mg) is the total number of capsules consumed 
+multiplied by 100 mg.   
+x Dose intensity (mg/day), defined as sum of the daily doses actually consumed divided by 
+overall treatment exposure (converted to days), will be summarized as a continuous 
+variable. 
+x Relative dose intensity (RDI, %), defined as dose intensity (mg/day) divided by intended 
+dose intensity (mg/day), where intended dose intensity is the intended starting dose of 
+300 mg/day or 200 mg/day, will be summarized as a continuous variable. 
+Dose intensity, dose reductions and dose interruptions will be summarized by cycle: 
+x Number and percentage of patients with a dose reduction, as indicated on the dose 
+modification eCRF, for any reason and due to an AE. 
+x Number and percentage of patients with a dose interruption, as indicated on the dose 
+modification eCRF, for any reason and due to an AE. 
+Summary will be provided for overall and by starting dose subgroup.  
+Dosing information and capsule counts for each patient will be presented in a data listing. 
+ 
+ 
+
+
+--- Page 51 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 50 of 61 
+4.4.2. 
+Adverse Events 
+4.4.2.1. 
+Overview 
+All AEs will be classified using MedDRA v20.0 or later. The severity of the toxicities will be 
+graded according to the NCI CTCAE v4.03. Any AEs leading to death or discontinuation of 
+study treatment, events classified as NCI CTCAE v4.03 Grade 3 or higher, study treatment-
+related events, and SAEs will be presented. 
+Treatment emergent AEs (TEAEs) will be defined for all AEs that occurred on or after the start 
+of treatment through 30 days after the last dose of study treatment or when the patient initiates a 
+new chemotherapy regimen (including participation in a new clinical trial), whichever is earlier. 
+TEAEs are defined as follows: 
+x Any new AE (one that was not seen prior to the start of treatment) that occurs for the 
+first time after at least 1 dose of study treatment has been administered; or, 
+x A preexisting condition (one that was seen prior to the start of treatment) that worsens in 
+severity or is deemed by the investigator to be related to study drug after at least 1 dose 
+of study treatment has been administered. 
+x Note: If the start date is missing for an AE and the actual start date cannot be determined 
+from a partial date, the AE will be considered treatment-emergent. 
+AEs will be collected and recorded in the eCRF for each patient from the day of signed main 
+informed consent until 30 days after the last dose of study treatment or until the patient begins 
+participation in a new clinical trial or initiates a new chemotherapy regimen.  
+MDS/AML and secondary cancers (new malignancies other than MDS or AML) must be 
+reported until death or loss to follow-up. Pneumonitis must be reported for up to 90 days after 
+the last dose of study treatment and pregnancy must be reported for up to 180 days after the last 
+dose of study treatment.  
+Any AEs recorded in the database that occur from the time of informed consent to first dose will 
+be listed only and not included in safety analyses. Pre-existing conditions will be recorded in the 
+eCRF on the Medical History or appropriate page. Any AEs recorded in the database that occur 
+on or after first dose and are not defined as TEAEs will be listed separately.  
+The number and percentage of patients reporting a TEAE will be summarized by system organ 
+class (SOC), preferred term (PT), toxicity grade, and relationship to study drug. 
+The toxicity grade of AEs as assessed by the investigator will be graded using NCI CTCAE 
+v4.03. Within the same MedDRA PT, only the most severe AE for each patient will be counted 
+in tabulations by severity. Within a MedDRA SOC, patients with more than 1 MedDRA PT will 
+be counted only once for the most severe AE reported. 
+The relationship of each AE to the study drug will be summarized as assessed by the 
+Investigator. Related TEAEs are defined as TEAEs considered possibly related or related to 
+treatment as judged by the Investigator. Any TEAEs for which the relationship to study drug is 
+missing will be considered as related. Within the same MedDRA PT, only the AE with the 
+highest ranked relationship to treatment for each patient will be counted in tabulations by 
+relationship to treatment. Within a MedDRA SOC, patients with more than 1 MedDRA PT will 
+be counted only once for the AE that is most related to treatment. The imputation for a missing 
+
+
+--- Page 52 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 51 of 61 
+relationship will take place prior to determining the most related AE within a SOC or PT for a 
+given patient. 
+A high-level overview of AEs will be presented in a summary table. This table will include the 
+number and percentage of patients for the following categories: any TEAE, any related TEAE, 
+any GUDGH7($(any treatment-related Grade 7($( any treatment-emergent serious 
+adverse events (SAEs), any treatment-related serious TEAE, any AE leading to study drug 
+interruption, any AE leading to study drug reduction, any AE leading to study drug withdrawal, 
+any TEAE leading to death, and any pregnancies. 
+The following AE tables will be provided: 
+x Overview of AEs 
+x TEAE by SOC and PT 
+x TEAE by PT (sorted by frequency) 
+x Related TEAE by SOC and PT 
+x Treatment-emergent SAEs by SOC and PT 
+x Related treatment-emergent SAEs by SOC and PT 
+x TEAE by SOC, PT, and maximum grade 
+x Related TEAE by SOC, PT, and maximum grade 
+x *UDGH7($(VE\62&DQG37 
+x Grade 7($(V by PT (sorted by frequency) 
+x 5HODWHG*UDGH7($(VE\62&DQG37 
+x TEAEs resulting in death by SOC and PT 
+x TEAEs resulting in study drug dose interruption by SOC and PT 
+x TEAEs resulting in study drug dose reduction by SOC and PT 
+x TEAEs resulting in study drug withdrawal by SOC and PT 
+x Non-serious TEAEs REVHUYHGLQ5% of patients in either treatment arm by SOC and PT 
+(for ClinicalTrials.gov) 
+Tables for adverse events of special interest (AESI) and other AEs of interest, by grouped term 
+and PT within each group: 
+x All TEAEs   
+x *UDGH TEAEs 
+x Serious TEAEs 
+x TEAEs resulting in dose interruption 
+x TEAEs resulting in dose reduction 
+x TEAEs resulting in study drug withdrawal 
+
+
+--- Page 53 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 52 of 61 
+The following subgroup analyses will be performed: 
+x Starting dose subgroup [Fixed Starting Dose or Individualized Starting Dose] 
+Tables structured as listings will be provided for the following: 
+x Deaths 
+x SAEs 
+x TEAEs resulting in study drug interruption 
+x TEAEs resulting in study drug dose reduction 
+x TEAEs resulting in study drug withdrawn 
+x AESI 
+x Mapping of AE reported term to PT 
+Adverse event summaries will be ordered in terms of decreasing frequency for SOC 
+(alphabetically for SOCs with the same number of AEs reported) and decreasing frequency for 
+PT within SOC (alphabetically for PTs with the same number of AEs reported within a SOC). 
+4.4.2.2. 
+Adverse Drug Reactions 
+Adverse drug reactions will be evaluated by PT using the relative risk assessment for the 
+niraparib treatment arm versus the placebo arm.  
+The relative risk and 95% CI will be provided for TEAEs reported in RISDWLHQWV and Grade 
+ TEAEs reported in % of patients in either treatment arm, respectively. Tables will be 
+sorted by the decreasing frequency of PT. Plots of the relative risk and 95% CI for TEAEs 
+UHSRUWHGLQRISDWLHQWVDQG*UDGH  7($(VUHSRUWHGLQRISDWLHQWVLQHLWKHU
+treatment arm will be provided, respectively. Plots will be sorted by the decreasing magnitude 
+of relative risk estimate. 
+4.4.2.3. 
+Adverse Events of Special Interest 
+The AESIs for this study are myelodysplastic syndrome (MDS), acute myeloid leukemia 
+(AML), secondary cancers (new malignancies other than MDS/AML), pneumonitis, and 
+embryo-fetal toxicity. 
+Table 4-3 outlines the AESI with the criteria of mapping MedDRA PTs for each AESI using 
+Standardized MedDRA Queries (SMQs), High Level Terms (HLTs), and/or PTs. 
+
+
+--- Page 54 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 53 of 61 
+Table 4-3 
+Adverse Events of Special Interest 
+Group Term 
+MedDRA Criteria for Selection of Preferred Terms 
+AESI (MDS/AML events) 
+MedDRA PTs associated with MDS/AML 
+AESI (new malignancies 
+other than MDS/AML) 
+Malignant tumor SMQ (other than MDS/AML) 
+AESI (pneumonitis) 
+Lower respiratory tract inflammatory and immunologic conditions 
+(HLT) 
+AESI (embryo-fetal toxicity) 
+Pregnancy and neonatal topics SMQ 
+Abbreviations: AESI = adverse event of special interest; AML = acute myelogenous leukemia; HLT = high-level term; 
+MDS = myelodysplastic syndrome; MedDRA = medical dictionary for regulatory activities; PT = preferred term; 
+SMQ = Standardized MedDRA Query. 
+4.4.2.4. 
+Other Adverse Events of Interest 
+Other AEs of interest such as myelosuppression, hypertension, thromboembolic events will be 
+summarized in the similar manner as the AESIs.  
+Table 4-4 outlines these grouped events with the criteria of mapping MedDRA PTs for each 
+group using Standardized MedDRA Queries (SMQs), High Level Terms (HLTs), and/or PTs. 
+Table 4-4 
+Other Adverse Events of Interest 
+Group Term 
+MedDRA Criteria for Selection of Preferred Terms 
+Thrombocytopenia events 
+Haematopoietic thrombocytopenia SMQ (Broad) 
+Anemia events 
+Haematopoietic erythropenia SMQ (Broad) 
+Leukopenia events 
+Haematopoietic leukopenia SMQ (Broad) 
+Neutropenia events 
+Selected PTs related to neutropenia in the Haematopoietic leukopenia 
+SMQ (Broad) 
+Pancytopenia events 
+Haematopoietic cytopenias SMQ (Broad) 
+Hypertension events 
+Hypertension SMQ 
+Thromboembolic events 
+Embolic and thrombotic events SMQ 
+Abbreviations: HLT = high-level term; MedDRA = medical dictionary for regulatory activities; PT = preferred term; 
+SMQ = Standardized MedDRA Query. HLGT = high-level group term 
+4.4.3. 
+Exposure Adjusted Incidence Rate 
+Since patients’ duration of exposure to study treatment will vary, AEs will also be presented as 
+rates normalized for cumulative exposure.  
+For each PT within SOC, exposure adjusted incidence rates will be calculated as the number of 
+patients experiencing an event in the numerator, and the overall treatment exposure in patient 
+exposure years (PEY) in the denominator. PEY is defined as follows: first, for each patient with 
+the specific AE being analyzed, the exposure-years will be the duration of exposure to the drug 
+in years at the time of first occurrence of the AE; for patients without the AE, the exposure-
+years will be defined as their overall treatment exposure in years on the study. PEY is the sum 
+over patients of each of their exposure years. For recurring events, the first occurrence of an AE 
+will be reported, with the appropriate corresponding exposure years.  
+
+
+--- Page 55 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 54 of 61 
+For AESIs and other grouped AEs, exposure adjusted incidence rate will be summarized overall 
+and by cycle as defined by month (28 days) from start of therapy. It will calculate the 
+cumulative exposure in PEY up to the beginning of each interval, and divide the total number of 
+patients with first incidence of the specific event in the interval by this cumulative exposure. 
+The specific event will be assigned to the relevant time period if the start date of the event 
+occurs within the period. For recurrent events during a reporting interval, the first event 
+occurrence is reported. For events that recur in more than 1 reporting interval (event start date is 
+in different reporting intervals), the event will be reported in the first applicable reporting 
+interval.   
+4.4.4. 
+Laboratory Data 
+Laboratory assessments will be performed locally at each center’s laboratory by means of their 
+established methods. All laboratory values will be converted to SI units and classified as 
+normal, low, or high based on normal ranges supplied by the local laboratories. 
+Hematologic and chemistry laboratory results will be graded according to the cut points defined 
+in the NCI CTCAE v4.03 severity grade. Laboratory results will be summarized by maximum 
+CTCAE grade as available. Abnormal laboratory findings will be summarized by CTCAE grade 
+1-4 and grade 3-4, respectively and sorted by frequency of grade 3-4.  
+Continuous results will be analyzed using change from baseline and shift values. Change from 
+baseline will be summarized and analyzed according to the largest increase, decrease, and at 
+EOT, irrespective of scheduled or unscheduled visit. Graphical line mean changes over time 
+may be provided, but due to the varying visits, no repeated measures analysis will be performed.    
+Shift from baseline to the smallest value, the largest value, and the EOT value, categorized as 
+low, normal, or high relative to the normal range, will be reported using number and percentage 
+of patients. Shift from baseline CTCAE grade to the post-baseline maximum CTCAE grade will 
+also be reported when applicable. 
+A listing of potential Hy’s Law cases (patients with AST or ALT 3 ×upper limit of normal 
+[ULN] in combination with bilirubin 2 ×ULN and ALP <2 ×ULN) will be also presented. 
+Additionally, a Hy’s Law (DILI) plot will be produced which plots peak ALT and peak total 
+bilirubin in 1 panel and peak AST and peak total bilirubin in a second panel. 
+A distribution boxplot of liver function test (albumin, ALT, AST, alkaline phosphatase, total 
+bilirubin, direct bilirubin and gamma glutamyl transferase [GGT]) and selected hematology and 
+other chemistry laboratory test values over time will be presented. A side panel will be added to 
+the plot to show the distribution of maximum values.  
+A boxplot of platelet count by visit will be provided for overall and by starting dose subgroup. 
+Platelet count decrease post-baseline during study (until 30 days after the last dose of study 
+treatment) will be summarized according to the following categories for overall and by starting 
+dose subgroup:  
+x <10,000/μL 
+x <10,000/μL requiring blood transfusion (±7 days) 
+x DQG <25,000/μL 
+x 10,000 and <25,000/μL requiring blood transfusion (±7 days) 
+x ,000/μL  
+
+
+--- Page 56 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 55 of 61 
+A by-patient listing of all laboratory data will be provided, with laboratory reference ranges and 
+abnormal values highlighted, CTCAE grade if applicable, and including center, patient 
+identifier, and visit. 
+4.4.5. 
+Vital Signs and Physical Examination 
+Summaries of vital signs parameters (systolic and diastolic blood pressures, pulse rate, and 
+temperature) and weight will be presented by visit. Summary statistics will be produced for both 
+observed and change from baseline values, for each parameter. 
+Change from baseline will be summarized and analyzed according to the largest increase, the 
+largest decrease, and change at the EOT, irrespective of scheduled or unscheduled visit. 
+Graphical line mean changes over time may be provided, but due to the varying visits no 
+repeated measures analysis will be performed.  
+A summary table of the number and percent of patients categorized as low or high at any time 
+on study after baseline according to the below criteria will be presented.  
+x SBP (mm Hg):  
+o Low:  <90 and GHFUHDVHIURPEDVHOLQH 
+o High: >160 DQGLQFUHDVHIURPEDVHOLQH 
+x DBP (mm Hg):  
+o Low:  <DQGGHFUHDVHIURPEDVHOLQH 
+o High: >100 DQGLQFUHDVHIURPEDVHOLQH 
+Vital sign measurements will be presented for each patient in a data listing. 
+The number and percentage of patients experiencing at least 1 abnormal result at the baseline 
+physical examination will be summarized by body system. Subsequent symptom-targeted 
+physical examination findings will be presented for each patient in a data listing. 
+ECOG performance status will be summarized by visit and reported in a data listing. 
+Screening ECG data for each patient will be provided in a data listing. 
+4.4.6. 
+Concomitant Medications 
+All medications will be coded using the September 2017 or later version of the WHO Drug 
+Dictionary (WHODD). All prior ovarian cancer treatments are summarized separately in 
+Section 4.2. 
+Medication start and stop dates will be compared to the date of first dose of study drug to allow 
+medications to be classified as either Prior only, both Prior and Concomitant, or Concomitant 
+only. Medications starting after the treatment withdrawal date will be listed but will not be 
+classified or summarized. 
+Medications that start and stop prior to the date of first dose of study drug will be classified as 
+Prior only. If a medication starts before the date of first dose of study drug and stops on or after 
+the date of first dose of study drug, then the medication will be classified as both Prior and 
+Concomitant. Medications will be classified as Concomitant only if they have a start date on or 
+after the date of first dose of study drug. Concomitant medication will be summarized by ATC 
+
+
+--- Page 57 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 56 of 61 
+level 3 and PT in frequency tables by treatment. Patients with more than 1 medication in a given 
+ATC level and PT will be counted only once in that category. 
+If medication start and/or stop dates are missing or partial, the dates will be compared as far as 
+possible with the date of first dose of study drug. Medications will be assumed to be 
+Concomitant only, unless there is clear evidence (through comparison of partial dates) to 
+suggest that the medication started prior to the first dose of study drug. If there is clear evidence 
+to suggest that the medication started prior to the first dose of study drug, the medication will be 
+assumed to be both Prior and Concomitant, unless there is clear evidence to suggest that the 
+medication stopped prior to the first dose of study drug. If there is clear evidence to suggest that 
+the medication stopped prior to the first dose of study drug, the medication will be assumed to 
+be Prior only. The following lists the concomitant medication tables to be displayed: 
+x Number and percentage with at least 1 prior medication by ATC level 3 and PT 
+x Number and percentage with at least 1 concomitant medication by ATC level 3 and PT 
+x Number and percentage with at least 1 prior and concomitant medication by ATC level 3 
+and PT 
+The use of concomitant medications will be included in a by-patient data listing. 
+
+
+--- Page 58 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 57 of 61 
+5. 
+CHANGES TO PLANNED ANALYSES 
+Not applicable. 
+ 
+ 
+ 
+ 
+
+
+--- Page 59 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 58 of 61 
+6. 
+REFERENCES 
+1  
+Holstege H, Horlings HM, Velds A, et al. BRCA1-mutated and basal-like breast cancers 
+have similar aCGH profiles and a high incidence of protein truncating TP53 mutations. 
+BMC Cancer. 2010;10:654. 
+2  
+Stefansson OA, Jonasson JG, Johannsson OT, et al. Genomic profiling of breast tumours 
+in relation to BRCA abnormalities and phenotypes. Breast Cancer Res. 2009;11(4):R47. 
+3  
+du Bois A, Floquet A, Kim JW, et al. Incorporation of pazopanib in maintenance therapy 
+of ovarian cancer. J Clin Oncol. 2014;32(30):3374-3382. 
+4  
+Sabbatini P HP, Scambia G et al. Abagovomab As Maintenance Therapy in Patients 
+With Epithelial Ovarian Cancer: A Phase III Trial of the AGO OVAR, COGI, GINECO, 
+and GEICO—The MIMOSA Study. J Clin Oncol. 2013;31:1554-1561. 
+5  
+Berek J TP, McGuire W et al. Oregovomab Maintenance Monoimmunotherapy Does 
+Not Improve Outcomes in Advanced Ovarian Cancer. J Clin Oncol. 2009;27:418-425. 
+6  
+Harter P, Johnson T, Berton-Rigaud D, et al. BRCA1/2 mutations associated with 
+progression-free survival in ovarian cancer patients in the AGO-OVAR 16 study. 
+Gynecol Oncol. 2016;140(3):443-449. 
+7  
+Bookman M, Tyczynski JE, Espirito JL, Wilson TW, Fernandes AW. Impact of primary 
+platinum-free interval and BRCA1/2 mutation status on treatment and survival in patients 
+with recurrent ovarian cancer. Gynecol Oncol. 2017(146):58-63. 
+8  
+Lan KKG, DeMets DL. Discrete sequential boundaries for clinical trials. Biometrika. 
+1983;70:659-663. 
+ 
+
+
+--- Page 60 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 59 of 61 
+7. 
+APPENDIX 
+ 
+7.1. 
+Scoring Algorithm for the FACT/NCCN Ovarian Symptom Index 
+(FOSI) 
+FACT/NCCN Ovarian Symptom Index (FOSI)  
+Scoring Guidelines (Version 4)  
+ 
+ 
+CCI - This section contained Clinical Outcome Assessment data collection questionnaires or indices, which are protected by third 
+party copyright laws and therefore have been excluded.
+
+
+--- Page 61 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 60 of 61 
+7.2. 
+EQ-5D-5L Crosswalk Value Set 
+ 
+EQ-5D-5L_Crosswalk_Value_Sets.xls, retrieved from https://euroqol.org/eq-5d-instruments/eq-
+5d-5l-about/valuation-standard-value-sets/crosswalk-index-value-calculator/ 
+ 
+7.3. 
+MedDRA Preferred Terms for AESIs and Other Grouped Events 
+The list of terms is provided in a separate document.  
+
+
+--- Page 62 ---
+TESARO, Inc. 
+Statistical Analysis Plan, Protocol PR-30-5017-C 
+19 June 2019, Final Version 1.0 
+ 
+CONFIDENTIAL 
+ 
+Page 61 of 61 
+8. 
+STATISTICAL OUTPUT SHELLS 
+The list of statistical output and corresponding table/figure/listing shells are provided in a 
+separate document. 

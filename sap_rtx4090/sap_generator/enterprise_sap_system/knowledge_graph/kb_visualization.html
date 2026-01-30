@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Knowledge Graph Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .header h1 { color: #4fc3f7; font-size: 24px; margin-bottom: 5px; }
+        .header p { color: #888; font-size: 14px; }
+        .container { display: flex; height: calc(100vh - 100px); }
+        .sidebar {
+            width: 320px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            overflow-y: auto;
+            border-right: 1px solid #333;
+        }
+        .main { flex: 1; position: relative; }
+        svg { width: 100%; height: 100%; }
+
+        .file-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .file-card:hover { background: rgba(255,255,255,0.1); border-color: #4fc3f7; }
+        .file-card.active { border-color: #4fc3f7; background: rgba(79,195,247,0.1); }
+        .file-card h3 { font-size: 13px; color: #4fc3f7; margin-bottom: 6px; }
+        .file-card .meta { font-size: 11px; color: #888; margin-bottom: 8px; }
+        .file-card .modules { font-size: 11px; }
+        .file-card .module {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 2px;
+            font-family: monospace;
+        }
+
+        .node { cursor: pointer; }
+        .node circle { transition: all 0.2s; }
+        .node:hover circle { filter: brightness(1.3); }
+        .node text { font-size: 11px; fill: #e0e0e0; pointer-events: none; }
+        .link { stroke-opacity: 0.4; }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid #4fc3f7;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+            max-width: 300px;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+        .tooltip h4 { color: #4fc3f7; margin-bottom: 8px; }
+        .tooltip .content { color: #ccc; }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+        .legend-item { display: flex; align-items: center; margin: 4px 0; }
+        .legend-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+
+        .stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+        .stats h4 { color: #4fc3f7; margin-bottom: 10px; }
+        .stat-row { display: flex; justify-content: space-between; margin: 4px 0; }
+        .stat-value { color: #4fc3f7; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SAP Knowledge Graph Architecture</h1>
+        <p>Interactive visualization of the knowledge base structure</p>
+    </div>
+
+    <div class="container">
+        <div class="sidebar" id="sidebar"></div>
+        <div class="main">
+            <svg id="graph"></svg>
+            <div class="tooltip" id="tooltip"></div>
+            <div class="legend" id="legend"></div>
+            <div class="stats" id="stats"></div>
+        </div>
+    </div>
+
+<script>
+// Knowledge Base Data
+const kbData = {
+    files: [
+        {
+            id: "kg_enhanced_pipeline",
+            name: "kg_enhanced_pipeline.py",
+            type: "pipeline",
+            size: "135.8 KB",
+            lines: 3270,
+            description: "Main SAP generation pipeline with 55-category extraction",
+            modules: ["EnhancedKGPipeline", "SAPGenerator", "SELFRAGVerifier"],
+            imports: ["kb_tools", "regulatory_standards", "sap_structure_config"]
+        },
+        {
+            id: "kb_tools",
+            name: "kb_tools.py",
+            type: "tools",
+            size: "103.4 KB",
+            lines: 2422,
+            description: "Claude tool definitions for knowledge retrieval",
+            modules: ["KnowledgeBaseTools", "TrialPrecedentKG", "17 Claude tools"],
+            imports: ["methodology_knowledge_base", "complete_tfl_inventory", "production_sap_specifications", "disease_specific_criteria", "oncology_reference_data"]
+        },
+        {
+            id: "methodology_knowledge_base",
+            name: "methodology_knowledge_base.py",
+            type: "knowledge",
+            size: "68.7 KB",
+            lines: 1814,
+            description: "Statistical methods and analysis specifications",
+            modules: ["STATISTICAL_METHODS", "CENSORING_RULES", "MISSING_DATA_HANDLING", "MULTIPLICITY_ADJUSTMENT", "SENSITIVITY_ANALYSES", "STRATIFICATION_SPECIFICATIONS"]
+        },
+        {
+            id: "disease_specific_criteria",
+            name: "disease_specific_criteria.py",
+            type: "knowledge",
+            size: "25.6 KB",
+            lines: 680,
+            description: "Response criteria by disease type",
+            modules: ["RECIST_1_1", "LUGANO_CRITERIA", "IMWG_CRITERIA", "irRECIST", "iRECIST", "PCWG3_CRITERIA"]
+        },
+        {
+            id: "oncology_reference_data",
+            name: "oncology_reference_data.py",
+            type: "knowledge",
+            size: "52.7 KB",
+            lines: 1266,
+            description: "Therapy-specific modules and trial templates",
+            modules: ["CAR_T_MODULE", "BISPECIFIC_MODULE", "ADC_MODULE", "ADJUVANT_TRIAL_TEMPLATE", "BASKET_TRIAL_TEMPLATE"]
+        },
+        {
+            id: "complete_tfl_inventory",
+            name: "complete_tfl_inventory.py",
+            type: "templates",
+            size: "68.0 KB",
+            lines: 1687,
+            description: "Table, Figure, Listing shell templates",
+            modules: ["DISPOSITION_TABLES", "EFFICACY_TABLES", "SAFETY_TABLES", "FIGURES", "LISTINGS"]
+        },
+        {
+            id: "production_sap_specifications",
+            name: "production_sap_specifications.py",
+            type: "templates",
+            size: "56.2 KB",
+            lines: 1376,
+            description: "SAP section specifications and estimands",
+            modules: ["TFL_SHELLS", "ADAM_SPECIFICATIONS", "ESTIMANDS_FRAMEWORK", "RECIST_SPECIFICATIONS"]
+        },
+        {
+            id: "regulatory_standards",
+            name: "regulatory_standards.py",
+            type: "regulatory",
+            size: "24.7 KB",
+            lines: 692,
+            description: "ICH E9(R1), FDA guidance, MedDRA, CTCAE versions",
+            modules: ["ICH_E9_R1", "FDA_GUIDANCE", "MedDRA_26.1", "CTCAE_5.0"]
+        },
+        {
+            id: "factual_kg_merged",
+            name: "factual_kg_merged.json",
+            type: "data",
+            size: "3.1 MB",
+            lines: null,
+            description: "354 trials with precedent data",
+            modules: ["6,311 nodes", "6,858 edges", "117 rich trials"]
+        }
+    ],
+    links: [
+        { source: "kg_enhanced_pipeline", target: "kb_tools", type: "imports" },
+        { source: "kg_enhanced_pipeline", target: "regulatory_standards", type: "imports" },
+        { source: "kb_tools", target: "methodology_knowledge_base", type: "imports" },
+        { source: "kb_tools", target: "disease_specific_criteria", type: "imports" },
+        { source: "kb_tools", target: "oncology_reference_data", type: "imports" },
+        { source: "kb_tools", target: "complete_tfl_inventory", type: "imports" },
+        { source: "kb_tools", target: "production_sap_specifications", type: "imports" },
+        { source: "kb_tools", target: "factual_kg_merged", type: "queries" }
+    ],
+    nodeStats: {
+        endpoint: 1760,
+        quote: 1204,
+        method: 958,
+        visit: 508,
+        population: 458,
+        document: 385,
+        trial: 354,
+        censoring_rule: 288
+    }
+};
+
+// Color scheme
+const colors = {
+    pipeline: "#e91e63",
+    tools: "#4fc3f7",
+    knowledge: "#66bb6a",
+    templates: "#ffb74d",
+    regulatory: "#ab47bc",
+    data: "#ff7043"
+};
+
+// Render sidebar
+function renderSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.innerHTML = '<h3 style="margin-bottom:15px;color:#4fc3f7;">Knowledge Base Files</h3>';
+
+    kbData.files.forEach(file => {
+        const card = document.createElement('div');
+        card.className = 'file-card';
+        card.id = `card-${file.id}`;
+        card.innerHTML = `
+            <h3>${file.name}</h3>
+            <div class="meta">${file.size} | ${file.lines ? file.lines + ' lines' : 'JSON'} | <span style="color:${colors[file.type]}">${file.type}</span></div>
+            <div style="font-size:11px;color:#aaa;margin-bottom:6px;">${file.description}</div>
+            <div class="modules">
+                ${file.modules.slice(0, 4).map(m => `<span class="module">${m}</span>`).join('')}
+                ${file.modules.length > 4 ? `<span class="module">+${file.modules.length - 4} more</span>` : ''}
+            </div>
+        `;
+        card.onclick = () => highlightNode(file.id);
+        sidebar.appendChild(card);
+    });
+}
+
+// Render legend
+function renderLegend() {
+    const legend = document.getElementById('legend');
+    legend.innerHTML = '<div style="font-weight:bold;margin-bottom:8px;">File Types</div>';
+    Object.entries(colors).forEach(([type, color]) => {
+        legend.innerHTML += `
+            <div class="legend-item">
+                <div class="legend-color" style="background:${color}"></div>
+                <span>${type}</span>
+            </div>
+        `;
+    });
+}
+
+// Render stats
+function renderStats() {
+    const stats = document.getElementById('stats');
+    stats.innerHTML = `
+        <h4>Knowledge Graph Stats</h4>
+        <div class="stat-row"><span>Total Nodes</span><span class="stat-value">6,311</span></div>
+        <div class="stat-row"><span>Total Edges</span><span class="stat-value">6,858</span></div>
+        <div class="stat-row"><span>Trials</span><span class="stat-value">354</span></div>
+        <div class="stat-row"><span>Rich Trials</span><span class="stat-value">117</span></div>
+        <div class="stat-row"><span>Endpoints</span><span class="stat-value">1,760</span></div>
+        <div class="stat-row"><span>Methods</span><span class="stat-value">958</span></div>
+    `;
+}
+
+// Render graph
+function renderGraph() {
+    const svg = d3.select("#graph");
+    const width = svg.node().getBoundingClientRect().width;
+    const height = svg.node().getBoundingClientRect().height;
+
+    svg.selectAll("*").remove();
+
+    const g = svg.append("g");
+
+    // Zoom
+    const zoom = d3.zoom()
+        .scaleExtent([0.3, 3])
+        .on("zoom", (event) => g.attr("transform", event.transform));
+    svg.call(zoom);
+
+    // Arrow marker
+    svg.append("defs").append("marker")
+        .attr("id", "arrow")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 25)
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr("fill", "#666");
+
+    // Simulation
+    const simulation = d3.forceSimulation(kbData.files)
+        .force("link", d3.forceLink(kbData.links).id(d => d.id).distance(150))
+        .force("charge", d3.forceManyBody().strength(-500))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(60));
+
+    // Links
+    const link = g.append("g")
+        .selectAll("line")
+        .data(kbData.links)
+        .enter().append("line")
+        .attr("class", "link")
+        .attr("stroke", d => d.type === "queries" ? "#ff7043" : "#4fc3f7")
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray", d => d.type === "queries" ? "5,5" : "none")
+        .attr("marker-end", "url(#arrow)");
+
+    // Nodes
+    const node = g.append("g")
+        .selectAll("g")
+        .data(kbData.files)
+        .enter().append("g")
+        .attr("class", "node")
+        .attr("id", d => `node-${d.id}`)
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended));
+
+    node.append("circle")
+        .attr("r", d => d.type === "pipeline" ? 35 : d.type === "data" ? 30 : 25)
+        .attr("fill", d => colors[d.type])
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 2);
+
+    node.append("text")
+        .attr("dy", d => d.type === "pipeline" ? 50 : 40)
+        .attr("text-anchor", "middle")
+        .text(d => d.name.replace('.py', '').replace('.json', ''));
+
+    // Tooltip
+    const tooltip = document.getElementById('tooltip');
+    node.on("mouseover", (event, d) => {
+        tooltip.innerHTML = `
+            <h4>${d.name}</h4>
+            <div class="content">
+                <div><strong>Type:</strong> ${d.type}</div>
+                <div><strong>Size:</strong> ${d.size}</div>
+                <div><strong>Description:</strong> ${d.description}</div>
+                <div style="margin-top:8px"><strong>Contains:</strong></div>
+                <div>${d.modules.join(', ')}</div>
+            </div>
+        `;
+        tooltip.style.display = 'block';
+        tooltip.style.left = (event.pageX + 10) + 'px';
+        tooltip.style.top = (event.pageY - 10) + 'px';
+    })
+    .on("mouseout", () => {
+        tooltip.style.display = 'none';
+    })
+    .on("click", (event, d) => highlightNode(d.id));
+
+    // Simulation tick
+    simulation.on("tick", () => {
+        link
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+
+    function dragstarted(event) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+    }
+
+    function dragged(event) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+    }
+
+    function dragended(event) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+    }
+}
+
+function highlightNode(id) {
+    // Reset all
+    document.querySelectorAll('.file-card').forEach(c => c.classList.remove('active'));
+    d3.selectAll('.node circle').attr('stroke-width', 2);
+
+    // Highlight
+    document.getElementById(`card-${id}`)?.classList.add('active');
+    d3.select(`#node-${id} circle`).attr('stroke-width', 5);
+}
+
+// Initialize
+renderSidebar();
+renderLegend();
+renderStats();
+renderGraph();
+</script>
+</body>
+</html>
