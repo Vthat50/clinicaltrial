@@ -49,8 +49,8 @@ COPY chroma_db ./chroma_db
 # Note: knowledge_graph is inside enterprise_sap_system, already copied above
 COPY web/backend ./web/backend
 
-# Set Python path to find enterprise_sap_system
-ENV PYTHONPATH=/app
+# Set Python path to find enterprise_sap_system and tlf_integration
+ENV PYTHONPATH=/app:/app/web/backend
 
 # Expose port (Render uses PORT env var)
 EXPOSE 10000
