@@ -49,7 +49,11 @@ COPY chroma_db ./chroma_db
 # Note: knowledge_graph is inside enterprise_sap_system, already copied above
 COPY web/backend ./web/backend
 
-# Set Python path to find enterprise_sap_system and tlf_integration
+# Copy TLF LLM generator modules
+COPY tlf_llm ./tlf_llm
+COPY tlf_demo ./tlf_demo
+
+# Set Python path to find all modules
 ENV PYTHONPATH=/app:/app/web/backend
 
 # Expose port (Render uses PORT env var)
