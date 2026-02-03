@@ -1,0 +1,108 @@
+name: Listings
+description: All ICH E3 Section 16.2 data listings — one per data domain collected
+ich_section: '16.2'
+display_order: 18
+version: 3.0.0
+
+listings:
+# ---------------------------------------------------------------
+# EXTRACTION-BASED: Listings from LLM-identified domains
+# These fire first; dedup in Python prevents duplicates with rules below
+# ---------------------------------------------------------------
+- for_each: facts.listing_domains
+  title_pattern: "Listing of {domain}"
+  population: Safety
+  condition: facts.listing_domains | is_list_with_items
+
+# ---------------------------------------------------------------
+# DETERMINISTIC: Standard ICH 16.2 listings (always present)
+# These ensure standard listings are generated even if extraction missed them
+# ---------------------------------------------------------------
+
+# Core listings — every SAP has these
+- items:
+  - title: "Listing of Deaths"
+    population: Safety
+  - title: "Listing of Serious Adverse Events"
+    population: Safety
+  - title: "Listing of TEAEs Leading to Discontinuation"
+    population: Safety
+  - title: "Listing of TEAEs Leading to Death"
+    population: Safety
+  - title: "Listing of Protocol Deviations"
+    population: Enrolled
+  - title: "Listing of Screening Failures"
+    population: Screened
+  - title: "Listing of Subject Disposition"
+    population: Enrolled
+  - title: "Listing of Demographics"
+    population: Enrolled
+  - title: "Listing of Medical History"
+    population: Enrolled
+  - title: "Listing of Prior Medications"
+    population: Safety
+  - title: "Listing of Concomitant Medications"
+    population: Safety
+  - title: "Listing of Study Drug Exposure"
+    population: Safety
+  - title: "Listing of All Adverse Events"
+    population: Safety
+
+# Efficacy listings — one per endpoint
+- for_each: facts.endpoints
+  title_pattern: "Listing of {endpoint.name} Data"
+  population: Enrolled
+
+# AESI listing — when AESIs are defined
+- items:
+  - title: "Listing of Adverse Events of Special Interest"
+    population: Safety
+  condition: facts.aesis | is_list_with_items
+
+# Lab listings — per panel
+- for_each: facts.lab_panels
+  title_pattern: "Listing of {instrument} Results"
+  population: Safety
+  condition: facts.lab_panels | is_list_with_items
+
+# Fallback lab listings when lab_panels is empty but labs are collected
+- items:
+  - title: "Listing of Clinical Chemistry Results"
+    population: Safety
+  - title: "Listing of Hematology Results"
+    population: Safety
+  - title: "Listing of Urinalysis Results"
+    population: Safety
+  condition: facts.assessments_collected.labs == true and facts.lab_panels | length == 0
+
+# Vital signs listing
+- items:
+  - title: "Listing of Vital Signs"
+    population: Safety
+  condition: facts.assessments_collected.vitals == true
+
+# ECG listing
+- items:
+  - title: "Listing of ECG Results"
+    population: Safety
+  condition: facts.assessments_collected.ecg == true
+
+# PK listings
+- items:
+  - title: "Listing of PK Concentrations"
+    population: PK
+  - title: "Listing of PK Parameters"
+    population: PK
+  condition: facts.assessments_collected.pk == true
+
+# Immunogenicity listing
+- items:
+  - title: "Listing of Immunogenicity Results"
+    population: ADA Evaluable
+  condition: facts.assessments_collected.immunogenicity == true
+
+# QoL listings — per instrument
+- for_each: facts.assessments_collected.qol
+  title_pattern: "Listing of {instrument} Responses"
+  population: Enrolled
+  condition: facts.assessments_collected.qol | is_list_with_items

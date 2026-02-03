@@ -1,0 +1,17 @@
+name: Backbone Therapy
+description: Per-backbone-drug exposure and safety tables for studies with background
+  therapy
+ich_section: '12.1'
+display_order: 15
+version: 2.0.0
+
+backbone_therapy_tables:
+  for_each: facts.backbone_therapies
+  type: exposure
+  title_pattern: "{therapy.drug_name} Exposure"
+  population: Safety
+
+backbone_therapy_listings:
+  listings:
+  - title: "Individual {therapy.drug_name} Exposure"
+    population: Safety

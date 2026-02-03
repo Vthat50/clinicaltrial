@@ -1,0 +1,24 @@
+name: ECG
+description: ECG parameters summary by visit, qualitative results, QTcF categorical
+  analysis
+ich_section: '12.6'
+display_order: 8
+version: 2.0.0
+
+tables:
+# Core ECG tables
+- items:
+  - type: ecg
+    title: Electrocardiogram Parameters - Summary by Visit
+    population: Safety
+  - type: ecg
+    title: Electrocardiogram - Qualitative Results
+    population: Safety
+  condition: facts.assessments_collected.ecg == true
+
+# QTcF categorical analysis — standard whenever ECG is collected (ICH E14 thresholds)
+- items:
+  - type: ecg
+    title: QTcF Change from Baseline - Categorical Analysis
+    population: Safety
+  condition: facts.assessments_collected.ecg == true

@@ -1,0 +1,50 @@
+name: Demographics & Baseline Characteristics
+description: Demographics and baseline characteristics tables
+ich_section: '11.2'
+display_order: 2
+version: 2.0.0
+tables:
+# Standard demographics — Safety population (always present)
+- items:
+  - type: demographics
+    title: Demographics and Baseline Characteristics
+    population: Safety
+
+# Demographics — primary efficacy population (FAS/ITT)
+# Only added when populations include one marked primary_for efficacy
+- items:
+  - type: demographics
+    title: Demographics and Baseline Characteristics (Full Analysis Set)
+    population: FAS
+  condition: facts.populations | length > 1
+
+# Multicenter table — patient distribution by country/center
+- items:
+  - type: demographics
+    title: Patient Distribution by Country
+    population: Enrolled
+  condition: facts.multicenter_design.is_multicenter == true
+
+# Physical exam
+- items:
+  - type: labs
+    title: Physical Examination - Shift Table
+    population: Safety
+  condition: facts.assessments_collected.physical_exam == true
+
+# ECOG
+- items:
+  - type: labs
+    title: ECOG Performance Status by Visit
+    population: Safety
+  - type: lab_shift
+    title: ECOG Performance Status - Shift Table
+    population: Safety
+  condition: facts.assessments_collected.ecog_ps == true
+
+# Pregnancy test
+- items:
+  - type: labs
+    title: Pregnancy Test Summary
+    population: Safety
+  condition: facts.assessments_collected.pregnancy_test == true

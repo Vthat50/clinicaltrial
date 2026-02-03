@@ -241,6 +241,28 @@ except ImportError as e:
     build_universal_config = None
     print(f"Warning: TLF Integration not available: {e}")
 
+# TLF LLM-driven generation (new system alongside deterministic)
+try:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+    from tlf_llm import generate_tlf_shells_llm
+    TLF_LLM_AVAILABLE = True
+    print("[TLF LLM] LLM-driven TLF shell generator available")
+except ImportError as e:
+    TLF_LLM_AVAILABLE = False
+    generate_tlf_shells_llm = None
+    print(f"Warning: TLF LLM module not available: {e}")
+
+# Demo TLF generator (4 targeted items via 2 Claude calls)
+try:
+    from tlf_demo import generate_demo_shells
+    TLF_DEMO_AVAILABLE = True
+    print("[TLF Demo] Demo TLF generator available")
+except ImportError as e:
+    TLF_DEMO_AVAILABLE = False
+    generate_demo_shells = None
+    print(f"Warning: TLF Demo module not available: {e}")
+
 # NEW: Enhanced KG Pipeline - 55-category extraction with prohibition rules
 # This replaces TwoPassExtractor for context-aware SAP generation
 try:
@@ -4503,6 +4525,29 @@ class TLFShellResponse(BaseModel):
     figures: list = []
     total_outputs: int = 0
     markdown: str = ""
+    skill_results: dict = {}
+    errors: list = []
+
+
+class TLFSkillInfo(BaseModel):
+    """Info about a single TLF skill."""
+    id: str
+    name: str
+    description: str
+    ich_section: str
+    display_order: int
+    table_count: int = 0
+    figure_count: int = 0
+    listing_count: int = 0
+    total_count: int = 0
+    has_content: bool = False
+
+
+class TLFSkillsPreviewResponse(BaseModel):
+    """Response for skill preview (after fact extraction, before generation)."""
+    success: bool
+    message: str
+    skills: list = []
     errors: list = []
 
 
@@ -4590,10 +4635,76 @@ async def generate_tlf_shells(
 # TLF SHELL GENERATION - DIRECT FROM PROTOCOL (Quick Protocol Mode)
 # =============================================================================
 
+@app.get("/tlf-skills")
+async def get_tlf_skills():
+    """Return the TLF skill registry — static metadata for all 15 skills."""
+    try:
+        from tlf_skills import _ensure_loaded, _ensure_metadata, TLF_SKILL_ORDER
+        _ensure_loaded()
+        metadata = _ensure_metadata()
+        skills = []
+        for skill_id in TLF_SKILL_ORDER:
+            meta = metadata.get(skill_id, {})
+            skills.append({"id": skill_id, **meta})
+        return {"skills": skills}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load TLF skills: {str(e)}")
+
+
+@app.post("/tlf-skills-preview")
+async def tlf_skills_preview(
+    file: UploadFile = File(...)
+):
+    """
+    Extract facts from protocol and return available skills with table/figure/listing counts.
+    This is a lightweight preview step — no shell rendering, just counts per skill.
+    """
+    if not TLF_INTEGRATION_AVAILABLE or generate_tlf_shells_for_protocol is None:
+        raise HTTPException(status_code=500, detail="TLF Integration module not available")
+
+    try:
+        content = await file.read()
+        filename = file.filename or "protocol.txt"
+
+        try:
+            protocol_text = extract_text_from_file(filename, content)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=f"Failed to extract text from file: {e}")
+
+        if not protocol_text.strip():
+            raise HTTPException(status_code=400, detail="No text could be extracted from the file")
+
+        logger.info(f"[TLF Skills Preview] Extracted {len(protocol_text):,} chars from {filename}")
+
+        output = generate_tlf_shells_for_protocol(
+            extraction={},
+            protocol_text=protocol_text,
+            output_format="skills_preview"
+        )
+
+        return TLFSkillsPreviewResponse(
+            success=True,
+            message=f"Extracted facts and previewed {len(output.get('skills', []))} skills",
+            skills=output.get("skills", []),
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[TLF Skills Preview] Failed: {e}")
+        return TLFSkillsPreviewResponse(
+            success=False,
+            message=f"Skills preview failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
 @app.post("/generate-tlf-shells-direct")
 async def generate_tlf_shells_direct(
     file: UploadFile = File(...),
-    format: str = Query("markdown", regex="^(markdown|docx)$")
+    format: str = Query("markdown", regex="^(markdown|docx)$"),
+    skills: Optional[str] = Query(None, description="Comma-separated skill IDs to generate (omit for all)")
 ):
     """
     Generate TLF shells directly from a protocol file upload.
@@ -4604,12 +4715,18 @@ async def generate_tlf_shells_direct(
 
     Query params:
         format: "markdown" (default, returns JSON with TLFShellResponse) or "docx" (returns .docx download)
+        skills: Comma-separated skill IDs (e.g. "primary-efficacy,labs"). Omit for all skills.
     """
     if not TLF_INTEGRATION_AVAILABLE or generate_tlf_shells_for_protocol is None:
         raise HTTPException(
             status_code=500,
             detail="TLF Integration module not available"
         )
+
+    # Parse skills parameter
+    selected_skills = None
+    if skills:
+        selected_skills = [s.strip() for s in skills.split(",") if s.strip()]
 
     try:
         content = await file.read()
@@ -4624,14 +4741,14 @@ async def generate_tlf_shells_direct(
         if not protocol_text.strip():
             raise HTTPException(status_code=400, detail="No text could be extracted from the file")
 
-        logger.info(f"[TLF Direct] Extracted {len(protocol_text):,} chars from {filename}")
+        logger.info(f"[TLF Direct] Extracted {len(protocol_text):,} chars from {filename}, skills={selected_skills or 'all'}")
 
         # Generate TLF shells directly — no SAP job needed
-        # Pass empty extraction dict; _extract_protocol_facts will read the protocol text directly
         output = generate_tlf_shells_for_protocol(
             extraction={},
             protocol_text=protocol_text,
-            output_format=format
+            output_format=format,
+            selected_skills=selected_skills
         )
 
         protocol_id = Path(filename).stem
@@ -4649,7 +4766,7 @@ async def generate_tlf_shells_direct(
         else:
             return TLFShellResponse(
                 success=True,
-                message="Generated TLF shells directly from protocol (Quick Protocol mode)",
+                message=f"Generated TLF shells (skills: {', '.join(selected_skills) if selected_skills else 'all'})",
                 tables=[],
                 listings=[],
                 figures=[],
@@ -4667,6 +4784,257 @@ async def generate_tlf_shells_direct(
         return TLFShellResponse(
             success=False,
             message=f"TLF generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+# =============================================================================
+# TLF SHELL GENERATION — LLM-DRIVEN (New system alongside deterministic)
+# =============================================================================
+
+@app.post("/generate-tlf-shells-llm/{job_id}")
+async def generate_tlf_shells_llm_endpoint(
+    job_id: str,
+    format: str = Query("markdown", regex="^(markdown|docx|json)$")
+):
+    """
+    Generate TLF shells using the LLM-driven system (domain-by-domain with example matching).
+
+    This is the new LLM-driven generator that works for any protocol design type.
+    Uses domain-specific instructions + reference SAP matching + Claude reasoning.
+    """
+    if not TLF_LLM_AVAILABLE or generate_tlf_shells_llm is None:
+        raise HTTPException(status_code=500, detail="TLF LLM module not available")
+
+    try:
+        db = get_supabase()
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for TLF generation. Status: {job['status']}"
+            )
+
+        protocol_text = job.get("protocol_text", "")
+        extraction = job.get("extraction", {}) or {}
+        protocol_id = job.get("nct_id", "PROTOCOL")
+
+        output = await generate_tlf_shells_llm(
+            protocol_text=protocol_text,
+            extraction=extraction,
+            output_format=format,
+        )
+
+        if format == "docx":
+            from io import BytesIO
+            if not output:
+                raise HTTPException(status_code=500, detail="Failed to generate .docx")
+            filename = f"TLF_Shells_LLM_{protocol_id}.docx"
+            return StreamingResponse(
+                BytesIO(output),
+                media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+            )
+        elif format == "json":
+            return output
+        else:
+            return TLFShellResponse(
+                success=True,
+                message="Generated TLF shells via LLM-driven system",
+                tables=[],
+                listings=[],
+                figures=[],
+                total_outputs=0,
+                markdown=output if isinstance(output, str) else "",
+                errors=[]
+            )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[TLF LLM] Generation failed: {e}")
+        if format == "docx":
+            raise HTTPException(status_code=500, detail=f"TLF generation failed: {str(e)}")
+        return TLFShellResponse(
+            success=False,
+            message=f"TLF LLM generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+@app.post("/generate-tlf-shells-llm-direct")
+async def generate_tlf_shells_llm_direct(
+    file: UploadFile = File(...),
+    format: str = Query("markdown", regex="^(markdown|docx|json)$"),
+):
+    """
+    Generate TLF shells directly from a protocol file using the LLM-driven system.
+
+    No SAP job required — upload a protocol PDF/DOCX/TXT and get TLF shells.
+    """
+    if not TLF_LLM_AVAILABLE or generate_tlf_shells_llm is None:
+        raise HTTPException(status_code=500, detail="TLF LLM module not available")
+
+    try:
+        content = await file.read()
+        filename = file.filename or "protocol.txt"
+
+        try:
+            protocol_text = extract_text_from_file(filename, content)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=f"Failed to extract text from file: {e}")
+
+        if not protocol_text.strip():
+            raise HTTPException(status_code=400, detail="No text could be extracted from the file")
+
+        logger.info(f"[TLF LLM Direct] Extracted {len(protocol_text):,} chars from {filename}")
+
+        output = await generate_tlf_shells_llm(
+            protocol_text=protocol_text,
+            extraction=None,
+            output_format=format,
+        )
+
+        protocol_id = Path(filename).stem
+
+        if format == "docx":
+            from io import BytesIO
+            if not output:
+                raise HTTPException(status_code=500, detail="Failed to generate .docx")
+            docx_filename = f"TLF_Shells_LLM_{protocol_id}.docx"
+            return StreamingResponse(
+                BytesIO(output),
+                media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                headers={"Content-Disposition": f'attachment; filename="{docx_filename}"'}
+            )
+        elif format == "json":
+            return output
+        else:
+            return TLFShellResponse(
+                success=True,
+                message="Generated TLF shells via LLM-driven system (direct upload)",
+                tables=[],
+                listings=[],
+                figures=[],
+                total_outputs=0,
+                markdown=output if isinstance(output, str) else "",
+                errors=[]
+            )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[TLF LLM Direct] Generation failed: {e}")
+        if format == "docx":
+            raise HTTPException(status_code=500, detail=f"TLF generation failed: {str(e)}")
+        return TLFShellResponse(
+            success=False,
+            message=f"TLF LLM generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+# =============================================================================
+# DEMO TLF GENERATION ENDPOINT (4 items, 2 Claude calls)
+# =============================================================================
+
+@app.post("/generate-tlf-demo-direct")
+async def generate_tlf_demo_direct(
+    protocol_file: UploadFile = File(..., alias="protocol_file"),
+    sap_file: UploadFile = File(..., alias="sap_file"),
+    format: str = Query("markdown", regex="^(markdown|docx|json)$"),
+):
+    """
+    Generate 4 demo TLF shells from a protocol + generated SAP.
+
+    Requires two files:
+      - protocol_file: The original protocol (PDF/DOCX/TXT)
+      - sap_file: The generated SAP (.docx) with a populated TLF index
+
+    Parses the TLF index from the SAP appendix, then generates:
+      - First table in the index (varies by SAP)
+      - Clinical Chemistry CFB table
+      - First listing in the index (varies by SAP)
+      - Laboratory Values: Clinical Chemistry listing
+
+    Uses 2 focused Claude API calls instead of 13 domain calls.
+    """
+    if not TLF_DEMO_AVAILABLE or generate_demo_shells is None:
+        raise HTTPException(status_code=500, detail="TLF Demo module not available")
+
+    try:
+        # Read protocol file and extract text
+        protocol_content = await protocol_file.read()
+        protocol_filename = protocol_file.filename or "protocol.txt"
+
+        try:
+            protocol_text = extract_text_from_file(protocol_filename, protocol_content)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=f"Failed to extract text from protocol: {e}")
+
+        if not protocol_text.strip():
+            raise HTTPException(status_code=400, detail="No text could be extracted from the protocol file")
+
+        # Read SAP file (must be .docx)
+        sap_content = await sap_file.read()
+        sap_filename = sap_file.filename or "sap.docx"
+
+        if not sap_filename.lower().endswith(".docx"):
+            raise HTTPException(status_code=400, detail="SAP file must be a .docx file")
+
+        logger.info(
+            f"[TLF Demo Direct] Protocol: {len(protocol_text):,} chars from {protocol_filename}, "
+            f"SAP: {len(sap_content):,} bytes from {sap_filename}"
+        )
+
+        output = await generate_demo_shells(
+            protocol_text=protocol_text,
+            sap_content=sap_content,
+            output_format=format,
+        )
+
+        sap_id = Path(sap_filename).stem
+
+        if format == "docx":
+            from io import BytesIO
+            if not output:
+                raise HTTPException(status_code=500, detail="Failed to generate .docx")
+            docx_filename = f"TLF_Demo_{sap_id}.docx"
+            return StreamingResponse(
+                BytesIO(output),
+                media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                headers={"Content-Disposition": f'attachment; filename="{docx_filename}"'}
+            )
+        elif format == "json":
+            return output
+        else:
+            return TLFShellResponse(
+                success=True,
+                message="Generated 4 demo TLF shells (2 tables + 2 listings) from SAP index",
+                tables=[],
+                listings=[],
+                figures=[],
+                total_outputs=0,
+                markdown=output if isinstance(output, str) else "",
+                errors=[]
+            )
+
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"[TLF Demo Direct] Generation failed: {e}")
+        if format == "docx":
+            raise HTTPException(status_code=500, detail=f"TLF demo generation failed: {str(e)}")
+        return TLFShellResponse(
+            success=False,
+            message=f"TLF demo generation failed: {str(e)}",
             errors=[str(e)]
         )
 

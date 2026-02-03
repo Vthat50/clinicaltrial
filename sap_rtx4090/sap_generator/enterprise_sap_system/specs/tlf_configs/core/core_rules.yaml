@@ -1,0 +1,184 @@
+# =============================================================================
+# CORE RULES — Shared by all TLF skills
+# =============================================================================
+# This file contains shared configuration that all skills reference:
+#   - default_analysis_methods: assign analysis method when protocol doesn't specify
+#   - endpoint_footnote_templates: auto-generated footnotes per analysis method
+#   - table_type_to_section: ICH section numbering
+#
+# Edit this file to change footnote text, analysis method defaults, or
+# ICH section assignments. These changes apply across ALL skills.
+#
+# To change what tables/figures/listings a specific skill generates,
+# edit that skill's SKILL.md instead.
+# =============================================================================
+
+version: "1.0"
+config_type: "core_rules"
+
+
+# =============================================================================
+# DEFAULT ANALYSIS METHOD MAPPING
+# =============================================================================
+# When the protocol does not specify an analysis method for an endpoint,
+# assign a default based on endpoint type and study design.
+# Rules are evaluated top-to-bottom; first match wins.
+# =============================================================================
+default_analysis_methods:
+  - endpoint_type: binary
+    design_type_in: [biosimilar, equivalence]
+    method: logistic_regression
+
+  - endpoint_type: binary
+    method: exact_binomial
+
+  - endpoint_type: time_to_event
+    method: cox_ph
+
+  - endpoint_type: continuous
+    design_type_in: [superiority, non_inferiority]
+    method: ancova
+
+  - endpoint_type: continuous
+    method: ancova
+
+  - endpoint_type: ordinal
+    method: cmh
+
+  - endpoint_type: count
+    method: negative_binomial
+
+  - endpoint_type: rate
+    method: negative_binomial
+
+  - endpoint_type: _default
+    method: descriptive
+
+
+# =============================================================================
+# TABLE TYPE TO ICH SECTION MAPPING
+# =============================================================================
+table_type_to_section:
+  # 14.1 — Demographics and disposition
+  disposition: "14.1"
+  demographics: "14.1"
+  medical_history: "14.1"
+  baseline: "14.1"
+  disease_characteristics: "14.1"
+  prior_therapy: "14.1"
+  protocol_deviations: "14.1"
+
+  # 14.2 — Efficacy
+  time_to_event: "14.2"
+  binary_response: "14.2"
+  continuous_endpoint: "14.2"
+  pro_qol: "14.2"
+  subgroup_forest: "14.2"
+  responder_analysis: "14.2"
+  sensitivity_analysis: "14.2"
+
+  # 14.3 — Safety
+  ae_overview: "14.3"
+  ae_by_soc_pt: "14.3"
+  ae_special: "14.3"
+  ae_by_severity: "14.3"
+  aesi: "14.3"
+  labs: "14.3"
+  lab_shift: "14.3"
+  labs_hematology: "14.3"
+  labs_chemistry: "14.3"
+  labs_urinalysis: "14.3"
+  labs_liver: "14.3"
+  vitals: "14.3"
+  ecg: "14.3"
+  exposure: "14.3"
+  dose_modification: "14.3"
+  concomitant_medications: "14.3"
+  prior_medications: "14.3"
+
+  # 14.4 — PK and immunogenicity
+  pk_parameters: "14.4"
+  pk_concentration: "14.4"
+  immunogenicity: "14.4"
+
+  # Figures
+  consort_diagram: "14.1"
+  lab_trend_plot: "14.3"
+  qol_line_plot: "14.2"
+
+  # 16.2 — Listings
+  listing: "16.2"
+
+
+# =============================================================================
+# ENDPOINT FOOTNOTE TEMPLATES
+# =============================================================================
+# Auto-generated footnotes per analysis method. Each method has a list of
+# footnote templates. Placeholders: {covariates}, {margin}, {censoring},
+# {criteria}, {landmarks}, {population}.
+# =============================================================================
+endpoint_footnote_templates:
+  logistic_regression:
+    - text: "Logistic regression model"
+      append_if_covariates: " adjusted for {covariates}"
+      suffix: "."
+    - text: "Risk difference and 95% CI estimated by Miettinen-Nurminen method."
+      condition: "facts.study_design.type in [biosimilar, equivalence]"
+      append_if_margin: " Equivalence margin: {margin}."
+    - text: "Response rate and 95% CI calculated using Clopper-Pearson exact method."
+
+  cox_ph:
+    - text: "Hazard ratio from Cox proportional hazards model"
+      append_if_covariates: " stratified by {covariates}"
+      suffix: "."
+    - text: "Two-sided p-value from stratified log-rank test."
+
+  kaplan_meier:
+    - text: "Kaplan-Meier estimates; 95% CI by Brookmeyer-Crowley method."
+    - text: "Median follow-up estimated by reverse Kaplan-Meier method."
+
+  exact_binomial:
+    - text: "95% CI calculated using Clopper-Pearson exact method."
+
+  clopper_pearson:
+    - text: "95% CI calculated using Clopper-Pearson exact method."
+
+  cmh:
+    - text: "P-value from Cochran-Mantel-Haenszel test"
+      append_if_covariates: " stratified by {covariates}"
+      suffix: "."
+
+  ancova:
+    - text: "LS means and p-value from ANCOVA model"
+      append_if_covariates: " with covariates: {covariates}"
+      suffix: "."
+
+  mmrm:
+    - text: "LS means from mixed model for repeated measures (MMRM)"
+      append_if_covariates: " with covariates: {covariates}"
+      suffix: "."
+    - text: "Unstructured covariance matrix used."
+
+  negative_binomial:
+    - text: "Rate ratio from negative binomial regression"
+      append_if_covariates: " adjusted for {covariates}"
+      suffix: "."
+
+  chi_square:
+    - text: "P-value from chi-square test (or Fisher's exact test when expected count <5)."
+
+  wilcoxon:
+    - text: "P-value from Wilcoxon rank-sum test."
+
+  fisher_exact:
+    - text: "P-value from Fisher's exact test."
+
+  # Common footnotes appended for any method when endpoint has these fields
+  _common:
+    - condition: "endpoint.censoring_rules is not empty"
+      text: "Censoring: {censoring}."
+    - condition: "endpoint.response_criteria is not empty"
+      text: "Response assessed per {criteria}."
+    - condition: "endpoint.landmark_timepoints | length > 0"
+      text: "Landmark timepoints: {landmarks}."
+    - text: "All analyses based on the {population} population."

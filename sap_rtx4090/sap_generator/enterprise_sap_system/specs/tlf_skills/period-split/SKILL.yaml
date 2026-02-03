@@ -1,0 +1,20 @@
+name: Period-Split Safety
+description: Per-period safety tables when multiple treatment periods exist (e.g.,
+  Induction/Maintenance)
+ich_section: '12'
+display_order: 16
+version: 2.0.0
+
+period_split_tables:
+  condition: facts.treatment_periods | length > 1
+  for_each: facts.treatment_periods
+  tables:
+  - type: ae_overview
+    title_pattern: "Overview of TEAEs - {period} Period"
+    population: Safety
+  - type: ae_by_soc_pt
+    title_pattern: "TEAEs by SOC and PT - {period} Period"
+    population: Safety
+  - type: ae_by_soc_pt
+    title_pattern: "Serious TEAEs - {period} Period"
+    population: Safety

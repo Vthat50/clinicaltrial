@@ -1,0 +1,26 @@
+name: Exposure
+description: Study drug exposure, duration, dose intensity, compliance, dose modifications
+ich_section: '12.1'
+display_order: 3
+version: 2.0.0
+
+tables:
+# Core exposure table — always included
+- items:
+  - type: exposure
+    title: Study Drug Exposure
+    population: Safety
+
+# Dose modification summary — when dose modifications are allowed
+- items:
+  - type: exposure
+    title: Study Drug Dose Modifications
+    population: Safety
+  condition: facts.dose_modifications.allowed == true
+
+# Rescue medication summary — when rescue meds are identified
+- items:
+  - type: concomitant_medications
+    title: Rescue Medication Use
+    population: Safety
+  condition: facts.rescue_medications | is_list_with_items

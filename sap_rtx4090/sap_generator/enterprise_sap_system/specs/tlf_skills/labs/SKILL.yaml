@@ -1,0 +1,65 @@
+name: Laboratory Parameters
+description: Lab summaries by panel, shift tables, CTCAE grades, Hy's Law, markedly
+  abnormal values
+ich_section: '12.4'
+display_order: 6
+version: 2.0.0
+
+tables:
+# ---------------------------------------------------------------
+# PRIMARY: Per-panel tables from extraction layer
+# Each lab_panel has {name, parameters}
+# ---------------------------------------------------------------
+- for_each: facts.lab_panels
+  items:
+  - type: labs
+    title: "{instrument} - Summary Statistics"
+    population: Safety
+  - type: lab_shift
+    title: "{instrument} - Shift Table"
+    population: Safety
+  condition: facts.lab_panels | is_list_with_items
+
+# Cross-panel safety tables (always when labs are collected)
+- items:
+  - type: labs
+    title: Laboratory Parameters - CTCAE Grade Summary
+    population: Safety
+  - type: lab_shift
+    title: Laboratory Parameters - CTCAE Grade Shift
+    population: Safety
+  - type: labs
+    title: Subjects with Markedly Abnormal Laboratory Values
+    population: Safety
+  condition: facts.assessments_collected.labs == true
+
+# Liver function (always when labs are collected)
+- items:
+  - type: labs_liver
+    title: Liver Function Tests - Summary Statistics
+    population: Safety
+  - type: labs_liver
+    title: Potential Hy's Law Cases
+    population: Safety
+  condition: facts.assessments_collected.labs == true
+
+# ---------------------------------------------------------------
+# FALLBACK: Hardcoded panels (when lab_panels is empty but labs=true)
+# ---------------------------------------------------------------
+- items:
+  - type: labs_hematology
+    title: Hematology Parameters - Summary Statistics
+    population: Safety
+  - type: labs_chemistry
+    title: Clinical Chemistry Parameters - Summary Statistics
+    population: Safety
+  - type: labs_urinalysis
+    title: Urinalysis Parameters - Summary Statistics
+    population: Safety
+  - type: lab_shift
+    title: Hematology Parameters - Shift Table
+    population: Safety
+  - type: lab_shift
+    title: Clinical Chemistry Parameters - Shift Table
+    population: Safety
+  condition: facts.assessments_collected.labs == true and facts.lab_panels | length == 0

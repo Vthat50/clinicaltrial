@@ -1,0 +1,17 @@
+# Auto-generated from disposition/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Disposition
+description: Subject disposition and protocol deviations
+ich_section: '10.1'
+display_order: 1
+version: 1.0.0
+tables:
+- items:
+  - type: disposition
+    title: Subject Disposition
+    population: Screened
+  - type: protocol_deviations
+    title: Protocol Deviations
+    population: Enrolled

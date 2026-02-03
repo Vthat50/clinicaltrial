@@ -169,90 +169,193 @@ _TEMPLATE_CATEGORY_TO_TYPE = {
 # STEP 1: CLAUDE EXTRACTS FACTS FROM THE PROTOCOL
 # =============================================================================
 
-# JSON schema description for the extraction prompt
+# --- Extraction instruction loader ---
+_EXTRACTION_SPECS_DIR = Path(__file__).parent.parent.parent / "enterprise_sap_system" / "specs" / "tlf_skills"
+
+_EXTRACTION_INSTRUCTIONS_CACHE: Optional[str] = None
+
+_EXTRACTION_FILE_ORDER = [
+    "study-context.md",
+    "disposition.md",
+    "demographics.md",
+    "efficacy.md",
+    "adverse-events.md",
+    "labs.md",
+    "vitals-ecg.md",
+    "exposure-meds.md",
+    "pk-immunogenicity.md",
+    "figures.md",
+    "listings.md",
+]
+
+
+def _load_extraction_instructions() -> str:
+    """Load and concatenate all extraction instruction files in order."""
+    global _EXTRACTION_INSTRUCTIONS_CACHE
+    if _EXTRACTION_INSTRUCTIONS_CACHE is not None:
+        return _EXTRACTION_INSTRUCTIONS_CACHE
+
+    extraction_dir = _EXTRACTION_SPECS_DIR / "extraction"
+    parts = []
+    for fname in _EXTRACTION_FILE_ORDER:
+        fpath = extraction_dir / fname
+        if fpath.exists():
+            parts.append(fpath.read_text(encoding="utf-8"))
+        else:
+            print(f"[TLF Integration v4] WARNING: extraction file not found: {fpath}")
+
+    _EXTRACTION_INSTRUCTIONS_CACHE = "\n\n---\n\n".join(parts)
+    print(f"[TLF Integration v4] Loaded {len(parts)} extraction instruction files")
+    return _EXTRACTION_INSTRUCTIONS_CACHE
+
+
+# --- Expanded JSON schema for structured output ---
 _FACTS_SCHEMA = """{
   "study_design": {
-    "phase": "Phase of the trial (e.g. Phase 3)",
+    "phase": "Phase of the trial as stated in the protocol",
     "type": "One of: superiority, equivalence, non_inferiority, biosimilar, single_arm",
-    "blinding": "e.g. double-blind, open-label",
-    "randomization": "e.g. 1:1, 2:1",
-    "equivalence_margin": "If applicable, e.g. -12.5% to 12.5%. Empty string if not applicable."
+    "blinding": "Blinding description as stated in the protocol",
+    "randomization": "Randomization ratio as stated in the protocol",
+    "equivalence_margin": "Equivalence/non-inferiority margin if applicable, null if not",
+    "indication": "Disease/condition being studied",
+    "route_of_administration": "Route of study drug administration"
   },
   "arms": [
-    {"name": "Full arm name including backbone", "dose": "dose string", "route": "IV/SC/PO/etc"}
+    {"name": "Full arm name as stated in the protocol", "dose": "Dose as stated", "route": "Route as stated"}
   ],
   "populations": [
-    {"name": "Short name (ITT, Safety, PP, PK, etc.)", "definition": "One-sentence definition"}
+    {"name": "Population name exactly as the protocol defines it", "definition": "Definition as stated in the protocol", "primary_for": "What this population is primary for (efficacy/safety/pk/etc.) or null"}
   ],
   "endpoints": [
     {
-      "name": "Endpoint name as stated in protocol",
-      "type": "One of: binary, time_to_event, continuous, count",
+      "name": "Endpoint name exactly as stated in the protocol",
+      "type": "One of: binary, time_to_event, continuous, count, ordinal",
       "primary": true,
-      "analysis_method": "One of: logistic_regression, exact_binomial, clopper_pearson, cox_ph, kaplan_meier, ancova, mmrm, negative_binomial, descriptive",
-      "covariates": ["List of covariates/stratification factors for this endpoint's model"],
-      "populations": ["List of population short names this endpoint is analyzed in"],
-      "reviews": ["List of review types if applicable, e.g. central, local. Empty list if N/A"],
-      "response_criteria": "e.g. RECIST 1.1. Empty string if N/A",
-      "landmark_timepoints": [6, 12, 24],
-      "censoring_rules": "Brief description of censoring. Empty string if N/A",
-      "extra_rows": ["Any additional row items, e.g. response categories CR/PR/SD/PD/NE"]
+      "analysis_method": "Statistical method as described in the protocol, or null if not stated",
+      "covariates": ["Covariates/stratification factors for this endpoint's model as stated"],
+      "populations": ["Population names this endpoint is analyzed in, using the protocol's names"],
+      "reviews": ["Review types if applicable, empty list if N/A"],
+      "response_criteria": "Response criteria name if applicable, null if N/A",
+      "landmark_timepoints": ["Timepoints as stated in the protocol"],
+      "censoring_rules": "Censoring description as stated, null if not described",
+      "extra_rows": ["Additional row items like response categories"],
+      "sensitivity_analyses": ["Sensitivity analyses described for this endpoint"],
+      "multiplicity_adjustment": "Multiplicity adjustment method if stated, null if not"
     }
   ],
-  "study_periods": ["All study periods in order, e.g. Screening, Treatment, Follow-Up"],
-  "treatment_periods": ["Only the treatment periods, e.g. Induction, Maintenance"],
+  "study_periods": ["All study periods in order as the protocol names them"],
+  "treatment_periods": ["Only the treatment periods as the protocol names them"],
   "assessments_collected": {
     "labs": true,
     "vitals": true,
     "ecg": true,
     "pk": true,
     "immunogenicity": true,
-    "qol": ["List of QoL instrument names, or empty list if none"],
-    "imaging": "Description of imaging or empty string",
+    "qol": ["QoL/PRO instrument names as stated in the protocol, empty list if none"],
+    "imaging": "Imaging description or null",
     "physical_exam": true,
     "pregnancy_test": true,
     "ecog_ps": true,
     "viral_serology": true,
     "gene_screening": true
   },
-  "aesis": [
-    {"name": "AESI category name", "definition": "SMQ or PT list description"}
+  "lab_panels": [
+    {"name": "Panel name as stated in the protocol", "parameters": ["Parameters in this panel if listed"]}
   ],
-  "stratification_factors": ["List of randomization stratification factors"],
-  "subgroups": ["List of pre-specified subgroup analyses, e.g. Age (<65, >=65), Sex"],
-  "disease_specific_baseline": [
-    "List of disease-specific baseline characteristics to include in demographics table"
-  ],
-  "backbone_therapies": ["Full description of each backbone therapy, e.g. Paclitaxel 200 mg/m2 IV"],
-  "coding_dictionaries": {
-    "ae": "MedDRA version string",
-    "medications": "WHO Drug Dictionary version string"
+  "special_monitoring_params": ["Parameters requiring special monitoring as identified in the protocol"],
+  "ecg_assessment": {
+    "collected": true,
+    "qt_correction_method": "QT correction formula if stated, null if not",
+    "centralized_reading": true,
+    "categorical_thresholds_defined": true
   },
-  "therapeutic_area": "e.g. oncology, immunology, cardiology"
+  "vitals_details": {
+    "parameters": ["Vital sign parameters collected"],
+    "orthostatic_assessment": true
+  },
+  "aesis": [
+    {"name": "AESI category name as stated", "definition": "Definition as stated in the protocol"}
+  ],
+  "ae_grouped_terms": [
+    {"name": "Grouped term name", "definition": "How the protocol defines this grouping"}
+  ],
+  "safety_concerns": ["Drug-class or study-specific safety signals mentioned in the protocol"],
+  "dose_modifications": {
+    "allowed": true,
+    "types": ["Types of dose modifications allowed: reduction, interruption, delay, escalation"],
+    "triggers": ["Conditions that trigger dose modifications as described"]
+  },
+  "rescue_medications": [
+    {"name": "Rescue/salvage therapy name", "trigger": "Condition that allows rescue use"}
+  ],
+  "backbone_therapies": [
+    {"name": "Backbone therapy name as stated", "dose": "Dose as stated", "dose_modifications_allowed": true}
+  ],
+  "discontinuation_reasons": ["Protocol-defined reasons for discontinuation"],
+  "deviation_categories": ["Protocol-defined deviation categories if any"],
+  "pk_sampling": {
+    "type": "One of: sparse, intensive, none",
+    "analytes": ["Analyte names measured"],
+    "parameters_derived": ["PK parameters to be derived as stated"],
+    "pk_population": "PK-evaluable population name if defined, null if not"
+  },
+  "ada_assessment": {
+    "performed": true,
+    "nab_testing": true,
+    "impact_analysis": true
+  },
+  "stratification_factors": ["Randomization stratification factors as stated"],
+  "subgroups": ["Pre-specified subgroup analyses as stated in the protocol"],
+  "disease_specific_baseline": [
+    "Disease-specific baseline characteristics identified from inclusion criteria, SOA, and disease description"
+  ],
+  "figure_requirements": [
+    {"type": "Figure type (e.g. kaplan_meier, forest_plot, waterfall, consort, concentration_time, score_over_time)", "for_endpoint": "Endpoint name or null", "description": "Brief description"}
+  ],
+  "listing_domains": [
+    "Every data domain that needs a patient-level listing (e.g. disposition, demographics, medical_history, each lab panel, each efficacy assessment, AEs, AESIs, exposure, conmeds, PK, ADA, each QoL instrument, etc.)"
+  ],
+  "multicenter_design": {
+    "is_multicenter": true,
+    "countries": ["Country names if listed in the protocol"],
+    "regions": ["Region groupings if the protocol defines them"]
+  },
+  "age_strata": ["Protocol-defined age subgroup cutpoints as stated, e.g. '6-11 years', '12-17 years', '18-64 years'. Empty list if no age subgroups defined."],
+  "coding_dictionaries": {
+    "ae": "MedDRA version if stated, null if not",
+    "medications": "WHO Drug Dictionary version if stated, null if not"
+  },
+  "therapeutic_area": "Therapeutic area as identified from the protocol"
 }"""
 
 
 def _build_fact_extraction_prompt(protocol_text: str) -> str:
-    """Build the short extraction-only prompt for Claude. No table-building rules."""
+    """Build the extraction prompt: reasoning instructions + expanded schema."""
     max_protocol_chars = 80000
     protocol_excerpt = protocol_text[:max_protocol_chars] if len(protocol_text) > max_protocol_chars else protocol_text
 
-    prompt = f"""You are a biostatistician reading a clinical trial protocol. Extract the following information and return it as JSON.
+    extraction_instructions = _load_extraction_instructions()
 
-Do NOT decide what tables to create. Only extract facts from the protocol.
-Do NOT infer or guess. If the protocol does not explicitly state a value, use null for strings, empty list [] for arrays, or null for objects.
+    prompt = f"""You are a biostatistician reading a clinical trial protocol. Your task is to extract all study-specific facts needed to generate TLF (Tables, Listings, and Figures) shells.
 
-For example:
-- If the protocol says "logistic regression model" → analysis_method: "logistic_regression"
-- If the protocol says "ORR will be compared" but does NOT name a method → analysis_method: null
-- If the protocol says "equivalence" or "biosimilar" → study_design.type: "biosimilar"
-- If the protocol does not clearly state the design type → study_design.type: null
-- If the protocol does not mention censoring rules → censoring_rules: null
+STEP 1: REASON THROUGH THE PROTOCOL
 
-For boolean fields in assessments_collected, use true ONLY if the protocol explicitly mentions collecting that assessment, false otherwise.
-For list fields, include ALL items mentioned in the protocol — do not summarize or skip any.
-For endpoints, include ALL primary AND secondary endpoints.
-For AESIs, include ALL adverse events of special interest defined in the protocol.
+Read the protocol carefully, working through each of the following extraction sections. For each section, look where it tells you to look and think about what it asks you to think about. Extract what the protocol actually says — do not assume, do not default, do not guess.
+
+{extraction_instructions}
+
+STEP 2: STRUCTURE YOUR FINDINGS
+
+Based on your reasoning above, output your findings as a single JSON object. Use the protocol's exact names for populations, arms, endpoints, and assessments. If the protocol does not mention something, use null for strings, false for booleans, or empty arrays [] for lists.
+
+CRITICAL RULES:
+- Use the protocol's EXACT population names (e.g. if the protocol says "Full Analysis Set" or "FAS", use that — do NOT default to "ITT")
+- Include ALL endpoints (primary, secondary, exploratory)
+- Include ALL adverse events of special interest
+- Include ALL lab panels individually (do not combine into one generic "labs" entry)
+- Include ALL data domains that need listings
+- Include ALL figures implied by the study design and endpoints
+- For boolean fields in assessments_collected, use true ONLY if the protocol explicitly mentions collecting that assessment
 
 Return ONLY valid JSON (no markdown fences, no explanation) with this schema:
 
@@ -265,7 +368,8 @@ PROTOCOL TEXT:
 
 
 def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
-    """Send protocol to Claude API. Returns parsed JSON of extracted facts."""
+    """Send protocol to Claude API with reasoning-based extraction instructions.
+    Returns parsed JSON of extracted facts."""
     try:
         from anthropic import Anthropic
     except ImportError:
@@ -278,11 +382,11 @@ def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
     client = Anthropic()
     prompt = _build_fact_extraction_prompt(protocol_text)
 
-    print("[TLF Integration v4] Asking Claude to extract protocol facts...")
+    print("[TLF Integration v4] Asking Claude to extract protocol facts (reasoning-based)...")
 
     response = client.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=8192,
+        max_tokens=16384,
         messages=[{"role": "user", "content": prompt}]
     )
 
@@ -301,7 +405,7 @@ def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
         print("[TLF Integration v4] JSON parse failed, retrying with stricter prompt...")
         retry_response = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=8192,
+            max_tokens=16384,
             messages=[
                 {"role": "user", "content": prompt},
                 {"role": "assistant", "content": response_text},
@@ -315,9 +419,9 @@ def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
             retry_text = "\n".join(lines)
         facts = json.loads(retry_text)
 
-    # Validate and fill defaults for critical fields
+    # --- Fill safe defaults for missing keys (empty containers, not fake values) ---
     if "study_design" not in facts:
-        facts["study_design"] = {"phase": "", "type": "superiority", "blinding": "", "randomization": "", "equivalence_margin": ""}
+        facts["study_design"] = {}
     if "arms" not in facts or not facts["arms"]:
         # Fall back to extraction dict
         arms_from_ext = extraction.get("treatment_arms", [])
@@ -328,10 +432,7 @@ def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
             elif isinstance(a, dict):
                 facts["arms"].append({"name": a.get("arm_name", a.get("drug_name", f"Arm {i+1}")), "dose": a.get("dose", ""), "route": a.get("route", "")})
     if "populations" not in facts or not facts["populations"]:
-        facts["populations"] = [
-            {"name": "ITT", "definition": "All randomized subjects"},
-            {"name": "Safety", "definition": "All subjects who received at least one dose"}
-        ]
+        facts["populations"] = []
     if "endpoints" not in facts:
         facts["endpoints"] = []
     if "aesis" not in facts:
@@ -352,19 +453,75 @@ def _extract_protocol_facts(protocol_text: str, extraction: Dict) -> Dict:
         facts["backbone_therapies"] = []
     if "coding_dictionaries" not in facts:
         facts["coding_dictionaries"] = {}
+    # New fields — safe defaults
+    if "lab_panels" not in facts:
+        facts["lab_panels"] = []
+    if "special_monitoring_params" not in facts:
+        facts["special_monitoring_params"] = []
+    if "ecg_assessment" not in facts:
+        facts["ecg_assessment"] = {}
+    if "vitals_details" not in facts:
+        facts["vitals_details"] = {}
+    if "ae_grouped_terms" not in facts:
+        facts["ae_grouped_terms"] = []
+    if "safety_concerns" not in facts:
+        facts["safety_concerns"] = []
+    if "dose_modifications" not in facts:
+        facts["dose_modifications"] = {}
+    if "rescue_medications" not in facts:
+        facts["rescue_medications"] = []
+    if "discontinuation_reasons" not in facts:
+        facts["discontinuation_reasons"] = []
+    if "deviation_categories" not in facts:
+        facts["deviation_categories"] = []
+    if "pk_sampling" not in facts:
+        facts["pk_sampling"] = {}
+    if "ada_assessment" not in facts:
+        facts["ada_assessment"] = {}
+    if "figure_requirements" not in facts:
+        facts["figure_requirements"] = []
+    if "listing_domains" not in facts:
+        facts["listing_domains"] = []
+    if "multicenter_design" not in facts:
+        facts["multicenter_design"] = {}
+    if "age_strata" not in facts:
+        facts["age_strata"] = []
 
-    # Ensure ITT and Safety are in populations
-    pop_names = [p["name"] for p in facts["populations"]]
-    if "ITT" not in pop_names:
-        facts["populations"].append({"name": "ITT", "definition": "All randomized subjects"})
-    if "Safety" not in pop_names:
-        facts["populations"].append({"name": "Safety", "definition": "All subjects who received at least one dose"})
+    # --- Post-processing: derive boolean flags from detailed fields ---
+    # This ensures backward compatibility with existing YAML conditions like
+    # "facts.assessments_collected.labs == true"
+    ac = facts["assessments_collected"]
+    if facts["lab_panels"] and not ac.get("labs"):
+        ac["labs"] = True
+    if facts.get("pk_sampling", {}).get("type") not in (None, "none", "") and not ac.get("pk"):
+        ac["pk"] = True
+    if facts.get("ada_assessment", {}).get("performed") and not ac.get("immunogenicity"):
+        ac["immunogenicity"] = True
+    if facts.get("ecg_assessment", {}).get("collected") and not ac.get("ecg"):
+        ac["ecg"] = True
+    if facts.get("vitals_details", {}).get("parameters") and not ac.get("vitals"):
+        ac["vitals"] = True
+
+    # Normalize backbone_therapies: support both old format (list of strings)
+    # and new format (list of dicts)
+    if facts["backbone_therapies"]:
+        normalized = []
+        for bt in facts["backbone_therapies"]:
+            if isinstance(bt, str):
+                normalized.append({"name": bt, "dose": "", "dose_modifications_allowed": False})
+            elif isinstance(bt, dict):
+                normalized.append(bt)
+        facts["backbone_therapies"] = normalized
 
     print(f"[TLF Integration v4] Extracted facts: {len(facts.get('arms', []))} arms, "
           f"{len(facts.get('endpoints', []))} endpoints, {len(facts.get('aesis', []))} AESIs, "
           f"{len(facts.get('populations', []))} populations")
+    print(f"[TLF Integration v4] Populations: {[p.get('name', '?') for p in facts.get('populations', [])]}")
     print(f"[TLF Integration v4] Study design: {facts['study_design'].get('type', 'unknown')}, "
           f"Phase: {facts['study_design'].get('phase', 'unknown')}")
+    print(f"[TLF Integration v4] Lab panels: {len(facts.get('lab_panels', []))}, "
+          f"Figures: {len(facts.get('figure_requirements', []))}, "
+          f"Listing domains: {len(facts.get('listing_domains', []))}")
     print(f"[TLF Integration v4] Treatment periods: {facts.get('treatment_periods', [])}")
 
     return facts
@@ -735,12 +892,13 @@ def _default_analysis_method_hardcoded(endpoint_type: Optional[str], facts: Dict
     return "descriptive"
 
 
-def _build_tlf_list(facts: Dict) -> Dict:
-    """Build the complete TLF list — reads from YAML if available, else hardcoded."""
+def _build_tlf_list(facts: Dict, selected_skills: Optional[List[str]] = None) -> Dict:
+    """Build the complete TLF list — uses skills system if YAML available, else hardcoded."""
     global _GENERATION_RULES
     _load_yaml_configs()
     if _GENERATION_RULES:
-        return _build_tlf_list_yaml(facts)
+        from tlf_skills import build_all_skills
+        return build_all_skills(facts, selected_skills=selected_skills)
     return _build_tlf_list_hardcoded(facts)
 
 
@@ -1249,13 +1407,147 @@ def _build_tlf_list_hardcoded(facts: Dict) -> Dict:
 
 
 # =============================================================================
-# STEP 3: YAML FORMATS EACH TABLE (unchanged from v3)
+# STEP 3: YAML FORMATS EACH TABLE
 # =============================================================================
 def _get_placeholder(fmt: str) -> str:
     """Convert a format name to its xxx placeholder string."""
     base_fmt, _, _ = _load_yaml_configs()
     placeholders = base_fmt.get("placeholder_formats", {})
     return placeholders.get(fmt, "xxx")
+
+
+def _shorten_arm_name(full_name: str) -> str:
+    """Shorten a full arm name for use as a column header.
+
+    Examples:
+        'CT-P16 (Trastuzumab Biosimilar) 8 mg/kg IV' → 'CT-P16'
+        'Dasiglucagon 0.6 mg SC + Placebo IV' → 'Dasiglucagon 0.6 mg'
+        'Placebo' → 'Placebo'
+        'Herceptin® (Trastuzumab) 8 mg/kg IV' → 'Herceptin®'
+    """
+    if not full_name:
+        return full_name
+    # Remove parenthetical descriptions
+    import re as _re
+    shortened = _re.sub(r'\s*\([^)]*\)', '', full_name).strip()
+    # Remove route of administration (IV, SC, PO, IM, etc.)
+    shortened = _re.sub(r'\s+(?:IV|SC|PO|IM|IP|IT|ID|SL|PR|TD|INH)\b', '', shortened, flags=_re.IGNORECASE).strip()
+    # Remove trailing backbone info after +
+    if '+' in shortened:
+        shortened = shortened.split('+')[0].strip()
+    # If still long (>25 chars), take first word + dose
+    if len(shortened) > 25:
+        parts = shortened.split()
+        if len(parts) >= 1:
+            shortened = parts[0]
+    return shortened
+
+
+def _inject_study_specific_rows(rows: List[Dict], table_type: str, study_info: Dict) -> None:
+    """Inject study-specific rows into standard row structures based on extracted facts."""
+
+    # --- Disposition: add analysis population counts ---
+    if table_type == "disposition":
+        pop_defs = study_info.get("population_definitions", [])
+        if pop_defs:
+            # Insert population counts after "Treated" row (or at end of top section)
+            insert_idx = None
+            for i, r in enumerate(rows):
+                if r.get("label", "").strip().lower() in ("treated", "completed study treatment"):
+                    insert_idx = i + 1
+                    break
+            if insert_idx is None:
+                insert_idx = len(rows)
+            # Add analysis populations section
+            pop_rows = [{"label": "", "format": "", "indent": 0, "type": "spacer", "bold": False},
+                        {"label": "Analysis Populations", "format": "", "indent": 0, "type": "header", "bold": True}]
+            for pop in pop_defs:
+                pname = pop.get("name", "") if isinstance(pop, dict) else str(pop)
+                pop_rows.append({"label": f"  {pname}, N", "format": "count", "indent": 1, "type": "data", "bold": False})
+            for pr in reversed(pop_rows):
+                rows.insert(insert_idx, pr)
+
+        # Replace generic discontinuation reasons with protocol-specific ones
+        disc_reasons = study_info.get("discontinuation_reasons", [])
+        if disc_reasons:
+            # Find the "Discontinued Study Treatment" row and remove generic sub-rows
+            disc_idx = None
+            for i, r in enumerate(rows):
+                if "discontinued" in r.get("label", "").lower() and "study treatment" in r.get("label", "").lower():
+                    disc_idx = i
+                    break
+            if disc_idx is not None:
+                # Remove existing indented rows after "Discontinued..."
+                end_idx = disc_idx + 1
+                while end_idx < len(rows) and rows[end_idx].get("indent", 0) > 0:
+                    end_idx += 1
+                del rows[disc_idx + 1:end_idx]
+                # Insert protocol-specific reasons
+                for j, reason in enumerate(disc_reasons):
+                    rows.insert(disc_idx + 1 + j, {
+                        "label": reason, "format": "count_pct", "indent": 1, "type": "data", "bold": False
+                    })
+
+    # --- Demographics: replace hardcoded age groups with protocol-specific strata ---
+    if table_type == "demographics":
+        age_strata = study_info.get("age_strata", [])
+        if age_strata:
+            # Normalize verbose age strata: "6 years to <12 years" → "6-11 years"
+            import re as _re_age
+            def _normalize_age_stratum(s: str) -> str:
+                m = _re_age.match(r'[≥>=]*\s*(\d+)\s*years?\s*to\s*<?(\d+)\s*years?', s.strip())
+                if m:
+                    lo, hi = int(m.group(1)), int(m.group(2))
+                    return f"{lo}-{hi-1} years" if '<' in s else f"{lo}-{hi} years"
+                # Handle "≥65 years" style — keep as is
+                return s.strip()
+            age_strata = [_normalize_age_stratum(s) for s in age_strata]
+
+            # Find and replace the hardcoded age group section
+            age_group_start = None
+            age_group_end = None
+            for i, r in enumerate(rows):
+                label = r.get("label", "").strip()
+                if "age group" in label.lower():
+                    age_group_start = i
+                elif age_group_start is not None and (r.get("type") == "spacer" or r.get("bold", False)):
+                    age_group_end = i
+                    break
+            if age_group_start is not None:
+                if age_group_end is None:
+                    age_group_end = len(rows)
+                # Remove old age group rows (keep the header)
+                del rows[age_group_start + 1:age_group_end]
+                # Insert protocol-specific age strata
+                for j, stratum in enumerate(age_strata):
+                    rows.insert(age_group_start + 1 + j, {
+                        "label": stratum, "format": "count_pct", "indent": 1, "type": "data", "bold": False
+                    })
+
+    # --- Demographics: add disease-specific baseline variables ---
+    if table_type == "demographics":
+        dsb = study_info.get("disease_specific_baseline", [])
+        if dsb:
+            rows.append({"label": "", "format": "", "indent": 0, "type": "spacer", "bold": False})
+            rows.append({"label": "Disease-Specific Baseline Characteristics", "format": "", "indent": 0, "type": "header", "bold": True})
+            for var in dsb:
+                rows.append({"label": var, "format": "", "indent": 0, "type": "data", "bold": False})
+
+    # --- AE Overview: add AESI summary rows ---
+    if table_type == "ae_overview":
+        aesis = study_info.get("aesis", [])
+        if aesis:
+            rows.append({"label": "", "format": "", "indent": 0, "type": "spacer", "bold": False})
+            rows.append({"label": "Adverse Events of Special Interest", "format": "", "indent": 0, "type": "header", "bold": True})
+            for aesi in aesis:
+                aesi_name = aesi.get("name", "") if isinstance(aesi, dict) else str(aesi)
+                rows.append({"label": f"  {aesi_name}, n (%)", "format": "count_pct", "indent": 1, "type": "data", "bold": False})
+
+        # Add safety concern rows
+        concerns = study_info.get("safety_concerns", [])
+        if concerns:
+            for concern in concerns:
+                rows.append({"label": f"  {concern}, n (%)", "format": "count_pct", "indent": 1, "type": "data", "bold": False})
 
 
 def _format_table(table_spec: Dict, study_info: Dict) -> Dict:
@@ -1348,6 +1640,9 @@ def _format_table(table_spec: Dict, study_info: Dict) -> Dict:
                 "bold": False,
             })
 
+    # ── Inject study-specific rows from facts ─────────────────────
+    _inject_study_specific_rows(rows, table_type, study_info)
+
     # ── Determine columns ────────────────────────────────────────
     arm_names = study_info.get("arm_names", ["Treatment", "Control"])
     columns = _build_columns(arm_names, table_type)
@@ -1367,13 +1662,15 @@ def _format_table(table_spec: Dict, study_info: Dict) -> Dict:
         template = analysis_templates.get(category, {}).get(method_key, {})
         for fn in template.get("footnotes", []):
             fn_text = fn if isinstance(fn, str) else str(fn)
-            # Substitute arm name placeholders
-            if arm_names:
-                fn_text = fn_text.replace("{arm1}", arm_names[0])
-                if len(arm_names) > 1:
-                    fn_text = fn_text.replace("{arm2}", arm_names[1])
-            if fn_text not in footnotes:
+            # Resolve short keys against footnote_templates in base_formatting
+            fn_text = _resolve_footnote_key(fn_text, base_fmt, arm_names)
+            if fn_text and fn_text not in footnotes:
                 footnotes.append(fn_text)
+
+    # Add study-specific footnotes from the builder (endpoint footnotes)
+    # also resolve keys in case they reference footnote_templates
+    for i, fn in enumerate(footnotes):
+        footnotes[i] = _resolve_footnote_key(fn, base_fmt, arm_names)
 
     # ── Determine source dataset ─────────────────────────────────
     source = ""
@@ -1419,7 +1716,9 @@ def _build_columns(arm_names: List[str], table_type: str) -> List[Dict]:
     base_fmt, _, _ = _load_yaml_configs()
     col_templates = base_fmt.get("column_templates", {})
 
-    num_arms = len(arm_names)
+    # Shorten arm names for column headers
+    short_names = [_shorten_arm_name(a) for a in arm_names]
+    num_arms = len(short_names)
 
     if table_type in ("lab_shift",):
         template_key = "shift_table"
@@ -1436,16 +1735,15 @@ def _build_columns(arm_names: List[str], table_type: str) -> List[Dict]:
 
     template = col_templates.get(template_key, [])
 
-    # Build columns, substituting arm names
+    # Build columns, substituting shortened arm names
     columns = []
-    arm_idx = 0
     for col in template:
         header = col.get("header", "")
         # Replace {ARM1}, {ARM2}, {ARM3} placeholders
         for i in range(min(num_arms, 4)):
             placeholder = f"{{ARM{i+1}}}"
-            if placeholder in header and arm_idx < num_arms:
-                header = header.replace(placeholder, arm_names[i])
+            if placeholder in header:
+                header = header.replace(placeholder, short_names[i])
 
         columns.append({
             "header": header,
@@ -1457,7 +1755,7 @@ def _build_columns(arm_names: List[str], table_type: str) -> List[Dict]:
     # If template didn't match, build simple columns
     if not columns:
         columns.append({"header": "Parameter", "width": 3.0, "align": "L", "format": ""})
-        for arm in arm_names:
+        for arm in short_names:
             columns.append({"header": f"{arm}\n(N=xxx)", "width": 1.5, "align": "C", "format": ""})
         if num_arms >= 2:
             columns.append({"header": "Total\n(N=xxx)", "width": 1.5, "align": "C", "format": ""})
@@ -1557,24 +1855,63 @@ def _render_shells(formatted_tables: List[Dict], figures: List[Dict],
     return "\n\n".join(sections)
 
 
+def _resolve_footnote_key(fn_text: str, base_fmt: Dict, arm_names: List[str]) -> str:
+    """Resolve a short footnote key (e.g. 'km', 'logistic', 'ci_exact') against
+    base_formatting.yaml footnote_templates. If the key doesn't match any template,
+    return the original text as-is (it's already a full sentence)."""
+    fn_templates = base_fmt.get("footnote_templates", {})
+    # Check all sub-dicts: methods, definitions, coding, general
+    for _category, templates in fn_templates.items():
+        if isinstance(templates, dict) and fn_text in templates:
+            resolved = templates[fn_text]
+            # Substitute arm name placeholders
+            if arm_names:
+                resolved = resolved.replace("{ARM1}", arm_names[0])
+                if len(arm_names) > 1:
+                    resolved = resolved.replace("{ARM2}", arm_names[1])
+            return resolved
+        elif isinstance(templates, str) and _category == fn_text:
+            # Top-level key like "abbreviations"
+            return templates
+    # Not a key — return as-is (already a full footnote sentence)
+    # Still substitute arm placeholders in case the text has them
+    if arm_names:
+        fn_text = fn_text.replace("{ARM1}", arm_names[0]).replace("{arm1}", arm_names[0])
+        if len(arm_names) > 1:
+            fn_text = fn_text.replace("{ARM2}", arm_names[1]).replace("{arm2}", arm_names[1])
+    return fn_text
+
+
 def _placeholder_for_format(fmt: str) -> str:
     """Return the xxx-style placeholder for a given format type."""
     mapping = {
-        "count": "xxx",
-        "count_pct": "xxx (xx.x)",
-        "percentage": "xx.x",
+        "count": "xx",
+        "count_pct": "n (xx.x%)",
+        "percentage": "xx.x%",
         "mean": "xx.x",
+        "sd": "xx.xx",
         "mean_sd": "xx.x (xx.xx)",
+        "mean_se": "xx.x (xx.xx)",
+        "mean_ci": "xx.x [xx.x, xx.x]",
         "median": "xx.x",
         "median_ci": "xx.x [xx.x, xx.x]",
-        "min_max": "xx, xx",
+        "median_range": "xx.x (xx-xx)",
+        "min": "xx.x",
+        "max": "xx.x",
+        "min_max": "xx-xx",
         "ci_95": "[xx.x, xx.x]",
+        "hr_ci": "x.xx [xx.x, xx.x]",
         "hazard_ratio": "x.xx [xx.x, xx.x]",
+        "diff_ci": "xx.x [xx.x, xx.x]",
+        "ratio_ci": "x.xx [xx.x, xx.x]",
+        "rate_ci": "xx.x [xx.x, xx.x]",
         "p_value": "x.xxxx",
         "rate_ratio": "x.xx [xx.x, xx.x]",
         "or_ci": "x.xx [xx.x, xx.x]",
-        "events_rate": "xxx (xx.x)",
-        "n_pct": "xxx (xx.x)",
+        "events_rate": "n (xx.x%)",
+        "n_pct": "n (xx.x%)",
+        "fixed": "xxx",
+        "text": "xxx",
     }
     return mapping.get(fmt, "xxx")
 
@@ -1625,7 +1962,7 @@ def _render_single_table(table: Dict) -> str:
             continue
 
         # Apply indent
-        display_label = ("  " * indent) + label
+        display_label = ("\u00a0\u00a0" * indent) + label
         if bold:
             display_label = f"**{display_label}**"
 
@@ -1647,6 +1984,11 @@ def _render_single_table(table: Dict) -> str:
         for i, fn in enumerate(footnotes, 1):
             lines.append(f"{i}. {fn}")
         lines.append("")
+
+    # Programming footer
+    table_num = str(number).replace(".", "_")
+    lines.append(f"Source: ADaM dataset | Program: t{table_num}.sas")
+    lines.append("")
 
     return "\n".join(lines)
 
@@ -2218,8 +2560,9 @@ def generate_tlf_shells_for_protocol(
     priority: Optional[int] = None,
     protocol_text: str = "",
     apply_universal_expansion: bool = True,
-    output_format: str = "markdown"
-) -> Union[str, bytes]:
+    output_format: str = "markdown",
+    selected_skills: Optional[List[str]] = None
+) -> Union[str, bytes, Dict]:
     """
     Generate TLF shells for a protocol.
 
@@ -2231,21 +2574,29 @@ def generate_tlf_shells_for_protocol(
         priority: Optional priority level (unused in v4, kept for API compat)
         protocol_text: Full protocol text
         apply_universal_expansion: Unused in v4 (kept for API compat)
-        output_format: "markdown" (default) or "docx"
+        output_format: "markdown" (default) or "docx" or "skills_preview"
+        selected_skills: Optional list of skill IDs to generate (None = all)
 
     Returns:
         Markdown string (if output_format="markdown") or .docx bytes (if output_format="docx")
+        or dict with skill preview (if output_format="skills_preview")
     """
     try:
         # Step 1: Extract facts from the protocol via Claude API
         facts = _extract_protocol_facts(protocol_text, extraction)
 
+        # Skills preview mode — return available skills with counts, no rendering
+        if output_format == "skills_preview":
+            from tlf_skills import get_available_skills
+            return {"facts": facts, "skills": get_available_skills(facts)}
+
         # Step 2: Build the full TLF list deterministically from facts
-        tlf_result = _build_tlf_list(facts)
+        tlf_result = _build_tlf_list(facts, selected_skills=selected_skills)
         study_info = tlf_result["study_info"]
         table_specs = tlf_result.get("tables", [])
         figure_specs = tlf_result.get("figures", [])
         listing_specs = tlf_result.get("listings", [])
+        skill_results = tlf_result.get("skill_results", {})
 
         # Step 3: Format each table using YAML configs
         formatted_tables = []

@@ -1,0 +1,27 @@
+# Auto-generated from medical-history/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Medical History
+description: Medical history, prior and concomitant therapies, disease-specific baselines
+ich_section: '11.2'
+display_order: 3
+version: 1.0.0
+tables:
+- items:
+  - type: medical_history
+    title: Medical History
+    population: Safety
+  - type: prior_therapy
+    title: Prior and Concomitant Therapies
+    population: Safety
+- items:
+  - type: labs
+    title: Viral Serology
+    population: Safety
+  condition: facts.assessments_collected.viral_serology == true
+- items:
+  - type: demographics
+    title: Biomarker and Genomic Screening
+    population: Safety
+  condition: facts.assessments_collected.gene_screening == true

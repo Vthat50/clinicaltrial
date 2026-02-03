@@ -1,0 +1,21 @@
+# Auto-generated from secondary-efficacy/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Secondary Efficacy
+description: Tables for secondary and exploratory endpoints
+ich_section: '11'
+display_order: 12
+version: 1.0.0
+endpoint_tables:
+  filter: endpoint.primary != true
+  type_mapping:
+    time_to_event: time_to_event
+    binary: binary_response
+    continuous: continuous_endpoint
+    count: continuous_endpoint
+    ordinal: continuous_endpoint
+    rate: continuous_endpoint
+  title_pattern: '{endpoint.name} ({population} Population)'
+  title_with_review_pattern: '{endpoint.name} ({review} Review) ({population} Population)'
+  generate_footnotes: true

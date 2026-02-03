@@ -1,0 +1,15 @@
+# Auto-generated from concomitant-meds/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Concomitant Medications
+description: Concomitant medications taken during study, summarized by ATC class and
+  preferred name
+ich_section: 9.4.7
+display_order: 4
+version: 1.0.0
+tables:
+- items:
+  - type: concomitant_medications
+    title: Concomitant Medications
+    population: Safety

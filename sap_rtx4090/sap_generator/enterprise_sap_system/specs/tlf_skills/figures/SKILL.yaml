@@ -1,0 +1,66 @@
+name: Figures
+description: KM plots, forest plots, waterfall plots, swimmer plots, CONSORT diagram,
+  lab trend plots, QoL over time, PK concentration-time profiles
+ich_section: varies
+display_order: 17
+version: 3.0.0
+
+figure_rules:
+  # ---------------------------------------------------------------
+  # EXTRACTION-BASED: Figures identified by the extraction layer
+  # Each figure_requirement has {type, for_endpoint, description}
+  # These fire first; dedup in Python prevents duplicates with rules below
+  # ---------------------------------------------------------------
+  - for_each: facts.figure_requirements
+    global_condition: facts.figure_requirements | is_list_with_items
+    type: "{figure.type}"
+    title_pattern: "{figure.description}"
+    endpoint_field: figure.for_endpoint
+
+  # ---------------------------------------------------------------
+  # DETERMINISTIC: Derived from structured facts (always fire)
+  # These ensure standard figures are generated even if extraction
+  # missed them. Dedup prevents duplicates with extraction-based figures.
+  # ---------------------------------------------------------------
+
+  # Kaplan-Meier plots for every time-to-event endpoint × population
+  - for_each: facts.endpoints
+    condition: endpoint.type == time_to_event
+    type: km_plot
+    title_pattern: "Kaplan-Meier Plot of {endpoint.name}"
+    endpoint_field: endpoint.name
+
+  # Forest plots for primary endpoints (when subgroups exist)
+  - for_each: facts.endpoints
+    condition: endpoint.primary == true
+    global_condition: facts.subgroups | length > 0
+    type: forest_plot
+    title_pattern: "Forest Plot of {endpoint.name} by Subgroup"
+    endpoint_field: endpoint.name
+
+  # Mean change over time for continuous primary endpoints
+  - for_each: facts.endpoints
+    condition: endpoint.type == continuous and endpoint.primary == true
+    type: line_plot
+    title_pattern: "Mean Change from Baseline in {endpoint.name} Over Time"
+    endpoint_field: endpoint.name
+
+  # PK concentration-time profile (linear and log scale)
+  - type: pk_profile
+    title_pattern: "Mean Plasma Concentration-Time Profile (Linear Scale)"
+    global_condition: facts.assessments_collected.pk == true
+
+  - type: pk_profile_log
+    title_pattern: "Mean Plasma Concentration-Time Profile (Semi-Log Scale)"
+    global_condition: facts.assessments_collected.pk == true
+
+  # CONSORT flow diagram (standard for RCTs)
+  - type: consort_diagram
+    title_pattern: "CONSORT Flow Diagram"
+    global_condition: facts.study_design.type in [superiority, non_inferiority, equivalence, biosimilar]
+
+  # QoL score over time (one per instrument)
+  - for_each: facts.assessments_collected.qol
+    global_condition: facts.assessments_collected.qol | is_list_with_items
+    type: qol_line_plot
+    title_pattern: "QoL Score Over Time - {instrument}"

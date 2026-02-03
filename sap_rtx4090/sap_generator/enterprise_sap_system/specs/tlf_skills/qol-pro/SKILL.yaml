@@ -1,0 +1,20 @@
+# Auto-generated from qol-pro/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Quality of Life / PRO
+description: Patient-reported outcome instruments — summary by visit and change from
+  baseline, per instrument
+ich_section: '11.3'
+display_order: 15
+version: 1.0.0
+tables:
+- condition: facts.assessments_collected.qol | is_list_with_items
+  for_each: facts.assessments_collected.qol
+  items:
+  - type: pro_qol
+    title: '{instrument} - Summary by Visit'
+    population: ITT
+  - type: pro_qol
+    title: '{instrument} - Change from Baseline'
+    population: ITT

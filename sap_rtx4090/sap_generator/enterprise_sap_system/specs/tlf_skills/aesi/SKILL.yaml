@@ -1,0 +1,15 @@
+# Auto-generated from aesi/SKILL.md
+# DO NOT EDIT DIRECTLY. Edit SKILL.md and re-run:
+#   python convert_skills_to_yaml.py
+
+name: Adverse Events of Special Interest
+description: One table per AESI defined in the protocol
+ich_section: '12.2'
+display_order: 14
+version: 1.0.0
+aesi_tables:
+  for_each: facts.aesis
+  type: ae_special
+  title_pattern: AESI - {aesi.name}
+  population: Safety
+  extra_rows_from: aesi.definition

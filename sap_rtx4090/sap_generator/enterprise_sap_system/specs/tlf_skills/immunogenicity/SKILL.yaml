@@ -1,0 +1,28 @@
+name: Immunogenicity
+description: Anti-drug antibody incidence, neutralizing antibody status, TEAEs by
+  ADA status
+ich_section: '12.1'
+display_order: 10
+version: 2.0.0
+
+tables:
+# Core ADA table — when immunogenicity is assessed
+- items:
+  - type: immunogenicity
+    title: Immunogenicity - Anti-Drug Antibody Incidence
+    population: ADA Evaluable
+  condition: facts.assessments_collected.immunogenicity == true
+
+# Neutralizing antibody table — when NAb testing is performed
+- items:
+  - type: immunogenicity
+    title: Immunogenicity - Neutralizing Antibody Status
+    population: ADA Evaluable
+  condition: facts.ada_assessment.nab_testing == true
+
+# AEs by ADA status — when ADA impact analysis is specified
+- items:
+  - type: ae_by_soc_pt
+    title: TEAEs by ADA Status
+    population: Safety
+  condition: facts.ada_assessment.impact_analysis == true

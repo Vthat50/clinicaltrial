@@ -1,0 +1,27 @@
+name: Vital Signs
+description: Vital signs summary by visit, change from baseline, markedly abnormal
+  values, orthostatic assessment
+ich_section: '12.5'
+display_order: 7
+version: 2.0.0
+
+tables:
+# Core vital signs tables
+- items:
+  - type: vitals
+    title: Vital Signs - Summary Statistics by Visit
+    population: Safety
+  - type: vitals
+    title: Vital Signs - Change from Baseline by Visit
+    population: Safety
+  - type: vitals
+    title: Subjects with Markedly Abnormal Vital Sign Values
+    population: Safety
+  condition: facts.assessments_collected.vitals == true
+
+# Orthostatic assessment — when protocol requires orthostatic measurements
+- items:
+  - type: vitals
+    title: Orthostatic Blood Pressure and Heart Rate Assessment
+    population: Safety
+  condition: facts.vitals_details.orthostatic_assessment == true

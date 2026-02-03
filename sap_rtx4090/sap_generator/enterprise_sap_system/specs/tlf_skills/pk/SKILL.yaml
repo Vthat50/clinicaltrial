@@ -1,0 +1,16 @@
+name: Pharmacokinetics
+description: Plasma drug concentrations and PK parameters
+ich_section: '12.1'
+display_order: 9
+version: 2.0.0
+
+tables:
+# Core PK tables — when PK is collected
+- items:
+  - type: pk_concentration
+    title: Plasma Drug Concentration by Visit — Summary Statistics
+    population: PK
+  - type: pk_parameters
+    title: PK Parameters - Summary Statistics
+    population: PK
+  condition: facts.assessments_collected.pk == true

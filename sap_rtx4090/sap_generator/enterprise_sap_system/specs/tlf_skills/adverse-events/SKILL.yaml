@@ -1,0 +1,95 @@
+name: Adverse Events
+description: AE overview, TEAEs by SOC/PT, all AE subset tables, dose modification tables,
+  grouped AE terms, design-conditional AE tables
+ich_section: '12.2'
+display_order: 5
+version: 2.0.0
+
+tables:
+# Core AE tables — always included
+- items:
+  - type: ae_overview
+    title: Overview of Treatment-Emergent Adverse Events
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs by SOC and PT
+    population: Safety
+  - type: ae_by_soc_pt
+    title: Treatment-Related TEAEs by SOC and PT
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs Grade >=3 by SOC and PT
+    population: Safety
+  - type: ae_by_soc_pt
+    title: Serious TEAEs by SOC and PT
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs Leading to Discontinuation of Study Treatment
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs Leading to Death
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs with Incidence >=5% in Any Treatment Group
+    population: Safety
+  - type: ae_by_severity
+    title: TEAEs by SOC, PT, and Maximum Severity
+    population: Safety
+
+# Dose modification tables — when dose modifications are allowed
+- items:
+  - type: ae_by_soc_pt
+    title: TEAEs Leading to Dose Modification
+    population: Safety
+  - type: dose_modification
+    title: Dose Reductions
+    population: Safety
+  - type: dose_modification
+    title: Dose Interruptions
+    population: Safety
+  condition: facts.dose_modifications.allowed == true
+
+# Grouped AE term tables — when extraction identified grouped terms
+- for_each: facts.ae_grouped_terms
+  items:
+  - type: ae_by_soc_pt
+    title: "TEAEs - {instrument}"
+    population: Safety
+  condition: facts.ae_grouped_terms | is_list_with_items
+
+# Safety concern tables — when drug-class safety signals are identified
+- for_each: facts.safety_concerns
+  items:
+  - type: ae_by_soc_pt
+    title: "TEAEs Related to {instrument}"
+    population: Safety
+  condition: facts.safety_concerns | is_list_with_items
+
+# Biosimilar/equivalence design-conditional tables
+- items:
+  - type: ae_by_soc_pt
+    title: TEAEs Related to Study Drug
+    population: Safety
+  - type: ae_by_soc_pt
+    title: TEAEs Related to Study Drug Grade >=3
+    population: Safety
+  - type: sensitivity_analysis
+    title: Tipping Point Analysis
+    population: Safety
+  - type: other
+    title: Equivalence / Biosimilarity Margins Summary
+    population: Safety
+  condition: facts.study_design.type in [biosimilar, equivalence]
+
+# Oncology + biosimilar prior therapy tables
+- items:
+  - type: prior_therapy
+    title: Prior Cancer Therapy — Surgical Procedures
+    population: Safety
+  - type: prior_therapy
+    title: Prior Cancer Therapy — Radiotherapy
+    population: Safety
+  - type: prior_therapy
+    title: Prior Cancer Therapy — Systemic by Drug Class
+    population: Safety
+  condition: facts.study_design.type in [biosimilar, equivalence] and facts.therapeutic_area == oncology
