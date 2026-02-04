@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 
 _FORMAT_PLACEHOLDERS = {
     "count": "xx",
-    "count_pct": "xx (xx.x)",
-    "percentage": "xx.x",
+    "count_pct": "xx (xx.x%)",           # Fixed: added % sign
+    "percentage": "xx.x%",                # Fixed: added % sign
     "mean": "xx.x",
     "sd": "xx.xx",
     "mean_sd": "xx.x (xx.xx)",
@@ -30,22 +30,22 @@ _FORMAT_PLACEHOLDERS = {
     "mean_ci": "xx.x (xx.x, xx.x)",
     "median": "xx.x",
     "median_ci": "xx.x (xx.x, xx.x)",
-    "median_range": "xx.x (xx.x, xx.x)",
+    "median_range": "xx.x (xx-xx)",       # Fixed: dash for range
     "min": "xx.x",
     "max": "xx.x",
     "q1_q3": "xx.x, xx.x",
-    "min_max": "xx.x, xx.x",
+    "min_max": "xx-xx",                   # Fixed: dash instead of comma
     "ci_95": "(xx.x, xx.x)",
     "hr_ci": "x.xx (xx.x, xx.x)",
     "hazard_ratio": "x.xx (xx.x, xx.x)",
     "diff_ci": "xx.x (xx.x, xx.x)",
     "ratio_ci": "x.xx (xx.x, xx.x)",
-    "rate_ci": "xx.x (xx.x, xx.x)",
+    "rate_ci": "xx.x% (xx.x, xx.x)",      # Fixed: added % sign for rates
     "p_value": "x.xxxx",
     "rate_ratio": "x.xx (xx.x, xx.x)",
     "or_ci": "x.xx (xx.x, xx.x)",
-    "events_rate": "xx (xx.x)",
-    "n_pct": "xx (xx.x)",
+    "events_rate": "xx (xx.x%)",          # Fixed: added % sign
+    "n_pct": "xx (xx.x%)",                # Fixed: added % sign
     "fixed": "xxx",
     "text": "xxx",
 }
@@ -623,6 +623,10 @@ def render_docx(
         footnotes = table_dict.get("footnotes", [])
         orientation = table_dict.get("orientation", "PORTRAIT").upper()
 
+        # DEBUG: Log orientation for each table
+        import logging
+        logging.warning(f"[RENDERER DEBUG] Table '{title[:50]}' orientation={orientation}, current={current_orientation}")
+
         # Fix 5.1: Handle per-table orientation
         # If this table needs landscape and we're in portrait, switch
         if orientation == "LANDSCAPE" and current_orientation == "PORTRAIT":
@@ -708,6 +712,7 @@ def render_docx(
         # Portrait = 7.0" usable, Landscape = 9.5" usable
         usable_width = 9.5 if orientation.upper() == "LANDSCAPE" else 7.0
         col_widths = _calculate_column_widths(headers, data_for_width, usable_width)
+        logging.warning(f"[RENDERER DEBUG] Column widths for '{title[:30]}': {[f'{w:.2f}' for w in col_widths]}")
         _set_table_column_widths(tbl, col_widths)
 
         # Header row

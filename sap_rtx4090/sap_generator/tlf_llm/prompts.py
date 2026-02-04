@@ -81,11 +81,21 @@ Use "header" type rows as section separators (bold label, no data). Use "spacer"
 
 **Domain-specific row requirements:**
 
-- **Time-to-event tables**: Read the SAP to determine which statistics to include. Common elements include subject counts, event/censored counts (with breakdown by reason if specified), Kaplan-Meier estimates, landmark rates (if specified), and treatment comparison statistics (for comparative studies). Do NOT include Mean (SD) for censored survival data. Include footnotes that explain the statistical methods used.
+- **Time-to-event tables**: Read the SAP methodology section. Include:
+  - Analysis population size (N per arm)
+  - Event counts with percentage, broken down by event type from the endpoint definition
+  - Censored counts with percentage, broken down by censoring reason from the SAP
+  - Kaplan-Meier distribution estimates (quartiles: 25th, median, 75th percentile) each with confidence interval
+  - Landmark rates at protocol-relevant timepoints (if applicable) with confidence intervals
+  - For comparative studies: hazard ratio with CI and p-value
+  - Do NOT include Mean (SD) — censored survival data uses Kaplan-Meier estimates
+  - Footnotes MUST explain: CI calculation method for survival estimates, CI method for landmark rates, which direction of HR favors which arm
 
 - **"By Visit" tables**: Read the protocol's visit schedule and include every assessment visit specified — do not abbreviate or truncate the visit list.
 
 - **Continuous summary tables**: Include the descriptive statistics specified in the SAP. If not specified, use standard descriptive statistics.
+
+- **Laboratory listings**: Read the protocol to determine which columns are needed. Include subject identification, treatment, parameter, visit, dates, results, reference ranges, and any grading/significance assessments specified in the protocol.
 
 ### Footnotes
 Include:
