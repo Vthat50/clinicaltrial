@@ -126,7 +126,7 @@ Generate a complete table shell for:
 **Row structure:**
 - Read the SAP to determine which statistics to include for each parameter
 - Apply the SAME set of statistics consistently to ALL visits — do not show full statistics for baseline and abbreviated statistics for other visits
-- Standard descriptive statistics for continuous lab values: n, Mean, SD, Median, Q1, Q3, Min, Max
+- Standard descriptive statistics for continuous lab values (unless SAP specifies otherwise): n, Mean, SD, Median, Q1, Q3, Min, Max
 - If the SAP title says "by Visit": include rows for ALL scheduled assessment visits from the protocol visit schedule
 - If the SAP title says "Actual and Change from Baseline" without "by Visit": show Baseline, End of Treatment, and Change from Baseline
 - For post-baseline visits, include both actual values AND change from baseline, each with the full set of statistics
