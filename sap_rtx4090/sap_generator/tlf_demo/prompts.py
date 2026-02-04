@@ -39,10 +39,11 @@ Generate a complete table shell for:
 **Requirements:**
 - Use the exact treatment arm names from the protocol/SAP in column headers
 - Determine the correct type, source dataset, and orientation based on the endpoint type
-- Include rows with proper format codes, indentation, type (header/data/spacer), and bold flags as appropriate for the endpoint type
+- Follow ALL domain-specific row requirements and format code definitions from the system prompt for this endpoint type
+- Each row must specify the appropriate format code from the system prompt's format code list
 - Follow the statistical methodology specified in the SAP
 - 95% CIs must be shown INLINE with the statistic (inside the same format code), NOT as separate rows
-- Include footnotes as specified in the SAP: population definition, statistical methods, and any domain-specific notes
+- Include footnotes as specified in the SAP: population definition, statistical methods with CI method names, and any domain-specific notes
 
 ### Item 2: Listing — {first_listing_title}
 
