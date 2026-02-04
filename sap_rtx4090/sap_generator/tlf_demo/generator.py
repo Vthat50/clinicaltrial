@@ -310,11 +310,14 @@ async def generate_demo_shells(
         tables_1 = result_1.get("tables", [])
         listings_1 = result_1.get("listings", [])
 
+        # Fix v23: Explicitly set numbers from SAP index (Claude may not return them)
         for t in tables_1:
             if _validate_tlf_item(t, "table"):
+                t["number"] = f"Table {first_table['number']}"
                 all_tables.append(t)
         for l in listings_1:
             if _validate_tlf_item(l, "listing"):
+                l["number"] = f"Listing {first_listing['number']}"
                 all_listings.append(l)
 
         logger.info(
@@ -358,11 +361,14 @@ async def generate_demo_shells(
             tables_2 = result_2.get("tables", [])
             listings_2 = result_2.get("listings", [])
 
+            # Fix v23: Explicitly set numbers from SAP index (Claude may not return them)
             for t in tables_2:
                 if _validate_tlf_item(t, "table"):
+                    t["number"] = f"Table {ct['number']}"
                     all_tables.append(t)
             for l in listings_2:
                 if _validate_tlf_item(l, "listing"):
+                    l["number"] = f"Listing {cl['number']}"
                     all_listings.append(l)
 
             logger.info(
@@ -386,9 +392,25 @@ async def generate_demo_shells(
             error_msg = "Claude API call 2 failed and call 1 produced no results."
         raise RuntimeError(error_msg)
 
-    # Step 6: Number with ICH E3 scheme
+    # Step 6: Preserve SAP index numbers (do NOT overwrite with assign_numbers)
+    # Claude uses the exact numbers from the SAP index as instructed in the prompts.
+    # Previously this called assign_numbers() which overwrote them with 14.2.1.1, 16.2.x, etc.
     all_figures: list[dict] = []
-    assign_numbers(all_tables, all_figures, all_listings)
+
+    # Just ensure section field is set for rendering (based on existing number)
+    for t in all_tables:
+        num = t.get("number", "")
+        if "14.1" in num:
+            t["section"] = "14.1"
+        elif "14.2" in num:
+            t["section"] = "14.2"
+        elif "14.3" in num:
+            t["section"] = "14.3"
+        else:
+            t["section"] = "14.3"  # Default to safety
+
+    for li in all_listings:
+        li["section"] = "16.2"
 
     total = len(all_tables) + len(all_listings)
     logger.info(

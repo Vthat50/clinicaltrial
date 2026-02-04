@@ -2,6 +2,24 @@
 
 Apply to all TLF shells produced by the demo generator.
 
+## SAP-Driven Content
+
+The SAP is the source of truth. Include ONLY what the SAP specifies:
+- Statistics: Use only the statistics the SAP defines for each table type
+- Visits: Use only the visits/timepoints the SAP specifies
+- Footnotes: If the SAP states p-values are descriptive or no multiplicity adjustment applies, include this in a footnote
+- CFB: Change from Baseline uses the same descriptive statistics definition as actual values
+
+When the SAP uses general terms without defining them in a specific section, look for definitions in the SAP's General Methodology section.
+
+## Output Format
+
+Shells are rendered as monospaced text (Courier New), not Word tables:
+- Columns aligned by character position
+- Horizontal rules made of underscore characters
+- No cell borders or gridlines
+- Opens identically in Word, Google Docs, or any text editor
+
 ## Display Standards
 
 | Convention | Value |
@@ -33,11 +51,9 @@ Every table and listing includes:
 Source: [ADaM dataset] Program: [program_name].sas Date: DDMONYYYY
 ```
 
-## ICH E3 Numbering
+## Numbering
 
-- Tables: 14.x.x (14.1 = demographics, 14.2 = efficacy, 14.3 = safety)
-- Figures: 14.x.Fx
-- Listings: 16.2.x
+Use the EXACT numbering from the SAP's TLF index. Do not add sub-levels or change the numbering scheme. The SAP index is the source of truth for TLF numbers.
 
 ## Footnote Ordering
 
@@ -53,32 +69,50 @@ Hazard ratio, p-value, treatment difference, and odds ratio are single compariso
 
 ## Format Codes
 
+Use ### notation to show field width and decimal precision. Each # represents a digit position.
+
 | Format | Placeholder |
 |--------|------------|
-| count | xx |
-| count_pct | n (xx.x%) |
-| mean | xx.x |
-| sd | xx.xx |
-| mean_sd | xx.x (xx.xx) |
-| median | xx.x |
-| q1_q3 | xx.x, xx.x |
-| median_ci | xx.x (xx.x, xx.x) or xx.x [xx.x, xx.x] |
-| min_max | xx-xx |
-| median_range | xx.x (xx-xx) |
-| ci_95 | (xx.x, xx.x) or [xx.x, xx.x] |
-| hr_ci | x.xx (xx.x, xx.x) or x.xx [xx.x, xx.x] |
-| diff_ci | xx.x (xx.x, xx.x) or xx.x [xx.x, xx.x] |
-| ratio_ci | x.xx (xx.x, xx.x) or x.xx [xx.x, xx.x] |
-| p_value | x.xxxx |
-| percentage | xx.x% |
-| events_rate | n (xx.x%) |
+| count | ### |
+| count_pct | ### (##.#%) |
+| mean | ###.# |
+| sd | ##.## |
+| mean_sd | ###.# (##.##) |
+| median | ###.# |
+| q1_q3 | ###.#, ###.# |
+| median_ci | ###.# (###.#, ###.#) |
+| min_max | ###-### |
+| median_range | ###.# (###-###) |
+| ci_95 | (###.#, ###.#) |
+| hr_ci | #.## (##.##, ##.##) |
+| diff_ci | ##.# (##.#, ##.#) |
+| ratio_ci | #.## (##.##, ##.##) |
+| p_value | #.#### |
+| percentage | ##.#% |
+| events_rate | ### (##.#%) |
 
 Both () and [] are acceptable for confidence intervals.
 
 ## Column Templates by Study Design
 
-- 2-arm: Parameter | Arm1 (N=xxx) | Arm2 (N=xxx) | Total (N=xxx)
-- 3+ arm: Parameter | Arm1 (N=xxx) | Arm2 (N=xxx) | Arm3 (N=xxx) | Total (N=xxx)
-- Single-arm: Parameter | Treatment (N=xxx)
+- 2-arm: Parameter | Arm1 (N=###) | Arm2 (N=###) | Total (N=###)
+- 3+ arm: Parameter | Arm1 (N=###) | Arm2 (N=###) | Arm3 (N=###) | Total (N=###)
+- Single-arm: Parameter | Treatment (N=###)
 - Descriptive/continuous stats (labs, vitals): Parameter / Statistic | Arm1 | Arm2 (no Total)
-- Dose-escalation: Parameter | Cohort 1 (N=xxx) | Cohort 2 (N=xxx) | ... | Overall (N=xxx)
+- Dose-escalation: Parameter | Cohort 1 (N=###) | Cohort 2 (N=###) | ... | Overall (N=###)
+
+## Listing Column Abbreviations
+
+For listings with many columns, use standard abbreviations to prevent truncation. Add a footnote defining all abbreviations used.
+
+Common abbreviations:
+- Subj ID (Subject ID)
+- Trt Grp (Treatment Group)
+- Assess Dt (Assessment Date)
+- Coll Dt (Collection Date)
+- BOR (Best Overall Response)
+- CFB (Change from Baseline)
+- BL (Baseline)
+- Grade (CTCAE Grade)
+- Ref Rng (Reference Range)
+- Abn Flag (Abnormal Flag)

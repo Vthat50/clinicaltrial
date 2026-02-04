@@ -26,45 +26,47 @@ Do NOT generate any other items. Do NOT generate figures.
 Generate a complete table shell for:
 - **Title**: "{first_table_title}"
 - **Population**: {first_table_population}
-- **Section**: {first_table_number}
+- **Number**: {first_table_number}
 
-**How to read the protocol and SAP:**
-1. Find the endpoint definition in the protocol — read the full definition including measurement method and assessment criteria
-2. Determine the endpoint type (time-to-event, binary, continuous, etc.) from the definition and SAP methodology section
-3. Read the analysis population definition section for the full inclusion criteria
-4. Extract exact treatment arm names as written in the protocol
-5. Find stratification factors in the randomization and statistical methods sections
-6. Read the SAP to determine which statistics, rows, and footnotes to include for this endpoint type
+**CRITICAL — Use the EXACT number from the SAP index above. Do NOT invent sub-levels or change the numbering scheme.**
+
+**SAP is the source of truth. Read the SAP to determine:**
+1. The endpoint definition and type (find in protocol, methodology in SAP)
+2. Which statistics to include — include ONLY what the SAP specifies, nothing more
+3. Which visits/timepoints to include — use ONLY the timepoints specified in the SAP
+4. Censoring rules and categories — use ONLY the categories defined in the SAP's censoring table
+5. The study design type (superiority, equivalence, non-inferiority, etc.) — this affects footnote language
+6. Exact treatment arm names from the protocol/SAP
+
+**Resolving ambiguous terms:** When the SAP uses general terms (like "descriptive statistics") without defining them in the table-specific section, look for definitions in the SAP's General Methodology section.
 
 **Requirements:**
-- Use the exact treatment arm names from the protocol/SAP in column headers
-- Determine the correct type, source dataset, and orientation based on the endpoint type
-- Follow ALL domain-specific row requirements and format code definitions from the system prompt for this endpoint type
-- Each row must specify the appropriate format code from the system prompt's format code list
-- Follow the statistical methodology specified in the SAP
-- 95% CIs must be shown INLINE with the statistic (inside the same format code), NOT as separate rows
-- Include footnotes as specified in the SAP: population definition, statistical methods with CI method names, and any domain-specific notes
+- Use EXACT numbering from the SAP index — do not add sub-levels
+- Include ONLY the statistics specified in the SAP for this endpoint type
+- Include ONLY the visits/timepoints specified in the SAP
+- Match censoring categories to the SAP's censoring definition table
+- Footnotes must reflect the study design type (do not use superiority language for equivalence trials)
+- If the SAP states that p-values are descriptive or that no multiplicity adjustment applies, include this in a footnote
+- 95% CIs shown inline with the statistic where SAP specifies CIs
 
 ### Item 2: Listing — {first_listing_title}
 
 Generate a complete listing shell for:
 - **Title**: "{first_listing_title}"
 - **Population**: {first_listing_population}
-- **Section**: {first_listing_number}
-- **Type**: listing
-- **Orientation**: LANDSCAPE
+- **Number**: {first_listing_number}
 
-**How to read the protocol and SAP:**
-1. Determine the source dataset from the listing content
-2. Identify all relevant variables a statistical programmer would need for this listing type
-3. Find the population definition in the protocol/SAP
+**CRITICAL — Use the EXACT number from the SAP index. Do NOT convert to a different numbering scheme.**
+
+**Read the SAP to determine:**
+1. What variables are needed for this listing type
+2. The population definition
+3. Sort order and page break requirements
 
 **Requirements:**
-- Include all relevant column variables for this listing type
-- **Sort order**: Specify using the `sort_order` field based on the listing content
-- **Page break**: Specify `page_break_by` based on the primary grouping variable
-- **Footnotes**: Include population definition, sort order description, and any relevant methodology from the protocol/SAP
-- **Programming notes**: Include key ADaM variable mappings and filtering criteria
+- Use EXACT numbering from the SAP index
+- Include variables appropriate for the listing type based on SAP/protocol
+- Clearly label columns to avoid ambiguity (specify review type if multiple exist)
 
 ---
 
@@ -105,68 +107,54 @@ Do NOT generate any other items. Do NOT generate figures.
 Generate a complete table shell for:
 - **Title**: "{chem_table_title}"
 - **Population**: {chem_table_population}
-- **Section**: {chem_table_number}
+- **Number**: {chem_table_number}
 - **Type**: labs_summary
 - **Source dataset**: ADLB
 - **Orientation**: LANDSCAPE
 
-**How to read the protocol and SAP:**
-1. Find the laboratory assessments section — identify all clinical chemistry parameters collected in this study
-2. Find the visit schedule — identify every visit where labs are collected across all treatment periods
-3. Determine the unit system (SI or conventional) from the protocol
-4. Find the baseline definition and statistical methodology in the SAP
-5. Read the SAP title to determine the visit structure (by visit vs. summary)
+**CRITICAL — Use the EXACT number from the SAP index. Do NOT invent sub-levels.**
+
+**SAP is the source of truth. Read the SAP to determine:**
+1. Which descriptive statistics to include — use ONLY what the SAP specifies (do not add statistics the SAP doesn't list)
+2. Which visits to include — use ALL visits specified in the SAP for this table type
+3. Whether to include normal ranges — only if the SAP/title specifies it
+4. The baseline definition
 
 **Column structure:**
-- Column 1: Parameter (unit) / Normal Range
-- Column 2: Visit (from the protocol schedule)
-- Column 3: Statistic (as specified in SAP)
-- Columns 4+: One column per treatment arm using exact names from protocol/SAP with (N=xxx)
-- Do NOT include a Total column for lab tables
+- Read the SAP to determine the column structure for this table type
+- Use exact treatment arm names from the protocol/SAP
 
-**Row structure:**
-- Read the SAP to determine which statistics to include for each parameter
-- Apply the SAME set of statistics consistently to ALL visits — do not show full statistics for baseline and abbreviated statistics for other visits
-- Standard descriptive statistics for continuous lab values (unless SAP specifies otherwise): n, Mean, SD, Median, Q1, Q3, Min, Max
-- If the SAP title says "by Visit": include rows for ALL scheduled assessment visits from the protocol visit schedule
-- If the SAP title says "Actual and Change from Baseline" without "by Visit": show Baseline, End of Treatment, and Change from Baseline
-- For post-baseline visits, include both actual values AND change from baseline, each with the full set of statistics
-- Generate rows for all clinical chemistry parameters from the protocol
-- For each parameter, generate FLAT rows (indent=0) with separate columns for Parameter, Visit, and Statistic
-- Every row must include `label`, `visit`, `statistic`, `format`, `type`, `bold`, `indent` fields
+**Row structure — Hierarchical to avoid repetition:**
+- First column header should be "Parameter / Visit / Statistic" to reflect the three-level hierarchy
+- Parameter name appears ONCE as a header row (indent=0)
+- Visit names appear as sub-headers (indent=1) — include ALL visits from the SAP
+- Statistics appear as data rows (indent=2) — include ONLY statistics from the SAP
+- Change from Baseline uses the SAME descriptive statistics as actual values (look up the SAP's definition)
 
-**Footnotes:** Include population definition, baseline definition, and other footnotes as specified in the SAP
+**Footnotes:** Include only footnotes specified or implied by the SAP
 
 ### Item 2: Listing — {chem_listing_title}
 
 Generate a complete listing shell for:
 - **Title**: "{chem_listing_title}"
 - **Population**: {chem_listing_population}
-- **Section**: {chem_listing_number}
+- **Number**: {chem_listing_number}
 - **Type**: listing
 - **Source dataset**: ADLB
 - **Orientation**: LANDSCAPE
 
-**How to read the protocol:**
-1. Check if CTCAE toxicity grading is applied to laboratory values in this study
-2. Check if investigators assess clinical significance of abnormal values
-3. Determine central vs local laboratory processing
+**CRITICAL — Use the EXACT number from the SAP index.**
 
-**Variables:** A complete lab listing includes columns for:
-- Subject identification and treatment assignment
-- Parameter name and units
-- Baseline value (for reference)
-- Visit name and visit date
-- Result value and change from baseline
-- Reference range (low and high)
-- Toxicity grading if applicable per protocol
-- Clinical significance assessment if applicable per protocol
+**Read the protocol and SAP to determine:**
+1. What columns are needed for this listing type
+2. Whether toxicity grading applies (only if SAP/protocol specifies grading)
+3. Whether baseline and change from baseline columns are needed (if SAP analyzes CFB, include these)
+4. Whether clinical significance assessment applies (only if protocol specifies)
 
 **Requirements:**
-- **Sort order**: Specify using the `sort_order` field
-- **Page break**: Specify `page_break_by` based on the primary grouping variable
-- **Footnotes**: Include population definition, sort order, baseline definition, and other relevant notes
-- **Programming notes**: Include key ADaM variable mappings and filtering criteria
+- Use EXACT numbering from the SAP index
+- Include columns that support the analyses described in the SAP (if SAP analyzes CFB, listing should show baseline and CFB)
+- Include grading column if SAP references a grading scale for this parameter type
 
 ---
 

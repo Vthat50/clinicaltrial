@@ -1,11 +1,12 @@
 """Render LLM-generated TLF shell specifications to Markdown or DOCX format.
 
 DOCX output uses real pharmaceutical TLF shell formatting:
-- Courier New monospace font (standard for SAS/RTF output alignment)
-- Horizontal rules only (top, under header, bottom) — no grid borders
+- Monospaced text layout (Courier New) — NOT Word tables
+- Columns aligned by character position
+- Horizontal rules made of underscore characters
 - Page header: Protocol ID + CONFIDENTIAL + Page X of Y
-- Page footer: Source dataset + Program name + Date placeholder
-- Footnotes as bracketed numbers below the table
+- Page footer: Output date placeholder
+- Footnotes as bracketed numbers below the shell
 """
 
 import logging
@@ -16,38 +17,39 @@ logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
-# Format code → placeholder mapping
+# Format code → placeholder mapping (### notation for field width/precision)
 # ---------------------------------------------------------------------------
 
 _FORMAT_PLACEHOLDERS = {
-    "count": "xx",
-    "count_pct": "xx (xx.x%)",           # Fixed: added % sign
-    "percentage": "xx.x%",                # Fixed: added % sign
-    "mean": "xx.x",
-    "sd": "xx.xx",
-    "mean_sd": "xx.x (xx.xx)",
-    "mean_se": "xx.x (xx.xx)",
-    "mean_ci": "xx.x (xx.x, xx.x)",
-    "median": "xx.x",
-    "median_ci": "xx.x (xx.x, xx.x)",
-    "median_range": "xx.x (xx-xx)",       # Fixed: dash for range
-    "min": "xx.x",
-    "max": "xx.x",
-    "q1_q3": "xx.x, xx.x",
-    "min_max": "xx-xx",                   # Fixed: dash instead of comma
-    "ci_95": "(xx.x, xx.x)",
-    "hr_ci": "x.xx (xx.x, xx.x)",
-    "hazard_ratio": "x.xx (xx.x, xx.x)",
-    "diff_ci": "xx.x (xx.x, xx.x)",
-    "ratio_ci": "x.xx (xx.x, xx.x)",
-    "rate_ci": "xx.x% (xx.x, xx.x)",      # Fixed: added % sign for rates
-    "p_value": "x.xxxx",
-    "rate_ratio": "x.xx (xx.x, xx.x)",
-    "or_ci": "x.xx (xx.x, xx.x)",
-    "events_rate": "xx (xx.x%)",          # Fixed: added % sign
-    "n_pct": "xx (xx.x%)",                # Fixed: added % sign
-    "fixed": "xxx",
-    "text": "xxx",
+    # Using ### notation: # = digit position, shows exact field width and decimal places
+    "count": "###",                        # 3-digit integer
+    "count_pct": "### (##.#%)",            # count with percentage (1 decimal)
+    "percentage": "##.#%",                 # percentage with 1 decimal
+    "mean": "###.#",                       # mean with 1 decimal
+    "sd": "##.##",                         # SD with 2 decimals
+    "mean_sd": "###.# (##.##)",            # mean (SD)
+    "mean_se": "###.# (##.##)",            # mean (SE)
+    "mean_ci": "###.# (###.#, ###.#)",     # mean with 95% CI
+    "median": "###.#",                     # median with 1 decimal
+    "median_ci": "###.# (###.#, ###.#)",   # median with 95% CI
+    "median_range": "###.# (###-###)",     # median (min-max)
+    "min": "###.#",                        # minimum
+    "max": "###.#",                        # maximum
+    "q1_q3": "###.#, ###.#",               # Q1, Q3
+    "min_max": "###-###",                  # min-max range
+    "ci_95": "(###.#, ###.#)",             # 95% CI only
+    "hr_ci": "#.## (##.##, ##.##)",        # hazard ratio with CI (2 decimals)
+    "hazard_ratio": "#.## (##.##, ##.##)", # hazard ratio with CI
+    "diff_ci": "##.# (##.#, ##.#)",        # treatment difference with CI
+    "ratio_ci": "#.## (##.##, ##.##)",     # ratio with CI
+    "rate_ci": "##.#% (##.#, ##.#)",       # rate with CI
+    "p_value": "#.####",                   # p-value with 4 decimals
+    "rate_ratio": "#.## (##.##, ##.##)",   # rate ratio with CI
+    "or_ci": "#.## (##.##, ##.##)",        # odds ratio with CI
+    "events_rate": "### (##.#%)",          # events with rate
+    "n_pct": "### (##.#%)",                # n with percentage
+    "fixed": "###",                        # generic integer
+    "text": "XXXXXX",                      # text placeholder
 }
 
 # Comparison formats: single value spanning columns, not per-arm
@@ -61,6 +63,35 @@ _SECTION_LABELS = {
     "14.2": "Section 14.2 — Efficacy",
     "14.3": "Section 14.3 — Safety",
     "16.2": "Section 16.2 — Data Listings",
+}
+
+# Standard abbreviations for column headers (used in listings to prevent truncation)
+_HEADER_ABBREVIATIONS = {
+    "Subject ID": "Subj ID",
+    "Treatment Group": "Trt Grp",
+    "Assessment Date": "Assess Dt",
+    "Collection Date": "Coll Dt",
+    "Collection Time": "Coll Time",
+    "Target Lesion Response": "Tgt Resp",
+    "Non-Target Lesion Response": "Non-Tgt",
+    "Non-Target Response": "Non-Tgt",
+    "New Lesions": "New Les",
+    "Overall Response": "Ovrl Resp",
+    "Best Overall Response": "BOR",
+    "Review Type": "Rev Type",
+    "CTCAE Grade": "Grade",
+    "Change from Baseline": "CFB",
+    "Baseline": "BL",
+    "Baseline Value": "BL Value",
+    "Study Day": "Study Dy",
+    "Reference Range": "Ref Range",
+    "Ref Range": "Ref Rng",
+    "Abnormal Flag": "Abn Flag",
+    "Clinical Significance": "Clin Sig",
+    "Parameter": "Param",
+    "Visit": "Visit",
+    "Result": "Result",
+    "Unit": "Unit",
 }
 
 
@@ -108,8 +139,6 @@ def _render_table_md(table: dict) -> str:
     has_multi_label = any(row.get("visit") or row.get("statistic") for row in rows)
 
     if has_multi_label:
-        # Multi-column label: columns include Parameter, Visit, Statistic, then data arms
-        # Data columns start after the label columns (Parameter, Visit, Statistic = first 3)
         num_label_cols = 3
         num_data_cols = max(len(columns) - num_label_cols, 1)
     else:
@@ -129,7 +158,6 @@ def _render_table_md(table: dict) -> str:
             lines.append("| " + " | ".join(["" for _ in columns]) + " |")
             continue
 
-        # For non-multi-label tables, skip empty rows
         if not has_multi_label and not label:
             lines.append("| " + " | ".join(["" for _ in columns]) + " |")
             continue
@@ -139,7 +167,6 @@ def _render_table_md(table: dict) -> str:
             display_label = f"**{display_label}**"
 
         if has_multi_label:
-            # Multi-column label: Parameter | Visit | Statistic | data columns...
             if row_type == "header":
                 cells = [display_label, visit, statistic] + ["" for _ in range(num_data_cols)]
             elif fmt in _COMPARISON_FORMATS:
@@ -293,7 +320,6 @@ def render_markdown(
         parts.append("## Tables\n")
         current_section = ""
         for t in tables:
-            # Debug: log table keys to see if columns/rows are present
             logger.info(f"[Renderer] Table '{t.get('title', '?')[:50]}' keys: {list(t.keys())}, "
                         f"columns={len(t.get('columns', []))}, rows={len(t.get('rows', []))}")
             section = t.get("section", "")
@@ -319,15 +345,18 @@ def render_markdown(
 
 
 # =========================================================================
-# DOCX RENDERING — Pharmaceutical TLF Shell Format
+# DOCX RENDERING — Monospaced Text Layout (NOT Word Tables)
 # =========================================================================
 
 _FONT = "Courier New"
 _FONT_SIZE_BODY = 9
-_FONT_SIZE_HEADER = 9
 _FONT_SIZE_TITLE = 10
 _FONT_SIZE_FOOTNOTE = 8
 _FONT_SIZE_PAGE_HDR = 8
+
+# Line widths in characters
+_LINE_WIDTH_LANDSCAPE = 132
+_LINE_WIDTH_PORTRAIT = 80
 
 
 def render_docx(
@@ -335,20 +364,21 @@ def render_docx(
     figures: list[dict],
     listings: list[dict],
 ) -> bytes:
-    """Render TLF shells as a Word document in pharmaceutical format.
+    """Render TLF shells as a Word document using monospaced text layout.
 
-    - Courier New monospace throughout
-    - Horizontal rules only (no vertical grid lines)
-    - Page header/footer with protocol info
-    - Bracketed footnotes
+    Key differences from Word tables:
+    - Uses fixed-width Courier New text, not table cells
+    - Columns aligned by character position
+    - Horizontal rules made of underscore characters
+    - No column reflow or wrapping issues
+    - Opens identically in Word, Google Docs, LibreOffice
     """
     try:
         from docx import Document
-        from docx.shared import Inches, Pt, RGBColor, Emu
+        from docx.shared import Inches, Pt, RGBColor
         from docx.enum.text import WD_ALIGN_PARAGRAPH
-        from docx.enum.table import WD_TABLE_ALIGNMENT
         from docx.enum.section import WD_ORIENT
-        from docx.oxml.ns import qn, nsdecls
+        from docx.oxml.ns import nsdecls
         from docx.oxml import parse_xml
     except ImportError:
         logger.error("python-docx not installed")
@@ -356,264 +386,228 @@ def render_docx(
 
     doc = Document()
 
-    # --- Page setup ---
-    sect = doc.sections[0]
-    sect.page_width = Inches(8.5)
-    sect.page_height = Inches(11)
-    sect.top_margin = Inches(1)
-    sect.bottom_margin = Inches(0.75)
-    sect.left_margin = Inches(0.75)
-    sect.right_margin = Inches(0.75)
-
     # --- Default font: Courier New ---
     style = doc.styles["Normal"]
     style.font.name = _FONT
     style.font.size = Pt(_FONT_SIZE_BODY)
-
-    # --- Page header ---
-    hdr = sect.header
-    hdr.is_linked_to_previous = False
-    hp = hdr.paragraphs[0]
-    hp.text = ""
-    run_left = hp.add_run("Sponsor Name          Protocol Number          CONFIDENTIAL          Page X of Y")
-    run_left.font.name = _FONT
-    run_left.font.size = Pt(_FONT_SIZE_PAGE_HDR)
-    run_left.font.color.rgb = RGBColor(100, 100, 100)
+    style.paragraph_format.space_before = Pt(0)
+    style.paragraph_format.space_after = Pt(0)
+    style.paragraph_format.line_spacing = 1.0
 
     # --- Helpers ---
 
-    def _set_borders_horiz_only(tbl):
-        """Remove all borders, then add top border on first row and
-        bottom border on last row, plus bottom border on header row."""
-        tbl_pr = tbl._tbl.tblPr
-        borders_xml = (
-            f'<w:tblBorders {nsdecls("w")}>'
-            '  <w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/>'
-            '  <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>'
-            '  <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>'
-            '  <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>'
-            '  <w:insideH w:val="none" w:sz="0" w:space="0" w:color="auto"/>'
-            '  <w:insideV w:val="none" w:sz="0" w:space="0" w:color="auto"/>'
-            '</w:tblBorders>'
-        )
-        existing = tbl_pr.find(qn('w:tblBorders'))
-        if existing is not None:
-            tbl_pr.remove(existing)
-        tbl_pr.append(parse_xml(borders_xml))
+    def _setup_section(section, landscape=False):
+        """Configure page layout and header/footer."""
+        if landscape:
+            section.orientation = WD_ORIENT.LANDSCAPE
+            section.page_width = Inches(11)
+            section.page_height = Inches(8.5)
+            section.left_margin = Inches(0.5)
+            section.right_margin = Inches(0.5)
+            section.top_margin = Inches(0.75)
+            section.bottom_margin = Inches(0.75)
+        else:
+            section.orientation = WD_ORIENT.PORTRAIT
+            section.page_width = Inches(8.5)
+            section.page_height = Inches(11)
+            section.left_margin = Inches(0.75)
+            section.right_margin = Inches(0.75)
+            section.top_margin = Inches(0.75)
+            section.bottom_margin = Inches(0.75)
 
-    def _add_bottom_border_to_row(row):
-        """Add a bottom border line to every cell in a row (header underline)."""
-        for cell in row.cells:
-            tc_pr = cell._tc.get_or_add_tcPr()
-            borders_xml = (
-                f'<w:tcBorders {nsdecls("w")}>'
-                '  <w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/>'
-                '</w:tcBorders>'
-            )
-            existing = tc_pr.find(qn('w:tcBorders'))
-            if existing is not None:
-                tc_pr.remove(existing)
-            tc_pr.append(parse_xml(borders_xml))
+        # Header
+        hdr = section.header
+        hdr.is_linked_to_previous = False
+        hp = hdr.paragraphs[0]
+        hp.text = ""
 
-    def _set_cell(cell, text, bold=False, size=None, indent=0, align=None):
-        cell.text = ""
-        p = cell.paragraphs[0]
-        if align:
-            p.alignment = align
-        prefix = "  " * indent
-        run = p.add_run(prefix + str(text))
-        run.font.name = _FONT
-        run.font.size = Pt(size or _FONT_SIZE_BODY)
-        run.bold = bold
+        run1 = hp.add_run("Sponsor Name")
+        run1.font.name = _FONT
+        run1.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        run1.font.color.rgb = RGBColor(100, 100, 100)
 
-    def _add_landscape_section(doc):
-        new_sect = doc.add_section(2)
-        new_sect.orientation = WD_ORIENT.LANDSCAPE
-        new_sect.page_width = Inches(11)
-        new_sect.page_height = Inches(8.5)
-        new_sect.top_margin = Inches(0.75)
-        new_sect.bottom_margin = Inches(0.75)
-        new_sect.left_margin = Inches(0.75)
-        new_sect.right_margin = Inches(0.75)
-        return new_sect
+        hp.add_run("    ")
 
-    def _add_portrait_section(doc):
-        new_sect = doc.add_section(2)
-        new_sect.orientation = WD_ORIENT.PORTRAIT
-        new_sect.page_width = Inches(8.5)
-        new_sect.page_height = Inches(11)
-        new_sect.top_margin = Inches(1)
-        new_sect.bottom_margin = Inches(0.75)
-        new_sect.left_margin = Inches(0.75)
-        new_sect.right_margin = Inches(0.75)
-        return new_sect
+        run2 = hp.add_run("Protocol Number")
+        run2.font.name = _FONT
+        run2.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        run2.font.color.rgb = RGBColor(100, 100, 100)
 
-    def _add_rule(doc):
-        """Add a thin horizontal rule paragraph."""
+        hp.add_run("    ")
+
+        run3 = hp.add_run("CONFIDENTIAL")
+        run3.font.name = _FONT
+        run3.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        run3.font.color.rgb = RGBColor(100, 100, 100)
+
+        hp.add_run("    ")
+
+        run4 = hp.add_run("Page ")
+        run4.font.name = _FONT
+        run4.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        run4.font.color.rgb = RGBColor(100, 100, 100)
+
+        # Dynamic PAGE field
+        page_field = parse_xml(f'<w:fldSimple {nsdecls("w")} w:instr=" PAGE "/>')
+        hp._p.append(page_field)
+
+        run5 = hp.add_run(" of ")
+        run5.font.name = _FONT
+        run5.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        run5.font.color.rgb = RGBColor(100, 100, 100)
+
+        # Dynamic NUMPAGES field
+        numpages_field = parse_xml(f'<w:fldSimple {nsdecls("w")} w:instr=" NUMPAGES "/>')
+        hp._p.append(numpages_field)
+
+        # Footer
+        ftr = section.footer
+        ftr.is_linked_to_previous = False
+        fp = ftr.paragraphs[0]
+        fp.text = ""
+        ftr_run = fp.add_run("Output generated: DDMONYYYY")
+        ftr_run.font.name = _FONT
+        ftr_run.font.size = Pt(_FONT_SIZE_PAGE_HDR)
+        ftr_run.font.color.rgb = RGBColor(100, 100, 100)
+
+    def _add_mono_line(text: str, bold: bool = False, size: int = None, color: RGBColor = None):
+        """Add a monospaced text line."""
         p = doc.add_paragraph()
-        p_fmt = p.paragraph_format
-        p_fmt.space_before = Pt(0)
-        p_fmt.space_after = Pt(0)
-        pPr = p._p.get_or_add_pPr()
-        bottom = parse_xml(
-            f'<w:pBdr {nsdecls("w")}>'
-            '  <w:bottom w:val="single" w:sz="4" w:space="1" w:color="000000"/>'
-            '</w:pBdr>'
-        )
-        pPr.append(bottom)
-
-    def _add_text(doc, text, bold=False, size=None, italic=False, color=None, align=None, keep_with_next=False):
-        """Add a text paragraph.
-
-        Fix 5.7: Added keep_with_next parameter to prevent orphaned titles.
-        """
-        p = doc.add_paragraph()
-        if align:
-            p.alignment = align
         p.paragraph_format.space_before = Pt(0)
-        p.paragraph_format.space_after = Pt(1)
-        # Fix 5.7: Keep title paragraphs with following content
-        if keep_with_next:
-            p.paragraph_format.keep_with_next = True
+        p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.line_spacing = 1.0
         run = p.add_run(text)
         run.font.name = _FONT
         run.font.size = Pt(size or _FONT_SIZE_BODY)
-        run.bold = bold
-        run.italic = italic
+        run.font.bold = bold
         if color:
             run.font.color.rgb = color
         return p
 
-    def _set_header_row_repeat(tbl):
-        """Mark the first row as a header row that repeats on each page.
+    def _add_page_break():
+        """Add a page break."""
+        doc.add_page_break()
 
-        Fix 5.3: Essential for multi-page tables like the 352-row chemistry table.
-        Without this, pages 2+ have no column headers.
+    def _add_landscape_section():
+        """Add a new landscape section."""
+        new_sect = doc.add_section(2)  # Continuous section break
+        _setup_section(new_sect, landscape=True)
+        return new_sect
+
+    def _add_portrait_section():
+        """Add a new portrait section."""
+        new_sect = doc.add_section(2)
+        _setup_section(new_sect, landscape=False)
+        return new_sect
+
+    def _should_be_landscape(table_dict: dict) -> bool:
+        """Determine if a table should be landscape."""
+        orientation = table_dict.get("orientation", "").upper()
+        if orientation == "LANDSCAPE":
+            return True
+
+        table_type = table_dict.get("type", "").lower()
+        title_lower = table_dict.get("title", "").lower()
+
+        if table_type in ("labs_summary", "labs_shift", "lab_listing"):
+            return True
+        if "chemistry" in title_lower or "hematology" in title_lower:
+            return True
+        if "laboratory" in title_lower and "by visit" in title_lower:
+            return True
+        if "system organ class" in title_lower or "preferred term" in title_lower:
+            return True
+
+        columns = table_dict.get("columns", [])
+        if len(columns) >= 5:
+            return True
+
+        # Check if row labels + placeholders would squeeze columns too much in portrait
+        # If longest label > 35 chars AND we have CI/comparison stats, need landscape
+        rows = table_dict.get("rows", [])
+        max_label_len = 0
+        has_wide_placeholders = False
+        for row in rows:
+            label = row.get("label", "")
+            indent = row.get("indent", 0)
+            max_label_len = max(max_label_len, len(label) + indent * 2)
+            # Check for wide format codes (CI, HR, etc.)
+            fmt = row.get("format", "")
+            if fmt in ("median_ci", "hr_ci", "hazard_ratio", "rate_ci", "diff_ci", "ratio_ci", "mean_ci"):
+                has_wide_placeholders = True
+
+        # If we have long labels AND wide placeholders, need landscape for proper spacing
+        if max_label_len > 35 and has_wide_placeholders:
+            return True
+
+        return False
+
+    def _calculate_column_widths(headers: list[str], num_cols: int, line_width: int) -> list[int]:
+        """Calculate column widths in characters based on header content.
+
+        Returns list of character widths for each column.
+        Ensures no header gets truncated.
         """
-        first_row = tbl.rows[0]._tr
-        trPr = first_row.get_or_add_trPr()
-        tblHeader = parse_xml(f'<w:tblHeader {nsdecls("w")}/>')
-        trPr.append(tblHeader)
-
-    def _calculate_column_widths(headers: list[str], data_rows: list[list[str]],
-                                  total_width: float, min_width: float = 0.4,
-                                  chars_per_inch: float = 10.0) -> list[float]:
-        """Calculate content-aware column widths to minimize text wrapping.
-
-        Uses a priority-based algorithm:
-        1. Calculate ideal width for each column based on max content
-        2. For dense tables (many columns), use sqrt scaling to compress differences
-        3. Ensure long-content columns get proportionally more space
-
-        Args:
-            headers: List of header strings
-            data_rows: List of rows, each row is a list of cell strings
-            total_width: Total available width in inches
-            min_width: Minimum column width in inches
-            chars_per_inch: Characters per inch at current font size (9pt Courier ≈ 10)
-
-        Returns:
-            List of column widths in inches
-        """
-        num_cols = len(headers)
         if num_cols == 0:
             return []
 
-        # Calculate max content length for each column
-        max_lengths = []
-        for col_idx in range(num_cols):
-            # Header length (may have newlines, take longest line)
-            header_text = headers[col_idx] if col_idx < len(headers) else ""
-            header_lines = header_text.split('\n') if header_text else [""]
-            header_len = max(len(line) for line in header_lines)
+        if num_cols == 1:
+            return [line_width - 2]  # Leave margin
 
-            # Data content length
-            data_len = 0
-            for row in data_rows:
-                if col_idx < len(row):
-                    cell_text = str(row[col_idx]) if row[col_idx] else ""
-                    cell_lines = cell_text.split('\n') if cell_text else [""]
-                    cell_len = max(len(line) for line in cell_lines)
-                    data_len = max(data_len, cell_len)
+        # Calculate minimum width needed for each header (with padding)
+        min_widths = []
+        for hdr in headers:
+            # Handle headers with (N=xxx) - take the longer part
+            if "(N=" in hdr:
+                parts = hdr.split("(N=")
+                hdr_len = max(len(parts[0].strip()), len("(N=" + parts[1]) if len(parts) > 1 else 0)
+            else:
+                hdr_len = len(hdr)
+            min_widths.append(max(hdr_len + 2, 12))  # At least 12 chars per column
 
-            # Use max of header and data, with minimum of 3 chars
-            max_lengths.append(max(header_len, data_len, 3))
+        # First column (Parameter/label) needs more space for indented labels
+        # Make it at least 50% of line width or header length, whichever is larger
+        # This prevents truncation of long labels like "Number of patients with event, n (%)"
+        min_widths[0] = max(min_widths[0], int(line_width * 0.50))
 
-        # For dense tables (>6 columns), use power scaling to:
-        # - Give proportionally MORE space to longer content columns
-        # - Compress short columns to free up space
-        if num_cols > 8:
-            # For very dense tables: use 0.7 power (more aggressive compression)
-            scaled_lengths = [length ** 0.7 for length in max_lengths]
-        elif num_cols > 6:
-            # For moderately dense tables: use 0.8 power
-            scaled_lengths = [length ** 0.8 for length in max_lengths]
+        # Check total
+        total_needed = sum(min_widths) + (num_cols - 1) * 2  # 2 char spacing
+
+        if total_needed <= line_width:
+            # Fits - distribute extra space to data columns
+            extra = line_width - total_needed
+            extra_per_col = extra // (num_cols - 1) if num_cols > 1 else extra
+            widths = [min_widths[0]] + [w + extra_per_col for w in min_widths[1:]]
         else:
-            scaled_lengths = max_lengths
-
-        # Calculate proportional widths
-        total_scaled = sum(scaled_lengths)
-        if total_scaled > 0:
-            widths = [(length / total_scaled) * total_width for length in scaled_lengths]
-        else:
-            widths = [total_width / num_cols] * num_cols
-
-        # Apply minimum width
-        widths = [max(w, min_width) for w in widths]
-
-        # Re-normalize to fit total width after applying minimums
-        total_actual = sum(widths)
-        if total_actual > total_width:
-            # Scale down, but protect minimum widths
-            excess = total_actual - total_width
-            reducible = [max(0, w - min_width) for w in widths]
-            total_reducible = sum(reducible)
-
-            if total_reducible > 0:
-                for i in range(num_cols):
-                    reduction = (reducible[i] / total_reducible) * excess
-                    widths[i] = max(widths[i] - reduction, min_width)
+            # Doesn't fit - scale down data columns but protect first column
+            first_col = min_widths[0]
+            remaining = line_width - first_col - (num_cols - 1) * 2
+            data_col_width = max(remaining // (num_cols - 1), 10) if num_cols > 1 else remaining
+            widths = [first_col] + [data_col_width] * (num_cols - 1)
 
         return widths
 
-    def _set_table_column_widths(tbl, widths: list[float]):
-        """Set explicit column widths on a Word table.
+    def _format_row(values: list[str], widths: list[int], indent: int = 0) -> str:
+        """Format a row with fixed column positions.
 
         Args:
-            tbl: python-docx Table object
-            widths: List of widths in inches
+            values: List of cell values
+            widths: List of column widths in characters
+            indent: Number of spaces to indent the first column
         """
-        for col_idx, width in enumerate(widths):
-            if col_idx < len(tbl.columns):
-                tbl.columns[col_idx].width = Inches(width)
-                # Also set width on each cell in the column for consistency
-                for row in tbl.rows:
-                    if col_idx < len(row.cells):
-                        row.cells[col_idx].width = Inches(width)
+        parts = []
+        for i, (val, width) in enumerate(zip(values, widths)):
+            if i == 0:
+                # First column: left-align with indent
+                indented_val = " " * (indent * 2) + str(val)
+                parts.append(indented_val[:width].ljust(width))
+            else:
+                # Data columns: center-align
+                parts.append(str(val)[:width].center(width))
+        return "  ".join(parts)
 
-    # =================================================================
-    # TITLE PAGE
-    # =================================================================
-    doc.add_paragraph("")
-    doc.add_paragraph("")
-    _add_text(doc, "TABLE, LISTING, AND FIGURE SHELLS",
-              bold=True, size=14, align=WD_ALIGN_PARAGRAPH.CENTER)
-    doc.add_paragraph("")
-
-    total = len(tables) + len(figures) + len(listings)
-    _add_text(doc,
-              f"{len(tables)} Tables  |  {len(figures)} Figures  |  "
-              f"{len(listings)} Listings  |  {total} Total",
-              size=10, align=WD_ALIGN_PARAGRAPH.CENTER)
-
-    # =================================================================
-    # TABLES — Word table format with horizontal-only borders
-    # =================================================================
-
-    # Track current orientation to minimize section breaks
-    current_orientation = "PORTRAIT"
-
-    for table_dict in tables:
+    def _render_table_mono(table_dict: dict, line_width: int):
+        """Render a table shell as monospaced text."""
         number = table_dict.get("number", "")
         title = table_dict.get("title", "")
         population = table_dict.get("population", "")
@@ -621,48 +615,72 @@ def render_docx(
         columns = table_dict.get("columns", [])
         rows = table_dict.get("rows", [])
         footnotes = table_dict.get("footnotes", [])
-        orientation = table_dict.get("orientation", "PORTRAIT").upper()
+        prog_notes = table_dict.get("programming_notes", "")
 
-        # DEBUG: Log orientation for each table
-        import logging
-        logging.warning(f"[RENDERER DEBUG] Table '{title[:50]}' orientation={orientation}, current={current_orientation}")
+        # Rule line
+        rule = "_" * line_width
 
-        # Fix 5.1: Handle per-table orientation
-        # If this table needs landscape and we're in portrait, switch
-        if orientation == "LANDSCAPE" and current_orientation == "PORTRAIT":
-            _add_landscape_section(doc)
-            current_orientation = "LANDSCAPE"
-        elif orientation == "PORTRAIT" and current_orientation == "LANDSCAPE":
-            _add_portrait_section(doc)
-            current_orientation = "PORTRAIT"
-        else:
-            doc.add_page_break()
+        # Title
+        pop_suffix = ""
+        if population and population.lower() not in title.lower():
+            pop_suffix = f" ({population} Population)"
+        _add_mono_line(f"{number}: {title}{pop_suffix}", bold=True)
+        _add_mono_line("")
 
         if not columns:
             columns = [{"header": "Parameter"}, {"header": "Value"}]
 
-        # Detect multi-column label rows (visit/statistic fields)
+        headers = [c.get("header", "").replace("\n", " ") for c in columns]
+        num_cols = len(headers)
+
+        # Find the longest row label to ensure first column is wide enough
+        max_label_len = 0
+        for row in rows:
+            label = row.get("label", "")
+            indent = row.get("indent", 0)
+            label_len = len(label) + (indent * 2)  # Account for indent spaces
+            max_label_len = max(max_label_len, label_len)
+
+        col_widths = _calculate_column_widths(headers, num_cols, line_width)
+
+        # Ensure first column can fit the longest label (with padding)
+        if max_label_len > 0:
+            col_widths[0] = max(col_widths[0], max_label_len + 2)
+
+        # Detect multi-column label (Parameter, Visit, Statistic)
         has_multi_label = any(row.get("visit") or row.get("statistic") for row in rows)
 
-        if has_multi_label:
-            num_label_cols = 3  # Parameter, Visit, Statistic
-            num_data_cols = max(len(columns) - num_label_cols, 1)
-        else:
-            num_label_cols = 1
-            num_data_cols = max(len(columns) - 1, 1)
+        # Top rule
+        _add_mono_line(rule)
 
-        num_total_cols = len(columns)
+        # Header rows - may need 2 lines if headers have (N=xxx)
+        header_line1 = []
+        header_line2 = []
+        for i, hdr in enumerate(headers):
+            if "\n" in hdr or "(N=" in hdr:
+                # Split into two lines
+                if "(N=" in hdr:
+                    parts = hdr.split("(N=")
+                    header_line1.append(parts[0].strip())
+                    header_line2.append("(N=" + parts[1] if len(parts) > 1 else "")
+                else:
+                    parts = hdr.split("\n")
+                    header_line1.append(parts[0])
+                    header_line2.append(parts[1] if len(parts) > 1 else "")
+            else:
+                header_line1.append(hdr)
+                header_line2.append("")
 
-        # Title block (no duplicate page header — uses section header only)
-        # Fix 5.7: Use keep_with_next to prevent orphaned titles
-        pop_suffix = ""
-        if population and population.lower() not in title.lower():
-            pop_suffix = f"  ({population} Population)"
-        _add_text(doc, f"{number}", bold=True, size=_FONT_SIZE_BODY, keep_with_next=True)
-        _add_text(doc, f"{title}{pop_suffix}", bold=True, size=_FONT_SIZE_BODY, keep_with_next=True)
+        _add_mono_line(_format_row(header_line1, col_widths))
+        if any(header_line2):
+            _add_mono_line(_format_row(header_line2, col_widths))
 
-        # Build data rows list for the Word table
-        table_rows_data = []
+        # Header underline rule
+        _add_mono_line(rule)
+
+        # Data rows
+        num_data_cols = num_cols - 1 if not has_multi_label else num_cols - 3
+
         for row in rows:
             label = row.get("label", "")
             row_type = row.get("type", "data")
@@ -673,241 +691,298 @@ def render_docx(
             statistic = row.get("statistic", "")
 
             if row_type == "spacer":
-                table_rows_data.append({"cells": [""] * num_total_cols, "bold": False, "type": "spacer"})
+                _add_mono_line("")
                 continue
 
-            indent_str = "  " * indent
-            display_label = indent_str + label
+            is_comparison = fmt in _COMPARISON_FORMATS
 
             if has_multi_label:
                 if row_type == "header":
-                    cells = [display_label] + [""] * (num_total_cols - 1)
+                    cells = [label, visit, statistic] + [""] * max(num_data_cols, 0)
                 else:
                     ph = _placeholder(fmt) if fmt else ""
-                    cells = [display_label, visit, statistic] + ([ph] * num_data_cols if ph else [""] * num_data_cols)
+                    cells = [label, visit, statistic] + ([ph] * max(num_data_cols, 0) if ph else [""] * max(num_data_cols, 0))
             else:
                 if row_type == "header":
-                    cells = [display_label] + [""] * num_data_cols
-                elif fmt in _COMPARISON_FORMATS:
+                    cells = [label] + [""] * max(num_data_cols, 0)
+                elif is_comparison:
+                    # Comparison stats go in a single centered position
                     ph = _placeholder(fmt)
-                    cells = [display_label, ph] + [""] * (num_data_cols - 1)
+                    cells = [label, ph] + [""] * max(num_data_cols - 1, 0)
                 elif not label:
-                    cells = [""] * num_total_cols
+                    cells = [""] * num_cols
                 else:
                     ph = _placeholder(fmt)
-                    cells = [display_label] + [ph] * num_data_cols
+                    cells = [label] + [ph] * max(num_data_cols, 0)
 
-            table_rows_data.append({"cells": cells, "bold": bold or row_type == "header", "type": row_type})
+            # Ensure cells match column count
+            while len(cells) < num_cols:
+                cells.append("")
+            cells = cells[:num_cols]
 
-        # Create Word table: 1 header row + data rows
-        total_word_rows = 1 + len(table_rows_data)
-        tbl = doc.add_table(rows=total_word_rows, cols=num_total_cols)
-        tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
-        tbl.autofit = False  # Disable autofit to use explicit widths
-        _set_borders_horiz_only(tbl)
+            row_text = _format_row(cells, col_widths, indent=indent)
+            _add_mono_line(row_text, bold=bold or row_type == "header")
 
-        # Calculate content-aware column widths
-        headers = [c.get("header", "").replace("\n", " ") for c in columns]
-        data_for_width = [row_data["cells"] for row_data in table_rows_data]
-        # Portrait = 7.0" usable, Landscape = 9.5" usable
-        usable_width = 9.5 if orientation.upper() == "LANDSCAPE" else 7.0
-        col_widths = _calculate_column_widths(headers, data_for_width, usable_width)
-        logging.warning(f"[RENDERER DEBUG] Column widths for '{title[:30]}': {[f'{w:.2f}' for w in col_widths]}")
-        _set_table_column_widths(tbl, col_widths)
-
-        # Header row
-        for c_idx, hdr_text in enumerate(headers):
-            align = None
-            col_align = columns[c_idx].get("align", "L") if c_idx < len(columns) else "L"
-            if col_align == "C":
-                align = WD_ALIGN_PARAGRAPH.CENTER
-            _set_cell(tbl.rows[0].cells[c_idx], hdr_text, bold=True,
-                      size=_FONT_SIZE_HEADER, align=align)
-        _add_bottom_border_to_row(tbl.rows[0])
-
-        # Fix 5.3: Set header row to repeat on each page for multi-page tables
-        _set_header_row_repeat(tbl)
-
-        # Data rows
-        for r_idx, row_data in enumerate(table_rows_data):
-            word_row = tbl.rows[r_idx + 1]
-            cells = row_data["cells"]
-            is_bold = row_data["bold"]
-
-            for c_idx, cell_text in enumerate(cells):
-                if c_idx >= num_total_cols:
-                    break
-                align = None
-                # Center-align data columns (not the label columns)
-                if has_multi_label and c_idx >= 3:
-                    align = WD_ALIGN_PARAGRAPH.CENTER
-                elif not has_multi_label and c_idx >= 1:
-                    align = WD_ALIGN_PARAGRAPH.CENTER
-                _set_cell(word_row.cells[c_idx], cell_text, bold=is_bold,
-                          size=_FONT_SIZE_BODY, align=align)
+        # Bottom rule
+        _add_mono_line(rule)
+        _add_mono_line("")
 
         # Footnotes
         if footnotes:
             for i, fn in enumerate(footnotes, 1):
-                _add_text(doc, f"[{i}] {fn}", size=_FONT_SIZE_FOOTNOTE)
+                _add_mono_line(f"[{i}] {fn}", size=_FONT_SIZE_FOOTNOTE)
 
         # Programming notes
-        prog_notes = table_dict.get("programming_notes", "")
         if prog_notes:
-            _add_text(doc, f"Programming Notes: {prog_notes}",
-                      size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
+            _add_mono_line("")
+            _add_mono_line(f"Programming Notes: {prog_notes}", size=7, color=RGBColor(100, 100, 100))
 
         # Source line
         table_num = str(number).replace("Table ", "").replace(".", "_")
-        _add_text(doc, "", size=_FONT_SIZE_FOOTNOTE)
-        _add_text(doc,
-                  f"Source: {source}        "
-                  f"Program: t_{table_num}.sas        "
-                  f"Date: DDMONYYYY",
-                  size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
+        _add_mono_line("")
+        _add_mono_line(f"Source: {source}    Program: t_{table_num}.sas    Date: DDMONYYYY",
+                       size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
+
+    def _render_listing_mono(lst: dict, line_width: int):
+        """Render a listing shell as monospaced text."""
+        number = lst.get("number", "")
+        title = lst.get("title", "")
+        population = lst.get("population", "Safety")
+        source = lst.get("source", "")
+        sort_order = lst.get("sort_order", "")
+        page_break = lst.get("page_break_by", "")
+        footnotes = lst.get("footnotes", [])
+        prog_notes = lst.get("programming_notes", "")
+        variables = lst.get("variables", ["Subject ID", "Treatment", "Parameter", "Value"])
+
+        rule = "_" * line_width
+
+        # Title
+        pop_suffix = ""
+        if population and population.lower() not in title.lower():
+            pop_suffix = f" ({population} Population)"
+        _add_mono_line(f"{number}: {title}{pop_suffix}", bold=True)
+        _add_mono_line("")
+
+        num_cols = len(variables)
+
+        # Apply abbreviations for long headers and track which ones were abbreviated
+        abbreviated_headers = []
+        abbreviation_map = {}  # abbrev -> full name
+        for var in variables:
+            if var in _HEADER_ABBREVIATIONS:
+                abbrev = _HEADER_ABBREVIATIONS[var]
+                abbreviated_headers.append(abbrev)
+                if abbrev != var:
+                    abbreviation_map[abbrev] = var
+            else:
+                abbreviated_headers.append(var)
+
+        # Calculate column widths based on actual header lengths
+        # Minimum width = max(header length, 8) + 2 padding
+        col_widths = []
+        for hdr in abbreviated_headers:
+            min_width = max(len(hdr), 6) + 2
+            col_widths.append(min_width)
+
+        # Check if total width fits; if not, scale down proportionally
+        total_needed = sum(col_widths) + (num_cols - 1) * 2  # 2 char spacing
+        if total_needed > line_width:
+            # Scale down, but keep minimum of 8 chars per column
+            scale = (line_width - (num_cols - 1) * 2) / sum(col_widths)
+            col_widths = [max(int(w * scale), 8) for w in col_widths]
+
+        # Top rule
+        _add_mono_line(rule)
+
+        # Header row (using abbreviated headers)
+        _add_mono_line(_format_row(abbreviated_headers, col_widths))
+
+        # Header underline
+        _add_mono_line(rule)
+
+        # Sample data rows (4 rows)
+        for _ in range(4):
+            data_row = ["xxx"] * num_cols
+            _add_mono_line(_format_row(data_row, col_widths))
+
+        # Bottom rule
+        _add_mono_line(rule)
+        _add_mono_line("")
+
+        # Sort order / page break
+        if sort_order:
+            _add_mono_line(f"Sort Order: {sort_order}", size=_FONT_SIZE_FOOTNOTE)
+        if page_break:
+            _add_mono_line(f"Page Break By: {page_break}", size=_FONT_SIZE_FOOTNOTE)
+
+        # Add existing footnotes
+        footnote_idx = 1
+        if footnotes:
+            for fn in footnotes:
+                _add_mono_line(f"[{footnote_idx}] {fn}", size=_FONT_SIZE_FOOTNOTE)
+                footnote_idx += 1
+
+        # Add abbreviation footnote if any were used
+        if abbreviation_map:
+            abbrev_list = ", ".join(f"{k}={v}" for k, v in sorted(abbreviation_map.items()))
+            _add_mono_line(f"[{footnote_idx}] Abbreviations: {abbrev_list}", size=_FONT_SIZE_FOOTNOTE)
+
+        # Programming notes
+        if prog_notes:
+            _add_mono_line("")
+            _add_mono_line(f"Programming Notes: {prog_notes}", size=7, color=RGBColor(100, 100, 100))
+
+        # Source line
+        lst_num = str(number).replace("Listing ", "").replace(".", "_")
+        _add_mono_line("")
+        _add_mono_line(f"Source: {source}    Program: l_{lst_num}.sas    Date: DDMONYYYY",
+                       size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
+
+    def _render_figure_shell(fig: dict):
+        """Render a figure shell placeholder."""
+        number = fig.get("number", "")
+        title = fig.get("title", "")
+        fig_type = fig.get("type", "figure")
+        population = fig.get("population", "")
+        endpoint = fig.get("endpoint", "")
+
+        _add_mono_line(f"{number}: {title}", bold=True)
+        if population:
+            _add_mono_line(f"Population: {population}", size=_FONT_SIZE_FOOTNOTE)
+        if endpoint:
+            _add_mono_line(f"Endpoint: {endpoint}", size=_FONT_SIZE_FOOTNOTE)
+        _add_mono_line("")
+
+        # Figure type placeholder
+        if "km" in fig_type.lower():
+            placeholder = "[Kaplan-Meier survival curve — to be generated by statistical programming]"
+        elif "forest" in fig_type.lower():
+            placeholder = "[Forest plot — to be generated by statistical programming]"
+        elif "waterfall" in fig_type.lower():
+            placeholder = "[Waterfall plot — to be generated by statistical programming]"
+        elif "swimmer" in fig_type.lower():
+            placeholder = "[Swimmer plot — to be generated by statistical programming]"
+        else:
+            placeholder = "[Figure — to be generated by statistical programming]"
+
+        _add_mono_line("")
+        _add_mono_line(placeholder)
+        _add_mono_line("")
+
+        fig_num = str(number).replace("Figure ", "").replace(".", "_")
+        _add_mono_line(f"Program: f_{fig_num}.sas    Date: DDMONYYYY",
+                       size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
 
     # =================================================================
-    # FIGURES
+    # BUILD DOCUMENT
     # =================================================================
+
+    # Setup initial section (portrait)
+    _setup_section(doc.sections[0], landscape=False)
+
+    # --- TITLE PAGE ---
+    _add_mono_line("")
+    _add_mono_line("")
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run("TABLE, LISTING, AND FIGURE SHELLS")
+    run.font.name = _FONT
+    run.font.size = Pt(14)
+    run.font.bold = True
+
+    _add_mono_line("")
+    total = len(tables) + len(figures) + len(listings)
+    p2 = doc.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run2 = p2.add_run(f"{len(tables)} Tables  |  {len(figures)} Figures  |  {len(listings)} Listings  |  {total} Total")
+    run2.font.name = _FONT
+    run2.font.size = Pt(10)
+
+    # --- TLF INDEX (Page 2) ---
+    _add_page_break()
+    _add_mono_line("TLF INDEX", bold=True, size=12)
+    _add_mono_line("")
+
+    # Simple text-based index
+    _add_mono_line("_" * _LINE_WIDTH_PORTRAIT)
+    _add_mono_line(f"{'Number':<20}  {'Title':<45}  {'Population':<15}")
+    _add_mono_line("_" * _LINE_WIDTH_PORTRAIT)
+
+    for t in tables:
+        num = t.get("number", "")
+        title = t.get("title", "")[:42]
+        pop = t.get("population", "")[:15]
+        _add_mono_line(f"{num:<20}  {title:<45}  {pop:<15}")
+
+    for f in figures:
+        num = f.get("number", "")
+        title = f.get("title", "")[:42]
+        pop = f.get("population", "")[:15]
+        _add_mono_line(f"{num:<20}  {title:<45}  {pop:<15}")
+
+    for li in listings:
+        num = li.get("number", "")
+        title = li.get("title", "")[:42]
+        pop = li.get("population", "")[:15]
+        _add_mono_line(f"{num:<20}  {title:<45}  {pop:<15}")
+
+    _add_mono_line("_" * _LINE_WIDTH_PORTRAIT)
+
+    # --- TABLES ---
+    current_orientation = "PORTRAIT"
+
+    for table_dict in tables:
+        is_landscape = _should_be_landscape(table_dict)
+        target_orientation = "LANDSCAPE" if is_landscape else "PORTRAIT"
+        line_width = _LINE_WIDTH_LANDSCAPE if is_landscape else _LINE_WIDTH_PORTRAIT
+
+        # Switch section if orientation changes
+        if target_orientation != current_orientation:
+            if target_orientation == "LANDSCAPE":
+                _add_landscape_section()
+            else:
+                _add_portrait_section()
+            current_orientation = target_orientation
+        else:
+            _add_page_break()
+
+        _render_table_mono(table_dict, line_width)
+
+    # --- FIGURES ---
     if figures:
-        doc.add_page_break()
-        _add_text(doc, "FIGURE SHELLS", bold=True, size=12)
+        if current_orientation != "PORTRAIT":
+            _add_portrait_section()
+            current_orientation = "PORTRAIT"
+        else:
+            _add_page_break()
+
+        _add_mono_line("FIGURE SHELLS", bold=True, size=12)
+        _add_mono_line("")
 
         for fig in figures:
-            doc.add_page_break()
+            _add_page_break()
+            _render_figure_shell(fig)
 
-            fig_type = fig.get("type", "figure")
-            fig_title = fig.get("title", "")
-            fig_number = fig.get("number", "")
-            endpoint = fig.get("endpoint", "")
-            fig_population = fig.get("population", "")
+    # --- LISTINGS ---
+    for lst in listings:
+        # Listings always landscape
+        if current_orientation != "LANDSCAPE":
+            _add_landscape_section()
+            current_orientation = "LANDSCAPE"
+        else:
+            _add_page_break()
 
-            _add_text(doc, f"{fig_number}", bold=True, size=_FONT_SIZE_TITLE)
-            _add_text(doc, fig_title, bold=True, size=_FONT_SIZE_TITLE)
-            if fig_population:
-                _add_text(doc, f"Population: {fig_population}",
-                          size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
-            if endpoint:
-                _add_text(doc, f"Endpoint: {endpoint}",
-                          size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
+        _render_listing_mono(lst, _LINE_WIDTH_LANDSCAPE)
 
-            _add_rule(doc)
-            doc.add_paragraph("")
+    # --- SUMMARY PAGE ---
+    if current_orientation != "PORTRAIT":
+        _add_portrait_section()
+    else:
+        _add_page_break()
 
-            if "km" in fig_type.lower():
-                placeholder = "[Kaplan-Meier survival curve — to be generated by statistical programming]"
-            elif "forest" in fig_type.lower():
-                placeholder = "[Forest plot — to be generated by statistical programming]"
-            elif "waterfall" in fig_type.lower():
-                placeholder = "[Waterfall plot — to be generated by statistical programming]"
-            elif "swimmer" in fig_type.lower():
-                placeholder = "[Swimmer plot — to be generated by statistical programming]"
-            else:
-                placeholder = "[Figure — to be generated by statistical programming]"
-
-            _add_text(doc, placeholder, italic=True,
-                      align=WD_ALIGN_PARAGRAPH.CENTER, size=_FONT_SIZE_BODY)
-
-            _add_rule(doc)
-
-            fig_num_str = str(fig_number).replace("Figure ", "").replace(".", "_")
-            doc.add_paragraph("")
-            fp = doc.add_paragraph()
-            run = fp.add_run(
-                f"Program: f_{fig_num_str}.sas        Date: DDMONYYYY"
-            )
-            run.font.name = _FONT
-            run.font.size = Pt(_FONT_SIZE_FOOTNOTE)
-            run.font.color.rgb = RGBColor(100, 100, 100)
-
-    # =================================================================
-    # LISTINGS — Word table format (landscape, auto-fit columns)
-    # =================================================================
-    if listings:
-        for lst_idx, lst in enumerate(listings):
-            # Each listing gets its own landscape section
-            _add_landscape_section(doc)
-
-            lst_number = lst.get("number", "")
-            lst_title = lst.get("title", "")
-            lst_population = lst.get("population", "Safety")
-            lst_source = lst.get("source", "")
-            lst_sort_order = lst.get("sort_order", "")
-            lst_page_break = lst.get("page_break_by", "")
-            lst_footnotes = lst.get("footnotes", [])
-            lst_prog_notes = lst.get("programming_notes", "")
-            variables = lst.get(
-                "variables",
-                ["Subject ID", "Treatment", "Parameter", "Value"],
-            )
-
-            num_vars = len(variables)
-
-            # Title (page header comes from the Word section header automatically)
-            # Fix 5.7: Use keep_with_next to prevent orphaned titles
-            pop_suffix = ""
-            if lst_population and lst_population.lower() not in lst_title.lower():
-                pop_suffix = f"  ({lst_population} Population)"
-            _add_text(doc, f"{lst_number}", bold=True, size=_FONT_SIZE_BODY, keep_with_next=True)
-            _add_text(doc, f"{lst_title}{pop_suffix}", bold=True, size=_FONT_SIZE_BODY, keep_with_next=True)
-
-            # Word table: header row + 1 sample data row
-            tbl = doc.add_table(rows=2, cols=num_vars)
-            tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
-            tbl.autofit = False  # Disable autofit to use explicit widths
-            _set_borders_horiz_only(tbl)
-
-            # Calculate content-aware column widths for listing
-            # Listings are landscape = 9.5" usable width
-            sample_data = [["xxx"] * num_vars]  # Sample data row
-            lst_col_widths = _calculate_column_widths(variables, sample_data, 9.5)
-            _set_table_column_widths(tbl, lst_col_widths)
-
-            # Header row
-            for c_idx, var_name in enumerate(variables):
-                _set_cell(tbl.rows[0].cells[c_idx], var_name, bold=True,
-                          size=_FONT_SIZE_BODY)
-            _add_bottom_border_to_row(tbl.rows[0])
-
-            # Fix 5.3: Set header row to repeat on each page
-            _set_header_row_repeat(tbl)
-
-            # Sample data row
-            for c_idx in range(num_vars):
-                _set_cell(tbl.rows[1].cells[c_idx], "xxx", size=_FONT_SIZE_BODY)
-
-            # Sort order / page break
-            if lst_sort_order:
-                _add_text(doc, f"Sort Order: {lst_sort_order}", size=_FONT_SIZE_FOOTNOTE)
-            if lst_page_break:
-                _add_text(doc, f"Page Break By: {lst_page_break}", size=_FONT_SIZE_FOOTNOTE)
-
-            # Footnotes
-            if lst_footnotes:
-                for i, fn in enumerate(lst_footnotes, 1):
-                    _add_text(doc, f"[{i}] {fn}", size=_FONT_SIZE_FOOTNOTE)
-
-            # Programming notes
-            if lst_prog_notes:
-                _add_text(doc, f"Programming Notes: {lst_prog_notes}",
-                          size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
-
-            # Source line
-            lst_num_str = str(lst_number).replace("Listing ", "").replace(".", "_")
-            _add_text(doc, "", size=_FONT_SIZE_FOOTNOTE)
-            _add_text(doc,
-                      f"Source: {lst_source}        "
-                      f"Program: l_{lst_num_str}.sas        "
-                      f"Date: DDMONYYYY",
-                      size=_FONT_SIZE_FOOTNOTE, color=RGBColor(100, 100, 100))
-
-    # =================================================================
-    # SUMMARY PAGE
-    # =================================================================
-    _add_portrait_section(doc)
-
-    _add_text(doc, "TLF Shell Summary", bold=True, size=12)
-    doc.add_paragraph("")
+    _add_mono_line("TLF SHELL SUMMARY", bold=True, size=12)
+    _add_mono_line("")
 
     section_counts: dict[str, int] = {}
     for t in tables:
@@ -915,32 +990,20 @@ def render_docx(
         cat = {"14.1": "Disposition & Demographics", "14.2": "Efficacy", "14.3": "Safety"}.get(sec, sec)
         section_counts[cat] = section_counts.get(cat, 0) + 1
 
-    num_summary_rows = 1 + len(section_counts) + 3
-    summary_tbl = doc.add_table(rows=num_summary_rows, cols=2)
-    summary_tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
-    _set_borders_horiz_only(summary_tbl)
+    _add_mono_line("_" * 50)
+    _add_mono_line(f"{'Category':<35}  {'Count':>10}")
+    _add_mono_line("_" * 50)
 
-    _set_cell(summary_tbl.rows[0].cells[0], "Category", bold=True, size=_FONT_SIZE_HEADER)
-    _set_cell(summary_tbl.rows[0].cells[1], "Count", bold=True, size=_FONT_SIZE_HEADER)
-    _add_bottom_border_to_row(summary_tbl.rows[0])
-
-    row_idx = 1
     for cat, count in sorted(section_counts.items()):
-        _set_cell(summary_tbl.rows[row_idx].cells[0], cat)
-        _set_cell(summary_tbl.rows[row_idx].cells[1], str(count))
-        row_idx += 1
+        _add_mono_line(f"{cat:<35}  {count:>10}")
 
-    _set_cell(summary_tbl.rows[row_idx].cells[0], "Figures")
-    _set_cell(summary_tbl.rows[row_idx].cells[1], str(len(figures)))
-    row_idx += 1
-    _set_cell(summary_tbl.rows[row_idx].cells[0], "Listings")
-    _set_cell(summary_tbl.rows[row_idx].cells[1], str(len(listings)))
+    _add_mono_line(f"{'Figures':<35}  {len(figures):>10}")
+    _add_mono_line(f"{'Listings':<35}  {len(listings):>10}")
+    _add_mono_line("_" * 50)
+    _add_mono_line(f"{'TOTAL TLFs':<35}  {total:>10}", bold=True)
+    _add_mono_line("_" * 50)
 
-    total_row = summary_tbl.add_row()
-    _set_cell(total_row.cells[0], "Total TLFs", bold=True)
-    _set_cell(total_row.cells[1], str(len(tables) + len(figures) + len(listings)), bold=True)
-    _add_bottom_border_to_row(total_row)
-
+    # Save
     buf = BytesIO()
     doc.save(buf)
     return buf.getvalue()

@@ -77,25 +77,35 @@ Each row has: label, format, indent (0=top level, 1=sub-item, 2=sub-sub), type (
 
 **IMPORTANT for comparison statistics** (hazard ratio, p-value, treatment difference, odds ratio): These are single comparison values, NOT per-arm. Place them in rows that span all treatment arm columns or in a dedicated "Treatment Comparison" section.
 
-Use "header" type rows as section separators (bold label, no data). Use "spacer" type rows (empty label) between sections.
+Use "header" type rows as section separators (bold label, no data). Do NOT use "spacer" rows — use indent levels for visual hierarchy instead.
 
-**Domain-specific row requirements:**
+**SAP-Driven Content — The SAP is the source of truth:**
 
-- **Time-to-event tables**: Read the SAP methodology section. Include:
-  - Analysis population size (N per arm)
-  - Event counts with percentage, broken down by event type from the endpoint definition
-  - Censored counts with percentage, broken down by censoring reason from the SAP
-  - Kaplan-Meier distribution estimates (quartiles: 25th, median, 75th percentile) each with confidence interval
-  - Landmark rates at protocol-relevant timepoints (if applicable) with confidence intervals
-  - For comparative studies: hazard ratio with CI and p-value
-  - Do NOT include Mean (SD) — censored survival data uses Kaplan-Meier estimates
-  - Footnotes MUST explain: CI calculation method for survival estimates, CI method for landmark rates, which direction of HR favors which arm
+**Resolving ambiguous terms:** When the SAP uses general terms without defining them in the table-specific section, look for definitions in the SAP's General Methodology or Statistical Methods section. The SAP typically defines terms like "descriptive statistics," "baseline," "analysis populations," and "censoring rules" once and applies them throughout.
 
-- **"By Visit" tables**: Read the protocol's visit schedule and include every assessment visit specified — do not abbreviate or truncate the visit list.
+- **Time-to-event tables**: Read the SAP methodology section for THIS endpoint. Include ONLY:
+  - Statistics that the SAP specifies (do not add quartiles if SAP only specifies median)
+  - Censoring categories as defined in the SAP's censoring table (not generic categories)
+  - Timepoints specified in the SAP for landmark analyses
+  - Study design awareness: use appropriate footnote language (equivalence trials differ from superiority)
+  - Use hierarchical indent structure (indent=0 for headers, indent=1 for sub-items)
 
-- **Continuous summary tables**: Include the descriptive statistics specified in the SAP. If not specified, use standard descriptive statistics.
+- **Laboratory summary tables**: Read the SAP to determine:
+  - Which descriptive statistics to include (do not add statistics the SAP doesn't specify)
+  - Which visits to include (use ALL visits from the SAP, not a truncated list)
+  - Whether normal ranges should be shown (only if SAP specifies)
+  - Use hierarchical structure: parameter header (indent=0), visit sub-header (indent=1), statistics (indent=2)
 
-- **Laboratory listings**: Read the protocol to determine which columns are needed. Include subject identification, treatment, parameter, visit, dates, results, reference ranges, and any grading/significance assessments specified in the protocol.
+- **"By Visit" tables**: Include ALL visits specified in the SAP for this table type.
+
+- **Continuous summary tables**: Include ONLY the descriptive statistics specified in the SAP.
+
+- **Listings**: Include columns appropriate for the protocol's assessments. Avoid ambiguous column names when multiple review types exist.
+
+- **Laboratory listings**: Combine redundant columns to fit landscape format:
+  - Combine "Reference Range Low" + "High" into single "Ref Range" column with "xx-xx" format
+  - Combine "Parameter" + "Parameter Code" into single column or use code only with footnote
+  - Right-align numeric columns (values, ranges), center-align categorical columns (grades, flags)
 
 ### Footnotes
 Include:
@@ -136,7 +146,7 @@ Return valid JSON only (no markdown fences, no explanation text):
       "rows": [
         {"label": "Category Name", "format": "", "indent": 0, "type": "header", "bold": true},
         {"label": "Sub-item", "format": "count_pct", "indent": 1, "type": "data", "bold": false},
-        {"label": "", "format": "", "indent": 0, "type": "spacer", "bold": false}
+        {"label": "Sub-sub-item", "format": "count_pct", "indent": 2, "type": "data", "bold": false}
       ],
       "footnotes": ["Population definition.", "Statistical method.", "Coding dictionary."],
       "source": "ADSL",

@@ -46,12 +46,14 @@ async def _call_claude(system_prompt: str, user_message: str, max_tokens: int = 
     """Make a single Claude API call and return the text response.
 
     Uses streaming to avoid the 10-minute timeout on long requests.
+    Temperature=0 ensures deterministic, consistent output.
     """
     client = _get_client()
     text_parts: list[str] = []
     async with client.messages.stream(
         model=_MODEL,
         max_tokens=max_tokens,
+        temperature=0,  # Deterministic output - eliminates oscillation between runs
         system=system_prompt,
         messages=[{"role": "user", "content": user_message}],
     ) as stream:
