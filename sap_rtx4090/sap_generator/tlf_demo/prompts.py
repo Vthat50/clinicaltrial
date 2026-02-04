@@ -125,8 +125,11 @@ Generate a complete table shell for:
 
 **Row structure:**
 - Read the SAP to determine which statistics to include for each parameter
+- Apply the SAME set of statistics consistently to ALL visits — do not show full statistics for baseline and abbreviated statistics for other visits
+- Standard descriptive statistics for continuous lab values: n, Mean, SD, Median, Q1, Q3, Min, Max
 - If the SAP title says "by Visit": include rows for ALL scheduled assessment visits from the protocol visit schedule
 - If the SAP title says "Actual and Change from Baseline" without "by Visit": show Baseline, End of Treatment, and Change from Baseline
+- For post-baseline visits, include both actual values AND change from baseline, each with the full set of statistics
 - Generate rows for all clinical chemistry parameters from the protocol
 - For each parameter, generate FLAT rows (indent=0) with separate columns for Parameter, Visit, and Statistic
 - Every row must include `label`, `visit`, `statistic`, `format`, `type`, `bold`, `indent` fields
@@ -148,7 +151,15 @@ Generate a complete listing shell for:
 2. Check if investigators assess clinical significance of abnormal values
 3. Determine central vs local laboratory processing
 
-**Variables:** Include relevant columns for a lab listing (subject ID, treatment, parameter, values, reference ranges, etc.). Include CTCAE Grade and Clinically Significant columns only if applicable per protocol.
+**Variables:** A complete lab listing includes columns for:
+- Subject identification and treatment assignment
+- Parameter name and units
+- Baseline value (for reference)
+- Visit name and visit date
+- Result value and change from baseline
+- Reference range (low and high)
+- Toxicity grading if applicable per protocol
+- Clinical significance assessment if applicable per protocol
 
 **Requirements:**
 - **Sort order**: Specify using the `sort_order` field
